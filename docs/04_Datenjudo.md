@@ -4,7 +4,10 @@
 # Daten aufbereiten
 
 
-<img src="images/Aufbereiten.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/Aufbereiten.pdf" alt="Daten aufbereiten" width="70%" />
+<p class="caption">(\#fig:unnamed-chunk-2)Daten aufbereiten</p>
+</div>
 
 
 Unter Daten aufbereiten im engeren Sinne ist gemeint, die Daten einer "Grundreinigung" zu unterziehen, dass sie für weitere Analysen in geeigneter Form sind. Daten zusammenfassen meint die deskriptive Statistik; Daten visualisieren ist das Erstellen von Diagrammen. Im Anschluss kann man die Daten modellieren.
@@ -38,7 +41,7 @@ Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überrasc
 
 
 ```r
-library(dplyr)  # muss installiert sein
+library(tidyverse)  # muss installiert sein
 ```
 
 
@@ -48,9 +51,13 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern. Zum Beispiel man ar
 
 Ein Sinnbild:
 
-<img src="./images/filter.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="./images/filter.pdf" alt="Zeilen filtern" width="70%" />
+<p class="caption">(\#fig:fig-filter)Zeilen filtern</p>
+</div>
 
 Merke:
+
 >    Die Funktion `filter` filtert Zeilen aus einem Dataframe.
 
 Schauen wir uns einige Beispiel an; zuerst die Daten laden nicht vergessen. Achtung: "Wohnen" die Daten in einem Paket, muss dieses Paket installiert sein, damit man auf die Daten zugreifen kann.
@@ -114,7 +121,10 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 Das Gegenstück zu `filter` ist `select`; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
 
-<img src="./images/select.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="./images/select.pdf" alt="Spalten auswählen" width="70%" />
+<p class="caption">(\#fig:fig-select, select_schema)Spalten auswählen</p>
+</div>
 
 
 Merke:
@@ -205,12 +215,10 @@ Merke:
 
 Ein Sinnbild zur Verdeutlichung:
 
-
-```r
-knitr::include_graphics("./images/arrange.pdf")
-```
-
-<img src="./images/arrange.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="./images/arrange.pdf" alt="Spalten sortieren" width="70%" />
+<p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
+</div>
 
 
 
@@ -220,7 +228,6 @@ Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten* *
 ```r
 
 top_n(stats_test, 3)
-#> Selecting by score
 #>      X                 V_1 study_time self_eval interest score
 #> 1    3 05.01.2017 23:33:47          5        10        6    40
 #> 2    7 06.01.2017 14:25:49         NA        NA       NA    40
@@ -263,12 +270,10 @@ Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir 
 
 Einen Datensatz zu gruppieren ist ebenfalls eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.
 
-
-```r
-knitr::include_graphics("./images/group_by.pdf")
-```
-
-<img src="./images/group_by.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="./images/group_by.pdf" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
+<p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
+</div>
 
 In der Abbildung wurde der Datensatz anhand der Spalte `Fach` in mehrere Gruppen geteilt. Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
@@ -301,12 +306,10 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max`. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-
-```r
-knitr::include_graphics("images/summarise.pdf")
-```
-
-<img src="images/summarise.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/summarise.pdf" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
+<p class="caption">(\#fig:fig-summarise)Spalten zu einer Zahl zusammenfassen</p>
+</div>
 
 
 
@@ -430,7 +433,10 @@ Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mi
 
 [^6]: Eine Art Smiley für Nerds.
 
-<img src="images/durchpfeifen.pdf" width="80%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
+<p class="caption">(\#fig:fig-durchpreifen)Das 'Durchpeifen'</p>
+</div>
 
 Die sog. "Pfeife" (pipe: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
 
@@ -732,12 +738,64 @@ AS             -9.931
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
 
 
+## Checkliste zum Datenjudo
+Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen.
+
+*Auf fehlende Werte prüfen*.  
+Das geht recht einfach mit `summarise(meine_daten)`. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.
 
 
-## Weiterführende Hinweise
+```r
+wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
+summary(wo_men)
+#>                   time       sex         height      shoe_size   
+#>  11.10.2016 12:31:59: 2   man  :18   Min.   :  2   Min.   :35.0  
+#>  11.10.2016 12:32:10: 2   woman:82   1st Qu.:163   1st Qu.:38.0  
+#>  11.10.2016 12:32:32: 2   NA's : 1   Median :168   Median :39.0  
+#>  11.10.2016 12:32:33: 2              Mean   :165   Mean   :39.8  
+#>  11.10.2016 12:32:42: 2              3rd Qu.:174   3rd Qu.:40.0  
+#>  04.10.2016 17:58:51: 1              Max.   :364   Max.   :88.0  
+#>  (Other)            :90              NA's   :1     NA's   :1
+```
+
+*Fehlende Werte ggf. ersetzen*.  
+Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
+
+
+```r
+nrow(wo_men)
+#> [1] 101
+wo_men %>% 
+  na.omit %>% 
+  nrow
+#> [1] 100
+```
+
+Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
+
+```r
+wo_men %>% 
+  rownames_to_column %>% 
+  filter(!complete.cases(.))
+#>   rowname                time  sex height shoe_size
+#> 1      86 11.10.2016 12:44:06 <NA>     NA        NA
+```
+
+
+
+
+Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^9]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
+
+
+
+## Verweise
 - Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier[^8].
+
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 
+ *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].  
+
 [^8]: <http://bit.ly/2kX9lvC>. 
+[^9]: Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.
 
 

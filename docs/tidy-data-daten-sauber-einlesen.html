@@ -120,6 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a><ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>2.1</b> Daten in R importieren</a></li>
 <li class="chapter" data-level="2.2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>2.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="2.3" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#verweise"><i class="fa fa-check"></i><b>2.3</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>3</b> Daten aufbereiten</a><ul>
 <li class="chapter" data-level="3.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#typische-probleme"><i class="fa fa-check"></i><b>3.1</b> Typische Probleme</a></li>
@@ -133,7 +134,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2.7" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#die-pfeife"><i class="fa fa-check"></i><b>3.2.7</b> Die Pfeife</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#fallstudie-nycflights13"><i class="fa fa-check"></i><b>3.3</b> Fallstudie <code>nycflights13</code></a></li>
-<li class="chapter" data-level="3.4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#weiterfuhrende-hinweise"><i class="fa fa-check"></i><b>3.4</b> Weiterführende Hinweise</a></li>
+<li class="chapter" data-level="3.4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#checkliste-zum-datenjudo"><i class="fa fa-check"></i><b>3.4</b> Checkliste zum Datenjudo</a></li>
+<li class="chapter" data-level="3.5" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#verweise-1"><i class="fa fa-check"></i><b>3.5</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>4</b> Daten visualisieren</a><ul>
 <li class="chapter" data-level="4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>4.1</b> Häufige Arten von Diagrammen</a><ul>
@@ -158,7 +160,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>4.5.6</b> Diagramm mit Häufigkeiten</a></li>
 <li class="chapter" data-level="4.5.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#farbschema"><i class="fa fa-check"></i><b>4.5.7</b> Farbschema</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
+<li class="chapter" data-level="4.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-2"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html"><i class="fa fa-check"></i><b>5</b> Statistisches Modellieren</a><ul>
 <li class="chapter" data-level="5.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#Modellieren"><i class="fa fa-check"></i><b>5.1</b> Was ist ein Modell? Was ist Modellieren?</a><ul>
@@ -254,11 +256,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="tidy-data---daten-sauber-einlesen" class="section level1">
 <h1><span class="header-section-number">Kapitel 2</span> Tidy Data - Daten sauber einlesen</h1>
+<div class="figure" style="text-align: center"><span id="fig:step-Einlesen"></span>
+<img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
+<p class="caption">
+Abbildung 2.1: Daten sauber einlesen
+</p>
+</div>
 <div id="daten-in-r-importieren" class="section level2">
 <h2><span class="header-section-number">2.1</span> Daten in R importieren</h2>
 <p>In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger gebräuchliche (Feather<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>) Datenformate einlesen. In RStudio lässt sich dies z.B. durch einen schnellen Klick auf <code>Import Dataset</code> im Reiter <code>Environment</code> erledigen. Dabei wird im Hintergrund das Paket <code>readr</code> verwendet <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> (die entsprechende Syntax wird in der Konsole ausgegeben, so dass man sie sich anschauen und weiterverwenden kann).</p>
 <p>Am einfachsten ist es, eine Excel-Datei über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen:</p>
-<p><img src="images/import_RStudio.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:data-import-RStudio"></span>
+<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p class="caption">
+Abbildung 2.2: Daten einlesen (importieren) mit RStudio
+</p>
+</div>
 <p>Es ist für bestimmte Zwecke sinnvoll, nicht zu klicken, sondern die Syntax einzutippen. Zum Beispiel: Wenn Sie die komplette Analyse als Syntax in einer Datei haben (eine sog. “Skriptdatei”), dann brauchen Sie (in RStudio) nur alles auszuwählen und auf <code>Run</code> zu klicken, und die komplette Analyse läuft durch! Die Erfahrung zeigt, dass das ein praktisches Vorgehen ist.</p>
 <p>Die gebräuchlichste Form von Daten für statistische Analysen ist wahrscheinlich das CSV-Format. Das ist ein einfahes Format, basierend auf einer Textdatei. Schauen Sie sich mal diesen Auszug aus einer CSV-Datei an.</p>
 <pre><code>&quot;ID&quot;,&quot;time&quot;,&quot;sex&quot;,&quot;height&quot;,&quot;shoe_size&quot;
@@ -308,7 +321,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="figure" style="text-align: center"><span id="fig:fig-Normalform"></span>
 <img src="images/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
 <p class="caption">
-Abbildung 2.1: Illustration eines Datensatzes in Normalform
+Abbildung 2.3: Illustration eines Datensatzes in Normalform
 </p>
 </div>
 <p>Eine der ersten Aktionen einer Datenanalyse sollte also die “Normalisierung” Ihrer Tabelle sein. In R bietet sich dazu das Paket <code>tidyr</code> an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.</p>
@@ -325,6 +338,12 @@ df_lang &lt;-<span class="st"> </span><span class="kw">separate</span>(df_lang, 
 <li>Die dritte Zeile “entzerrt” die Werte der Spalte <code>year</code>; hier stehen die ehemaligen Spaltenköpfe. Man nennt sie auch <code>key</code> Spalte daher. Steht in einer Zelle von <code>year</code> bspw. <code>U5MR 1950</code>, so wird <code>U5MR</code> in eine Spalte mit Namen <code>U5MR</code> und <code>1950</code> in eine Spalte mit Namen <code>year</code> geschrieben.</li>
 </ul>
 <p>Im Cheatsheet von RStudio zum Thema Datenimport finden sich nützliche Hinweise.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
+</div>
+<div id="verweise" class="section level2">
+<h2><span class="header-section-number">2.3</span> Verweise</h2>
+<ul>
+<li><em>R for Data Science</em> bietet umfangreiche Unterstützung zu diesem Thema <span class="citation">(Wickham and Grolemund <a href="#ref-r4ds">2016</a>)</span>.</li>
+</ul>
 
 </div>
 </div>
@@ -332,6 +351,9 @@ df_lang &lt;-<span class="st"> </span><span class="kw">separate</span>(df_lang, 
 <div id="refs" class="references">
 <div id="ref-readr">
 <p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
+</div>
+<div id="ref-r4ds">
+<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media. <a href="https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399">https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399</a>.</p>
 </div>
 </div>
 <div class="footnotes">

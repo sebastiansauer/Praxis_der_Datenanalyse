@@ -4,6 +4,13 @@
 
 # Tidy Data - Daten sauber einlesen
 
+
+<div class="figure" style="text-align: center">
+<img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
+<p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
+</div>
+
+
 ## Daten in R importieren
 In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger gebräuchliche (Feather[^1]) Datenformate einlesen. In RStudio lässt sich dies z.B. durch einen schnellen Klick auf `Import Dataset` im Reiter `Environment` erledigen. Dabei wird im Hintergrund das Paket `readr` verwendet [@readr] (die entsprechende Syntax wird in der Konsole ausgegeben, so dass man sie sich anschauen und weiterverwenden kann).
 
@@ -11,7 +18,10 @@ In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger ge
 
 Am einfachsten ist es, eine Excel-Datei über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen:
 
-<img src="images/import_RStudio.png" width="50%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p class="caption">(\#fig:data-import-RStudio)Daten einlesen (importieren) mit RStudio</p>
+</div>
 
 
 
@@ -119,5 +129,8 @@ Im Cheatsheet von RStudio zum Thema Datenimport finden sich nützliche Hinweise 
 
 [^2]: <https://www.rstudio.com/resources/cheatsheets/>
 
+## Verweise
+
+- *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].
 
 

@@ -5,6 +5,8 @@ options(digits = 3)
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
   cache = TRUE,
   out.width = "70%",
   fig.align = 'center',
@@ -20,7 +22,7 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 # Daten aufbereiten
 
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.cap = "Daten aufbereiten"}
 knitr::include_graphics("images/Aufbereiten.pdf")
 ```
 
@@ -55,7 +57,7 @@ Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich aussc
 Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Schauen wir uns diese Bausteine näher an.
 
 ```{r}
-library(dplyr)  # muss installiert sein
+library(tidyverse)  # muss installiert sein
 ```
 
 
@@ -65,11 +67,12 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern. Zum Beispiel man ar
 
 Ein Sinnbild:
 
-```{r echo = FALSE}
+```{r fig-filter, echo = FALSE, fig.cap = "Zeilen filtern"}
 knitr::include_graphics("./images/filter.pdf")
 ```
 
 Merke:
+
 >    Die Funktion `filter` filtert Zeilen aus einem Dataframe.
 
 Schauen wir uns einige Beispiel an; zuerst die Daten laden nicht vergessen. Achtung: "Wohnen" die Daten in einem Paket, muss dieses Paket installiert sein, damit man auf die Daten zugreifen kann.
@@ -129,7 +132,7 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 Das Gegenstück zu `filter` ist `select`; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
 
-```{r select_schema, echo = FALSE}
+```{r fig-select, select_schema, echo = FALSE, fig.cap = "Spalten auswählen"}
 knitr::include_graphics("./images/select.pdf")
 ```
 
@@ -168,7 +171,7 @@ Beim interaktiven Gebrauch von R (oder beliebigen Analyseprogrammen) ist das Sor
 
 Ein R-Befehl hierzu ist `arrange`; einige Beispiele zeigen die Funktionsweise am besten:
 
-```{r}
+```{r arrange-demo}
 
 arrange(stats_test, score)  %>% head() # liefert die *schlechtesten* Noten zurück
 arrange(stats_test, -score) %>% head() # liefert die *besten* Noten zurück
@@ -198,7 +201,7 @@ Merke:
 
 Ein Sinnbild zur Verdeutlichung:
 
-```{r arrange}
+```{r fig-arrange, echo = FALSE, fig.cap = "Spalten sortieren"}
 knitr::include_graphics("./images/arrange.pdf")
 ```
 
@@ -206,7 +209,7 @@ knitr::include_graphics("./images/arrange.pdf")
 
 Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten* *Ränge* widergibt:
 
-```{r}
+```{r demo-top-n}
 
 top_n(stats_test, 3)
 top_n(stats_test, 3, interest)
@@ -222,13 +225,13 @@ Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir 
 
 Einen Datensatz zu gruppieren ist ebenfalls eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.
 
-```{r}
+```{r fig-groupby, echo = FALSE, fig.cap = "Datensätze nach Subgruppen aufteilen"}
 knitr::include_graphics("./images/group_by.pdf")
 ```
 
 In der Abbildung wurde der Datensatz anhand der Spalte `Fach` in mehrere Gruppen geteilt. Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
-```{r}
+```{r demo-groupby}
 test_gruppiert <- group_by(stats_test, interest)
 test_gruppiert
 ```
@@ -247,7 +250,7 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max`. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-```{r}
+```{r fig-summarise, echo = FALSE, fig.cap = "Spalten zu einer Zahl zusammenfassen"}
 knitr::include_graphics("images/summarise.pdf")
 ```
 
@@ -317,7 +320,7 @@ Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mi
 
 [^6]: Eine Art Smiley für Nerds.
 
-```{r echo = FALSE, out.width  = "80%"}
+```{r fig-durchpreifen, echo = FALSE, out.width  = "80%", fig.cap = "Das 'Durchpeifen'"}
 knitr::include_graphics("images/durchpfeifen.pdf")
 ```
 
@@ -485,12 +488,49 @@ flights %>%
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
 
 
+## Checkliste zum Datenjudo
+Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen.
+
+*Auf fehlende Werte prüfen*.  
+Das geht recht einfach mit `summarise(meine_daten)`. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.
+
+```{r}
+wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
+summary(wo_men)
+```
+
+*Fehlende Werte ggf. ersetzen*.  
+Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
+
+```{r}
+nrow(wo_men)
+wo_men %>% 
+  na.omit %>% 
+  nrow
+```
+
+Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
+```{r}
+wo_men %>% 
+  rownames_to_column %>% 
+  filter(!complete.cases(.))
+```
 
 
-## Weiterführende Hinweise
+
+
+Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^9]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
+
+
+
+## Verweise
 - Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier[^8].
+
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 
+ *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].  
+
 [^8]: <http://bit.ly/2kX9lvC>. 
+[^9]: Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.
 
 
