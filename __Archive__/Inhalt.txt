@@ -1,0 +1,50 @@
+
+"Statistik heute:
+Praktische Datenanalyse für Praktiker"
+
+
+- Grundlagen
+	- Grundbegriffe: supervised/non-supervised, overfitting, Kreuzvalidierung, Regression vs. Klassifikation, prädiktive Modellierung, Data Mining, Big Data, Datenanalyse vs. Statistik, ... Prio1
+	- Qualitätskriterien Prio3
+	
+	
+	
+- R
+	- dplyr Prio1
+	- ggplot Prio2
+	- knitr Prio3
+	
+	
+- Statistisches Modellieren
+	- Prädiktion vs. Inferenz (Vorhersagen vs. den "datenerzeugenden Prozess" verstehen) Prio1
+	- Simulation Prio1 
+	- Bootstrapping Prio3
+	- Wachstumsprozesse Prio1
+	
+		
+- Regression
+	- Annahmen, Robustheit, Qualitätscheck Prio2
+	- Angewandte logistische Regression Prio1
+	- LASSO Prio1
+	
+	
+- Moderne nonparametrische Verfahren
+	- Entscheidungsbäume Prio1
+	- Bagging Prio1 
+	- Random Forests Prio1
+	
+	
+- Textmining
+	- Worthäufigkeit bestimmen Prio1
+	- Valenzanalysen Prio1
+	- Semantische Analyse (LIWC) Prio1
+- Gruppierungsverfahren 
+	- Clusteranalyse Prio1
+	- Hauptkomponentenanalyse Prio1
+	
+	
+	
+	
+Literatur:
+https://en.wikipedia.org/wiki/Data_analysis
+https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century/

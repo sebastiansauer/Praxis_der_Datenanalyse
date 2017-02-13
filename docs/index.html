@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistik_21</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistik_21" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
+  <meta name="github-repo" content="sebastiansauer/Statistik_21" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistik_21" />
+  
+  <meta name="twitter:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
+  
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-02-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="rahmen-teil-1.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html"><i class="fa fa-check"></i><b>1</b> Rahmen - Teil 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#software"><i class="fa fa-check"></i><b>1.1</b> Software</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-and-friends-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R and Friends installieren</a></li>
+<li class="chapter" data-level="1.1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>1.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
+<li class="chapter" data-level="1.1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>1.1.3</b> Die Denk- und Gefühlswelt von R</a></li>
+<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren---beispiel-dplyr"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren - Beispiel <code>dplyr</code></a></li>
+<li class="chapter" data-level="1.1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>1.1.5</b> R-Pakete für dieses Buch</a></li>
+<li class="chapter" data-level="1.1.6" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#datensatze"><i class="fa fa-check"></i><b>1.1.6</b> Datensätze</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#bildnachweise"><i class="fa fa-check"></i><b>1.2</b> Bildnachweise</a></li>
+<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a><ul>
+<li class="chapter" data-level="2.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>2.1</b> Daten in R importieren</a></li>
+<li class="chapter" data-level="2.2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>2.2</b> Normalform einer Tabelle</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>3</b> Daten aufbereiten</a><ul>
+<li class="chapter" data-level="3.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#typische-probleme"><i class="fa fa-check"></i><b>3.1</b> Typische Probleme</a></li>
+<li class="chapter" data-level="3.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>3.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="3.2.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>3.2.1</b> Zeilen filtern mit <code>filter</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>3.2.2</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>3.2.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>3.2.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li class="chapter" data-level="3.2.5" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>3.2.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="3.2.6" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>3.2.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+<li class="chapter" data-level="3.2.7" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#die-pfeife"><i class="fa fa-check"></i><b>3.2.7</b> Die Pfeife</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#fallstudie-nycflights13"><i class="fa fa-check"></i><b>3.3</b> Fallstudie <code>nycflights13</code></a></li>
+<li class="chapter" data-level="3.4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#weiterfuhrende-hinweise"><i class="fa fa-check"></i><b>3.4</b> Weiterführende Hinweise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>4</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>4.1</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>4.1.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="4.1.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>4.1.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="4.1.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>4.1.3</b> Eine diskrete Variable</a></li>
+<li class="chapter" data-level="4.1.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>4.1.4</b> Zwei diskrete Variablen</a></li>
+<li class="chapter" data-level="4.1.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>4.1.5</b> Zusammenfassungen zeigen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#farblehre"><i class="fa fa-check"></i><b>4.2</b> Farblehre</a></li>
+<li class="chapter" data-level="4.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#prinzipien"><i class="fa fa-check"></i><b>4.3</b> Prinzipien</a></li>
+<li class="chapter" data-level="4.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#erweiterungen-fur-ggplot"><i class="fa fa-check"></i><b>4.4</b> Erweiterungen für ggplot</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ggpairs"><i class="fa fa-check"></i><b>4.4.1</b> ggpairs</a></li>
+<li class="chapter" data-level="4.4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#weitere"><i class="fa fa-check"></i><b>4.4.2</b> Weitere</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#fallstudie"><i class="fa fa-check"></i><b>4.5</b> Fallstudie</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#daten-einlesen"><i class="fa fa-check"></i><b>4.5.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="4.5.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#daten-umstellen"><i class="fa fa-check"></i><b>4.5.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="4.5.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>4.5.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="4.5.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#um-90-drehen"><i class="fa fa-check"></i><b>4.5.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="4.5.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>4.5.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="4.5.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>4.5.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="4.5.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#farbschema"><i class="fa fa-check"></i><b>4.5.7</b> Farbschema</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html"><i class="fa fa-check"></i><b>5</b> Statistisches Modellieren</a><ul>
+<li class="chapter" data-level="5.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#Modellieren"><i class="fa fa-check"></i><b>5.1</b> Was ist ein Modell? Was ist Modellieren?</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#ziele-des-modellierens"><i class="fa fa-check"></i><b>5.1.1</b> Ziele des Modellierens</a></li>
+<li class="chapter" data-level="5.1.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#parametrische-modelle-vs.non-parametrische-modelle"><i class="fa fa-check"></i><b>5.1.2</b> Parametrische Modelle vs. non-parametrische Modelle</a></li>
+<li class="chapter" data-level="5.1.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-spagat-zwischen-prazision-und-streuung"><i class="fa fa-check"></i><b>5.1.3</b> Der Spagat zwischen Präzision und Streuung</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
+<li class="chapter" data-level="5.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#uberanpassung"><i class="fa fa-check"></i><b>5.3</b> Überanpassung</a></li>
+<li class="chapter" data-level="5.4" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#pradiktion-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prädiktion vs. Explanation</a></li>
+<li class="chapter" data-level="5.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#numerische-vs.klassifizierende-modelle"><i class="fa fa-check"></i><b>5.5</b> Numerische vs. klassifizierende Modelle</a></li>
+<li class="chapter" data-level="5.6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#geleitete-vs.ungeleitete-modelle"><i class="fa fa-check"></i><b>5.6</b> Geleitete vs. ungeleitete Modelle</a></li>
+<li class="chapter" data-level="5.7" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#parametrische-vs.nichtparametrische-modelle"><i class="fa fa-check"></i><b>5.7</b> Parametrische vs. nichtparametrische Modelle</a></li>
+<li class="chapter" data-level="5.8" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#fehler--vs.varianzreduktion"><i class="fa fa-check"></i><b>5.8</b> Fehler- vs. Varianzreduktion</a></li>
+<li class="chapter" data-level="5.9" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modellgute"><i class="fa fa-check"></i><b>5.9</b> Modellgüte</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="numerische-modelle.html"><a href="numerische-modelle.html"><i class="fa fa-check"></i><b>6</b> Numerische Modelle</a><ul>
+<li class="chapter" data-level="6.1" data-path="numerische-modelle.html"><a href="numerische-modelle.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="numerische-modelle.html"><a href="numerische-modelle.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="numerische-modelle.html"><a href="numerische-modelle.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
+<li class="chapter" data-level="6.1.3" data-path="numerische-modelle.html"><a href="numerische-modelle.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="numerische-modelle.html"><a href="numerische-modelle.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.2</b> Penalisierende Regression</a></li>
+<li class="chapter" data-level="6.3" data-path="numerische-modelle.html"><a href="numerische-modelle.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.3</b> Baumbasierte Verfahre</a></li>
+<li class="chapter" data-level="6.4" data-path="numerische-modelle.html"><a href="numerische-modelle.html#ausblick"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html"><i class="fa fa-check"></i><b>7</b> Klassifizierende Modelle</a><ul>
+<li class="chapter" data-level="7.1" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
+<li class="chapter" data-level="7.2" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
+<li class="chapter" data-level="7.3" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
+<li class="chapter" data-level="7.4" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>7.4</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>7.4.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="7.4.2" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#erster-blick"><i class="fa fa-check"></i><b>7.4.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="7.4.3" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>7.4.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="7.4.4" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>7.4.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="7.4.5" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>7.4.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="7.4.6" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#signifikanztest"><i class="fa fa-check"></i><b>7.4.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="7.4.7" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#effektstarke"><i class="fa fa-check"></i><b>7.4.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="7.4.8" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#logististische-regression"><i class="fa fa-check"></i><b>7.4.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="7.4.9" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>7.4.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="7.4.10" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#fazit"><i class="fa fa-check"></i><b>7.4.10</b> Fazit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>8</b> Textmining</a><ul>
+<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>8.1.1</b> Grundbegriffe</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>8.2</b> Grundlegende Analyse</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>8.2.1</b> Tidy Text Dataframes</a></li>
+<li class="chapter" data-level="8.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>8.2.2</b> Text-Daten einlesen</a></li>
+<li class="chapter" data-level="8.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>8.2.3</b> Worthäufigkeiten auszählen</a></li>
+<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>8.3</b> Sentiment-Analyse</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>8.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="8.3.2" data-path="textmining.html"><a href="textmining.html#anzahl-der-unterschiedlichen-negativen-bzw.-positiven-worter"><i class="fa fa-check"></i><b>8.3.2</b> Anzahl der unterschiedlichen negativen bzw. positiven Wörter</a></li>
+<li class="chapter" data-level="8.3.3" data-path="textmining.html"><a href="textmining.html#gewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>8.3.3</b> Gewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="8.3.4" data-path="textmining.html"><a href="textmining.html#tokens-mit-den-extremsten-sentimentwerten"><i class="fa fa-check"></i><b>8.3.4</b> Tokens mit den extremsten Sentimentwerten</a></li>
+<li class="chapter" data-level="8.3.5" data-path="textmining.html"><a href="textmining.html#relativer-sentiments-wert"><i class="fa fa-check"></i><b>8.3.5</b> Relativer Sentiments-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="textmining.html"><a href="textmining.html#verknupfung-mit-anderen-variablen"><i class="fa fa-check"></i><b>8.4</b> Verknüpfung mit anderen Variablen</a></li>
+<li class="chapter" data-level="8.5" data-path="textmining.html"><a href="textmining.html#vertiefung"><i class="fa fa-check"></i><b>8.5</b> Vertiefung</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>8.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>9</b> Ergebnisse kommunizieren</a><ul>
+<li class="chapter" data-level="9.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#markdown-und-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Markdown und RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#reproduzierbarkeit"><i class="fa fa-check"></i><b>9.2</b> Reproduzierbarkeit</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rahmen-teil-2.html"><a href="rahmen-teil-2.html"><i class="fa fa-check"></i><b>10</b> Rahmen - Teil 2</a><ul>
+<li class="chapter" data-level="10.1" data-path="rahmen-teil-2.html"><a href="rahmen-teil-2.html#trends"><i class="fa fa-check"></i><b>10.1</b> Trends</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistik_21</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Statistik_21</h1>
+<h4 class="author"><em>Sebastian Sauer</em></h4>
+<h4 class="date"><em>2017-02-13</em></h4>
+</div>
+<div id="vorwort" class="section level1 unnumbered">
+<h1>Vorwort</h1>
+<p>Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle und die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert und der t-Test. Dieses Buch versucht, einen Brücke zu bauen, für diejenigen unter uns, die (vielleicht in der alten Welt aufgewachsen) sich in der neuen Welt umsehen möchten. Wir reiten sozusagen im Galopp (OK, eher Trapp) gen Westen…</p>
+<p>Es gibt noch kein gutes Buch in deutscher Sprache zu den Grundlagen moderner Statistik, auch “Data Science” genannt. Dieses Buch soll helfen, einen Teil dieser Lücke zu füllen. Die Zielgruppe sind Analysatoren mit praktischem, wirtschaftsnahem Hintergrund. Auf mathematische Hintergründe wird großteils verzichtet; Matheliebhaber werden kaum auf ihre Kosten kommen. Im Blick habe ich (hier spricht der Autor) Anwender, die einen Freischwimmer in der modernen Datenanalyse erlernen möchten (oder müssen, liebe Studierende).</p>
+<p>Dieses Buch wurde mit dem Paket <code>bookdown</code> [bookdown] erstellt, welches wiederum stark auf den Paketen <code>knitr</code> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> und <code>rmarkdown</code> <span class="citation">(Allaire et al. <a href="#ref-rmarkdown">2016</a>)</span> beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).</p>
+<ul>
+<li>Worum geht es in diesem Buch
+<ul>
+<li>Einführung in moderne Verfahren der Statistik</li>
+<li>Für Praktiker</li>
+<li>Betonung liegt auf “modern” und “Praktiker”</li>
+</ul></li>
+<li>Ziel des Buches
+<ul>
+<li>Intuitives, grundlegendes Verständnis zu zentralen Konzepten</li>
+<li>Handwerkszeug zum selber Anwenden</li>
+</ul></li>
+<li>Unterschied zu anderen Büchern
+<ul>
+<li>Wenig Formeln</li>
+<li>Keine/weniger “typischen” klassischen Methoden wie ANOVA, Poweranalyse etc.</li>
+<li>Aufzeigen von Problemen mit klassischen Verfahren</li>
+<li>Kritik am Status-Quo</li>
+</ul></li>
+<li>Didaktik
+<ul>
+<li>Hands-on</li>
+<li>R</li>
+<li>Lernfragen</li>
+<li>Fallstudien</li>
+<li>Aktuelle Entwicklungen ausgerichtet</li>
+</ul></li>
+</ul>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-xie2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+</div>
+<div id="ref-rmarkdown">
+<p>Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown" class="uri">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="rahmen-teil-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

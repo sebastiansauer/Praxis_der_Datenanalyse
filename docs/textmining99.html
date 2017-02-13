@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistik_21</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistik_21" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
+  <meta name="github-repo" content="sebastiansauer/Statistik_21" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistik_21" />
+  
+  <meta name="twitter:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
+  
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-02-03">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="klassifizierende-modelle.html">
+<link rel="next" href="literaturverzeichnis.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistik_21</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="einfuhrung.html"><a href="einfuhrung.html"><i class="fa fa-check"></i><b>1</b> Einführung</a></li>
+<li class="chapter" data-level="2" data-path="grundlagen.html"><a href="grundlagen.html"><i class="fa fa-check"></i><b>2</b> Grundlagen</a></li>
+<li class="chapter" data-level="3" data-path="trends.html"><a href="trends.html"><i class="fa fa-check"></i><b>3</b> Trends</a></li>
+<li class="chapter" data-level="4" data-path="unbehagen.html"><a href="unbehagen.html"><i class="fa fa-check"></i><b>4</b> Unbehagen</a></li>
+<li class="chapter" data-level="5" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>5</b> Software</a></li>
+<li class="chapter" data-level="6" data-path="daten-explorieren.html"><a href="daten-explorieren.html"><i class="fa fa-check"></i><b>6</b> Daten explorieren</a></li>
+<li class="chapter" data-level="7" data-path="visualisierung.html"><a href="visualisierung.html"><i class="fa fa-check"></i><b>7</b> Visualisierung</a></li>
+<li class="chapter" data-level="8" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html"><i class="fa fa-check"></i><b>8</b> Statistisches Modellieren</a></li>
+<li class="chapter" data-level="9" data-path="numerische-modelle.html"><a href="numerische-modelle.html"><i class="fa fa-check"></i><b>9</b> Numerische Modelle</a></li>
+<li class="chapter" data-level="10" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html"><i class="fa fa-check"></i><b>10</b> Klassifizierende Modelle</a></li>
+<li class="chapter" data-level="11" data-path="textmining99.html"><a href="textmining99.html"><i class="fa fa-check"></i><b>11</b> Textmining</a><ul>
+<li class="chapter" data-level="11.1" data-path="textmining99.html"><a href="textmining99.html#grundbegriffe"><i class="fa fa-check"></i><b>11.1</b> Grundbegriffe</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="textmining99.html"><a href="textmining99.html#software-1"><i class="fa fa-check"></i><b>11.1.1</b> Software</a></li>
+<li class="chapter" data-level="11.1.2" data-path="textmining99.html"><a href="textmining99.html#grundlegende-analyse-tidy-text-dataframe-erzeugen"><i class="fa fa-check"></i><b>11.1.2</b> Grundlegende Analyse: Tidy Text Dataframe erzeugen</a></li>
+<li class="chapter" data-level="11.1.3" data-path="textmining99.html"><a href="textmining99.html#text-daten-einlesen"><i class="fa fa-check"></i><b>11.1.3</b> Text-Daten einlesen</a></li>
+<li class="chapter" data-level="11.1.4" data-path="textmining99.html"><a href="textmining99.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>11.1.4</b> Worthäufigkeiten auszählen</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>12</b> Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistik_21</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="textmining99" class="section level1">
+<h1><span class="header-section-number">Kapitel 11</span> Textmining<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h1>
+<p>Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in “unstrukturierter” Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.</p>
+<p>In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich <em>dümmer</em> als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich <em>schneller</em> als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.</p>
+<p>In der Regel wird das Textmining als <em>gemischte</em> Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.</p>
+<div id="grundbegriffe" class="section level2">
+<h2><span class="header-section-number">11.1</span> Grundbegriffe</h2>
+<p>Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:</p>
+<ul>
+<li><p>Ein <em>Corpus</em> bezeichnet die Menge der zu analyisierenden Dokumente; das könnten z.B. alle Reden der Bundeskanzlerin Angela Merkel sein oder alle Tweets von “@realDonaldTrump”.</p></li>
+<li><p>Ein <em>Token</em> (<em>Term</em>) ist ein elementarer Baustein eines Texts, die kleinste Analyseeinheit, häufig ein Wort.</p></li>
+<li><p>Unter <em>tidy text</em> versteht man einen Dataframe, in dem pro Zeile nur ein Term steht <span class="citation">(Silge and Robinson <a href="#ref-Silge2016">2016</a>)</span>.</p></li>
+</ul>
+<div id="software-1" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> Software</h3>
+<p>Für dieses Kapitel benötigen Sie R, RStudio sowie diese R-Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidytext&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;pdftools&quot;</span>, <span class="st">&quot;downloader&quot;</span>,
+                    <span class="st">&quot;ggdendro&quot;</span>, <span class="st">&quot;okcupiddata&quot;</span>, <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, 
+                   <span class="st">&quot;lsa&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;SnowballC&quot;</span>, <span class="st">&quot;wordcloud&quot;</span>),
+<span class="co">#                 dependencies = TRUE)</span></code></pre></div>
+</div>
+<div id="grundlegende-analyse-tidy-text-dataframe-erzeugen" class="section level3">
+<h3><span class="header-section-number">11.1.2</span> Grundlegende Analyse: Tidy Text Dataframe erzeugen</h3>
+<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> besteht aus 4 Elementen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Wir haben die Frauen zu Bett gebracht,&quot;</span>,
+          <span class="st">&quot;als die Männer in Frankreich standen.&quot;</span>,
+          <span class="st">&quot;Wir hatten uns das viel schöner gedacht.&quot;</span>,
+          <span class="st">&quot;Wir waren nur Konfirmanden.&quot;</span>)</code></pre></div>
+<p>Als nächstes machen wir daraus einen Dataframe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">4</span>,
+                      text)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Zeile</th>
+<th align="left">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Wir haben die Frauen zu Bett gebracht,</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">als die Männer in Frankreich standen.</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Wir hatten uns das viel schöner gedacht.</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Wir waren nur Konfirmanden.</td>
+</tr>
+</tbody>
+</table>
+<p>Und “dehnen” diesen Dataframe zu einem <em>tidy text</em> Dataframe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidytext)
+
+text_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest_tokens</span>(wort, text)</code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    Zeile     wort
+##    &lt;int&gt;    &lt;chr&gt;
+## 1      1      wir
+## 2      1    haben
+## 3      1      die
+## 4      1   frauen
+## 5      1       zu
+## 6      1     bett
+## 7      1 gebracht
+## 8      2      als
+## 9      2      die
+## 10     2   männer
+## # ... with 14 more rows</code></pre>
+<p>Das <code>unnest_tokens</code> kann übersetzt werden als “entschachtele” oder “dehne” die Tokens - so dass in jeder Zeile nur noch ein Wort (Token) steht. Die Syntax ist <code>unnest_tokens(Ausgabespalte, Eingabespalte)</code>. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.</p>
+<p>Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
+
+text_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest_tokens</span>(wort, text) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(wort, <span class="st">&quot;[a-z]&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    Zeile     wort
+##    &lt;int&gt;    &lt;chr&gt;
+## 1      1      wir
+## 2      1    haben
+## 3      1      die
+## 4      1   frauen
+## 5      1       zu
+## 6      1     bett
+## 7      1 gebracht
+## 8      2      als
+## 9      2      die
+## 10     2   männer
+## # ... with 14 more rows</code></pre>
+</div>
+<div id="text-daten-einlesen" class="section level3">
+<h3><span class="header-section-number">11.1.3</span> Text-Daten einlesen</h3>
+<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pdftools)
+<span class="kw">library</span>(downloader)
+
+afd_url &lt;-<span class="st"> &quot;https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf&quot;</span>
+
+afd_pfad &lt;-<span class="st"> &quot;data/afd_programm.pdf&quot;</span>
+
+afd_file &lt;-<span class="st"> </span><span class="kw">download</span>(afd_url, afd_pfad)
+
+afd_raw &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(afd_pfad)
+
+afd_raw[<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] &quot;3\t Programm für Deutschland | Inhalt\n   7 | Kultur, Sprache und Identität\t\t\t\t                                   45 9 | Einwanderung, Integration und Asyl\t\t\t                       57\n     7.1 \t\t Deutsche Kultur, Sprache und Identität erhalten\t               47   9.1\t Keine irreguläre Einwanderung über das Asylrecht\t        59\n     7.2 \t\t Deutsche Leitkultur statt Multikulturalismus\t\t                 47   9.1.1\t Asylzuwanderung - für einen Paradigmenwechsel\t         59\n     7.3 \t\t Die deutsche Sprache als Zentrum unserer Identität\t            47   9.1.2\t Rückführung - Schluss mit Fehlanreizen und \t\t\t\n     7.4 \t \t Kultur und Kunst von Einflussnahme der Parteien befreien\t     48 \t\t       falscher Nachsicht\t\t\t\t\t                                60\n     7.5 \t\t Für eine zeitgemäße Medienpolitik: Rundfunkbeitrag abschaffen\t 48   9.2\t Einwanderung aus EU-Staaten\t\t\t\t                          61\n     7.6 \t\t Der Islam im Spannungsverhältnis zu unserer Werteordnung\t      48   9.3\t Gesteuerte Einwanderung aus Drittstaaten\t\t               62\n     7.6.1\t\t Der Islam gehört nicht zu Deutschland\t\t\t                      49   9.4\t Integration - Mehr als nur Deutsch lernen\t\t              63\n     7.6.2\t\t Kritik am Islam muss erlaubt sein\t\t\t                          49   9.5\t Kosten der Einwanderung - Transparenz herstellen\t        63\n     7.6.3\t\t Auslandsfinanzierung von Moscheen beenden\t \t                  49   9.6\t Einwandererkriminalität - nichts verschleiern,\n     7.6.4\t\t Keine öffentlich-rechtliche Körperschaft für                     \t\t       nichts verschweigen\t\t\t\t\t                               64\n     \t\t\t      islamische Organisationen\t\t\t\t                                50   9.7\t Einbürgerung - Abschluss gelungener Integration\t         65\n     7.6.5\t\t Keine Vollverschleierung im öffentlichen Raum\t                50\n                                                                              10 | Wirtschaft, digitale Welt und Verbraucherschutz\t           66\n   8 | Schule, Hochschule und Forschung\t\t\t                                 51   10.1\t\t Freier Wettbewerb sichert unseren Wohlstand\t\t          67\n     8.1 \t\t Forschung und Lehre: In Freiheit und als Einheit\t              52   10.2 \t\t Soziale Marktwirtschaft statt Planwirtschaft\t\t        67\n     8.1.1\t \t Autonomie durch Grundfinanzierung stärken\t \t                 52   10.3 \t\t Internationale Wirtschaftspolitik neu ausrichten\t     67\n     8.1.2\t\t Förderung der “Gender-Forschung” beenden\t\t                    52   10.4 \t\t Hohe Standards für Handelsabkommen\t\t                  68\n     8.1.3\t\t Diplom, Magister und Staatsexamen wieder einführen\t           52   10.5 \t\t Bürokratie abbauen\t\t\t\t\t                               68\n     8.1.4\t\t Studienanforderungen erhöhen\t\t\t                               53   10.6 \t\t Den Technologiestandort Deutschland voranbringen\t     68\n     8.2 \t\t Unser Schulsystem: Stark durch Differenzierung\t                53   10.7 \t\t Staatliche Subventionen reduzieren und befristen\t     69\n     8.2.1\t\t Die Einheitsschule führt zu Qualitätsverlust\t\t                53   10.8 \t\t Keine Privatisierung gegen den Willen der Bürger\t     69\n     8.2.2\t\t Wissensvermittlung muss zentrales Anliegen bleiben\t           53   10.9 \t\t Der Mittelstand als Herz unserer Wirtschaftskraft\t    69\n     8.2.3\t\t Leistungsbereitschaft und Disziplin stärken\t\t                 54   10.10 \tDigitalisierung als Chance und Herausforderung\t        69\n     8.2.4\t\t Politisch-ideologische Indoktrination darf es an                   10.10.1 Quelloffene Software und sichere Hardware\t\t           69\n   \t\t\t der Schule nicht geben\t\t\t\t\t                                         54   10.10.2 Sichere Kommunikation als Standortvorteil\n     8.2.5\t\t Duale berufliche Bildung stärken und erhalten\t \t              54 \t\t          und Bürgerrecht\t\t\t\t\t                                70\n     8.2.6\t\t Keine Inklusion “um jeden Preis”. Förder- und                      10.10.3 Deutsche Literatur im Inland digitalisieren\t\t         70\n     \t\t\t      Sonderschulen erhalten\t\t\t\t                                   54   10.11\t\t Verbraucherschutz modernisieren und stärken\t\t         70\n     8.2.7 \t\t Koranschulen schließen. Islamkunde in den                         10.11.1 Lebensmittel besser kennzeichnen\t\t\t                   71\n     \t\t\t      Ethikunterricht integrieren\t\t\t\t                              55   10.11.2 Langlebige Produkte statt geplante Obsoleszenz\t       71\n     8.2.8 \t Keine Sonderrechte für muslimische Schüler\t\t                  55   10.11.3 Textilien und Kinderspielzeug auf Schadstoffe prüfen\t 71\n     8.3 \t\t Nein zu “Gender-Mainstreaming” und                                  10.11.4 Wasseraufbereitung modernisieren und verbessern\t      71\n   \t\t\t        Frühsexualisierung\t\t\t\t\t                                      55\n     8.3.1 \t\t Keine “geschlechterneutrale” Umgestaltung der\n     \t\t\t      deutschen Sprache\t\t\t\t\t                                       55\n     8.3.2 \t Geschlechterquoten sind leistungsfeindlich\n   \t\t\t        und ungerecht\t\t\t\t\t\t                                          56\n&quot;</code></pre>
+<p>Der Vektor <code>afd_raw</code> hat 96 Elemente; zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">96</span>, 
+                     afd_raw)
+
+
+afd_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest_tokens</span>(token, afd_raw) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(token, <span class="st">&quot;[a-z]&quot;</span>)) -&gt;<span class="st"> </span>afd_df
+
+<span class="kw">count</span>(afd_df) </code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1 26396</code></pre>
+<p>Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?</p>
+</div>
+<div id="worthaufigkeiten-auszahlen" class="section level3">
+<h3><span class="header-section-number">11.1.4</span> Worthäufigkeiten auszählen</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">na.omit</span>() %&gt;%<span class="st">  </span><span class="co"># fehlende Werte löschen</span>
+<span class="st">  </span><span class="kw">count</span>(token, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # A tibble: 7,087 × 2
+##    token     n
+##    &lt;chr&gt; &lt;int&gt;
+## 1    die  1151
+## 2    und  1147
+## 3    der   870
+## 4     zu   435
+## 5    für   392
+## 6     in   392
+## 7    den   271
+## 8    von   257
+## 9    ist   251
+## 10   das   225
+## # ... with 7,077 more rows</code></pre>
+<p>Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel… Solche sogenannten “Stopwörter” sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket <code>lsa</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lsa)</code></pre></div>
+<pre><code>## Loading required package: SnowballC</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lsa&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     query</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(stopwords_de)
+
+stopwords_de &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">word =</span> stopwords_de)
+
+stopwords_de &lt;-<span class="st"> </span>stopwords_de %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">token =</span> word)
+
+afd_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(stopwords_de) -&gt;<span class="st"> </span>afd_df</code></pre></div>
+<pre><code>## Joining, by = &quot;token&quot;</code></pre>
+<p>Unser Datensatz hat jetzt viel weniger Zeilen; wir haben also durch <code>anti_join</code> Zeilen gelöscht (herausgefiltert). Das ist die Funktion von <code>anti_join</code>: Die Zeilen, die in beiden Dataframes vorkommen, werden herausgefiltert. Es verbleiben also nicht “Nicht-Stopwörter” in unserem Dataframe. Damit wird es schon interessanter, welche Wörter häufig sind.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(token, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>afd_count
+
+afd_count %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>knitr::<span class="kw">kable</span>()</code></pre></div>
+<pre><code>## Selecting by n</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">token</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">deutschland</td>
+<td align="right">190</td>
+</tr>
+<tr class="even">
+<td align="left">afd</td>
+<td align="right">171</td>
+</tr>
+<tr class="odd">
+<td align="left">programm</td>
+<td align="right">80</td>
+</tr>
+<tr class="even">
+<td align="left">wollen</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="left">bürger</td>
+<td align="right">57</td>
+</tr>
+<tr class="even">
+<td align="left">euro</td>
+<td align="right">55</td>
+</tr>
+<tr class="odd">
+<td align="left">dafür</td>
+<td align="right">53</td>
+</tr>
+<tr class="even">
+<td align="left">eu</td>
+<td align="right">53</td>
+</tr>
+<tr class="odd">
+<td align="left">deutsche</td>
+<td align="right">47</td>
+</tr>
+<tr class="even">
+<td align="left">deutschen</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+<p>Ganz interessant; aber es gibt mehrere Varianten des Themas “deutsch”. Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man “stemming”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SnowballC)
+afd_count_stems &lt;-<span class="st"> </span><span class="kw">wordStem</span>(afd_df$token, <span class="dt">language =</span> <span class="st">&quot;german&quot;</span>)
+
+
+afd_df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">token_stem =</span> <span class="kw">wordStem</span>(.$token, <span class="dt">language =</span> <span class="st">&quot;german&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(token_stem, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>afd_count
+
+afd_count %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>knitr::<span class="kw">kable</span>()</code></pre></div>
+<pre><code>## Selecting by n</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">token_stem</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">deutschland</td>
+<td align="right">219</td>
+</tr>
+<tr class="even">
+<td align="left">afd</td>
+<td align="right">171</td>
+</tr>
+<tr class="odd">
+<td align="left">deutsch</td>
+<td align="right">119</td>
+</tr>
+<tr class="even">
+<td align="left">polit</td>
+<td align="right">88</td>
+</tr>
+<tr class="odd">
+<td align="left">staat</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="left">programm</td>
+<td align="right">81</td>
+</tr>
+<tr class="odd">
+<td align="left">europa</td>
+<td align="right">80</td>
+</tr>
+<tr class="even">
+<td align="left">woll</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="left">burg</td>
+<td align="right">66</td>
+</tr>
+<tr class="even">
+<td align="left">soll</td>
+<td align="right">63</td>
+</tr>
+</tbody>
+</table>
+<p>Das ist schon informativer. Dem Befehl <code>wordStem</code> füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>). Das ist schon alles.</p>
+<p>Zum Abschluss noch eine Visualisierung mit einer “Wordcloud” dazu.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)</code></pre></div>
+<pre><code>## Loading required package: methods</code></pre>
+<pre><code>## Loading required package: RColorBrewer</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wordcloud</span>(<span class="dt">words =</span> afd_count$token_stem, <span class="dt">freq =</span> afd_count$n, <span class="dt">max.words =</span> <span class="dv">100</span>, <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
+<p><img src="Textmining_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+<h3> Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-Silge2016">
+<p>Silge, Julia, and David Robinson. 2016. “Tidytext: Text Mining and Analysis Using Tidy Data Principles in R.” <em>The Journal of Open Source Software</em> 1 (3). The Open Journal. doi:<a href="https://doi.org/10.21105/joss.00037">10.21105/joss.00037</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist.<a href="textmining99.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="textmining99.html#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf" class="uri">https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf</a><a href="textmining99.html#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://www.omegahat.net/Rstem/stemming.pdf" class="uri">http://www.omegahat.net/Rstem/stemming.pdf</a><a href="textmining99.html#fnref4">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="klassifizierende-modelle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literaturverzeichnis.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["Statistik_21.pdf", "Statistik_21.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

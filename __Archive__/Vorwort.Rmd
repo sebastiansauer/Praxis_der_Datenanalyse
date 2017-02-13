@@ -1,0 +1,9 @@
+# Vorwort
+
+
+Es gibt noch kein gutes Buch in deutscher Sprache zu den Grundlagen moderner Statistik, auch "Data Science" genannt. Dieses Buch soll helfen, einen Teil dieser Lücke zu füllen. Die Zielgruppe sind Analysatoren mit praktischem, wirtschaftsnahem Hintergrund. Auf mathematische Hintergründe wird großteils verzichtet; Matheliebhaber werden kaum auf ihre Kosten kommen. Im Blick habe ich (hier spricht der Autor) Anwender, die einen Freischwimmer in der modernen Datenanalyse erlernen möchten (oder müssen, liebe Studierende). 
+
+
+
+
+Dieses Buch wurde mit dem Paket `bookdown` [bookdown] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).

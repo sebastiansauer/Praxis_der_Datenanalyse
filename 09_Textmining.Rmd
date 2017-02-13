@@ -1,0 +1,534 @@
+
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 3, dplyr.print_max = 6)
+```
+
+
+
+
+# Textmining
+
+
+
+Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in "unstrukturierter" Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten[^99] weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.
+
+[^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 
+
+In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich *dümmer* als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
+
+In der Regel wird das Textmining als *gemischte* Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.
+
+## Einführung
+
+### Grundbegriffe
+Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:  
+
+- Ein *Corpus* bezeichnet die Menge der zu analyisierenden Dokumente; das könnten z.B. alle Reden der Bundeskanzlerin Angela Merkel sein oder alle Tweets von "\@realDonaldTrump".
+
+- Ein *Token* (*Term*) ist ein elementarer Baustein eines Texts, die kleinste Analyseeinheit, häufig ein Wort. 
+
+- Unter *tidy text* versteht man einen Dataframe, in dem pro Zeile nur ein Term steht [@Silge2016].
+
+
+
+## Grundlegende Analyse
+
+### Tidy Text Dataframes
+
+Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor[^1] besteht aus 4 Elementen.
+
+[^1]: Nach dem Gedicht "Jahrgang 1899" von Erich Kästner
+
+```{r}
+text <- c("Wir haben die Frauen zu Bett gebracht,",
+          "als die Männer in Frankreich standen.",
+          "Wir hatten uns das viel schöner gedacht.",
+          "Wir waren nur Konfirmanden.")
+```
+
+Als nächstes machen wir daraus einen Dataframe.
+
+```{r}
+library(tidyverse)
+text_df <- data_frame(Zeile = 1:4,
+                      text)
+```
+
+```{r echo = FALSE}
+knitr::kable(text_df)
+```
+
+Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
+```{r}
+library(tidytext)
+
+text_df %>% 
+  unnest_tokens(wort, text)
+```
+
+Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die Tokens - so dass in jeder Zeile nur noch ein Wort (Token) steht. Die Syntax ist `unnest_tokens(Ausgabespalte, Eingabespalte)`. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.
+
+Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.
+
+```{r}
+library(stringr)
+
+text_df %>% 
+  unnest_tokens(wort, text) %>% 
+  filter(str_detect(wort, "[a-z]"))
+```
+
+
+
+### Text-Daten einlesen
+
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2].
+
+[^2]: https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf
+
+```{r}
+library(pdftools)
+library(downloader)
+
+afd_url <- "https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf"
+
+afd_pfad <- "data/afd_programm.pdf"
+
+download(afd_url, afd_pfad)
+
+afd_raw <- pdf_text(afd_pfad)
+
+afd_raw[3]
+```
+
+
+Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als `afd_pfad` gespeichert. Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest.
+
+
+Der Vektor `afd_raw` hat 96 Elemente; zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.
+
+```{r}
+
+afd_df <- data_frame(Zeile = 1:96, 
+                     afd_raw)
+
+
+afd_df %>% 
+  unnest_tokens(token, afd_raw) %>% 
+  filter(str_detect(token, "[a-z]")) -> afd_df
+
+count(afd_df) 
+
+```
+
+Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
+
+
+### Worthäufigkeiten auszählen
+
+```{r}
+afd_df %>% 
+  na.omit() %>%  # fehlende Werte löschen
+  count(token, sort = TRUE)
+```
+
+Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... Solche sogenannten "Stopwörter" sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket `lsa`.
+
+```{r}
+library(lsa)
+data(stopwords_de)
+
+stopwords_de <- data_frame(word = stopwords_de)
+
+stopwords_de <- stopwords_de %>% 
+  rename(token = word)
+
+afd_df %>% 
+  anti_join(stopwords_de) -> afd_df
+
+```
+
+
+Unser Datensatz hat jetzt viel weniger Zeilen; wir haben also durch `anti_join` Zeilen gelöscht (herausgefiltert). Das ist die Funktion von `anti_join`: Die Zeilen, die in beiden Dataframes vorkommen, werden herausgefiltert. Es verbleiben also nicht "Nicht-Stopwörter" in unserem Dataframe. Damit wird es schon interessanter, welche Wörter häufig sind.
+
+```{r}
+afd_df %>% 
+  count(token, sort = TRUE) -> afd_count
+
+afd_count %>% 
+  top_n(10) %>% 
+  knitr::kable()
+```
+
+Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder trunkieren.
+
+```{r}
+library(SnowballC)
+
+afd_df %>% 
+  mutate(token_stem = wordStem(.$token, language = "german")) %>% 
+  count(token_stem, sort = TRUE) -> afd_count
+
+afd_count %>% 
+  top_n(10) %>% 
+  knitr::kable()
+```
+
+Das ist schon informativer. Dem Befehl `wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch[^3]). Das ist schon alles.
+
+[^3]: http://www.omegahat.net/Rstem/stemming.pdf 
+
+### Visualisierung
+
+
+Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
+
+
+```{r}
+library(wordcloud)
+wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
+```
+
+Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen[^4].
+
+[^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
+ 
+ 
+Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art.
+
+```{r}
+
+afd_count %>% 
+  top_n(30) %>% 
+  ggplot() +
+  aes(x = reorder(token_stem, n), y = n) +
+  geom_col() + 
+  labs(title = "mit Trunkierung") +
+  coord_flip() -> p1
+
+afd_df %>% 
+  count(token, sort = TRUE) %>% 
+  top_n(30) %>% 
+  ggplot() +
+  aes(x = reorder(token, n), y = n) +
+  geom_col() +
+  labs(title = "ohne Trunkierung") +
+  coord_flip() -> p2
+
+
+library(gridExtra)
+grid.arrange(p1, p2, ncol = 2)
+
+```
+
+Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
+
+
+## Sentiment-Analyse
+Eine weitere interessante Analyse ist, die "Stimmung" oder "Emotionen" (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so: 
+
+>    Schau dir jeden Token aus dem Text an.  
+     Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.  
+     Wenn ja, dann addiere den Sentimentswert dieses Tokens zum bestehenden Sentiments-Wert.  
+     Wenn nein, dann gehe weiter zum nächsten Wort.  
+     Liefere zum Schluss die Summenwerte pro Sentiment zurück.    
+     
+     
+Es gibt Sentiment-Lexika, die lediglich einen Punkt für "positive Konnotation" bzw. "negative Konnotation" geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier [dieses](http://asv.informatik.uni-leipzig.de/download/sentiws.html) Lexikon [@remquahey2010]. Der Einfachheit halber gehen wir im Folgenden davon aus, dass das Lexikon schon aufbereitet vorliegt. Die Aufbereitung unten im Abschnitt zur Vertiefung nachgelesen werden.
+
+```{r echo = FALSE, include = FALSE}
+library(stringr)
+library(readr)
+library(dplyr)
+
+neg_df <- read_tsv("~/Downloads/SentiWS_v1.8c_Negative.txt", col_names = FALSE)
+names(neg_df) <- c("Wort_POS", "Wert", "Inflektionen")
+
+neg_df %>% 
+  mutate(Wort = str_sub(Wort_POS, 1, regexpr("\\|", .$Wort_POS)-1),
+         POS = str_sub(Wort_POS, start = regexpr("\\|", .$Wort_POS)+1)) -> neg_df
+
+
+pos_df <- read_tsv("~/Downloads/SentiWS_v1.8c_Positive.txt", col_names = FALSE)
+names(pos_df) <- c("Wort_POS", "Wert", "Inflektionen")
+
+pos_df %>% 
+  mutate(Wort = str_sub(Wort_POS, 1, regexpr("\\|", .$Wort_POS)-1),
+         POS = str_sub(Wort_POS, start = regexpr("\\|", .$Wort_POS)+1)) -> pos_df
+
+bind_rows("neg" = neg_df, "pos" = pos_df, .id = "neg_pos") -> sentiment_df
+sentiment_df %>% select(neg_pos, Wort, Wert, Inflektionen, -Wort_POS) -> sentiment_df
+```
+
+Unser Sentiment-Lexikon sieht so aus:
+
+```{r}
+library(knitr)
+
+kable(head(sentiment_df))
+```
+
+### Ungewichtete Sentiment-Analyse
+Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Besser wäre noch: Wir könnten die Sentiment-Werte pro Treffer addieren (und nicht für jeden Term 1 addieren). Aber das heben wir uns für später auf.
+
+```{r}
+sentiment_neg <- match(afd_df$token, filter(sentiment_df, neg_pos == "neg")$Wort)
+neg_score <- sum(!is.na(sentiment_neg))
+
+sentiment_pos <- match(afd_df$token, filter(sentiment_df, neg_pos == "pos")$Wort)
+pos_score <- sum(!is.na(sentiment_pos))
+
+round(pos_score/neg_score, 1)
+```
+
+Hier schauen wir für jedes negative (positive) Token, ob es einen "Match" im Sentiment-Lexikon (`sentiment_df$Wort`) gibt; das geht mit `match`. `match` liefert `NA` zurück, wenn es keinen Match gibt (ansonsten die Nummer des Sentiment-Worts). Wir brauchen also nur die Anzahl der Nicht-Nas (`!is.na`) auszuzählen, um die Anzahl der Matches zu bekommen.
+
+
+Entgegen dem, was man vielleicht erwarten würde, ist der Text offenbar positiv geprägt. Der "Positiv-Wert" ist ca. 2.6 mal so groß wie der "Negativ-Wert". Fragt sich, wie sich dieser Wert mit anderen vergleichbaren Texten (z.B. andere Parteien) misst. Hier sei noch einmal betont, dass die Sentiment-Analyse bestenfalls grobe Abschätzungen liefern kann und keinesfalls sich zu einem hermeneutischen Verständnis aufschwingt.
+
+
+Welche negativen Wörter und welche positiven Wörter wurden wohl verwendet? Schauen wir uns ein paar an.
+
+```{r eval = FALSE, include = FALSE}
+index_neg <- if_else(is.na(sentiment_neg), FALSE, TRUE)
+head(afd_df$token[index_neg], n = 30)
+
+index_pos <- if_else(is.na(sentiment_pos), FALSE, TRUE)
+head(afd_df$token[index_pos], n = 30)
+```
+
+
+```{r}
+afd_df %>% 
+  mutate(sentiment_neg = sentiment_neg,
+         sentiment_pos = sentiment_pos) -> afd_df
+
+afd_df %>% 
+  filter(!is.na(sentiment_neg)) %>% 
+  select(token) -> negative_sentiments
+  
+head(negative_sentiments$token,50)
+
+
+afd_df %>% 
+  filter(!is.na(sentiment_pos)) %>% 
+  select(token) -> positive_sentiments
+
+head(positive_sentiments$token, 50)
+```
+
+### Anzahl der unterschiedlichen negativen bzw. positiven Wörter
+
+Allerdings müssen wir unterscheiden zwischen der *Anzahl* der negativen bzw. positiven Wörtern und der Anzahl der *unterschiedlichen* Wörter.
+
+Zählen wir noch die Anzahl der unterschiedlichen Wörter im negativen und positiven Fall.
+
+```{r}
+afd_df %>% 
+  filter(!is.na(sentiment_neg)) %>% 
+  summarise(n_distinct_neg = n_distinct(token))
+
+
+afd_df %>% 
+  filter(!is.na(sentiment_pos)) %>% 
+    summarise(n_distinct_pos = n_distinct(token))
+```
+
+Dieses Ergebnis passt zum vorherigen: Die Anzahl der positiven Wörter (187) ist ca. doppelt so groß wie die Anzahl der negativen Wörter (96).
+
+
+### Gewichtete Sentiment-Analyse
+
+Oben haben wir nur ausgezählt, *ob* ein Term der Sentiment-Liste im Corpus vorkam. Genauer ist es, diesen Term mit seinem Sentiment-Wert zu gewichten, also eine gewichtete Summe zu erstellen.
+
+```{r}
+sentiment_df %>% 
+  rename(token = Wort) -> sentiment_df
+
+afd_df %>% 
+  left_join(sentiment_df, by = "token") -> afd_df 
+
+
+
+afd_df %>% 
+  filter(!is.na(Wert)) %>% 
+  summarise(Sentimentwert = sum(Wert, na.rm = TRUE)) -> afd_sentiment_summe
+
+
+afd_sentiment_summe$Sentimentwert
+
+```
+
+
+```{r include = FALSE, echo = FALSE}
+afd_df %>% 
+  group_by(neg_pos) %>% 
+  filter(!is.na(Wert)) %>% 
+  summarise(Sentimentwert = sum(Wert)) %>% 
+  kable()
+```
+
+
+Zuerst bennenen wir `Wort` in `token` um, damit es beiden Dataframes (`sentiment_df` und `afd_df`) eine Spalte mit gleichen Namen gibt. Diese Spalte können wir dann zum "Verheiraten" (`left_join`) der beiden Spalten nutzen. Dann summieren wir den Sentiment-Wert jeder nicht-leeren Zeile auf. 
+
+Siehe da: Nun ist der Duktus deutlich negativer als positiver. Offebar werden mehr positive Wörter als negative verwendet, *aber* die negativen sind viel intensiver.
+
+
+### Tokens mit den extremsten Sentimentwerten
+
+Schauen wir uns die intensivesten Wörter mal an.
+
+```{r}
+afd_df %>% 
+  filter(neg_pos == "pos") %>% 
+  distinct(token, .keep_all = TRUE) %>% 
+  arrange(-Wert) %>% 
+  filter(row_number() < 11) %>% 
+  select(token, Wert) %>% 
+  kable()
+
+afd_df %>% 
+  filter(neg_pos == "neg") %>% 
+  distinct(token, .keep_all = TRUE) %>% 
+  arrange(Wert) %>% 
+  filter(row_number() < 11) %>% 
+  select(token, Wert) %>% 
+  kable()
+```
+
+Tatsächlich erscheinen die negativen Wörter "dampfender" und "fauchender" als die positiven.
+
+Die Syntax kann hier so übersetzt werden:
+
+>    Nehmen den Dataframe adf_df UND DANN   
+     filtere die Token mit negativen Sentiment UND DANN    
+     lösche doppelte Zeilen UND DANN    
+     sortiere (absteigend) UND DANN    
+     filtere nur die Top 10 UND DANN    
+     zeige nur die Saplten token und Wert UND DANN   
+     zeige eine schöne Tabelle.
+     
+     
+### Relativer Sentiments-Wert
+Nun könnte man noch den erzielten "Netto-Sentimentswert" des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend.  
+     
+
+```{r}
+
+sentiment_df %>% 
+  filter(!is.na(Wert)) %>% 
+  ggplot() +
+  aes(x = Wert) +
+  geom_histogram()
+
+```
+
+Es scheint einen (leichten) Überhang an negativen Wörtern zu geben. Schauen wir auf die genauen Zahlen.
+
+```{r}
+sentiment_df %>% 
+  filter(!is.na(Wert)) %>% 
+  count(neg_pos)
+```
+
+Tatsächlich ist die Zahl negativ konnotierter Terme etwas größer als die Zahl der positiv konnotierten. Jetzt gewichten wir die Zahl mit dem Sentimentswert der Terme, in dem wir die Sentimentswerte (die ein negatives bzw. ein positives Vorzeichen aufweisen) aufaddieren.
+
+```{r}
+sentiment_df %>% 
+  filter(!is.na(Wert)) %>% 
+  summarise(sentiment_summe = sum(Wert)) -> sentiment_lexikon_sum
+
+sentiment_lexikon_sum$sentiment_summe
+```
+
+Im Vergleich zum Sentiment der Lexikons ist unser Corpus deutlich negativer. Um genau zu sein, um diesen Faktor:
+
+```{r}
+sentiment_lexikon_sum$sentiment_summe / afd_sentiment_summe$Sentimentwert
+```
+
+Der *relative Sentimentswert* (relativ zum Sentiment-Lexikon) beträgt also ~7.8.
+
+
+## Verknüpfung mit anderen Variablen
+Kann man die Textdaten mit anderen Daten verknüpfen, so wird die Analyse reichhaltiger. So könnte man überprüfen, ob sich zwischen Sentiment-Gehalt und Zeit oder Autor ein Muster findet/bestätigt. Uns liegen in diesem Beispiel keine andere Daten vor, so dass wir dieses Beispiel nicht weiter verfolgen.
+
+
+
+--- 
+
+## Vertiefung 
+
+### Erstellung des Sentiment-Lexikons
+
+Der Zweck dieses Abschnitts ist es, eine Sentiment-Lexikon in deutscher Sprache einzulesen.
+
+Dazu wird das Sentiment-Lexikon [dieser Quelle](http://asv.informatik.uni-leipzig.de/download/sentiws.html) verwendet (CC-BY-NC-SA 3.0). In [diesem Paper](http://asv.informatik.uni-leipzig.de/publication/file/155/490_Paper.pdf) finden sich Hintergründe. Von dort lassen sich die Daten herunter laden. Im folgenden gehe ich davon aus, dass die Daten herunter geladen sind und sich im Working Directory befinden.
+
+
+Wir benötigen diese Pakete (es ginge auch über base):
+```{r eval = FALSE}
+library(stringr)
+library(readr)
+library(dplyr)
+```
+
+Dann lesen wir die Daten ein, zuerst die Datei mit den negativen Konnotationen:
+```{r eval = FALSE}
+neg_df <- read_tsv("SentiWS_v1.8c_Negative.txt", col_names = FALSE)
+names(neg_df) <- c("Wort_POS", "Wert", "Inflektionen")
+
+glimpse(neg_df)
+
+```
+
+Dann parsen wir aus der ersten Spalte (`Wort_POS`) zum einen den entsprechenden Begriff (z.B. "Abbau") und zum anderen die Wortarten-Tags (eine Erläuterung zu den Wortarten-Tags findet sich [hier](http://www.jlcl.org/2013_Heft1/H2013-1.pdf)).
+
+```{r eval = FALSE}
+
+neg_df %>% 
+  mutate(Wort = str_sub(Wort_POS, 1, regexpr("\\|", .$Wort_POS)-1),
+         POS = str_sub(Wort_POS, start = regexpr("\\|", .$Wort_POS)+1)) -> neg_df
+
+```
+
+`str_sub` parst zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
+
+Das gleiche wiederholen wir für positiv konnotierte Wörter.
+
+```{r eval = FALSE}
+pos_df <- read_tsv("SentiWS_v1.8c_Positive.txt", col_names = FALSE)
+names(pos_df) <- c("Wort_POS", "Wert", "Inflektionen")
+pos_df %>% 
+  mutate(Wort = str_sub(Wort_POS, 1, regexpr("\\|", .$Wort_POS)-1),
+         POS = str_sub(Wort_POS, start = regexpr("\\|", .$Wort_POS)+1)) -> pos_df
+```
+
+
+Schließlich schweißen wir beide Dataframes in einen:
+
+```{r eval = FALSE}
+bind_rows("neg" = neg_df, "pos" = pos_df, .id = "neg_pos") -> sentiment_df
+sentiment_df %>% select(neg_pos, Wort, Wert, Inflektionen, -Wort_POS) -> sentiment_df
+```
+
+```{r}
+knitr::kable(head(sentiment_df))
+```
+

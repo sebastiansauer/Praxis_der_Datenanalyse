@@ -1,0 +1,19 @@
+book_filename: "Praxis der Datenanalyse"
+chapter_name: "Kapitel "
+repo: https://github.com/sebastiansauer/Statistik_21
+output_dir: "docs"
+rmd_files: [
+"index.Rmd",
+"02_Rahmen_1.Rmd",
+"03_Tidy_Data.Rmd",
+"04_Datenjudo.Rmd",
+"05_Daten_visualisieren.Rmd",
+"06_Modellieren.Rmd",
+"07_Numerische_Modelle.Rmd",
+"08_Klassifizierende_Modelle.Rmd",
+"09_Textmining.Rmd",
+"10_Kommunizieren.Rmd",
+"11_Rahmen_2.Rmd"]
+
+clean: [packages.bib, bookdown.bbl]
+new_session: yes
