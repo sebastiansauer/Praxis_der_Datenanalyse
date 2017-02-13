@@ -4,8 +4,7 @@ options(digits = 3)
 
 knitr::opts_chunk$set(
   comment = "#>",
-  message = FALSE,
-  warning = FALSE,
+  comment = FALSE,
   collapse = TRUE,
   cache = TRUE,
   out.width = "70%",
@@ -19,13 +18,26 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 ```
 
 
-# Klassifizierende Modelle
+# Geleitetes Modellieren
 
-## Clusteranalyse
+## Lineare Regression
 
-## Nächste-Nachbarn-Analyse
+### Eine kurze Geschichte der linearen Regression
 
-## Hauptkomponenten-Analyse
+### Die lineare Regression als Schweizer Taschenmesser
+
+### Interaktion/ Moderation
+
+## Klassifizierende Regression
+
+
+
+## Penalisierende Regression
+
+## Baumbasierte Verfahre
+
+## Ausblick
+
 
 ## Fallstudie: Überleben auf der Titanic
 In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um die beispielhafte Analyse nominaler Daten anhand des "klassischen" Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der derPassagiers reist, ab?

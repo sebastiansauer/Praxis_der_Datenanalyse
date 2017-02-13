@@ -4,7 +4,8 @@ options(digits = 3)
 
 knitr::opts_chunk$set(
   comment = "#>",
-  comment = FALSE,
+  message = FALSE,
+  warning = FALSE,
   collapse = TRUE,
   cache = TRUE,
   out.width = "70%",
@@ -18,20 +19,11 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 ```
 
 
-# Numerische Modelle
+# Ungeleitetes Modellieren
 
-## Lineare Regression
+## Clusteranalyse
 
-### Eine kurze Geschichte der linearen Regression
+## Nächste-Nachbarn-Analyse
 
-### Die lineare Regression als Schweizer Taschenmesser
+## Hauptkomponenten-Analyse
 
-### Interaktion/ Moderation
-
-
-
-## Penalisierende Regression
-
-## Baumbasierte Verfahre
-
-## Ausblick

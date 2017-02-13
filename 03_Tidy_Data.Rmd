@@ -20,6 +20,12 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 
 # Tidy Data - Daten sauber einlesen
 
+
+```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
+knitr::include_graphics("images/Einlesen.pdf")
+```
+
+
 ## Daten in R importieren
 In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger gebräuchliche (Feather[^1]) Datenformate einlesen. In RStudio lässt sich dies z.B. durch einen schnellen Klick auf `Import Dataset` im Reiter `Environment` erledigen. Dabei wird im Hintergrund das Paket `readr` verwendet [@readr] (die entsprechende Syntax wird in der Konsole ausgegeben, so dass man sie sich anschauen und weiterverwenden kann).
 
@@ -27,7 +33,7 @@ In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger ge
 
 Am einfachsten ist es, eine Excel-Datei über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen:
 
-```{r echo = FALSE, out.width = "50%"}
+```{r data-import-RStudio, echo = FALSE, out.width = "50%", fig.cap = "Daten einlesen (importieren) mit RStudio"}
 knitr::include_graphics("images/import_RStudio.png")
 ```
 
@@ -97,6 +103,12 @@ knitr::include_graphics("./images/breit_lang.pdf")
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
+
+```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform"}
+knitr::include_graphics("images/Normalform.pdf")
+```
+
+
 Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.
 
 Ein Beispiel dazu:
@@ -117,5 +129,8 @@ Im Cheatsheet von RStudio zum Thema Datenimport finden sich nützliche Hinweise 
 
 [^2]: <https://www.rstudio.com/resources/cheatsheets/>
 
+## Verweise
+
+- *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].
 
 

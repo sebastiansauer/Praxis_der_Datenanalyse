@@ -91,6 +91,13 @@ knitr::include_graphics("./images/breit_lang.pdf")
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
+
+<div class="figure" style="text-align: center">
+<img src="images/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
+<p class="caption">(\#fig:fig-Normalform)Illustration eines Datensatzes in Normalform</p>
+</div>
+
+
 Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.
 
 Ein Beispiel dazu:

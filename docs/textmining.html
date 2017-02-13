@@ -5,23 +5,23 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Statistik_21</title>
+  <title>Praxis der Datenanalyse</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta name="description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
   <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Statistik_21" />
+  <meta property="og:title" content="Praxis der Datenanalyse" />
   <meta property="og:type" content="book" />
   
-  
-  <meta property="og:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
-  <meta name="github-repo" content="sebastiansauer/Statistik_21" />
+  <meta property="og:image" content="images/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Statistik_21" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
   
-  <meta name="twitter:description" content="Ein Kurs in angewandter Statistik des beginnenden 21. Jahrhunderts" />
-  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="images/cover.jpg" />
 
 <meta name="author" content="Sebastian Sauer">
 
@@ -33,7 +33,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="klassifizierende-modelle.html">
+<link rel="prev" href="ungeleitetes-modellieren.html">
 <link rel="next" href="ergebnisse-kommunizieren.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -164,7 +164,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#Modellieren"><i class="fa fa-check"></i><b>5.1</b> Was ist ein Modell? Was ist Modellieren?</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#ziele-des-modellierens"><i class="fa fa-check"></i><b>5.1.1</b> Ziele des Modellierens</a></li>
 <li class="chapter" data-level="5.1.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#parametrische-modelle-vs.non-parametrische-modelle"><i class="fa fa-check"></i><b>5.1.2</b> Parametrische Modelle vs. non-parametrische Modelle</a></li>
-<li class="chapter" data-level="5.1.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-spagat-zwischen-prazision-und-streuung"><i class="fa fa-check"></i><b>5.1.3</b> Der Spagat zwischen Präzision und Streuung</a></li>
+<li class="chapter" data-level="5.1.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#wann-welches-modell"><i class="fa fa-check"></i><b>5.1.3</b> Wann welches Modell?</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
 <li class="chapter" data-level="5.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#uberanpassung"><i class="fa fa-check"></i><b>5.3</b> Überanpassung</a></li>
@@ -175,32 +175,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.8" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#fehler--vs.varianzreduktion"><i class="fa fa-check"></i><b>5.8</b> Fehler- vs. Varianzreduktion</a></li>
 <li class="chapter" data-level="5.9" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modellgute"><i class="fa fa-check"></i><b>5.9</b> Modellgüte</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="numerische-modelle.html"><a href="numerische-modelle.html"><i class="fa fa-check"></i><b>6</b> Numerische Modelle</a><ul>
-<li class="chapter" data-level="6.1" data-path="numerische-modelle.html"><a href="numerische-modelle.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="numerische-modelle.html"><a href="numerische-modelle.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="numerische-modelle.html"><a href="numerische-modelle.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
-<li class="chapter" data-level="6.1.3" data-path="numerische-modelle.html"><a href="numerische-modelle.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
+<li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
+<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
+<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="numerische-modelle.html"><a href="numerische-modelle.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.2</b> Penalisierende Regression</a></li>
-<li class="chapter" data-level="6.3" data-path="numerische-modelle.html"><a href="numerische-modelle.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.3</b> Baumbasierte Verfahre</a></li>
-<li class="chapter" data-level="6.4" data-path="numerische-modelle.html"><a href="numerische-modelle.html#ausblick"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a></li>
+<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.3</b> Penalisierende Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.4</b> Baumbasierte Verfahre</a></li>
+<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.5</b> Ausblick</a></li>
+<li class="chapter" data-level="6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.6</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.6.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="6.6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.6.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="6.6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.6.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="6.6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.6.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="6.6.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.6.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="6.6.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.6.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="6.6.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.6.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="6.6.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.6.10</b> Fazit</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html"><i class="fa fa-check"></i><b>7</b> Klassifizierende Modelle</a><ul>
-<li class="chapter" data-level="7.1" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
-<li class="chapter" data-level="7.2" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
-<li class="chapter" data-level="7.3" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
-<li class="chapter" data-level="7.4" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>7.4</b> Fallstudie: Überleben auf der Titanic</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>7.4.1</b> Daten und Pakete laden</a></li>
-<li class="chapter" data-level="7.4.2" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#erster-blick"><i class="fa fa-check"></i><b>7.4.2</b> Erster Blick</a></li>
-<li class="chapter" data-level="7.4.3" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>7.4.3</b> Welche Variablen sind interessant?</a></li>
-<li class="chapter" data-level="7.4.4" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>7.4.4</b> Univariate Häufigkeiten</a></li>
-<li class="chapter" data-level="7.4.5" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>7.4.5</b> Bivariate Häufigkeiten</a></li>
-<li class="chapter" data-level="7.4.6" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#signifikanztest"><i class="fa fa-check"></i><b>7.4.6</b> Signifikanztest</a></li>
-<li class="chapter" data-level="7.4.7" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#effektstarke"><i class="fa fa-check"></i><b>7.4.7</b> Effektstärke</a></li>
-<li class="chapter" data-level="7.4.8" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#logististische-regression"><i class="fa fa-check"></i><b>7.4.8</b> Logististische Regression</a></li>
-<li class="chapter" data-level="7.4.9" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>7.4.9</b> Effektstärken visualieren</a></li>
-<li class="chapter" data-level="7.4.10" data-path="klassifizierende-modelle.html"><a href="klassifizierende-modelle.html#fazit"><i class="fa fa-check"></i><b>7.4.10</b> Fazit</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Ungeleitetes Modellieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
+<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
+<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>8</b> Textmining</a><ul>
 <li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
@@ -243,7 +244,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistik_21</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
           </h1>
         </div>
 
@@ -984,7 +985,7 @@ sentiment_df %&gt;%<span class="st"> </span><span class="kw">select</span>(neg_p
           </div>
         </div>
       </div>
-<a href="klassifizierende-modelle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ungeleitetes-modellieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="ergebnisse-kommunizieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

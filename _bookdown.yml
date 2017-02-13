@@ -9,11 +9,17 @@ rmd_files: [
 "04_Datenjudo.Rmd",
 "05_Daten_visualisieren.Rmd",
 "06_Modellieren.Rmd",
-"07_Numerische_Modelle.Rmd",
-"08_Klassifizierende_Modelle.Rmd",
+"07_geleitetes_Modellieren.Rmd",
+"08_ungeleitetes_Modellieren.Rmd",
 "09_Textmining.Rmd",
 "10_Kommunizieren.Rmd",
 "11_Rahmen_2.Rmd"]
-
 clean: [packages.bib, bookdown.bbl]
 new_session: yes
+language:
+  label:
+    fig: "Abbildung "
+    tab: "Tabelle "
+  ui:
+    edit: "Bearbeiten "
+    chapter_name: "Kapitel "

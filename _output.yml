@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: style.css
+  fig_crop: TRUE
   split_by: chapter
   config:
     toc:
