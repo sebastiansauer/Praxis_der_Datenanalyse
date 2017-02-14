@@ -10,7 +10,7 @@
 <p class="caption">(\#fig:unnamed-chunk-2)Daten aufbereiten</p>
 </div>
 
-
+In diesem Kapitel benötigte Pakete: 
 
 ```r
 library(tidyverse)  # Datenjudo
@@ -906,6 +906,28 @@ grid.arrange(p1, p2, ncol = 2)
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 
 
+### Mittelwerte pro Zeile berechnen
+Um Umfragedaten auszuwerten, will man häufig einen Mittelwert *pro Zeile* berechnen. Normalerweise fasst man eine *Spalte* zu einer Zahl zusammen; aber jetzt, fassen wir eine *Zeile* zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversions-Wert pro Person (d.h. pro Zeile) berechnen.
+
+
+```r
+extra <- read.csv("data/extra.csv")
+
+extra_items <- extra %>% 
+  select(i01:i10)
+
+extra$extra_mw <- rowMeans(extra_items)
+```
+
+Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
+
+### U
+
+
+```r
+extra %>% 
+  count(n_faceb)
+```
 
 
 

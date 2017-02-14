@@ -144,6 +144,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4.7" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#z-standardisieren"><i class="fa fa-check"></i><b>3.4.7</b> z-Standardisieren</a></li>
 <li class="chapter" data-level="3.4.8" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>3.4.8</b> Quasi-Konstante finden</a></li>
 <li class="chapter" data-level="3.4.9" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>3.4.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="3.4.10" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>3.4.10</b> Mittelwerte pro Zeile berechnen</a></li>
+<li class="chapter" data-level="3.4.11" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#u"><i class="fa fa-check"></i><b>3.4.11</b> U</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#verweise-1"><i class="fa fa-check"></i><b>3.5</b> Verweise</a></li>
 </ul></li>
@@ -181,13 +183,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>5.1.5</b> Training- vs. Test-Stichprobe</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
-<li class="chapter" data-level="5.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#uberanpassung"><i class="fa fa-check"></i><b>5.3</b> Überanpassung</a></li>
-<li class="chapter" data-level="5.4" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#pradiktion-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prädiktion vs. Explanation</a></li>
-<li class="chapter" data-level="5.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#numerische-vs.klassifizierende-modelle"><i class="fa fa-check"></i><b>5.5</b> Numerische vs. klassifizierende Modelle</a></li>
-<li class="chapter" data-level="5.6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#geleitete-vs.ungeleitete-modelle"><i class="fa fa-check"></i><b>5.6</b> Geleitete vs. ungeleitete Modelle</a></li>
-<li class="chapter" data-level="5.7" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#parametrische-vs.nichtparametrische-modelle"><i class="fa fa-check"></i><b>5.7</b> Parametrische vs. nichtparametrische Modelle</a></li>
-<li class="chapter" data-level="5.8" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#fehler--vs.varianzreduktion"><i class="fa fa-check"></i><b>5.8</b> Fehler- vs. Varianzreduktion</a></li>
-<li class="chapter" data-level="5.9" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modellgute"><i class="fa fa-check"></i><b>5.9</b> Modellgüte</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
 <li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
@@ -268,6 +263,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="statistisches-modellieren" class="section level1">
 <h1><span class="header-section-number">Kapitel 5</span> Statistisches Modellieren</h1>
+<p>In diesem Kapitel benötigte Pakete:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">require</span>(gridExtra)</code></pre></div>
 <div id="Modellieren" class="section level2">
@@ -409,27 +405,6 @@ Abbildung 5.6: Der p-Wert wird oft als wichtig erachtet
 <p>Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit. Die Verteitigung argumentiert hier, dass das “kein Bug, sondern ein Feature” sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.</p>
 <p>Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.</p>
 <p><img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="70%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="uberanpassung" class="section level2">
-<h2><span class="header-section-number">5.3</span> Überanpassung</h2>
-</div>
-<div id="pradiktion-vs.explanation" class="section level2">
-<h2><span class="header-section-number">5.4</span> Prädiktion vs. Explanation</h2>
-</div>
-<div id="numerische-vs.klassifizierende-modelle" class="section level2">
-<h2><span class="header-section-number">5.5</span> Numerische vs. klassifizierende Modelle</h2>
-</div>
-<div id="geleitete-vs.ungeleitete-modelle" class="section level2">
-<h2><span class="header-section-number">5.6</span> Geleitete vs. ungeleitete Modelle</h2>
-</div>
-<div id="parametrische-vs.nichtparametrische-modelle" class="section level2">
-<h2><span class="header-section-number">5.7</span> Parametrische vs. nichtparametrische Modelle</h2>
-</div>
-<div id="fehler--vs.varianzreduktion" class="section level2">
-<h2><span class="header-section-number">5.8</span> Fehler- vs. Varianzreduktion</h2>
-</div>
-<div id="modellgute" class="section level2">
-<h2><span class="header-section-number">5.9</span> Modellgüte</h2>
 
 </div>
 </div>

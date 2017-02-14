@@ -4,7 +4,7 @@
 
 # Statistisches Modellieren
 
-
+In diesem Kapitel benötigte Pakete:
 
 ```r
 library(tidyverse)
@@ -221,20 +221,7 @@ Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) u
 
 
 
-## Überanpassung
 
-## Prädiktion vs. Explanation
-
-
-## Numerische vs. klassifizierende Modelle
-
-## Geleitete vs. ungeleitete Modelle
-
-## Parametrische vs. nichtparametrische Modelle
-
-## Fehler- vs. Varianzreduktion
-
-## Modellgüte
 
 
 [^1]: Unter "Wirklichkeit" sei hier ein beliebiges empirisches System vorhanden, mit einer Menge von Objekten *O* und einer Menge von Beziehungen (Relationen) *R* zwischen den Objekten.

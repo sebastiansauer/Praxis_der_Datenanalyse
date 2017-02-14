@@ -22,7 +22,7 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 # Statistisches Modellieren
 
-
+In diesem Kapitel benötigte Pakete:
 ```{r libs}
 library(tidyverse)
 require(gridExtra)
@@ -266,7 +266,7 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
 
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.height = 2}
 knitr::include_graphics("images/meme_pwert_1iw22a_pvalue_dino.jpg")
 ```
 
@@ -274,20 +274,7 @@ knitr::include_graphics("images/meme_pwert_1iw22a_pvalue_dino.jpg")
 
 
 
-## Überanpassung
 
-## Prädiktion vs. Explanation
-
-
-## Numerische vs. klassifizierende Modelle
-
-## Geleitete vs. ungeleitete Modelle
-
-## Parametrische vs. nichtparametrische Modelle
-
-## Fehler- vs. Varianzreduktion
-
-## Modellgüte
 
 
 [^1]: Unter "Wirklichkeit" sei hier ein beliebiges empirisches System vorhanden, mit einer Menge von Objekten *O* und einer Menge von Beziehungen (Relationen) *R* zwischen den Objekten.

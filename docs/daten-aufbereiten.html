@@ -144,6 +144,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4.7" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#z-standardisieren"><i class="fa fa-check"></i><b>3.4.7</b> z-Standardisieren</a></li>
 <li class="chapter" data-level="3.4.8" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>3.4.8</b> Quasi-Konstante finden</a></li>
 <li class="chapter" data-level="3.4.9" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>3.4.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="3.4.10" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>3.4.10</b> Mittelwerte pro Zeile berechnen</a></li>
+<li class="chapter" data-level="3.4.11" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#u"><i class="fa fa-check"></i><b>3.4.11</b> U</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#verweise-1"><i class="fa fa-check"></i><b>3.5</b> Verweise</a></li>
 </ul></li>
@@ -181,13 +183,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>5.1.5</b> Training- vs. Test-Stichprobe</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
-<li class="chapter" data-level="5.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#uberanpassung"><i class="fa fa-check"></i><b>5.3</b> Überanpassung</a></li>
-<li class="chapter" data-level="5.4" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#pradiktion-vs.explanation"><i class="fa fa-check"></i><b>5.4</b> Prädiktion vs. Explanation</a></li>
-<li class="chapter" data-level="5.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#numerische-vs.klassifizierende-modelle"><i class="fa fa-check"></i><b>5.5</b> Numerische vs. klassifizierende Modelle</a></li>
-<li class="chapter" data-level="5.6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#geleitete-vs.ungeleitete-modelle"><i class="fa fa-check"></i><b>5.6</b> Geleitete vs. ungeleitete Modelle</a></li>
-<li class="chapter" data-level="5.7" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#parametrische-vs.nichtparametrische-modelle"><i class="fa fa-check"></i><b>5.7</b> Parametrische vs. nichtparametrische Modelle</a></li>
-<li class="chapter" data-level="5.8" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#fehler--vs.varianzreduktion"><i class="fa fa-check"></i><b>5.8</b> Fehler- vs. Varianzreduktion</a></li>
-<li class="chapter" data-level="5.9" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modellgute"><i class="fa fa-check"></i><b>5.9</b> Modellgüte</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
 <li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
@@ -274,6 +269,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Abbildung 3.1: Daten aufbereiten
 </p>
 </div>
+<p>In diesem Kapitel benötigte Pakete:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo</span>
 <span class="kw">library</span>(corrr)  <span class="co"># Korrelationen berechnen mit der Pfeife</span>
 <span class="kw">library</span>(stringr)   <span class="co"># Texte bearbeiten</span>
@@ -1069,6 +1065,22 @@ wo_men %&gt;%<span class="st"> </span>
 <span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
 <p><img src="04_Datenjudo_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.</p>
+</div>
+<div id="mittelwerte-pro-zeile-berechnen" class="section level3">
+<h3><span class="header-section-number">3.4.10</span> Mittelwerte pro Zeile berechnen</h3>
+<p>Um Umfragedaten auszuwerten, will man häufig einen Mittelwert <em>pro Zeile</em> berechnen. Normalerweise fasst man eine <em>Spalte</em> zu einer Zahl zusammen; aber jetzt, fassen wir eine <em>Zeile</em> zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversions-Wert pro Person (d.h. pro Zeile) berechnen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extra &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/extra.csv&quot;</span>)
+
+extra_items &lt;-<span class="st"> </span>extra %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(i01:i10)
+
+extra$extra_mw &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(extra_items)</code></pre></div>
+<p>Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen “schmäleren” Datensatz, <code>extra_items</code>. Im Anschluss berechnen wir mit <code>rowMeans</code> die Mittelwerte pro Zeile (engl. “row”).</p>
+</div>
+<div id="u" class="section level3">
+<h3><span class="header-section-number">3.4.11</span> U</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extra %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(n_faceb)</code></pre></div>
 </div>
 </div>
 <div id="verweise-1" class="section level2">
