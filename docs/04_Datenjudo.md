@@ -1,6 +1,7 @@
 
 
 
+
 # Daten aufbereiten
 
 
@@ -8,6 +9,18 @@
 <img src="images/Aufbereiten.pdf" alt="Daten aufbereiten" width="70%" />
 <p class="caption">(\#fig:unnamed-chunk-2)Daten aufbereiten</p>
 </div>
+
+
+
+```r
+library(tidyverse)  # Datenjudo
+library(corrr)  # Korrelationen berechnen mit der Pfeife
+library(stringr)   # Texte bearbeiten
+library(car)  # für 'recode'
+library(nycflights13)  # Datensatz 'flights'
+library(knitr)  # für HTML-Tabellen
+library(gridExtra)  # für Mehrfachplots
+```
 
 
 Unter Daten aufbereiten im engeren Sinne ist gemeint, die Daten einer "Grundreinigung" zu unterziehen, dass sie für weitere Analysen in geeigneter Form sind. Daten zusammenfassen meint die deskriptive Statistik; Daten visualisieren ist das Erstellen von Diagrammen. Im Anschluss kann man die Daten modellieren.
@@ -35,14 +48,8 @@ Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr` ist ein populä
 
 Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich ausschließlich um *D*ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück[^3].
 
-[^3]: zumindest bei den meisten Befehlen.
 
 Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Schauen wir uns diese Bausteine näher an.
-
-
-```r
-library(tidyverse)  # muss installiert sein
-```
 
 
 ### Zeilen filtern mit `filter`
@@ -97,7 +104,7 @@ Besonders Textdaten laden zu einigen Extra-Überlegungen ein; sagen wir, wir wol
 
 
 ```r
-library(stringr)  # muss installiert sein
+
 filter(profiles, str_detect(pets, "cats"))
 ```
 
@@ -152,7 +159,6 @@ select(stats_test, 5:6) Spalten 5 bis 6 auswählen
 
 Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu [^4].
 
-[^4]: <https://www.rstudio.com/resources/cheatsheets/>
 
 
 ### Zeilen sortieren mit `arrange`
@@ -207,7 +213,6 @@ sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen
 
 Der Befehl `head` zeigt dier ersten paar Zeilen eines Dataframes [^5].
 
-[^5]: In der Regel 10 Zeilen, wobei ich irgendwo versteckt gesagt habe, es sollen nur 6 Zeilen am Bildschirm gedruckt werden.
 
 Merke:
 
@@ -431,7 +436,6 @@ Merke:
 ### Die Pfeife
 Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `[^6]. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.
 
-[^6]: Eine Art Smiley für Nerds.
 
 <div class="figure" style="text-align: center">
 <img src="images/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
@@ -462,15 +466,18 @@ stats_test %>%
 #> 4       NA  33.1
 ```
 
-Es ist hilfreich, diese "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen:
+Es ist hilfreich, diese "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen.
 
-```
-Nimm die Tabelle "stats_test" UND DANN  
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nimm die Tabelle "stats_test" UND DANN  
 filtere alle nicht-fehlenden Werte UND DANN  
 gruppiere die verbleibenden Werte nach "interest" UND DANN  
 bilde den Mittelwert (pro Gruppe) für "score" UND DANN  
 liefere nur die Werte größer als 30 zurück.  
-```
+</div>\EndKnitrBlock{rmdpseudocode}
+
+
 
 Die Pfeife zerlegt die "russische Puppe", also ineinander verschachelteten Code, in sequenzielle Schritte und zwar in der richtigen Reihenfolge (entsprechend der Abarbeitung). Wir müssen den Code nicht mehr von innen nach außen lesen (wie das bei einer mathematischen Formel der Fall ist), sondern können wie bei einem Kochrezept "erstens ..., zweitens .., drittens ..." lesen. Die Pfeife macht die Syntax einfacher. Natürlich hätten wir die verschachtelte Syntax in viele einzelne Befehle zerlegen können und jeweils eine Zwischenergebnis speichern mit dem Zuweisungspfeil `<-` und das Zwischenergebnis dann explizit an den nächsten Befehl weitergeben. Eigentlich macht die Pfeife genau das - nur mit weniger Tipparbeit. Und auch einfacher zu lesen. Flow!
 
@@ -483,7 +490,6 @@ Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen 
 
 
 ```r
-library(car)
 
 stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = TRUE)
 stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = FALSE)
@@ -542,7 +548,6 @@ stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; el
 
 Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`[^7]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
 
-[^7]: https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/. 
 
 
 ## Fallstudie `nycflights13`
@@ -551,8 +556,6 @@ Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` an. Wir v
 
 
 ```r
-#install.packages("nyclights13")
-library(nycflights13)
 data(flights)
 glimpse(flights)
 #> Observations: 336,776
@@ -634,9 +637,6 @@ Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dateframe autom
 
 
 ```r
-library(knitr)  # muss installiert sein
-
-
 flights %>% 
   arrange(-arr_delay) %>% 
   select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
@@ -739,9 +739,9 @@ Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
 
 
 ## Checkliste zum Datenjudo
-Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen.
+Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen[^10].
 
-*Auf fehlende Werte prüfen*.  
+### Auf fehlende Werte prüfen* 
 Das geht recht einfach mit `summarise(meine_daten)`. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.
 
 
@@ -758,7 +758,7 @@ summary(wo_men)
 #>  (Other)            :90              NA's   :1     NA's   :1
 ```
 
-*Fehlende Werte ggf. ersetzen*.  
+### Fälle mit fehlenden Werte löschen
 Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
 
 
@@ -775,16 +775,137 @@ Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
 
 ```r
 wo_men %>% 
-  rownames_to_column %>% 
-  filter(!complete.cases(.))
+  rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
+  filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
 #>   rowname                time  sex height shoe_size
 #> 1      86 11.10.2016 12:44:06 <NA>     NA        NA
 ```
 
+Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten.
 
-
-
+### Fehlende Werte ggf. ersetzen  
 Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^9]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
+
+
+```r
+wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height, na.rm = TRUE))
+  
+```
+
+`replace` ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt[^10].
+
+### Nach Fehlern suchen
+Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prüfen; so könnte man sich ein Histogramm ausgeben lassen pro Variable, um "ungewöhnliche" Werte gut zu erkennen. Meist geht das besser als durch das reine Betrachten von Zahlen. Gibt es wenig unterschiedliche Werte, so kann man sich auch die unterschiedlichen Werte ausgeben lassen.
+
+
+```r
+wo_men %>% 
+  count(shoe_size) %>% 
+  head  # nur die ersten paar Zeilen
+#> # A tibble: 6 × 2
+#>   shoe_size     n
+#>       <dbl> <int>
+#> 1      35.0     1
+#> 2      36.0     6
+#> 3      36.5     1
+#> 4      37.0    14
+#> 5      38.0    26
+#> 6      39.0    18
+```
+
+
+### Ausreiser identifizieren
+Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
+
+### Hochkorrelierte Variablen finden
+Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
+
+
+```r
+wo_men %>% 
+  select(height, shoe_size) %>% 
+  correlate() -> km   # Korrelationsmatrix berechnen
+km  
+#> # A tibble: 2 × 3
+#>     rowname height shoe_size
+#>       <chr>  <dbl>     <dbl>
+#> 1    height     NA     0.553
+#> 2 shoe_size  0.553        NA
+
+km %>% 
+  shave() %>% # Oberes Dreieck ist redundant, wird "abrasiert"
+  rplot()  # Korrelationsplot
+```
+
+<img src="04_Datenjudo_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+Die Funktion `correlate` stammt aus dem Paket `corrr`[^11], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
+
+
+### z-Standardisieren
+Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur vereinheitlichen. Die z-Standardisierung ist ein übliches Vorgehen. Dabei wird der Mittelwert auf 0 transformiert und die SD auf 1; man spricht - im Falle von (hinreichend) normalverteilten Variablen - jetzt von der *Standardnormalverteilung*\index{Standardnormalverteilung}. Unterscheiden sich zwei Objekte A und B in einer standardnormalverteilten Variablen, so sagt dies nur etwas zur relativen Position von A zu B innerhalb ihrer Verteilung aus - im Gegensatz zu den Rohwerten.
+
+
+```r
+wo_men %>% 
+  select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
+  scale() %>%  # z-standardisieren
+  head()  # nur die ersten paar Zeilen abdrucken
+#>      height shoe_size
+#> [1,] -0.132    0.0405
+#> [2,]  0.146   -0.1395
+#> [3,]  0.221   -0.1395
+#> [4,]  0.272    0.0405
+#> [5,]  0.751    1.1204
+#> [6,] -0.208   -0.4994
+```
+
+Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
+
+
+```r
+wo_men %>% 
+  mutate_if(is.numeric, funs("z" = scale)) %>% 
+  head
+#>                  time   sex height shoe_size height_z shoe_size_z
+#> 1 04.10.2016 17:58:51 woman    160        40   -0.132      0.0405
+#> 2 04.10.2016 17:58:59 woman    171        39    0.146     -0.1395
+#> 3 04.10.2016 18:00:15 woman    174        39    0.221     -0.1395
+#> 4 04.10.2016 18:01:17 woman    176        40    0.272      0.0405
+#> 5 04.10.2016 18:01:22   man    195        46    0.751      1.1204
+#> 6 04.10.2016 18:01:53 woman    157        37   -0.208     -0.4994
+```
+
+Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
+
+
+### Quasi-Konstante finden
+Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable" nicht wirklich. Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser die Variable Geschlecht dann zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen.
+
+
+### Auf Normalverteilung prüfen
+Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig, wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, immer signifikant sein, sofern die Stichrprobe groß genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: Histogramm oder eine Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
+
+
+```r
+wo_men %>% 
+  ggplot() +
+  aes(x = height) +
+  geom_density() -> p1
+
+wo_men %>% 
+  ggplot() +
+  aes(x = shoe_size) +
+  geom_density() -> p2
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+<img src="04_Datenjudo_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+
+Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
+
+
 
 
 
@@ -793,9 +914,30 @@ Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 
- *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].  
+- *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].  
 
-[^8]: <http://bit.ly/2kX9lvC>. 
+
+
+[^2]: Man könnte vorher den Datensatz noch gruppieren, um dann den Mittelwert pro Gruppe zu verweden. Das sollte zu genaueren Ergebnissen führen. Vgl. hier: http://stackoverflow.com/questions/29982141/replacing-missing-values-with-average-groups-in-r-error-out-of-boundaries 
+
+
+[^3]: zumindest bei den meisten Befehlen.
+
+[^4]: <https://www.rstudio.com/resources/cheatsheets/>
+
+[^5]: In der Regel 10 Zeilen, wobei ich irgendwo versteckt gesagt habe, es sollen nur 6 Zeilen am Bildschirm gedruckt werden.
+
+[^6]: Eine Art Smiley für Nerds.
+
+[^7]: https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/. 
+
+[^8]: <http://bit.ly/2kX9lvC>.
+
 [^9]: Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.
+
+
+[^10]: Hier findet sich eine ausführliche Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html 
+
+[^11]: https://github.com/drsimonj/corrr 
 
 

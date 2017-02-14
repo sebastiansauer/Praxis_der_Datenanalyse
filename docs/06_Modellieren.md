@@ -2,12 +2,17 @@
 
 
 
+# Statistisches Modellieren
+
+
+
 ```r
 library(tidyverse)
+require(gridExtra)
 ```
 
 
-# Statistisches Modellieren
+
 
 ## Was ist ein Modell? Was ist Modellieren? {#Modellieren}
 
@@ -17,7 +22,7 @@ Manche Aspekte der Wirklichkeit[^1] sind wirklicher als andere. Interessiert man
 
 <div class="figure" style="text-align: center">
 <img src="images/Modell.pdf" alt="Modellieren" width="70%" />
-<p class="caption">(\#fig:fig-Modell)Modellieren</p>
+<p class="caption">(\#fig:unnamed-chunk-2)Modellieren</p>
 </div>
 
 
@@ -30,12 +35,18 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 <div class="figure" style="text-align: center">
-<img src="06_Modellieren_files/figure-html/modell_bsp-1.png" alt="Ein Beispiel für Modellieren" width="70%" />
-<p class="caption">(\#fig:modell_bsp)Ein Beispiel für Modellieren</p>
+<img src="06_Modellieren_files/figure-html/unnamed-chunk-4-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-4)Ein Beispiel für Modellieren</p>
 </div>
 
 
-Im oberen Teil sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet. Im unteren Teil sehen wir ein (graphisches) Modell dazu. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss hat. Ein etwas aufwändigeres Modell könnte so aussehen.
+Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Gewicht vs. Körpergröße). Im zweiten Plot sehen wir ein (graphisches) Modell dazu. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss hat. Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein linearer Einfluss (eine Gerade) zwischen Größe und Schuhgröße unterstellt. 
+
+>   Bei einem linearen Modell ist der Zuwachs der Ausgabevariablen konstant. Steigt eine Eingabevariable X um k, so steigt die Ausgabevariable ebenfalls um einen b*k, unabhängig vom Wert von X.
+
+
+
+Ein etwas aufwändigeres Modell könnte so aussehen:
 
 <div class="figure" style="text-align: center">
 <img src="images/Modellieren_Bsp2.pdf" alt="Ein etwas aufwändigeres Modell" width="70%" />
@@ -85,15 +96,12 @@ Warum spricht man hier von Parametern? Die Vorhersage der Schuhgröße kann anha
 
 Ein Beispiel für ein nicht-parametrisches Modell ist:
 
->    Wenn Körpergewicht 50.00-50.01 dann Schuhgröße 36.01
-     Wenn Körpergewicht 50.02-50.03 dann Schuhgröße 36.02
-     Wenn Körpergewicht 50.04-50.05 dann Schuhgröße 36.03
+>    Wenn Körpergewicht 50.00-50.01 dann Schuhgröße 36.01  
+     Wenn Körpergewicht 50.02-50.03 dann Schuhgröße 36.02  
+     Wenn Körpergewicht 50.04-50.05 dann Schuhgröße 36.03  
      Wenn ...
 
 Dieses Modell ist in gewisser Weise auch recht einfach aufgebaut (wenig Hirnschmalz ist zum Verstehen nötig), aber andererseits recht komplex, da viel Platz nötig ist, dass Modell komplett aufzuschreiben. Außerdem: das Modell müsste jede seiner Zeilen mal anhand von Daten ausprobiert haben, um zu der jeweiligen Vorhersage zu kommen. Dafür sind viele Daten nötig.
-
-
-
 
 
 
@@ -111,9 +119,48 @@ Tja, mit dieser Frage lässt sich ein Gutteil des Kopfzerbrechens in diesem Meti
 
 
 
+### Einfache vs. komplexe Modelle
+Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbereich. Eine grobe, holzschnittsartige Theorie ist doch schlechter als eine, die feine Nuancen berücksichtigt, oder nicht? Einiges spricht dafür; aber auch einiges dagegen. Schauen wir uns ein Problem mit komplexen Modellen an.
 
 
 
+<div class="figure" style="text-align: center">
+<img src="06_Modellieren_files/figure-html/unnamed-chunk-5-1.png" alt="Welches Modell passt am besten zu diesen Daten?" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-5)Welches Modell passt am besten zu diesen Daten?</p>
+</div>
+
+Der 1. Plot (links) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell, welches die Punkte gut beschreibt, aber nicht exakt trifft.
+
+Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue" Modell beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen.
+
+Was das "blaue Modell" zu detailverliebt ist, ist das "rote Modell" zu simpel. Die Gerade beschreibt die Y-Werte nur sehr schlecht. Man hätte gleich den Mittelwert von Y als Schätzwert für jedes einzelne $Y_i$ hernehmen können. Dieses lineare Modell ist *unterangepasst*\index{Unteranpassung}, könnte man sagen (engl. *underfittting*\index{underfitting}). Auch dieses Modell wird uns wenig helfen können, wenn es darum geht, zukünftige Y-Werte vorherzusagen (gegeben jeweils einen bestimmten X-Wert).
+
+Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegung" zu erfassen. Nicht die Details, die kleinen Abweichungen, aber die "große Linie" scheint gut getroffen. Dieses Modell erscheint geeignet, zukünftige Werte gut zu beschreiben. Das grüne Modell ist damit ein Kompromiss aus Einfachheit und Komplexität und würde besonders passen, wenn es darum gehen sollte, zyklische Veränderungen zu erklären[^3].
+
+
+### Training- vs. Test-Stichprobe
+Wie wir gerade gesehen haben, kann man *immer* ein Modell finden, welches die *vorhandenen* Daten sehr gut beschreibt. Das gleicht der Tatsache, dass man im Nachhinein (also bei vorhandenen Daten) leicht eine Erklärung findet. Ob diese Erklärung sich in der Zukunft, bei unbekannten Daten bewahrheitet, steht auf einem ganz anderen Blatt. 
+
+Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainieren" oder "üben2) und an einer zweiten Stichprobe *testen*. Die erste Stichrpobe nennt man auch *training sample* (Training-Stichprobe) und die zweite *test sample* (Test-Stichprobe). Entscheidend ist, dass das Test-Sample beim Entwickeln des Modells unbekannt war.
+
+>    Die Güte des Modells sollte nur anhand eines - bislang nicht verwendeten - Test-Samples überprüft werden. Das Test-Sample darf bis zur Modellüberprüfung nicht analysiert werden.
+
+
+Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample.
+
+
+```r
+set.seed(42)
+train <- wo_men %>% 
+  sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
+
+test <- wo_men %>% 
+  anti_join(train)  # Alle Zeilen von "wo_men", die nicht in "train" vorkommen
+```
+
+Damit haben wir ein Trainings-Sample (`train`), in dem wir ein oder besser mehrere Modelle entwickeln können. Zur Beurteilung "wie gut" ein Modell ist, nehmen wir dann das Test-Sample (`test`). Dieses Vorgehen nennt man auch *Kreuz-Validierung*\index{Kreuz-Validierung} (engl. *cross validation*\index{cross validation}).
+
+So schön wie dieses Vorgehen auch ist, es ist nicht perfekt. Ein Nachteil ist, dass unsere Modellgüte wohl *anders* wäre, hätten wir andere Fälle im Test-Sample erwischt. Würden wir also ein neues Trainings-Sample und ein neues Test-Sample aus diesen Datensatz ziehen, so hätten wir wohl andere Ergebnisse. Was wenn diese Ergebnisse nun deutlich von den ersten abweichen? Dann würde unser Vertrauen in die die Modellgüte sinken. Wir bräuchten also noch ein Verfahren, welches *Variabilität* in der Modellgüte widerspiegelt.
 
 
 
@@ -131,7 +178,7 @@ Tja, mit dieser Frage lässt sich ein Gutteil des Kopfzerbrechens in diesem Meti
 
 <div class="figure" style="text-align: center">
 <img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="10%" />
-<p class="caption">(\#fig:unnamed-chunk-3)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
+<p class="caption">(\#fig:unnamed-chunk-7)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
 </div>
 
 
@@ -141,7 +188,7 @@ Der p-Wert ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern de
 
 <div class="figure" style="text-align: center">
 <img src="./images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-4)Der p-Wert wird oft als wichtig erachtet</p>
+<p class="caption">(\#fig:unnamed-chunk-8)Der p-Wert wird oft als wichtig erachtet</p>
 </div>
 
 
@@ -192,3 +239,5 @@ Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) u
 
 [^1]: Unter "Wirklichkeit" sei hier ein beliebiges empirisches System vorhanden, mit einer Menge von Objekten *O* und einer Menge von Beziehungen (Relationen) *R* zwischen den Objekten.
 [^2]: Der Übergang ist fließend.
+
+[^3]: Tatsächlich wurden die Y-Werte als Sinus-Funktion plus etwas normalverteiltes Rauschen simuliert.

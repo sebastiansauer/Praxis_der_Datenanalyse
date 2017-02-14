@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer"
-date: "2017-02-13"
+date: "2017-02-14"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [Statistik_21.bib, book.bib]
@@ -56,56 +56,6 @@ R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral 
 *Übungsaufgaben*: Das Skript beinhaltet pro Kapitel Übungsaufgaben oder/und Testfragen. Auf diese wird so ![](images/exercises.png){ width=5% } verwiesen.
 
 Ansonsten: Wenn Ihnen R diesen Smiley präsentiert, dann sind Sie am Ziel Ihrer Träume: ![](images/love.png){ width=5% }. 
-
-
-
-
-\BeginKnitrBlock{rmdlove}<div class="rmdlove">
-rmdlove
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-</div>\EndKnitrBlock{rmdlove}
-
-
-
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
-rmdcaution
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-</div>\EndKnitrBlock{rmdcaution}
-
-
-
-
-\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">
-rmdpseudocode
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-</div>\EndKnitrBlock{rmdpseudocode}
-
-
-
-
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-</div>\EndKnitrBlock{rmdnote}
-
 
 
 

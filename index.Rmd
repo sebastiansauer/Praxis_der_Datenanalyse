@@ -43,64 +43,6 @@ Ansonsten: Wenn Ihnen R diesen Smiley präsentiert, dann sind Sie am Ziel Ihrer 
 
 
 
-```{block2, fliesen-plot, type='rmdlove', echo = TRUE}
-
-rmdlove
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-
-```
-
-
-
-```{block2, fliesen-plot2, type='rmdcaution', echo = TRUE}
-
-rmdcaution
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-
-```
-
-
-
-
-```{block2, fliesen-plot3, type='rmdpseudocode', echo = TRUE}
-
-rmdpseudocode
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-
-```
-
-
-
-
-```{block2, fliesen-plo4t, type='rmdnote', echo = TRUE}
-Nehme den Datensatz "profiles" UND DANN  
-Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-Erstelle ein ggplot-Plot UND DANN  
-Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-Male Fliesen UND DANN  
-Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-
-```
-
-
-
-
-
 
 Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).
 

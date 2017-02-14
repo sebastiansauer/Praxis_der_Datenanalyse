@@ -278,22 +278,15 @@ Was haben wir gemacht? Also:
 
 
 
-\BeginKnitrBlock{rmdlove}<div class="rmdlove">Nehme den Datensatz "profiles" UND DANN  
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz "profiles" UND DANN  
 Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
 Erstelle ein ggplot-Plot UND DANN  
 Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
 Male Fliesen UND DANN  
 Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-</div>\EndKnitrBlock{rmdlove}
+</div>\EndKnitrBlock{rmdpseudocode}
 
 
->    Nehme den Datensatz "profiles" UND DANN  
-     Zähle die Kombinationen von "drinks" und "body_type" UND DANN  
-     Erstelle ein ggplot-Plot UND DANN  
-     Weise der X-Achse "drinks" zu, der Y-Achse "body_type" und der Füllfarbe "n" UND DANN  
-     Male Fliesen UND DANN  
-     Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
-     
      
 Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häfigsten ist, unabhängig von der Körperformm. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
 
