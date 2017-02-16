@@ -11,6 +11,7 @@ rmd_files: [
 "06_Modellieren.Rmd",
 "07_geleitetes_Modellieren.Rmd",
 "08_ungeleitetes_Modellieren.Rmd",
+"08a_Assoziationsanalyse.Rmd",
 "09_Textmining.Rmd",
 "10_Kommunizieren.Rmd",
 "11_Rahmen_2.Rmd"]

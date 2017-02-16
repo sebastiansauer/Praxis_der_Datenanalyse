@@ -1,10 +1,10 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer"
-date: "2017-02-14"
+date: "2017-02-16"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [Statistik_21.bib, book.bib]
+bibliography: [Praxis_der_Datenanalyse.bib]
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes

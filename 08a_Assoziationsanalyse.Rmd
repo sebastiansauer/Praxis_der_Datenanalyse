@@ -1,0 +1,134 @@
+
+
+## Assoziationsanalyse
+
+
+### Einführung
+
+Im Rahmen einer Assoziationsanalyse werden Zusammenhänge (Assoziationen) zwischen Ereignissen innerhalb von Datensätzen untersucht, z. B. im Rahmen einer Warenkorbanalyse. Dabei wird eine Menge (*Set*) von *Items* (z. B. gekauften Produkten, $I=\{i_1, i_2, \ldots i_m \}$) innerhalb der *Transaktionen* ($D=\{t_1, t_2 ,\ldots ,t_n\}$) betrachtet. Eine *Regel* ($A \rightarrow B$) ist dann ein Zusammenhang zwischen den *Item Sets*. $A$ und $B$ sind dabei disjunkte, ggfs. leere oder einelementige Teilmengen von Items ($A, B \subseteq I; A\cap B=\emptyset$).
+
+**Achtung:** Eine *Regel* impliziert keinen Kausalzusammenhang!
+
+  Die computationale Herausforderung einer Assoziationsanalyse besteht darin, bei vielen *Items* (und damit sehr, sehr vielen Kombinationsmöglichkeiten) innerhalb von vielen *Transaktionen* diejenigen *Sets* zu finden, die häufig vorkommen.
+
+Eine wichtige Anwendung im (e)CRM ist z. B. die Analyse des *Cross Buying* Verhaltens.
+
+Assoziationsregeln sind eine explorative Analysemethode, die keine (statistische) Inferenz oder Kausalität aussagt. D. h. evt. Schlüsse aus der Analysen sollten vorsichtig schrittweise getestet und verglichen werden.
+
+### Kennzahlen einer Assoziationsanalyse
+
+- *Support($A$)*$=\frac{|\{t\in D; A \subseteq t\}|}{|D|}$: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen eine Menge von Items ($A$) vorkommt, bezogen auf alle Transaktionen (vgl. Wahrscheinlichkeit, $P(A)$)
+- *Support($A\rightarrow B$)*=Support($A\cup B$)$=\frac{|\{t\in D; (A\cup B) \subseteq t\}|}{|D|}$: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen die Vereinigung einer Menge von Items $A$ und $B$ vorkommt, bezogen auf alle Transaktionen (vgl. gemeinsame Wahrscheinlichkeit, $P(A \cap B)$)
+- *Confidence*($A \rightarrow B$)$=\frac{support(A \cup B)}{support(A)}$: Relative Häufigkeit von $B$ (rechte Seite), bezogen auf alle Transaktionen mit $A$ (linke Seite; vgl. bedingte Wahrscheinlichkeit, $P(B|A)$)
+- *Lift*($A \rightarrow B$)$=\frac{support(A \cup B)}{support(A) \cdot support(B)}$: Steigerung des Supports von $A$ und $B$ im Vergleich zur unter Unabhängigkeit von $A$ und $B$ erwarteten Häufigkeit (vgl. $\frac{P(A\cap B)}{P(A) \cdot P(B)}=\frac{P(B|A)}{P(B)}$)
+
+Hinweis: Support und Lift sind symmetrisch, Confidence nicht. Als Schätzwerte für Wahrscheinlichkeiten etc. können die genannten Kennzahlen ggfs. ungeeignet sein (insbesondere für seltene Items).
+
+### Beispiel
+
+- Support(Chips)$=0.05$, d. h. 5% der Transaktionen enthalten Chips
+- Support(Bier)$=0.01$, d. h. 1% der Transaktionen enthalten Bier
+- Support(Bier und Chips)$=0.002$, d. h. 0,2% der Transaktionen enthalten Bier und Chips, dann:
+  - Confidence(Bier$\rightarrow$Chips)$=\frac{0.002}{0.01}=0.2$, d. h. 20% aller Transaktionen mit Bier enthalten auch Chips
+- Lift(Bier$\rightarrow$Chips)$=\frac{0.002}{0.01\cdot 0.05}=\frac{0.2}{0.05}=4$, d. h. die Chance, dass eine Transaktion Chips enthält ist 4x größer als zu erwarten wäre, wenn es keinen Zusammenhang zwischen Bier und Chips gäbe
+
+
+### Assoziationsanalyse mit R
+
+Für eine Assoziationsanalyse kann in R das Zusatzpaket `arules` [https://cran.r-project.org/package=arules](https://cran.r-project.org/package=arules) verwendet werden.
+
+Die (einmalige) Installation erfolgt über:
+  ```{r, eval=FALSE}
+install.packages(c("arules", "arulesViz"))
+```
+
+Geladen wird das Paket dann über
+```{r}
+library(arules)
+```
+
+```{r, echo = FALSE}
+library(methods)
+```
+
+
+Eine Einführung erhält man über die Paket Vignette
+```{r, eval=FALSE}
+vignette("arules")
+```
+
+
+#### Beispieldaten
+
+Im Paket `arules` sind Point-Of-Sale Daten eines Lebensmittelgeschäftes von einem Monat enthalten.^[Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006) *Implications of probabilistic data modeling for mining association rules*. In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.] Die Lebensmittel wurden zu 169 Kategorien zusammengefasst, und es gibt 9835 Transaktionen:
+  ```{r}
+data(Groceries, package = "arules") # Daten laden
+summary(Groceries)
+
+```
+
+*Hinweis:* Um einen Datensatz als Transaktionsdatensatz zu definieren wird der Befehl
+```{r, eval=FALSE}
+daten.trans <- as(daten, "transactions")
+```
+verwendet. Siehe auch Hilfeseite zu `transactions-class`.
+
+Über `inspect()` können Transaktionen und Regeln betrachtet werden:
+  ```{r inspect_groceries}
+inspect(head(Groceries))
+```
+
+
+#### Regeln finden
+
+Es existieren verschiedene Algorithmen um Assoziationsregeln zu finden. Hier wird der *Apriori* Algorithmus verwendet, wobei verschiedene Parameter (wie z. B. minimalen Support und Confidence) eingestellt werden können:
+  ```{r}
+lebensmittel.regeln <- apriori(Groceries, parameter=list(supp=0.02, conf=0.1,
+                                                         target="rules"))
+```
+
+```{r}
+inspect(subset(lebensmittel.regeln, lift>2.5))
+```
+
+
+Das Ergebnis zeigt, dass in ca. 2% der Transaktionen Kern- ("pip", z. B. Äpfel, Birnen) und Südfrüchte ("tropical", z. B. Zitronen) enthalten waren (*support*). 27% der Transaktionen mit Kernfrüchten (*lhs*) enthielten auch Südfrüchte (*rhs*, *confidence*).  Wenn also eine Transaktion eine Kernfrucht enthält ist ist es 2,57x häufiger, dass die Transaktion auch Südfrüchte enthält unter unabhängigen Häufigkeiten (*lift*).
+
+Um die "Top" Regeln zu betrachten müssen die Regeln nach dem gewünschten Kriterium sortiert werden:
+  ```{r}
+topregeln <- head(sort(lebensmittel.regeln, by="confidence"), 20)
+inspect(topregeln)
+```
+
+
+
+### Visualisierung
+
+Eine mögliche Visualisierung ist ein Streudiagramm von Support und Confidence
+```{r, message=FALSE}
+library(arulesViz)
+plot(lebensmittel.regeln)
+```
+
+Mit Hilfe der Option `interactive=TRUE` kann in Bereiche gezoomt werden -- und Regeln ausgewählt:
+  ```{r, eval=FALSE}
+plot(lebensmittel.regeln, interactive=TRUE)
+```
+
+Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:
+  ```{r}
+plot(topregeln, method="graph")
+```
+
+
+#### Literatur
+
+- [Chris Chapman und Elea McDonnell Feit (2015), *R for Marketing Research and Analytics*, Springer](http://r-marketing.r-forge.r-project.org)
+- [Michael Hahsler (2015), A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, URL: http://michael.hahsler.net/research/association_rules/measures.html](http://michael.hahsler.net/research/association_rules/measures.html)
+- [Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, und Christian Buchta (2011), *The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets*.  Journal of Machine Learning Research, 12:1977--1981](http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html)
+- [Michael Hahsler, Bettina Gruen und Kurt Hornik (2005), *arules - A Computational Environment for Mining Association Rules and Frequent Item Sets*.  Journal of Statistical Software 14/15.](http://dx.doi.org/10.18637/jss.v014.i15)
+- Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006), *Implications of probabilistic data modeling for mining association rules.* In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.
+
+
+#### Versionshinweise:
+Die Darstellung orientiert sich an den Folienunterlagen von Chapman & Feit zum Buch *R for Marketing Research and Analytics*, Springer, 2015, siehe [http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html](http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html)

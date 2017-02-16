@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-14">
+<meta name="date" content="2017-02-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,15 +107,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
 <li class="chapter" data-level="1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html"><i class="fa fa-check"></i><b>1</b> Rahmen - Teil 1</a><ul>
 <li class="chapter" data-level="1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#software"><i class="fa fa-check"></i><b>1.1</b> Software</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-and-friends-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R and Friends installieren</a></li>
+<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R und RStudio installieren</a></li>
 <li class="chapter" data-level="1.1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>1.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
 <li class="chapter" data-level="1.1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>1.1.3</b> Die Denk- und Gefühlswelt von R</a></li>
-<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren---beispiel-dplyr"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren - Beispiel <code>dplyr</code></a></li>
+<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren</a></li>
 <li class="chapter" data-level="1.1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>1.1.5</b> R-Pakete für dieses Buch</a></li>
 <li class="chapter" data-level="1.1.6" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#datensatze"><i class="fa fa-check"></i><b>1.1.6</b> Datensätze</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#bildnachweise"><i class="fa fa-check"></i><b>1.2</b> Bildnachweise</a></li>
-<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#errrstkontakt"><i class="fa fa-check"></i><b>1.3</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>1.3.1</b> R als Taschenrechner</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.4</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#versionshinweise"><i class="fa fa-check"></i><b>1.5</b> Versionshinweise</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a><ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>2.1</b> Daten in R importieren</a></li>
@@ -185,42 +189,95 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
-<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
-<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
+<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#einfache-lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Einfache lineare Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#uberprufung-der-annahmen"><i class="fa fa-check"></i><b>6.1.1</b> Überprüfung der Annahmen</a></li>
+<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regression-mit-kategorialen-werten"><i class="fa fa-check"></i><b>6.1.2</b> Regression mit kategorialen Werten</a></li>
+<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-regression"><i class="fa fa-check"></i><b>6.1.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.1.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.4</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="6.1.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen"><i class="fa fa-check"></i><b>6.1.5</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.1.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>6.1.6</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="6.1.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur"><i class="fa fa-check"></i><b>6.1.7</b> Literatur</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a></li>
-<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.3</b> Penalisierende Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.4</b> Baumbasierte Verfahre</a></li>
-<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.5</b> Ausblick</a></li>
-<li class="chapter" data-level="6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.6</b> Fallstudie: Überleben auf der Titanic</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.6.1</b> Daten und Pakete laden</a></li>
-<li class="chapter" data-level="6.6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.6.2</b> Erster Blick</a></li>
-<li class="chapter" data-level="6.6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.6.3</b> Welche Variablen sind interessant?</a></li>
-<li class="chapter" data-level="6.6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.4</b> Univariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.5</b> Bivariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.6.6</b> Signifikanztest</a></li>
-<li class="chapter" data-level="6.6.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.6.7</b> Effektstärke</a></li>
-<li class="chapter" data-level="6.6.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.6.8</b> Logististische Regression</a></li>
-<li class="chapter" data-level="6.6.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.6.9</b> Effektstärken visualieren</a></li>
-<li class="chapter" data-level="6.6.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.6.10</b> Fazit</a></li>
+<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#vorbereitung"><i class="fa fa-check"></i><b>6.2.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="6.2.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#problemstellung"><i class="fa fa-check"></i><b>6.2.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="6.2.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>6.2.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="6.2.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>6.2.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="6.2.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>6.2.5</b> Interpretation der Koeffizienten</a></li>
+<li class="chapter" data-level="6.2.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#kategoriale-variablen"><i class="fa fa-check"></i><b>6.2.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="6.2.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>6.2.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="6.2.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen-1"><i class="fa fa-check"></i><b>6.2.8</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.2.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>6.2.9</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="6.2.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur-1"><i class="fa fa-check"></i><b>6.2.10</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahren"><i class="fa fa-check"></i><b>6.3</b> Baumbasierte Verfahren</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#konjunturanalyse"><i class="fa fa-check"></i><b>6.3.1</b> Konjunturanalyse</a></li>
+<li class="chapter" data-level="6.3.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regressionsbaume"><i class="fa fa-check"></i><b>6.3.2</b> Regressionsbäume</a></li>
+<li class="chapter" data-level="6.3.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifikationbaume"><i class="fa fa-check"></i><b>6.3.3</b> Klassifikationbäume</a></li>
+<li class="chapter" data-level="6.3.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#parameter-rpart"><i class="fa fa-check"></i><b>6.3.4</b> Parameter <code>rpart</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.5</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.5.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="6.5.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.5.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="6.5.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.5.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="6.5.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.5.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="6.5.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.5.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="6.5.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.5.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="6.5.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.5.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="6.5.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.5.10</b> Fazit</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Ungeleitetes Modellieren</a><ul>
-<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
-<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
-<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
+<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hierarchische-clusteranalyse"><i class="fa fa-check"></i><b>7.1.1</b> Hierarchische Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>7.1.2</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>7.1.3</b> Übung: B3 Datensatz</a></li>
+<li class="chapter" data-level="7.1.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-2"><i class="fa fa-check"></i><b>7.1.4</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#dimensionsreduktion"><i class="fa fa-check"></i><b>7.2</b> Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>7.2.1</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#benotigte-pakete"><i class="fa fa-check"></i><b>7.2.2</b> Benötigte Pakete</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#daten-einlesen-1"><i class="fa fa-check"></i><b>7.2.3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>7.2.4</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>7.2.5</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#aggregation-der-durchschnittlichen-bewertungen-nach-marke"><i class="fa fa-check"></i><b>7.2.6</b> Aggregation der durchschnittlichen Bewertungen nach Marke</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung-der-aggregierten-markenbewertungen"><i class="fa fa-check"></i><b>7.2.7</b> Visualisierung der aggregierten Markenbewertungen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>7.3.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#scree-plot"><i class="fa fa-check"></i><b>7.3.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="7.3.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#elbow-kriterium"><i class="fa fa-check"></i><b>7.3.3</b> Elbow-Kriterium</a></li>
+<li class="chapter" data-level="7.3.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#biplot"><i class="fa fa-check"></i><b>7.3.4</b> Biplot</a></li>
+<li class="chapter" data-level="7.3.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#wahrnehmungsraum"><i class="fa fa-check"></i><b>7.3.5</b> Wahrnehmungsraum</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>7.4</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>7.4.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>7.4.2</b> Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>7.4.3</b> Berechnung der Faktor-Scores</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>7.4.4</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung"><i class="fa fa-check"></i><b>7.4.5</b> Übung</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-3"><i class="fa fa-check"></i><b>7.4.6</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse"><i class="fa fa-check"></i><b>7.5</b> Assoziationsanalyse</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#einfuhrung"><i class="fa fa-check"></i><b>7.5.1</b> Einführung</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#kennzahlen-einer-assoziationsanalyse"><i class="fa fa-check"></i><b>7.5.2</b> Kennzahlen einer Assoziationsanalyse</a></li>
+<li class="chapter" data-level="7.5.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#beispiel"><i class="fa fa-check"></i><b>7.5.3</b> Beispiel</a></li>
+<li class="chapter" data-level="7.5.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse-mit-r"><i class="fa fa-check"></i><b>7.5.4</b> Assoziationsanalyse mit R</a></li>
+<li class="chapter" data-level="7.5.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung"><i class="fa fa-check"></i><b>7.5.5</b> Visualisierung</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>8</b> Textmining</a><ul>
-<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
+<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung-1"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>8.1.1</b> Grundbegriffe</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>8.2</b> Grundlegende Analyse</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>8.2.1</b> Tidy Text Dataframes</a></li>
 <li class="chapter" data-level="8.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>8.2.2</b> Text-Daten einlesen</a></li>
 <li class="chapter" data-level="8.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>8.2.3</b> Worthäufigkeiten auszählen</a></li>
-<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
+<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung-1"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>8.3</b> Sentiment-Analyse</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>8.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
@@ -233,6 +290,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.5" data-path="textmining.html"><a href="textmining.html#vertiefung"><i class="fa fa-check"></i><b>8.5</b> Vertiefung</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>8.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
 </ul></li>
+<li class="chapter" data-level="8.6" data-path="textmining.html"><a href="textmining.html#verweise-3"><i class="fa fa-check"></i><b>8.6</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>9</b> Ergebnisse kommunizieren</a><ul>
 <li class="chapter" data-level="9.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#markdown-und-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Markdown und RMarkdown</a></li>
@@ -270,9 +328,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="software" class="section level2">
 <h2><span class="header-section-number">1.1</span> Software</h2>
 <p>Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. “Entwicklungsumgebung” RStudio einiges an komfortabler Funktionalität bescheren. Eine Reihe von R-Paketen (“Packages”; d.h. Erweiterungen) werden wir auch nutzen. R ist eine recht alte Sprache; viele Neuerungen finden in Paketen Niederschlag, da der “harte Kern” von R lieber nicht so stark geändert wird. Stellen Sie sich vor: Seit 29 Jahren nutzen Sie eine Befehl, der Ihnen einen Mittelwert ausrechnet, sagen wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am “R-Kern” nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.</p>
-<div id="r-and-friends-installieren" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> R and Friends installieren</h3>
+<div id="r-und-rstudio-installieren" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> R und RStudio installieren</h3>
 <p>Setzt natürlich voraus, dass R installiert ist. Sie können R unter <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>; laden Sie die “Desktop-Version” für Ihr Betriebssystem herunter.</p>
+<p>Die Oberfläche von R, die “Console”, sieht so aus:</p>
+<p><img src="images/R-small.jpg" /> <img src="images/R-Mac-small.png" /></p>
+<p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
+<p><img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hilfe-r-tut-nicht-so-wie-ich-das-will" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Hilfe! R tut nicht so wie ich das will</h3>
@@ -327,8 +389,8 @@ will nich so, as ik wol will.</p>
 <p>Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto Problem… Updaten Sie Ihre Packages regelmäßig z.B. mit <code>update.packages()</code> oder dem Button “Update” bei RStudio (Reiter <code>Packages</code>).</p>
 <p>R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine spirituelle Prüfung in Geduld und Hartnäckigkeit… Tolle Gelegenheit, sich in diesen Tugenden zu trainieren :-)</p>
 </div>
-<div id="pakete-installieren---beispiel-dplyr" class="section level3">
-<h3><span class="header-section-number">1.1.4</span> Pakete installieren - Beispiel <code>dplyr</code></h3>
+<div id="pakete-installieren" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Pakete installieren</h3>
 <p>Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt <code>dplyr</code>. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Übrigens, das <code>dependencies = TRUE</code> sagt sinngemäß “Wenn das Funktionieren von dplyr noch von anderen Paketen abhängig ist (es also Abhängigkeiten (dependencies) gibt), dann installiere die gleich mal mit”.</p>
@@ -345,7 +407,7 @@ will nich so, as ik wol will.</p>
 <p>Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben “library(dplyr)” ist “dplyr” hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten <em>eigentlich</em> Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library(“dplyr”) oder library(‘dplyr’); geht beides.</p>
 </div>
 <p></p>
-<p>Das Installieren und Starten anderer Pakete läuft genauso ab.</p>
+<p>Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.</p>
 </div>
 <div id="r-pakete-fur-dieses-buch" class="section level3">
 <h3><span class="header-section-number">1.1.5</span> R-Pakete für dieses Buch</h3>
@@ -358,6 +420,7 @@ will nich so, as ik wol will.</p>
 <span class="co">#&gt; [17] &quot;RColorBrewer&quot; &quot;okcupiddata&quot;  &quot;reshape2&quot;     &quot;wesanderson&quot; </span>
 <span class="co">#&gt; [21] &quot;GGally&quot;       &quot;titanic&quot;      &quot;compute.es&quot;</span></code></pre></div>
 <p>Anstelle alle einzeln zu laden (<code>library</code> verdaut nur ein Paket auf einmal), können wir mit etwas R-Judo alle auf einen Haps laden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(Pakete, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(Pakete, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] TRUE</span>
@@ -428,6 +491,7 @@ will nich so, as ik wol will.</p>
 <span class="co">#&gt; [[23]]</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Der Befehl heißt auf Deutsch: “Wende auf jedes Element von <code>Pakete</code> den Befehl <code>library</code> an”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; das geht mit <code>update.packages()</code>.</p>
 </div>
 <div id="datensatze" class="section level3">
 <h3><span class="header-section-number">1.1.6</span> Datensätze</h3>
@@ -477,6 +541,17 @@ will nich so, as ik wol will.</p>
 </tr>
 </tbody>
 </table>
+<p>Wir verwenden zwei Methoden, um Datensätze in R zu laden.</p>
+<ul>
+<li>Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket <code>okcupiddata</code>. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl <code>data(name_des_datensatzes, packge = &quot;name_des_paketes&quot;)</code>, kann man dann die Daten laden. Das Laden eines Pakets lädt noch <em>nicht</em> die Daten des Paektes; dafür ist der Befehl <code>data</code> zuständig.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(okcupiddata)
+<span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)</code></pre></div>
+<ul>
+<li>Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stic…) liegen.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>)</code></pre></div>
+<p>Wir werden mit beiden Methoden arbeiten und “on the job” Details besprechen.</p>
 </div>
 </div>
 <div id="bildnachweise" class="section level2">
@@ -486,19 +561,88 @@ will nich so, as ik wol will.</p>
 <li><a href="#fig:fig-Modell"><strong>??</strong></a>, Sebastian Unrau, ohne Titel, <a href="https://unsplash.com/photos/CoD2Q92UaEg" class="uri">https://unsplash.com/photos/CoD2Q92UaEg</a>, CC0, 2017-02-12</li>
 </ul>
 </div>
+<div id="errrstkontakt" class="section level2">
+<h2><span class="header-section-number">1.3</span> ERRRstkontakt</h2>
+<p>Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:</p>
+<ul>
+<li>R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. <code>Oma</code> und <code>oma</code> sind zwei verschiedene Dinge für R!</li>
+<li>R verwendet den Punkt <code>.</code> als Dezimaltrennzeichen</li>
+<li>Fehlende Werte werden in R durch <code>NA</code> kodiert</li>
+<li>Kommentare werden mit dem Rautezeichen <code>#</code> eingeleitet; der Rest der Zeile von von R dann ignoriert.</li>
+<li>R wendet Befehle direkt an</li>
+<li>R ist objektorientiert, d. h. dieselbe Funktion hat evtl. je nach Funktionsargument unterschiedliche Rückgabewerte</li>
+<li>Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen <code>?</code></li>
+<li>Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst installiert werden</li>
+<li>Mit der Pfeiltaste nach oben können Sie einen vorherigen Befehl wieder aufrufen</li>
+<li>Sofern Sie das Skriptfenster verwenden: einzelne Befehle aus dem Skriptfenster in R Studio können Sie auch mit <code>Str</code> und <code>Enter</code> an die Console schicken</li>
+</ul>
+<div id="r-als-taschenrechner" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> R als Taschenrechner</h3>
+<p>Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung <code>&gt;</code> ein und beenden Sie die Eingabe mit <code>Return</code> bzw. <code>Enter</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4+2</span>
+<span class="co">#&gt; [1] 6</span></code></pre></div>
+<p>Das Ergebnis wird direkt angezeigt. Bei</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4+2</span></code></pre></div>
+<p>erscheint zunächst kein Ergebnis. Über <code>&lt;-</code> wird der Variable <code>x</code> der Wert <code>4+2</code> zugewiesen. Wenn Sie jetzt</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
+<p>eingeben, wird das Ergebnis</p>
+<pre><code>#&gt; [1] 6</code></pre>
+<p>angezeigt. Sie können jetzt auch mit <code>x</code> weiterrechnen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x/<span class="dv">4</span>
+<span class="co">#&gt; [1] 1.5</span></code></pre></div>
+<p>Vielleicht fragen Sie sich was die <code>[1]</code> vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die <code>[1]</code> zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt.</p>
+</div>
+</div>
 <div id="was-ist-statistik-wozu-ist-sie-gut" class="section level2">
-<h2><span class="header-section-number">1.3</span> Was ist Statistik? Wozu ist sie gut?</h2>
+<h2><span class="header-section-number">1.4</span> Was ist Statistik? Wozu ist sie gut?</h2>
 <p>Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?</p>
 <p>Was ist Stististik? <em>Eine</em> Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle <span class="citation">(<em>The Oxford Dictionary of Statistical Terms</em> <a href="#ref-oxford">2006</a>; Romeijn <a href="#ref-sep-statistics">2016</a>)</span>. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in die zwei Gebiete <em>deskriptive</em> und <em>inferierende</em> Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. “Stichproben-”)Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung und Zufallsvariablen eine große Rolle.</p>
-<p>Auch wenn die gerade genannte Diskussion die häufigste oder eine typische ist, mehren sich doch Stimmen, die Statstik anders akzentuieren. So schreibt Briggs in einem aktuellen Buch <span class="citation">(Briggs <a href="#ref-uncertainty">2016</a>)</span>, dass es in der Statistik darum ginge, die Wahrscheinlichkeit zukünftiger Ereignisse vorherzusagen: “Wie wahrscheinlichi ist es, dass - gegeben einem statistischen Modell, allerlei Annahmen und einem Haufen Daten - Kandidat X der neue Präsident wird”<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>? Das schöne an dieser Idee ist, dass das “Endprodukt” etwas sehr Weltliches und damit praktisches ist: Die Wahrscheinlichkeit einer interessanten (und unbekannten) Aussage. Nebenbei ruht diese Idee auf dem sicheren Fundament der Wahrscheinlichkeitstheorie.</p>
-<p>Abgesehen von philosophischen Überlegungen zum Wesen der Statistik kann man sagen, dass Vorhersagen von Ereignissen etwas sehr praktisches sind. Sie nehmen daher aus praktischen Überlegungen einen zentralen Platz in diesem Buch an. Die philosophische Relevanz des prädiktiven Ansatzes ist gut bei Briggs <span class="citation">(Briggs <a href="#ref-uncertainty">2016</a>; Briggs <a href="#ref-breaking">2008</a>)</span> nachzulesen.</p>
-<p>Traditionell ist die Statistik stark daran interessiert, Parameter von Populationen vorherzusagen. Ein Beispiel dazu wäre die mittlere Größe (Parameter) aller Deutschen (Population). Leider sind Populationen häufig ziemlich abstrakt. Nehmen wir als Beispiel an, ein Dozent der FOM (Prof. S.) wie sich der Lernerfolg ändert, wenn die Stoffmenge pro Stunde verdoppelt. Zu seiner Überraschung ist der Lernerfolg geringer als in einem Kontrollkurs. Auf welche Population ist jetzt die Studie bzw. die Daten seiner Stichprobe zu verallgemeinern? Alle Menschen? Alle Studierenden? Alle deutschen Studierenden? Alle Studierenden der FOM? Alle Studierenden aller Zeiten?</p>
-<ul>
-<li>Statistik meint Methoden, die das Ziel haben, Ereignisse präzise vorherzusagen</li>
-<li>Statistik soll sich um Dinge dieser Welt drehen, nicht um Parameter</li>
-<li>Statt einer Frage “ist µ_1 größer als µ_2?” besser “Wie viel Umsatz erwarte ich von diesem Kunden?”, “Wie viele Saitensprünge hatte er wohl?”, “Wie groß ist die Wahrscheinlichkeit für sie zu überleben?” und dergleichen.</li>
-<li>Der Nutzen von Vorhersagen liegt auf der Hand: Vorhersagen sind praktisch; eine nützliche Angelegenheit (wenn auch schwierig).</li>
-</ul>
+</div>
+<div id="versionshinweise" class="section level2">
+<h2><span class="header-section-number">1.5</span> Versionshinweise</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()
+<span class="co">#&gt; R version 3.3.2 (2016-10-31)</span>
+<span class="co">#&gt; Platform: x86_64-apple-darwin13.4.0 (64-bit)</span>
+<span class="co">#&gt; Running under: macOS Sierra 10.12.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; locale:</span>
+<span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attached base packages:</span>
+<span class="co">#&gt; [1] methods   stats     graphics  grDevices utils     datasets  base     </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; other attached packages:</span>
+<span class="co">#&gt;  [1] compute.es_0.2-4   titanic_0.1.0      GGally_1.3.0      </span>
+<span class="co">#&gt;  [4] wesanderson_0.3.2  reshape2_1.4.2     okcupiddata_0.1.0 </span>
+<span class="co">#&gt;  [7] wordcloud_2.5      RColorBrewer_1.1-2 lsa_0.73.1        </span>
+<span class="co">#&gt; [10] SnowballC_0.5.1    tidytext_0.1.2     tm_0.6-2          </span>
+<span class="co">#&gt; [13] NLP_0.1-9          gridExtra_2.2.1    ggdendro_0.1-20   </span>
+<span class="co">#&gt; [16] downloader_0.4     pdftools_1.0       ISLR_1.0          </span>
+<span class="co">#&gt; [19] nycflights13_0.2.2 car_2.1-4          stringr_1.1.0     </span>
+<span class="co">#&gt; [22] knitr_1.15.1       dplyr_0.5.0        purrr_0.2.2.9000  </span>
+<span class="co">#&gt; [25] readr_1.0.0        tidyr_0.6.1        tibble_1.2        </span>
+<span class="co">#&gt; [28] ggplot2_2.2.1.9000 tidyverse_1.1.1   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; loaded via a namespace (and not attached):</span>
+<span class="co">#&gt;  [1] httr_1.2.1          jsonlite_1.2        splines_3.3.2      </span>
+<span class="co">#&gt;  [4] modelr_0.1.0        assertthat_0.1      yaml_2.1.14        </span>
+<span class="co">#&gt;  [7] slam_0.1-40         backports_1.0.5     lattice_0.20-34    </span>
+<span class="co">#&gt; [10] quantreg_5.29       digest_0.6.12       rvest_0.3.2        </span>
+<span class="co">#&gt; [13] minqa_1.2.4         colorspace_1.3-2    htmltools_0.3.5    </span>
+<span class="co">#&gt; [16] Matrix_1.2-8        plyr_1.8.4          psych_1.6.12       </span>
+<span class="co">#&gt; [19] broom_0.4.1         SparseM_1.74        haven_1.0.0        </span>
+<span class="co">#&gt; [22] bookdown_0.3        scales_0.4.1        lme4_1.1-12        </span>
+<span class="co">#&gt; [25] MatrixModels_0.4-1  mgcv_1.8-16         nnet_7.3-12        </span>
+<span class="co">#&gt; [28] lazyeval_0.2.0.9000 pbkrtest_0.4-6      mnormt_1.5-5       </span>
+<span class="co">#&gt; [31] magrittr_1.5        readxl_0.1.1        evaluate_0.10      </span>
+<span class="co">#&gt; [34] tokenizers_0.1.4    janeaustenr_0.1.4   nlme_3.1-130       </span>
+<span class="co">#&gt; [37] MASS_7.3-45         forcats_0.2.0       xml2_1.1.1         </span>
+<span class="co">#&gt; [40] foreign_0.8-67      tools_3.3.2         hms_0.3            </span>
+<span class="co">#&gt; [43] munsell_0.4.3       grid_3.3.2          nloptr_1.0.4       </span>
+<span class="co">#&gt; [46] rmarkdown_1.3       codetools_0.2-15    gtable_0.2.0       </span>
+<span class="co">#&gt; [49] reshape_0.8.6       DBI_0.5-1           R6_2.2.0           </span>
+<span class="co">#&gt; [52] lubridate_1.6.0     rprojroot_1.2       stringi_1.1.2      </span>
+<span class="co">#&gt; [55] parallel_3.3.2      Rcpp_0.12.9</span></code></pre></div>
 
 </div>
 </div>
@@ -513,12 +657,6 @@ will nich so, as ik wol will.</p>
 <div id="ref-sep-statistics">
 <p>Romeijn, Jan-Willem. 2016. “Philosophy of Statistics.” In <em>The Stanford Encyclopedia of Philosophy</em>, edited by Edward N. Zalta, Winter 2016. <a href="http://plato.stanford.edu/archives/win2016/entries/statistics/" class="uri">http://plato.stanford.edu/archives/win2016/entries/statistics/</a>.</p>
 </div>
-<div id="ref-uncertainty">
-<p>Briggs, William M. 2016. <em>Uncertainty: The Soul of Modeling, Probability &amp; Statistics</em>. Springer. <a href="https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK">https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK</a>.</p>
-</div>
-<div id="ref-breaking">
-<p>Briggs, William M. 2008. <em>Breaking the Law of Averages: Real-Life Probability and Statistics in Plain English</em>. Lulu.com. <a href="https://www.amazon.com/Breaking-Law-Averages-Probability-Statistics/dp/0557019907%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0557019907">https://www.amazon.com/Breaking-Law-Averages-Probability-Statistics/dp/0557019907%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0557019907</a>.</p>
-</div>
 </div>
 <div class="footnotes">
 <hr />
@@ -529,7 +667,6 @@ will nich so, as ik wol will.</p>
 <li id="fn4"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="rahmen-teil-1.html#fnref4">↩</a></p></li>
 <li id="fn5"><p><a href="https://github.com/drsimonj/corrr" class="uri">https://github.com/drsimonj/corrr</a><a href="rahmen-teil-1.html#fnref5">↩</a></p></li>
 <li id="fn6"><p><a href="https://osf.io/meyhp/?action=download" class="uri">https://osf.io/meyhp/?action=download</a><a href="rahmen-teil-1.html#fnref6">↩</a></p></li>
-<li id="fn7"><p><a href="https://de.wikipedia.org/wiki/Anscombe-Quartett" class="uri">https://de.wikipedia.org/wiki/Anscombe-Quartett</a><a href="rahmen-teil-1.html#fnref7">↩</a></p></li>
 </ol>
 </div>
             </section>

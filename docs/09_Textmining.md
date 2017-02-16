@@ -6,11 +6,25 @@
 
 # Textmining
 
+In diesem Kapitel benötigte R-Pakete:
+
+```r
+library(tidyverse)  # Datenjudo
+library(okcupiddata)  # Daten
+library(stringr)  # Textverarbeitung
+library(tidytext)  # Textmining
+library(pdftools)  # PDF einlesen
+library(downloader)  # Daten herunterladen
+library(knitr)  # HTML-Tabellen
+library(lsa)  # Stopwörter 
+library(SnowballC)  # Wörter trunkieren
+library(wordcloud)  # Wordcloud anzeigen
+```
+
 
 
 Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in "unstrukturierter" Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten[^99] weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.
 
-[^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 
 
 In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich *dümmer* als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
 
@@ -35,7 +49,6 @@ Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig 
 
 Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor[^1] besteht aus 4 Elementen.
 
-[^1]: Nach dem Gedicht "Jahrgang 1899" von Erich Kästner
 
 
 ```r
@@ -49,7 +62,6 @@ Als nächstes machen wir daraus einen Dataframe.
 
 
 ```r
-library(tidyverse)
 text_df <- data_frame(Zeile = 1:4,
                       text)
 ```
@@ -65,7 +77,6 @@ text_df <- data_frame(Zeile = 1:4,
 Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
 
 ```r
-library(tidytext)
 
 text_df %>% 
   unnest_tokens(wort, text)
@@ -84,8 +95,6 @@ Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analys
 
 
 ```r
-library(stringr)
-
 text_df %>% 
   unnest_tokens(wort, text) %>% 
   filter(str_detect(wort, "[a-z]"))
@@ -104,13 +113,9 @@ text_df %>%
 
 Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2].
 
-[^2]: https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf
 
 
 ```r
-library(pdftools)
-library(downloader)
-
 afd_url <- "https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf"
 
 afd_pfad <- "data/afd_programm.pdf"
@@ -127,7 +132,7 @@ afd_raw[3]
 Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als `afd_pfad` gespeichert. Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest.
 
 
-Der Vektor `afd_raw` hat 96 Elemente; zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.
+Der Vektor `afd_raw` hat 96 Elemente (entsprechend der Seitenzahl des Dokzements); zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.
 
 
 ```r
@@ -170,7 +175,6 @@ Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... S
 
 
 ```r
-library(lsa)
 data(stopwords_de)
 
 stopwords_de <- data_frame(word = stopwords_de)
@@ -214,8 +218,6 @@ Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wo
 
 
 ```r
-library(SnowballC)
-
 afd_df %>% 
   mutate(token_stem = wordStem(.$token, language = "german")) %>% 
   count(token_stem, sort = TRUE) -> afd_count
@@ -242,7 +244,6 @@ soll            63
 
 Das ist schon informativer. Dem Befehl `wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch[^3]). Das ist schon alles.
 
-[^3]: http://www.omegahat.net/Rstem/stemming.pdf 
 
 ### Visualisierung
 
@@ -252,18 +253,16 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
 ```r
-library(wordcloud)
 wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
 ```
 
-<img src="09_Textmining_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="09_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen[^4].
 
-[^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
  
  
-Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art.
+Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).
 
 
 ```r
@@ -290,13 +289,16 @@ library(gridExtra)
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="09_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="09_Textmining_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
 
 ## Sentiment-Analyse
 Eine weitere interessante Analyse ist, die "Stimmung" oder "Emotionen" (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so: 
+
+
+
 
 >    Schau dir jeden Token aus dem Text an.  
      Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.  
@@ -549,7 +551,7 @@ sentiment_df %>%
   geom_histogram()
 ```
 
-<img src="09_Textmining_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="09_Textmining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
 Es scheint einen (leichten) Überhang an negativen Wörtern zu geben. Schauen wir auf die genauen Zahlen.
 
@@ -671,3 +673,21 @@ neg       Abdämpfung    -0.005  Abdämpfungen
 neg       Abfall        -0.005  Abfalles,Abfälle,Abfalls,Abfällen     
 neg       Abfuhr        -0.337  Abfuhren                              
 
+
+## Verweise
+
+- Das Buch *Tidy Text Minig* [@tidytextminig] ist eine hervorragende Quelle vertieftem Wissens zum Textmining mit R.
+
+
+
+[^1]: Nach dem Gedicht "Jahrgang 1899" von Erich Kästner
+
+[^2]: https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf
+
+[^3]: http://www.omegahat.net/Rstem/stemming.pdf 
+
+[^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
+
+
+
+[^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 

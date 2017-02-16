@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-14">
+<meta name="date" content="2017-02-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,15 +107,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
 <li class="chapter" data-level="1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html"><i class="fa fa-check"></i><b>1</b> Rahmen - Teil 1</a><ul>
 <li class="chapter" data-level="1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#software"><i class="fa fa-check"></i><b>1.1</b> Software</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-and-friends-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R and Friends installieren</a></li>
+<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R und RStudio installieren</a></li>
 <li class="chapter" data-level="1.1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>1.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
 <li class="chapter" data-level="1.1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>1.1.3</b> Die Denk- und Gefühlswelt von R</a></li>
-<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren---beispiel-dplyr"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren - Beispiel <code>dplyr</code></a></li>
+<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren</a></li>
 <li class="chapter" data-level="1.1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>1.1.5</b> R-Pakete für dieses Buch</a></li>
 <li class="chapter" data-level="1.1.6" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#datensatze"><i class="fa fa-check"></i><b>1.1.6</b> Datensätze</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#bildnachweise"><i class="fa fa-check"></i><b>1.2</b> Bildnachweise</a></li>
-<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#errrstkontakt"><i class="fa fa-check"></i><b>1.3</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>1.3.1</b> R als Taschenrechner</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.4</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#versionshinweise"><i class="fa fa-check"></i><b>1.5</b> Versionshinweise</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a><ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>2.1</b> Daten in R importieren</a></li>
@@ -185,42 +189,95 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
-<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
-<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
+<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#einfache-lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Einfache lineare Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#uberprufung-der-annahmen"><i class="fa fa-check"></i><b>6.1.1</b> Überprüfung der Annahmen</a></li>
+<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regression-mit-kategorialen-werten"><i class="fa fa-check"></i><b>6.1.2</b> Regression mit kategorialen Werten</a></li>
+<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-regression"><i class="fa fa-check"></i><b>6.1.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.1.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.4</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="6.1.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen"><i class="fa fa-check"></i><b>6.1.5</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.1.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>6.1.6</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="6.1.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur"><i class="fa fa-check"></i><b>6.1.7</b> Literatur</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a></li>
-<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.3</b> Penalisierende Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.4</b> Baumbasierte Verfahre</a></li>
-<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.5</b> Ausblick</a></li>
-<li class="chapter" data-level="6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.6</b> Fallstudie: Überleben auf der Titanic</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.6.1</b> Daten und Pakete laden</a></li>
-<li class="chapter" data-level="6.6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.6.2</b> Erster Blick</a></li>
-<li class="chapter" data-level="6.6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.6.3</b> Welche Variablen sind interessant?</a></li>
-<li class="chapter" data-level="6.6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.4</b> Univariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.5</b> Bivariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.6.6</b> Signifikanztest</a></li>
-<li class="chapter" data-level="6.6.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.6.7</b> Effektstärke</a></li>
-<li class="chapter" data-level="6.6.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.6.8</b> Logististische Regression</a></li>
-<li class="chapter" data-level="6.6.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.6.9</b> Effektstärken visualieren</a></li>
-<li class="chapter" data-level="6.6.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.6.10</b> Fazit</a></li>
+<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#vorbereitung"><i class="fa fa-check"></i><b>6.2.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="6.2.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#problemstellung"><i class="fa fa-check"></i><b>6.2.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="6.2.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>6.2.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="6.2.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>6.2.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="6.2.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>6.2.5</b> Interpretation der Koeffizienten</a></li>
+<li class="chapter" data-level="6.2.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#kategoriale-variablen"><i class="fa fa-check"></i><b>6.2.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="6.2.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>6.2.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="6.2.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen-1"><i class="fa fa-check"></i><b>6.2.8</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.2.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>6.2.9</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="6.2.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur-1"><i class="fa fa-check"></i><b>6.2.10</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahren"><i class="fa fa-check"></i><b>6.3</b> Baumbasierte Verfahren</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#konjunturanalyse"><i class="fa fa-check"></i><b>6.3.1</b> Konjunturanalyse</a></li>
+<li class="chapter" data-level="6.3.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regressionsbaume"><i class="fa fa-check"></i><b>6.3.2</b> Regressionsbäume</a></li>
+<li class="chapter" data-level="6.3.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifikationbaume"><i class="fa fa-check"></i><b>6.3.3</b> Klassifikationbäume</a></li>
+<li class="chapter" data-level="6.3.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#parameter-rpart"><i class="fa fa-check"></i><b>6.3.4</b> Parameter <code>rpart</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.5</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.5.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="6.5.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.5.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="6.5.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.5.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="6.5.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.5.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="6.5.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.5.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="6.5.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.5.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="6.5.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.5.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="6.5.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.5.10</b> Fazit</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Ungeleitetes Modellieren</a><ul>
-<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
-<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
-<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
+<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hierarchische-clusteranalyse"><i class="fa fa-check"></i><b>7.1.1</b> Hierarchische Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>7.1.2</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>7.1.3</b> Übung: B3 Datensatz</a></li>
+<li class="chapter" data-level="7.1.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-2"><i class="fa fa-check"></i><b>7.1.4</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#dimensionsreduktion"><i class="fa fa-check"></i><b>7.2</b> Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>7.2.1</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#benotigte-pakete"><i class="fa fa-check"></i><b>7.2.2</b> Benötigte Pakete</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#daten-einlesen-1"><i class="fa fa-check"></i><b>7.2.3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>7.2.4</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>7.2.5</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#aggregation-der-durchschnittlichen-bewertungen-nach-marke"><i class="fa fa-check"></i><b>7.2.6</b> Aggregation der durchschnittlichen Bewertungen nach Marke</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung-der-aggregierten-markenbewertungen"><i class="fa fa-check"></i><b>7.2.7</b> Visualisierung der aggregierten Markenbewertungen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>7.3.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#scree-plot"><i class="fa fa-check"></i><b>7.3.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="7.3.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#elbow-kriterium"><i class="fa fa-check"></i><b>7.3.3</b> Elbow-Kriterium</a></li>
+<li class="chapter" data-level="7.3.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#biplot"><i class="fa fa-check"></i><b>7.3.4</b> Biplot</a></li>
+<li class="chapter" data-level="7.3.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#wahrnehmungsraum"><i class="fa fa-check"></i><b>7.3.5</b> Wahrnehmungsraum</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>7.4</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>7.4.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>7.4.2</b> Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>7.4.3</b> Berechnung der Faktor-Scores</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>7.4.4</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung"><i class="fa fa-check"></i><b>7.4.5</b> Übung</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-3"><i class="fa fa-check"></i><b>7.4.6</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse"><i class="fa fa-check"></i><b>7.5</b> Assoziationsanalyse</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#einfuhrung"><i class="fa fa-check"></i><b>7.5.1</b> Einführung</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#kennzahlen-einer-assoziationsanalyse"><i class="fa fa-check"></i><b>7.5.2</b> Kennzahlen einer Assoziationsanalyse</a></li>
+<li class="chapter" data-level="7.5.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#beispiel"><i class="fa fa-check"></i><b>7.5.3</b> Beispiel</a></li>
+<li class="chapter" data-level="7.5.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse-mit-r"><i class="fa fa-check"></i><b>7.5.4</b> Assoziationsanalyse mit R</a></li>
+<li class="chapter" data-level="7.5.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung"><i class="fa fa-check"></i><b>7.5.5</b> Visualisierung</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>8</b> Textmining</a><ul>
-<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
+<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung-1"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>8.1.1</b> Grundbegriffe</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>8.2</b> Grundlegende Analyse</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>8.2.1</b> Tidy Text Dataframes</a></li>
 <li class="chapter" data-level="8.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>8.2.2</b> Text-Daten einlesen</a></li>
 <li class="chapter" data-level="8.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>8.2.3</b> Worthäufigkeiten auszählen</a></li>
-<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
+<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung-1"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>8.3</b> Sentiment-Analyse</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>8.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
@@ -233,6 +290,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.5" data-path="textmining.html"><a href="textmining.html#vertiefung"><i class="fa fa-check"></i><b>8.5</b> Vertiefung</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>8.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
 </ul></li>
+<li class="chapter" data-level="8.6" data-path="textmining.html"><a href="textmining.html#verweise-3"><i class="fa fa-check"></i><b>8.6</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>9</b> Ergebnisse kommunizieren</a><ul>
 <li class="chapter" data-level="9.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#markdown-und-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Markdown und RMarkdown</a></li>
@@ -294,7 +352,7 @@ Abbildung 3.1: Daten aufbereiten
 <div id="daten-aufbereiten-mit-dplyr" class="section level2">
 <h2><span class="header-section-number">3.2</span> Daten aufbereiten mit <code>dplyr</code></h2>
 <p>Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; <code>dplyr</code> ist ein populäres Paket dafür. Eine zentrale Idee von <code>dplyr</code> ist, dass es nur ein paar wenige Grundbausteine geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo “Mrs Right” gibt, die genau das kann, so wie ich das will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind).</p>
-<p>Willkommen in der Welt von <code>dyplr</code>! <code>dplyr</code> hat seinen Namen, weil es sich ausschließlich um <em>D</em>ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>.</p>
+<p>Willkommen in der Welt von <code>dyplr</code>! <code>dplyr</code> hat seinen Namen, weil es sich ausschließlich um <em>D</em>ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>.</p>
 <p>Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Schauen wir uns diese Bausteine näher an.</p>
 <div id="zeilen-filtern-mit-filter" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Zeilen filtern mit <code>filter</code></h3>
@@ -357,7 +415,7 @@ df_nosmoke_nodrinks &lt;-<span class="st"> </span><span class="kw">filter</span>
 <span class="kw">select</span>(stats_test, score, study_time)  <span class="co"># Splaten `score` und `study_time` auswählen</span>
 <span class="kw">select</span>(stats_test, score:study_time) <span class="co"># dito</span>
 <span class="kw">select</span>(stats_test, <span class="dv">5</span>:<span class="dv">6</span>) Spalten <span class="dv">5</span> bis <span class="dv">6</span> auswählen</code></pre></div>
-<p>Tatsächlich ist der Befehl <code>select</code> sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im <code>dplyr</code>-Cheatsheet findet sich ein guter Überblick dazu.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<p>Tatsächlich ist der Befehl <code>select</code> sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im <code>dplyr</code>-Cheatsheet findet sich ein guter Überblick dazu.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
 </div>
 <div id="zeilen-sortieren-mit-arrange" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Zeilen sortieren mit <code>arrange</code></h3>
@@ -394,7 +452,7 @@ df_nosmoke_nodrinks &lt;-<span class="st"> </span><span class="kw">filter</span>
 <p>Gibt man <em>zwei oder mehr</em> Spalten an, so werden pro Wert von <code>Spalte1</code> die Werte von <code>Spalte2</code> sortiert etc; man betrachte den Output des Beispiels oben dazu.</p>
 <p>Aber was heißt dieses komisch Symbol: <code>%&gt;%</code>? Diese sogenannte “Pfeife” lässt sich mit “und dann” ins Deutshce übersetzen. Also:</p>
 <pre><code>sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen</code></pre>
-<p>Der Befehl <code>head</code> zeigt dier ersten paar Zeilen eines Dataframes.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
+<p>Der Befehl <code>head</code> zeigt dier ersten paar Zeilen eines Dataframes.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
 <p>Merke:</p>
 <blockquote>
 <p>Die Funktion arrange sortiert die Zeilen eines Datafames.</p>
@@ -565,7 +623,7 @@ dplyr::<span class="kw">count</span>(stats_test, interest, study_time)
 </div>
 <div id="die-pfeife" class="section level3">
 <h3><span class="header-section-number">3.2.7</span> Die Pfeife</h3>
-<p>Die zweite Idee kann man salopp als “Durchpfeifen” bezeichnen; ikonographisch mit diesem Symbol dargestellt <code>%&gt;%</code><a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. Der Begriff “Durchpfeifen” ist frei vom Englischen “to pipe” übernommen. Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als “Rohstoff” eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen “Flow” an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.</p>
+<p>Die zweite Idee kann man salopp als “Durchpfeifen” bezeichnen; ikonographisch mit diesem Symbol dargestellt <code>%&gt;%</code><a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. Der Begriff “Durchpfeifen” ist frei vom Englischen “to pipe” übernommen. Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als “Rohstoff” eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen “Flow” an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-durchpreifen"></span>
 <img src="images/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
 <p class="caption">
@@ -635,7 +693,7 @@ dplyr::<span class="kw">count</span>(stats_test, no_interest)
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
 <p>Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann (“binnen”):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test$Ergebnis &lt;-<span class="st"> </span>car::<span class="kw">recode</span>(stats_test$score, <span class="st">&quot;1:38 = &#39;durchgefallen&#39;; else = &#39;bestanden&#39;&quot;</span>)</code></pre></div>
-<p>Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: <code>dplyr::recode</code><a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei <code>car::recode</code> bleiben.</p>
+<p>Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: <code>dplyr::recode</code><a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei <code>car::recode</code> bleiben.</p>
 </div>
 </div>
 </div>
@@ -940,7 +998,7 @@ dplyr::<span class="kw">count</span>(stats_test, no_interest)
 </div>
 <div id="checkliste-zum-datenjudo" class="section level2">
 <h2><span class="header-section-number">3.4</span> Checkliste zum Datenjudo</h2>
-<p>Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a>.</p>
+<p>Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>.</p>
 <div id="auf-fehlende-werte-prufen" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Auf fehlende Werte prüfen*</h3>
 <p>Das geht recht einfach mit <code>summarise(meine_daten)</code>. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.</p>
@@ -974,10 +1032,10 @@ wo_men %&gt;%<span class="st"> </span>
 </div>
 <div id="fehlende-werte-ggf.-ersetzen" class="section level3">
 <h3><span class="header-section-number">3.4.3</span> Fehlende Werte ggf. ersetzen</h3>
-<p>Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.</p>
+<p>Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a>. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men$height &lt;-<span class="st"> </span><span class="kw">replace</span>(wo_men$height, <span class="kw">is.na</span>(wo_men$height), <span class="kw">mean</span>(wo_men$height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
   </code></pre></div>
-<p><code>replace</code> ersetzt Werte aus dem Vektor <code>wo_men$height</code> alle Werte, für die <code>is.na(wo_men$height)</code> wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>.</p>
+<p><code>replace</code> ersetzt Werte aus dem Vektor <code>wo_men$height</code> alle Werte, für die <code>is.na(wo_men$height)</code> wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>.</p>
 </div>
 <div id="nach-fehlern-suchen" class="section level3">
 <h3><span class="header-section-number">3.4.4</span> Nach Fehlern suchen</h3>
@@ -1016,7 +1074,7 @@ km %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">shave</span>() %&gt;%<span class="st"> </span><span class="co"># Oberes Dreieck ist redundant, wird &quot;abrasiert&quot;</span>
 <span class="st">  </span><span class="kw">rplot</span>()  <span class="co"># Korrelationsplot</span></code></pre></div>
 <p><img src="04_Datenjudo_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Die Funktion <code>correlate</code> stammt aus dem Paket <code>corrr</code><a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>, welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.</p>
+<p>Die Funktion <code>correlate</code> stammt aus dem Paket <code>corrr</code><a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>, welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.</p>
 </div>
 <div id="z-standardisieren" class="section level3">
 <h3><span class="header-section-number">3.4.7</span> z-Standardisieren</h3>
@@ -1086,7 +1144,7 @@ extra$extra_mw &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(ex
 <div id="verweise-1" class="section level2">
 <h2><span class="header-section-number">3.5</span> Verweise</h2>
 <ul>
-<li><p>Eine schöne Demonstration der Mächtigkeit von <code>dplyr</code> findet sich hier<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>.</p></li>
+<li><p>Eine schöne Demonstration der Mächtigkeit von <code>dplyr</code> findet sich hier<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p></li>
 <li><p>Die GUI “exploratory” ist ein “klickbare” Umsetzung von <code>dplyr</code>, mächtig, modern und sieht cool aus: <a href="https://exploratory.io" class="uri">https://exploratory.io</a>.</p></li>
 <li><p><em>R for Data Science</em> bietet umfangreiche Unterstützung zu diesem Thema <span class="citation">(Wickham and Grolemund <a href="#ref-r4ds">2016</a>)</span>.</p></li>
 </ul>
@@ -1104,17 +1162,17 @@ extra$extra_mw &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(ex
 </div>
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p><a href="http://www.omegahat.net/Rstem/stemming.pdf" class="uri">http://www.omegahat.net/Rstem/stemming.pdf</a><a href="daten-aufbereiten.html#fnref10">↩</a></p></li>
-<li id="fn11"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="daten-aufbereiten.html#fnref11">↩</a></p></li>
-<li id="fn12"><p><a href="https://github.com/karthik/wesanderson" class="uri">https://github.com/karthik/wesanderson</a><a href="daten-aufbereiten.html#fnref12">↩</a></p></li>
-<li id="fn13"><p><a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour" class="uri">http://sape.inf.usi.ch/quick-reference/ggplot2/colour</a><a href="daten-aufbereiten.html#fnref13">↩</a></p></li>
-<li id="fn14"><p><a href="https://www.ggplot2-exts.org" class="uri">https://www.ggplot2-exts.org</a><a href="daten-aufbereiten.html#fnref14">↩</a></p></li>
-<li id="fn15"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-aufbereiten.html#fnref15">↩</a></p></li>
-<li id="fn16"><p><a href="https://de.wikipedia.org/wiki/Anscombe-Quartett" class="uri">https://de.wikipedia.org/wiki/Anscombe-Quartett</a><a href="daten-aufbereiten.html#fnref16">↩</a></p></li>
-<li id="fn17"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-aufbereiten.html#fnref17">↩</a></p></li>
-<li id="fn18"><p><a href="https://github.com/drsimonj/corrr" class="uri">https://github.com/drsimonj/corrr</a><a href="daten-aufbereiten.html#fnref18">↩</a></p></li>
-<li id="fn19"><p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform" class="uri">https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform</a><a href="daten-aufbereiten.html#fnref19">↩</a></p></li>
+<ol start="9">
+<li id="fn9"><p><a href="http://www.omegahat.net/Rstem/stemming.pdf" class="uri">http://www.omegahat.net/Rstem/stemming.pdf</a><a href="daten-aufbereiten.html#fnref9">↩</a></p></li>
+<li id="fn10"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="daten-aufbereiten.html#fnref10">↩</a></p></li>
+<li id="fn11"><p><a href="https://github.com/karthik/wesanderson" class="uri">https://github.com/karthik/wesanderson</a><a href="daten-aufbereiten.html#fnref11">↩</a></p></li>
+<li id="fn12"><p><a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour" class="uri">http://sape.inf.usi.ch/quick-reference/ggplot2/colour</a><a href="daten-aufbereiten.html#fnref12">↩</a></p></li>
+<li id="fn13"><p><a href="https://www.ggplot2-exts.org" class="uri">https://www.ggplot2-exts.org</a><a href="daten-aufbereiten.html#fnref13">↩</a></p></li>
+<li id="fn14"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-aufbereiten.html#fnref14">↩</a></p></li>
+<li id="fn15"><p><a href="https://de.wikipedia.org/wiki/Anscombe-Quartett" class="uri">https://de.wikipedia.org/wiki/Anscombe-Quartett</a><a href="daten-aufbereiten.html#fnref15">↩</a></p></li>
+<li id="fn16"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-aufbereiten.html#fnref16">↩</a></p></li>
+<li id="fn17"><p><a href="https://github.com/drsimonj/corrr" class="uri">https://github.com/drsimonj/corrr</a><a href="daten-aufbereiten.html#fnref17">↩</a></p></li>
+<li id="fn18"><p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform" class="uri">https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform</a><a href="daten-aufbereiten.html#fnref18">↩</a></p></li>
 </ol>
 </div>
             </section>

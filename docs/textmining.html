@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-14">
+<meta name="date" content="2017-02-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,15 +107,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
 <li class="chapter" data-level="1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html"><i class="fa fa-check"></i><b>1</b> Rahmen - Teil 1</a><ul>
 <li class="chapter" data-level="1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#software"><i class="fa fa-check"></i><b>1.1</b> Software</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-and-friends-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R and Friends installieren</a></li>
+<li class="chapter" data-level="1.1.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>1.1.1</b> R und RStudio installieren</a></li>
 <li class="chapter" data-level="1.1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>1.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
 <li class="chapter" data-level="1.1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>1.1.3</b> Die Denk- und Gefühlswelt von R</a></li>
-<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren---beispiel-dplyr"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren - Beispiel <code>dplyr</code></a></li>
+<li class="chapter" data-level="1.1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#pakete-installieren"><i class="fa fa-check"></i><b>1.1.4</b> Pakete installieren</a></li>
 <li class="chapter" data-level="1.1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>1.1.5</b> R-Pakete für dieses Buch</a></li>
 <li class="chapter" data-level="1.1.6" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#datensatze"><i class="fa fa-check"></i><b>1.1.6</b> Datensätze</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#bildnachweise"><i class="fa fa-check"></i><b>1.2</b> Bildnachweise</a></li>
-<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.3" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#errrstkontakt"><i class="fa fa-check"></i><b>1.3</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>1.3.1</b> R als Taschenrechner</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>1.4</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="1.5" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html#versionshinweise"><i class="fa fa-check"></i><b>1.5</b> Versionshinweise</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a><ul>
 <li class="chapter" data-level="2.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>2.1</b> Daten in R importieren</a></li>
@@ -185,42 +189,95 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#der-p-wert"><i class="fa fa-check"></i><b>5.2</b> Der p-Wert</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>6</b> Geleitetes Modellieren</a><ul>
-<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Lineare Regression</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#eine-kurze-geschichte-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.1</b> Eine kurze Geschichte der linearen Regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-lineare-regression-als-schweizer-taschenmesser"><i class="fa fa-check"></i><b>6.1.2</b> Die lineare Regression als Schweizer Taschenmesser</a></li>
-<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interaktion-moderation"><i class="fa fa-check"></i><b>6.1.3</b> Interaktion/ Moderation</a></li>
+<li class="chapter" data-level="6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#einfache-lineare-regression"><i class="fa fa-check"></i><b>6.1</b> Einfache lineare Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#uberprufung-der-annahmen"><i class="fa fa-check"></i><b>6.1.1</b> Überprüfung der Annahmen</a></li>
+<li class="chapter" data-level="6.1.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regression-mit-kategorialen-werten"><i class="fa fa-check"></i><b>6.1.2</b> Regression mit kategorialen Werten</a></li>
+<li class="chapter" data-level="6.1.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-regression"><i class="fa fa-check"></i><b>6.1.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.1.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>6.1.4</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="6.1.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen"><i class="fa fa-check"></i><b>6.1.5</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.1.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>6.1.6</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="6.1.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur"><i class="fa fa-check"></i><b>6.1.7</b> Literatur</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a></li>
-<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#penalisierende-regression"><i class="fa fa-check"></i><b>6.3</b> Penalisierende Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahre"><i class="fa fa-check"></i><b>6.4</b> Baumbasierte Verfahre</a></li>
-<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.5</b> Ausblick</a></li>
-<li class="chapter" data-level="6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.6</b> Fallstudie: Überleben auf der Titanic</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.6.1</b> Daten und Pakete laden</a></li>
-<li class="chapter" data-level="6.6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.6.2</b> Erster Blick</a></li>
-<li class="chapter" data-level="6.6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.6.3</b> Welche Variablen sind interessant?</a></li>
-<li class="chapter" data-level="6.6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.4</b> Univariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.6.5</b> Bivariate Häufigkeiten</a></li>
-<li class="chapter" data-level="6.6.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.6.6</b> Signifikanztest</a></li>
-<li class="chapter" data-level="6.6.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.6.7</b> Effektstärke</a></li>
-<li class="chapter" data-level="6.6.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.6.8</b> Logististische Regression</a></li>
-<li class="chapter" data-level="6.6.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.6.9</b> Effektstärken visualieren</a></li>
-<li class="chapter" data-level="6.6.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.6.10</b> Fazit</a></li>
+<li class="chapter" data-level="6.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifizierende-regression"><i class="fa fa-check"></i><b>6.2</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#vorbereitung"><i class="fa fa-check"></i><b>6.2.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="6.2.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#problemstellung"><i class="fa fa-check"></i><b>6.2.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="6.2.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>6.2.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="6.2.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>6.2.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="6.2.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>6.2.5</b> Interpretation der Koeffizienten</a></li>
+<li class="chapter" data-level="6.2.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#kategoriale-variablen"><i class="fa fa-check"></i><b>6.2.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="6.2.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>6.2.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="6.2.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erweiterungen-1"><i class="fa fa-check"></i><b>6.2.8</b> Erweiterungen</a></li>
+<li class="chapter" data-level="6.2.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>6.2.9</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="6.2.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#literatur-1"><i class="fa fa-check"></i><b>6.2.10</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#baumbasierte-verfahren"><i class="fa fa-check"></i><b>6.3</b> Baumbasierte Verfahren</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#konjunturanalyse"><i class="fa fa-check"></i><b>6.3.1</b> Konjunturanalyse</a></li>
+<li class="chapter" data-level="6.3.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#regressionsbaume"><i class="fa fa-check"></i><b>6.3.2</b> Regressionsbäume</a></li>
+<li class="chapter" data-level="6.3.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#klassifikationbaume"><i class="fa fa-check"></i><b>6.3.3</b> Klassifikationbäume</a></li>
+<li class="chapter" data-level="6.3.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#parameter-rpart"><i class="fa fa-check"></i><b>6.3.4</b> Parameter <code>rpart</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#ausblick"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+<li class="chapter" data-level="6.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>6.5</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>6.5.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="6.5.2" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>6.5.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="6.5.3" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>6.5.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="6.5.4" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.5" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>6.5.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="6.5.6" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>6.5.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="6.5.7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>6.5.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="6.5.8" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>6.5.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="6.5.9" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>6.5.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="6.5.10" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html#fazit"><i class="fa fa-check"></i><b>6.5.10</b> Fazit</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Ungeleitetes Modellieren</a><ul>
-<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a></li>
-<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#nachste-nachbarn-analyse"><i class="fa fa-check"></i><b>7.2</b> Nächste-Nachbarn-Analyse</a></li>
-<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponenten-analyse"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponenten-Analyse</a></li>
+<li class="chapter" data-level="7.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#clusteranalyse"><i class="fa fa-check"></i><b>7.1</b> Clusteranalyse</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hierarchische-clusteranalyse"><i class="fa fa-check"></i><b>7.1.1</b> Hierarchische Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>7.1.2</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="7.1.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>7.1.3</b> Übung: B3 Datensatz</a></li>
+<li class="chapter" data-level="7.1.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-2"><i class="fa fa-check"></i><b>7.1.4</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#dimensionsreduktion"><i class="fa fa-check"></i><b>7.2</b> Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>7.2.1</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#benotigte-pakete"><i class="fa fa-check"></i><b>7.2.2</b> Benötigte Pakete</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#daten-einlesen-1"><i class="fa fa-check"></i><b>7.2.3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>7.2.4</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>7.2.5</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#aggregation-der-durchschnittlichen-bewertungen-nach-marke"><i class="fa fa-check"></i><b>7.2.6</b> Aggregation der durchschnittlichen Bewertungen nach Marke</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung-der-aggregierten-markenbewertungen"><i class="fa fa-check"></i><b>7.2.7</b> Visualisierung der aggregierten Markenbewertungen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>7.3</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>7.3.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#scree-plot"><i class="fa fa-check"></i><b>7.3.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="7.3.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#elbow-kriterium"><i class="fa fa-check"></i><b>7.3.3</b> Elbow-Kriterium</a></li>
+<li class="chapter" data-level="7.3.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#biplot"><i class="fa fa-check"></i><b>7.3.4</b> Biplot</a></li>
+<li class="chapter" data-level="7.3.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#wahrnehmungsraum"><i class="fa fa-check"></i><b>7.3.5</b> Wahrnehmungsraum</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>7.4</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>7.4.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>7.4.2</b> Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>7.4.3</b> Berechnung der Faktor-Scores</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>7.4.4</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#ubung"><i class="fa fa-check"></i><b>7.4.5</b> Übung</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#literatur-3"><i class="fa fa-check"></i><b>7.4.6</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse"><i class="fa fa-check"></i><b>7.5</b> Assoziationsanalyse</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#einfuhrung"><i class="fa fa-check"></i><b>7.5.1</b> Einführung</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#kennzahlen-einer-assoziationsanalyse"><i class="fa fa-check"></i><b>7.5.2</b> Kennzahlen einer Assoziationsanalyse</a></li>
+<li class="chapter" data-level="7.5.3" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#beispiel"><i class="fa fa-check"></i><b>7.5.3</b> Beispiel</a></li>
+<li class="chapter" data-level="7.5.4" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#assoziationsanalyse-mit-r"><i class="fa fa-check"></i><b>7.5.4</b> Assoziationsanalyse mit R</a></li>
+<li class="chapter" data-level="7.5.5" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html#visualisierung"><i class="fa fa-check"></i><b>7.5.5</b> Visualisierung</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>8</b> Textmining</a><ul>
-<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
+<li class="chapter" data-level="8.1" data-path="textmining.html"><a href="textmining.html#einfuhrung-1"><i class="fa fa-check"></i><b>8.1</b> Einführung</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>8.1.1</b> Grundbegriffe</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>8.2</b> Grundlegende Analyse</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>8.2.1</b> Tidy Text Dataframes</a></li>
 <li class="chapter" data-level="8.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>8.2.2</b> Text-Daten einlesen</a></li>
 <li class="chapter" data-level="8.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>8.2.3</b> Worthäufigkeiten auszählen</a></li>
-<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
+<li class="chapter" data-level="8.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung-1"><i class="fa fa-check"></i><b>8.2.4</b> Visualisierung</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>8.3</b> Sentiment-Analyse</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>8.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
@@ -233,6 +290,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.5" data-path="textmining.html"><a href="textmining.html#vertiefung"><i class="fa fa-check"></i><b>8.5</b> Vertiefung</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>8.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
 </ul></li>
+<li class="chapter" data-level="8.6" data-path="textmining.html"><a href="textmining.html#verweise-3"><i class="fa fa-check"></i><b>8.6</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>9</b> Ergebnisse kommunizieren</a><ul>
 <li class="chapter" data-level="9.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#markdown-und-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Markdown und RMarkdown</a></li>
@@ -263,10 +321,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="textmining" class="section level1">
 <h1><span class="header-section-number">Kapitel 8</span> Textmining</h1>
-<p>Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in “unstrukturierter” Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten<a href="#fn33" class="footnoteRef" id="fnref33"><sup>33</sup></a> weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.</p>
+<p>In diesem Kapitel benötigte R-Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo</span>
+<span class="kw">library</span>(okcupiddata)  <span class="co"># Daten</span>
+<span class="kw">library</span>(stringr)  <span class="co"># Textverarbeitung</span>
+<span class="kw">library</span>(tidytext)  <span class="co"># Textmining</span>
+<span class="kw">library</span>(pdftools)  <span class="co"># PDF einlesen</span>
+<span class="kw">library</span>(downloader)  <span class="co"># Daten herunterladen</span>
+<span class="kw">library</span>(knitr)  <span class="co"># HTML-Tabellen</span>
+<span class="kw">library</span>(lsa)  <span class="co"># Stopwörter </span>
+<span class="kw">library</span>(SnowballC)  <span class="co"># Wörter trunkieren</span>
+<span class="kw">library</span>(wordcloud)  <span class="co"># Wordcloud anzeigen</span></code></pre></div>
+<p>Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in “unstrukturierter” Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten<a href="#fn39" class="footnoteRef" id="fnref39"><sup>39</sup></a> weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.</p>
 <p>In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich <em>dümmer</em> als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich <em>schneller</em> als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.</p>
 <p>In der Regel wird das Textmining als <em>gemischte</em> Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.</p>
-<div id="einfuhrung" class="section level2">
+<div id="einfuhrung-1" class="section level2">
 <h2><span class="header-section-number">8.1</span> Einführung</h2>
 <div id="grundbegriffe" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Grundbegriffe</h3>
@@ -282,14 +351,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">8.2</span> Grundlegende Analyse</h2>
 <div id="tidy-text-dataframes" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Tidy Text Dataframes</h3>
-<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn34" class="footnoteRef" id="fnref34"><sup>34</sup></a> besteht aus 4 Elementen.</p>
+<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn40" class="footnoteRef" id="fnref40"><sup>40</sup></a> besteht aus 4 Elementen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Wir haben die Frauen zu Bett gebracht,&quot;</span>,
           <span class="st">&quot;als die Männer in Frankreich standen.&quot;</span>,
           <span class="st">&quot;Wir hatten uns das viel schöner gedacht.&quot;</span>,
           <span class="st">&quot;Wir waren nur Konfirmanden.&quot;</span>)</code></pre></div>
 <p>Als nächstes machen wir daraus einen Dataframe.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">4</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">4</span>,
                       text)</code></pre></div>
 <table>
 <thead>
@@ -318,8 +386,7 @@ text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span c
 </tbody>
 </table>
 <p>Und “dehnen” diesen Dataframe zu einem <em>tidy text</em> Dataframe.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidytext)
-
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 text_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">unnest_tokens</span>(wort, text)
 <span class="co">#&gt; # A tibble: 24 × 2</span>
@@ -331,9 +398,7 @@ text_df %&gt;%<span class="st"> </span>
 <span class="co">#&gt; # ... with 21 more rows</span></code></pre></div>
 <p>Das <code>unnest_tokens</code> kann übersetzt werden als “entschachtele” oder “dehne” die Tokens - so dass in jeder Zeile nur noch ein Wort (Token) steht. Die Syntax ist <code>unnest_tokens(Ausgabespalte, Eingabespalte)</code>. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.</p>
 <p>Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
-
-text_df %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">unnest_tokens</span>(wort, text) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(wort, <span class="st">&quot;[a-z]&quot;</span>))
 <span class="co">#&gt; # A tibble: 24 × 2</span>
@@ -346,11 +411,8 @@ text_df %&gt;%<span class="st"> </span>
 </div>
 <div id="text-daten-einlesen" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Text-Daten einlesen</h3>
-<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn35" class="footnoteRef" id="fnref35"><sup>35</sup></a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pdftools)
-<span class="kw">library</span>(downloader)
-
-afd_url &lt;-<span class="st"> &quot;https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf&quot;</span>
+<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn41" class="footnoteRef" id="fnref41"><sup>41</sup></a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_url &lt;-<span class="st"> &quot;https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf&quot;</span>
 
 afd_pfad &lt;-<span class="st"> &quot;data/afd_programm.pdf&quot;</span>
 
@@ -361,7 +423,7 @@ afd_raw &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(afd_pfad)
 afd_raw[<span class="dv">3</span>]
 <span class="co">#&gt; [1] &quot;3\t Programm für Deutschland | Inhalt\n   7 | Kultur, Sprache und Identität\t\t\t\t                                   45 9 | Einwanderung, Integration und Asyl\t\t\t                       57\n     7.1 \t\t Deutsche Kultur, Sprache und Identität erhalten\t               47   9.1\t Keine irreguläre Einwanderung über das Asylrecht\t        59\n     7.2 \t\t Deutsche Leitkultur statt Multikulturalismus\t\t                 47   9.1.1\t Asylzuwanderung - für einen Paradigmenwechsel\t         59\n     7.3 \t\t Die deutsche Sprache als Zentrum unserer Identität\t            47   9.1.2\t Rückführung - Schluss mit Fehlanreizen und \t\t\t\n     7.4 \t \t Kultur und Kunst von Einflussnahme der Parteien befreien\t     48 \t\t       falscher Nachsicht\t\t\t\t\t                                60\n     7.5 \t\t Für eine zeitgemäße Medienpolitik: Rundfunkbeitrag abschaffen\t 48   9.2\t Einwanderung aus EU-Staaten\t\t\t\t                          61\n     7.6 \t\t Der Islam im Spannungsverhältnis zu unserer Werteordnung\t      48   9.3\t Gesteuerte Einwanderung aus Drittstaaten\t\t               62\n     7.6.1\t\t Der Islam gehört nicht zu Deutschland\t\t\t                      49   9.4\t Integration - Mehr als nur Deutsch lernen\t\t              63\n     7.6.2\t\t Kritik am Islam muss erlaubt sein\t\t\t                          49   9.5\t Kosten der Einwanderung - Transparenz herstellen\t        63\n     7.6.3\t\t Auslandsfinanzierung von Moscheen beenden\t \t                  49   9.6\t Einwandererkriminalität - nichts verschleiern,\n     7.6.4\t\t Keine öffentlich-rechtliche Körperschaft für                     \t\t       nichts verschweigen\t\t\t\t\t                               64\n     \t\t\t      islamische Organisationen\t\t\t\t                                50   9.7\t Einbürgerung - Abschluss gelungener Integration\t         65\n     7.6.5\t\t Keine Vollverschleierung im öffentlichen Raum\t                50\n                                                                              10 | Wirtschaft, digitale Welt und Verbraucherschutz\t           66\n   8 | Schule, Hochschule und Forschung\t\t\t                                 51   10.1\t\t Freier Wettbewerb sichert unseren Wohlstand\t\t          67\n     8.1 \t\t Forschung und Lehre: In Freiheit und als Einheit\t              52   10.2 \t\t Soziale Marktwirtschaft statt Planwirtschaft\t\t        67\n     8.1.1\t \t Autonomie durch Grundfinanzierung stärken\t \t                 52   10.3 \t\t Internationale Wirtschaftspolitik neu ausrichten\t     67\n     8.1.2\t\t Förderung der “Gender-Forschung” beenden\t\t                    52   10.4 \t\t Hohe Standards für Handelsabkommen\t\t                  68\n     8.1.3\t\t Diplom, Magister und Staatsexamen wieder einführen\t           52   10.5 \t\t Bürokratie abbauen\t\t\t\t\t                               68\n     8.1.4\t\t Studienanforderungen erhöhen\t\t\t                               53   10.6 \t\t Den Technologiestandort Deutschland voranbringen\t     68\n     8.2 \t\t Unser Schulsystem: Stark durch Differenzierung\t                53   10.7 \t\t Staatliche Subventionen reduzieren und befristen\t     69\n     8.2.1\t\t Die Einheitsschule führt zu Qualitätsverlust\t\t                53   10.8 \t\t Keine Privatisierung gegen den Willen der Bürger\t     69\n     8.2.2\t\t Wissensvermittlung muss zentrales Anliegen bleiben\t           53   10.9 \t\t Der Mittelstand als Herz unserer Wirtschaftskraft\t    69\n     8.2.3\t\t Leistungsbereitschaft und Disziplin stärken\t\t                 54   10.10 \tDigitalisierung als Chance und Herausforderung\t        69\n     8.2.4\t\t Politisch-ideologische Indoktrination darf es an                   10.10.1 Quelloffene Software und sichere Hardware\t\t           69\n   \t\t\t der Schule nicht geben\t\t\t\t\t                                         54   10.10.2 Sichere Kommunikation als Standortvorteil\n     8.2.5\t\t Duale berufliche Bildung stärken und erhalten\t \t              54 \t\t          und Bürgerrecht\t\t\t\t\t                                70\n     8.2.6\t\t Keine Inklusion “um jeden Preis”. Förder- und                      10.10.3 Deutsche Literatur im Inland digitalisieren\t\t         70\n     \t\t\t      Sonderschulen erhalten\t\t\t\t                                   54   10.11\t\t Verbraucherschutz modernisieren und stärken\t\t         70\n     8.2.7 \t\t Koranschulen schließen. Islamkunde in den                         10.11.1 Lebensmittel besser kennzeichnen\t\t\t                   71\n     \t\t\t      Ethikunterricht integrieren\t\t\t\t                              55   10.11.2 Langlebige Produkte statt geplante Obsoleszenz\t       71\n     8.2.8 \t Keine Sonderrechte für muslimische Schüler\t\t                  55   10.11.3 Textilien und Kinderspielzeug auf Schadstoffe prüfen\t 71\n     8.3 \t\t Nein zu “Gender-Mainstreaming” und                                  10.11.4 Wasseraufbereitung modernisieren und verbessern\t      71\n   \t\t\t        Frühsexualisierung\t\t\t\t\t                                      55\n     8.3.1 \t\t Keine “geschlechterneutrale” Umgestaltung der\n     \t\t\t      deutschen Sprache\t\t\t\t\t                                       55\n     8.3.2 \t Geschlechterquoten sind leistungsfeindlich\n   \t\t\t        und ungerecht\t\t\t\t\t\t                                          56\n&quot;</span></code></pre></div>
 <p>Mit <code>download</code> haben wir die Datei mit der Url <code>afd_url</code> heruntergeladen und als <code>afd_pfad</code> gespeichert. Für uns ist <code>pdf_text</code> sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest.</p>
-<p>Der Vektor <code>afd_raw</code> hat 96 Elemente; zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.</p>
+<p>Der Vektor <code>afd_raw</code> hat 96 Elemente (entsprechend der Seitenzahl des Dokzements); zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 afd_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">96</span>, 
                      afd_raw)
@@ -391,8 +453,7 @@ afd_df %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 3   der   870</span>
 <span class="co">#&gt; # ... with 7,084 more rows</span></code></pre></div>
 <p>Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel… Solche sogenannten “Stopwörter” sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket <code>lsa</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lsa)
-<span class="kw">data</span>(stopwords_de)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(stopwords_de)
 
 stopwords_de &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">word =</span> stopwords_de)
 
@@ -459,9 +520,7 @@ afd_count %&gt;%<span class="st"> </span>
 </tbody>
 </table>
 <p>Ganz interessant; aber es gibt mehrere Varianten des Themas “deutsch”. Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man “stemming” oder trunkieren.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SnowballC)
-
-afd_df %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">token_stem =</span> <span class="kw">wordStem</span>(.$token, <span class="dt">language =</span> <span class="st">&quot;german&quot;</span>)) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">count</span>(token_stem, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>afd_count
 
@@ -518,16 +577,15 @@ afd_count %&gt;%<span class="st"> </span>
 </tr>
 </tbody>
 </table>
-<p>Das ist schon informativer. Dem Befehl <code>wordStem</code> füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch<a href="#fn36" class="footnoteRef" id="fnref36"><sup>36</sup></a>). Das ist schon alles.</p>
+<p>Das ist schon informativer. Dem Befehl <code>wordStem</code> füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch<a href="#fn42" class="footnoteRef" id="fnref42"><sup>42</sup></a>). Das ist schon alles.</p>
 </div>
-<div id="visualisierung" class="section level3">
+<div id="visualisierung-1" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Visualisierung</h3>
 <p>Zum Abschluss noch eine Visualisierung mit einer “Wordcloud” dazu.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)
-<span class="kw">wordcloud</span>(<span class="dt">words =</span> afd_count$token_stem, <span class="dt">freq =</span> afd_count$n, <span class="dt">max.words =</span> <span class="dv">100</span>, <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a>.</p>
-<p>Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wordcloud</span>(<span class="dt">words =</span> afd_count$token_stem, <span class="dt">freq =</span> afd_count$n, <span class="dt">max.words =</span> <span class="dv">100</span>, <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
+<p><img src="09_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn43" class="footnoteRef" id="fnref43"><sup>43</sup></a>.</p>
+<p>Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 afd_count %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">top_n</span>(<span class="dv">30</span>) %&gt;%<span class="st"> </span>
@@ -549,7 +607,7 @@ afd_df %&gt;%<span class="st"> </span>
 
 <span class="kw">library</span>(gridExtra)
 <span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="09_Textmining_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit <code>reorder</code> ordnen wir die Spalte <code>token</code> nach der Spalte <code>n</code>. <code>coord_flip</code> dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. <code>grid.arrange</code> packt beide Plots in eine Abbildung, welche 2 Spalten (<code>ncol</code>) hat.</p>
 </div>
 </div>
@@ -859,7 +917,7 @@ sentiment_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>() +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> Wert) +
 <span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="09_Textmining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Es scheint einen (leichten) Überhang an negativen Wörtern zu geben. Schauen wir auf die genauen Zahlen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sentiment_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(Wert)) %&gt;%<span class="st"> </span>
@@ -966,8 +1024,14 @@ sentiment_df %&gt;%<span class="st"> </span><span class="kw">select</span>(neg_p
 </tr>
 </tbody>
 </table>
-
 </div>
+</div>
+<div id="verweise-3" class="section level2">
+<h2><span class="header-section-number">8.6</span> Verweise</h2>
+<ul>
+<li>Das Buch <em>Tidy Text Minig</em> <span class="citation">(Julia and David <a href="#ref-tidytextminig">2017</a>)</span> ist eine hervorragende Quelle vertieftem Wissens zum Textmining mit R.</li>
+</ul>
+
 </div>
 </div>
 <h3>References</h3>
@@ -978,15 +1042,18 @@ sentiment_df %&gt;%<span class="st"> </span><span class="kw">select</span>(neg_p
 <div id="ref-remquahey2010">
 <p>Remus, R., U. Quasthoff, and G. Heyer. 2010. “SentiWS – a Publicly Available German-Language Resource for Sentiment Analysis.” In <em>Proceedings of the 7th International Language Resources and Evaluation (Lrec’10)</em>, 1168–71.</p>
 </div>
+<div id="ref-tidytextminig">
+<p>Julia, PhD Silge, and PhD Robinson David. 2017. <em>Text Mining with R: A Tidy Approach</em>. O’Reilly Media. <a href="https://www.amazon.com/Text-Mining-R-tidy-approach/dp/1491981652%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491981652">https://www.amazon.com/Text-Mining-R-tidy-approach/dp/1491981652%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491981652</a>.</p>
+</div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="33">
-<li id="fn33"><p>Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist.<a href="textmining.html#fnref33">↩</a></p></li>
-<li id="fn34"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="textmining.html#fnref34">↩</a></p></li>
-<li id="fn35"><p><a href="https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf" class="uri">https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf</a><a href="textmining.html#fnref35">↩</a></p></li>
-<li id="fn36"><p><a href="http://www.omegahat.net/Rstem/stemming.pdf" class="uri">http://www.omegahat.net/Rstem/stemming.pdf</a><a href="textmining.html#fnref36">↩</a></p></li>
-<li id="fn37"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="textmining.html#fnref37">↩</a></p></li>
+<ol start="39">
+<li id="fn39"><p>Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist.<a href="textmining.html#fnref39">↩</a></p></li>
+<li id="fn40"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="textmining.html#fnref40">↩</a></p></li>
+<li id="fn41"><p><a href="https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf" class="uri">https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf</a><a href="textmining.html#fnref41">↩</a></p></li>
+<li id="fn42"><p><a href="http://www.omegahat.net/Rstem/stemming.pdf" class="uri">http://www.omegahat.net/Rstem/stemming.pdf</a><a href="textmining.html#fnref42">↩</a></p></li>
+<li id="fn43"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="textmining.html#fnref43">↩</a></p></li>
 </ol>
 </div>
             </section>

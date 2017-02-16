@@ -4,7 +4,7 @@ author: "Sebastian Sauer"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [Statistik_21.bib, book.bib]
+bibliography: [Praxis_der_Datenanalyse.bib]
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes

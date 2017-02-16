@@ -25,10 +25,21 @@ Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. "Entwicklungsu
 wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am "R-Kern" nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <https://cran.r-project.org/web/packages/>.
 
 
-### R and Friends installieren
+### R und RStudio installieren
 
 
 Setzt natürlich voraus, dass R installiert ist. Sie können R unter <https://cran.r-project.org> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <https://www.rstudio.com>; laden Sie die "Desktop-Version" für Ihr Betriebssystem herunter.
+
+Die Oberfläche von R, die "Console", sieht so aus:
+
+![](images/R-small.jpg) ![](images/R-Mac-small.png)
+
+
+
+
+Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:
+
+<img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -106,7 +117,7 @@ R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine sp
 
 
 
-### Pakete installieren - Beispiel `dplyr`
+### Pakete installieren
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt `dplyr`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:
 
@@ -138,7 +149,7 @@ Der Befehl bedeutet sinngemäß: "Hey R, geh in die Bücherei (library) und hole
 
 
 
-Das Installieren und Starten anderer Pakete läuft genauso ab.
+Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.
 
 
 
@@ -160,6 +171,12 @@ Pakete
 ```
 
 Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal), können wir mit etwas R-Judo alle auf einen Haps laden:
+
+
+```r
+lapply(Pakete, require, character.only = TRUE)
+```
+
 
 
 ```r
@@ -234,7 +251,10 @@ lapply(Pakete, require, character.only = TRUE)
 #> [1] TRUE
 ```
 
+
 Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl `library` an"[^3].
+
+Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; das geht mit `update.packages()`.
 
 
 
@@ -250,6 +270,26 @@ Name des Datensatzes  Quelle            Beschreibung
 `tips`                {reshape2}        Trinkgelder in einem Restaurant
 `extra`               Hier[^12]         Umfrage zu Extraversion
 
+
+Wir verwenden zwei Methoden, um Datensätze in R zu laden. 
+
+- Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket `okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl `data(name_des_datensatzes, packge = "name_des_paketes")`, kann man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des Paektes; dafür ist der Befehl `data` zuständig.
+
+
+```r
+library(okcupiddata)
+data(profiles, package = "okcupiddata")
+```
+
+
+- Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stic...) liegen.
+
+
+```r
+Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
+```
+
+Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
 ## Bildnachweise
@@ -267,6 +307,56 @@ Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abru
 
 
 
+## ERRRstkontakt
+
+Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
+
+* R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. `Oma` und `oma` sind zwei verschiedene Dinge für R!
+* R verwendet den Punkt `.` als Dezimaltrennzeichen
+* Fehlende Werte werden in R durch `NA` kodiert
+* Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert.
+* R wendet Befehle direkt an
+* R ist objektorientiert, d. h. dieselbe Funktion hat evtl. je nach Funktionsargument unterschiedliche Rückgabewerte
+* Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen `?`
+* Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst  installiert werden
+* Mit der Pfeiltaste nach oben können Sie einen vorherigen Befehl wieder aufrufen
+* Sofern Sie das Skriptfenster verwenden: einzelne Befehle aus dem Skriptfenster in R Studio können Sie auch mit `Str` und `Enter` an die Console schicken
+
+
+### R als Taschenrechner
+Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. `Enter`.
+
+```r
+4+2
+#> [1] 6
+```
+Das Ergebnis wird direkt angezeigt.
+Bei 
+
+```r
+x <- 4+2
+```
+erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert `4+2` zugewiesen. Wenn Sie jetzt
+
+```r
+x
+```
+eingeben, wird das Ergebnis
+
+```
+#> [1] 6
+```
+angezeigt. Sie können jetzt auch mit `x` weiterrechnen.
+
+```r
+x/4
+#> [1] 1.5
+```
+Vielleicht fragen Sie sich was die `[1]` vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt. 
+
+
+
+
 
 ## Was ist Statistik? Wozu ist sie gut?
 
@@ -274,19 +364,55 @@ Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Wa
 
 Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung und Zufallsvariablen eine große Rolle.
 
-Auch wenn die gerade genannte Diskussion die häufigste oder eine typische ist, mehren sich doch Stimmen, die Statstik anders akzentuieren. So schreibt Briggs in einem aktuellen Buch [@uncertainty], dass es in der Statistik darum ginge, die Wahrscheinlichkeit zukünftiger Ereignisse vorherzusagen: "Wie wahrscheinlichi ist es, dass - gegeben einem statistischen Modell, allerlei Annahmen und einem Haufen Daten - Kandidat X der neue Präsident wird"[^9]? Das schöne an dieser Idee ist, dass das "Endprodukt" etwas sehr Weltliches und damit praktisches ist: Die Wahrscheinlichkeit einer interessanten (und unbekannten) Aussage. Nebenbei ruht diese Idee auf dem sicheren Fundament der Wahrscheinlichkeitstheorie.
+
+## Versionshinweise
 
 
-
-Abgesehen von philosophischen Überlegungen zum Wesen der Statistik kann man sagen, dass Vorhersagen von Ereignissen etwas sehr praktisches sind. Sie nehmen daher aus praktischen Überlegungen einen zentralen Platz in diesem Buch an. Die philosophische Relevanz des prädiktiven Ansatzes ist gut bei Briggs [@uncertainty; @breaking] nachzulesen.
-
-Traditionell ist die Statistik stark daran interessiert, Parameter von Populationen vorherzusagen. Ein Beispiel dazu wäre die mittlere Größe (Parameter) aller Deutschen (Population). Leider sind Populationen häufig ziemlich abstrakt. Nehmen wir als Beispiel an, ein Dozent der FOM (Prof. S.) wie sich der Lernerfolg ändert, wenn die Stoffmenge pro Stunde verdoppelt. Zu seiner Überraschung ist der Lernerfolg geringer als in einem Kontrollkurs. Auf welche Population ist jetzt die Studie bzw. die Daten seiner Stichprobe zu verallgemeinern? Alle Menschen? Alle Studierenden? Alle deutschen Studierenden? Alle Studierenden der FOM? Alle Studierenden aller Zeiten?
-
-- Statistik meint Methoden, die das Ziel haben, Ereignisse präzise vorherzusagen
-- Statistik soll sich um Dinge dieser Welt drehen, nicht um Parameter
-- Statt einer Frage "ist µ_1 größer als µ_2?" besser "Wie viel Umsatz erwarte ich von diesem Kunden?", "Wie viele Saitensprünge hatte er wohl?", "Wie groß ist die Wahrscheinlichkeit für sie zu überleben?" und dergleichen.
-- Der Nutzen von Vorhersagen liegt auf der Hand: Vorhersagen sind praktisch; eine nützliche Angelegenheit (wenn auch schwierig).
-
+```r
+sessionInfo()
+#> R version 3.3.2 (2016-10-31)
+#> Platform: x86_64-apple-darwin13.4.0 (64-bit)
+#> Running under: macOS Sierra 10.12.3
+#> 
+#> locale:
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#> 
+#> attached base packages:
+#> [1] methods   stats     graphics  grDevices utils     datasets  base     
+#> 
+#> other attached packages:
+#>  [1] compute.es_0.2-4   titanic_0.1.0      GGally_1.3.0      
+#>  [4] wesanderson_0.3.2  reshape2_1.4.2     okcupiddata_0.1.0 
+#>  [7] wordcloud_2.5      RColorBrewer_1.1-2 lsa_0.73.1        
+#> [10] SnowballC_0.5.1    tidytext_0.1.2     tm_0.6-2          
+#> [13] NLP_0.1-9          gridExtra_2.2.1    ggdendro_0.1-20   
+#> [16] downloader_0.4     pdftools_1.0       ISLR_1.0          
+#> [19] nycflights13_0.2.2 car_2.1-4          stringr_1.1.0     
+#> [22] knitr_1.15.1       dplyr_0.5.0        purrr_0.2.2.9000  
+#> [25] readr_1.0.0        tidyr_0.6.1        tibble_1.2        
+#> [28] ggplot2_2.2.1.9000 tidyverse_1.1.1   
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] httr_1.2.1          jsonlite_1.2        splines_3.3.2      
+#>  [4] modelr_0.1.0        assertthat_0.1      yaml_2.1.14        
+#>  [7] slam_0.1-40         backports_1.0.5     lattice_0.20-34    
+#> [10] quantreg_5.29       digest_0.6.12       rvest_0.3.2        
+#> [13] minqa_1.2.4         colorspace_1.3-2    htmltools_0.3.5    
+#> [16] Matrix_1.2-8        plyr_1.8.4          psych_1.6.12       
+#> [19] broom_0.4.1         SparseM_1.74        haven_1.0.0        
+#> [22] bookdown_0.3        scales_0.4.1        lme4_1.1-12        
+#> [25] MatrixModels_0.4-1  mgcv_1.8-16         nnet_7.3-12        
+#> [28] lazyeval_0.2.0.9000 pbkrtest_0.4-6      mnormt_1.5-5       
+#> [31] magrittr_1.5        readxl_0.1.1        evaluate_0.10      
+#> [34] tokenizers_0.1.4    janeaustenr_0.1.4   nlme_3.1-130       
+#> [37] MASS_7.3-45         forcats_0.2.0       xml2_1.1.1         
+#> [40] foreign_0.8-67      tools_3.3.2         hms_0.3            
+#> [43] munsell_0.4.3       grid_3.3.2          nloptr_1.0.4       
+#> [46] rmarkdown_1.3       codetools_0.2-15    gtable_0.2.0       
+#> [49] reshape_0.8.6       DBI_0.5-1           R6_2.2.0           
+#> [52] lubridate_1.6.0     rprojroot_1.2       stringi_1.1.2      
+#> [55] parallel_3.3.2      Rcpp_0.12.9
+```
 
 
 
