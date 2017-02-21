@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -413,12 +413,16 @@ will nich so, as ik wol will.</p>
 <h3><span class="header-section-number">1.1.5</span> R-Pakete für dieses Buch</h3>
 <p>In diesem Buch verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Pakete
-<span class="co">#&gt;  [1] &quot;tidyverse&quot;    &quot;readr&quot;        &quot;knitr&quot;        &quot;stringr&quot;     </span>
-<span class="co">#&gt;  [5] &quot;car&quot;          &quot;nycflights13&quot; &quot;ISLR&quot;         &quot;pdftools&quot;    </span>
-<span class="co">#&gt;  [9] &quot;downloader&quot;   &quot;ggdendro&quot;     &quot;gridExtra&quot;    &quot;tm&quot;          </span>
-<span class="co">#&gt; [13] &quot;tidytext&quot;     &quot;lsa&quot;          &quot;SnowballC&quot;    &quot;wordcloud&quot;   </span>
-<span class="co">#&gt; [17] &quot;RColorBrewer&quot; &quot;okcupiddata&quot;  &quot;reshape2&quot;     &quot;wesanderson&quot; </span>
-<span class="co">#&gt; [21] &quot;GGally&quot;       &quot;titanic&quot;      &quot;compute.es&quot;</span></code></pre></div>
+<span class="co">#&gt;  [1] &quot;tidyverse&quot;     &quot;readr&quot;         &quot;knitr&quot;         &quot;stringr&quot;      </span>
+<span class="co">#&gt;  [5] &quot;car&quot;           &quot;nycflights13&quot;  &quot;ISLR&quot;          &quot;pdftools&quot;     </span>
+<span class="co">#&gt;  [9] &quot;downloader&quot;    &quot;ggdendro&quot;      &quot;gridExtra&quot;     &quot;tm&quot;           </span>
+<span class="co">#&gt; [13] &quot;tidytext&quot;      &quot;lsa&quot;           &quot;SnowballC&quot;     &quot;wordcloud&quot;    </span>
+<span class="co">#&gt; [17] &quot;RColorBrewer&quot;  &quot;okcupiddata&quot;   &quot;reshape2&quot;      &quot;wesanderson&quot;  </span>
+<span class="co">#&gt; [21] &quot;GGally&quot;        &quot;titanic&quot;       &quot;compute.es&quot;    &quot;corrr&quot;        </span>
+<span class="co">#&gt; [25] &quot;rpart&quot;         &quot;rpart.plot&quot;    &quot;MASS&quot;          &quot;titanic&quot;      </span>
+<span class="co">#&gt; [29] &quot;arules&quot;        &quot;arulesViz&quot;     &quot;SDMTools&quot;      &quot;corrplot&quot;     </span>
+<span class="co">#&gt; [33] &quot;gplots&quot;        &quot;corrplot&quot;      &quot;scatterplot3d&quot; &quot;BaylorEdPsych&quot;</span>
+<span class="co">#&gt; [37] &quot;nFactors&quot;</span></code></pre></div>
 <p>Anstelle alle einzeln zu laden (<code>library</code> verdaut nur ein Paket auf einmal), können wir mit etwas R-Judo alle auf einen Haps laden:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(Pakete, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(Pakete, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
@@ -489,6 +493,48 @@ will nich so, as ik wol will.</p>
 <span class="co">#&gt; [1] TRUE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[23]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[24]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[25]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[26]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[27]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[28]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[29]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[30]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[31]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[32]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[33]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[34]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[35]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[36]]</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[37]]</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Der Befehl heißt auf Deutsch: “Wende auf jedes Element von <code>Pakete</code> den Befehl <code>library</code> an”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
 <p>Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; das geht mit <code>update.packages()</code>.</p>
@@ -609,40 +655,57 @@ will nich so, as ik wol will.</p>
 <span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attached base packages:</span>
-<span class="co">#&gt; [1] methods   stats     graphics  grDevices utils     datasets  base     </span>
+<span class="co">#&gt; [1] grid      methods   stats     graphics  grDevices utils     datasets </span>
+<span class="co">#&gt; [8] base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt;  [1] compute.es_0.2-4   titanic_0.1.0      GGally_1.3.0      </span>
-<span class="co">#&gt;  [4] wesanderson_0.3.2  reshape2_1.4.2     okcupiddata_0.1.0 </span>
-<span class="co">#&gt;  [7] wordcloud_2.5      RColorBrewer_1.1-2 lsa_0.73.1        </span>
-<span class="co">#&gt; [10] SnowballC_0.5.1    tidytext_0.1.2     tm_0.6-2          </span>
-<span class="co">#&gt; [13] NLP_0.1-9          gridExtra_2.2.1    ggdendro_0.1-20   </span>
-<span class="co">#&gt; [16] downloader_0.4     pdftools_1.0       ISLR_1.0          </span>
-<span class="co">#&gt; [19] nycflights13_0.2.2 car_2.1-4          stringr_1.1.0     </span>
-<span class="co">#&gt; [22] knitr_1.15.1       dplyr_0.5.0        purrr_0.2.2.9000  </span>
-<span class="co">#&gt; [25] readr_1.0.0        tidyr_0.6.1        tibble_1.2        </span>
-<span class="co">#&gt; [28] ggplot2_2.2.1.9000 tidyverse_1.1.1   </span>
+<span class="co">#&gt;  [1] nFactors_2.3.3       lattice_0.20-34      boot_1.3-18         </span>
+<span class="co">#&gt;  [4] psych_1.6.12         BaylorEdPsych_0.5    scatterplot3d_0.3-38</span>
+<span class="co">#&gt;  [7] gplots_3.0.1         corrplot_0.77        SDMTools_1.1-221    </span>
+<span class="co">#&gt; [10] arulesViz_1.2-0      arules_1.5-0         Matrix_1.2-8        </span>
+<span class="co">#&gt; [13] MASS_7.3-45          rpart.plot_2.1.0     rpart_4.1-10        </span>
+<span class="co">#&gt; [16] corrr_0.2.1          compute.es_0.2-4     titanic_0.1.0       </span>
+<span class="co">#&gt; [19] GGally_1.3.0         wesanderson_0.3.2    reshape2_1.4.2      </span>
+<span class="co">#&gt; [22] okcupiddata_0.1.0    wordcloud_2.5        RColorBrewer_1.1-2  </span>
+<span class="co">#&gt; [25] lsa_0.73.1           SnowballC_0.5.1      tidytext_0.1.2      </span>
+<span class="co">#&gt; [28] tm_0.6-2             NLP_0.1-9            gridExtra_2.2.1     </span>
+<span class="co">#&gt; [31] ggdendro_0.1-20      downloader_0.4       pdftools_1.0        </span>
+<span class="co">#&gt; [34] ISLR_1.0             nycflights13_0.2.2   car_2.1-4           </span>
+<span class="co">#&gt; [37] stringr_1.1.0        knitr_1.15.1         dplyr_0.5.0         </span>
+<span class="co">#&gt; [40] purrr_0.2.2.9000     readr_1.0.0          tidyr_0.6.1         </span>
+<span class="co">#&gt; [43] tibble_1.2           ggplot2_2.2.1.9000   tidyverse_1.1.1     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] httr_1.2.1          jsonlite_1.2        splines_3.3.2      </span>
-<span class="co">#&gt;  [4] modelr_0.1.0        assertthat_0.1      yaml_2.1.14        </span>
-<span class="co">#&gt;  [7] slam_0.1-40         backports_1.0.5     lattice_0.20-34    </span>
-<span class="co">#&gt; [10] quantreg_5.29       digest_0.6.12       rvest_0.3.2        </span>
-<span class="co">#&gt; [13] minqa_1.2.4         colorspace_1.3-2    htmltools_0.3.5    </span>
-<span class="co">#&gt; [16] Matrix_1.2-8        plyr_1.8.4          psych_1.6.12       </span>
-<span class="co">#&gt; [19] broom_0.4.1         SparseM_1.74        haven_1.0.0        </span>
-<span class="co">#&gt; [22] bookdown_0.3        scales_0.4.1        lme4_1.1-12        </span>
-<span class="co">#&gt; [25] MatrixModels_0.4-1  mgcv_1.8-16         nnet_7.3-12        </span>
-<span class="co">#&gt; [28] lazyeval_0.2.0.9000 pbkrtest_0.4-6      mnormt_1.5-5       </span>
-<span class="co">#&gt; [31] magrittr_1.5        readxl_0.1.1        evaluate_0.10      </span>
-<span class="co">#&gt; [34] tokenizers_0.1.4    janeaustenr_0.1.4   nlme_3.1-130       </span>
-<span class="co">#&gt; [37] MASS_7.3-45         forcats_0.2.0       xml2_1.1.1         </span>
-<span class="co">#&gt; [40] foreign_0.8-67      tools_3.3.2         hms_0.3            </span>
-<span class="co">#&gt; [43] munsell_0.4.3       grid_3.3.2          nloptr_1.0.4       </span>
-<span class="co">#&gt; [46] rmarkdown_1.3       codetools_0.2-15    gtable_0.2.0       </span>
-<span class="co">#&gt; [49] reshape_0.8.6       DBI_0.5-1           R6_2.2.0           </span>
-<span class="co">#&gt; [52] lubridate_1.6.0     rprojroot_1.2       stringi_1.1.2      </span>
-<span class="co">#&gt; [55] parallel_3.3.2      Rcpp_0.12.9</span></code></pre></div>
+<span class="co">#&gt;  [1] minqa_1.2.4         colorspace_1.3-2    class_7.3-14       </span>
+<span class="co">#&gt;  [4] modeltools_0.2-21   mclust_5.2.2        rprojroot_1.2      </span>
+<span class="co">#&gt;  [7] base64enc_0.1-3     MatrixModels_0.4-1  DT_0.2             </span>
+<span class="co">#&gt; [10] flexmix_2.3-13      mvtnorm_1.0-5       lubridate_1.6.0    </span>
+<span class="co">#&gt; [13] xml2_1.1.1          R.methodsS3_1.7.1   codetools_0.2-15   </span>
+<span class="co">#&gt; [16] splines_3.3.2       mnormt_1.5-5        robustbase_0.92-7  </span>
+<span class="co">#&gt; [19] jsonlite_1.2        nloptr_1.0.4        pbkrtest_0.4-6     </span>
+<span class="co">#&gt; [22] broom_0.4.1         kernlab_0.9-25      cluster_2.0.5      </span>
+<span class="co">#&gt; [25] R.oo_1.21.0         httr_1.2.1          backports_1.0.5    </span>
+<span class="co">#&gt; [28] assertthat_0.1      lazyeval_0.2.0.9000 htmltools_0.3.5    </span>
+<span class="co">#&gt; [31] quantreg_5.29       tools_3.3.2         gtable_0.2.0       </span>
+<span class="co">#&gt; [34] Rcpp_0.12.9         slam_0.1-40         trimcluster_0.1-2  </span>
+<span class="co">#&gt; [37] gdata_2.17.0        nlme_3.1-130        iterators_1.0.8    </span>
+<span class="co">#&gt; [40] fpc_2.1-10          lmtest_0.9-35       lme4_1.1-12        </span>
+<span class="co">#&gt; [43] rvest_0.3.2         gtools_3.5.0        dendextend_1.4.0   </span>
+<span class="co">#&gt; [46] DEoptimR_1.0-8      zoo_1.7-14          scales_0.4.1       </span>
+<span class="co">#&gt; [49] TSP_1.1-4           hms_0.3             parallel_3.3.2     </span>
+<span class="co">#&gt; [52] SparseM_1.74        yaml_2.1.14         reshape_0.8.6      </span>
+<span class="co">#&gt; [55] stringi_1.1.2       gclus_1.3.1         tokenizers_0.1.4   </span>
+<span class="co">#&gt; [58] foreach_1.4.3       seriation_1.2-1     caTools_1.17.1     </span>
+<span class="co">#&gt; [61] prabclus_2.2-6      bitops_1.0-6        evaluate_0.10      </span>
+<span class="co">#&gt; [64] htmlwidgets_0.8     plyr_1.8.4          magrittr_1.5       </span>
+<span class="co">#&gt; [67] bookdown_0.3        R6_2.2.0            DBI_0.5-1          </span>
+<span class="co">#&gt; [70] haven_1.0.0         whisker_0.3-2       foreign_0.8-67     </span>
+<span class="co">#&gt; [73] mgcv_1.8-16         nnet_7.3-12         janeaustenr_0.1.4  </span>
+<span class="co">#&gt; [76] modelr_0.1.0        KernSmooth_2.23-15  plotly_4.5.6       </span>
+<span class="co">#&gt; [79] rmarkdown_1.3       viridis_0.3.4       readxl_0.1.1       </span>
+<span class="co">#&gt; [82] forcats_0.2.0       vcd_1.4-3           digest_0.6.12      </span>
+<span class="co">#&gt; [85] diptest_0.75-7      R.utils_2.5.0       stats4_3.3.2       </span>
+<span class="co">#&gt; [88] munsell_0.4.3       viridisLite_0.1.3   registry_0.3</span></code></pre></div>
 
 </div>
 </div>

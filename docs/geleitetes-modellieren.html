@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -332,7 +332,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Wie hängen Trinkgeldhöhe <code>tip</code> und Rechnungshöhe <code>total_bill</code> zusammen? Kann die Höhe des Trinkgeldes als <em>lineare</em> Funktion der Rechnungshöhe linear modelliert werden? <span class="math display">\[tip_i=\beta_0+\beta_1\cdot total\_bill_i+\epsilon_i\]</span></p>
 <p>Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">y =</span> tip, <span class="dt">x =</span> total_bill, <span class="dt">data =</span> tips)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Es scheint einen positiven Zusammenhang zu geben. Modellieren wir die <strong>abhängige</strong> Variable <code>tip</code> (inhaltliche Entscheidung!) als lineare Funktion der <strong>unabhängigen</strong> Variable <code>total_bill</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>total_bill, <span class="dt">data=</span>tips)
 <span class="kw">summary</span>(LinMod<span class="fl">.1</span>)
@@ -366,7 +366,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>also 4.07$.</p>
 <p>In mosaic kann die Modellgerade über</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotModel</span>(LinMod<span class="fl">.1</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 “ok”: 46-% der Variation des Trinkgeldes wird im Modell erklärt.</p>
 <div id="uberprufung-der-annahmen" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Überprüfung der Annahmen</h3>
@@ -377,22 +377,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Residuen =</span> <span class="kw">resid</span>(LinMod<span class="fl">.1</span>))
 <span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">data =</span> resid_df)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><em>Konstante Varianz</em>: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl <code>fitted()</code><a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a> extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot <code>qplot(x = tip, y = total_bill, data=tips)</code> erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst <em>nicht</em> die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des Hypothesentests, d. h., <span class="math inline">\(H_0:\beta_1=0\)</span>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df$fitted &lt;-<span class="st"> </span><span class="kw">fitted</span>(LinMod<span class="fl">.1</span>)
 <span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">y =</span> fitted, <span class="dt">data =</span> resid_df)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><em>Extreme Ausreißer</em>: Wie am Plot der Linearen Regression <code>plotModel(LinMod.1)</code> erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.</li>
 </ul>
 <p>Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xyplot</span>(total_bill ~<span class="st"> </span>size, <span class="dt">data=</span>tips)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Da bei diskreten metrischen Variablen (hier <code>size</code>) Punkte übereinander liegen können, sollte man “jittern” (“schütteln”), d. h., eine (kleine) Zufallszahl addieren:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> size, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 
 <div class="rmdexercises">
 <ol style="list-style-type: decimal">
@@ -407,7 +407,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Der Wochentag <code>day</code> ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?</p>
 <p>Zunächst grafisch:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> tip,<span class="dt">y =</span> day, <span class="dt">data=</span>tips)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Und als Lineares Modell:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>day, <span class="dt">data=</span>tips)
 <span class="kw">summary</span>(LinMod<span class="fl">.2</span>)
@@ -463,7 +463,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; F-statistic: 1.67 on 3 and 240 DF,  p-value: 0.174</span></code></pre></div>
 <p>sowie als Plot:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotModel</span>(LinMod<span class="fl">.3</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Eine Alternative zu <code>relevel()</code> zur Bestimmung der Referenzkategorie ist es, innerhalb von <code>factor()</code> die Option <code>levels=</code> direkt in der gewünschten Sortierung zu setzen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day &lt;-<span class="st"> </span><span class="kw">factor</span>(tips$day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,  <span class="st">&quot;Sun&quot;</span>))</code></pre></div>
 <p>Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. an einen Freitag kann dann berechnet werden</p>
@@ -797,7 +797,7 @@ preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(LinMod<spa
 <span class="co">#&gt; 76 8.80 6.63 11.0</span>
 <span class="kw">matplot</span>(newdat$total_bill, preddat, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">type=</span><span class="st">&quot;l&quot;</span> )
 <span class="kw">points</span>(<span class="dt">x=</span>tips$total_bill, <span class="dt">y=</span>tips$tip)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Sie sehen, dass 95% Prognoseintervall ist recht breit: über den gewählten Rechnungsbereich von <span class="math inline">\(0-75\)</span>$ im Mittelwert bei 4.11$.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">favstats</span>((preddat[,<span class="dv">3</span>]-preddat[,<span class="dv">2</span>]))
 <span class="co">#&gt;   min   Q1 median   Q3  max mean     sd  n missing</span>
@@ -840,7 +840,7 @@ preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(LinMod<spa
 <h3><span class="header-section-number">6.2.2</span> Problemstellung</h3>
 <p>Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xyplot</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">data =</span> Aktien)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">data =</span> Aktien)
 <span class="kw">summary</span>(lm1)
@@ -863,13 +863,13 @@ preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(LinMod<spa
 <span class="co">#&gt; Multiple R-squared:  0.0599, Adjusted R-squared:  0.0586 </span>
 <span class="co">#&gt; F-statistic: 44.5 on 1 and 698 DF,  p-value: 5.25e-11</span>
 <span class="kw">plotModel</span>(lm1)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Der Schätzer für die Steigung für <code>Risikobereitschaft</code> ist signifikant. Das Bestimmtheitsmaß R ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.</p>
 <p>Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?</p>
 <p>Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 bringt, die sogenannte <em>Linkfunktion</em>. Eine häufig dafür verwendete Funktion ist die logistische Funktion: <span class="math display">\[p(y=1)=\frac{e^\eta}{1+e^\eta}=\frac{1}{1+e^{-\eta}}\]</span></p>
 <p><span class="math inline">\(\eta\)</span>, das sogenannte <em>Logit</em>, ist darin die Linearkombination der Einflussgrößen: <span class="math display">\[\eta=\beta_0+\beta_1\cdot x_1+\dots\]</span></p>
 <p>Exemplarisch können wir die logistische Funktion für einen Bereich von <span class="math inline">\(\eta=-10\)</span> bis <span class="math inline">\(+10\)</span> darstellen:</p>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="die-idee-der-logistischen-regression" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Die Idee der logistischen Regression</h3>
@@ -883,7 +883,7 @@ preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(LinMod<spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
             <span class="dt">data =</span> Aktien)
 <span class="kw">plotModel</span>(glm1)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Es werden ein Streudiagramm der beobachten Werte sowie die <em>Regressionslinie</em> ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.</p>
 </blockquote>
@@ -957,7 +957,7 @@ fun1 &lt;-<span class="st"> </span><span class="kw">makeFun</span>(glm1)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>)</code></pre></div>
 <p>Zunächst ein Plot:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xyplot</span>(<span class="kw">jitter</span>(<span class="kw">as.numeric</span>(smoker)) ~<span class="st"> </span>day, <span class="dt">data =</span> tips)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Hinweis:</strong> Um zu sehen, ob es an manchen Tagen mehr Raucher gibt, sollten Sie zumindest eine Variable “verrauschen” (“<em>jittern</em>”). Da die Variable <code>smoker</code> eine nominale Variable ist und die Funktion <code>jitter()</code> nur mit numerischen Variablen arbeitet, muss sie mit <code>as.numeric()</code> in eine numerische Variable umgewandelt werden.</p>
 <p>Die relativen Häufigkeiten zeigt folgende Tabelle:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(tab_smoke &lt;-<span class="st"> </span><span class="kw">tally</span>(smoker ~<span class="st"> </span>day, <span class="dt">data =</span> tips, <span class="dt">format =</span> <span class="st">&quot;proportion&quot;</span>))
@@ -1038,7 +1038,7 @@ OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
 <span class="co">#&gt; AIC: 687</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Alle Schätzer sind signifkant zum 0.1 %-Niveau (<code>***</code> in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.</p>
 <p>Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86 auf 687.01 gesunken ist.</p>
 <p>Die Graphik zeigt die Verläufe in Abhängigkeit von den verschiedenen Variablen und den Kombinationen der Variablen.</p>
@@ -1098,7 +1098,7 @@ perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<spa
 <span class="kw">performance</span>(pred,<span class="st">&quot;auc&quot;</span>)@y.values
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 0.636</span></code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>AUC liegt zwischen <span class="math inline">\(0.5\)</span>, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und <span class="math inline">\(1\)</span>. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei <span class="math inline">\(0.7\)</span> und größer, gute Werte sind es ab <span class="math inline">\(0.8\)</span>.<a href="#fn34" class="footnoteRef" id="fnref34"><sup>34</sup></a></p>
 </div>
 <div id="modellschatzung" class="section level4">
@@ -1285,7 +1285,7 @@ perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">xpd =</span> <span class="ot">TRUE</span>) <span class="co"># Grafikparameter der sicherstellt, dass alles ins Bild passt</span>
 <span class="kw">plot</span>(regbaum, <span class="dt">compress =</span> <span class="ot">TRUE</span>) <span class="co"># Baum zeichnen</span>
 <span class="kw">text</span>(regbaum) <span class="co"># Baum beschriften</span></code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Eine deutlich schönere Ausgabe erhält man z. B. mit dem Zusatzpaket <code>rpart.plot</code>, welches man <em>einmalig</em> über</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;rpart.plot&quot;</span>)</code></pre></div>
 <p>installieren muss und dann benutzen kann.</p>
@@ -1293,7 +1293,7 @@ perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart.plot)</code></pre></div>
 <p>und dann zeichnen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(regbaum)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="kreuzvalidierung" class="section level4">
 <h4><span class="header-section-number">6.3.2.1</span> Kreuzvalidierung</h4>
 <div id="anpassungsgute" class="section level5">
@@ -1431,10 +1431,10 @@ msecvl &lt;-<span class="st"> </span><span class="kw">c</span>(msel1, msel2, mse
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">xpd =</span> <span class="ot">TRUE</span>) <span class="co"># Grafikparameter der sicherstellt, dass alles ins Bild passt</span>
 <span class="kw">plot</span>(klassbaum, <span class="dt">compress =</span> <span class="ot">TRUE</span>) <span class="co"># Baum zeichnen</span>
 <span class="kw">text</span>(klassbaum) <span class="co"># Baum beschriften</span></code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-72-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-72-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Bzw. “schöner”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(klassbaum)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-73-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-73-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="kreuzvalidierung-1" class="section level4">
 <h4><span class="header-section-number">6.3.3.1</span> Kreuzvalidierung</h4>
 <p>Wie gut ist das Modell? Auch hier können über <code>predict</code> die Punktprognosen bestimmt werden:</p>
@@ -1608,7 +1608,7 @@ c1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;ggplot2&quot;, dependencies = TRUE)</span>
 <span class="kw">library</span>(ggplot2)
 <span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">data =</span> c1)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-86-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-86-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Der Befehl <code>qplot</code> zeichnet automatisch Punkte, wenn auf beiden Achsen “Zahlen-Variablen” stehen (also Variablen, die keinen “Text”, sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ <code>int</code> (integer), also Ganze Zahlen oder vom Typ <code>num</code> (numeric), also reelle Zahlen).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 c2 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Survived)
@@ -1640,19 +1640,19 @@ c3
 <p>Da <code>Pclass</code> 3 Stufen hat (1., 2. und 3. Klasse) und innerhalb jeder dieser 3 Klassen es die Gruppe der Überlebenden und der Nicht-Überlebenden gibt, haben wir insgesamt 3*2=6 Gruppen.</p>
 <p>Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den gleichen Befehl wie oben.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">data =</span> c3)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-89-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-89-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für “Überlebt” und welcher Punkt für “Nicht-Überlebt” steht. Mit <code>qplot</code> geht das recht einfach: Wir sagen der Funktion <code>qplot</code>, dass die Farbe (<code>color</code>) der Punkte den Stufen von <code>Survived</code> zugeordnet werden sollen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">color =</span> Survived, <span class="dt">data =</span> c3)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-90-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-90-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Viel besser. Was noch stört, ist, dass <code>Survived</code> als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">color =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c3)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-91-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-91-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Viel besser. Jetzt noch ein bisschen Schnickschnack:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">color =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c3) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Klasse&quot;</span>, 
        <span class="dt">title =</span> <span class="st">&quot;Überleben auf der Titanic&quot;</span>,
        <span class="dt">colour =</span> <span class="st">&quot;Überlebt?&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-92-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-92-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="signifikanztest" class="section level3">
 <h3><span class="header-section-number">6.5.6</span> Signifikanztest</h3>
@@ -1748,7 +1748,7 @@ glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="dt">
 <span class="co">#&gt;       1.700       0.188</span>
 
 titanic2$pred_prob &lt;-<span class="st"> </span><span class="kw">predict</span>(glm1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-100-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-100-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.</p>
 <p>Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit <code>glm</code> und <code>family = &quot;binomial&quot;</code> eine <em>logistische</em> Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (<code>lm(...)</code>) ist.</p>
 <p>Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die “normale” Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-<em>Chance</em> (Odds) 1.7 zu 1 betrug - bei der <em>ersten</em> Stufe von <code>Pclass</code> (<code>1</code>)<a href="#fn36" class="footnoteRef" id="fnref36"><sup>36</sup></a>; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-<em>Wahrscheinlichkeit</em>); s. <code>Intercept</code>; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert “Null” hat/ haben, bzw. die erste Ausprägung, hier 1.</p>
@@ -1795,17 +1795,17 @@ c5
 <p>Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf.</p>
 <p>Das visualisieren wir wieder</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-104-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-104-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Das <code>geom = &quot;col&quot;</code> heißt, dass als “geometrisches Objekt” dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-105-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-105-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Ganz nett, aber die Häufigkeitsunterscheide von <code>Survived</code> zwischen den beiden Werten von <code>Pclass</code> stechen noch nicht so ins Auge. Wir sollten es anders darstellen.</p>
 <p>Hier kommt der Punkt, wo wir von <code>qplot</code> auf seinen großen Bruder, <code>ggplot</code> wechseln sollten. <code>qplot</code> ist in Wirklichkeit nur eine vereinfachte Form von <code>ggplot</code>; die Einfachheit wird mit geringeren Möglichkeiten bezahlt. Satteln wir zum Schluss dieser Fallstudie also um:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> c5) +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Passagierklasse&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Überlebt?&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;Nur Passagiere, keine Besatzung&quot;</span>)</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-106-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-106-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten.</p>
 <p>Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. Der zu untersuchende Effekt tritt hier am stärken zu Tage; außerdem ist die Analyse relativ einfach.</p>
 <p>Eine alternative Darstellung ist diese:</p>
@@ -1813,7 +1813,7 @@ c5
 <span class="st">  </span>ggplot +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> <span class="kw">factor</span>(Survived), <span class="dt">fill =</span> n) +
 <span class="st">  </span><span class="kw">geom_tile</span>()</code></pre></div>
-<p><img src="07_geleitetes_Modellieren_files/figure-html/unnamed-chunk-107-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="070_geleitetes_Modellieren_files/figure-html/unnamed-chunk-107-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Hier werden die vier “Fliesen” gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.</p>
 </div>
 <div id="fazit" class="section level3">

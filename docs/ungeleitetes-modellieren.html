@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -387,13 +387,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 seg.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(seg.dist) <span class="co"># Hierarchische Clusterung</span></code></pre></div>
 <p>Das Ergebnis lässt sich schön im Dendrogramm darstellen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(seg.hc)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Je höher (<code>Height</code>) die Stelle ist, an der zwei Beobachtungen oder Cluster zusammengefasst werden, desto größer ist die Distanz. D. h., Beobachtungen bzw. Cluster, die unten zusammengefasst werden, sind sich ähnlich, die, die oben zusammengefasst werden unähnlich.</p>
 <p>Hier wurde übrigens die Standardeinstellung für die Berechnung des Abstands von Clustern verwendet: Complete Linkage bedeutet, dass die Distanz zwischen zwei Clustern auf Basis des maximalen Abstands der Beobachtungen innerhalb des Clusters gebildet wird.</p>
 <p>Es ist nicht immer einfach zu entscheiden, wie viele Cluster es gibt. In der Praxis und Literatur finden sich häufig Zahlen zwischen 3 und 10. Evt. gibt es im Dendrogramm eine Stelle, an der der Baum gut geteilt werden kann. In unserem Fall vielleicht bei einer Höhe von <span class="math inline">\(0.6\)</span>, da sich dann 3 Cluster ergeben:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(seg.hc)
 <span class="kw">rect.hclust</span>(seg.hc, <span class="dt">h=</span><span class="fl">0.6</span>, <span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Das Ergebnis, d. h. die Clusterzuordnung, kann durch den Befehl <code>cutree()</code> den Beobachtungen zugeordnet werden.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segment$hc.clust &lt;-<span class="st"> </span><span class="kw">cutree</span>(seg.hc, <span class="dt">k=</span><span class="dv">3</span>)</code></pre></div>
 <p>Z. B. haben wir folgende Anzahlen für Beobachtungen je Cluster:</p>
@@ -487,7 +487,7 @@ seg.k
 <p>Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion <code>clusplot()</code> aus dem Paket <code>cluster</code> erhalten.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clusplot</span>(segment.num, seg.k$cluster, 
          <span class="dt">color =</span> <span class="ot">TRUE</span>, <span class="dt">shade =</span> <span class="ot">TRUE</span>, <span class="dt">labels =</span> <span class="dv">4</span>)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /> Wie schon im deskriptiven Ergebnis: Die Cluster <code>1</code> und <code>4</code> unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit <code>centers=3</code> die Analyse wiederholt werden?<a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /> Wie schon im deskriptiven Ergebnis: Die Cluster <code>1</code> und <code>4</code> unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit <code>centers=3</code> die Analyse wiederholt werden?<a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a></p>
 <hr />
 </div>
 <div id="ubung-b3-datensatz" class="section level3">
@@ -637,7 +637,7 @@ brand.ratings %&gt;%<span class="st"> </span>
 <span class="st">  </span>dplyr::<span class="kw">select</span>(-brand) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">cor</span>() %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">corrplot</span>()</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die Visualisierung der Korelation der Adjektive scheint drei allgemeine Cluster zu zeigen:</p>
 <ul>
 <li>fun/latest/trendy</li>
@@ -699,7 +699,7 @@ brand.mean
 <p>Eine <strong>Heatmap</strong> ist eine nützliche Darstellungsmöglichkeit, um solche Ergebnisse zu visualisierung und zu analysieren, da sie Datenpunkte durch die Intensitäten ihrer Werte färbt. Hierzu laden wir das Paket <code>gplot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gplots)
 <span class="kw">heatmap.2</span>(<span class="kw">as.matrix</span>(brand.mean))</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p><code>heatmap.2()</code> sortiert die Spalten und Zeilen, um Ähnlichkeiten und Muster in den Daten hervorzuheben. Eine zusätzliche Analysehilfe ist das Spalten- und Zeilendendrogramm. Hier werden Beobachtungen die nahe beineinanderliegen in einem Baum abgebildet. (Näheres hierzu bei der Clusteranalyse.)</p>
 <p>Auch hier sehen wir wieder die gleiche Zuordnung der Adjektive nach</p>
 <ul>
@@ -746,7 +746,7 @@ Gesamtvarianz&lt;-<span class="fl">1.726</span>^<span class="dv">2</span><span c
 <h3><span class="header-section-number">7.3.2</span> Scree-Plot</h3>
 <p>Der Standard-Plot <code>plot()</code> für die PCA ist ein <strong>Scree-Plot</strong>, Dieser zeigt uns die Varianzen der Hauptkomponenten und die aufeinanderfolgende Varianzen, die von jeder Komponente berücksichtigt wird. Wir plotten ein Liniendiagramm mit dem Argument <code>typ = &quot;l&quot;</code> (l für Linie):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(brand.pc, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wir sehen anahnd des Scree-Plots, dass bei den Brand-Rating-Daten der Anteil der Streuung nach der dritten Komponente nicht mehr wesentlich abnimmt.</p>
 </div>
 <div id="elbow-kriterium" class="section level3">
@@ -758,7 +758,7 @@ Gesamtvarianz&lt;-<span class="fl">1.726</span>^<span class="dv">2</span><span c
 <p>Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein Biplot. Dies ist ein zweidimensionales Diagramm von Datenpunkten in Bezug auf die ersten beiden PCA-Komponenten, die mit einer Projektion der Variablen auf die Komponenten überlagert sind.</p>
 <p>Dazu verwenden wir <code>biplot()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(brand.pc)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die Adjektiv-Gruppierungen auf den Variablen sind als rote Ladungspfeile sichbar. ZUsätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist durch die große Anzahl an Beobachtung recht unübersichtlich.</p>
 <p>Deshalb führen wir die PCA mit den aggregierten Daten durch:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brand.mean
@@ -790,7 +790,7 @@ brand.mu.pc&lt;-<span class="st"> </span><span class="kw">prcomp</span>(brand.me
 <h3><span class="header-section-number">7.3.5</span> Wahrnehmungsraum</h3>
 <p>Wenn ein Biplot Marken in einem Zweidimensionalen Raum abbildet, dann nennt man diesen Raum <strong>zweidimensionaler Wahrnehmungsraum</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(brand.mu.pc)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Der Biplot der PCA-Lösung für die Mittelwerte gibt einen interpretierbaren Wahrnehmungsraum, der zeigt, wo die Marken in Bezug auf die ersten beiden Hauptkomponenten liegen. Die variablen auf den beiden Komponenten sind mit der PCA auf den gesamten Datensatz konsistent. Wir sehen zunächst vier Bereiche (Positionen) mit gut differenzierten Adjektiven und Marken.</p>
 </div>
 </div>
@@ -839,7 +839,7 @@ brand.mu.pc&lt;-<span class="st"> </span><span class="kw">prcomp</span>(brand.me
 <p>Der Eigenwert eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Lauf dem Eigenwert-Kriterium sollen nur Faktoren mit einem Eigenwert größer 1 extrahiert werden. Dies sind bei den Brand-Rating Daten drei Faktoren, da drei Eigenwerte größer 1 sind.</p>
 <p>Dies kann auch grafisch mit dem <code>VSS.Scree</code> geplotet werden.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VSS.scree</span>(brand.sc[, <span class="dv">1</span>:<span class="dv">9</span>])</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Schätzung der EFA</strong></p>
 <p>Eine EFA wir geschätzt mit dem Befehl <code>factanal(x,factors=k)</code>, wobei k die Anzahl Faktoren angibt.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brand.fa&lt;-<span class="kw">factanal</span>(brand.sc[, <span class="dv">1</span>:<span class="dv">9</span>], <span class="dt">factors=</span><span class="dv">3</span>)
@@ -908,7 +908,7 @@ brand.fa
 <h3><span class="header-section-number">7.4.2</span> Heatmap mit Ladungen</h3>
 <p>In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt <code>brand.fa</code> sind diese als <code>$loadings</code> vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von <code>$loadings</code> visualisieren:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(brand.fa$loadings)</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 3 Faktoren, die grob interpretierbar sind als <strong>value</strong>, <strong>leader</strong> und <strong>latest</strong>.</p>
 </div>
 <div id="berechnung-der-faktor-scores" class="section level3">
@@ -945,13 +945,13 @@ brand.fa.mean
 <span class="co">#&gt; j -0.155 -1.0202 -0.2671</span></code></pre></div>
 <p>Mittels Heatmap kann dann sehr schnell analysiert werden, welche Marke auf welcher Dimension gute oder schlechte Ausprägungen hat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(<span class="kw">as.matrix</span>(brand.fa.mean))</code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Drei Dimensionen lassen sich in einem dreidimensionalen Raum darstellen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scatterplot3d)
 <span class="kw">attach</span>(brand.fa.mean) <span class="co"># Datensatz zum Suchpfad hinzufügen</span>
 <span class="kw">scatterplot3d</span>(Leader~Value+Latest, <span class="dt">pch=</span><span class="kw">row.names</span>(brand.fa.mean))
 <span class="kw">detach</span>(brand.fa.mean) <span class="co"># Datensatz vom Suchpfad entfernen</span></code></pre></div>
-<p><img src="08_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="080_ungeleitetes_Modellieren_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="interne-konsistenz-der-skalen" class="section level3">
 <h3><span class="header-section-number">7.4.4</span> Interne Konsistenz der Skalen</h3>
@@ -1160,12 +1160,12 @@ brand.fa.mean
 <p>Eine mögliche Visualisierung ist ein Streudiagramm von Support und Confidence</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arulesViz)
 <span class="kw">plot</span>(lebensmittel.regeln)</code></pre></div>
-<p><img src="08a_Assoziationsanalyse_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Mit Hilfe der Option <code>interactive=TRUE</code> kann in Bereiche gezoomt werden – und Regeln ausgewählt:</p>
 <p><code>r   plot(lebensmittel.regeln, interactive=TRUE)</code></p>
 <p>Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:</p>
 <p><code>r   plot(topregeln, method=&quot;graph&quot;)</code></p>
-<p><img src="08a_Assoziationsanalyse_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div id="literatur-4" class="section level4">
 <h4><span class="header-section-number">7.5.5.1</span> Literatur</h4>
 <ul>

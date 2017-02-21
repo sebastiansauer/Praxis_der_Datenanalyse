@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -583,7 +583,7 @@ afd_count %&gt;%<span class="st"> </span>
 <h3><span class="header-section-number">8.2.4</span> Visualisierung</h3>
 <p>Zum Abschluss noch eine Visualisierung mit einer “Wordcloud” dazu.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wordcloud</span>(<span class="dt">words =</span> afd_count$token_stem, <span class="dt">freq =</span> afd_count$n, <span class="dt">max.words =</span> <span class="dv">100</span>, <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="090_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn43" class="footnoteRef" id="fnref43"><sup>43</sup></a>.</p>
 <p>Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -607,7 +607,7 @@ afd_df %&gt;%<span class="st"> </span>
 
 <span class="kw">library</span>(gridExtra)
 <span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="090_Textmining_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit <code>reorder</code> ordnen wir die Spalte <code>token</code> nach der Spalte <code>n</code>. <code>coord_flip</code> dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. <code>grid.arrange</code> packt beide Plots in eine Abbildung, welche 2 Spalten (<code>ncol</code>) hat.</p>
 </div>
 </div>
@@ -917,7 +917,7 @@ sentiment_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>() +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> Wert) +
 <span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
-<p><img src="09_Textmining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="090_Textmining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Es scheint einen (leichten) Überhang an negativen Wörtern zu geben. Schauen wir auf die genauen Zahlen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sentiment_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(Wert)) %&gt;%<span class="st"> </span>

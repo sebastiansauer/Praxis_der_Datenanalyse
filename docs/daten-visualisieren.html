@@ -26,7 +26,7 @@
 <meta name="author" content="Sebastian Sauer">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -321,6 +321,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="daten-visualisieren" class="section level1">
 <h1><span class="header-section-number">Kapitel 4</span> Daten visualisieren</h1>
+<p>Benötigte Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(wesanderson)
+<span class="kw">library</span>(car)
+<span class="kw">library</span>(RColorBrewer)
+<span class="kw">library</span>(GGally)
+<span class="kw">library</span>(knitr)
+<span class="kw">library</span>(gridExtra)</code></pre></div>
 <p>Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.</p>
 <p><img src="images/anscombe.pdf" width="70%" style="display: block; margin: auto;" /></p>
 <p>Offenbar “passieren” in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns… Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrundeliengenden “Natur”) passiert.</p>
@@ -328,10 +336,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Laden wir dazu den Datensatz <code>nycflights::flights</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(flights, <span class="dt">package =</span> <span class="st">&quot;nycflights13&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> carrier, <span class="dt">y =</span> arr_delay, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> flights)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint mir nicht unplausibel (Schneesturm im Winter, Flugzeug verschwunden…). Vor dem Hintergrund der Extremwerte erscheinen die mittleren Verspätungen (Mediane) in den Boxplots als ähnlich. Vielleicht ist der Unterschied zwischen den Monaten ausgeprägter?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> arr_delay, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> flights)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von <code>qplot</code> näher an. “q” in <code>qplot</code> steht für “quick”. Tatsächlich hat <code>qplot</code> einen großen Bruder, <code>ggplot</code><a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>, der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit <code>qplot</code> an.</p>
 <p>Diese Syntax des letzten Beispiels ist recht einfach, nämlich:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span> (<span class="dt">x =</span> X_Achse, <span class="dt">y =</span> Y_Achse, <span class="dt">data =</span> mein_dataframe, <span class="dt">geom =</span> <span class="st">&quot;ein_geom&quot;</span>)</code></pre></div>
@@ -345,36 +353,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)
 
 <span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt <code>ggplot2</code> automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># qplot(x = shoe_size, data = wo_men)  wie oben</span>
 
 <span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter <em>ohne</em>.</p>
 <p>Vielleicht wäre es noch schön, beide Geome zu kombinieren in einem Diagramm. Das ist etwas komplizierter; wir müssen zum großen Bruder <code>ggplot</code> umsteigen, da <code>qplot</code> nicht diese Funktionen anbietet.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> wo_men) +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> shoe_size) +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">alpha =</span> .<span class="dv">7</span>) +
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Zuerst haben wir mit dem Parameter <code>data</code> den Dateframe benannt. <code>aes</code> definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das <code>+</code>-Zeichen trennt die einzelnen Bestandteile des <code>ggplot</code>-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: <code>geom_histogram</code>. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. <code>ggplot</code> berechnet selbständig die Dichte und nennt diese Variable <code>..density..</code>; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine “normale” Variable aus dem eigenen Dateframe handelt, sondern um eine “interne” Varialbe von <code>ggplot</code> - die wir aber nichtsdestotrotz verwenden können. <code>alpha</code> bestimmt die “Durchsichtigkeit” eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm <em>übe</em>r das Histogramm.</p>
 <p>Wünsche sind ein Fass ohne Boden… Wäre es nicht schön, ein Diagramm für Männer und eines für Frauen zu haben, um die Verteilungen vergleichen zu können?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">color =</span> sex)
 <span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">fill =</span> sex, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-11-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(shoe_size &lt;=<span class="st"> </span><span class="dv">47</span>) -&gt;<span class="st"> </span>wo_men2
 
 <span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men2, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">fill =</span> sex, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Besser. Man kann das Durchpfeifen auch bis zu <code>qplot</code> weiterführen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(shoe_size &lt;=<span class="st"> </span><span class="dv">47</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> ., <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">fill =</span> sex, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die Pfeife versucht im Standard, das Endprodukt des lezten Arbeitsschritts an den <em>ersten</em> Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von <code>qplot</code> zeigt, dass der erste Parameter nicht <code>data</code> ist, sondern <code>x</code>. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des lezten Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt <code>.</code> können wir sagen “nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde”.</p>
 <p>Mit <code>fill = sex</code> sagen wir <code>qplot</code>, dass er für Männer und Frauen jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns <code>ggplot2</code> im Standard voraussucht). Mit anderen Worten: Die Werte von <code>sex</code> werden der Füllfarbe der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: <code>color = sex</code>.</p>
 </div>
@@ -382,18 +390,18 @@ wo_men %&gt;%<span class="st"> </span>
 <h3><span class="header-section-number">4.1.2</span> Zwei kontinuierliche Variablen</h3>
 <p>Ein Streudiagramm ist die klassiche Art, zwei metrische Variablen darzustellen. Das ist mit <code>qplot</code> einfach:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> wo_men)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt <code>ggplot2</code> automatisch ein Streudiagramm - d.h. Punkte als Geom (<code>geom = &quot;point&quot;</code>). Wir sollten aber noch die Extremwerte herausnehmen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> .)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Der Trend ist deutlich erkennbar: Je größer die Person, desto länger die Füß´. Zeichnen wir noch eine Trendgerade ein.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> .) +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Synonym könnten wir auch schreiben:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
@@ -406,30 +414,29 @@ wo_men %&gt;%<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">color =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Mit <code>color = sex</code> sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von <code>sex</code> eingefärbt werden sollen. Die genaue Farbwahl übernimmt <code>ggplot2</code> für uns.</p>
 </div>
 <div id="eine-diskrete-variable" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Eine diskrete Variable</h3>
 <p>Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind in dem Datensatz?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">data =</span> wo_men)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt <code>qplot</code> automatisch ein Balkendiagramm als Geom.</p>
 <p>Entfernen wir vorher noch die fehlenden Werte:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">na.omit</span>() %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie “Größe gruppiert” erstellen mit zwei Werten: “klein” und “groß”. Nennen wir sie <code>groesse_gruppe</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
-wo_men$groesse_gruppe &lt;-<span class="st"> </span>car::<span class="kw">recode</span>(wo_men$height, <span class="st">&quot;lo:175 = &#39;klein&#39;; else = &#39;gross&#39;&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men$groesse_gruppe &lt;-<span class="st"> </span>car::<span class="kw">recode</span>(wo_men$height, <span class="st">&quot;lo:175 = &#39;klein&#39;; else = &#39;gross&#39;&quot;</span>)
 
 wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span>na.omit -&gt;<span class="st"> </span>wo_men2
   
 <span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">fill =</span> groesse_gruppe, <span class="dt">data =</span> wo_men2)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In Worten sagt der <code>recode</code>-Befehl hier in etwa: “Kodiere <code>wo_men$height</code> um, und zwar vom kleinsten (<code>lo</code>) Wert bis 170 soll den Wert <code>klein</code> bekommen, ansonsten bekommt eine Größe den Wert <code>gross</code>”.</p>
 <p>Hier haben wir <code>qplot</code> gesagt, dass der die Balken entsprechend der Häufigkeit von <code>groesse_gruppe</code> füllen soll. Und bei den Frauen sind bei dieser Variablen die Wete <code>klein</code> häufig; bei den Männern hingegen die Werte <code>gross</code>.</p>
 <p>Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit <code>qplot</code> (so) nicht; wir schwenken auf <code>ggplot</code> um<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>.</p>
@@ -437,7 +444,7 @@ wo_men %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>() +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">fill =</span> groesse_gruppe) +
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die einzige Änderung in den Parametern ist <code>position = &quot;fill&quot;</code>. Dieser Parameter weist <code>ggplot</code> an, die Positionierung der Balken auf die Darstellung von Anteilen auszulegen. Damit haben alle Balken die gleiche Höhe, nämlich 100% (1). Aber die “Füllung” der Balken schwankt je nach der Häufigkeit der Werte von <code>groesse_gruppe</code> pro Balken (d.h. pro Wert von <code>sex</code>).</p>
 <p>Wir sehen, dass die Anteile von großen bzw. kleinen Menschen bei den beiden Gruppen (Frauen vs. Männer) <em>unterschiedlich hoch</em> ist. Dies spricht für einen <em>Zusammenhang</em> der beiden Variablen; man sagt, die Variablen sind <em>abhängig</em> (im statistischen Sinne).</p>
 <blockquote>
@@ -455,7 +462,7 @@ profiles %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> drinks, <span class="dt">y =</span> body_type, <span class="dt">fill =</span> n) +
 <span class="st">  </span><span class="kw">geom_tile</span>() +
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Was haben wir gemacht? Also:</p>
 
 <div class="rmdpseudocode">
@@ -485,21 +492,20 @@ wo_men3
 <p>Diese Tabelle schieben wir jetzt in <code>ggplot2</code>; natürlich hätten wir das gleich in einem Rutsch durchpfeifen können.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men3 %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> Groesse_MW, <span class="dt">data =</span> .)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach <code>Groesse_Gruppe</code> ausweisen, wird das noch überschaubar bleiben.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(sex, groesse_gruppe) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Groesse_MW =</span> <span class="kw">mean</span>(height)) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">color =</span> <span class="kw">factor</span>(groesse_gruppe), <span class="dt">y =</span> Groesse_MW, <span class="dt">data =</span> .)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="farblehre" class="section level2">
 <h2><span class="header-section-number">4.2</span> Farblehre</h2>
 <p>Erstens, nicht schaden - so könnte hier die Maßregel sein. Es ist leicht, zu grelle oder wenig kontrastierende Farben auszuwählen. Eine gute Farbauswahl (Palette) ist nicht so leicht und hängt vom Zweck der Darstellung ab.</p>
 <p>Cynthia Brewer<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a> hat einige schöne Farbpaletten zusammengestellt; diese sind in R und in ggplot2 über das Paket <code>RcolorBrewer</code> verfügbar.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RColorBrewer)
-brewer.pal.info %&gt;%<span class="st"> </span>rownames_to_column %&gt;%<span class="st"> </span><span class="kw">rename</span>(<span class="dt">Name =</span> rowname) %&gt;%<span class="st"> </span>kable</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brewer.pal.info %&gt;%<span class="st"> </span>rownames_to_column %&gt;%<span class="st"> </span><span class="kw">rename</span>(<span class="dt">Name =</span> rowname) %&gt;%<span class="st"> </span>kable</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -726,17 +732,17 @@ brewer.pal.info %&gt;%<span class="st"> </span>rownames_to_column %&gt;%<span cl
 <li>Kontrastierende Darstellung (nominale/ qualitative Variablen) - z.B. Männer vs. Frauen</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">display.brewer.all</span>(<span class="dt">type=</span><span class="st">&quot;qual&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Sequenzielle Darstellung (unipolare numerische Variablen) - z.B. Preis oder Häufigkeit</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">display.brewer.all</span>(<span class="dt">type=</span><span class="st">&quot;seq&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Divergierende Darstellung (bipolare numerische Variablen) - z.B. semantische Potenziale oder Abstufung von “stimme überhaupt nicht zu” über “neutral” bis “stimme voll und ganz zu”</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">display.brewer.all</span>(<span class="dt">type=</span><span class="st">&quot;div&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>In <code>ggplot2</code> können wir folgendermaßen Paletten ändern.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 flights %&gt;%<span class="st"> </span>
@@ -767,12 +773,11 @@ p2 &lt;-<span class="st"> </span>flights %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)
 
 <span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/brewerpal-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/brewerpal-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p><code>scale_color_brewer</code> meint hier: “Ordne der Variablen, die für ‘color’ zuständig ist, hier <code>sex</code>, eine Farbe aus der Brewer-Palette ‘Set1’ zu”. Die Funktion wählt <em>automatisch</em> die richtige Anzahl von Farben.</p>
 <p>Man beachte, dass die Linienfarbe über <code>color</code> und die Füllfarbe über <code>fill</code> zugewiesen wird. Punkte haben nur eine Linienfarbe, keine Füllfarbe.</p>
 <p>Auch die Farbpaletten von Wes Anderson sind erbaulich<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>. Diese sind nicht “hart verdrahtet” in ggplot2, sondern werden über <code>scale_XXX_manual</code> zugewiesen (wobei XXX z.B. <code>color</code> oder <code>fill</code> sein kann).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(tips, <span class="dt">package =</span> <span class="st">&quot;reshape2&quot;</span>)
-<span class="kw">library</span>(wesanderson)
 
 p1 &lt;-<span class="st"> </span>tips %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>() +
@@ -798,7 +803,7 @@ p3 &lt;-<span class="st"> </span>tips %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)
 
 <span class="kw">grid.arrange</span>(p1, p2, p3, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über <code>scale_XXX_manual</code> dann zu. Man kann einerseits aus den in R definierten Farben auswählen<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a> oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.</p>
 </div>
 <div id="prinzipien" class="section level2">
@@ -809,11 +814,10 @@ p3 &lt;-<span class="st"> </span>tips %&gt;%<span class="st"> </span>
 <div id="ggpairs" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> ggpairs</h3>
 <p>Um eine Streudiagramm-Matrix darzustellen, ist der Befehl <code>GGally::ggpairs</code> praktisch:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
-
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 tips %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggpairs</span>(<span class="kw">aes</span>(<span class="dt">color =</span> sex), <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;total_bill&quot;</span>, <span class="st">&quot;smoker&quot;</span>, <span class="st">&quot;tip&quot;</span>))</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Dabei gibt man an, welche Variable (hier <code>sex</code>) für die Farben im Diagramm zuständig sein soll (wir ordnen den Werten von <code>sex</code> jeweils eine Farbe zu). Mit <code>columns</code> sagen wir, welche Spalten des Dataframes wir dargestellt haben möchten. Lassen wir diesen Parameter weg, so werden alle Spaltne des Dataframes dargestellt.</p>
 </div>
 <div id="weitere" class="section level3">
@@ -884,7 +888,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Was macht dieser <code>ggplot</code> Befehl? Schauen wir es uns in Einzelnen an:</p>
 <ul>
 <li><code>ggplot(data = ...)</code>: Wir sagen “Ich möchte gern die Funktion ggplot nutzen, um den Datensatz … zu plotten”.</li>
@@ -899,7 +903,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="um-90-drehen" class="section level3">
 <h3><span class="header-section-number">4.5.4</span> Um 90° drehen</h3>
@@ -908,7 +912,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
 <span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="text-labels-fur-die-items" class="section level3">
 <h3><span class="header-section-number">4.5.5</span> Text-Labels für die Items</h3>
@@ -924,7 +928,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
 <span class="st">  </span><span class="kw">coord_flip</span>() +
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen… wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">item_labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ich bin das erste Item&quot;</span>,
                  <span class="st">&quot;Das zweite Item&quot;</span>,
@@ -938,7 +942,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <span class="st">  </span><span class="kw">coord_flip</span>() +
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels, <span class="dt">name =</span> <span class="st">&quot;Extraversionsitems&quot;</span>) +
 <span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Anteile&quot;</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="diagramm-mit-haufigkeiten" class="section level3">
 <h3><span class="header-section-number">4.5.6</span> Diagramm mit Häufigkeiten</h3>
@@ -948,7 +952,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) +
 <span class="st">  </span><span class="kw">coord_flip</span>() +
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) </code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="farbschema" class="section level3">
 <h3><span class="header-section-number">4.5.7</span> Farbschema</h3>
@@ -959,7 +963,7 @@ data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(d
 <span class="st">  </span><span class="kw">coord_flip</span>() +
 <span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) +
 <span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="dv">17</span>)</code></pre></div>
-<p><img src="05_Daten_visualisieren_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="verweise-2" class="section level2">

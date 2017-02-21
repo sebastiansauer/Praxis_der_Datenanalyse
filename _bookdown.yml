@@ -4,17 +4,17 @@ repo: https://github.com/sebastiansauer/Statistik_21
 output_dir: "docs"
 rmd_files: [
 "index.Rmd",
-"02_Rahmen_1.Rmd",
-"03_Tidy_Data.Rmd",
-"04_Datenjudo.Rmd",
-"05_Daten_visualisieren.Rmd",
-"06_Modellieren.Rmd",
-"07_geleitetes_Modellieren.Rmd",
-"08_ungeleitetes_Modellieren.Rmd",
-"08a_Assoziationsanalyse.Rmd",
-"09_Textmining.Rmd",
-"10_Kommunizieren.Rmd",
-"11_Rahmen_2.Rmd"]
+"020_Rahmen_1.Rmd",
+"030_Tidy_Data.Rmd",
+"040_Datenjudo.Rmd",
+"050_Daten_visualisieren.Rmd",
+"060_Modellieren.Rmd",
+"070_geleitetes_Modellieren.Rmd",
+"080_ungeleitetes_Modellieren.Rmd",
+"081_Assoziationsanalyse.Rmd",
+"090_Textmining.Rmd",
+"100_Kommunizieren.Rmd",
+"110_Rahmen_2.Rmd"]
 clean: [packages.bib, bookdown.bbl]
 new_session: yes
 language:
