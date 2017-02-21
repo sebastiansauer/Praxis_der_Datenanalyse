@@ -23,13 +23,13 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 Benötigte Pakete:
 ```{r libs_visualisieren}
-library(tidyverse)
-library(wesanderson)
-library(car)
-library(RColorBrewer)
-library(GGally)
-library(knitr)
-library(gridExtra)
+library(tidyverse)  # Zum Plotten
+library(wesanderson)  # Farb-Palette von Wes Anderson
+library(car)  # Umkodieren
+library(RColorBrewer)  # Farb-Palette von Cynthia Breewr
+library(GGally)  # Scatterplot-Matrizen
+library(knitr)  # HTML-Tabellen
+library(gridExtra)  # Mehrere Plots in einem erstellen
 ```
 
 

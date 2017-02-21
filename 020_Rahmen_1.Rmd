@@ -183,7 +183,7 @@ Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten install
 
 
 ### R-Pakete für dieses Buch
-In diesem Buch verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen:
+In diesem Buch verwenden wir die folgenden R-Pakete; diese müssen installiert[^186] sein und geladen:
 
 ```{r source_packages, include = FALSE}
 source("includes/Pakete.R")
@@ -326,6 +326,9 @@ sessionInfo()
 [^10]: https://sebastiansauer.github.io/data/test_inf_short.csv
 [^11]: https://sebastiansauer.github.io/data/wo_men.csv 
 [^12]: https://osf.io/meyhp/?action=download
+
+
+[^186]: Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. 
 
 
 

@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 
 
@@ -63,7 +68,7 @@ Als nächstes machen wir daraus einen Dataframe.
 
 ```r
 text_df <- data_frame(Zeile = 1:4,
-                      text)
+                      text = text)
 ```
 
 
@@ -89,7 +94,7 @@ text_df %>%
 #> # ... with 21 more rows
 ```
 
-Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die Tokens - so dass in jeder Zeile nur noch ein Wort (Token) steht. Die Syntax ist `unnest_tokens(Ausgabespalte, Eingabespalte)`. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.
+Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die Tokens - so dass in *jeder Zeile* nur noch *ein Wort* (genauer: Token) steht. Die Syntax ist `unnest_tokens(Ausgabespalte, Eingabespalte)`. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.
 
 Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.
 
@@ -107,11 +112,20 @@ text_df %>%
 #> # ... with 21 more rows
 ```
 
+Das `"[a-z]"` steht für "alle Buchstaben von a-z". In Pseudo-Code heißt dieser Abschnitt:
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz "text_df" UND DANN  
+dehne die einzelnen Elemente der Spalte "text", so dass jedes Element seine eigene Spalte bekommt.  
+Ach ja: Diese "gedehnte" Spalte soll "Wort" heißen (weil nur einzelne Wörter drinnen stehen).  
+Ach ja 2: Diesees "dehnen" wandelt automatisch Groß- in Kleinbuchstaben um. UND DANN   
+filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERTIG.  
+</div>\EndKnitrBlock{rmdpseudocode}
 
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2].
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2][^120].
 
 
 
@@ -299,13 +313,15 @@ Eine weitere interessante Analyse ist, die "Stimmung" oder "Emotionen" (Sentimen
 
 
 
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Schau dir jeden Token aus dem Text an.  
+Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.  
+Wenn ja, dann addiere den Sentimentswert dieses Tokens zum bestehenden Sentiments-Wert.  
+Wenn nein, dann gehe weiter zum nächsten Wort.  
+Liefere zum Schluss die Summenwerte pro Sentiment zurück.  
+</div>\EndKnitrBlock{rmdpseudocode}
 
->    Schau dir jeden Token aus dem Text an.  
-     Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.  
-     Wenn ja, dann addiere den Sentimentswert dieses Tokens zum bestehenden Sentiments-Wert.  
-     Wenn nein, dann gehe weiter zum nächsten Wort.  
-     Liefere zum Schluss die Summenwerte pro Sentiment zurück.    
-     
+
+
      
 Es gibt Sentiment-Lexika, die lediglich einen Punkt für "positive Konnotation" bzw. "negative Konnotation" geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier [dieses](http://asv.informatik.uni-leipzig.de/download/sentiws.html) Lexikon [@remquahey2010]. Der Einfachheit halber gehen wir im Folgenden davon aus, dass das Lexikon schon aufbereitet vorliegt. Die Aufbereitung unten im Abschnitt zur Vertiefung nachgelesen werden.
 
@@ -635,7 +651,7 @@ neg_df %>%
 
 ```
 
-`str_sub` parst zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
+`str_sub` parst[^5] zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
 
 Das gleiche wiederholen wir für positiv konnotierte Wörter.
 
@@ -688,6 +704,11 @@ neg       Abfuhr        -0.337  Abfuhren
 
 [^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
 
+[^5]: "parst" ist denglisch für "einlesen" von engl. "to parse"
+
 
 
 [^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 
+
+
+[^120]: Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.
