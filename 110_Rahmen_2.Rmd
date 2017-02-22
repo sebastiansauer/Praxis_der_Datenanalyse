@@ -22,14 +22,10 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 # Rahmen - Teil 2
 
 
+```{r echo = FALSE}
+knitr::include_graphics("images/Rahmen.pdf")
+```
 
 
 
-## Trends
-
-- Big Data
-- Open Science
-- Computerisierung
-- Neue Methoden zur numerischen Vorhersage
-- Textmining
 

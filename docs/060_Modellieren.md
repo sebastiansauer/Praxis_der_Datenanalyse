@@ -11,6 +11,8 @@ library(tidyverse)
 require(gridExtra)
 ```
 
+<img src="images/Modellieren.pdf" width="70%" style="display: block; margin: auto;" />
+
 
 
 
@@ -18,12 +20,12 @@ require(gridExtra)
 
 Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen.
 
-Manche Aspekte der Wirklichkeit[^1] sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
+Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
 
 
 <div class="figure" style="text-align: center">
 <img src="images/Modell.pdf" alt="Modellieren" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-2)Modellieren</p>
+<p class="caption">(\#fig:unnamed-chunk-3)Modellieren</p>
 </div>
 
 
@@ -36,8 +38,8 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 <div class="figure" style="text-align: center">
-<img src="060_Modellieren_files/figure-html/unnamed-chunk-4-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
-<p class="caption">(\#fig:unnamed-chunk-4)Ein Beispiel für Modellieren</p>
+<img src="060_Modellieren_files/figure-html/unnamed-chunk-5-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-5)Ein Beispiel für Modellieren</p>
 </div>
 
 
@@ -229,6 +231,7 @@ Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell
 
 
 [^1]: Unter "Wirklichkeit" sei hier ein beliebiges empirisches System vorhanden, mit einer Menge von Objekten *O* und einer Menge von Beziehungen (Relationen) *R* zwischen den Objekten.
+
 [^2]: Der Übergang ist fließend.
 
 [^3]: Tatsächlich wurden die Y-Werte als Sinus-Funktion plus etwas normalverteiltes Rauschen simuliert.

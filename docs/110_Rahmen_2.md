@@ -5,14 +5,8 @@
 # Rahmen - Teil 2
 
 
+<img src="images/Rahmen.pdf" width="70%" style="display: block; margin: auto;" />
 
 
 
-## Trends
-
-- Big Data
-- Open Science
-- Computerisierung
-- Neue Methoden zur numerischen Vorhersage
-- Textmining
 

@@ -1,3 +1,22 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+```
 
 ## Klassifizierende Regression
 
@@ -31,7 +50,7 @@ summary(lm1)
 plotModel(lm1)
 ```
 
-Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß R\textsuperscript2 ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
+Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
 Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?
 
@@ -83,7 +102,7 @@ $$p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(`r round(coef(glm1)[1],2)` + `r round
 Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Hier wird ein *Wald*-Test durchgeführt, nicht wie bei der linearen Regression ein t-Test, ebenfalls mit der $H_0:\beta_i=0$. Die Teststastistik (`z value`) wird wie in der linearen Regression durch Divisions des Schätzers (`Estimate`) durch den Standardfehler (`Std. Error`) ermittelt. Im *Wald*-Test ist die Teststatistik allerdings $\chi^2$-verteilt mit einem Freiheitsgrad.
 
 ### Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?
-Es gibt kein R\textsuperscript2 im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-R\textsuperscript2 berechnet werden -- kommt später.)
+Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.)
 
 Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden -- kommt später.)
 
@@ -99,16 +118,26 @@ Eine Abschätzung der Änderung der Wahrscheinlichkeit (*relatives Risiko*, *rel
 *Übung*: Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die `Risikobereitschaft` um 1 erhöht (Funktion `exp()`). Vergleichen Sie das Ergebnis mit der Punktprognose für `Risikobereitschaft `$=7$ im Vergleich zu `Risikobereitschaft `$=8$. Zur Erinnerung: Sie können `makeFun(model)` verwenden.
 
 
-```{r}
+```{r exp_coef_glm1_2}
 # aus Koeffizient abgeschätzt
 exp(coef(glm1)[2])
+```
+
+In Worten: "Mit jedem Punkt mehr Risikobereitschaft steigen die Chancen (das OR) für Aktienkauf um `r round(exp(coef(glm1)[2]), 3)`".
+
+
+```{r}
+
 # mit dem vollständigen Modell berechnet
 fun1 <- makeFun(glm1)
-fun1(Risikobereitschaft = 7)
+fun1(Risikobereitschaft = 1)
 fun1(Risikobereitschaft = 8)
 # als Faktor ausgeben
-fun1(Risikobereitschaft = 8)/fun1(Risikobereitschaft = 7)
+fun1(Risikobereitschaft = 8)/fun1(Risikobereitschaft = 1)
 ```
+
+Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis "Aktienkauf", `r round(fun1(Risikobereitschaft = 1),2)`. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei `r round(fun1(Risikobereitschaft = 8),2)`.
+
 
 Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit `Risikobereitschaft`$=1$ liegt allerdings auch bei `r round(sum(Aktien$Aktienkauf)/length(Aktien$Aktienkauf),2)`.
 
@@ -150,7 +179,7 @@ Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier:
 exp(coef(glmtips)[2])
 ```
 
-Daher ist das Chancenverhältnis (*Odds Ratio*), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor `r round(exp(coef(glmtips)[2]),2)` niedriger als am Freitag: 
+Daher ist das Chancenverhältnis (*Odds Ratio*), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor `r round(exp(coef(glmtips)[2]),2)` niedriger als am Freitag[^173]: 
 
 
 $${OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
@@ -159,6 +188,12 @@ $${OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
 {\frac{`r round(tab_smoke[2,1],4)`}{`r round(tab_smoke[1,1],4)`}}
 \approx `r round((tab_smoke[2,2]/tab_smoke[1,2])/(tab_smoke[2,1]/tab_smoke[1,1]),4)`}$$
 
+Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder komfortabel so ausgeben lassen:
+
+```{r}
+fun2 <- makeFun(glmtips)
+fun2(day = "Sat")
+```
 
 
 
@@ -168,7 +203,7 @@ Wir kehren wieder zurück zu dem Datensatz *Aktienkauf*. Können wir unser Model
 
 ```{r}
 glm2 <- glm(Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, 
-            family = binomial("logit"),data = Aktien)
+            family = binomial("logit"), data = Aktien)
 plotModel(glm2)
 summary(glm2)
 ```
@@ -182,9 +217,8 @@ Ist das Modell besser als das einfache? Ja, da der AIC-Wert von `r round(AIC(glm
 
 Die Graphik zeigt die Verläufe in Abhängigkeit von den verschiedenen Variablen und den Kombinationen der Variablen.
 
-### Erweiterungen
 
-#### Klassifikationsgüte
+### Modell- bzw. Klassifikationsgüte
 Logistische Regressionsmodelle werden häufig zur Klassifikation verwendet, z. B. ob der Kredit für einen Neukunden ein "guter" Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.
 
 Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (*cutpoint*), häufig $0.5$, einer geschätzten $1$ zugeordnet, unterhalb des Schwellenwertes einer $0$. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen.
@@ -239,6 +273,7 @@ performance(pred,"auc")@y.values
 
 AUC liegt zwischen $0.5$, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und $1$. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei $0.7$ und größer, gute Werte sind es ab $0.8$.^[Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164]
 
+### Erweiterungen
 
 #### Modellschätzung
 Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die *Maximum Likelihood* Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (*Maximum Likelihood*) werden.
@@ -273,8 +308,8 @@ lrtest(glm1, glm2)
 Ja, die Modelle `glm1` (mit einer erklärenden Variable) und `glm2` unterscheiden sich signifikant voneinander.
 
 
-#### Pseudo-R\textsuperscript2 
-Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem R\textsuperscript2 der linearen Regression entspricht. Exemplarisch sei hier McFaddens R\textsuperscript2 gezeigt: $${R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}$$ Wie bei bei dem R\textsuperscript2 der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen  R\textsuperscript2 der beiden Modelle `glm1` und `glm2`? Sie können es direkt berechnen oder das Paket `BaylorEdPsych` verwenden.
+#### Pseudo-$R^2$ 
+Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem $R^2$ der linearen Regression entspricht. Exemplarisch sei hier McFaddens $R^2$ gezeigt: $${R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}$$ Wie bei bei dem $R^2$ der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen  $R^2$ der beiden Modelle `glm1` und `glm2`? Sie können es direkt berechnen oder das Paket `BaylorEdPsych` verwenden.
 
 ```{r}
 # direkte Berechnung
@@ -288,19 +323,18 @@ PseudoR2(glm2)
 
 
 
-Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. **Hinweis:** Die Funktion `PseudoR2(model)` zeigt verschiedene Pseudo-R\textsuperscript2 Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.
+Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. **Hinweis:** Die Funktion `PseudoR2(model)` zeigt verschiedene Pseudo-$R^2$ Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.
 
 
 
 ### Übung: Rot- oder Weißwein?
 
-Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen. 
+Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen [@cortez2009modeling].
 
-*P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.*
 
-Sie können in [hier](https://goo.gl/Dkd7nK)). Die Originaldaten finden Sie im UCI [Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Wine+Quality).
+Sie können in unter <https://goo.gl/Dkd7nK> herunterladen. Die Originaldaten finden Sie im UCI Machine Learning Repository[^336].
 
-Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine zu klassifizieren.^[Anregungen zu dieser Übung stammen von [INTW Statistics](https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html)]
+Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren[^338]. 
 
 **Zusatzaufgabe:** Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable `color` aufgenommen wird (Rot = 0, Weiß = 1).
 
@@ -315,3 +349,10 @@ Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine zu klassifizieren
 - Daniel Wollschläger (2014): *Grundlagen der Datenanalyse mit R*, Kapitel 8.1
 
 
+
+[^173]: Am Freitag liegen die Chancen (das OR) für einen Raucher bei `r round(exp(coef(glmtips)[1]),2)`. Das OR für Samstag ist das Produkt dieser beiden OR. Um das OR zu einer Wahrscheinlichkeit umzurechnen kann man, möchte vom "von Hand" arbeiten, diese Formel verwenden: $p = OR / (OR + 1)$.
+
+
+[^336]: http://archive.ics.uci.edu/ml/datasets/Wine+Quality
+
+[^338]: Anregungen zu dieser Übung stammen von INTW Statistics: https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html

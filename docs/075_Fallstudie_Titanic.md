@@ -1,5 +1,6 @@
 
 
+
 ## Fallstudie: Überleben auf der Titanic
 In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um die beispielhafte Analyse nominaler Daten anhand des "klassischen" Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der derPassagiers reist, ab?
 
@@ -21,24 +22,6 @@ Man beachte, dass ein Paket nur *einmalig* zu installieren ist (wie jede Softwar
 library(tidyverse)
 ```
 
-```
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-```
-
-```
-## Conflicts with tidy packages ----------------------------------------------
-```
-
-```
-## filter(): dplyr, stats
-## lag():    dplyr, stats
-```
-
 
 ### Erster Blick
 Werfen wir einen ersten Blick in die Daten:
@@ -47,23 +30,20 @@ Werfen wir einen ersten Blick in die Daten:
 ```r
 # install.packages("dplyr", dependencies = TRUE) # ggf. vorher installieren
 glimpse(titanic_train)
-```
-
-```
-## Observations: 891
-## Variables: 12
-## $ PassengerId <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,...
-## $ Survived    <int> 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0,...
-## $ Pclass      <int> 3, 1, 3, 1, 3, 3, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3,...
-## $ Name        <chr> "Braund, Mr. Owen Harris", "Cumings, Mrs. John Bra...
-## $ Sex         <chr> "male", "female", "female", "female", "male", "mal...
-## $ Age         <dbl> 22, 38, 26, 35, 35, NA, 54, 2, 27, 14, 4, 58, 20, ...
-## $ SibSp       <int> 1, 1, 0, 1, 0, 0, 0, 3, 0, 1, 1, 0, 0, 1, 0, 0, 4,...
-## $ Parch       <int> 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 0, 5, 0, 0, 1,...
-## $ Ticket      <chr> "A/5 21171", "PC 17599", "STON/O2. 3101282", "1138...
-## $ Fare        <dbl> 7.2500, 71.2833, 7.9250, 53.1000, 8.0500, 8.4583, ...
-## $ Cabin       <chr> "", "C85", "", "C123", "", "", "E46", "", "", "", ...
-## $ Embarked    <chr> "S", "C", "S", "S", "S", "Q", "S", "S", "S", "C", ...
+#> Observations: 891
+#> Variables: 12
+#> $ PassengerId <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,...
+#> $ Survived    <int> 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0,...
+#> $ Pclass      <int> 3, 1, 3, 1, 3, 3, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3,...
+#> $ Name        <chr> "Braund, Mr. Owen Harris", "Cumings, Mrs. John Bra...
+#> $ Sex         <chr> "male", "female", "female", "female", "male", "mal...
+#> $ Age         <dbl> 22, 38, 26, 35, 35, NA, 54, 2, 27, 14, 4, 58, 20, ...
+#> $ SibSp       <int> 1, 1, 0, 1, 0, 0, 0, 3, 0, 1, 1, 0, 0, 1, 0, 0, 4,...
+#> $ Parch       <int> 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 0, 5, 0, 0, 1,...
+#> $ Ticket      <chr> "A/5 21171", "PC 17599", "STON/O2. 3101282", "1138...
+#> $ Fare        <dbl> 7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.07...
+#> $ Cabin       <chr> "", "C85", "", "C123", "", "", "E46", "", "", "", ...
+#> $ Embarked    <chr> "S", "C", "S", "S", "S", "Q", "S", "S", "S", "C", ...
 ```
 
 ### Welche Variablen sind interessant?
@@ -78,15 +58,12 @@ Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab e
 ```r
 c1 <- dplyr::count(titanic_train, Pclass)
 c1
-```
-
-```
-## # A tibble: 3 × 2
-##   Pclass     n
-##    <int> <int>
-## 1      1   216
-## 2      2   184
-## 3      3   491
+#> # A tibble: 3 × 2
+#>   Pclass     n
+#>    <int> <int>
+#> 1      1   216
+#> 2      2   184
+#> 3      3   491
 ```
 
 
@@ -103,22 +80,20 @@ library(ggplot2)
 qplot(x = Pclass, y = n, data = c1)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Befehl `qplot` zeichnet automatisch Punkte, wenn auf beiden Achsen "Zahlen-Variablen" stehen (also Variablen, die keinen "Text", sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ `int` (integer), also Ganze Zahlen oder vom Typ `num` (numeric), also reelle Zahlen).
 
 
 ```r
+
 c2 <- dplyr::count(titanic_train, Survived)
 c2
-```
-
-```
-## # A tibble: 2 × 2
-##   Survived     n
-##      <int> <int>
-## 1        0   549
-## 2        1   342
+#> # A tibble: 2 × 2
+#>   Survived     n
+#>      <int> <int>
+#> 1        0   549
+#> 2        1   342
 ```
 
 Man beachte, dass der Befehl `count` stehts eine Tabelle (data.frame bzw. `tibble`) verlangt und zurückliefert.
@@ -133,20 +108,17 @@ Zählen wir zuerst die Häufigkeiten für alle Kombinationen von `Survived` und 
   ```r
   c3 <- dplyr::count(titanic_train, Survived, Pclass)
   c3
-  ```
-  
-  ```
-  ## Source: local data frame [6 x 3]
-  ## Groups: Survived [?]
-  ## 
-  ##   Survived Pclass     n
-  ##      <int>  <int> <int>
-  ## 1        0      1    80
-  ## 2        0      2    97
-  ## 3        0      3   372
-  ## 4        1      1   136
-  ## 5        1      2    87
-  ## 6        1      3   119
+  #> Source: local data frame [6 x 3]
+  #> Groups: Survived [?]
+  #> 
+  #>   Survived Pclass     n
+  #>      <int>  <int> <int>
+  #> 1        0      1    80
+  #> 2        0      2    97
+  #> 3        0      3   372
+  #> 4        1      1   136
+  #> 5        1      2    87
+  #> 6        1      3   119
   ```
 
 Da `Pclass` 3 Stufen hat (1., 2. und 3. Klasse) und innerhalb jeder dieser 3 Klassen es die Gruppe der Überlebenden und der Nicht-Überlebenden gibt, haben wir insgesamt 3*2=6 Gruppen.
@@ -158,7 +130,7 @@ Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den g
 qplot(x = Pclass, y = n, data = c3)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen:
   
@@ -167,7 +139,7 @@ Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, w
   qplot(x = Pclass, y = n, color = Survived, data = c3)
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:
   
@@ -176,7 +148,7 @@ Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable versta
   qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 Viel besser. Jetzt noch ein bisschen Schnickschnack:
   
@@ -189,7 +161,7 @@ Viel besser. Jetzt noch ein bisschen Schnickschnack:
        colour = "Überlebt?")
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Signifikanztest
@@ -199,14 +171,11 @@ Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegen
 
 ```r
 chisq.test(titanic_train$Survived, titanic_train$Pclass)
-```
-
-```
-## 
-## 	Pearson's Chi-squared test
-## 
-## data:  titanic_train$Survived and titanic_train$Pclass
-## X-squared = 102.89, df = 2, p-value < 2.2e-16
+#> 
+#> 	Pearson's Chi-squared test
+#> 
+#> data:  titanic_train$Survived and titanic_train$Pclass
+#> X-squared = 100, df = 2, p-value <2e-16
 ```
 
 Der p-Wert ist kleiner als 5%, daher entscheiden wir uns, entsprechend der üblichen Gepflogenheit, gegen die H0 und für die H1: "Es gibt einen Zusammenhang von Überlebensrate und Passagierklasse".
@@ -235,14 +204,11 @@ Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:
   ```r
   c4 <- dplyr::count(t2, Pclass)
   c4
-  ```
-  
-  ```
-  ## # A tibble: 2 × 2
-  ##   Pclass     n
-  ##    <int> <int>
-  ## 1      1   216
-  ## 2      3   491
+  #> # A tibble: 2 × 2
+  #>   Pclass     n
+  #>    <int> <int>
+  #> 1      1   216
+  #> 2      3   491
   ```
 
 
@@ -251,14 +217,11 @@ Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datent
   
   ```r
   chisq.test(t2$Survived, t2$Pclass)
-  ```
-  
-  ```
-  ## 
-  ## 	Pearson's Chi-squared test with Yates' continuity correction
-  ## 
-  ## data:  t2$Survived and t2$Pclass
-  ## X-squared = 95.893, df = 1, p-value < 2.2e-16
+  #> 
+  #> 	Pearson's Chi-squared test with Yates' continuity correction
+  #> 
+  #> data:  t2$Survived and t2$Pclass
+  #> X-squared = 100, df = 1, p-value <2e-16
   ```
 
 Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
@@ -266,49 +229,47 @@ Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
 Dann berechnen wir die Effektstärke (OR) mit dem Paket `compute.es` (muss ebenfalls installiert sein).
 
 ```r
+
 library(compute.es)
 chies(chi.sq = 96, n = 707)
-```
-
-```
-## Mean Differences ES: 
-##  
-##  d [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] 
-##   var(d) = 0.01 
-##   p-value(d) = 0 
-##   U3(d) = 78.59 % 
-##   CLES(d) = 71.23 % 
-##   Cliff's Delta = 0.42 
-##  
-##  g [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] 
-##   var(g) = 0.01 
-##   p-value(g) = 0 
-##   U3(g) = 78.56 % 
-##   CLES(g) = 71.21 % 
-##  
-##  Correlation ES: 
-##  
-##  r [ 95 %CI] = 0.37 [ 0.3 , 0.43 ] 
-##   var(r) = 0 
-##   p-value(r) = 0 
-##  
-##  z [ 95 %CI] = 0.39 [ 0.31 , 0.46 ] 
-##   var(z) = 0 
-##   p-value(z) = 0 
-##  
-##  Odds Ratio ES: 
-##  
-##  OR [ 95 %CI] = 4.21 [ 3.15 , 5.61 ] 
-##   p-value(OR) = 0 
-##  
-##  Log OR [ 95 %CI] = 1.44 [ 1.15 , 1.73 ] 
-##   var(lOR) = 0.02 
-##   p-value(Log OR) = 0 
-##  
-##  Other: 
-##  
-##  NNT = 3.57 
-##  Total N = 707
+#> Mean Differences ES: 
+#>  
+#>  d [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] 
+#>   var(d) = 0.01 
+#>   p-value(d) = 0 
+#>   U3(d) = 78.6 % 
+#>   CLES(d) = 71.2 % 
+#>   Cliff's Delta = 0.42 
+#>  
+#>  g [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] 
+#>   var(g) = 0.01 
+#>   p-value(g) = 0 
+#>   U3(g) = 78.6 % 
+#>   CLES(g) = 71.2 % 
+#>  
+#>  Correlation ES: 
+#>  
+#>  r [ 95 %CI] = 0.37 [ 0.3 , 0.43 ] 
+#>   var(r) = 0 
+#>   p-value(r) = 0 
+#>  
+#>  z [ 95 %CI] = 0.39 [ 0.31 , 0.46 ] 
+#>   var(z) = 0 
+#>   p-value(z) = 0 
+#>  
+#>  Odds Ratio ES: 
+#>  
+#>  OR [ 95 %CI] = 4.21 [ 3.15 , 5.61 ] 
+#>   p-value(OR) = 0 
+#>  
+#>  Log OR [ 95 %CI] = 1.44 [ 1.15 , 1.73 ] 
+#>   var(lOR) = 0.02 
+#>   p-value(Log OR) = 0 
+#>  
+#>  Other: 
+#>  
+#>  NNT = 3.57 
+#>  Total N = 707
 ```
 
 Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you live...
@@ -328,19 +289,14 @@ glm1 <- glm(data = titanic2,
             family = "binomial")
 
 exp(coef(glm1))
-```
+#> (Intercept)     Pclass3 
+#>       1.700       0.188
 
-```
-## (Intercept)     Pclass3 
-##    1.700000    0.188172
-```
-
-```r
 titanic2$pred_prob <- predict(glm1, type = "response")
 ```
 
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.
 
@@ -355,46 +311,50 @@ Komfortabler können wir uns die Überlebens-*Wahrscheinlichkeiten* mit der Funk
 
 ```r
 predict(glm1, newdata = data.frame(Pclass = factor("1")), type = "response")
-```
-
-```
-##         1 
-## 0.6296296
-```
-
-```r
+#>    1 
+#> 0.63
 predict(glm1, newdata = data.frame(Pclass = factor("3")), type = "response")
-```
-
-```
-##         1 
-## 0.2423625
+#>     1 
+#> 0.242
 ```
 
 Alternativ kann man die Häufigkeiten auch noch "per Hand" bestimmen: 
   
-  
-  ```r
-  titanic_train %>% 
+
+```r
+titanic_train %>% 
   filter(Pclass %in% c(1,3)) %>% 
   dplyr::select(Survived, Pclass) %>% 
   group_by(Pclass, Survived) %>% 
   summarise(n = n() ) %>% 
   mutate(Anteil = n / sum(n))
-  ```
-  
-  ```
-  ## Source: local data frame [4 x 4]
-  ## Groups: Pclass [2]
-  ## 
-  ##   Pclass Survived     n    Anteil
-  ##    <int>    <int> <int>     <dbl>
-  ## 1      1        0    80 0.3703704
-  ## 2      1        1   136 0.6296296
-  ## 3      3        0   372 0.7576375
-  ## 4      3        1   119 0.2423625
-  ```
+#> Source: local data frame [4 x 4]
+#> Groups: Pclass [2]
+#> 
+#>   Pclass Survived     n Anteil
+#>    <int>    <int> <int>  <dbl>
+#> 1      1        0    80  0.370
+#> 2      1        1   136  0.630
+#> 3      3        0   372  0.758
+#> 4      3        1   119  0.242
+```
 
+
+Übersetzen wir dies Syntax auf Deutsch:
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz "titanic_train" UND DANN  
+Filtere nur die 1. und die 3. Klasse heraus UND DANN  
+wähle nur die Spalten "Survived" und "Pclass" UND DANN  
+gruppiere nach "Pclass" und "Survived" UND DANN  
+zähle die Häufigkeiten für jede dieser Gruppen aus UND DANN  
+berechne den Anteil an Überlebenden bzw. Nicht-Überlebenden  
+für jede der beiden Passagierklassen. FERTIG.  
+ 
+</div>\EndKnitrBlock{rmdpseudocode}
+
+
+   
 
 
 
@@ -406,18 +366,15 @@ Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisc
 c5 <- dplyr::count(t2, Pclass, Survived)
 c5$prop <- c5$n / 707
 c5
-```
-
-```
-## Source: local data frame [4 x 4]
-## Groups: Pclass [?]
-## 
-##   Pclass Survived     n      prop
-##    <int>    <int> <int>     <dbl>
-## 1      1        0    80 0.1131542
-## 2      1        1   136 0.1923621
-## 3      3        0   372 0.5261669
-## 4      3        1   119 0.1683168
+#> Source: local data frame [4 x 4]
+#> Groups: Pclass [?]
+#> 
+#>   Pclass Survived     n  prop
+#>    <int>    <int> <int> <dbl>
+#> 1      1        0    80 0.113
+#> 2      1        1   136 0.192
+#> 3      3        0   372 0.526
+#> 4      3        1   119 0.168
 ```
 
 Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf. 
@@ -429,7 +386,7 @@ Das visualisieren wir wieder
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.
 
@@ -438,7 +395,7 @@ Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punk
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
 Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden Werten von `Pclass` stechen noch nicht so ins Auge. Wir sollten es anders darstellen.
 
@@ -452,7 +409,7 @@ Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wec
   labs(x = "Passagierklasse", fill = "Überlebt?", caption = "Nur Passagiere, keine Besatzung")
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 
 
@@ -468,7 +425,7 @@ Eine alternative Darstellung ist diese:
   geom_tile()
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
 Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.
 

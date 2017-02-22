@@ -33,6 +33,11 @@ library(gridExtra)  # Mehrere Plots in einem erstellen
 ```
 
 
+```{r echo = FALSE}
+knitr::include_graphics("images/Visualisieren.pdf")
+```
+
+
 Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe[^9] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
 
 

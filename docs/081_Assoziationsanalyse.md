@@ -1,5 +1,6 @@
 
 
+
 ## Assoziationsanalyse
 
 
@@ -49,21 +50,6 @@ Geladen wird das Paket dann über
 library(arules)
 ```
 
-```
-## Loading required package: Matrix
-```
-
-```
-## 
-## Attaching package: 'arules'
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     abbreviate, write
-```
-
 
 
 
@@ -81,34 +67,31 @@ Im Paket `arules` sind Point-Of-Sale Daten eines Lebensmittelgeschäftes von ein
   ```r
   data(Groceries, package = "arules") # Daten laden
   summary(Groceries)
-  ```
-  
-  ```
-  ## transactions as itemMatrix in sparse format with
-  ##  9835 rows (elements/itemsets/transactions) and
-  ##  169 columns (items) and a density of 0.02609146 
-  ## 
-  ## most frequent items:
-  ##       whole milk other vegetables       rolls/buns             soda 
-  ##             2513             1903             1809             1715 
-  ##           yogurt          (Other) 
-  ##             1372            34055 
-  ## 
-  ## element (itemset/transaction) length distribution:
-  ## sizes
-  ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
-  ## 2159 1643 1299 1005  855  645  545  438  350  246  182  117   78   77   55 
-  ##   16   17   18   19   20   21   22   23   24   26   27   28   29   32 
-  ##   46   29   14   14    9   11    4    6    1    1    1    1    3    1 
-  ## 
-  ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  ##   1.000   2.000   3.000   4.409   6.000  32.000 
-  ## 
-  ## includes extended item information - examples:
-  ##        labels  level2           level1
-  ## 1 frankfurter sausage meat and sausage
-  ## 2     sausage sausage meat and sausage
-  ## 3  liver loaf sausage meat and sausage
+  #> transactions as itemMatrix in sparse format with
+  #>  9835 rows (elements/itemsets/transactions) and
+  #>  169 columns (items) and a density of 0.0261 
+  #> 
+  #> most frequent items:
+  #>       whole milk other vegetables       rolls/buns             soda 
+  #>             2513             1903             1809             1715 
+  #>           yogurt          (Other) 
+  #>             1372            34055 
+  #> 
+  #> element (itemset/transaction) length distribution:
+  #> sizes
+  #>    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
+  #> 2159 1643 1299 1005  855  645  545  438  350  246  182  117   78   77   55 
+  #>   16   17   18   19   20   21   22   23   24   26   27   28   29   32 
+  #>   46   29   14   14    9   11    4    6    1    1    1    1    3    1 
+  #> 
+  #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  #>     1.0     2.0     3.0     4.4     6.0    32.0 
+  #> 
+  #> includes extended item information - examples:
+  #>        labels  level2           level1
+  #> 1 frankfurter sausage meat and sausage
+  #> 2     sausage sausage meat and sausage
+  #> 3  liver loaf sausage meat and sausage
   ```
 
 *Hinweis:* Um einen Datensatz als Transaktionsdatensatz zu definieren wird der Befehl
@@ -122,31 +105,28 @@ verwendet. Siehe auch Hilfeseite zu `transactions-class`.
   
   ```r
   inspect(head(Groceries))
-  ```
-  
-  ```
-  ##     items                     
-  ## [1] {citrus fruit,            
-  ##      semi-finished bread,     
-  ##      margarine,               
-  ##      ready soups}             
-  ## [2] {tropical fruit,          
-  ##      yogurt,                  
-  ##      coffee}                  
-  ## [3] {whole milk}              
-  ## [4] {pip fruit,               
-  ##      yogurt,                  
-  ##      cream cheese ,           
-  ##      meat spreads}            
-  ## [5] {other vegetables,        
-  ##      whole milk,              
-  ##      condensed milk,          
-  ##      long life bakery product}
-  ## [6] {whole milk,              
-  ##      butter,                  
-  ##      yogurt,                  
-  ##      rice,                    
-  ##      abrasive cleaner}
+  #>     items                     
+  #> [1] {citrus fruit,            
+  #>      semi-finished bread,     
+  #>      margarine,               
+  #>      ready soups}             
+  #> [2] {tropical fruit,          
+  #>      yogurt,                  
+  #>      coffee}                  
+  #> [3] {whole milk}              
+  #> [4] {pip fruit,               
+  #>      yogurt,                  
+  #>      cream cheese ,           
+  #>      meat spreads}            
+  #> [5] {other vegetables,        
+  #>      whole milk,              
+  #>      condensed milk,          
+  #>      long life bakery product}
+  #> [6] {whole milk,              
+  #>      butter,                  
+  #>      yogurt,                  
+  #>      rice,                    
+  #>      abrasive cleaner}
   ```
 
 
@@ -157,46 +137,40 @@ Es existieren verschiedene Algorithmen um Assoziationsregeln zu finden. Hier wir
   ```r
   lebensmittel.regeln <- apriori(Groceries, parameter=list(supp=0.02, conf=0.1,
                                                          target="rules"))
-  ```
-  
-  ```
-  ## Apriori
-  ## 
-  ## Parameter specification:
-  ##  confidence minval smax arem  aval originalSupport maxtime support minlen
-  ##         0.1    0.1    1 none FALSE            TRUE       5    0.02      1
-  ##  maxlen target   ext
-  ##      10  rules FALSE
-  ## 
-  ## Algorithmic control:
-  ##  filter tree heap memopt load sort verbose
-  ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
-  ## 
-  ## Absolute minimum support count: 196 
-  ## 
-  ## set item appearances ...[0 item(s)] done [0.00s].
-  ## set transactions ...[169 item(s), 9835 transaction(s)] done [0.00s].
-  ## sorting and recoding items ... [59 item(s)] done [0.00s].
-  ## creating transaction tree ... done [0.00s].
-  ## checking subsets of size 1 2 3 done [0.00s].
-  ## writing ... [128 rule(s)] done [0.00s].
-  ## creating S4 object  ... done [0.00s].
+  #> Apriori
+  #> 
+  #> Parameter specification:
+  #>  confidence minval smax arem  aval originalSupport maxtime support minlen
+  #>         0.1    0.1    1 none FALSE            TRUE       5    0.02      1
+  #>  maxlen target   ext
+  #>      10  rules FALSE
+  #> 
+  #> Algorithmic control:
+  #>  filter tree heap memopt load sort verbose
+  #>     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+  #> 
+  #> Absolute minimum support count: 196 
+  #> 
+  #> set item appearances ...[0 item(s)] done [0.00s].
+  #> set transactions ...[169 item(s), 9835 transaction(s)] done [0.00s].
+  #> sorting and recoding items ... [59 item(s)] done [0.00s].
+  #> creating transaction tree ... done [0.00s].
+  #> checking subsets of size 1 2 3 done [0.00s].
+  #> writing ... [128 rule(s)] done [0.00s].
+  #> creating S4 object  ... done [0.00s].
   ```
 
 
 ```r
 inspect(subset(lebensmittel.regeln, lift>2.5))
-```
-
-```
-##     lhs                              rhs               support   
-## [1] {pip fruit}                   => {tropical fruit}  0.02043721
-## [2] {tropical fruit}              => {pip fruit}       0.02043721
-## [3] {other vegetables,whole milk} => {root vegetables} 0.02318251
-##     confidence lift    
-## [1] 0.2701613  2.574648
-## [2] 0.1947674  2.574648
-## [3] 0.3097826  2.842082
+#>     lhs                              rhs               support confidence
+#> [1] {pip fruit}                   => {tropical fruit}  0.0204  0.270     
+#> [2] {tropical fruit}              => {pip fruit}       0.0204  0.195     
+#> [3] {other vegetables,whole milk} => {root vegetables} 0.0232  0.310     
+#>     lift
+#> [1] 2.57
+#> [2] 2.57
+#> [3] 2.84
 ```
 
 
@@ -207,51 +181,48 @@ Um die "Top" Regeln zu betrachten müssen die Regeln nach dem gewünschten Krite
   ```r
   topregeln <- head(sort(lebensmittel.regeln, by="confidence"), 20)
   inspect(topregeln)
-  ```
-  
-  ```
-  ##      lhs                                   rhs                support   
-  ## [1]  {other vegetables,yogurt}          => {whole milk}       0.02226741
-  ## [2]  {butter}                           => {whole milk}       0.02755465
-  ## [3]  {curd}                             => {whole milk}       0.02613116
-  ## [4]  {root vegetables,other vegetables} => {whole milk}       0.02318251
-  ## [5]  {root vegetables,whole milk}       => {other vegetables} 0.02318251
-  ## [6]  {domestic eggs}                    => {whole milk}       0.02999492
-  ## [7]  {whipped/sour cream}               => {whole milk}       0.03223183
-  ## [8]  {root vegetables}                  => {whole milk}       0.04890696
-  ## [9]  {root vegetables}                  => {other vegetables} 0.04738180
-  ## [10] {frozen vegetables}                => {whole milk}       0.02043721
-  ## [11] {margarine}                        => {whole milk}       0.02419929
-  ## [12] {beef}                             => {whole milk}       0.02125064
-  ## [13] {tropical fruit}                   => {whole milk}       0.04229792
-  ## [14] {whipped/sour cream}               => {other vegetables} 0.02887646
-  ## [15] {yogurt}                           => {whole milk}       0.05602440
-  ## [16] {pip fruit}                        => {whole milk}       0.03009659
-  ## [17] {whole milk,yogurt}                => {other vegetables} 0.02226741
-  ## [18] {brown bread}                      => {whole milk}       0.02521607
-  ## [19] {other vegetables}                 => {whole milk}       0.07483477
-  ## [20] {pork}                             => {whole milk}       0.02216573
-  ##      confidence lift    
-  ## [1]  0.5128806  2.007235
-  ## [2]  0.4972477  1.946053
-  ## [3]  0.4904580  1.919481
-  ## [4]  0.4892704  1.914833
-  ## [5]  0.4740125  2.449770
-  ## [6]  0.4727564  1.850203
-  ## [7]  0.4496454  1.759754
-  ## [8]  0.4486940  1.756031
-  ## [9]  0.4347015  2.246605
-  ## [10] 0.4249471  1.663094
-  ## [11] 0.4131944  1.617098
-  ## [12] 0.4050388  1.585180
-  ## [13] 0.4031008  1.577595
-  ## [14] 0.4028369  2.081924
-  ## [15] 0.4016035  1.571735
-  ## [16] 0.3978495  1.557043
-  ## [17] 0.3974592  2.054131
-  ## [18] 0.3887147  1.521293
-  ## [19] 0.3867578  1.513634
-  ## [20] 0.3844797  1.504719
+  #>      lhs                                   rhs                support
+  #> [1]  {other vegetables,yogurt}          => {whole milk}       0.0223 
+  #> [2]  {butter}                           => {whole milk}       0.0276 
+  #> [3]  {curd}                             => {whole milk}       0.0261 
+  #> [4]  {root vegetables,other vegetables} => {whole milk}       0.0232 
+  #> [5]  {root vegetables,whole milk}       => {other vegetables} 0.0232 
+  #> [6]  {domestic eggs}                    => {whole milk}       0.0300 
+  #> [7]  {whipped/sour cream}               => {whole milk}       0.0322 
+  #> [8]  {root vegetables}                  => {whole milk}       0.0489 
+  #> [9]  {root vegetables}                  => {other vegetables} 0.0474 
+  #> [10] {frozen vegetables}                => {whole milk}       0.0204 
+  #> [11] {margarine}                        => {whole milk}       0.0242 
+  #> [12] {beef}                             => {whole milk}       0.0213 
+  #> [13] {tropical fruit}                   => {whole milk}       0.0423 
+  #> [14] {whipped/sour cream}               => {other vegetables} 0.0289 
+  #> [15] {yogurt}                           => {whole milk}       0.0560 
+  #> [16] {pip fruit}                        => {whole milk}       0.0301 
+  #> [17] {whole milk,yogurt}                => {other vegetables} 0.0223 
+  #> [18] {brown bread}                      => {whole milk}       0.0252 
+  #> [19] {other vegetables}                 => {whole milk}       0.0748 
+  #> [20] {pork}                             => {whole milk}       0.0222 
+  #>      confidence lift
+  #> [1]  0.513      2.01
+  #> [2]  0.497      1.95
+  #> [3]  0.490      1.92
+  #> [4]  0.489      1.91
+  #> [5]  0.474      2.45
+  #> [6]  0.473      1.85
+  #> [7]  0.450      1.76
+  #> [8]  0.449      1.76
+  #> [9]  0.435      2.25
+  #> [10] 0.425      1.66
+  #> [11] 0.413      1.62
+  #> [12] 0.405      1.59
+  #> [13] 0.403      1.58
+  #> [14] 0.403      2.08
+  #> [15] 0.402      1.57
+  #> [16] 0.398      1.56
+  #> [17] 0.397      2.05
+  #> [18] 0.389      1.52
+  #> [19] 0.387      1.51
+  #> [20] 0.384      1.50
   ```
 
 
@@ -265,7 +236,7 @@ library(arulesViz)
 plot(lebensmittel.regeln)
 ```
 
-<img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 Mit Hilfe der Option `interactive=TRUE` kann in Bereiche gezoomt werden -- und Regeln ausgewählt:
   
@@ -279,7 +250,7 @@ Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:
   plot(topregeln, method="graph")
   ```
   
-  <img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+  <img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 #### Literatur

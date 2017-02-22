@@ -12,7 +12,9 @@ library(gridExtra)  # Mehrere Plots kombinieren
 ```
 
 
-## Einfache lineare Regression
+## Klassische lineare (numerische) Regression
+
+### Einfache Regression
 Wir werden weiter den Datensatz *tips* analysieren [@bryant1995practical].
 
 Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
@@ -95,7 +97,7 @@ plotModel(LinMod.1)
 
 betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 "ok": 46-\% der Variation des Trinkgeldes wird im Modell erklärt.
 
-### Überprüfung der Annahmen
+#### Überprüfung der Annahmen
 Aber wie sieht es mit den Annahmen aus?
 
 - Die Linearität des Zusammenhangs haben wir zu Beginn mit Hilfe des Scatterplots "überprüft".
@@ -148,7 +150,7 @@ qplot(x = total_bill, y = size, data = tips, geom = "jitter")
 
 
 
-### Regression mit kategorialen Werten
+#### Regression mit kategorialen Werten
 Der Wochentag `day` ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?
 
 Zunächst grafisch:
@@ -260,7 +262,7 @@ LinMod.3Fun(day="Fri")
 
 
 
-## Multiple Regression
+### Multiple Regression
 Aber wie wirken sich die Einflussgrößen *zusammen* auf das Trinkgeld aus?
 
 ```r
@@ -439,7 +441,7 @@ $$H_0: \beta_1=\beta_2=\cdots=\beta_k=0$$
 Das Ergebnis des zugrundeliegenden F-Tests (vgl. Varianzanalyse) wird in der letzten Zeile angegeben (`F-Statistic`). Hier wird $H_0$ also verworfen.
 
 
-## Modellgüte
+### Modellgüte bei Regressionsmodellen
 In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte so:
 
 >    Wie groß ist der Unterschied zwischen Vorhersage und Wirklichkeit?
@@ -448,7 +450,7 @@ Die Größe des Unterschieds (Differenz, "Delta") zwischen vorhergesagten (gesch
 
 Graphisch kann man das gut veranschaulichen:
 
-<img src="070_geleitetes_Modellieren_files/figure-html/resids_plot-1.png" width="70%" style="display: block; margin: auto;" /><img src="070_geleitetes_Modellieren_files/figure-html/resids_plot-2.png" width="70%" style="display: block; margin: auto;" /><img src="070_geleitetes_Modellieren_files/figure-html/resids_plot-3.png" width="70%" style="display: block; margin: auto;" />
+<img src="070_geleitetes_Modellieren_files/figure-html/resids_plot-1.png" width="70%" style="display: block; margin: auto;" />
 
 Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschätzten) Werte wieder; die Punkte die beobachteten ("echten") Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler. 
 
@@ -457,13 +459,13 @@ Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschä
 
 Sagt mein Modell voraus, dass Ihre Schuhgröße 49 ist, aber in Wahrheit liegt sie bei 39, so werden Sie dieses Modell als schlecht beurteilen.
 
-Leider ist es nicht immer einfach zu sagen, wie groß der Fehler sein muss, damit das Modell schlecht ist. Man kann argumentieren, dass es keine wissenschaftliche Frage sei, wie viel "viel" oder "genug" ist [@uncertainty]. Das ist zwar plausibel, hilft aber nicht, wenn ich eine Entscheidung treffen muss. Stellen Sie sich vor: Ich zwinge Sie mit der Pistole auf der Brust, meine Schuhgröße zu schätzen.
+Leider ist es nicht immer einfach zu sagen, wie groß der Fehler sein muss, damit das Modell als "schlecht" gilt. Man kann argumentieren, dass es keine wissenschaftliche Frage sei, wie viel "viel" oder "genug" ist [@uncertainty]. Das ist zwar plausibel, hilft aber nicht, wenn ich eine Entscheidung treffen muss. Stellen Sie sich vor: Ich zwinge Sie mit der Pistole auf der Brust, meine Schuhgröße zu schätzen.
 
 Eine einfache Lösung ist, das beste Modell unter mehreren Kandidaten zu wählen.
 
 Ein anderer Ansatz ist, die Vorhersage in Bezug zu einem Kriterium zu setzen. Dieses "andere Kriterium" könnte sein "einfach raten". Oder, etwas intelligenter, Sie schätzen meine Schuhgröße auf einen Wert, der eine gewisse Plausibiliät hat, also z.B. die durchschnittliche Schuhgröße des deutschen Mannes. Auf dieser Basis kann man dann quantifizieren, ob und wieviel besser man als dieses Referenzkriterium ist.
 
-## Mittlere Quadratfehler
+#### Mittlere Quadratfehler
 Eine der häufigsten Gütekennzahlen ist der *mittlere quadrierte Fehler* (engl. "mean squared error", MSE), wobei Fehler wieder als Differenz zwischen Vorhersage (`pred`) und beobachtete Wirklichkeit (`obs`, `y`) definiert ist. Dieser berechnet für jede Beobachtung den Fehler, quadriert diesen Fehler und bilden dann den Mittelwert dieser "Quadratfehler", also einen *mittleren Quadratfehler*. Die englische Abkürzung *MSE* ist auch im Deutschen gebräuchlich.
 
 $$ MSE = \frac{1}{n} \sum{(pred - obs)^2} $$
@@ -479,19 +481,11 @@ Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also z.B. Sch
 
 Übrigens: Der RMSE hat eine Reihe von wünschenswerten statistischen Eigenschaften, über die wir uns hier ausschweigen 
 
-### Weitere Gütekriterien
-Eine weitere Gütekriterien sind gebräuchlich, darunter der AIC, BIC, die Entropie, der abolute Vorhersagefehler und andere [@zumel2014practical].
 
 
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.
-</div>\EndKnitrBlock{rmdcaution}
-
-
-
-
-## R-Quadrat ($R^2$)
-$R^2$ gibt die Vorhersagegüte im Verhältnis zu einem "Nullmodell" an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: "Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!".
+#### R-Quadrat ($R^2$)
+$R^2$, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem "Nullmodell" an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: "Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!".
 
 Damit gibt $R^2$ an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein $R^2$ von 25% (0.25) hieße, dass unser Vorhersagefehler 25% *kleiner* ist als der der Nullmodells. Ein $R^2$ von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man $R^2$ so definieren:
 
@@ -516,10 +510,19 @@ Hier steht`obs` für beobachtete Werte und `pred` für die vorhergesagten Werte.
 
 
 
+#### Weitere Gütekriterien
+Eine weitere Gütekriterien sind gebräuchlich, darunter der AIC, BIC, die Entropie, der abolute Vorhersagefehler und andere [@zumel2014practical].
 
-## Erweiterungen
 
-### Modellwahl
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.
+</div>\EndKnitrBlock{rmdcaution}
+
+
+
+### Vertiefungen zum Regressionmodell
+
+#### Modellwahl
 Das Modell mit allen Variablen des Datensatzes, d. h., mit 6 unabhängigen (`LinMod.4`) erklärt 47.01% der Variation, das Modell *nur* mit der Rechnungshöhe als erklärende Variable (`LinMod.1`) schon 45.66%, der Erklärungszuwachs liegt also gerade einmal bei 1.35 Prozentpunkten. In der Statistik ist die Wahl des *richtigen* Modells eine der größten Herausforderungen, auch deshalb, weil das wahre Modell in der Regel nicht bekannt ist und es schwer ist, die richtige Balance zwischen Einfachheit und Komplexität zu finden. Aufgrund des Zufalls kann es immer passieren, dass das Modell sich zu sehr an die *zufälligen* Daten anpasst (Stichwort: Overfitting). Es gibt unzählige Modellwahlmethoden, und leider garantiert keine, dass immer das beste Modell gefunden wird. Eine Möglichkeit ist die sogenannte Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums (AIC)^[siehe z. B. Rob J Hyndman & George Athanasopoulos, Forecasting: principles and practice, Kapitel 5.3: Selecting predictors,   [https://www.otexts.org/fpp/5/3](https://www.otexts.org/fpp/5/3)]. Diese ist nicht nur recht weit verbreitet - und liefert unter bestimmten Annahmen das "richtige" Modell - sondern in R durch den Befehl `step()` einfach umsetzbar:
 
 ```r
@@ -587,7 +590,7 @@ In den letzten Zeilen der Ausgabe steht das beste Modell, das diese Methode (sch
 
 Der Ausgabe können Sie auch entnehmen, welche Variablen in welcher Reihenfolge *entfernt* wurden: Zunächst `day`, dann `time`, danach `sex` und schließlich `smoker`. Hier sind also dieselben Variablen noch im Modell, die auch in `LinMod.4` signifikant zum Niveau 10\% waren, eine Auswahl der dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist häufig so, aber nicht immer!
 
-### Interaktionen 
+#### Interaktionen 
 
 Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der Zusammenhang je nachdem, ob geraucht wurde, d. h., vielleicht gibt es eine Interaktion (Wechselwirkung). Die kann in `lm` einfach durch ein `*` zwischen den unabhängigen Variablen modelliert werden:
 
@@ -642,7 +645,7 @@ lm(tip~total_bill, data=tips, subset = smoker=="No")
 #>       0.360        0.137
 ```
 
-### Weitere Modellierungsmöglichkeiten
+#### Weitere Modellierungsmöglichkeiten
 
 Über das Formelinterface `y~x` können auch direkt z. B. Polynome modelliert werden. Hier eine quadratische Funktion:
 
@@ -672,7 +675,7 @@ summary(lm(tip~I(total_bill^2)+total_bill, data=tips))
 D. h., die geschätzte Funktion ist eine "umgedrehte Parabel" (negatives Vorzeichen bei `I(total_bill^2) `), bzw. die Funktion ist konkav, die Steigung nimmt ab. Allerdings ist der Effekt nicht signifikant. **Hinweis:** Um zu "rechnen" und nicht beispielsweise Interaktion zu modellieren, geben Sie die Variablen in der Formel in der Funktion `I()` (*As Is*) ein.
 
 
-### Prognoseintervalle
+#### Prognoseintervalle
 
 Insgesamt haben wir viel "Unsicherheit" u. a. aufgrund von Variabilität in den Beobachtungen und in den Schätzungen. Wie wirken sich diese auf die Prognose aus?
 
@@ -724,7 +727,7 @@ Versuchen Sie, das Evaluierungsergebnis als abhängige Variable anhand geeignete
 
 
 
-### Fallstudie zu Overfitting {#overfitting_casestudy}
+#### Fallstudie zu Overfitting {#overfitting_casestudy}
 
 Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der *Trainingsstichprobe* schätzt mit einer Regression, bei der die Modellgüte in einer *Test-Stichprobe* überprüft wird.
 
