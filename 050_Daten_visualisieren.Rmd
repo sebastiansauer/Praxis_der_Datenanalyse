@@ -408,8 +408,6 @@ Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwende
 
 
 
-## Prinzipien
-
 ## Erweiterungen für ggplot
 
 ### ggpairs

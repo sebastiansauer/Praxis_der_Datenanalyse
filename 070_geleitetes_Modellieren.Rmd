@@ -21,6 +21,13 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 # Geleitetes Modellieren
 
+Benötigte Pakete:
+```{r}
+library(caret)  # Modellieren
+library(tidyverse)  # Datenjudo, Visualisierung,...
+library(gridExtra)  # Mehrere Plots kombinieren
+```
+
 
 ## Einfache lineare Regression
 Wir werden weiter den Datensatz *tips* analysieren [@bryant1995practical].
@@ -176,7 +183,7 @@ LinMod.3Fun(day="Fri")
 
 
 
-### Multiple Regression
+## Multiple Regression
 Aber wie wirken sich die Einflussgrößen *zusammen* auf das Trinkgeld aus?
 ```{r}
 LinMod.4 <- lm(tip ~ total_bill + size + sex  + smoker + day + time, data=tips)
@@ -221,9 +228,122 @@ Außerdem wird getestet, ob alle Koeffizienten der unabhängigen Variablen gleic
 $$H_0: \beta_1=\beta_2=\cdots=\beta_k=0$$
 Das Ergebnis des zugrundeliegenden F-Tests (vgl. Varianzanalyse) wird in der letzten Zeile angegeben (`F-Statistic`). Hier wird $H_0$ also verworfen.
 
-### Erweiterungen
 
-#### Modellwahl
+## Modellgüte
+In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte so:
+
+>    Wie groß ist der Unterschied zwischen Vorhersage und Wirklichkeit?
+
+Die Größe des Unterschieds (Differenz, "Delta") zwischen vorhergesagten (geschätzten) Wert und Wirklichkeit, bezeichnet man als *Fehler*, *Residuum* oder Vohersagefehler, häufig mit $\epsilon$ (griechisch e wie "error") abgekürzt.
+
+Graphisch kann man das gut veranschaulichen:
+
+```{r resids_plot, echo = FALSE, results = "hold"}
+
+set.seed(42)  
+N      <- 100
+beta   <- 0.4
+intercept <- 1
+
+
+sim <- data_frame(
+  x = rnorm(N),
+  error1 = rnorm(N, mean = 0, sd = .5),
+  error2 = rnorm(N, mean = 0, sd = 2),
+  y1 = intercept + x*beta + error1,
+  y2 = intercept + x*beta + error2,
+  pred = 1 + x*beta
+)
+
+
+
+p1 <- ggplot(sim, aes(x, y1)) + 
+  geom_abline(intercept = intercept, slope = beta, colour = "firebrick") +
+  geom_point(colour = "grey40") +
+  geom_linerange(aes(ymin = y1, ymax = pred), colour = "#3366FF") +
+  ylim(-6,+6)
+p1
+
+p2 <- ggplot(sim, aes(x, y2)) + 
+  geom_abline(intercept = intercept, slope = beta, colour = "firebrick") +
+  geom_point(colour = "grey40") +
+  geom_linerange(aes(ymin = y2, ymax = pred), colour = "#3366FF") +
+  ylim(-6,+6)
+p2
+
+grid.arrange(p1, p2, ncol = 2)
+
+```
+
+Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschätzten) Werte wieder; die Punkte die beobachteten ("echten") Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler. 
+
+>   Je kürzer die typische "Abweichungslinie", desto besser die Vohersage.
+
+
+Sagt mein Modell voraus, dass Ihre Schuhgröße 49 ist, aber in Wahrheit liegt sie bei 39, so werden Sie dieses Modell als schlecht beurteilen.
+
+Leider ist es nicht immer einfach zu sagen, wie groß der Fehler sein muss, damit das Modell schlecht ist. Man kann argumentieren, dass es keine wissenschaftliche Frage sei, wie viel "viel" oder "genug" ist [@uncertainty]. Das ist zwar plausibel, hilft aber nicht, wenn ich eine Entscheidung treffen muss. Stellen Sie sich vor: Ich zwinge Sie mit der Pistole auf der Brust, meine Schuhgröße zu schätzen.
+
+Eine einfache Lösung ist, das beste Modell unter mehreren Kandidaten zu wählen.
+
+Ein anderer Ansatz ist, die Vorhersage in Bezug zu einem Kriterium zu setzen. Dieses "andere Kriterium" könnte sein "einfach raten". Oder, etwas intelligenter, Sie schätzen meine Schuhgröße auf einen Wert, der eine gewisse Plausibiliät hat, also z.B. die durchschnittliche Schuhgröße des deutschen Mannes. Auf dieser Basis kann man dann quantifizieren, ob und wieviel besser man als dieses Referenzkriterium ist.
+
+## Mittlere Quadratfehler
+Eine der häufigsten Gütekennzahlen ist der *mittlere quadrierte Fehler* (engl. "mean squared error", MSE), wobei Fehler wieder als Differenz zwischen Vorhersage (`pred`) und beobachtete Wirklichkeit (`obs`, `y`) definiert ist. Dieser berechnet für jede Beobachtung den Fehler, quadriert diesen Fehler und bilden dann den Mittelwert dieser "Quadratfehler", also einen *mittleren Quadratfehler*. Die englische Abkürzung *MSE* ist auch im Deutschen gebräuchlich.
+
+$$ MSE = \frac{1}{n} \sum{(pred - obs)^2} $$
+
+Konzeptionell ist dieses Maß an die Varianz angelehnt. Zieht man aus diesem Maß die Wurzel, so erhält man den sog. *root mean square error* (RMSE), welchen man sich als die Standardabweichung der Vorhesagefehler vorstellen kann. In Pseudo-R-Syntax:
+
+```{pseudo-RMSE, eval = FALSE}
+RMSE <- sqrt(mean((df$pred - df$obs)^2))
+```
+
+Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also z.B. Schuhgrößen-Nummern.
+
+Übrigens: Der RMSE hat eine Reihe von wünschenswerten statistischen Eigenschaften, über die wir uns hier ausschweigen 
+
+### Weitere Gütekriterien
+Eine weitere Gütekriterien sind gebräuchlich, darunter der AIC, BIC, die Entropie, der abolute Vorhersagefehler und andere [@zumel2014practical].
+
+
+
+```{block2, r-nicht-als-guete, type='rmdcaution', echo = TRUE}
+Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.
+
+```
+
+
+
+
+## R-Quadrat ($R^2$)
+$R^2$ gibt die Vorhersagegüte im Verhältnis zu einem "Nullmodell" an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: "Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!".
+
+Damit gibt $R^2$ an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein $R^2$ von 25% (0.25) hieße, dass unser Vorhersagefehler 25% *kleiner* ist als der der Nullmodells. Ein $R^2$ von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man $R^2$ so definieren:
+
+$$ R^2 = 1 - (\frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler})$$
+
+Präziser, in R-Syntax:
+
+```{r R2_Pseudo, eval = FALSE}
+R2 <- 1 - sum((df$pred - df$obs)^2) / sum((mean(df$obs) - df$obs)^2)
+```
+
+Praktischerweise gibt es einige R-Pakete, die diese Berechnung für uns besorgen:
+
+```{r R2_caret, eval = FALSE}
+library(caret)
+postResample(obs = obs, pred = pred)
+```
+
+Hier steht`obs` für beobachtete Werte und `pred` für die vorhergesagten Werte. Dieser Befehl gibt sowohl RMSE als auch $R^2$ wieder.
+
+
+
+
+## Erweiterungen
+
+### Modellwahl
 Das Modell mit allen Variablen des Datensatzes, d. h., mit 6 unabhängigen (`LinMod.4`) erklärt `r round(summary(LinMod.4)$r.squared*100,2)`% der Variation, das Modell *nur* mit der Rechnungshöhe als erklärende Variable (`LinMod.1`) schon `r round(summary(LinMod.1)$r.squared*100,2)`%, der Erklärungszuwachs liegt also gerade einmal bei `r round(summary(LinMod.4)$r.squared*100,2) - round(summary(LinMod.1)$r.squared*100,2)` Prozentpunkten. In der Statistik ist die Wahl des *richtigen* Modells eine der größten Herausforderungen, auch deshalb, weil das wahre Modell in der Regel nicht bekannt ist und es schwer ist, die richtige Balance zwischen Einfachheit und Komplexität zu finden. Aufgrund des Zufalls kann es immer passieren, dass das Modell sich zu sehr an die *zufälligen* Daten anpasst (Stichwort: Overfitting). Es gibt unzählige Modellwahlmethoden, und leider garantiert keine, dass immer das beste Modell gefunden wird. Eine Möglichkeit ist die sogenannte Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums (AIC)^[siehe z. B. Rob J Hyndman & George Athanasopoulos, Forecasting: principles and practice, Kapitel 5.3: Selecting predictors,   [https://www.otexts.org/fpp/5/3](https://www.otexts.org/fpp/5/3)]. Diese ist nicht nur recht weit verbreitet - und liefert unter bestimmten Annahmen das "richtige" Modell - sondern in R durch den Befehl `step()` einfach umsetzbar:
 ```{r}
 step(LinMod.4)
@@ -234,7 +354,7 @@ In den letzten Zeilen der Ausgabe steht das beste Modell, das diese Methode (sch
 
 Der Ausgabe können Sie auch entnehmen, welche Variablen in welcher Reihenfolge *entfernt* wurden: Zunächst `day`, dann `time`, danach `sex` und schließlich `smoker`. Hier sind also dieselben Variablen noch im Modell, die auch in `LinMod.4` signifikant zum Niveau 10\% waren, eine Auswahl der dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist häufig so, aber nicht immer!
 
-#### Interaktionen 
+### Interaktionen 
 
 Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der Zusammenhang je nachdem, ob geraucht wurde, d. h., vielleicht gibt es eine Interaktion (Wechselwirkung). Die kann in `lm` einfach durch ein `*` zwischen den unabhängigen Variablen modelliert werden:
 
@@ -251,7 +371,7 @@ lm(tip~total_bill, data=tips, subset = smoker=="Yes")
 lm(tip~total_bill, data=tips, subset = smoker=="No")
 ```
 
-#### Weitere Modellierungsmöglichkeiten
+### Weitere Modellierungsmöglichkeiten
 
 Über das Formelinterface `y~x` können auch direkt z. B. Polynome modelliert werden. Hier eine quadratische Funktion:
 ```{r}
@@ -261,7 +381,7 @@ summary(lm(tip~I(total_bill^2)+total_bill, data=tips))
 D. h., die geschätzte Funktion ist eine "umgedrehte Parabel" (negatives Vorzeichen bei `I(total_bill^2) `), bzw. die Funktion ist konkav, die Steigung nimmt ab. Allerdings ist der Effekt nicht signifikant. **Hinweis:** Um zu "rechnen" und nicht beispielsweise Interaktion zu modellieren, geben Sie die Variablen in der Formel in der Funktion `I()` (*As Is*) ein.
 
 
-#### Prognoseintervalle
+### Prognoseintervalle
 
 Insgesamt haben wir viel "Unsicherheit" u. a. aufgrund von Variabilität in den Beobachtungen und in den Schätzungen. Wie wirken sich diese auf die Prognose aus?
 
@@ -291,6 +411,62 @@ Dieser Datensatz analysiert u. a. den Zusammenhang zwischen Schönheit und Evalu
 
 Versuchen Sie, das Evaluierungsergebnis als abhängige Variable anhand geeigneter Variablen des Datensatzes zu erklären. Wie groß ist der Einfluss der Schönheit? Sind die Modellannahmen erfüllt und wie beurteilen Sie die Modellgüte?
 
+
+
+### Fallstudie zu Overfitting {#overfitting_casestudy}
+
+Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der *Trainingsstichprobe* schätzt mit einer Regression, bei der die Modellgüte in einer *Test-Stichprobe* überprüft wird.
+
+
+Zuerst führen wir dafür eine simple Regression aus und lassen uns $R^2$ ausgeben.
+```{r lm_overfitting1}
+df <-  read_csv("https://sebastiansauer.github.io/data/wo_men.csv")
+
+lm1 <- lm(shoe_size ~ height, data = df)
+summary(lm1)$r.squared
+```
+
+
+Im zweiten Schritt teilen wir die Stichprobe in eine Trainings- und eine Test-Stichprobe auf. Wir "trainineren" das Modell anhand der Daten aus der Trainings-Stichprobe:
+```{r lm_overfitting2}
+train <- df %>% 
+  sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
+
+test <- df %>% 
+  anti_join(train)  # Alle Zeilen von "df", die nicht in "train" vorkommen
+
+lm2 <- lm(shoe_size ~ height, data = train)
+```
+
+
+Dann testen wir (die Modellgüte) anhand der Test-Stichprobe. Also los, `lm2`, mach Deine Vorhersage:
+
+```{r lm_overfitting_predict}
+lm2_predict <- predict(lm2, newdata = test)
+```
+
+Diese Syntax sagt:
+
+```{block2, fliesen-plot, type='rmdpseudocode', echo = TRUE}
+Speichere unter dem Namen "lm2_predict" das Ergebnis folgender Berechnung:  
+Mache eine Vorhersage ("to predict") anhand des Modells "lm2",   
+wobei frische Daten ("data = test") verwendet werden sollen. 
+
+```
+
+Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Trinkgeld-Wert speichert.
+
+```{r R2_postresample}
+caret::postResample(pred = lm2_predict, obs = test$shoe_size)
+
+```
+
+Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
+
+
+
+
+
 ### Literatur
 
 
@@ -306,907 +482,4 @@ Versuchen Sie, das Evaluierungsergebnis als abhängige Variable anhand geeignete
 Diese Übung basiert teilweise auf Übungen zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) von Andrew Bray und Mine &Ccedil;etinkaya-Rundel unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
 
 
-## Klassifizierende Regression
 
-### Vorbereitung
-Hier werden wir den Datensatz *Aktienkauf* der Universität Zürich ([Universität Zürich, Methodenberatung](http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html)) analysieren. Es handelt es sich hierbei um eine Befragung einer Bank im Zusammenhang mit den Fakten, die mit der Wahrscheinlichkeit, dass jemand Aktien erwirbt, zusammenhängen. Es wurden 700 Personen befragt. Folgende Daten wurden erhoben: Aktienkauf (0 = nein, 1 = ja), Jahreseinkommen (in Tausend CHF), Risikobereitschaft (Skala von 0 bis 25) und  Interesse an der aktuellen Marktlage (Skala von 0 bis 45).
-
-Den Datensatz können Sie in so als `csv`-Datei herunterladen:
-
-```{r}
-Aktien <- read.csv2("https://raw.githubusercontent.com/luebby/Datenanalyse-mit-R/master/Daten/Aktienkauf.csv")
-```
-
-Zur Unterstützung der Analyse wird (wieder) `mosaic` und `ggplot2` verwendet.
-```{r, message = FALSE}
-library(mosaic)
-library(ggplot2)
-```
-
-### Problemstellung
-Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an:
-
-```{r}
-xyplot(Aktienkauf ~ Risikobereitschaft, data = Aktien)
-```
-
-Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
-
-```{r}
-lm1 <- lm(Aktienkauf ~ Risikobereitschaft, data = Aktien)
-summary(lm1)
-plotModel(lm1)
-```
-
-Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß R\textsuperscript2 ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
-
-Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?
-
-Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 bringt, die sogenannte *Linkfunktion*. Eine häufig dafür verwendete Funktion ist die logistische Funktion: $$p(y=1)=\frac{e^\eta}{1+e^\eta}=\frac{1}{1+e^{-\eta}}$$
-
-$\eta$, das sogenannte *Logit*, ist darin die Linearkombination der Einflussgrößen: $$\eta=\beta_0+\beta_1\cdot x_1+\dots$$
-
-Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen:
-
-```{r echo = FALSE}
-# eta-Werte von -10 bis +10 erzeugen
-eta <- seq(-10,10,by = 0.1)
-# y-Werte mit logistischer Funktion berechnen
-y <- 1/(1+exp(-eta))        # exp() ist die e-Funktion
-# Graphik ausgeben mit fogenden Plotparametern: 
-# für das Label der x-Achse wird ein mathematisches Symbol genutzt
-# Label der y-Achse wird nicht angezeigt
-# statt Punkten wird eine Liniengraphik ausgegeben
-xyplot(y ~ eta, xlab = expression(eta), ylab = "", type = "l")   
-```
-
-### Die Idee der logistischen Regression
-Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (*general linear model, GLM*). Die Modellgleichung lautet: $$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
-
-> $L$ ist die Linkfunktion, in unserer Anwendung die logistische Funktion.  
-$x_{ik}$ sind die beobachten Werte der unabhängigen Variablen $X_k$.  
-$k$ sind die unabhängigen Variablen $1$ bis $K$.
-
-Die Funktion `glm` führt die logistische Regression durch. Wir schauen uns im Anschluss zunächst den Plot an.
-
-```{r}
-glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
-            data = Aktien)
-plotModel(glm1)
-
-```
-
-> Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
-
-Die Zusammenfassung des Modells zeigt folgendes:
-
-```{r}
-summary(glm1)
-```
-
-Der Achsenabschnitt (`intercept`) des logits $\eta$ wird mit `r round(coef(glm1)[1],2)` geschätzt, die Steigung in Richtung `Risikobereitschaft` mit `r round(coef(glm1)[2],2)`. Die (Punkt-)Prognose für die Wahrscheinlickeit eines Aktienkaufs $p(y=1)$ benötigt anders als in der linearen Regression noch die Linkfunktion und ergibt sich somit zu:
-$$p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(`r round(coef(glm1)[1],2)` + `r round(coef(glm1)[2],2)` \cdot \texttt{Risikobereitschaft})}}$$
-
-Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Hier wird ein *Wald*-Test durchgeführt, nicht wie bei der linearen Regression ein t-Test, ebenfalls mit der $H_0:\beta_i=0$. Die Teststastistik (`z value`) wird wie in der linearen Regression durch Divisions des Schätzers (`Estimate`) durch den Standardfehler (`Std. Error`) ermittelt. Im *Wald*-Test ist die Teststatistik allerdings $\chi^2$-verteilt mit einem Freiheitsgrad.
-
-### Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?
-Es gibt kein R\textsuperscript2 im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-R\textsuperscript2 berechnet werden -- kommt später.)
-
-Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden -- kommt später.)
-
-### Interpretation der Koeffizienten
-#### y-Achsenabschnitt (`Intercept`) $\beta_0$ 
-Für $\beta_0>0$ gilt, dass selbst wenn alle anderen unabhängigen Variablen $0$ sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für $\beta_0<0$ gilt entsprechend das Umgekehrte.
-
-#### Steigung $\beta_i$ mit $i=1,2,...,K$
-Für $\beta_i>0$ gilt, dass mit zunehmenden $x_i$ die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei $\beta_i<0$ nimmt die Wahrscheinlichkeit entsprechend ab.
-
-Eine Abschätzung der Änderung der Wahrscheinlichkeit (*relatives Risiko*, *relative risk* $RR$) kann über das Chancenverhältnis (*Odds Ratio* $OR$) gemacht werden.^[Wahrscheinlichkeit vs. Chance: Die Wahrscheinlichkeit bei einem fairen Würfel, eine 6 zu würfeln, ist $1/6$. Die Chance (*Odd*), eine 6 zu würfeln, ist die Wahrscheinlichkeit dividiert durch die Gegenwahrscheinlichkeit, also $\frac{1/6}{5/6}=1/5$.] Es ergibt sich vereinfacht $e^{\beta_i}$. Die Wahrscheinlichkeit ändert sich näherungsweise um diesen Faktor, wenn sich $x_i$ um eine Einheit erhöht. **Hinweis:** $RR\approx OR$ gilt nur, wenn der Anteil des modellierten Ereignisses in den beobachteten Daten sehr klein ($<5\%$) oder sehr groß ist ($>95\%$).
-
-*Übung*: Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die `Risikobereitschaft` um 1 erhöht (Funktion `exp()`). Vergleichen Sie das Ergebnis mit der Punktprognose für `Risikobereitschaft `$=7$ im Vergleich zu `Risikobereitschaft `$=8$. Zur Erinnerung: Sie können `makeFun(model)` verwenden.
-
-
-```{r}
-# aus Koeffizient abgeschätzt
-exp(coef(glm1)[2])
-# mit dem vollständigen Modell berechnet
-fun1 <- makeFun(glm1)
-fun1(Risikobereitschaft = 7)
-fun1(Risikobereitschaft = 8)
-# als Faktor ausgeben
-fun1(Risikobereitschaft = 8)/fun1(Risikobereitschaft = 7)
-```
-
-Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit `Risikobereitschaft`$=1$ liegt allerdings auch bei `r round(sum(Aktien$Aktienkauf)/length(Aktien$Aktienkauf),2)`.
-
-### Kategoriale Variablen
-Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz `tips` und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (`smoker == yes`), in Abhängigkeit vom Wochentag ändert. 
-
-Sofern noch nicht geschehen, können Sie so als `csv`-Datei herunterladen:
-```{r }
-tips <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
-
-```
-
-
-Zunächst ein Plot:
-```{r}
-xyplot(jitter(as.numeric(smoker)) ~ day, data = tips)
-```
-
-**Hinweis:** Um zu sehen, ob es an manchen Tagen mehr Raucher gibt, sollten Sie zumindest eine Variable "verrauschen" ("*jittern*"). Da die Variable `smoker` eine nominale Variable ist und die Funktion `jitter()` nur mit numerischen Variablen arbeitet, muss sie mit `as.numeric()` in eine numerische Variable umgewandelt werden.
-
-Die relativen Häufigkeiten zeigt folgende Tabelle:
-
-```{r}
-(tab_smoke <- tally(smoker ~ day, data = tips, format = "proportion"))
-```
-
-Hinweis: Durch die Klammerung wird das Objekt `tab_smoke` direkt ausgegeben.
-
-Probieren wir die logistische Regression aus:
-
-```{r}
-glmtips <- glm(smoker ~ day, family = binomial("logit"),data = tips)
-summary(glmtips)
-```
-
-Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier: Freitag) interpretieren. Die Wahrscheinlichkeit ist an einem Samstag niedriger, der Wert für `daySat` ist negativ. Eine Abschätzung erhalten wir wieder mit $e^{\beta_i}$:
-
-```{r}
-exp(coef(glmtips)[2])
-```
-
-Daher ist das Chancenverhältnis (*Odds Ratio*), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor `r round(exp(coef(glmtips)[2]),2)` niedriger als am Freitag: 
-
-
-$$
-{
-OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
-{\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
-=\frac{\frac{`r round(tab_smoke[2,2],4)`}{`r round(tab_smoke[1,2],4)`}}
-{\frac{`r round(tab_smoke[2,1],4)`}{`r round(tab_smoke[1,1],4)`}}
-\approx `r round((tab_smoke[2,2]/tab_smoke[1,2])/(tab_smoke[2,1]/tab_smoke[1,1]),4)`}$$
-
-
-
-
-
-### Multiple logistische Regression
-Wir kehren wieder zurück zu dem Datensatz *Aktienkauf*. Können wir unser Model `glm1` mit nur einer erklärenden Variable verbessern, indem weitere unabhängige Variablen hinzugefügt werden?
-
-
-```{r}
-glm2 <- glm(Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, 
-            family = binomial("logit"),data = Aktien)
-plotModel(glm2)
-summary(glm2)
-```
-
-
-
-Alle Schätzer sind signifkant zum 0.1 %-Niveau (`***` in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.
-
-Ist das Modell besser als das einfache? Ja, da der AIC-Wert von `r round(AIC(glm1),2)` auf `r round(AIC(glm2),2)` gesunken ist.
-
-Die Graphik zeigt die Verläufe in Abhängigkeit von den verschiedenen Variablen und den Kombinationen der Variablen.
-
-### Erweiterungen
-
-#### Klassifikationsgüte
-Logistische Regressionsmodelle werden häufig zur Klassifikation verwendet, z. B. ob der Kredit für einen Neukunden ein "guter" Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.
-
-Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (*cutpoint*), häufig $0.5$, einer geschätzten $1$ zugeordnet, unterhalb des Schwellenwertes einer $0$. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen.
-
-Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (*True Positive Rate, TPR*), also der Anteil der mit $1$ geschätzten an allen mit $1$ beobachten Werten, und die Spezifität (*True Negative Rate*) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.
-
-Sie können die Konfusionsmatrix "zu Fuß" berechnen, in dem Sie eine neue Variable einfügen, die ab dem cutpoint $1$ und sonst $0$ ist und mit dem Befehl `tally()` ausgeben. Alternativ können Sie das Paket `SDMTools` verwenden mit der Funktion `confusion.matrix()`. Ein Parameter ist `cutpoint`, der standardmäßig auf $0.5$ steht.
-
-```{r}
-# Konfusionsmatrix "zu Fuß" berechnen
-# cutpoint = 0.5 setzen
-# neue Variable predicted anlegen mit 1, wenn modellierte Wahrscheinlichkeit > 1 ist
-cutpoint = 0.5
-Aktien$predicted <- ((glm1$fitted.values) > cutpoint)*1
-# Kreuztabelle berechnen
-(cm <- tally(~predicted+Aktienkauf, data = Aktien))
-# Sensitivität (TPR)
-cm[2,2]/sum(cm[,2])
-# Spezifität (TNR)
-cm[1,1]/sum(cm[,1])
-
-# mit Hilfe des Pakets SDMTools
-# ggf. install.packages("SDMTools")
-library(SDMTools)
-# optional noch Parameter cutpoint = 0.5  angeben
-(cm <- confusion.matrix(Aktien$Aktienkauf, glm1$fitted.values)) 
-sensitivity(cm)
-specificity(cm)
-```
-
-
-Wenn die Anteile der $1$ in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten $p(y=1)$ alle unter $0.5$ liegen. Das würde zu einer Sensitität von $0$ und einer Spezifiät von $1$ führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die *ROC*-Kurve (*Return Operating Characteristic*) und den daraus abgeleiteten *AUC*-Wert (*Area Under Curve*). 
-
-Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen $1-$Spezifität (welche Werte sind als $1$ modelliert worden unter den beobachten $0$, *False Positive Rate, FPR*). Um diese Werte auszugeben, benötigen Sie das Paket `ROCR` und die Funktion `performance()`.
-
-```{r}
-# ggf. install.packages("ROCR")
-library(ROCR)
-# Ein für die Auswertung notwendiges prediction Objekt anlegen
-pred <- prediction(glm1$fitted.values, Aktien$Aktienkauf)
-# ROC Kurve
-perf <- performance(pred,"tpr","fpr")
-plot(perf)
-abline(0,1, col = "grey")
-# Area under curve (ROC-Wert)
-performance(pred,"auc")@y.values
-
-```
-
-
-AUC liegt zwischen $0.5$, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und $1$. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei $0.7$ und größer, gute Werte sind es ab $0.8$.^[Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164]
-
-
-#### Modellschätzung
-Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die *Maximum Likelihood* Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (*Maximum Likelihood*) werden.
-
-Das ist ein iteratives Verfahren (OLS erfolgt rein analytisch), daher wird in der letzten Zeile der Ausgabe auch die Anzahl der Iterationen (`Fisher Scoring Iterations`) ausgegeben.
-
-Die Devianz des Modells (`Residual deviance`) ist $-2$ mal die logarithmierte Likelihood. Die Nulldevianz (`Null deviance`) ist die Devianz eines Nullmodells, d. h., alle $\beta$ außer der Konstanten sind 0.
-
-#### Likelihood Quotienten Test
-Der Likelihood Quotienten Test (*Likelihood Ratio Test, LR-Test*) vergleicht die Likelihood $L_0$ des Nullmodels mit der Likelihood $L_{\beta}$ des geschätzten Modells. Die Prüfgröße des LR-Tests ergibt sich aus: $${T=-2\cdot ln\left( \frac{L_0}{L_{\beta}}\right)}$$
-$T$ ist näherungsweise $\chi ^2$-verteilt mit $k$ Freiheitsgraden.
-
-In R können Sie den Test mit `lrtest()` aufrufen. Sie benötigen dazu das Paket `lmtest`.
-
-```{r}
-library(lmtest)
-lrtest(glm2)
-```
-
-
-Das Modell `glm2` ist als Ganzes signifikant, der p-Wert ist sehr klein.
-
-Den Likelihood Quotienten Test können Sie auch verwenden, um zwei Modelle miteinander zu vergleichen, z. B., wenn Sie eine weitere Variable hinzugenommen haben und wissen wollen, ob die Verbesserung auch signifikant war.
-
-
-```{r}
-lrtest(glm1, glm2)
-```
-
-
-Ja, die Modelle `glm1` (mit einer erklärenden Variable) und `glm2` unterscheiden sich signifikant voneinander.
-
-
-#### Pseudo-R\textsuperscript2 
-Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem R\textsuperscript2 der linearen Regression entspricht. Exemplarisch sei hier McFaddens R\textsuperscript2 gezeigt: $${R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}$$ Wie bei bei dem R\textsuperscript2 der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen  R\textsuperscript2 der beiden Modelle `glm1` und `glm2`? Sie können es direkt berechnen oder das Paket `BaylorEdPsych` verwenden.
-
-```{r}
-# direkte Berechnung
-1 - glm1$deviance/glm1$null.deviance
-1 - glm2$deviance/glm2$null.deviance
-# ggf. install.packages("BaylorEdPsych")
-library(BaylorEdPsych)
-PseudoR2(glm1)
-PseudoR2(glm2)
-```
-
-
-Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. **Hinweis:** Die Funktion `PseudoR2(model)` zeigt verschiedene Pseudo-R\textsuperscript2 Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.
-
-
-
-### Übung: Rot- oder Weißwein?
-
-Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen. 
-
-*P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.*
-
-Sie können in [hier](https://goo.gl/Dkd7nK)). Die Originaldaten finden Sie im UCI [Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Wine+Quality).
-
-Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine zu klassifizieren.^[Anregungen zu dieser Übung stammen von [INTW Statistics](https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html)]
-
-**Zusatzaufgabe:** Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable `color` aufgenommen wird (Rot = 0, Weiß = 1).
-
-
-### Literatur
-
-
-- David M. Diez, Christopher D. Barr, Mine &Ccedil;etinkaya-Rundel (2014): *Introductory Statistics with Randomization and Simulation*, [https://www.openintro.org/stat/textbook.php?stat_book=isrs](https://www.openintro.org/stat/textbook.php?stat_book=isrs),  Kapitel 6.4
-- Nicholas J. Horton, Randall Pruim, Daniel T. Kaplan (2015): Project MOSAIC Little Books *A Student's Guide to R*,  [https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf](https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf), Kapitel 8
- - Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (2013): *An Introduction to Statistical Learning -- with Applications in R*, [http://www-bcf.usc.edu/~gareth/ISL/](http://www-bcf.usc.edu/~gareth/ISL/), Kapitel 4.1-4.3
-- Maike Luhmann (2015): *R für Einsteiger*, Kapitel 17.5
-- Daniel Wollschläger (2014): *Grundlagen der Datenanalyse mit R*, Kapitel 8.1
-
-
-
-## Baumbasierte Verfahren
-
-### Konjunturanalyse
-Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
-
-```{r}
-B3 <- read.csv2("https://goo.gl/0YCEHf")
-str(B3) # Datenstruktur
-head(B3); tail(B3)
-```
-
-Dabei sind folgende Variablen enthalten:
-
-- Bruttosozialprodukt (real): `BSP91JW`
-- Privater Verbrauch (real): `CP91JW`
-- Anteil Staatsdefizit am Bruttosozialprodukt (%): `DEFRATE`
-- Abhängig Erwerbstätige: `EWAJW`
-- Anteil Außenbeitrag am Bruttosozialprodukt (%): `EXIMRATE`
-- Geldmenge M1: `GM1JW`
-- Investitionen in Ausrüstungsgüter (real): `IAU91JW`
-- Investitionen in Bauten (real): `IB91JW`
-- Lohnstückkosten: `LSTKJW`
-- Preisindex des Bruttosozialprodukts: `PBSPJW`
-- Preisindex des privaten Verbrauchs: `PCPJW`
-- Kurzfristiger Zinssatz (nominal): `ZINSK`
-- Langfristiger Zinssatz (real): `ZINSLR`
-- Konjunkturphase: 1. Aufschwung, 2. Oberer Wendepunkt, 3. Abschwung,4. Unterer Wendepunkt: `PHASEN`
-
-Variablen mit der Endung *JW* beziehen sich auf die jährliche Veränderung.
-
-### Regressionsbäume
-Um einen Regressionsbaum zu erzeugen, muss zunächst das Zusatzpaket `rpart` geladen werden:
-```{r, message=FALSE}
-library(rpart)
-```
-
-Um z. B. die Veränderung des Bruttosozialprodukt als Funktion von Privater Verbrauch, Investitionen in Ausrüstungsgüter, Investitionen in Bauten und Geldmenge M1 als Regressionsbaum zu modellieren reicht der Befehl
-```{r}
-regbaum <- rpart(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=B3)
-```
-
-
-Um das Ergebnis auszugeben genügt:
-```{r}
-regbaum
-```
-*Lesebeispiel:* Wenn CP91JW>=3.705 und IAU91JW>=11.335 und IB91JW>=7.55 liegt, dann liegt die durchschnittliche Veränderung des BSP91JW bei 8.639. 11 Beobachtungen erfüllen die Kriterien der unabhängigen Variablen
-
-Bzw. um den Baum zu zeichnen
-
-```{r}
-par(xpd = TRUE) # Grafikparameter der sicherstellt, dass alles ins Bild passt
-plot(regbaum, compress = TRUE) # Baum zeichnen
-text(regbaum) # Baum beschriften
-```
-
-
-Eine deutlich schönere Ausgabe erhält man z. B. mit dem Zusatzpaket `rpart.plot`, welches man *einmalig* über
-```{r, eval=FALSE}
-install.packages("rpart.plot")
-```
-installieren muss und dann benutzen kann.
-
-Zunächst laden
-```{r, message=FALSE}
-library(rpart.plot)
-
-```
-und dann zeichnen:
-```{r}
-rpart.plot(regbaum)
-```
-
-
-
-#### Kreuzvalidierung
-
-##### Anpassungsgüte
-Wie gut ist das Modell? Über `predict` können die Punktprognosen berechnet werden:
-```{r}
-head(predict(regbaum))
-```
-Diese werden mit den beobachteten Werten verglichen:
-```{r}
-head(B3$BSP91JW)
-```
-
-Der **Mean Squared Error** ist dann
-```{r}
-baummse <- mean( (predict(regbaum) - B3$BSP91JW)^2 )
-baummse
-```
-
-Vergleichen wir das Ergebnis mit dem einer linearen Regression
-```{r}
-reglm <- lm(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=B3)
-summary(reglm)
-```
-
-Der MSE der Linearen Regression liegt bei
-```{r}
-lmmse <- mean( (predict(reglm) - B3$BSP91JW)^2 )
-lmmse
-```
-
-Der Baum ist einfacher und weniger flexibel, aber auch schlechter im Bezug auf die Anpassungsgüte.
-
-##### Prognosegüte
-Für eine k=3 fache Kreuzvalidierung müssen 3 Testdatensätze erzeugt werden.
-
-Zunächst wird dafür ein Aufteilungsvektor gebildet:
-```{r}
-aufteilung <- rep(1:3, length.out=nrow(B3))
-```
-und dann wird aufgeteilt:
-```{r}
-test1 <- B3[aufteilung==1,]
-train1 <- B3[aufteilung!=1,]
-
-test2 <- B3[aufteilung==2,]
-train2 <- B3[aufteilung!=2,]
-
-test3 <- B3[aufteilung==3,]
-train3 <- B3[aufteilung!=3,]
-```
-
-Anschließend werden die Modelle auf den Trainingsdaten geschätzt, und auf den Testdaten überprüft:
-```{r}
-# Runde 1
-b1 <- rpart(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train1)
-l1 <- lm(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train1)
-mseb1 <- mean( (predict(b1, newdata = test1) - test1$BSP91JW)^2 )
-msel1 <- mean( (predict(l1, newdata = test1) - test1$BSP91JW)^2 )
-
-# Runde 2
-b2 <- rpart(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train2)
-l2 <- lm(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train2)
-mseb2 <- mean( (predict(b2, newdata = test2) - test2$BSP91JW)^2 )
-msel2 <- mean( (predict(l2, newdata = test2) - test2$BSP91JW)^2 )
-
-# Runde 3
-b3 <- rpart(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train3)
-l3 <- lm(BSP91JW ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train3)
-mseb3 <- mean( (predict(b3, newdata = test3) - test3$BSP91JW)^2 )
-msel3 <- mean( (predict(l3, newdata = test3) - test3$BSP91JW)^2 )
-
-# Ergebnisse zusammenfassen
-msecvb <- c(mseb1, mseb2, mseb3)
-msecvl <- c(msel1, msel2, msel3)
-
-# Mittelwert des Prognose MSE
-mean(msecvb)
-mean(msecvl)
-```
-
-Bei den vorliegenden Daten ist also ein *lineares* Modell dem Baummodell im Bezug auf den *MSE* überlegen.
-
-**Hinweis:** In der Praxis führt man die Aufteilung nicht manuell sondern innerhalb von Schleifen durch.
-
-### Klassifikationbäume
-Untersuchen wir, ob makroökonomische Kennzahlen geeignet sind, die Konjunkturphasen zu unterscheiden. 
-Zunächst stellen wir fest, dass die eigentlich kategorielle Variable `PHASEN` hier numerisch kodiert wurde, was aber schnell verwirren würde.
-```{r}
-typeof(B3$PHASEN)
-```
-Typänderung zu `factor` geht einfach:
-```{r}
-B3$PHASEN <- as.factor(B3$PHASEN)
-```
-Wenn wir die einzelnen `levels` des Faktors als numerische Werte verwenden wollen würde man den Befehl `as.numeric()` verwenden. Aber sicherheitshalber vorher über `levels()` gucken, ob die Reihenfolge auch stimmt.
-
-Um die Interpretation zu erleichtern können wir hier einfach die Faktorstufe umbenennen.
-```{r}
-levels(B3$PHASEN) <- c("Aufschwung", "Oberer Wendepunkt", 
-                       "Abschwung", "Unterer Wendepunkt")
-```
-
-Um z. B. die Konjunkturphase als Funktion von Privater Verbrauch, Investitionen in Ausrüstungsgüter, Investitionen in Bauten und Geldmenge M1 als Regressionsbaum zu modellieren reicht jetzt der Befehl
-```{r}
-klassbaum <- rpart(PHASEN ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=B3)
-```
-
-
-Um das Ergebnis auszugeben genügt:
-```{r}
-klassbaum
-```
-*Lesebeispiel:* Wenn IAU91JW< -0.09 und GM1JW>=11.355 liegt, dann ist der Untere Wendepunkt die häufigste Merkmalsausprägung von PHASEN (relative Häufigkeit von PHASEN=4 hier: 0.7) 10 Beobachtungen erfüllen die Kriterien der unabhängigen Variablen.
-
-
-```{r}
-par(xpd = TRUE) # Grafikparameter der sicherstellt, dass alles ins Bild passt
-plot(klassbaum, compress = TRUE) # Baum zeichnen
-text(klassbaum) # Baum beschriften
-```
-
-Bzw. "schöner":
-```{r}
-rpart.plot(klassbaum)
-```
-
-
-#### Kreuzvalidierung
-
-Wie gut ist das Modell? Auch hier können über `predict` die Punktprognosen bestimmt werden:
-```{r}
-head(predict(klassbaum, type="class"))
-```
-Diese werden mit den beobachteten Werten verglichen:
-```{r}
-head(B3$PHASEN)
-```
-
-Die **Fehlklassifikationsrate** ist dann
-```{r}
-baumer <- mean( (predict(klassbaum, type="class") != B3$PHASEN) )
-baumer
-```
-also knapp 30%.
-
-Vergleichen kann man den Klassifikationsbaum z. B. mit der *Linearen Diskriminanzanalyse*. Diese ist im Paket `MASS` implementiert.
-```{r, message=FALSE}
-library(MASS)
-```
-
-```{r}
-klasslda <- lda(PHASEN ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=B3)
-klasslda
-
-ldaer <- mean( (predict(klasslda)$class != B3$PHASEN) )
-ldaer
-```
-Im Bezug auf die *Klassifikation* scheint der Baum in der Anpassungsgüte besser als die Lineare Diskriminanzanalyse zu sein. Aber wie sieht es kreuzvalidiert, d. h. in der Prognose aus?
-
-
-Zunächst wird wieder dafür ein Aufteilungsvektor gebildet:
-```{r}
-aufteilung <- rep(1:3, length.out=nrow(B3))
-```
-und dann wird aufgeteilt:
-```{r}
-test1 <- B3[aufteilung==1,]
-train1 <- B3[aufteilung!=1,]
-
-test2 <- B3[aufteilung==2,]
-train2 <- B3[aufteilung!=2,]
-
-test3 <- B3[aufteilung==3,]
-train3 <- B3[aufteilung!=3,]
-```
-
-```{r}
-# Runde 1
-b1 <- rpart(PHASEN  ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train1)
-l1 <- lda(PHASEN ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train1)
-erb1 <- mean( (predict(b1, newdata = test1, type = "class") != test1$PHASEN) )
-erl1 <- mean( (predict(l1, newdata = test1)$class  != test1$PHASEN) )
-
-# Runde 2
-b2 <- rpart(PHASEN  ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train2)
-l2 <- lda(PHASEN ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train2)
-erb2 <- mean( (predict(b2, newdata = test2, type = "class") != test2$PHASEN) )
-erl2 <- mean( (predict(l2, newdata = test2)$class  != test2$PHASEN) )
-
-# Runde 3
-b3 <- rpart(PHASEN  ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train3)
-l3 <- lda(PHASEN ~ CP91JW + IAU91JW + IB91JW + GM1JW, data=train3)
-erb3 <- mean( (predict(b3, newdata = test3, type = "class") != test3$PHASEN) )
-erl3 <- mean( (predict(l3, newdata = test3)$class  != test3$PHASEN) )
-
-# Ergebnisse zusammenfassen
-ercvb <- c(erb1, erb2, erb3)
-ercvl <- c(erl1, erl2, erl3)
-
-# Mittelwert des Prognose MSE
-mean(ercvb)
-mean(ercvl)
-```
-In der *Prognosegüte* ist hier -- anders als in der Anpassungsgüte -- die Lineare Diskriminanzanalyse besser.
-
-
-
-### Parameter `rpart` 
-Neben dem Splitkrierium können verschiedene Parameter des Algorithmus eingestellt werden (siehe `?rpart.control`), u. a.:
-
-- minsplit: Minimale Anzahl Beobachtungen im Knoten damit Aufteilung versucht wird
-- minbucket: Minimale Anzahl Beobachtungen im Blatt
-- cp: Komplexitätsparameter (pruning)
-- xval: Anzahl Kreuzvaliderungen (pruning)
-- maxdepth: Maximale Tiefe eines Blattes
-
-Diese können mit der Funktion `train` aus dem Paket [`caret`](https://topepo.github.io/caret/index.html) automatisch optimiert werden.
-
-Alternativen/ Ergänzungen zu `rpart`: 
-
-- [`tree`](https://cran.r-project.org/web/packages/tree/)
-- [`partykit`](http://partykit.r-forge.r-project.org/partykit/)
-- Erweiterung: Viele Bäume: [`randomForest`](https://cran.r-project.org/web/packages/randomForest/) 
-
-
-## Ausblick
-
-
-## Fallstudie: Überleben auf der Titanic
-In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um die beispielhafte Analyse nominaler Daten anhand des "klassischen" Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der derPassagiers reist, ab?
-
-
-
-### Daten und Pakete laden
-
-
-```{r}
-# install.packages("titanic")
-library("titanic")
-data(titanic_train)
-```
-
-Man beachte, dass ein Paket nur *einmalig* zu installieren ist (wie jede Software). Dann aber muss das Paket bei jedem Starten von R wieder von neuem gestartet werden. Außerdem ist es wichtig zu wissen, dass das Laden eines Pakets nicht automatisch die Datensätze aus dem Paket lädt. Man muss das oder die gewünschten Pakete selber (mit `data(...)`) laden. Und: Der Name eines Pakets (z.B. `titanic`) muss nicht identisch sein mit dem oder den Datensätzen des Pakets (z.B. `titanic_train`).
-
-```{r}
-library(tidyverse)
-```
-
-
-### Erster Blick
-Werfen wir einen ersten Blick in die Daten:
-
-```{r}
-# install.packages("dplyr", dependencies = TRUE) # ggf. vorher installieren
-glimpse(titanic_train)
-```
-
-### Welche Variablen sind interessant?
-Von 12 Variablen des Datensatzes interessieren uns offenbar `Pclass` und `Survived`; Hilfe zum Datensatz kann man übrigens mit `help(titanic_train)` bekommen. Diese beiden Variablen sind kategorial (nicht-metrisch), wobei sie in der Tabelle mit Zahlen kodiert sind. Natürlich ändert die Art der Codierung (hier als Zahl) nichts am eigentlichen Skalenniveau. Genauso könnte man "Mann" mit `1` und "Frau" mit `2` kodieren; ein Mittelwert bliebe genauso (wenig) aussagekräftig. Zu beachten ist hier nur, dass sich manche R-Befehle verunsichern lassen, wenn nominale Variablen mit Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit Text-Werten zu benennen (wie "survived" vs. "drowned" etc.). Wir kommen später auf diesen Punkt zurück.
-
-### Univariate Häufigkeiten
-Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir fest: Wir untersuchen zwei nominale Variablen. Sprich: wir werden Häufigkeiten auszählen. Häufigkeiten (und relative Häufigkeiten, also Anteile oder Quoten) sind das, was uns hier beschäftigt.
-
-Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab es pro Klasse? Wie viele Passagiere gab es pro Wert von `Survived` (also die überlebten bzw. nicht überlebten)?
-
-```{r}
-c1 <- dplyr::count(titanic_train, Pclass)
-c1
-```
-
-
-```{block2, name_clash, type='rmdcaution', echo = TRUE}
-Achtung - Namenskollision! Sowohl im Paket `mosaic` als auch im Paket `dplyr` gibt es einen Befehl `count`. Für `select` gilt das gleiche. Das arme R weiß nicht, welchen von beiden wir meinen und entscheidet sich im Zweifel für den falschen. Da hilft, zu sagen, aus welchem Paket wir den Befehl beziehen wollen. Das macht der Operator `::`.
-
-```
-
-
-Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm dazu malen). 
-
-```{r}
-# install.packages("ggplot2", dependencies = TRUE)
-library(ggplot2)
-qplot(x = Pclass, y = n, data = c1)
-
-```
-
-Der Befehl `qplot` zeichnet automatisch Punkte, wenn auf beiden Achsen "Zahlen-Variablen" stehen (also Variablen, die keinen "Text", sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ `int` (integer), also Ganze Zahlen oder vom Typ `num` (numeric), also reelle Zahlen).
-
-```{r}
-
-c2 <- dplyr::count(titanic_train, Survived)
-c2
-```
-
-Man beachte, dass der Befehl `count` stehts eine Tabelle (data.frame bzw. `tibble`) verlangt und zurückliefert.
-
-
-### Bivariate Häufigkeiten
-OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von `Survived` (dasselbe gilt für `Pclass`). Eigentlich interessiert uns aber die Frage, ob sich die relativen Häufigkeiten der Stufen von `Pclass` innerhalb der Stufen von `Survived` unterscheiden. Einfacher gesagt: Ist der Anteil der Überlebenden in der 1. Klasse größer als in der 3. Klasse?
-
-Zählen wir zuerst die Häufigkeiten für alle Kombinationen von `Survived` und `Pclass`:
-
-```{r}
-c3 <- dplyr::count(titanic_train, Survived, Pclass)
-c3
-```
-
-Da `Pclass` 3 Stufen hat (1., 2. und 3. Klasse) und innerhalb jeder dieser 3 Klassen es die Gruppe der Überlebenden und der Nicht-Überlebenden gibt, haben wir insgesamt 3*2=6 Gruppen.
-
-Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den gleichen Befehl wie oben.
-
-```{r}
-qplot(x = Pclass, y = n, data = c3)
-```
-
-Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen:
-
-```{r}
-qplot(x = Pclass, y = n, color = Survived, data = c3)
-
-```
-
-Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:
-
-```{r}
-qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
-
-```
-
-Viel besser. Jetzt noch ein bisschen Schnickschnack:
-
-
-```{r}
-qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) + 
-  labs(x = "Klasse", 
-       title = "Überleben auf der Titanic",
-       colour = "Überlebt?")
-
-```
-
-
-### Signifikanztest
-
-Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und außerdem zumeist missverstanden wird (er gibt *nicht* die Wahrscheinlichkeit der getesteten Hypothese an, was die Frage aufwirft, warum er mich dann interessieren sollte). Aber seisdrum, berechnen wir mal einen p-Wert. Es gibt mehrere statistische Tests, die sich hier potenziell anböten (was die Frage nach der Objektivität von statistischen Tests in ein ungünstiges Licht rückt). Nehmen wir den $\chi^2$-Test.
-
-```{r}
-chisq.test(titanic_train$Survived, titanic_train$Pclass)
-
-```
-
-Der p-Wert ist kleiner als 5%, daher entscheiden wir uns, entsprechend der üblichen Gepflogenheit, gegen die H0 und für die H1: "Es gibt einen Zusammenhang von Überlebensrate und Passagierklasse".
-
-
-### Effektstärke
-Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie sehr die Variablen zusammenhängen. Für Häufigkeitsanalysen mit 2*2-Feldern bietet sich das "Odds Ratio" (OR), das Chancenverhältnis an. Das Chancen-Verhältnis beantwortet die Frage: "Um welchen Faktor ist die Überlebenschance in der einen Klasse größer als in der anderen Klasse?". Eine interessante Frage, als schauen wir es uns an. 
-
-Das OR ist nur definiert für 2*2-Häufigkeitstabellen, daher müssen wir die Anzahl der Passagierklassen von 3 auf 2 verringern. Nehmen wir nur 1. und 3. Klasse, um den vermuteten Effekt deutlich herauszuschälen:
-
-```{r}
-t2 <- filter(titanic_train, Pclass != 2)  # "!=" heißt "nicht"
-```
-
-Alternativ (synonym) könnten wir auch schreiben:
-
-```{r}
-t2 <- filter(titanic_train, Pclass == 1 | Pclass == 3)  # "|" heißt "oder"
-```
-
-Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:
-
-```{r}
-c4 <- dplyr::count(t2, Pclass)
-c4
-```
-
-
-Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datentabelle operieren:
-
-```{r}
-chisq.test(t2$Survived, t2$Pclass)
-
-```
-
-Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
-
-Dann berechnen wir die Effektstärke (OR) mit dem Paket `compute.es` (muss ebenfalls installiert sein).
-```{r}
-
-library(compute.es)
-chies(chi.sq = 96, n = 707)
-
-```
-
-Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you live...
-
-
-### Logististische Regression
-Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression. Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich das Diagramm an. Hier sehen wir die (geschätzten) Überlebens-Wahrscheinlichkeiten für Passagiere der 1. Klasse vs. Passagiere der 3. Klasse.
-
-```{r}
-titanic2 <- titanic_train %>% 
-  filter(Pclass %in% c(1,3)) %>% 
-  mutate(Pclass = factor(Pclass))
-
-glm1 <- glm(data = titanic2, 
-            formula = Survived ~ Pclass, 
-            family = "binomial")
-
-exp(coef(glm1))
-
-titanic2$pred_prob <- predict(glm1, type = "response")
-```
-
-
-```{r echo = FALSE}
-titanic2 %>% 
-  dplyr::select(Pclass, Survived, pred_prob) %>% 
-  mutate(Survived = as.numeric(Survived),
-         Pclass = as.numeric(as.character(Pclass))) %>% 
-  ggplot() +
-  aes(x = Pclass, y = Survived) +
-  geom_jitter(width = .1, alpha = .3) +
-  stat_smooth(aes(y = Survived, x = Pclass), method="glm", method.args=list(family="binomial")) +
-  scale_x_continuous(breaks = c(1,3)) +
-  scale_y_continuous(breaks = c(0, .2, .4, .6, .8, 1))
-```
-
-Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.
-
-Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit `glm` und `family = "binomial"` eine *logistische* Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (`lm(...)`) ist.
-
-Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die "normale" Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-*Chance* (Odds) 1.7 zu 1 betrug - bei der *ersten* Stufe von `Pclass` (`1`)[^2]; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-*Wahrscheinlichkeit*); s. `Intercept`; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert "Null" hat/ haben, bzw. die erste Ausprägung, hier 1. 
-
-Im Vergleich dazu wird die Überlebens-Chance deutlich schlechter, wenn man die nächste Gruppe von `Pclass` (3) betrachtet. Die Odds verändern sich um den Faktor ~0.2. Da der Faktor *kleiner* als 1 ist, ist das kein gutes Zeichen. Die Überlebens-Chance *sinkt*; etwas genauer auf: 1.7 * 0.2 ≈ 0.34. Das heißt, die Überlebens-Chance ist in der 3. Klasse nur noch ca. 1 zu 3 (Überlebens-Wahrscheinlichkeit: ~25%).
-
-Komfortabler können wir uns die Überlebens-*Wahrscheinlichkeiten* mit der Funktion `predict` ausgeben lassen.
-
-```{r}
-predict(glm1, newdata = data.frame(Pclass = factor("1")), type = "response")
-predict(glm1, newdata = data.frame(Pclass = factor("3")), type = "response")
-
-```
-
-Alternativ kann man die Häufigkeiten auch noch "per Hand" bestimmen: 
-
-```{r}
-titanic_train %>% 
-  filter(Pclass %in% c(1,3)) %>% 
-  dplyr::select(Survived, Pclass) %>% 
-  group_by(Pclass, Survived) %>% 
-  summarise(n = n() ) %>% 
-  mutate(Anteil = n / sum(n))
-```
-
-
-
-
-### Effektstärken visualieren
-Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe (im Datensatz ohne 2. Klasse, der Einfachheit halber).
-
-```{r}
-c5 <- dplyr::count(t2, Pclass, Survived)
-c5$prop <- c5$n / 707
-c5
-```
-
-Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf. 
-
-Das visualisieren wir wieder
-
-```{r}
-qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
-```
-
-Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.
-
-```{r}
-qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
-```
-
-Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden Werten von `Pclass` stechen noch nicht so ins Auge. Wir sollten es anders darstellen.
-
-Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wechseln sollten. `qplot` ist in Wirklichkeit nur eine vereinfachte Form von `ggplot`; die Einfachheit wird mit geringeren Möglichkeiten bezahlt. Satteln wir zum Schluss dieser Fallstudie also um:
-
-```{r}
-ggplot(data = c5) +
-  aes(x = factor(Pclass), y = n, fill = factor(Survived)) + 
-  geom_col(position = "fill") +
-  labs(x = "Passagierklasse", fill = "Überlebt?", caption = "Nur Passagiere, keine Besatzung")
-```
-
-Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 
-
-Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. Der zu untersuchende Effekt tritt hier am stärken zu Tage; außerdem ist die Analyse relativ einfach.
-
-Eine alternative Darstellung ist diese:
-
-```{r}
-c5 %>% 
-  ggplot +
-  aes(x = factor(Pclass), y = factor(Survived), fill = n) +
-  geom_tile()
-```
-
-Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.
-
-
-### Fazit
-In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr weit; `dplyr` und `ggplot2` zählen (zu Recht) zu den am häufigsten verwendeten Paketen. Beide sind flexibel, konsistent und spielen gerne miteinander. Die besten Einblicke haben wir aus deskriptiver bzw. explorativer Analyse (Diagramme) gewonnen. Signifikanztests oder komplizierte Modelle waren nicht zentral. In vielen Studien/Projekten der Datenanalyse gilt ähnliches: Daten umformen und verstehen bzw. "veranschaulichen" sind zentrale Punkte, die häufig viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind Häufigkeitsauswertungen ideal.
-
-
-[^2]: Darum haben wir `Pclass` in eine Faktor-Variable umgewandelt. Die "erste Klasse" ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir `Pclass` als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die "nullte" Klasse geben, was wenig Sinn macht.
-
-[^3]: engl. "to fit": anpassen.
