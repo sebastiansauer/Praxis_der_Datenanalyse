@@ -1,22 +1,4 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 
 
 ## Assoziationsanalyse
@@ -57,17 +39,20 @@ Hinweis: Support und Lift sind symmetrisch, Confidence nicht. Als Schätzwerte f
 Für eine Assoziationsanalyse kann in R das Zusatzpaket `arules` [https://cran.r-project.org/package=arules](https://cran.r-project.org/package=arules) verwendet werden.
 
 Die (einmalige) Installation erfolgt über:
-```{r, eval=FALSE}
+
+```r
 install.packages(c("arules", "arulesViz"), dep = TRUE)
 ```
 
 Geladen wird das Paket dann über
-```{r}
+
+```r
 library(arules)
 ```
 
 Eine Einführung erhält man über die Paket-Vignette
-```{r, eval=FALSE}
+
+```r
 vignette("arules")
 ```
 
@@ -76,78 +61,58 @@ vignette("arules")
 
 Im Paket `arules` sind Point-Of-Sale Daten eines Lebensmittelgeschäftes von einem Monat enthalten.^[Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006) *Implications of probabilistic data modeling for mining association rules*. In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.] Die Lebensmittel wurden zu 169 Kategorien zusammengefasst, und es gibt 9835 Transaktionen:
 
-```{r load_data_Groceries}
-data(Groceries, package = "arules") # Daten laden
-# load(file = "data/Groceries.Rda")
+
+```r
+#data(Groceries, package = "arules") # Daten laden
+load(file = "data/Groceries.Rda")
 summary(Groceries)
+#> transactions as itemMatrix in sparse format with
+#>  9835 rows (elements/itemsets/transactions) and
+#>  169 columns (items) and a density of 0.0261 
+#> 
+#> most frequent items:
+#>       whole milk other vegetables       rolls/buns             soda 
+#>             2513             1903             1809             1715 
+#>           yogurt          (Other) 
+#>             1372            34055 
+#> 
+#> element (itemset/transaction) length distribution:
+#> sizes
+#>    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
+#> 2159 1643 1299 1005  855  645  545  438  350  246  182  117   78   77   55 
+#>   16   17   18   19   20   21   22   23   24   26   27   28   29   32 
+#>   46   29   14   14    9   11    4    6    1    1    1    1    3    1 
+#> 
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>     1.0     2.0     3.0     4.4     6.0    32.0 
+#> 
+#> includes extended item information - examples:
+#>        labels  level2           level1
+#> 1 frankfurter sausage meat and sausage
+#> 2     sausage sausage meat and sausage
+#> 3  liver loaf sausage meat and sausage
 ```
 
 *Hinweis:* Um einen Datensatz als Transaktionsdatensatz zu definieren wird der Befehl
-```{r, as_transaction, eval=FALSE}
+
+```r
 library(methods)
 daten.trans <- as(daten, "transactions")
 ```
 verwendet. Siehe auch Hilfeseite zu `transactions-class`.
 
 Über `inspect()` können Transaktionen und Regeln betrachtet werden:
-```{r inspect_groceries}
-inspect(head(Groceries))
-```
-
-
-#### Regeln finden
-
-Es existieren verschiedene Algorithmen um Assoziationsregeln zu finden. Hier wird der *Apriori* Algorithmus verwendet, wobei verschiedene Parameter (wie z. B. minimalen Support und Confidence) eingestellt werden können:
-
-```{r lebensmittel_apriori}
-lebensmittel.regeln <- apriori(Groceries, 
-                               parameter=list(supp=0.02, conf=0.1,
-                                              target="rules"))
-```
-
-```{r inspect_Lebensmittel}
-inspect(subset(lebensmittel.regeln, lift>2.5))
-```
-
-
-Das Ergebnis zeigt, dass in ca. 2% der Transaktionen Kern- ("pip", z. B. Äpfel, Birnen) und Südfrüchte ("tropical", z. B. Zitronen) enthalten waren (*support*). 27% der Transaktionen mit Kernfrüchten (*lhs*) enthielten auch Südfrüchte (*rhs*, *confidence*).  Wenn also eine Transaktion eine Kernfrucht enthält ist ist es 2,57x häufiger, dass die Transaktion auch Südfrüchte enthält unter unabhängigen Häufigkeiten (*lift*).
-
-Um die "Top" Regeln zu betrachten müssen die Regeln nach dem gewünschten Kriterium sortiert werden:
-
-```{r}
-topregeln <- head(sort(lebensmittel.regeln, by="confidence"), 20)
-inspect(topregeln)
-```
 
 
 
-### Visualisierung
-
-Eine mögliche Visualisierung ist ein Streudiagramm von Support und Confidence
-```{r, message=FALSE}
-library(arulesViz)
-plot(lebensmittel.regeln)
-```
-
-Mit Hilfe der Option `interactive=TRUE` kann in Bereiche gezoomt werden -- und Regeln ausgewählt:
-```{r, eval=FALSE}
-plot(lebensmittel.regeln, interactive=TRUE)
-```
-
-Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:
-```{r}
-plot(topregeln, method="graph")
-```
 
 
-#### Literatur
-
-- [Chris Chapman und Elea McDonnell Feit (2015), *R for Marketing Research and Analytics*, Springer](http://r-marketing.r-forge.r-project.org)
-- [Michael Hahsler (2015), A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, URL: http://michael.hahsler.net/research/association_rules/measures.html](http://michael.hahsler.net/research/association_rules/measures.html)
-- [Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, und Christian Buchta (2011), *The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets*.  Journal of Machine Learning Research, 12:1977--1981](http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html)
-- [Michael Hahsler, Bettina Gruen und Kurt Hornik (2005), *arules - A Computational Environment for Mining Association Rules and Frequent Item Sets*.  Journal of Statistical Software 14/15.](http://dx.doi.org/10.18637/jss.v014.i15)
-- Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006), *Implications of probabilistic data modeling for mining association rules.* In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.
 
 
-#### Versionshinweise:
-Die Darstellung orientiert sich an den Folienunterlagen von Chapman & Feit zum Buch *R for Marketing Research and Analytics*, Springer, 2015, siehe [http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html](http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html)
+
+
+
+
+
+
+

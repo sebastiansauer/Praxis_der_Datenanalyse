@@ -1,22 +1,4 @@
-```{r knitr_options, include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 2)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  warning = FALSE,
-  message = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 
 
 
@@ -26,9 +8,7 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das "Drumherum" der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voila:
 
-```{r echo = FALSE}
-knitr::include_graphics("images/Prozess.pdf")
-```
+<img src="images/Prozess.pdf" width="70%" style="display: block; margin: auto;" />
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds]. Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar machen; man nennt dies auch *tidy data*[^1]. Sobald die Daten in geeigneter Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das *Modellieren* oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das *Kommunizieren* der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.
@@ -54,19 +34,12 @@ Die Oberfläche von R, die "Console", sieht so aus:
 
 ![](images/R-small.jpg) ![](images/R-Mac-small.png)
 
-```{r eval = FALSE, echo = FALSE,  fig.width = 1}
-knitr::include_graphics("images/R.jpg")
-knitr::include_graphics("images/R-Mac.png")
 
-```
 
 
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:
 
-```{r echo = FALSE}
-knitr::include_graphics("images/RStudio-Screenshot.png")
-
-```
+<img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -148,7 +121,8 @@ R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine sp
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt `dplyr`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:
 
-```{r eval = FALSE}
+
+```r
 install.packages("dplyr", dependencies = TRUE)
 ```
 
@@ -156,25 +130,22 @@ install.packages("dplyr", dependencies = TRUE)
 
 
 
-```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE}
-Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - die "Mirrors", Spiegelbilder. Suchen Sie sich einfach einen aus, der in der Nähe ist.
-
-```
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - die "Mirrors", Spiegelbilder. Suchen Sie sich einfach einen aus, der in der Nähe ist.
+</div>\EndKnitrBlock{rmdcaution}
 
 
 Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten* (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder nutzen möchte:
 
-```{r eval = FALSE}
+
+```r
 library(dplyr)
 ```
 
 Der Befehl bedeutet sinngemäß: "Hey R, geh in die Bücherei (library) und hole das Buch (package) dplyr!".
 
 
-```{block2, quotation_marks, type='rmdcaution', echo = TRUE}
-Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben "library(dplyr)" ist "dplyr" hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten *eigentlich* Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library("dplyr") oder library('dplyr'); geht beides.
-
-```
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben "library(dplyr)" ist "dplyr" hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten *eigentlich* Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library("dplyr") oder library('dplyr'); geht beides.
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -185,29 +156,148 @@ Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten install
 ### R-Pakete für dieses Buch
 In diesem Buch verwenden wir die folgenden R-Pakete; diese müssen installiert[^186] sein und geladen:
 
-```{r source_packages, include = FALSE}
-source("includes/Pakete.R")
-```
 
 
-```{r Paketliste}
+
+
+```r
 Pakete
+#>  [1] "tidyverse"     "readr"         "knitr"         "stringr"      
+#>  [5] "car"           "nycflights13"  "ISLR"          "pdftools"     
+#>  [9] "downloader"    "ggdendro"      "gridExtra"     "tm"           
+#> [13] "tidytext"      "lsa"           "SnowballC"     "wordcloud"    
+#> [17] "RColorBrewer"  "okcupiddata"   "reshape2"      "wesanderson"  
+#> [21] "GGally"        "titanic"       "compute.es"    "corrr"        
+#> [25] "rpart"         "rpart.plot"    "MASS"          "titanic"      
+#> [29] "arules"        "arulesViz"     "SDMTools"      "corrplot"     
+#> [33] "gplots"        "corrplot"      "scatterplot3d" "BaylorEdPsych"
+#> [37] "nFactors"
 ```
 
 Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal), können wir mit etwas R-Judo alle auf einen Haps laden:
 
-```{r eval = FALSE}
+
+```r
 lapply(Pakete, require, character.only = TRUE)
 ```
 
 
-```{r load_packages, output = "hide"}
+
+```r
 lapply(Pakete, require, character.only = TRUE)
+#> [[1]]
+#> [1] TRUE
+#> 
+#> [[2]]
+#> [1] TRUE
+#> 
+#> [[3]]
+#> [1] TRUE
+#> 
+#> [[4]]
+#> [1] TRUE
+#> 
+#> [[5]]
+#> [1] TRUE
+#> 
+#> [[6]]
+#> [1] TRUE
+#> 
+#> [[7]]
+#> [1] TRUE
+#> 
+#> [[8]]
+#> [1] TRUE
+#> 
+#> [[9]]
+#> [1] TRUE
+#> 
+#> [[10]]
+#> [1] TRUE
+#> 
+#> [[11]]
+#> [1] TRUE
+#> 
+#> [[12]]
+#> [1] TRUE
+#> 
+#> [[13]]
+#> [1] TRUE
+#> 
+#> [[14]]
+#> [1] TRUE
+#> 
+#> [[15]]
+#> [1] TRUE
+#> 
+#> [[16]]
+#> [1] TRUE
+#> 
+#> [[17]]
+#> [1] TRUE
+#> 
+#> [[18]]
+#> [1] TRUE
+#> 
+#> [[19]]
+#> [1] TRUE
+#> 
+#> [[20]]
+#> [1] TRUE
+#> 
+#> [[21]]
+#> [1] TRUE
+#> 
+#> [[22]]
+#> [1] TRUE
+#> 
+#> [[23]]
+#> [1] TRUE
+#> 
+#> [[24]]
+#> [1] TRUE
+#> 
+#> [[25]]
+#> [1] TRUE
+#> 
+#> [[26]]
+#> [1] TRUE
+#> 
+#> [[27]]
+#> [1] TRUE
+#> 
+#> [[28]]
+#> [1] TRUE
+#> 
+#> [[29]]
+#> [1] TRUE
+#> 
+#> [[30]]
+#> [1] TRUE
+#> 
+#> [[31]]
+#> [1] TRUE
+#> 
+#> [[32]]
+#> [1] TRUE
+#> 
+#> [[33]]
+#> [1] TRUE
+#> 
+#> [[34]]
+#> [1] TRUE
+#> 
+#> [[35]]
+#> [1] TRUE
+#> 
+#> [[36]]
+#> [1] TRUE
+#> 
+#> [[37]]
+#> [1] TRUE
 ```
 
-```{r include = FALSE, echo = FALSE}
-knitr::write_bib(Pakete, file = "libs.bib")
-```
+
 
 Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl `library` an"[^3].
 
@@ -234,7 +324,8 @@ Wir verwenden zwei Methoden, um Datensätze in R zu laden.
 
 - Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket `okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl `data(name_des_datensatzes, packge = "name_des_paketes")`, kann man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des Paektes; dafür ist der Befehl `data` zuständig.
 
-```{r eval = FALSE}
+
+```r
 library(okcupiddata)
 data(profiles, package = "okcupiddata")
 ```
@@ -242,7 +333,8 @@ data(profiles, package = "okcupiddata")
 
 - Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stic...) liegen.
 
-```{r eval = FALSE}
+
+```r
 Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
 ```
 
@@ -282,25 +374,32 @@ Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
 
 ### R als Taschenrechner
 Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. `Enter`.
-```{r}
+
+```r
 4+2
+#> [1] 6
 ```
 Das Ergebnis wird direkt angezeigt.
 Bei 
-```{r}
+
+```r
 x <- 4+2
 ```
 erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert `4+2` zugewiesen. Wenn Sie jetzt
-```{r eval=FALSE}
+
+```r
 x
 ```
 eingeben, wird das Ergebnis
-```{r echo=FALSE}
-x
+
+```
+#> [1] 6
 ```
 angezeigt. Sie können jetzt auch mit `x` weiterrechnen.
-```{r}
+
+```r
 x/4
+#> [1] 1.5
 ```
 Vielleicht fragen Sie sich was die `[1]` vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt. 
 
@@ -317,8 +416,68 @@ Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von
 
 ## Versionshinweise
 
-```{r session_info}
+
+```r
 sessionInfo()
+#> R version 3.3.2 (2016-10-31)
+#> Platform: x86_64-apple-darwin13.4.0 (64-bit)
+#> Running under: macOS Sierra 10.12.3
+#> 
+#> locale:
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#> 
+#> attached base packages:
+#> [1] grid      methods   stats     graphics  grDevices utils     datasets 
+#> [8] base     
+#> 
+#> other attached packages:
+#>  [1] nFactors_2.3.3       lattice_0.20-34      boot_1.3-18         
+#>  [4] psych_1.6.12         BaylorEdPsych_0.5    scatterplot3d_0.3-38
+#>  [7] gplots_3.0.1         corrplot_0.77        SDMTools_1.1-221    
+#> [10] arulesViz_1.2-0      arules_1.5-0         Matrix_1.2-8        
+#> [13] MASS_7.3-45          rpart.plot_2.1.0     rpart_4.1-10        
+#> [16] corrr_0.2.1          compute.es_0.2-4     titanic_0.1.0       
+#> [19] GGally_1.3.0         wesanderson_0.3.2    reshape2_1.4.2      
+#> [22] okcupiddata_0.1.0    wordcloud_2.5        RColorBrewer_1.1-2  
+#> [25] lsa_0.73.1           SnowballC_0.5.1      tidytext_0.1.2      
+#> [28] tm_0.6-2             NLP_0.1-9            gridExtra_2.2.1     
+#> [31] ggdendro_0.1-20      downloader_0.4       pdftools_1.0        
+#> [34] ISLR_1.0             nycflights13_0.2.2   car_2.1-4           
+#> [37] stringr_1.1.0        knitr_1.15.1         dplyr_0.5.0         
+#> [40] purrr_0.2.2.9000     readr_1.0.0          tidyr_0.6.1         
+#> [43] tibble_1.2           ggplot2_2.2.1.9000   tidyverse_1.1.1     
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] minqa_1.2.4         colorspace_1.3-2    class_7.3-14       
+#>  [4] modeltools_0.2-21   mclust_5.2.2        rprojroot_1.2      
+#>  [7] base64enc_0.1-3     MatrixModels_0.4-1  DT_0.2             
+#> [10] flexmix_2.3-13      mvtnorm_1.0-5       lubridate_1.6.0    
+#> [13] xml2_1.1.1          R.methodsS3_1.7.1   codetools_0.2-15   
+#> [16] splines_3.3.2       mnormt_1.5-5        robustbase_0.92-7  
+#> [19] jsonlite_1.2        nloptr_1.0.4        pbkrtest_0.4-6     
+#> [22] broom_0.4.1         kernlab_0.9-25      cluster_2.0.5      
+#> [25] R.oo_1.21.0         httr_1.2.1          backports_1.0.5    
+#> [28] assertthat_0.1      lazyeval_0.2.0.9000 htmltools_0.3.5    
+#> [31] quantreg_5.29       tools_3.3.2         gtable_0.2.0       
+#> [34] Rcpp_0.12.9         slam_0.1-40         trimcluster_0.1-2  
+#> [37] gdata_2.17.0        nlme_3.1-130        iterators_1.0.8    
+#> [40] fpc_2.1-10          lmtest_0.9-35       lme4_1.1-12        
+#> [43] rvest_0.3.2         gtools_3.5.0        dendextend_1.4.0   
+#> [46] DEoptimR_1.0-8      zoo_1.7-14          scales_0.4.1       
+#> [49] TSP_1.1-4           hms_0.3             parallel_3.3.2     
+#> [52] SparseM_1.74        yaml_2.1.14         reshape_0.8.6      
+#> [55] stringi_1.1.2       gclus_1.3.1         tokenizers_0.1.4   
+#> [58] foreach_1.4.3       seriation_1.2-1     caTools_1.17.1     
+#> [61] prabclus_2.2-6      bitops_1.0-6        evaluate_0.10      
+#> [64] htmlwidgets_0.8     plyr_1.8.4          magrittr_1.5       
+#> [67] bookdown_0.3        R6_2.2.0            DBI_0.5-1          
+#> [70] haven_1.0.0         whisker_0.3-2       foreign_0.8-67     
+#> [73] mgcv_1.8-16         nnet_7.3-12         janeaustenr_0.1.4  
+#> [76] modelr_0.1.0        KernSmooth_2.23-15  plotly_4.5.6       
+#> [79] rmarkdown_1.3       viridis_0.3.4       readxl_0.1.1       
+#> [82] forcats_0.2.0       vcd_1.4-3           digest_0.6.12      
+#> [85] diptest_0.75-7      R.utils_2.5.0       stats4_3.3.2       
+#> [88] munsell_0.4.3       viridisLite_0.1.3   registry_0.3
 ```
 
 
