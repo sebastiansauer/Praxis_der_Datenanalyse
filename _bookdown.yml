@@ -18,9 +18,8 @@ rmd_files: [
 "081_Assoziationsanalyse.Rmd",
 "090_Textmining.Rmd",
 "100_Kommunizieren.Rmd",
-"110_Rahmen_2.Rmd",
 "120_Literaturverzeichnis.Rmd"]
-clean: [bookdown.bbl, libs.bib]
+clean: [bookdown.bbl]
 nocite: |
   @*
 new_session: yes

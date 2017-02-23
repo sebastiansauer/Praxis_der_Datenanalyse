@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="images/cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-02-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="textmining.html">
+<link rel="next" href="rahmen-teil-2.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="rahmen-teil-1.html"><a href="rahmen-teil-1.html"><i class="fa fa-check"></i><b>1</b> Rahmen - Teil 1</a></li>
+<li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a></li>
+<li class="chapter" data-level="3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>3</b> Daten aufbereiten</a></li>
+<li class="chapter" data-level="4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>4</b> Daten visualisieren</a></li>
+<li class="chapter" data-level="5" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html"><i class="fa fa-check"></i><b>5</b> Inferenzstatistik</a></li>
+<li class="chapter" data-level="6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html"><i class="fa fa-check"></i><b>6</b> Statistisches Modellieren</a></li>
+<li class="chapter" data-level="7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Geleitetes Modellieren</a></li>
+<li class="chapter" data-level="8" data-path="aus-koeffizient-abgeschatzt.html"><a href="aus-koeffizient-abgeschatzt.html"><i class="fa fa-check"></i><b>8</b> aus Koeffizient abgeschätzt</a></li>
+<li class="chapter" data-level="9" data-path="runde-1.html"><a href="runde-1.html"><i class="fa fa-check"></i><b>9</b> Runde 1</a></li>
+<li class="chapter" data-level="10" data-path="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><a href="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><i class="fa fa-check"></i><b>10</b> install.packages(“dplyr”, dependencies = TRUE) # ggf. vorher installieren</a></li>
+<li class="chapter" data-level="11" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>11</b> Ungeleitetes Modellieren</a></li>
+<li class="chapter" data-level="12" data-path="loadfile-datagroceries-rda.html"><a href="loadfile-datagroceries-rda.html"><i class="fa fa-check"></i><b>12</b> load(file = “data/Groceries.Rda”)</a></li>
+<li class="chapter" data-level="13" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>13</b> Textmining</a></li>
+<li class="chapter" data-level="14" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>14</b> Ergebnisse kommunizieren</a><ul>
+<li class="chapter" data-level="14.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#rmarkdown"><i class="fa fa-check"></i><b>14.1</b> RMarkdown</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#forderungen-an-werkzeuge-zur-berichtserstellung"><i class="fa fa-check"></i><b>14.1.1</b> Forderungen an Werkzeuge zur Berichtserstellung</a></li>
+<li class="chapter" data-level="14.1.2" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#bevor-es-losgeht"><i class="fa fa-check"></i><b>14.1.2</b> Bevor es losgeht</a></li>
+<li class="chapter" data-level="14.1.3" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#rmarkdown-in-action"><i class="fa fa-check"></i><b>14.1.3</b> RMarkdown in Action</a></li>
+<li class="chapter" data-level="14.1.4" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#die-arbeitsschritte-mit-rmarkdown"><i class="fa fa-check"></i><b>14.1.4</b> Die Arbeitsschritte mit RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html#reproduzierbarkeit"><i class="fa fa-check"></i><b>14.2</b> Reproduzierbarkeit</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="rahmen-teil-2.html"><a href="rahmen-teil-2.html"><i class="fa fa-check"></i><b>15</b> Rahmen - Teil 2</a></li>
+<li class="chapter" data-level="16" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>16</b> Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ergebnisse-kommunizieren" class="section level1">
+<h1><span class="header-section-number">Kapitel 14</span> Ergebnisse kommunizieren</h1>
+<p><img src="images/Kommunizieren.pdf" width="70%" style="display: block; margin: auto;" /></p>
+<div id="rmarkdown" class="section level2">
+<h2><span class="header-section-number">14.1</span> RMarkdown</h2>
+<p>Nehmen wir an, Sie möchten die Ergebnisse Ihrer Datenanalyse niederschreiben. Sei es, dass Sie einen Professor beglücken <sub>müssen</sub>, wollen; sei es, dass Sie einem Kunden eine Bericht der Quartalszahlen inkl. Forecast erstellen oder mit einem Kollegen Ideen austauschen. Welche Anforderungen stellen Sie an ein Werkzeug, mit dem Sie die Ergebnisse niederschreiben?</p>
+<div id="forderungen-an-werkzeuge-zur-berichtserstellung" class="section level3">
+<h3><span class="header-section-number">14.1.1</span> Forderungen an Werkzeuge zur Berichtserstellung</h3>
+<p>Einige Anforderungen sind im Folgenden aufgelistet:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>R sollte integrierbar sein; sowohl die Ergebnisse als auch die Syntax.</li>
+<li>Man sollte sich beim Schreiben auf das Schreiben konzentrieren können - ohne sich auf die Formatierung konzentrieren zu müssen.</li>
+<li>Das Werkzeug sollte einfach zu erlernen (und zu bedienen) sein.</li>
+<li>Es sollte verschiedene Ausgabeformate (PDF, HTML,…) unterstützen.</li>
+<li>Das Dokument sollte optisch ansprechend formatiert sein.</li>
+<li>Das Werkzeug sollte übergreifend (Betriebssysteme, Zeiten, Versionen) arbeiten.</li>
+<li>Das Werzeug sollte mächtig (funktionsreich) sein.</li>
+<li>Das Werkzeug sollte frei (quelloffen sowie ggf. kostenfrei) sein.</li>
+<li>Das Werkzeug sollte Kollaboration leicht machen.</li>
+<li>Das Werkzeug sollte Versionierungen und Änderungsverfolgung unterstützen.</li>
+</ol>
+</blockquote>
+<p>Mit Werkzeug ist hier die Software zur Erstellung des Berichts gemeint; häufig MS Word.</p>
+<p>Betrachten wir die einzelnen Forderungen näher.</p>
+<blockquote>
+<pre><code>R sollte integrierbar sein; sowohl die Ergebnisse als auch die Syntax.</code></pre>
+</blockquote>
+<p>Sind das Werkzeug der Datenanalyse und das Werkzeug zur Berichterstellung voneinander getrennt, gibt es eine Schnittstselle, die wie eine Sollbuchstelle wirkt. Dieser Graben ist stets zu überwinden. Zwei Dinge, die dann fast zwangsläufig passieren: Copy-Paste und manuelles Aktualisieren. Copy-Paste ist mühsam und fehleranfällig. Mitunter weicht man vielleicht auf Neu-Eintippen aus: “Ok, der Mittelwert war doch 12,34…”; Fehler sind dann vorprogrammiert. Zum manuellen Aktualisieren: Stellen Sie sich vor, Ihr Bericht beinhaltet sagen wir 50 Diagramme und eine Reihe Tabellen und sonstige Zahlen - pro Kunde, pro Berichtszeitraum. Sie haben 100 Kunden, die einen Bericht pro Woche verlangen… Und jetzt für jedes Diagramm etc. in der Berichts-Software auf “Einfügen…” klicken??? Professionell geht anders. Kurz: Die Analyse sollte sich nahtlos in Ihren Bericht einfügen. Das ist vor allem für die Ergebnisse (Zahlen, Diagramme, Tabellen…) wichtig, aber sekundär auch für die Syntax.</p>
+<blockquote>
+<pre><code>  Man sollte sich beim Schreiben auf das Schreiben konzentrieren können - ohne sich auf die Formatierung konzentrieren zu müssen.</code></pre>
+</blockquote>
+<p>Entscheidend sind die Inhalte, die Formatierung ist zweitrangig und außerdem zeitlich nachgelagert. Bietet das Werkzeug reichhaltige Möglichkeiten zur Formatierung besteht die Gefahr, dass verfrüht der geistige Fokus von den Inhalten zur Dekoration der Inhalte wandert. Besser ist es, sich in gestalterischer Askese zu üben und die mentalen Ressourcen komplett auf die Inhalte konzentrieren zu können. Außerdem ist es wünschenswert, wenn das Werkzeug sich selbständig um das Formatieren kümmert. Damit soll dem Autor nicht die Möglichkeit verwehrt sein, selber zu gestalten; doch sollte ihm optisch ansprechende Standards automatisch angeboten werden.</p>
+<blockquote>
+<p>Das Werkzeug sollte einfach zu erlernen (und zu bedienen) sein.</p>
+</blockquote>
+<p>Nimmt mir das Werkzeug die Formatierung weitgehend ab, so bleibt (fast nur) das reine Schreiben von Text übrig. Das ist einfach zu bewerkstelligen (oder sollte es sein). Aufwändiges Einarbeiten in neue Werkzeuge sollte entfallen.</p>
+<blockquote>
+<p>Es sollte verschiedene Ausgabeformate (PDF, HTML,…) unterstützen.</p>
+</blockquote>
+<p>Die wichtigsten Formate, um Berichte zu erstellen sind sicherlich PDF, DOC, PPT und neuerdings zunehmend HTML und EPUB-Formate. Diese Formate sollten unterstützt werden. HTML und EPUB gewinnen mit der Verbreitung elektronischer Lesegeräte an Bedeutung. So ist z.B. HTML an einem Tablett oder Handy besser zu lesen als eine PDF-Datei. Ein wesentlicher Grund ist, dass bei HTML Zeilenumbrüche flexibel sind, z.B. je nach Größe des Displays. Bei PDF-Dateien ist dies fix.</p>
+<blockquote>
+<p>Das Dokument sollte optisch ansprechend formatiert sein.</p>
+</blockquote>
+<p>Das Werkzeug sollte - idealerweise als Standard ohne Eingriffe des Nutzers - optisch ansprechende Dokumente erzeugen. Dazu gehört vor allem schöner Schriftsatz: keine hässlichen Löcher zwischen Wörtern oder zwischen Buchstaben, elegante Schriftsätze oder schöne Formeln. Für HTML-Dateien sind “coole” Designs - z.B. mit benuterfreundlicher Navigationsspalte - sinnvoll.</p>
+<blockquote>
+<p>Das Werkzeug sollte übergreifend (Betriebssysteme, Zeiten, Versionen) arbeiten.</p>
+</blockquote>
+<p>Ärgerlich ist, wenn das Werkzeug nur für bestimmte Betriebssysteme (oder Versionen davon) funktioniert. Nicht so schlimm, aber auch nervig ist, wenn die Varianten eines Werkzeugs zwar übergreifend funktionieren, aber nicht <em>ganz</em> gleich sind - wenn z.B. Farben sich ändern oder Textfelder verrutschen. Auch in ein paar Jahren sollten die Dateien noch lesbar sein.</p>
+<blockquote>
+<p>Das Werzeug sollte mächtig (funktionsreich) sein.</p>
+</blockquote>
+<p>Die Quadratur des Kreises: Ein Werkzeug sollte einfach zu bedienen sein, aber mächtig, also einen großen Funktionsumfang besitzen. Beide Ziele sind nicht leicht unter einen Hut zu bringen und vielleicht das Grundproblem von Benutzerfreundlichkeit von Computersystemen. Eine pragmatische Lösung ist es (oder sollte sein), dem Nutzer vernünftige Standardwerte anzubieten bzw. diese ungefragt anzuwenden aber gleichzeitig dem Nutzer die Möglichkeit geben, in viele Details einzugreifen. Letzteres ist häufig kompliziert(er), aber für viele Nutzer nicht nötig, wenn die Standards gut sind.</p>
+<blockquote>
+<p>Das Werkzeug sollte frei (quelloffen sowie ggf. kostenfrei) sein.</p>
+</blockquote>
+<p>Als “Normalnutzer” denken Sie vielleicht: “Ist mir doch egal, ob das Werkzeug von Firma XYZ angeboten wird, kauf ich mir halt!. Das ist in einigen Fällen stimmig. Aber: Die Erfahrung zeigt, dass einige quelloffenen Software tendenziell schneller weiterentwickelt wird (oder Fehler beseitigt werden). Fortgeschrittene Nutzer können so einfach ihre Ideen zur Verfügung stellen. Das geht viel schneller (in der Regel) als wenn es bei einem Konzern durch die Instanzen sickern muss. R ist bestes Beispiel dafür. Außerdem: Manche Werkzeuge der Datenanalyse sind <em>sehr</em> teuer; da ist es schön, wenn man (bessere) Leistung kostenfrei bekommt! Nicht jeder ist mit ausreichend Finanzmitteln gesegnet…”Offen&quot; beinhaltet in dem Zusammenhang idealerweise auch, dass die Quelldateien menschenlesbar sind, also reine Text-Dateien. Damit kann jeder, auch ohne ein bestimmtes Werkzeug zu nutzen, die Quelldatei lesen. Reine Textdateien haben wohl von allen Datei-Formaten die beste Aussicht, in 10, 20, 50 oder 100 Jahren noch lesbar zu sein.</p>
+<blockquote>
+<p>Das Werkzeug sollte Kollaboration leicht machen.</p>
+</blockquote>
+<p>Mit Kollaboration ist gemeint, Sie schreiben einen Bericht sagen wir mit 5 Kollegen. Eine beliebte Variante der Zusammenarbeit ist dabei, dass Sie Ihren Entwurf an die Kollegen senden mit der Bitte um Hinweise, Korrekturen oder Überarbeitung. Netterweise bekommen Sie 6 Versionen zurück (ein Kollege schrieb 3 Mails, sie wusste dann selber nicht mehr warum, dafür meldete sich ein Kollege gar nicht). Ihnen bleibt die glorreiche Aufgabe, diese 6+1 Dokumente zusammenzuführen. Natürlich widersprechen sich die Hinweise der Kollegen, die in Unkenntnis der Hinweise der anderen entstanden… Außerdem nutzten nicht alle die selbe Methode für ihre Hinwese. Kurz: Nach einigen Schreikrämpfen müssen Sie erstmal Spazieren gehen. Schöner wäre ein zentrales Dokument, an dem alle arbeiten. So kann jeder den aktuellen Stand sehen und idealerweise auch die Änderungen der Kollegen (oder die eigenen Änderungen) einsehen. Einfache Werkzeuge dafür sind z.B. Google Docs oder der Drobox, welche Versionierungsfunktionen bietet. Besser (aber komplexer in der Bedienung) sind spezielle Versionierungs-Werkzeuge. Das bekannteste heißt “Git”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<blockquote>
+<p>Das Werkzeug sollte Versionierungen und Änderungsverfolgung unterstützen.</p>
+</blockquote>
+<p>Ähnlich zur Kolloboration ist die Versionierung. Hier geht es darum, die Entwicklungshistorie eines Dokuments nachvollziehen zu können. Das ist umso wichtiger, je größer das Dokument bzw. das Projekt zu dem Dokument ist. Eine studentische Abschlussarbiet ist ein gutes Beispiel, aber viele Berichte in Unternehmen taugen auch als Beispiel. Haben Sie schon mal Dateinamen gesehen wie “Bericht_V23_Korrektur_Edit_Willi_Final_2017-02-23_v3_final_Ergänzung.pdf”? Ich gebe zu, das Beispiel ist bewusst auf die Spitze getrieben, aber es schält die Problematik gut heraus. Der Änderungsmodus von MS-Word und ähnlichen Werkzeugen ist hilfreich für eine begrenzte Anzahl von Änderungen. Wurde aber eine bestimmte Passage mehrfach geändert, so kommt dieses Funktionalität schnell an ihre Grenzen. Kurz: Bei wichtigeren oder komplexeren Dokumenten ist eine professionelle Lösung sinnvoll.</p>
+<p>RMarkdown erfüllt diese Forderungen. Nicht perfekt, aber besser wohl als jedes andere Werkzeug. Daher ist es ein sehr wertvolles Werkzeug, das Sie kennen sollten, wenn Sie Berichte mit Ergebnissen von Datenanalysen schreiben.</p>
+</div>
+<div id="bevor-es-losgeht" class="section level3">
+<h3><span class="header-section-number">14.1.2</span> Bevor es losgeht</h3>
+<p>RMarkdown wird als Teil von RStudio mitgeliefert, kostenlos und großteils quelloffen. Es ist bereits installiert, wenn Sie RStudio installiert haben.</p>
+<p>Der Name “RMarkdown” suggeriert, dass R in eine Rolle spielt. Das ist richtig. Doch was heißt “Markdown”? Der Name rührt von der Idee von Auszeichnungssprachen (engl. “markup languages”) her. Auszeichnungssprachen sind, einfach gesgat, ein paar Befehle, die man in einen Text hineinschreibt, um den Text zu formatieren. Der Text ist also eine Mischung von Inhalt und Formatierungszeichen. HTML oder TeX sind bekannte Auszeichnungsprachen. Beide sind aber recht komplex, bzw. der Text sieht aus wie Kraut und Rüben vor lauter Auszeichnungsbefehlen. Markdown will anders sein, einfacher. Daher keine “Markup-”, sondern eine “Markdown-”Sprache. Vor “Sprache” braucht man sich hier nicht beunruhigen zu lassen. Die “Sprache” Markdown ist in 10 Minuten gelernt!</p>
+<p>RMarkdown-Dateien haben sinnvollerweise die Endung <code>.Rmd</code>. Rmd-Dateiein sind, genau wie normale Markdown-Dateien, schnöde Text-Dateien und können entsprechend von jedem Text-Editor (auch mit RStudio, das hier mit Syntax-Highlighting verwöhnt) geöffnet werden.</p>
+</div>
+<div id="rmarkdown-in-action" class="section level3">
+<h3><span class="header-section-number">14.1.3</span> RMarkdown in Action</h3>
+<p>Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.</p>
+<ul>
+<li><p>Öffnen Sie RStudio.</p></li>
+<li>Klicken Sie das Icon für “neue Datei” und wählen Sie “R Markdown…”, um eine neue RMarkdown-Datei zu erstellen.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="images/new_rmd.png" alt="Neue Rmd-Datei erstellen" width="70%" />
+<p class="caption">
+Abbildung 14.1: Neue Rmd-Datei erstellen
+</p>
+</div></li>
+<li><p>Es öffnet sich eine Maske, die Sie fragt, welche Art von Rmd-Datei Sie öffnen möchten. Lassen Sie alle Voreinstellungen, wie Sie sind und klicken Sie auf “OK”.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_graphics</span>(<span class="st">&quot;images/new_md2.png&quot;</span>)</code></pre></div>
+<p><img src="images/new_md2.png" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Dann öffnet sich eine einfache Rmd-Datei, die nicht ganz leer ist, sondern aus didaktischen Gründen ein paar einfache, aber typische, Rmd-Befehle enthält. Schauen Sie sich den Inhalt kurz an; Sie sehen eine Mischung aus “Prosa” und R.</p></li>
+<li><p>Jetzt “verstricken” wir R und Prosa zu einer Datei, HTML in dem Fall, welche sowohl Text, R-Ausgaben als auch R-Syntax enthält. Dafür klicken wir auf das Stricknadel-Icon:</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="images/rmd_demo.png" alt="Wir stricken" width="70%" />
+<p class="caption">
+Abbildung 14.2: Wir stricken
+</p>
+</div>
+<ul>
+<li><p>Ach ja, RStudio bittet Sie noch, die Rmd-Datei zu speichern. Tun Sie RStudio den Gefallen.</p></li>
+<li><p>Als Ergebnis müsste sich im Reiter “Viewer” das Ergebnis zeigen. Sie haben eine, vielleicht Ihre erste HTML-Datei aus einer Rmd-Datei erstellt. Verweilen Sie in Andacht. Sie können sich das Ergebnis, die HTML-Datei im Browser anschauen, in dem Sie betreffende HTML-Datei im Browser öffnen (diese liegt dort, wo auch die zugehörige Rmd-Datei liegt.)</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="images/rmd_all_panes.png" alt="HTML-Datei aus Rmd-Datei erstellt!" width="70%" />
+<p class="caption">
+Abbildung 14.3: HTML-Datei aus Rmd-Datei erstellt!
+</p>
+</div>
+</div>
+<div id="die-arbeitsschritte-mit-rmarkdown" class="section level3">
+<h3><span class="header-section-number">14.1.4</span> Die Arbeitsschritte mit RMarkdown</h3>
+<p>Die Arbeitsschritte mit RMarkdown von den ersten Gedanken bis zum fertigen Bericht kann man so zusammenfassen.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<img src="images/Rmarkdown_flow.pdf" alt="Die Arbeitsschritte mit RMarkdown" width="70%" />
+<p class="caption">
+Abbildung 14.4: Die Arbeitsschritte mit RMarkdown
+</p>
+</div>
+<p>Zuerst bietet es sich an - ganz ohne Gedanken an wohl geformte Sprache und roten Faden - seine Gedanken zu Papier (oder in eine Textdatei) zu kriegen (“Ideen sammeln”). Für viele Menschen sind hier Schmier- und Notizzettel oder Schemata, Mindmaps oder andere Visualisierungen hilfreich. Eine Gliederung zu erstellen gehört auch in diesen Schritt. Hat man schließlich die Struktur erarbeitet, so kann den Text - jetzt mit wohlgeformter(er) Sprache und roten Faden - zusammensetzen (“Text schreiben”). Dabei ist es oft so, dass man die Beiträge der Coautoren <del>ertragen muss</del> integrieren möchte. Dies ist mit am besten mit einer zusätzlichen Software mit dem Namen “Git” bzw. “Github” zu erreichen, die ebenfalls quelloffen, kostenlos (und weit verbreitet bei Tekkies) ist (“Coautoren integrieren”). Diese Software erlaubt nicht nur Versionierung lokal an einem eigenen Computer, sondern auch in Zusammenarbeit mit Coautoren (“Änderungen nachverfolgen”). Parallel zum Schreiben des Textes sind die Daten zu analysieren; eine Aufgabe, die prinzipiell unahbängig vom Schreiben des Textes ist (“Daten analysieren”). Aber die Ergebnisse der Analyse sind in den Text zu integrieren. Um Schnittstellen zu vermeiden, ist es sinnvoll, den Inhalt-Text sowie die R-Syntax in einer Datei zu “verstricken”. Dieser Schritt (“R ausführen”) wird von einem R-Paket namens “knitr” <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> besorgt (engl. “to knit” - stricken). Knitr führt die R-Syntax im Dokument aus und liefert das Ergebnis im Markdown-Format zurück. Aus R+Markdown wird reines Markdown. Die Markdown-Datei kann nun in fast jedes denkbare andere Markup-Format übersetzt werden, die wichtigsten sind HTML und TeX. Die Übersetzung führt RStudio wiederum, genau wie das “Knittern” für uns komfortabel im Hintergrund aus. Dazu wird auf ein Programm names “pandoc”<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> zurückgegriffen. Pandoc übersetzt eine Markup-Sprache in eine andere. Haben wir z.B. in TeX übersetzt, so können wir - vorausgesetzt TeX, LaTeX o.ä. ist installiert - von TeX in PDF umwandeln lassen. Ist TeX auf Ihrem Rechner installiert, so wird dieser Übersetzung wiederum automatisch vorgenommen.</p>
+</div>
+</div>
+<div id="reproduzierbarkeit" class="section level2">
+<h2><span class="header-section-number">14.2</span> Reproduzierbarkeit</h2>
+
+</div>
+</div>
+<h3> Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-xie2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://de.wikipedia.org/wiki/Git" class="uri">https://de.wikipedia.org/wiki/Git</a>, <a href="https://git-scm.comm" class="uri">https://git-scm.comm</a>, <a href="https://github.com" class="uri">https://github.com</a><a href="ergebnisse-kommunizieren.html#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="http://pandoc.org" class="uri">http://pandoc.org</a><a href="ergebnisse-kommunizieren.html#fnref2">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="textmining.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rahmen-teil-2.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

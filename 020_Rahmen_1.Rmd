@@ -22,7 +22,7 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 
 
-# Rahmen - Teil 1
+# Rahmen: Der Kontext der Datenanalyse
 
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das "Drumherum" der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voila:
 
@@ -205,7 +205,7 @@ lapply(Pakete, require, character.only = TRUE)
 lapply(Pakete, require, character.only = TRUE)
 ```
 
-```{r include = FALSE, echo = FALSE}
+```{r include = FALSE, echo = FALSE, eval = FALSE}
 knitr::write_bib(Pakete, file = "libs.bib")
 ```
 

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="images/cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-02-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="inferenzstatistik.html">
+<link rel="next" href="geleitetes-modellieren.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="rahmen-der-kontext-der-datenanalyse.html"><a href="rahmen-der-kontext-der-datenanalyse.html"><i class="fa fa-check"></i><b>1</b> Rahmen: Der Kontext der Datenanalyse</a></li>
+<li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a></li>
+<li class="chapter" data-level="3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>3</b> Daten aufbereiten</a></li>
+<li class="chapter" data-level="4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>4</b> Daten visualisieren</a></li>
+<li class="chapter" data-level="5" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html"><i class="fa fa-check"></i><b>5</b> Inferenzstatistik</a></li>
+<li class="chapter" data-level="6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html"><i class="fa fa-check"></i><b>6</b> Statistisches Modellieren</a><ul>
+<li class="chapter" data-level="6.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#Modellieren"><i class="fa fa-check"></i><b>6.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="6.2" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#ziele-des-modellierens"><i class="fa fa-check"></i><b>6.2</b> Ziele des Modellierens</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modelle-zur-erklarung-vs.modelle-zur-vorhersage"><i class="fa fa-check"></i><b>6.2.1</b> Modelle zur Erklärung vs. Modelle zur Vorhersage</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#wann-welches-modell"><i class="fa fa-check"></i><b>6.3</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="6.4" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>6.4</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="6.5" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>6.5</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="6.6" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>6.6</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="6.7" data-path="statistisches-modellieren.html"><a href="statistisches-modellieren.html#modellgute"><i class="fa fa-check"></i><b>6.7</b> Modellgüte</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="geleitetes-modellieren.html"><a href="geleitetes-modellieren.html"><i class="fa fa-check"></i><b>7</b> Geleitetes Modellieren</a></li>
+<li class="chapter" data-level="8" data-path="aus-koeffizient-abgeschatzt.html"><a href="aus-koeffizient-abgeschatzt.html"><i class="fa fa-check"></i><b>8</b> aus Koeffizient abgeschätzt</a></li>
+<li class="chapter" data-level="9" data-path="runde-1.html"><a href="runde-1.html"><i class="fa fa-check"></i><b>9</b> Runde 1</a></li>
+<li class="chapter" data-level="10" data-path="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><a href="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><i class="fa fa-check"></i><b>10</b> install.packages(“dplyr”, dependencies = TRUE) # ggf. vorher installieren</a></li>
+<li class="chapter" data-level="11" data-path="ungeleitetes-modellieren.html"><a href="ungeleitetes-modellieren.html"><i class="fa fa-check"></i><b>11</b> Ungeleitetes Modellieren</a></li>
+<li class="chapter" data-level="12" data-path="loadfile-datagroceries-rda.html"><a href="loadfile-datagroceries-rda.html"><i class="fa fa-check"></i><b>12</b> load(file = “data/Groceries.Rda”)</a></li>
+<li class="chapter" data-level="13" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>13</b> Textmining</a></li>
+<li class="chapter" data-level="14" data-path="ergebnisse-kommunizieren.html"><a href="ergebnisse-kommunizieren.html"><i class="fa fa-check"></i><b>14</b> Ergebnisse kommunizieren</a></li>
+<li class="chapter" data-level="15" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>15</b> Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistisches-modellieren" class="section level1">
+<h1><span class="header-section-number">Kapitel 6</span> Statistisches Modellieren</h1>
+<p>In diesem Kapitel benötigte Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">require</span>(gridExtra)</code></pre></div>
+<p><img src="images/Modellieren.pdf" width="70%" style="display: block; margin: auto;" /></p>
+<div id="Modellieren" class="section level2">
+<h2><span class="header-section-number">6.1</span> Was ist ein Modell? Was ist Modellieren?</h2>
+<p>Das Leben ist schwer… oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> zu verstehen, erscheint es sinnvoll, sich einige als wesentlich erachteten Aspekte “herauszugreifen” bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen.</p>
+<p>Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom <em>Gegenstandsbereich</em>, also den <em>konstruierten Auszug der Wirklichkeit</em> für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine <em>Annäherung</em> an die Wirklichkeit, schlechterenfalls eine <em>verzerrte</em>, gar <em>grob falsche</em> Darstellung<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="images/Modell.pdf" alt="Modellieren" width="70%" />
+<p class="caption">
+Abbildung 6.1: Modellieren
+</p>
+</div>
+<p>Damit verstehen wir Modellieren als eine typische Aktivität von Menschen <span class="citation">(Gigerenzer <a href="#ref-9783497008957">1980</a>)</span>, genauer eines Menschen mit einem bestimmten Ziel. Wir können gar nicht anders, als nur ein Modell unserer Umwelt zu machen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf <em>numerische</em> Modelle konzentrieren, weil es dort am einfachsten ist, die Informationen herauszuziehen.</p>
+<p>Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den Datensatz <code>wo_men</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="060_Modellieren_files/figure-html/unnamed-chunk-5-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">
+Abbildung 6.2: Ein Beispiel für Modellieren
+</p>
+</div>
+<p>Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Gewicht vs. Körpergröße). Im mittleren Plot sehen wir ein (graphisches) Modell dazu. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss hat. Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein linearer Einfluss (eine Gerade) zwischen Größe und Schuhgröße unterstellt.</p>
+<blockquote>
+<p>Bei einem linearen Modell ist der Zuwachs der Ausgabevariablen konstant. Steigt eine Eingabevariable X um k, so steigt die Ausgabevariable ebenfalls um einen b*k, unabhängig vom Wert von X.</p>
+</blockquote>
+<p>Ein etwas aufwändigeres Modell könnte so aussehen:</p>
+<div class="figure" style="text-align: center"><span id="fig:modell-bsp2"></span>
+<img src="images/Modellieren_Bsp2.pdf" alt="Ein etwas aufwändigeres Modell" width="70%" />
+<p class="caption">
+Abbildung 6.3: Ein etwas aufwändigeres Modell
+</p>
+</div>
+<p>Allgemeiner formuliert, haben wir einen oder mehrere <em>Eingabegrößen</em> bzw. <em>Prädiktoren</em>, von denen wir annehmen, dass sie einen Einfluss haben auf genau eine <em>Zielgröße</em> (<em>Ausgabegröße</em>) bzw. <em>Kriterium</em>. Modelle, wie wir sie betrachten werden, postulieren eine quantifizierbaren Zusammenhang zwischen diesen beiden Arten von Größen. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Damit lassen sich unsere Modelle in drei Aspekte gliedern.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-blackbox"></span>
+<img src="images/Modell_Blackbox.pdf" alt="Modelle mit schwarzer Kiste" width="70%" />
+<p class="caption">
+Abbildung 6.4: Modelle mit schwarzer Kiste
+</p>
+</div>
+<p>Die Einflussgrößen werden in einer “schwarzen Kiste”, die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein <em>geschätzter</em> Wert für das Kriterium, eine <em>Vorhersage</em> “hinten bei rauskommt”. Mathematischer ausgedrückt:</p>
+<p><span class="math display">\[Y = f(X) + \epsilon\]</span></p>
+<p>Hier stehen <span class="math inline">\(Y\)</span> für das Kriterium, <span class="math inline">\(X\)</span> für den oder die Prädiktoren, <span class="math inline">\(f\)</span> für die “schwarze Kiste” und <span class="math inline">\(\epsilon\)</span> für den Fehler, den wir bei unserer Vorhersage begehen. Die schwarze Kiste könnte man auch als die “datengenerierende Maschine” bezeichnen.</p>
+<p>Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so “fühlen” qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: “Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?” (qualitatives Kriterium); “Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?” (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als <em>Klassifikation</em>; ein Modell mit quantitativem Kriterium bezeichnet man auch als <em>Regression</em>. Bei letzterem Begriff ist zu beachten, dass er <em>doppelt</em> verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.</p>
+</div>
+<div id="ziele-des-modellierens" class="section level2">
+<h2><span class="header-section-number">6.2</span> Ziele des Modellierens</h2>
+<p>Man kann drei Arten von Zielen abgrenzen: Vorhersagen, Erklären und Reduzieren.</p>
+<ul>
+<li><p><em>Vorhersagen</em> hat das Ziel, eine geschickte Black Box zu wählen (oder eine Black Box geschickt zu wählen), so dass der Vohersagefehler möglichst klein ist. Sicherlich wird der Vorhersagefehler nie Null sein. Das Innenleben der “schwarzen Kiste” interessiert uns hier nicht.</p></li>
+<li><p><em>Erklären</em> bedeutet, zu verstehen, <em>wie</em> oder <em>warum</em> sich der Kriteriumswert so verändert, wie er es tut. Auf <em>welche Art</em> werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Präditkoren sind dabei (besonders) wichtig? Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die Beschaffenheit der schwarzen Kiste.</p></li>
+<li><p><em>Reduzieren</em> meint, dass man die Fülle des Materials verringert, in dem man ähnliche Dinge zusammenfasst. Dabei kann man sowohl Observationen zusammen fassen (“Britta”, “Carla” und “Dina” zu “Frau” und “Joachim”, “Alois” und “Casper” zu “Mann”) oder auch Variablen zusammen fassen (“Frage 1”, “Frage 2” und “Frage 3” zu “Markentreue” etc.).</p></li>
+</ul>
+<p>Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, <em>wie gut</em> das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art “Lernen mit Anleitung” oder <em>angeleitetes Lernen</em> oder <em>geleitetes Modellieren</em> (engl. <em>supervised learning</em>). Abbildung @ref(fig: fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die “wahre Kundengruppe” von Herrn Casper Bussi-Ness ist. Wir sagen eher, “OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören”. Wir tappen in Dunkeln, was die “Warheit” ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von <em>Lernen ohne Anleitung</em> oder <em>ungeleitetes Modellieren</em> (engl. <em>unsupervised learning</em>).</p>
+<div id="modelle-zur-erklarung-vs.modelle-zur-vorhersage" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Modelle zur Erklärung vs. Modelle zur Vorhersage</h3>
+<p>Man kann statistische Modelle danach unterscheiden, ob sie sich das Innenleben der schwarzen Kiste interessieren oder nicht. Manchmal will man einfach nur (möglichst) gute Vorhersagen treffen; in anderen Situationen will man erklären, warum sich “die Natur” so verhält, wie sie es tut.</p>
+<p>Erklären wir das Innenleben der schwarzen Kiste genau, so spricht man von einem <em>Modell zur Erklärung</em>; spezifieren wir das Innenleben der schwarzen Kiste nicht oder weniger genau sondern fokussieren und auf die Vorhersagegüte, so kann man von einem <em>Modell zur Vorhersage</em> sprechen.</p>
+<p>Ein Beispiel für ein einfaches “erklärendes Modell” ist:</p>
+<blockquote>
+<p>Für je 5kg Körpergewicht steigt die Schuhgröße um 1 Nummer, wobei 50kg bei Schuhgröße 36 aufgehangen ist.</p>
+</blockquote>
+<p>Was ist hier die Erklärung? Die Erklärung liegt darin, dass wir eine mathematische Funktion unterstellen. Diese mathematische Funktion soll “die Natur”, d.h. den Gegenstandsbereich, widerspiegeln, so unsere Hoffnung.</p>
+<p>Ein Beispiel für ein nicht-erkländeres Modell, das sich nur für Vorhersagegüte interessiert, ist:</p>
+<blockquote>
+<p>Schau mal, was die Schuhgröße von Leuten mit ähnlicher Größe ist. Bilde den Mittelwert dieser Schuhgrößen. Gib diesen Mittelwert als Schätzwert an.</p>
+</blockquote>
+<p>Dieses Modell liefert keine “Erklärung”, in dem Sinn, dass eine einfache mathematische Funktion, Eingabe- und Ausgabegröße verbindet. Es werden lediglich Vorhersagen getroffen.</p>
+</div>
+</div>
+<div id="wann-welches-modell" class="section level2">
+<h2><span class="header-section-number">6.3</span> Wann welches Modell?</h2>
+<p>Tja, mit dieser Frage lässt sich ein Gutteil des Kopfzerbrechens in diesem Metier erfassen. Die einfache Antwort lautet: Es gibt kein “bestes Modell”, aber es mag für <em>einen bestimmten Gegenstandsbereich</em>, in <em>einem bestimmten (historisch-kulturellen) Kontext</em>, für <em>ein bestimmtes Ziel</em> und mit <em>einer bestimmten Stichprobe</em> ein best mögliches Modell geben. Dazu einige Eckpfeiler:</p>
+<ul>
+<li><p>Unter sonst gleichen Umständen sind einfachere Modelle den komplexeren vorzuziehen. Gott sei Dank.</p></li>
+<li><p>Je nach Ziel der Modellierung ist ein erklärendes Modell oder ein Modell mit reinem Vorhersge-Charakter vorzuziehen.</p></li>
+<li><p>Man sollte stets mehrere Modelle vergleichen, um abzuschätzen, welches Modell in der aktuellen Situation geeigneter ist.</p></li>
+</ul>
+</div>
+<div id="einfache-vs.komplexe-modelle-unter--vs.uberanpassung" class="section level2">
+<h2><span class="header-section-number">6.4</span> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</h2>
+<p>Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbereich. Eine grobe, holzschnittsartige Theorie ist doch schlechter als eine, die feine Nuancen berücksichtigt, oder nicht? Einiges spricht dafür; aber auch einiges dagegen. Schauen wir uns ein Problem mit komplexen Modellen an.</p>
+<div class="figure" style="text-align: center"><span id="fig:overfitting-4-plots"></span>
+<img src="060_Modellieren_files/figure-html/overfitting-4-plots-1.png" alt="Welches Modell passt am besten zu diesen Daten?" width="90%" />
+<p class="caption">
+Abbildung 6.5: Welches Modell passt am besten zu diesen Daten?
+</p>
+</div>
+<p>Der 1. Plot (links) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (rote Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.</p>
+<p>Welchem Modell würden Sie (am meisten) vertrauen? Das “blaue” Modell beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine “Idee” vom Gegenstandsbereich, eine “Ahnung”, wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist “übergenau” oder zu komplex. Man spricht von <em>Überanpassung</em> (engl. <em>overfitting</em>). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen.</p>
+<p>Was das “blaue Modell” zu detailverliebt ist, ist das “rote Modell” zu simpel. Die Gerade beschreibt die Y-Werte nur sehr schlecht. Man hätte gleich den Mittelwert von Y als Schätzwert für jedes einzelne <span class="math inline">\(Y_i\)</span> hernehmen können. Dieses lineare Modell ist <em>unterangepasst</em>, könnte man sagen (engl. <em>underfittting</em>). Auch dieses Modell wird uns wenig helfen können, wenn es darum geht, zukünftige Y-Werte vorherzusagen (gegeben jeweils einen bestimmten X-Wert).</p>
+<p>Ah! Das <em>grüne Modell</em> scheint das Wesentliche, die “Essenz” der “Punktebewegung” zu erfassen. Nicht die Details, die kleinen Abweichungen, aber die “große Linie” scheint gut getroffen. Dieses Modell erscheint geeignet, zukünftige Werte gut zu beschreiben. Das grüne Modell ist damit ein Kompromiss aus Einfachheit und Komplexität und würde besonders passen, wenn es darum gehen sollte, zyklische Veränderungen zu erklären<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<blockquote>
+<p>Je komplexer ein Modell ist, desto besser beschreibt es einen bekannten Datensatz (Trainings-Stichprobe). Allerdings ist das Modell, welches den Trainings-Datensatz am besten beschreibt, nicht zwangsläufig das Modell, welches neue, unbekannte Daten am besten beschreibt. Oft im Gegenteil!</p>
+</blockquote>
+<p>Je komplexer das Modell, desto kleiner der Fehler im Trainings-Datensatz. Allerdings: Die Fehler-Kurve im <em>Test-</em>Datensatz ist <em>U-förmig</em>: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!</p>
+<p><img src="images/overfitting.pdf" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bias-varianz-abwagung" class="section level2">
+<h2><span class="header-section-number">6.5</span> Bias-Varianz-Abwägung</h2>
+<p>Einfache Modelle bilden (oft) wesentliche Aspekte des Gegenstandsbereich nicht ab; die Wirklichkeit ist komplex. Die resultierende <em>Verzerrung</em> in den vorhergesagten Werten nennt man auch <em>Bias</em>. Mit anderen Worten: ist ein Modell zu einfach, passt es zu wenig zu den Daten (engl. <em>underfitting</em>). Auf der anderen Seite ist das Modell aber <em>robust</em> in dem Sinne, dass sich die vorhergesagten Werte kaum ändern, falls sich der Trainings-Datensatz etwas ändert.</p>
+<p>Ist das Modell aber zu reichhaltig (“komplex”), bildet es alle Details des Trainings-Datensatzes ab, wird es auch zufällige Variation des Datensatzes vorhersagen; Variation, die nicht relevant ist, der nichts Eigentliches abbildet. Das Modell ist “überangepasst” (engl. <em>overfitting</em>); geringfügige Änderungen im Datensatz können das Modell stark verändern. Das Model ist nicht robust. Auf der positiven Seite werden die Nuancen der Daten gut abgebildet; der Bias ist gering bzw. tendenziell geringer als bei einfachen Modellen.</p>
+<blockquote>
+<p>Einfache Modelle: Viel Bias, wenig Varianz. Komplexe Modelle: Wenig Bias, viel Varianz.</p>
+</blockquote>
+<p>Dieser Sachverhalt ist in folgendem Diagramm dargestellt<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
+<p><img src="060_Modellieren_files/figure-html/plot_bias_variance-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der linke Plot zeigt ein komplexes Modell<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>; das Modell (blaue Linie) erscheint “zittrig”; kleine Änderungen in den Daten könnnen große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine “Hügel”, die nicht augenscheinlich plausibel sind.</p>
+<p>Der Plot auf der rechten Seiten hingegen ist sehr einfach und robust. Änderungen in den Daten werden vergleichweise wenig Einfluss auf das Modell (die beiden roten Linien) haben.</p>
+</div>
+<div id="training--vs.test-stichprobe" class="section level2">
+<h2><span class="header-section-number">6.6</span> Training- vs. Test-Stichprobe</h2>
+<p>Wie wir gerade gesehen haben, kann man <em>immer</em> ein Modell finden, welches die <em>vorhandenen</em> Daten sehr gut beschreibt. Das gleicht der Tatsache, dass man im Nachhinein (also bei vorhandenen Daten) leicht eine Erklärung findet. Ob diese Erklärung sich in der Zukunft, bei unbekannten Daten bewahrheitet, steht auf einem ganz anderen Blatt.</p>
+<p>Daher sollte man <em>immer</em> sein Modell an einer Stichprobe <em>entwickeln</em> (“trainieren” oder “üben”) und an einer zweiten Stichprobe <em>testen</em>. Die erste Stichrpobe nennt man auch <em>training sample</em> (Trainings-Stichprobe) und die zweite <em>test sample</em> (Test-Stichprobe). Entscheidend ist, dass das Test-Sample beim Entwickeln des Modells unbekannt war bzw. nicht verwendet wurde.</p>
+<blockquote>
+<p>Die Güte des Modells sollte nur anhand eines - bislang nicht verwendeten - Test-Samples überprüft werden. Das Test-Sample darf bis zur Modellüberprüfung nicht analysiert werden.</p>
+</blockquote>
+<p>Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample (vgl. die Fallstudie dazu: @ref(overfitting_casestudy) [Fallstudie zu Overfitting]).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)
+train &lt;-<span class="st"> </span>wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_frac</span>(.<span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)  <span class="co"># Stichprobe von 80%, ohne Zurücklegen</span>
+
+test &lt;-<span class="st"> </span>wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(train)  <span class="co"># Alle Zeilen von &quot;wo_men&quot;, die nicht in &quot;train&quot; vorkommen</span></code></pre></div>
+<p>Damit haben wir ein Trainings-Sample (<code>train</code>), in dem wir ein oder besser mehrere Modelle entwickeln können.</p>
+<p>So schön wie dieses Vorgehen auch ist, es ist nicht perfekt. Ein Nachteil ist, dass unsere Modellgüte wohl <em>anders</em> wäre, hätten wir andere Fälle im Test-Sample erwischt. Würden wir also ein neues Trainings-Sample und ein neues Test-Sample aus diesen Datensatz ziehen, so hätten wir wohl andere Ergebnisse. Was wenn diese Ergebnisse nun deutlich von den ersten abweichen? Dann würde unser Vertrauen in die die Modellgüte sinken. Wir bräuchten also noch ein Verfahren, welches <em>Variabilität</em> in der Modellgüte widerspiegelt.</p>
+</div>
+<div id="modellgute" class="section level2">
+<h2><span class="header-section-number">6.7</span> Modellgüte</h2>
+<p>Wie “gut” ist mein Modell? Modelle bewerten bzw. vergleichend bewerten ist einer der wichtigsten Aufgaben beim Modellieren. Die Frage der Modellgüte hat viele feine technisch-statistische Verästelungen, aber einige wesentlichen Aspekte kann man gut zusammenfassen.</p>
+<blockquote>
+<p>Kriterium der theoretischen Plausibilität: Ein statistisches Modell sollte theoretisch plausibel sein.</p>
+</blockquote>
+<p>Anstelle “alles mit allem” durchzuprobieren, sollte man sich auf Modelle konzentrieren, die theoretisch plausibel sind. Die Modellwahl ist theoretisch zu begründen.</p>
+<blockquote>
+<p>Kriterium der guten Vorhersage: Die Vorhersagen eines Modells sollen präzise und überraschend sein.</p>
+</blockquote>
+<p>Dass ein Modell die Wirklichkeit präzise vorhersagen soll, liegt auf der Hand. Hier verdient nur der Term <em>vorher</em>sagen Beachtung. Es ist einfach, im Nachhinein Fakten (Daten) zu erklären. Jede Nachbesprechung eines Bundesliga-Spiels liefert reichlich Gelegenheit, <em>posthoc</em> Erklärungen zu hören. Schwieriger sind Vorhersagen<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. Die Modellgüte ist also idealerweise an <em>in der Zukunft liegende</em> Ereignisse bzw. deren Vorhersage zu messen. Zur Not kann man auch schon in der Vergangenheit angefallende Daten hernehmen. Dann müssen diese Daten aber <em>für das Modell</em> neu sein.</p>
+<p>Was ist mit überraschend gemeint? Eine Vorhersage, dass die Temperatur morgen in Nürnberg zwischen -30 und +40°C liegen wird, ist sicherlich sehr treffend, aber nicht unbedingt präzise und nicht wirklich überraschen. Die Vorhersage, dass der nächste Chef der Maurer-Innung (wenn es diese geben sollte) ein Mann sein wird, und nicht eine Frau, kann zwar präzise sein, ist aber nicht überraschend. Wir werden also in dem Maße unseren Hut vor dem Modell ziehen, wenn die Vorhersagen sowohl präzise als auch überraschen sind. Dazu später mehr Details.</p>
+<blockquote>
+<p>Kriterium der Situationsangemessenheit: Die Güte des Modells ist auf die konkrete Situation abzustellen.</p>
+</blockquote>
+<p>Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell. Reduktionsmodelle müssen wiederum anders beurteilt werden. In den entsprechenden Kapiteln werden diese Unterschiede präzisiert.</p>
+
+</div>
+</div>
+<h3> Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-9783497008957">
+<p>Gigerenzer, Gerd. 1980. <em>Messung Und Modellbildung in Der Psychologie (Uni-Taschenbucher. Psychologie, Padagogik, Soziologie, Psychiatrie) (German Edition)</em>. E. Reinhardt. <a href="https://www.amazon.com/Modellbildung-Psychologie-Uni-Taschenbucher-Soziologie-Psychiatrie/dp/3497008958%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D3497008958">https://www.amazon.com/Modellbildung-Psychologie-Uni-Taschenbucher-Soziologie-Psychiatrie/dp/3497008958%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D3497008958</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Unter “Wirklichkeit” sei hier ein beliebiges empirisches System vorhanden, mit einer Menge von Objekten <em>O</em> und einer Menge von Beziehungen (Relationen) <em>R</em> zwischen den Objekten.<a href="statistisches-modellieren.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle “falsch” in diesem Sinne.<a href="statistisches-modellieren.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Tatsächlich wurden die Y-Werte als Sinus-Funktion plus etwas normalverteiltes Rauschen simuliert.<a href="statistisches-modellieren.html#fnref3">↩</a></p></li>
+<li id="fn4"><p>Basierend auf <span class="citation">(Kuhn and Johnson <a href="#ref-kuhn2013applied">2013</a>)</span><a href="statistisches-modellieren.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>Genauer gesagt ein Polynom vom Grad 15.<a href="statistisches-modellieren.html#fnref5">↩</a></p></li>
+<li id="fn6"><p>Gerade wenn sie die Zukunft betreffen; ein Bonmot, das Yogi Berra nachgesagt wird.<a href="statistisches-modellieren.html#fnref6">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inferenzstatistik.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="geleitetes-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
