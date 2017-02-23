@@ -117,6 +117,18 @@ Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, pro
 - Die "app nap" Funktion beim Mac kann den RCommander empfindlich ausbremsen. Schalten Sie diese Funktion aus z.B. im RCommander über `Tools - Manage Mac OS X app nap for R.app`.
 
 
+### Hier werden Sie geholfen
+
+Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
+
+- Zu diesen Paketen gibt es gute "Spickzettel" (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets > ...* oder gehen Sie auf <https://www.rstudio.com/resources/cheatsheets/>.
+
+- Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren Sie z.B. `?mean`.
+
+- Im Internet finden sich zuhaus Tutorials.
+
+- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist: http://stackoverflow.com. 
+
 
 ### Die Denk- und Gefühlswelt von R
 
@@ -255,7 +267,7 @@ Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-- \@ref(fig:fig-Modell), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
+- \@ref(fig:Modellieren), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
  
 
 

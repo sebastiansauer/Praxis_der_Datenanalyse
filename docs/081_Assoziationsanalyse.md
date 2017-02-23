@@ -1,10 +1,10 @@
 
 
 
-## Assoziationsanalyse
+# Assoziationsanalyse
 
 
-### Einführung
+## Einführung
 
 Im Rahmen einer Assoziationsanalyse werden Zusammenhänge (Assoziationen) zwischen Ereignissen innerhalb von Datensätzen untersucht, z. B. im Rahmen einer Warenkorbanalyse. Dabei wird eine Menge (*Set*) von *Items* (z. B. gekauften Produkten, $I=\{i_1, i_2, \ldots i_m \}$) innerhalb der *Transaktionen* ($D=\{t_1, t_2 ,\ldots ,t_n\}$) betrachtet. Eine *Regel* ($A \rightarrow B$) ist dann ein Zusammenhang zwischen den *Item Sets*. $A$ und $B$ sind dabei disjunkte, ggfs. leere oder einelementige Teilmengen von Items ($A, B \subseteq I; A\cap B=\emptyset$).
 
@@ -16,7 +16,7 @@ Eine wichtige Anwendung im (e)CRM ist z. B. die Analyse des *Cross Buying* Verha
 
 Assoziationsregeln sind eine explorative Analysemethode, die keine (statistische) Inferenz oder Kausalität aussagt. D. h. evt. Schlüsse aus der Analysen sollten vorsichtig schrittweise getestet und verglichen werden.
 
-### Kennzahlen einer Assoziationsanalyse
+## Kennzahlen einer Assoziationsanalyse
 
 - *Support($A$)*$=\frac{|\{t\in D; A \subseteq t\}|}{|D|}$: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen eine Menge von Items ($A$) vorkommt, bezogen auf alle Transaktionen (vgl. Wahrscheinlichkeit, $P(A)$)
 - *Support($A\rightarrow B$)*=Support($A\cup B$)$=\frac{|\{t\in D; (A\cup B) \subseteq t\}|}{|D|}$: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen die Vereinigung einer Menge von Items $A$ und $B$ vorkommt, bezogen auf alle Transaktionen (vgl. gemeinsame Wahrscheinlichkeit, $P(A \cap B)$)
@@ -25,7 +25,7 @@ Assoziationsregeln sind eine explorative Analysemethode, die keine (statistische
 
 Hinweis: Support und Lift sind symmetrisch, Confidence nicht. Als Schätzwerte für Wahrscheinlichkeiten etc. können die genannten Kennzahlen ggfs. ungeeignet sein (insbesondere für seltene Items).
 
-### Beispiel
+## Beispiele
 
 - Support(Chips)$=0.05$, d. h. 5% der Transaktionen enthalten Chips
 - Support(Bier)$=0.01$, d. h. 1% der Transaktionen enthalten Bier
@@ -34,7 +34,7 @@ Hinweis: Support und Lift sind symmetrisch, Confidence nicht. Als Schätzwerte f
 - Lift(Bier$\rightarrow$Chips)$=\frac{0.002}{0.01\cdot 0.05}=\frac{0.2}{0.05}=4$, d. h. die Chance, dass eine Transaktion Chips enthält ist 4x größer als zu erwarten wäre, wenn es keinen Zusammenhang zwischen Bier und Chips gäbe
 
 
-### Assoziationsanalyse mit R
+## Assoziationsanalyse mit R
 
 Für eine Assoziationsanalyse kann in R das Zusatzpaket `arules` [https://cran.r-project.org/package=arules](https://cran.r-project.org/package=arules) verwendet werden.
 
@@ -60,7 +60,7 @@ vignette("arules")
 ```
 
 
-#### Beispieldaten
+## Fallstudie Lebensmittelwaren
 
 Im Paket `arules` sind Point-Of-Sale Daten eines Lebensmittelgeschäftes von einem Monat enthalten.^[Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006) *Implications of probabilistic data modeling for mining association rules*. In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.] Die Lebensmittel wurden zu 169 Kategorien zusammengefasst, und es gibt 9835 Transaktionen:
 
@@ -133,7 +133,7 @@ inspect(head(Groceries))
 ```
 
 
-#### Regeln finden
+### Regeln finden
 
 Es existieren verschiedene Algorithmen um Assoziationsregeln zu finden. Hier wird der *Apriori* Algorithmus verwendet, wobei verschiedene Parameter (wie z. B. minimalen Support und Confidence) eingestellt werden können:
 
@@ -259,7 +259,7 @@ plot(topregeln, method="graph")
 <img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-#### Literatur
+## Literatur
 
 - [Chris Chapman und Elea McDonnell Feit (2015), *R for Marketing Research and Analytics*, Springer](http://r-marketing.r-forge.r-project.org)
 - [Michael Hahsler (2015), A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, URL: http://michael.hahsler.net/research/association_rules/measures.html](http://michael.hahsler.net/research/association_rules/measures.html)
@@ -268,5 +268,5 @@ plot(topregeln, method="graph")
 - Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006), *Implications of probabilistic data modeling for mining association rules.* In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.
 
 
-#### Versionshinweise:
+## Versionshinweise:
 Die Darstellung orientiert sich an den Folienunterlagen von Chapman & Feit zum Buch *R for Marketing Research and Analytics*, Springer, 2015, siehe [http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html](http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html)

@@ -46,7 +46,7 @@ Typische Probleme, die immer wieder auftreten, sind:
 Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr` ist ein populäres Paket dafür. Eine zentrale Idee von `dplyr` ist, dass es nur ein paar wenige Grundbausteine geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, so wie ich das will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). 
 
 
-Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich ausschließlich um *D*ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück[^3].
+Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich ausschließlich um *D*ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück (zumindest bei den meisten Befehlen).
 
 
 Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Schauen wir uns diese Bausteine näher an.
@@ -157,7 +157,7 @@ select(stats_test, score:study_time) # dito
 select(stats_test, 5:6) Spalten 5 bis 6 auswählen
 ```
 
-Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu [^4].
+Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu.
 
 
 
@@ -792,7 +792,7 @@ wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height
   
 ```
 
-`replace` ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt[^10].
+`replace` ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt[^532].
 
 ### Nach Fehlern suchen
 Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prüfen; so könnte man sich ein Histogramm ausgeben lassen pro Variable, um "ungewöhnliche" Werte gut zu erkennen. Meist geht das besser als durch das reine Betrachten von Zahlen. Gibt es wenig unterschiedliche Werte, so kann man sich auch die unterschiedlichen Werte ausgeben lassen.
@@ -932,7 +932,7 @@ extra %>%
 
 
 ## Verweise
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier[^8].
+- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier[^634].
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 
@@ -943,22 +943,18 @@ extra %>%
 [^2]: Man könnte vorher den Datensatz noch gruppieren, um dann den Mittelwert pro Gruppe zu verweden. Das sollte zu genaueren Ergebnissen führen. Vgl. hier: http://stackoverflow.com/questions/29982141/replacing-missing-values-with-average-groups-in-r-error-out-of-boundaries 
 
 
-[^3]: zumindest bei den meisten Befehlen.
-
-[^4]: <https://www.rstudio.com/resources/cheatsheets/>
-
 [^5]: In der Regel 10 Zeilen, wobei ich irgendwo versteckt gesagt habe, es sollen nur 6 Zeilen am Bildschirm gedruckt werden.
 
 [^6]: Eine Art Smiley für Nerds.
 
 [^7]: https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/. 
 
-[^8]: <http://bit.ly/2kX9lvC>.
+[^634]: <http://bit.ly/2kX9lvC>.
 
 [^9]: Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.
 
 
-[^10]: Hier findet sich eine ausführliche Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html 
+[^532]: Hier findet sich eine ausführliche Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html 
 
 [^11]: https://github.com/drsimonj/corrr 
 

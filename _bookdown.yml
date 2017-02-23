@@ -8,21 +8,24 @@ rmd_files: [
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
 "050_Daten_visualisieren.Rmd",
-"055_Inferenzstatistik.Rmd",
 "060_Modellieren.Rmd",
+"061_Inferenzstatistik.Rmd",
 "070_geleitetes_Modellieren.Rmd",
+"071_Regression.Rmd",
 "072_klassifizierende_Regression.Rmd",
 "073_baumbasierte_Verfahren.Rmd",
 "075_Fallstudie_Titanic.Rmd",
 "080_ungeleitetes_Modellieren.Rmd",
 "081_Assoziationsanalyse.Rmd",
+"082_Clusteranalyse.Rmd",
+"083_Dimensionsreduktion.Rmd",
 "090_Textmining.Rmd",
-"100_Kommunizieren.Rmd",
-"120_Literaturverzeichnis.Rmd"]
+"dummy.Rmd",
+"120_Literatur.Rmd"]
 clean: [bookdown.bbl]
 nocite: |
   @*
-new_session: yes
+new_session: TRUE
 language:
   label:
     fig: "Abbildung "

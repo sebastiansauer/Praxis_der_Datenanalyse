@@ -134,34 +134,34 @@ qplot(x = Pclass, y = n, data = c3)
 
 Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen:
   
-  
-  ```r
-  qplot(x = Pclass, y = n, color = Survived, data = c3)
-  ```
-  
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+```r
+qplot(x = Pclass, y = n, color = Survived, data = c3)
+```
+
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:
   
-  
-  ```r
-  qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
-  ```
-  
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+```r
+qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
+```
+
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 Viel besser. Jetzt noch ein bisschen Schnickschnack:
   
   
-  
-  ```r
-  qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) + 
+
+```r
+qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) + 
   labs(x = "Klasse", 
        title = "Überleben auf der Titanic",
        colour = "Überlebt?")
-  ```
-  
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+```
+
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Signifikanztest
@@ -186,50 +186,49 @@ Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie sehr die Va
 
 Das OR ist nur definiert für 2*2-Häufigkeitstabellen, daher müssen wir die Anzahl der Passagierklassen von 3 auf 2 verringern. Nehmen wir nur 1. und 3. Klasse, um den vermuteten Effekt deutlich herauszuschälen:
   
-  
-  ```r
-  t2 <- filter(titanic_train, Pclass != 2)  # "!=" heißt "nicht"
-  ```
+
+```r
+t2 <- filter(titanic_train, Pclass != 2)  # "!=" heißt "nicht"
+```
 
 Alternativ (synonym) könnten wir auch schreiben:
   
-  
-  ```r
-  t2 <- filter(titanic_train, Pclass == 1 | Pclass == 3)  # "|" heißt "oder"
-  ```
+
+```r
+t2 <- filter(titanic_train, Pclass == 1 | Pclass == 3)  # "|" heißt "oder"
+```
 
 Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:
   
-  
-  ```r
-  c4 <- dplyr::count(t2, Pclass)
-  c4
-  #> # A tibble: 2 × 2
-  #>   Pclass     n
-  #>    <int> <int>
-  #> 1      1   216
-  #> 2      3   491
-  ```
+
+```r
+c4 <- dplyr::count(t2, Pclass)
+c4
+#> # A tibble: 2 × 2
+#>   Pclass     n
+#>    <int> <int>
+#> 1      1   216
+#> 2      3   491
+```
 
 
 Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datentabelle operieren:
   
-  
-  ```r
-  chisq.test(t2$Survived, t2$Pclass)
-  #> 
-  #> 	Pearson's Chi-squared test with Yates' continuity correction
-  #> 
-  #> data:  t2$Survived and t2$Pclass
-  #> X-squared = 100, df = 1, p-value <2e-16
-  ```
+
+```r
+chisq.test(t2$Survived, t2$Pclass)
+#> 
+#> 	Pearson's Chi-squared test with Yates' continuity correction
+#> 
+#> data:  t2$Survived and t2$Pclass
+#> X-squared = 100, df = 1, p-value <2e-16
+```
 
 Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
 
 Dann berechnen wir die Effektstärke (OR) mit dem Paket `compute.es` (muss ebenfalls installiert sein).
 
 ```r
-
 library(compute.es)
 chies(chi.sq = 96, n = 707)
 #> Mean Differences ES: 
@@ -296,7 +295,7 @@ titanic2$pred_prob <- predict(glm1, type = "response")
 ```
 
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.
 
@@ -386,7 +385,7 @@ Das visualisieren wir wieder
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.
 
@@ -395,7 +394,7 @@ Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punk
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden Werten von `Pclass` stechen noch nicht so ins Auge. Wir sollten es anders darstellen.
 
@@ -409,7 +408,7 @@ Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wec
   labs(x = "Passagierklasse", fill = "Überlebt?", caption = "Nur Passagiere, keine Besatzung")
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 
 
@@ -425,7 +424,7 @@ Eine alternative Darstellung ist diese:
   geom_tile()
   ```
   
-  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+  <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
 
 Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.
 

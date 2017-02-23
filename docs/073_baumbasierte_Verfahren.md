@@ -2,9 +2,9 @@
 
 
 
-## Baumbasierte Verfahren
+# Baumbasierte Verfahren
 
-### Konjunturanalyse
+## Konjunturanalyse
 Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
 
 
@@ -76,7 +76,7 @@ Dabei sind folgende Variablen enthalten:
 
 Variablen mit der Endung *JW* beziehen sich auf die jährliche Veränderung.
 
-### Regressionsbäume
+## Regressionsbäume
 Um einen Regressionsbaum zu erzeugen, muss zunächst das Zusatzpaket `rpart` geladen werden:
 
 ```r
@@ -151,9 +151,9 @@ rpart.plot(regbaum)
 
 
 
-#### Kreuzvalidierung
+## Kreuzvalidierung
 
-##### Anpassungsgüte
+### Anpassungsgüte
 Wie gut ist das Modell? Über `predict` können die Punktprognosen berechnet werden:
 
 ```r
@@ -214,7 +214,7 @@ lmmse
 
 Der Baum ist einfacher und weniger flexibel, aber auch schlechter im Bezug auf die Anpassungsgüte.
 
-##### Prognosegüte
+### Prognosegüte
 Für eine k=3 fache Kreuzvalidierung müssen 3 Testdatensätze erzeugt werden.
 
 Zunächst wird dafür ein Aufteilungsvektor gebildet:
@@ -271,7 +271,7 @@ Bei den vorliegenden Daten ist also ein *lineares* Modell dem Baummodell im Bezu
 
 **Hinweis:** In der Praxis führt man die Aufteilung nicht manuell sondern innerhalb von Schleifen durch.
 
-### Klassifikationbäume
+## Klassifikationbäume
 Untersuchen wir, ob makroökonomische Kennzahlen geeignet sind, die Konjunkturphasen zu unterscheiden. 
 Zunächst stellen wir fest, dass die eigentlich kategorielle Variable `PHASEN` hier numerisch kodiert wurde, was aber schnell verwirren würde.
 
@@ -352,7 +352,7 @@ rpart.plot(klassbaum)
 <img src="073_baumbasierte_Verfahren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-#### Kreuzvalidierung
+### Kreuzvalidierung
 
 Wie gut ist das Modell? Auch hier können über `predict` die Punktprognosen bestimmt werden:
 
@@ -478,7 +478,7 @@ In der *Prognosegüte* ist hier -- anders als in der Anpassungsgüte -- die Line
 
 
 
-### Parameter `rpart` 
+## Parameter `rpart` 
 Neben dem Splitkrierium können verschiedene Parameter des Algorithmus eingestellt werden (siehe `?rpart.control`), u. a.:
 
 - minsplit: Minimale Anzahl Beobachtungen im Knoten damit Aufteilung versucht wird

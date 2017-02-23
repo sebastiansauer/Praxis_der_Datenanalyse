@@ -2,7 +2,9 @@
 
 
 
-# Statistisches Modellieren
+# Statistisches Modellieren {-}
+
+# Grundlagen des Modellierens
 
 In diesem Kapitel benötigte Pakete:
 

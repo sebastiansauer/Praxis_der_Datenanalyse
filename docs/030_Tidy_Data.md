@@ -1,6 +1,7 @@
 
 
 
+# Datensätze aufbereiten und visualisieren {-}
 
 # Tidy Data - Daten sauber einlesen
 
@@ -125,9 +126,7 @@ df_lang <- separate(df_lang, year, into = c("U5MR", "year"), sep = ".")
 - Die zweite Zeile formt die Daten von breit nach lang um. Die neuen Spalten, nach der Umformung heißen dann `year` und `u5mr` (Sterblichkeit bei Kindern unter fünf Jahren). In die Umformung werden die Spalten `U5MR 1950` bis `U5MR 2015` einbezogen.
 - Die dritte Zeile "entzerrt" die Werte der Spalte `year`; hier stehen die ehemaligen Spaltenköpfe. Man nennt sie auch `key` Spalte daher. Steht in einer Zelle von `year` bspw. `U5MR 1950`, so wird `U5MR` in eine Spalte mit Namen `U5MR` und `1950` in eine Spalte mit Namen `year` geschrieben.
 
-Im Cheatsheet von RStudio zum Thema Datenimport finden sich nützliche Hinweise [^2].
 
-[^2]: <https://www.rstudio.com/resources/cheatsheets/>
 
 ## Verweise
 

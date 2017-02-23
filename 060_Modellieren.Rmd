@@ -20,7 +20,9 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 
 
-# Statistisches Modellieren
+# Statistisches Modellieren {-}
+
+# Grundlagen des Modellierens
 
 In diesem Kapitel benötigte Pakete:
 ```{r libs}
