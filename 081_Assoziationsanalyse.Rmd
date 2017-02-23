@@ -66,6 +66,11 @@ Geladen wird das Paket dann über
 library(arules)
 ```
 
+```{r, echo=FALSE}
+library(methods)
+```
+
+
 Eine Einführung erhält man über die Paket-Vignette
 ```{r, eval=FALSE}
 vignette("arules")
