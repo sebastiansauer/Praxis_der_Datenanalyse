@@ -20,7 +20,8 @@ rmd_files: [
 "082_Clusteranalyse.Rmd",
 "083_Dimensionsreduktion.Rmd",
 "090_Textmining.Rmd",
-"dummy.Rmd",
+"100_Kommunizieren.Rmd",
+"101_RMarkdown.Rmd",
 "120_Literatur.Rmd"]
 clean: [bookdown.bbl]
 nocite: |

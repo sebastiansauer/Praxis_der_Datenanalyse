@@ -1,7 +1,6 @@
 
 
 
-# Datensätze aufbereiten und visualisieren {-}
 
 # Tidy Data - Daten sauber einlesen
 

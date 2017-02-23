@@ -17,7 +17,6 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 ```
 
 
-# Datensätze aufbereiten und visualisieren {-}
 
 # Tidy Data - Daten sauber einlesen
 

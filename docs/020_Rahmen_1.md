@@ -1,6 +1,7 @@
 
 
 
+# I GRUNDLAGEN {-}
 
 
 
@@ -95,6 +96,8 @@ Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, pro
 Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
 
 - Zu diesen Paketen gibt es gute "Spickzettel" (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets > ...* oder gehen Sie auf <https://www.rstudio.com/resources/cheatsheets/>.
+
+- In RStudio gibt es eine Reihe (viele) von Tastaturkürzlen (Shortcuts), die Sie hier finden: *Tools > Keyboard Shortcuts Help*.
 
 - Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren Sie z.B. `?mean`.
 
@@ -195,119 +198,6 @@ lapply(Pakete, require, character.only = TRUE)
 
 
 
-```r
-lapply(Pakete, require, character.only = TRUE)
-#> [[1]]
-#> [1] TRUE
-#> 
-#> [[2]]
-#> [1] TRUE
-#> 
-#> [[3]]
-#> [1] TRUE
-#> 
-#> [[4]]
-#> [1] TRUE
-#> 
-#> [[5]]
-#> [1] TRUE
-#> 
-#> [[6]]
-#> [1] TRUE
-#> 
-#> [[7]]
-#> [1] TRUE
-#> 
-#> [[8]]
-#> [1] TRUE
-#> 
-#> [[9]]
-#> [1] TRUE
-#> 
-#> [[10]]
-#> [1] TRUE
-#> 
-#> [[11]]
-#> [1] TRUE
-#> 
-#> [[12]]
-#> [1] TRUE
-#> 
-#> [[13]]
-#> [1] TRUE
-#> 
-#> [[14]]
-#> [1] TRUE
-#> 
-#> [[15]]
-#> [1] TRUE
-#> 
-#> [[16]]
-#> [1] TRUE
-#> 
-#> [[17]]
-#> [1] TRUE
-#> 
-#> [[18]]
-#> [1] TRUE
-#> 
-#> [[19]]
-#> [1] TRUE
-#> 
-#> [[20]]
-#> [1] TRUE
-#> 
-#> [[21]]
-#> [1] TRUE
-#> 
-#> [[22]]
-#> [1] TRUE
-#> 
-#> [[23]]
-#> [1] TRUE
-#> 
-#> [[24]]
-#> [1] TRUE
-#> 
-#> [[25]]
-#> [1] TRUE
-#> 
-#> [[26]]
-#> [1] TRUE
-#> 
-#> [[27]]
-#> [1] TRUE
-#> 
-#> [[28]]
-#> [1] TRUE
-#> 
-#> [[29]]
-#> [1] TRUE
-#> 
-#> [[30]]
-#> [1] TRUE
-#> 
-#> [[31]]
-#> [1] TRUE
-#> 
-#> [[32]]
-#> [1] TRUE
-#> 
-#> [[33]]
-#> [1] TRUE
-#> 
-#> [[34]]
-#> [1] TRUE
-#> 
-#> [[35]]
-#> [1] TRUE
-#> 
-#> [[36]]
-#> [1] TRUE
-#> 
-#> [[37]]
-#> [1] TRUE
-```
 
 
 
@@ -321,20 +211,20 @@ Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; da
 
 ### Datensätze
 
-Name des Datensatzes  Quelle            Beschreibung  
---------------------  -----------       -----------------
-`profiles`            {okcupiddata}     Daten von einer Online-Singlebörse  
-`Wage`                {ISLR}            Gehaltsdaten von US-amerikanischen Männern  
-`inf_test_short`      Hier[^10]         Ergebnisse einer Statistikklausur 
-`flights`             {nycflights13}    Abflüge von den New Yorker Flughäfen
-`wo_men`              Hier[^11]         Größe von Studierenden
-`tips`                {reshape2}        Trinkgelder in einem Restaurant
-`extra`               Hier[^12]         Umfrage zu Extraversion
+Name             Bezugsort       Quelle                 Beschreibung  
+--------------   -----------     --------               -----------------
+`profiles`       {okcupiddata}   [@kim2015okcupid]      Daten von einer Online-Singlebörse  
+`Wage`           {ISLR}          [@introstatlearning    Gehaltsdaten von US-amerikanischen Männern  
+`inf_test_short` osf.io/sjhu      [@Sauer_2017]          Ergebnisse einer Statistikklausur 
+`flights`        {nycflights13}   [@nycflights13]         Abflüge von den New Yorker Flughäfen
+`wo_men`         osf.io/ja9dw      [@Sauer_2017a]         Größe von Studierenden
+`tips`           {reshape2}       [@bryant1995practical] Trinkgelder in einem Restaurant
+`extra`          osf.io/4kgzh    [@Sauer_2016]         Umfrage zu Extraversion
 
 
 Wir verwenden zwei Methoden, um Datensätze in R zu laden. 
 
-- Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket `okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl `data(name_des_datensatzes, packge = "name_des_paketes")`, kann man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des Paektes; dafür ist der Befehl `data` zuständig.
+- Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket `okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl `data(name_des_datensatzes, package = "name_des_paketes")`, kann man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des Paektes; dafür ist der Befehl `data` zuständig.
 
 
 ```r
@@ -364,7 +254,8 @@ Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abru
 
 
 
-
+## Zitationen
+Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.
 
 
 
@@ -424,6 +315,14 @@ Vielleicht fragen Sie sich was die `[1]` vor dem Ergebnis bedeutet. R arbeitet v
 Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?
 
 Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung und Zufallsvariablen eine große Rolle.
+
+## Verweise
+ 
+- Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: https://bookdown.org/chesterismay/rbasics/.  
+
+- Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: https://bookdown.org/rdpeng/artofdatascience/
+
+
 
 
 ## Versionshinweise
@@ -499,9 +398,10 @@ sessionInfo()
 [^3]: http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once 
 
 [^9]: Eine Vorhersage, die bei vielen Vorhersagemodellen komplett in die Grütze ging, wenn man sich die US-Präsidentenwahl 2016 anschaut.
-[^10]: https://sebastiansauer.github.io/data/test_inf_short.csv
+[^10]: https://osf.io/zcvkd/?action=download
 [^11]: https://sebastiansauer.github.io/data/wo_men.csv 
 [^12]: https://osf.io/meyhp/?action=download
+
 
 
 [^186]: Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. 

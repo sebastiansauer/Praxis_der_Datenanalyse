@@ -13,6 +13,7 @@ library(RColorBrewer)  # Farb-Palette von Cynthia Breewr
 library(GGally)  # Scatterplot-Matrizen
 library(knitr)  # HTML-Tabellen
 library(gridExtra)  # Mehrere Plots in einem erstellen
+library(corrr)  # Korrelationsplots
 ```
 
 
@@ -198,6 +199,24 @@ wo_men %>%
 ```
 
 Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. *Innerhalb* eines `ggplot`-Aufrufs werden die einzelen Teile durch ein Pluszeichen `+` voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit `aes` ("aes" wie "aesthetics", also das "Sichtbare" eines Diagramms, die Achsen etc., werden definiert). Ein "Smooth-Geom" ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, `lm`).
+
+Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken ("overplotting"). Ein Abhilfe ist es, die Punkte nur "schwach" zu färben. Dazu stellt man die "Füllstärke" der Punkte über `alpha` ein: `geom_point(alpha = 1/100)`. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn `ggplot` viele (>100.000) Punkte malen soll.
+
+Bei noch größeren Datenmengen bietet sich an, den Scatterplot als "Schachbrett" aufzufassen, und das Raster einzufärben, je nach Anzahl der Punkte pro Schachfeld; zwei Geome dafür sind `geom_hex()` und `geom_bin2d()`.
+
+
+```r
+data(flights, package = "nycflights13")
+nrow(flights)  # groß!
+#> [1] 336776
+
+ggplot(flights) +
+  aes(x = distance, y = air_time) +
+  geom_hex()
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/flights_hexbin-1.png" width="70%" style="display: block; margin: auto;" />
+
 
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
@@ -529,10 +548,36 @@ tips %>%
 Dabei gibt man an, welche Variable (hier `sex`) für die Farben im Diagramm zuständig sein soll (wir ordnen den Werten von `sex` jeweils eine Farbe zu). Mit `columns` sagen wir, welche Spalten des Dataframes wir dargestellt haben möchten. Lassen wir diesen Parameter weg, so werden alle Spaltne des Dataframes dargestellt.
 
 
-### Weitere
-Hier[^7] finden sich viele weitere Ergänzungen für ggplot2.
+### Correlationsplots
+Mit dem Paket `corrr` lassen sich mehrere Korrelationskoeffizienten auf einmal visualisieren. 
 
-## Fallstudie
+
+```r
+df <- read.csv("https://osf.io/meyhp/?action=download")
+
+library(corrr)
+
+df %>% 
+  select(i01:i10) %>%   # Spalten wählen
+  correlate() %>%   # Korrelationsmatrix berechnen
+  rearrange() %>%   # Korrelation der Stärke nach ordnen  
+  shave() %>%   # das obere Dreieck ist redundant, rasieren wir ab
+  rplot()  # plotten
+```
+
+<div class="figure" style="text-align: center">
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" alt="Korr" width="70%" />
+<p class="caption">(\#fig:unnamed-chunk-34)Korr</p>
+</div>
+
+ 
+
+### Weitere
+Hier finden sich viele weitere Ergänzungen für ggplot2: https://www.ggplot2-exts.org
+
+
+
+## Fallstudie Extraversion
 
 
 Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. 
@@ -632,7 +677,7 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 
 Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
 
@@ -659,7 +704,7 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -674,7 +719,7 @@ ggplot(data = data_long) +
   coord_flip()
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Text-Labels für die Items
@@ -700,7 +745,7 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen... wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)
@@ -728,7 +773,7 @@ ggplot(data = data_long) +
   scale_y_continuous(name = "Anteile")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Diagramm mit Häufigkeiten
@@ -744,7 +789,7 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels) 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
 
 ### Farbschema
 Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema:
@@ -759,7 +804,7 @@ ggplot(data = data_long) +
   scale_fill_brewer(palette = 17)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -771,6 +816,7 @@ ggplot(data = data_long) +
 
 - William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren [@Cleveland]. 
 
+- Die Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
 
 
 
@@ -778,7 +824,6 @@ ggplot(data = data_long) +
 [^4]: http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3
 [^5]: https://github.com/karthik/wesanderson
 [^6]: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
-[^7]: https://www.ggplot2-exts.org
 [^71]: https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf
 [^8]: https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform
 [^9]: <https://de.wikipedia.org/wiki/Anscombe-Quartett>

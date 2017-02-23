@@ -2,7 +2,7 @@
 
 
 
-# Statistisches Modellieren {-}
+# II STATISTISCHES MODELLIEREN {-}
 
 # Grundlagen des Modellierens
 
@@ -226,7 +226,11 @@ Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell
 
 
 
+## Verweise
 
+- Einige Ansatzpunkte zu moderner Statistik ("Data Science") finden sich bei Peng und Matsui [-@peng2015art].
+
+- Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Modellierung hilfreich sind: https://bookdown.org/chesterismay/rbasics/.  
 
 
 

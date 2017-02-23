@@ -23,6 +23,15 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 # Was ist RMarkdown?
 
 
+Benötigte Pakete:
+
+```{r}
+library(knitr)
+library(tidyverse)
+```
+
+
+
 ```{r echo = FALSE}
 knitr::include_graphics("images/Kommunizieren.pdf")
 ```
@@ -111,6 +120,8 @@ Der Name "RMarkdown" suggeriert, dass R hier eine Rolle spielt. Das ist richtig.
 
 RMarkdown-Dateien haben sinnvollerweise die Endung `.Rmd`. Rmd-Dateiein sind, genau wie normale Markdown-Dateien, schnöde Text-Dateien und können entsprechend von jedem Text-Editor (auch mit RStudio, das hier mit Syntax-Highlighting verwöhnt) geöffnet werden. 
 
+Erstellt man eine Rmd-Datei, so wird das Verzeichnis, in dem diese Datei liegt, als Arbeitsverzeichnis betrachtet. Möchte man auf eine Datei verweisen, die in einem Unterverzeichnis liegt (z.B. ein Bild laden), so ist es meist am einfachsten, einen relativen Pfad vom Arbeitsverzeichnis anzugeben: `Bilder/mein_bild.png`.
+
 
 ## RMarkdown in Action
 
@@ -121,7 +132,7 @@ Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.
 
 - Klicken Sie das Icon für "neue Datei" und wählen Sie "R Markdown...", um eine neue RMarkdown-Datei zu erstellen.
 
-```{r echo = FALSE, fig.cap = "Neue Rmd-Datei erstellen", fig.height = 3}
+```{r echo = FALSE, fig.cap = "Neue Rmd-Datei erstellen", fig.height = 3, out.width = "30%"}
 knitr::include_graphics("images/new_rmd.png")
 ```
 
@@ -131,7 +142,7 @@ knitr::include_graphics("images/new_rmd.png")
 
 - Jetzt "verstricken" wir R und Prosa zu einer Datei, HTML in dem Fall, welche sowohl Text, R-Ausgaben als auch R-Syntax enthält. Dafür klicken wir auf das Stricknadel-Icon:
 
-```{r echo = FALSE, fig.cap = "Wir stricken", fig.height = 3}
+```{r echo = FALSE, fig.cap = "Wir stricken", fig.height = 3, out.width = "50%"}
 knitr::include_graphics("images/rmd_demo.png")
 ```
 
@@ -159,9 +170,111 @@ knitr::include_graphics("images/Rmarkdown_flow.pdf")
 Zuerst bietet es sich an - ganz ohne Gedanken an wohl geformte Sprache und roten Faden - seine Gedanken zu Papier (oder in eine Textdatei) zu kriegen ("Ideen sammeln"). Für viele Menschen sind hier Schmier- und Notizzettel oder Schemata, Mindmaps oder andere Visualisierungen hilfreich. Eine Gliederung zu erstellen gehört auch in diesen Schritt. Hat man schließlich die Struktur erarbeitet, so kann den Text - jetzt mit wohlgeformter(er) Sprache und roten Faden - zusammensetzen ("Text schreiben"). Dabei ist es oft so, dass man die Beiträge der Coautoren ~~ertragen muss~~ integrieren möchte. Dies ist mit am besten mit einer zusätzlichen Software mit dem Namen "Git" bzw. "Github" zu erreichen, die ebenfalls quelloffen, kostenlos (und weit verbreitet bei Tekkies) ist ("Coautoren integrieren"). Diese Software erlaubt nicht nur Versionierung lokal an einem eigenen Computer, sondern auch in Zusammenarbeit mit Coautoren ("Änderungen nachverfolgen"). Parallel zum Schreiben des Textes sind die Daten zu analysieren; eine Aufgabe, die prinzipiell unahbängig vom Schreiben des Textes ist ("Daten analysieren"). Aber die Ergebnisse der Analyse sind in den Text zu integrieren. Um Schnittstellen zu vermeiden, ist es sinnvoll, den Inhalt-Text sowie die R-Syntax in einer Datei zu "verstricken". Dieser Schritt ("R ausführen") wird von einem R-Paket namens "knitr" [@xie2015] besorgt (engl. "to knit" - stricken). Knitr führt die R-Syntax im Dokument aus und liefert das Ergebnis im Markdown-Format zurück. Aus R+Markdown wird reines Markdown. Die Markdown-Datei kann nun in fast jedes denkbare andere Markup-Format übersetzt werden, die wichtigsten sind HTML und TeX. Die Übersetzung führt RStudio wiederum, genau wie das "Knittern" für uns komfortabel im Hintergrund aus. Dazu wird auf ein Programm names "pandoc" (http://pandoc.org) zurückgegriffen. Pandoc übersetzt eine Markup-Sprache in eine andere. Haben wir z.B. in TeX übersetzt, so können wir - vorausgesetzt TeX, LaTeX o.ä. ist installiert - von TeX in PDF umwandeln lassen. Ist TeX auf Ihrem Rechner installiert, so wird dieser Übersetzung wiederum automatisch vorgenommen.
 
 
+## Aufbau einer Markdown-Datei
+
+Das wichtigste ist: Eine Markdown-Datei (`.md`) ist eine reine Text-Datei, genau wie eine Rmd-Datei (die ein Spezialfall einer Markdown-Datei ist). Mit jedem Texteditor können Sie sie öffnen und ändern. 
+
+
+```{r echo = FALSE, comment = ""}
+cat(htmltools::includeText("includes/Rmd_demo.Rmd"))
+```
+
+
+Typischerweise besteht eine Markdown-Datei aus drei Teilen:
+
+
+1.  Einem (optionalen) __YAML-Header__ abgegrenzt durch `---`s.
+1.  __R-Chunks__ (R-Syntax-Abschnitte) abgegrenzt durch ```` ``` ````.
+1.  Normalem Reintext mit einigen Steuerzeichen wie `*kursiv*` oder `#Überschrift_Ebene_1`.
+
+Der YAML-Header definiert einige Meta-Daten für Ihre Datei; Dinge wie Autor, Titel, Datum oder Ausgabeformat werden hier festgelegt. Sie müssen keine YAML-Header angeben, dann werden einige Standards verwendet. YAML steht übrigens, falls Sie sich das gerade fragen, für "yet another markup language", also eine Auszeichnungssprache, die sehr einfach ist und nur für Metadaten zuständig ist.
+
+R-Syntax wird (innerhalb von Rmd-Dateien) nur innerhalb der "Chunks" als R verstanden; außerhalb der eingezäunten R-Abschnitte werden Sie als normaler Text verstanden. Sie können Chunks auch nochmal ausführen, in dem Sie z.B. den Button "Run" klicken. Um das ganze Dokument zu "übersetzen", reicht ein Klick auf das Stricksymbol.
+
+Der Text bei Markdown sieht im Prinzip so aus, wie man eine Plain-Text-Email früher (oder manchmal heute noch) geschrieben hätte. Auch ohne dass man Markdown kennt, kann man ihn ohne Probleme erfassen. 
+
+
+## Syntax-Grundlagen von Markdown
+
+In RStudio wird Pandocs Markdown verwendet; die Übersetzung von Markdown in eine andere Auszeichnungssprache wird komplett von Pandoc abgewickelt. 
+
+Man braucht etwas Übung, um sich die Syntax zu merken, aber im Grunde ist es ganz einfach. Schauen Sie selbst:
+
+
+```{r, echo = FALSE, comment = ""}
+cat(readr::read_file("includes/markdown.Rmd"))
+```
+
+Wenn man mal etwas vergisst, kann man in RStudio hier nachschauen: *Help > Markdown Quick Reference*.
+
+
+## Tabellen
+
+Praktisch ist, dass man sich Dataframes einfach als Tabellen ausgeben lassen kann. Normalerweise werden in RMarkdown Dataframes in gewohnter Manier ausgegeben:
+
+
+```{r}
+mtcars %>% 
+  slice(1:3)
+```
+
+(`slice` filtert die angegebenen Zeilen, hier 1 bis 3.)
+
+Möchte man eine "richtige" Tabelle, so kann man z.B. mit dem Befehl `knitr::kable` arbeiten. Die Tabelle unten (\@ref(tab:kable)) wurde so erstellt:
+
+
+```{r kable}
+mtcars %>% 
+  slice(1:3) %>% 
+  kable(caption = "Eine Tabelle mit Kable")
+```
 
 
 
+## Zitieren
+Zitate sind bei Rmarkdown, genau wie Bilder und Verweise, nichts anderes als Links, mit einer kleinen Änderungen: 
+
+```markdown
+Das ist furchtbar wichtig [@WeisOis2017]. 
+```
+
+Inerhalb von den eckigen Klammern, die einen Linktext kennzeichen wird ein Klammeraffe geschriebne (`@`); dieser ist die Bezeichnung für eine Zitation. Dann folgt die ID der Zitation.
 
 
+```markdown
+Mehrere Zitationen werden mit Strichpunkt getrennt: So steht es geschreiben [@Weis2017; @Ois2016].
+
+Man kann beliebige Kommentare in die Zitation aufnehmen: So war es schon immer [vgl. @Weis2017, S 777-1234; außerdem @Ois2016, S. 1-999].
+
+Will man eine Zitation ohne Klammer einfügen, so lässt man die eckigen Klammern weg: @Weis2017 sagt, es wäre schon immer so gewesen.
+
+Den Namen des Autors/ der Autoren kann man unterdrücken, in dem man ein `-` vor die Zitation einfügt: Weis-Ois [-@WeisOis2017] wusste es schon immer.
+
+```
+
+Eine Reihe von bibliographischen Formaten werden unterstützt; darunter BibLaTEX, BibTeX, endnote und medline. Die bibliographischen Einträge alle Zitationen fügt man in eine Textdatei (z.B. mit Namen `bibliography.bib`); im YAML-Header gibt man dann den Dateinamen mit den bibliographischen Informationen an:
+
+
+```yaml
+bibliography: bibliography.bib
+csl: apa.csl
+```
+
+Den Zitationsstil kann man, ebenfalls im YAML-Header mit der Variable `csl` definieren. Dort verweist man auf eine CSL-Stil-Datei. CSL-Dateien sind quelloffen und man kann sie sich z.B. hier herunterladen: https://github.com/citation-style-language/styles. 
+
+
+## Kollaboration und Versionierung
+Kollaboration und Versionierung sind wichtige Aspekte von professionellem Projektmanagement. Das wichtigste Werkzeug hier heißt "Git". Git ist eine Software, die Versionierungsfunktionen anbietet - auch über mehrere Coautoren hinweg. "Github" ist ein Anbieter, der bekannteste, der "Projektordner" online anbietet, so dass sich man komfortabel synchronisieren kann. Alternativ gibt es Plattformen, die ähnliche Dienste anbieten wie http://authorea.com.
+
+Allerdings ist einiges an Einarbeitung vonnöten; wir werden hier nicht weiter auf solche Werkzeuge eingehen.
+
+
+## Verweise
+RMarkdown ist ein junges Ökosystem, das schnell wächst. 
+
+- Ein guter Startpunkt, mehr über Markdown zu lernen, ist das Buch von Wickham und Grolemund [-@r4ds].
+
+- Größere Texte können mit `bookdown` geschrieben werden, eine Erweiterung zu Markdown (dieses Buch wurde so geschrieben): https://bookdown.org/yihui/bookdown/
+
+- Die Cheatsheets von RStudio sind hilfreich: RStudio * Tools > Cheatsheets > ...*.
 
