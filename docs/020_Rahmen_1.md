@@ -5,14 +5,14 @@
 
 
 
-# Rahmen: Der Kontext der Datenanalyse
+# Rahmen
 
-In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das "Drumherum" der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voila:
+In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das "Drumherum" oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voila:
 
 <img src="images/Prozess.pdf" width="70%" style="display: block; margin: auto;" />
 
 
-Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds]. Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar machen; man nennt dies auch *tidy data*[^1]. Sobald die Daten in geeigneter Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das *Modellieren* oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das *Kommunizieren* der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.
+Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds]. Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar machen; man nennt dies auch *tidy data*[^35]. Sobald die Daten in geeigneter Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das *Modellieren* oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das *Kommunizieren* der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.
 
 Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem *Rahmen* eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen. 
 
@@ -51,7 +51,7 @@ Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
      myne Fru de Ilsebill  
      will nich so, as ik wol will. 
      
-*Gebrüder Grimm, Märchen vom Fischer und seiner Frau[^2]*
+*Gebrüder Grimm, Märchen vom Fischer und seiner Frau[^81]*
      
    
 
@@ -201,7 +201,7 @@ lapply(Pakete, require, character.only = TRUE)
 
 
 
-Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl `library` an"[^3].
+Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl `library` an"[^227].
 
 Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; das geht mit `update.packages()`.
 
@@ -243,19 +243,6 @@ Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
 Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
-## Bildnachweise
-
-Die Bildnachweise sind in folgenden Muster aufgebaut:
-Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
-
-
-- \@ref(fig:Modellieren), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
- 
-
-
-
-## Zitationen
-Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.
 
 
 
@@ -314,13 +301,26 @@ Vielleicht fragen Sie sich was die `[1]` vor dem Ergebnis bedeutet. R arbeitet v
 
 Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?
 
-Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung und Zufallsvariablen eine große Rolle.
+Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung und das Konzept von Zufallsvariablen eine große Rolle.
+
+Dabei lässt sich der Begriff "Statistik" als Überbegriff von "Datenanalyse" verstehen, wenn diese Sicht auch nicht von allen geteilt wird [@grolemund2014cognitive]. In diesem Buch steht die Aufbereitung, Analyse, Interpretation und Kommunikation von Daten im Vordergrund. Liegt der Schwerpunkt dieser Aktivitäten bei computerintensiven Methoden, so wird auch von *Data Science* gesprochen, wobei der Begriff nicht einheitlich verwendet wird [@r4ds; @hardin2015data]
+
+Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant zusammenzufassen. Aufgabe der Inferenzstatistik ist es, zu prüfen, ob Daten einer Stichprobe auf eine Grundgesamtheit verallgemeinert werden können. 
+
+Daten kann man definieren als Informationen, die in einem Kontext stehen [@moore1990uncertainty], wobei eine numerische Konnotation mitschwingt.
+
+
+
 
 ## Verweise
  
 - Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: https://bookdown.org/chesterismay/rbasics/.  
 
 - Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: https://bookdown.org/rdpeng/artofdatascience/
+
+- Wickam und Grolemund [-@r4ds] geben einen hervorragenden Überblick in das Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
+
+- Wer einen stärker an der Statistik orientierten Zugang sucht, aber "mathematisch sanft" behandelt werden möchte, wird bei James et al. [-@introstatlearning] glücklich oder zumindest fündig werden. 
 
 
 
@@ -393,14 +393,11 @@ sessionInfo()
 
 
 
-[^1]: hört sich cooler an.
-[^2]: <https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau>
+[^35]: hört sich cooler an.
+[^81]: <https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau>
 [^3]: http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once 
 
-[^9]: Eine Vorhersage, die bei vielen Vorhersagemodellen komplett in die Grütze ging, wenn man sich die US-Präsidentenwahl 2016 anschaut.
-[^10]: https://osf.io/zcvkd/?action=download
-[^11]: https://sebastiansauer.github.io/data/wo_men.csv 
-[^12]: https://osf.io/meyhp/?action=download
+[^227]: Eine Vorhersage, die bei vielen Vorhersagemodellen komplett in die Grütze ging, wenn man sich die US-Präsidentenwahl 2016 anschaut.
 
 
 

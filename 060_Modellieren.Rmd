@@ -22,7 +22,7 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 # II STATISTISCHES MODELLIEREN {-}
 
-# Grundlagen des Modellierens
+# Grundlagen des Modellierens {#mod1}
 
 In diesem Kapitel benötigte Pakete:
 ```{r libs}
@@ -47,7 +47,7 @@ Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklic
 Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
 
 
-```{r echo = FALSE, fig.cap = "Modellieren"}
+```{r modellieren_plot, echo = FALSE, fig.cap = "Modellieren"}
 knitr::include_graphics("images/Modell.pdf")
 ```
 
@@ -314,6 +314,11 @@ Was ist mit überraschend gemeint? Eine Vorhersage, dass die Temperatur morgen i
 >    Kriterium der Situationsangemessenheit: Die Güte des Modells ist auf die konkrete Situation abzustellen.
 
 Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell. Reduktionsmodelle müssen wiederum anders beurteilt werden. In den entsprechenden Kapiteln werden diese Unterschiede präzisiert.
+
+
+## Auswahl von Prädiktoren
+
+Es gibt drei Möglichkeiten, die Variablen zu bestimmen: theoriegeleitet, datengetrieben oder auf Gut glück.
 
 
 
