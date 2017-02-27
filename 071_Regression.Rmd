@@ -458,7 +458,7 @@ lm2_predict <- predict(lm2, newdata = test)
 
 Diese Syntax sagt:
 
-```{block2, fliesen-plot, type='rmdpseudocode', echo = TRUE}
+```{block2, lm2-predict, type='rmdpseudocode', echo = TRUE}
 Speichere unter dem Namen "lm2_predict" das Ergebnis folgender Berechnung:  
 Mache eine Vorhersage ("to predict") anhand des Modells "lm2",   
 wobei frische Daten ("data = test") verwendet werden sollen. 

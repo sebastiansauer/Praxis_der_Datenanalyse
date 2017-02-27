@@ -483,7 +483,9 @@ Die Pfeife zerlegt die "russische Puppe", also ineinander verschachelteten Code,
 
 
 
-#### Werte umkodieren und "binnen" mit `car::recode`
+### Werte umkodieren und "binnen" 
+
+#### `car::recode`
 
 Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln (ein Klassiker ist `1` in `maennlich` bzw. `2` in `weiblich` oder umgekehrt, kann sich niemand merken). Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Übrigens: Wenn man explizit angeben möchte, aus welchem Paket ein Befehl stammt (z.B. um Verwechslungen zu vermeiden), gibt man `Paketnamen::Befehlnamen` an. Schauen wir uns ein paar Beispiele zum Umkodieren an.
 
@@ -547,6 +549,76 @@ stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; el
 
 
 Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`[^7]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
+
+
+#### Numerische Werte in Klassen gruppieren mit `cut`
+Numerische Werte in Klassen zu gruppieren ("to bin", denglisch: "binnen") kann mit dem Befehl `cut` (and friends) besorgt werden.
+
+Es lassen sich drei typische Anwendungsformen unterscheiden:
+
+Eine numerische Variable ...
+
+1. in *k* gleich große Klassen grupieren (gleichgroße Intervalle)
+2. so in Klassen gruppieren, dass in jeder Klasse *n* Beobachtungen sind (gleiche Gruppengrößen)
+3. in beliebige Klassen gruppieren
+
+
+##### gleichgroße Intervalle
+
+Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen [^d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
+
+
+```r
+wo_men <- read_csv("data/wo_men.csv")
+
+wo_men %>% 
+  filter(height > 150, height < 220) -> wo_men2
+
+temp <- cut_interval(x = wo_men2$height, n = 3)
+
+levels(temp)
+#> [1] "[155,172]" "(172,189]" "(189,206]"
+```
+
+`cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
+
+
+##### gleiche Gruppengrößen
+
+
+```r
+temp <- cut_number(wo_men2$height, n = 2)
+str(temp)
+#>  Factor w/ 2 levels "[155,169]","(169,206]": 1 2 2 2 2 1 1 2 1 2 ...
+```
+
+Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen.
+
+>   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
+
+
+###### In beliebige Klassen gruppieren
+
+
+```r
+wo_men$groesse_gruppe <- cut(wo_men$height, 
+                             breaks = c(-Inf, 100, 150, 170, 200, 230, Inf))
+
+count(wo_men, groesse_gruppe)
+#> # A tibble: 6 × 2
+#>   groesse_gruppe     n
+#>           <fctr> <int>
+#> 1     (-Inf,100]     4
+#> 2      (150,170]    55
+#> 3      (170,200]    38
+#> 4      (200,230]     2
+#> 5     (230, Inf]     1
+#> 6             NA     1
+```
+
+`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert wird nicht automatisch als unterste Intervallgrenze herangezogen.
+
+
 
 
 
@@ -784,7 +856,7 @@ wo_men %>%
 Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten.
 
 ### Fehlende Werte ggf. ersetzen  
-Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^9]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
+Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
 
 
 ```r
@@ -837,7 +909,7 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<img src="040_Datenjudo_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="040_Datenjudo_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`[^11], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
 
@@ -901,7 +973,7 @@ wo_men %>%
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="040_Datenjudo_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="040_Datenjudo_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 
@@ -951,7 +1023,7 @@ extra %>%
 
 [^634]: <http://bit.ly/2kX9lvC>.
 
-[^9]: Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.
+
 
 
 [^532]: Hier findet sich eine ausführliche Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html 

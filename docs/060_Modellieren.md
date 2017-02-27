@@ -4,7 +4,7 @@
 
 # II STATISTISCHES MODELLIEREN {-}
 
-# Grundlagen des Modellierens
+# Grundlagen des Modellierens {#mod1}
 
 In diesem Kapitel benötigte Pakete:
 
@@ -27,7 +27,7 @@ Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sic
 
 <div class="figure" style="text-align: center">
 <img src="images/Modell.pdf" alt="Modellieren" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-3)Modellieren</p>
+<p class="caption">(\#fig:modellieren_plot)Modellieren</p>
 </div>
 
 
@@ -40,8 +40,8 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 <div class="figure" style="text-align: center">
-<img src="060_Modellieren_files/figure-html/unnamed-chunk-5-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
-<p class="caption">(\#fig:unnamed-chunk-5)Ein Beispiel für Modellieren</p>
+<img src="060_Modellieren_files/figure-html/unnamed-chunk-4-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-4)Ein Beispiel für Modellieren</p>
 </div>
 
 
@@ -222,6 +222,11 @@ Was ist mit überraschend gemeint? Eine Vorhersage, dass die Temperatur morgen i
 >    Kriterium der Situationsangemessenheit: Die Güte des Modells ist auf die konkrete Situation abzustellen.
 
 Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell. Reduktionsmodelle müssen wiederum anders beurteilt werden. In den entsprechenden Kapiteln werden diese Unterschiede präzisiert.
+
+
+## Auswahl von Prädiktoren
+
+Es gibt drei Möglichkeiten, die Variablen zu bestimmen: theoriegeleitet, datengetrieben oder auf Gut glück.
 
 
 

@@ -1,11 +1,22 @@
-```{r knitr_options, include=FALSE, cache=FALSE} set.seed(1014) options(digits =
-2)
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
 
-knitr::opts_chunk$set( comment = "#>", warning = FALSE, message = FALSE, 
-collapse = TRUE, cache = TRUE, out.width = "70%", fig.align = 'center', 
-fig.width = 6, fig.asp = 0.618,  # 1 / phi fig.show = "hold" )
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
 
-options(dplyr.print_min = 6, dplyr.print_max = 6) ```
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+```
 
 
 # I GRUNDLAGEN {-}
@@ -19,13 +30,15 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voila:
 
-```{r echo = FALSE} knitr::include_graphics("images/Prozess.pdf") ```
+```{r echo = FALSE}
+knitr::include_graphics("images/Prozess_Datenanalyse.pdf") 
+```
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
 Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen 
 Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar
-machen; man nennt dies auch *tidy data*[^35]. Sobald die Daten in geeigneter 
+machen; man nennt dies auch *tidy data*[hört sich cooler an.]. Sobald die Daten in geeigneter 
 Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, 
 Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist 
 das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. 
@@ -87,7 +100,8 @@ knitr::include_graphics("images/R-Mac.png")
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-```{r echo = FALSE} knitr::include_graphics("images/RStudio-Screenshot.png")
+```{r echo = FALSE} 
+knitr::include_graphics("images/RStudio-Screenshot.png")
 
 ```
 
@@ -95,10 +109,13 @@ aus:
 
 ### Hilfe! R tut nicht so wie ich das will
 
->    Manntje, Manntje, Timpe Te, Buttje, Buttje inne See, myne Fru de Ilsebill 
-will nich so, as ik wol will.
+>    Manntje, Manntje, Timpe Te,   
+    Buttje, Buttje inne See,    
+    myne Fru de Ilsebill    
+    will nich so, as ik wol will. 
 
-*Gebrüder Grimm, Märchen vom Fischer und seiner Frau[^81]*
+
+*Gebrüder Grimm, Märchen vom Fischer und seiner Frau^[<https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau>]*
 
 
 
@@ -112,10 +129,12 @@ morgen noch einmal. 3. Googeln.
 Sorry für die schnottrigen Tipps. Aber: Es passiert allzu leicht, dass man 
 Fehler wie diese macht:
 
-- `install.packages(dplyr)` - `install.packages("dliar")` - 
-`install.packages("derpyler")` - `install.packages("dplyr")  # dependencies 
-vergessen` - Keine Internet-Verbindung - `library(dplyr)  # ohne vorher zu 
-installieren`
+- `install.packages(dplyr)` 
+- `install.packages("dliar")`
+- `install.packages("derpyler")` 
+- `install.packages("dplyr")  # dependencies vergessen` 
+- Keine Internet-Verbindung 
+- `library(dplyr)  # ohne vorher zu installieren`
 
 
 Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, 
@@ -230,7 +249,9 @@ Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt
 `dplyr`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es 
 schon einmal, sofern noch nicht geschehen:
 
-```{r eval = FALSE} install.packages("dplyr", dependencies = TRUE) ```
+```{r eval = FALSE} 
+install.packages("dplyr", dependencies = TRUE) 
+```
 
 Übrigens, das `dependencies = TRUE` sagt sinngemäß "Wenn das Funktionieren von 
 dplyr noch von anderen Paketen abhängig ist (es also Abhängigkeiten 
@@ -238,7 +259,8 @@ dplyr noch von anderen Paketen abhängig ist (es also Abhängigkeiten
 
 
 
-```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} Beim Installieren von 
+```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} 
+Beim Installieren von 
 R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. 
 Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen
 CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner
@@ -253,14 +275,16 @@ Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten*
 (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder 
 nutzen möchte:
 
-```{r eval = FALSE} library(dplyr) ```
+```{r eval = FALSE} 
+library(dplyr) 
+```
 
 Der Befehl bedeutet sinngemäß: "Hey R, geh in die Bücherei (library) und hole 
 das Buch (package) dplyr!".
 
 
-```{block2, quotation_marks, type='rmdcaution', echo = TRUE} Wann benutzt man 
-bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
+```{block2, quotation_marks, type='rmdcaution', echo = TRUE} 
+Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
 lautet: wenn man Text anspricht. Im Beispiel oben "library(dplyr)" ist "dplyr" 
 hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten 
 *eigentlich* Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass
@@ -279,24 +303,33 @@ haben Sie Ruhe.
 
 
 ### R-Pakete für dieses Buch In diesem Buch verwenden wir die folgenden 
-R-Pakete; diese müssen installiert[^186] sein und geladen:
+R-Pakete; diese müssen installiert[Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren.] sein und geladen:
 
-```{r source_packages, include = FALSE} source("includes/Pakete.R") ```
+```{r source_packages, include = FALSE} 
+source("includes/Pakete.R") 
+```
 
 
-```{r Paketliste} Pakete ```
+```{r Paketliste} 
+Pakete 
+```
 
 Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal), 
 können wir mit etwas R-Judo alle auf einen Haps laden:
 
-```{r eval = FALSE} lapply(Pakete, require, character.only = TRUE) ```
+```{r eval = FALSE} 
+lapply(Pakete, require, character.only = TRUE) 
+```
 
 
-```{r load_packages, include = FALSE} lapply(Pakete, require, character.only = 
-TRUE) ```
+```{r load_packages, include = FALSE} 
+lapply(Pakete, require, character.only = TRUE) 
+```
 
-```{r include = FALSE, echo = FALSE, eval = FALSE} knitr::write_bib(Pakete, file
-= "libs.bib") ```
+
+``` {r include = FALSE, echo = FALSE, eval = FALSE} 
+knitr::write_bib(Pakete, file = "libs.bib") 
+```
 
 Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl 
 `library` an"[^227].
@@ -331,7 +364,8 @@ Mit dem Befehl `data(name_des_datensatzes, package = "name_des_paketes")`, kann
 man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des
 Paektes; dafür ist der Befehl `data` zuständig.
 
-```{r eval = FALSE} library(okcupiddata) data(profiles, package = "okcupiddata")
+```{r eval = FALSE} 
+library(okcupiddata) data(profiles, package = "okcupiddata")
 ```
 
 
@@ -413,7 +447,7 @@ dieser Aktivitäten bei computerintensiven Methoden, so wird auch von *Data
 Science* gesprochen, wobei der Begriff nicht einheitlich verwendet wird [@r4ds;
 @hardin2015data]
 
-Daten kann man definieren als Informationen, die in einem Kontext stehen 
+*Daten* kann man definieren als *Informationen, die in einem Kontext stehen*
 [@moore1990uncertainty], wobei eine numerische Konnotation mitschwingt.
 
 *Modellieren* kann man als *zentrale Aufgabe von Statistik* begreifen 
@@ -424,9 +458,15 @@ Kap. \@ref{mod1}.
 
 Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab [@grolemund2014cognitive]:
 
+
+```
 Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
 Prämisse 2: Die Daten weisen das Muster D auf.
+
+---
+
 Konklusion: Daher muss das Modell M wahr sein.
+```
 
 Die Konklusion ist *nicht* zwangsläufig richtig. Es ist falsch zu sagen, dass dieses Argumentationsmuster - Abduktion [@peirce1955abduction] genannt - wahre, sichere Schlüsse (Konklusionen) liefert. Die Konklusion *kann, muss aber nicht*, zutreffen.
 
@@ -471,16 +511,15 @@ Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 
 
 
-[^35]: hört sich cooler an. [^81]: 
-<https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau> [^227]: 
-http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
-
-[^227]: Eine Vorhersage, die bei vielen Vorhersagemodellen komplett in die 
-Grütze ging, wenn man sich die US-Präsidentenwahl 2016 anschaut.
 
 
 
-[^186]: Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren.
+[^227]: http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
+
+
+
+
+
 
 
 [^447]: Sind z.B. die Prüfungsergebnisse von Schülern unabhängig voneinander? Möglicherweise haben sie von einem "Superschüler" abgeschrieben. Wenn der Superschüler viel weiß, dann zeigen die Abschreiber auch gute Leistung.

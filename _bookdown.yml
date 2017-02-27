@@ -22,7 +22,9 @@ rmd_files: [
 "090_Textmining.Rmd",
 "100_Kommunizieren.Rmd",
 "101_RMarkdown.Rmd",
-"120_Literatur.Rmd"]
+"110_Studienpfade_Anhang.Rmd",
+"120_Literatur.Rmd"
+]
 clean: [bookdown.bbl]
 nocite: |
   @*

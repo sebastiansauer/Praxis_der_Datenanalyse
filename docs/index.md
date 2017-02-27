@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer"
-date: "2017-02-24"
+date: "2017-02-27"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [Praxis_der_Datenanalyse.bib, libs.bib]
@@ -52,6 +52,15 @@ Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von gestern
 
 ![](images/Forschung_frueher_heute.pdf)<!-- -->
 
+Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
+
+- Nutzung von Datenbanken und anderen Data Warehouses
+- Daten aus dem Internet automatisch einlesen ("scraping")
+- Genanalysen mit Tausenden von Variablen
+- Gesichtserkennung
+
+
+
 
 Es gibt bisher noch relativ wenig *deutschsprachige* Bücher für moderne Datenanalyse; es ist zu erwarten, dass sich dies bald ändert. Dieses Buch soll beitragen, diese Lücke zu füllen. Sie werden einige praktische Aspekte der modernen Datenanalyse lernen. Es ist ein Grundlagenkurs; dieses Buch ist nicht für Experten geschrieben und durch das Lesen wird man auch kein Experte. Aber man erwirbt Grundkenntnisse. Das didaktische Konzept beruht auf einem induktiven, intuitiven Lehr-Lern-Ansatz. Auf Formeln und mathematische Hintergründe wurde weitestgehend verzichtet. 
 
@@ -79,7 +88,7 @@ Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-- \@ref(fig:Modellieren), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
+- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.
