@@ -8,4 +8,4 @@
 "083_Dimensionsreduktion.Rmd",
 "090_Textmining.Rmd",
 "100_Kommunizieren.Rmd",
-"101_RMarkdown.Rmd"
+"101_RMarkdown_Intro.Rmd"

@@ -65,7 +65,7 @@ daisy(head(segment))
 ```
 
 
-### Hierarchische Clusteranalyse
+## Hierarchische Clusteranalyse
 
 Bei hierarchischen Clusterverfahren werden Beobachtungen sukzessiv zusammengefasst (agglomerativ). Zunächst ist jede Beobachtung ein eigener Cluster, die dann je nach Ähnlichkeitsmaß zusammengefasst werden. 
 
@@ -124,7 +124,7 @@ mosaic::tally(Geschlecht~hc.clust, data=segment, format="proportion")
 ```
 
 
-### k-Means Clusteranalyse
+## k-Means Clusteranalyse
 
 Beim k-Means Clusterverfahren handelt es sich im Gegensatz zur hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
 
@@ -169,7 +169,7 @@ Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (
 
 ***
 
-### Übung: B3 Datensatz
+## Übung: B3 Datensatz
 
 Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
 

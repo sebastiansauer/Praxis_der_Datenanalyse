@@ -10,7 +10,7 @@ Im Rahmen einer Assoziationsanalyse werden Zusammenhänge (Assoziationen) zwisch
 
 **Achtung:** Eine *Regel* impliziert keinen Kausalzusammenhang!
 
-  Die computationale Herausforderung einer Assoziationsanalyse besteht darin, bei vielen *Items* (und damit sehr, sehr vielen Kombinationsmöglichkeiten) innerhalb von vielen *Transaktionen* diejenigen *Sets* zu finden, die häufig vorkommen.
+Die computationale Herausforderung einer Assoziationsanalyse besteht darin, bei vielen *Items* (und damit sehr, sehr vielen Kombinationsmöglichkeiten) innerhalb von vielen *Transaktionen* diejenigen *Sets* zu finden, die häufig vorkommen.
 
 Eine wichtige Anwendung im (e)CRM ist z. B. die Analyse des *Cross Buying* Verhaltens.
 
@@ -100,14 +100,14 @@ summary(Groceries)
 
 ```r
 library(methods)
-daten.trans <- as(daten, "transactions")
+daten.trans <- methods::as(Groceries, "transactions")
 ```
 verwendet. Siehe auch Hilfeseite zu `transactions-class`.
 
 Über `inspect()` können Transaktionen und Regeln betrachtet werden:
 
 ```r
-inspect(head(Groceries))
+arules::inspect(head(daten.trans))
 #>     items                     
 #> [1] {citrus fruit,            
 #>      semi-finished bread,     
@@ -242,11 +242,14 @@ library(arulesViz)
 plot(lebensmittel.regeln)
 ```
 
-<img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{081_Assoziationsanalyse_files/figure-latex/plot-regeln-1} \end{center}
 
 Mit Hilfe der Option `interactive=TRUE` kann in Bereiche gezoomt werden -- und Regeln ausgewählt:
 
 ```r
+library(arulesViz)
 plot(lebensmittel.regeln, interactive=TRUE)
 ```
 
@@ -256,7 +259,9 @@ Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:
 plot(topregeln, method="graph")
 ```
 
-<img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{081_Assoziationsanalyse_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 
 ## Literatur

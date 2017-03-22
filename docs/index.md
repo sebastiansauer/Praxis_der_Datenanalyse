@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer"
-date: "2017-02-27"
+date: "2017-03-23"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [Praxis_der_Datenanalyse.bib, libs.bib]
@@ -20,37 +20,17 @@ cover-image: images/cover.jpg
 
 
 
-```r
-source("./source/libs.R")
-```
-
-```
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-```
-
-```
-## Conflicts with tidy packages ----------------------------------------------
-```
-
-```
-## filter(): dplyr, stats
-## lag():    dplyr, stats
-```
 
 
-# Vorwort {-}
+# Vorwort
 
-<img src="images/farb1.jpg" width="440" />
+
+\includegraphics[width=1\linewidth]{images/farb1} 
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von gestern zu heute verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle und die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert und der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
-![](images/Forschung_frueher_heute.pdf)<!-- -->
+![](images/Forschung_frueher_heute.pdf)<!-- --> 
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
 
@@ -88,7 +68,7 @@ Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
+- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.

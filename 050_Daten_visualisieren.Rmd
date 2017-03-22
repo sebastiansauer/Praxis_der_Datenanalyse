@@ -87,7 +87,7 @@ Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint 
 qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`[^10], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
+Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
@@ -263,7 +263,7 @@ In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, un
 
 Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Wete `klein` häufig; bei den Männern hingegen die Werte `gross`.
 
-Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um[^3].
+Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um^[Cleveland fände diese Idee nicht so gut.].
 
 ```{r}
 wo_men2 %>% 
@@ -366,7 +366,7 @@ wo_men2 %>%
 ## Farblehre
 Erstens, nicht schaden - so könnte hier die Maßregel sein. Es ist leicht, zu grelle oder wenig kontrastierende Farben auszuwählen. Eine gute Farbauswahl (Palette) ist nicht so leicht und hängt vom Zweck der Darstellung ab.
 
-Cynthia Brewer[^4] hat einige schöne Farbpaletten zusammengestellt; diese sind in R und in ggplot2 über das Paket `RcolorBrewer` verfügbar. 
+Cynthia Brewer^[http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3] hat einige schöne Farbpaletten zusammengestellt; diese sind in R und in ggplot2 über das Paket `RcolorBrewer` verfügbar. 
 
 ```{r}
 brewer.pal.info %>% rownames_to_column %>% rename(Name = rowname) %>% kable
@@ -424,7 +424,7 @@ Man beachte, dass die Linienfarbe über `color` und die Füllfarbe über `fill` 
 
 
 
-Auch die Farbpaletten von Wes Anderson sind erbaulich[^5]. Diese sind nicht "hart verdrahtet" in ggplot2, sondern werden über `scale_XXX_manual` zugewiesen (wobei XXX z.B. `color` oder `fill` sein kann).
+Auch die Farbpaletten von Wes Anderson sind erbaulich^[https://github.com/karthik/wesanderson]. Diese sind nicht "hart verdrahtet" in ggplot2, sondern werden über `scale_XXX_manual` zugewiesen (wobei XXX z.B. `color` oder `fill` sein kann).
 
 ```{r}
 data(tips, package = "reshape2")
@@ -456,7 +456,7 @@ grid.arrange(p1, p2, p3, ncol = 3)
 ```
 
 
-Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über `scale_XXX_manual` dann zu. Man kann einerseits aus den in R definierten Farben auswählen[^6] oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.
+Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über `scale_XXX_manual` dann zu. Man kann einerseits aus den in R definierten Farben auswählen^[http://sape.inf.usi.ch/quick-reference/ggplot2/colour] oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.
 
 
 
@@ -514,10 +514,10 @@ data <- read.csv("https://osf.io/meyhp/?action=download")
 
 Der DOI für diesen Datensatz ist 10.17605/OSF.IO/4KGZH.
 
-Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow[^71]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
+Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow^[https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
 
 
-Die Umfrage kann hier[^8] eingesehen werden. Schauen wir uns die Daten mal an:
+Die Umfrage kann hier^[https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform] eingesehen werden. Schauen wir uns die Daten mal an:
 ```{r}
 glimpse(data)
 ```
@@ -684,11 +684,6 @@ ggplot(data = data_long) +
 
 
 
-[^3]: Cleveland fände diese Idee nicht so gut.
-[^4]: http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3
-[^5]: https://github.com/karthik/wesanderson
-[^6]: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
-[^71]: https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf
-[^8]: https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform
 
-[^10]: Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...
+
+

@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-options(dplyr.print_min = 3, dplyr.print_max = 6)
 ```
 
 
@@ -140,8 +139,8 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 Das Gegenstück zu `filter` ist `select`; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
 
-```{r fig-select, select_schema, echo = FALSE, fig.cap = "Spalten auswählen"}
-knitr::include_graphics("./images/select.pdf")
+```{r fig-select, echo = FALSE, fig.cap = "Spalten auswählen"}
+knitr::include_graphics("images/select.pdf")
 ```
 
 

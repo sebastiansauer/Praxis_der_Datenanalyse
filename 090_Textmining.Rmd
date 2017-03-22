@@ -64,7 +64,7 @@ Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig 
 
 ### Tidy Text Dataframes
 
-Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor[^1] besteht aus 4 Elementen.
+Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor^[Nach dem Gedicht "Jahrgang 1899" von Erich Kästner] besteht aus 4 Elementen.
 
 
 ```{r}
@@ -117,7 +117,7 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2][^120].
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf].
 
 
 ```{r}
@@ -215,7 +215,8 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
 ```
 
-Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen[^4].
+Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
+].
 
  
  
@@ -273,7 +274,7 @@ library(stringr)
 library(readr)
 library(dplyr)
 
-neg_df <- read_tsv("~/Downloads/SentiWS_v1.8c_Negative.txt", col_names = FALSE)
+neg_df <- read_tsv("data/SentiWS_v1.8c_Negative.txt", col_names = FALSE)
 names(neg_df) <- c("Wort_POS", "Wert", "Inflektionen")
 
 neg_df %>% 
@@ -281,7 +282,7 @@ neg_df %>%
          POS = str_sub(Wort_POS, start = regexpr("\\|", .$Wort_POS)+1)) -> neg_df
 
 
-pos_df <- read_tsv("~/Downloads/SentiWS_v1.8c_Positive.txt", col_names = FALSE)
+pos_df <- read_tsv("data/SentiWS_v1.8c_Positive.txt", col_names = FALSE)
 names(pos_df) <- c("Wort_POS", "Wert", "Inflektionen")
 
 pos_df %>% 
@@ -524,7 +525,7 @@ neg_df %>%
 
 ```
 
-`str_sub` parst[^5] zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
+`str_sub` parst^["parsen" ist denglisch für "einlesen" von engl. "to parse"] zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
 
 Das gleiche wiederholen wir für positiv konnotierte Wörter.
 
@@ -555,19 +556,14 @@ knitr::kable(head(sentiment_df))
 
 
 
-[^1]: Nach dem Gedicht "Jahrgang 1899" von Erich Kästner
 
-[^2]: https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf
 
-[^3]: http://www.omegahat.net/Rstem/stemming.pdf 
 
-[^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
 
-[^5]: "parst" ist denglisch für "einlesen" von engl. "to parse"
+
 
 
 
 [^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 
 
 
-[^120]: Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.

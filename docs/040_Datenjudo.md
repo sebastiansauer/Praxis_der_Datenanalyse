@@ -5,10 +5,14 @@
 # Daten aufbereiten
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Aufbereiten.pdf" alt="Daten aufbereiten" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-2)Daten aufbereiten</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Aufbereiten} 
+
+}
+
+\caption{Daten aufbereiten}(\#fig:unnamed-chunk-2)
+\end{figure}
 
 In diesem Kapitel benötigte Pakete: 
 
@@ -58,10 +62,14 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern. Zum Beispiel man ar
 
 Ein Sinnbild:
 
-<div class="figure" style="text-align: center">
-<img src="./images/filter.pdf" alt="Zeilen filtern" width="70%" />
-<p class="caption">(\#fig:fig-filter)Zeilen filtern</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{./images/filter} 
+
+}
+
+\caption{Zeilen filtern}(\#fig:fig-filter)
+\end{figure}
 
 Merke:
 
@@ -128,10 +136,14 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 Das Gegenstück zu `filter` ist `select`; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
 
-<div class="figure" style="text-align: center">
-<img src="./images/select.pdf" alt="Spalten auswählen" width="70%" />
-<p class="caption">(\#fig:fig-select, select_schema)Spalten auswählen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/select} 
+
+}
+
+\caption{Spalten auswählen}(\#fig:fig-select)
+\end{figure}
 
 
 Merke:
@@ -220,10 +232,14 @@ Merke:
 
 Ein Sinnbild zur Verdeutlichung:
 
-<div class="figure" style="text-align: center">
-<img src="./images/arrange.pdf" alt="Spalten sortieren" width="70%" />
-<p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{./images/arrange} 
+
+}
+
+\caption{Spalten sortieren}(\#fig:fig-arrange)
+\end{figure}
 
 
 
@@ -275,10 +291,14 @@ Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir 
 
 Einen Datensatz zu gruppieren ist ebenfalls eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.
 
-<div class="figure" style="text-align: center">
-<img src="./images/group_by.pdf" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
-<p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{./images/group_by} 
+
+}
+
+\caption{Datensätze nach Subgruppen aufteilen}(\#fig:fig-groupby)
+\end{figure}
 
 In der Abbildung wurde der Datensatz anhand der Spalte `Fach` in mehrere Gruppen geteilt. Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
@@ -311,10 +331,14 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max`. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-<div class="figure" style="text-align: center">
-<img src="images/summarise.pdf" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
-<p class="caption">(\#fig:fig-summarise)Spalten zu einer Zahl zusammenfassen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/summarise} 
+
+}
+
+\caption{Spalten zu einer Zahl zusammenfassen}(\#fig:fig-summarise)
+\end{figure}
 
 
 
@@ -437,10 +461,14 @@ Merke:
 Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `[^6]. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.
 
 
-<div class="figure" style="text-align: center">
-<img src="images/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
-<p class="caption">(\#fig:fig-durchpreifen)Das 'Durchpeifen'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/durchpfeifen} 
+
+}
+
+\caption{Das 'Durchpeifen'}(\#fig:fig-durchpreifen)
+\end{figure}
 
 Die sog. "Pfeife" (pipe: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
 
@@ -717,19 +745,31 @@ flights %>%
 ```
 
 
-
- arr_delay  carrier    month   day   dep_time  tailnum    flight  dest 
-----------  --------  ------  ----  ---------  --------  -------  -----
-      1272  HA             1     9        641  N384HA         51  HNL  
-      1127  MQ             6    15       1432  N504MQ       3535  CMH  
-      1109  MQ             1    10       1121  N517MQ       3695  ORD  
-      1007  AA             9    20       1139  N338AA        177  SFO  
-       989  MQ             7    22        845  N665MQ       3075  CVG  
-       931  DL             4    10       1100  N959DL       2391  TPA  
-       915  DL             3    17       2321  N927DA       2119  MSP  
-       895  DL             7    22       2257  N6716C       2047  ATL  
-       878  AA            12     5        756  N5DMAA        172  MIA  
-       875  MQ             5     3       1133  N523MQ       3744  ORD  
+\begin{tabular}{r|l|r|r|r|l|r|l}
+\hline
+arr\_delay & carrier & month & day & dep\_time & tailnum & flight & dest\\
+\hline
+1272 & HA & 1 & 9 & 641 & N384HA & 51 & HNL\\
+\hline
+1127 & MQ & 6 & 15 & 1432 & N504MQ & 3535 & CMH\\
+\hline
+1109 & MQ & 1 & 10 & 1121 & N517MQ & 3695 & ORD\\
+\hline
+1007 & AA & 9 & 20 & 1139 & N338AA & 177 & SFO\\
+\hline
+989 & MQ & 7 & 22 & 845 & N665MQ & 3075 & CVG\\
+\hline
+931 & DL & 4 & 10 & 1100 & N959DL & 2391 & TPA\\
+\hline
+915 & DL & 3 & 17 & 2321 & N927DA & 2119 & MSP\\
+\hline
+895 & DL & 7 & 22 & 2257 & N6716C & 2047 & ATL\\
+\hline
+878 & AA & 12 & 5 & 756 & N5DMAA & 172 & MIA\\
+\hline
+875 & MQ & 5 & 3 & 1133 & N523MQ & 3744 & ORD\\
+\hline
+\end{tabular}
 
 "Geht doch", war die Antwort des Chefs, als sie die Tabelle rübergeben (er mag auch keine Emails). "Ach ja", raunt der Chef, als Sie das Zimmer verlassen wollen, "hatte ich erwähnt, dass ich die gleiche Auswertung für jeden Carrier brauche? Reicht bis in einer halben Stunde".
 
@@ -787,25 +827,43 @@ flights %>%
 ```
 
 
-
-carrier    delay_mean
---------  -----------
-F9             21.921
-FL             20.116
-EV             15.796
-YV             15.557
-OO             11.931
-MQ             10.775
-WN              9.649
-B6              9.458
-9E              7.380
-UA              3.558
-US              2.130
-VX              1.764
-DL              1.644
-AA              0.364
-HA             -6.915
-AS             -9.931
+\begin{tabular}{l|r}
+\hline
+carrier & delay\_mean\\
+\hline
+F9 & 21.921\\
+\hline
+FL & 20.116\\
+\hline
+EV & 15.796\\
+\hline
+YV & 15.557\\
+\hline
+OO & 11.931\\
+\hline
+MQ & 10.775\\
+\hline
+WN & 9.649\\
+\hline
+B6 & 9.458\\
+\hline
+9E & 7.380\\
+\hline
+UA & 3.558\\
+\hline
+US & 2.130\\
+\hline
+VX & 1.764\\
+\hline
+DL & 1.644\\
+\hline
+AA & 0.364\\
+\hline
+HA & -6.915\\
+\hline
+AS & -9.931\\
+\hline
+\end{tabular}
 
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
 
@@ -909,7 +967,9 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<img src="040_Datenjudo_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{040_Datenjudo_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`[^11], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
 
@@ -973,7 +1033,9 @@ wo_men %>%
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="040_Datenjudo_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{040_Datenjudo_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 

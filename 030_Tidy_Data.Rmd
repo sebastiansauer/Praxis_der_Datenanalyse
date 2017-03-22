@@ -1,6 +1,5 @@
 ```{r include=FALSE, cache=FALSE}
 set.seed(1014)
-options(digits = 3)
 
 knitr::opts_chunk$set(
   comment = "#>",
@@ -13,7 +12,6 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-options(dplyr.print_min = 3, dplyr.print_max = 6)
 ```
 
 

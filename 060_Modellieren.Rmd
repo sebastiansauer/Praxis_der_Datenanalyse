@@ -47,7 +47,7 @@ Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklic
 Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
 
 
-```{r modellieren_plot, echo = FALSE, fig.cap = "Modellieren"}
+```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
 knitr::include_graphics("images/Modell.pdf")
 ```
 
@@ -57,7 +57,7 @@ Damit verstehen wir Modellieren als eine typische Aktivität von Menschen [@9783
 
 
 Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den Datensatz `wo_men`.
-```{r echo = FALSE}
+```{r plot-women-smooth, echo = FALSE}
 wo_men <- read.csv("data/wo_men.csv")
 wo_men %>% 
   filter(height > 150, height < 220) %>% 
@@ -68,7 +68,7 @@ p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
 ```
 
 
-```{r echo = FALSE, fig.cap = "Ein Beispiel für Modellieren", out.width = "90%", fig.height = 1}
+```{r plot-women-raster, echo = FALSE, fig.cap = "Ein Beispiel für Modellieren", out.width = "90%", fig.height = 1}
 
 
 p3 <- grid::rasterGrob(readPNG("images/Modellieren_Bsp1.png"), interpolate=TRUE)
@@ -84,7 +84,7 @@ Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Ge
 
 Ein etwas aufwändigeres Modell könnte so aussehen:
 
-```{r modell-bsp2, echo = FALSE, fig.cap = "Ein etwas aufwändigeres Modell"}
+```{r plot-modell-bsp2, echo = FALSE, fig.cap = "Ein etwas aufwändigeres Modell"}
 knitr::include_graphics("images/Modellieren_Bsp2.pdf")
 ```
 
@@ -115,7 +115,7 @@ Man kann drei Arten von Zielen abgrenzen: Vorhersagen, Erklären und Reduzieren.
 - *Reduzieren*\index{Reduzieren} meint, dass man die Fülle des Materials verringert, in dem man ähnliche Dinge zusammenfasst. Dabei kann man sowohl Observationen zusammen fassen ("Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann") oder auch Variablen zusammen fassen ("Frage 1", "Frage 2" und "Frage 3" zu "Markentreue" etc.).
 
 
-Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig: fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Warheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
+Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Warheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
 
 
 
@@ -215,7 +215,7 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 
 Je komplexer das Modell, desto kleiner der Fehler im Trainings-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
 
-```{r overfitting_schema, echo = FALSE}
+```{r overfitting-schema, echo = FALSE}
 knitr::include_graphics("images/overfitting.pdf")
 ```
 
@@ -234,7 +234,7 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt[^228].
 
 
-```{r plot_bias_variance, echo = FALSE}
+```{r plot-bias-variance, echo = FALSE}
 
 poly_degree = 15
 df <- data_frame(x = seq(from = 1, to = 10, by = .3),

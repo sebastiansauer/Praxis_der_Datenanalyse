@@ -9,7 +9,7 @@ Je nach Lernziel, Zeit und Interessen bieten sich unterschiedliche Studienpfade 
 
 Anahmen: 
 
-- Zeitumfang: 44 UE für Lehre
+- Zeitumfang: 48 UE für Lehre
 
 - Vorerfahrung: Deskriptive Statistik, Inferenzstatistik, Grundlagen R, Grundlagen Visualisierung
 
@@ -21,15 +21,16 @@ Termin    Thema                               Kommentar
           Rahmen
 2         Daten einlesen und aufbereiten
 3         Daten visualisieren
-4         Fallstudie
-5         Inferenzstatistik                   kurze Wiederholung
-          Daten modellieren               
-6         Lineare Regression                  Wiederholung und Vertiefung
-7         klassifizierende Regression
-8         Baumbasierte Verfahren
-9         Wahlfplichtthema                    Clusteranalyse, Dimensionsreduktion, Textmining, RMarkdown
-10        Fallstudie
-11        Wiederholung und Zusammenfassung
+4         Inferenzstatistik                   kurze Wiederholung
+5         Daten modellieren               
+          Lineare Regression                  Wiederholung und Vertiefung
+6         klassifizierende Regression
+7         Baumbasierte Verfahren
+8         Fallstudie
+9         Clusteranalyse
+10        Textmining                   
+11        Fallstudie
+12        Wiederholung und Zusammenfassung    ggf. plus Probeklausur
           
 Die einzelnen Kapitel sind dabei nicht umfassend abzuarbeiten. Der Lehrende/ Lernende kann hier eine Auswahl treffen. Teilweise ist der Stoff eines Kapitels - ja nach Vorerfahrung der Lernenden - zu viel für einen Termin (mit jeweils 4 UE).
 

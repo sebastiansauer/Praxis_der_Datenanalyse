@@ -91,7 +91,7 @@ daisy(head(segment))
 ```
 
 
-### Hierarchische Clusteranalyse
+## Hierarchische Clusteranalyse
 
 Bei hierarchischen Clusterverfahren werden Beobachtungen sukzessiv zusammengefasst (agglomerativ). Zunächst ist jede Beobachtung ein eigener Cluster, die dann je nach Ähnlichkeitsmaß zusammengefasst werden. 
 
@@ -108,7 +108,9 @@ Das Ergebnis lässt sich schön im Dendrogramm darstellen:
 plot(seg.hc)
 ```
 
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Je höher (`Height`) die Stelle ist, an der zwei Beobachtungen oder Cluster zusammengefasst werden, desto größer ist die Distanz. D. h., Beobachtungen bzw. Cluster, die unten zusammengefasst werden, sind sich ähnlich, die, die oben zusammengefasst werden unähnlich.
 
@@ -121,7 +123,9 @@ plot(seg.hc)
 rect.hclust(seg.hc, h=0.6, border="red")
 ```
 
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Das Ergebnis, d. h. die Clusterzuordnung, kann durch den Befehl `cutree()` den Beobachtungen zugeordnet werden.
 
@@ -180,7 +184,7 @@ mosaic::tally(Geschlecht~hc.clust, data=segment, format="proportion")
 ```
 
 
-### k-Means Clusteranalyse
+## k-Means Clusteranalyse
 
 Beim k-Means Clusterverfahren handelt es sich im Gegensatz zur hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
 
@@ -254,12 +258,14 @@ clusplot(segment.num, seg.k$cluster,
          color = TRUE, shade = TRUE, labels = 4)
 ```
 
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/unnamed-chunk-18-1} \end{center}
 Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?^[Das Paket `NbClust`, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) *NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set*, Journal of Statistical Software, 61(6), 1-36. [http://dx.doi.org/10.18637/jss.v061.i06](http://dx.doi.org/10.18637/jss.v061.i06), bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.]
 
 ***
 
-### Übung: B3 Datensatz
+## Übung: B3 Datensatz
 
 Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
 

@@ -4,20 +4,18 @@
 ## Der p-Wert
 
 
-<div class="figure">
-<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="10%" />
-<p class="caption">(\#fig:unnamed-chunk-1)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.1\linewidth]{images/Ronald_Fisher} \caption{Der größte Statistiker des 20. Jahrhunderts (p < .05)}(\#fig:sir-fisher)
+\end{figure}
 
 
 
 Der p-Wert ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen. 
 
 
-<div class="figure">
-<img src="./images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="234" />
-<p class="caption">(\#fig:unnamed-chunk-2)Der p-Wert wird oft als wichtig erachtet</p>
-</div>
+\begin{figure}
+\includegraphics[width=6.5in]{images/p_value_who_said} \caption{Der p-Wert wird oft als wichtig erachtet}(\#fig:who-said)
+\end{figure}
 
 
 Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
@@ -43,6 +41,7 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
 
 
-<img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="250" />
+
+\includegraphics[width=6.94in]{images/meme_pwert_1iw22a_pvalue_dino} 
 
 

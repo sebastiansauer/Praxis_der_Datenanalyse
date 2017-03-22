@@ -19,14 +19,14 @@ cover-image: images/cover.jpg
 ---
 
 
-```{r}
-source("./source/libs.R")
+```{r sourcelibs, echo = FALSE, include = FALSE, warning = FALSE, message = FALSE}
+source("source/libs.R")
 ```
 
 
-# Vorwort {-}
+# Vorwort
 
-```{r echo = FALSE}
+```{r echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/farb1.jpg")
 ```
 
@@ -73,7 +73,7 @@ Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0,     2017-02-12
+- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.

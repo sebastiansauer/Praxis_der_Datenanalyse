@@ -5,10 +5,14 @@
 # Tidy Data - Daten sauber einlesen
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
-<p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Einlesen} 
+
+}
+
+\caption{Daten sauber einlesen}(\#fig:step-Einlesen)
+\end{figure}
 
 
 ## Daten in R importieren
@@ -18,10 +22,14 @@ In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel) oder weniger ge
 
 Am einfachsten ist es, eine Excel-Datei über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen:
 
-<div class="figure" style="text-align: center">
-<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
-<p class="caption">(\#fig:data-import-RStudio)Daten einlesen (importieren) mit RStudio</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/import_RStudio} 
+
+}
+
+\caption{Daten einlesen (importieren) mit RStudio}(\#fig:data-import-RStudio)
+\end{figure}
 
 
 
@@ -96,16 +104,22 @@ Der Punkt "Jede Zeile eine Beobachtung, jede Spalte eine Variable" verdient beso
 knitr::include_graphics("./images/breit_lang.pdf")
 ```
 
-<img src="./images/breit_lang.pdf" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{./images/breit_lang} \end{center}
 
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
-<p class="caption">(\#fig:fig-Normalform)Illustration eines Datensatzes in Normalform</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Normalform} 
+
+}
+
+\caption{Illustration eines Datensatzes in Normalform}(\#fig:fig-Normalform)
+\end{figure}
 
 
 Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.

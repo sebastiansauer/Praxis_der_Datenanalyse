@@ -1,5 +1,6 @@
 
 
+\pagenumbering{arabic}
 
 # I GRUNDLAGEN {-}
 
@@ -12,7 +13,8 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voila:
 
-<img src="images/Prozess_Datenanalyse.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Prozess_Datenanalyse} \end{center}
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -76,7 +78,8 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-<img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/RStudio-Screenshot} \end{center}
 
 
 
@@ -96,8 +99,10 @@ aus:
 Ihr R startet nicht oder nicht richtig? Die drei wichtigsten Heilmittel sind:
 
 1. Schließen Sie die Augen für eine Minute. Denken Sie an etwas Schönes und was 
-Rs Problem sein könnte. 2. Schalten Sie den Rechner aus und probieren Sie es 
-morgen noch einmal. 3. Googeln.
+Rs Problem sein könnte. 
+2. Schalten Sie den Rechner aus und probieren Sie es 
+morgen noch einmal. 
+3. Googeln.
 
 Sorry für die schnottrigen Tipps. Aber: Es passiert allzu leicht, dass man 
 Fehler wie diese macht:
@@ -166,7 +171,7 @@ hier finden: *Tools > Keyboard Shortcuts Help*.
 - Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren 
 Sie z.B. `?mean`.
 
-- Im Internet finden sich zuhaus Tutorials.
+- Im Internet finden sich zuhauf Tutorials.
 
 - Die bekannteste Seite, um Fragen rund um R zu diskutieren ist: 
 http://stackoverflow.com.
@@ -282,15 +287,18 @@ R-Pakete; diese müssen installiert[Ggf. benötigen Sie Administrator-Rechte, um
 
 ```r
 Pakete 
-#>  [1] "tidyverse"     "readr"         "knitr"         "stringr"      
-#>  [5] "car"           "nycflights13"  "ISLR"          "pdftools"     
-#>  [9] "downloader"    "ggdendro"      "gridExtra"     "tm"           
-#> [13] "tidytext"      "lsa"           "SnowballC"     "wordcloud"    
-#> [17] "RColorBrewer"  "okcupiddata"   "reshape2"      "wesanderson"  
-#> [21] "GGally"        "titanic"       "compute.es"    "corrr"        
-#> [25] "rpart"         "rpart.plot"    "MASS"          "titanic"      
-#> [29] "arules"        "arulesViz"     "SDMTools"      "corrplot"     
-#> [33] "gplots"        "corrplot"      "scatterplot3d" "BaylorEdPsych"
+#>  [1] "tidyverse"     "readr"         "knitr"        
+#>  [4] "stringr"       "car"           "nycflights13" 
+#>  [7] "ISLR"          "pdftools"      "downloader"   
+#> [10] "ggdendro"      "gridExtra"     "tm"           
+#> [13] "tidytext"      "lsa"           "SnowballC"    
+#> [16] "wordcloud"     "RColorBrewer"  "okcupiddata"  
+#> [19] "reshape2"      "wesanderson"   "GGally"       
+#> [22] "titanic"       "compute.es"    "corrr"        
+#> [25] "rpart"         "rpart.plot"    "MASS"         
+#> [28] "titanic"       "arules"        "arulesViz"    
+#> [31] "SDMTools"      "corrplot"      "gplots"       
+#> [34] "corrplot"      "scatterplot3d" "BaylorEdPsych"
 #> [37] "nFactors"      "rmarkdown"     "methods"
 ```
 
@@ -309,7 +317,7 @@ lapply(Pakete, require, character.only = TRUE)
 
 
 Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl 
-`library` an"[^227].
+`library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once].
 
 Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; 
 das geht mit `update.packages()`.
@@ -320,17 +328,14 @@ das geht mit `update.packages()`.
 
 ### Datensätze
 
-Name             Bezugsort       Quelle                 Beschreibung 
---------------   -----------     --------               ----------------- 
-`profiles`       {okcupiddata}   [@kim2015okcupid]      Daten von einer 
-Online-Singlebörse `Wage`           {ISLR}          [@introstatlearning 
-Gehaltsdaten von US-amerikanischen Männern `inf_test_short` osf.io/sjhu 
-[@Sauer_2017]          Ergebnisse einer Statistikklausur `flights` 
-{nycflights13}   [@nycflights13]         Abflüge von den New Yorker Flughäfen 
-`wo_men`         osf.io/ja9dw      [@Sauer_2017a]         Größe von Studierenden
-`tips`           {reshape2}       [@bryant1995practical] Trinkgelder in einem 
-Restaurant `extra`          osf.io/4kgzh    [@Sauer_2016]         Umfrage zu 
-Extraversion
+
+- Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
+- Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
+- Datensatz `inf_test_short`, hier herunterzuladen: <osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
+- Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
+- Datensatz 'wo_men`, hier herunterzuladen: <osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
+- Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
+- Datensatz `extra`, hier herunterzuladen: <osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
 
 
 Wir verwenden zwei Methoden, um Datensätze in R zu laden.
@@ -351,8 +356,11 @@ library(okcupiddata) data(profiles, package = "okcupiddata")
 Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stic...) 
 liegen.
 
-```{r eval = FALSE} Daten <- 
-read.csv("https://sebastiansauer.github.io/data/tips.csv") ```
+
+```r
+Daten <- 
+read.csv("https://sebastiansauer.github.io/data/tips.csv") 
+```
 
 Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
@@ -364,28 +372,61 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
 
-* R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. `Oma` und `oma` sind 
-zwei verschiedene Dinge für R! * R verwendet den Punkt `.` als 
-Dezimaltrennzeichen * Fehlende Werte werden in R durch `NA` kodiert * Kommentare
-werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann 
-ignoriert. * R wendet Befehle direkt an * R ist objektorientiert, d. h. dieselbe
-Funktion hat evtl. je nach Funktionsargument unterschiedliche Rückgabewerte * 
-Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen `?` * 
-Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese 
-müssen ggf. zunächst  installiert werden * Mit der Pfeiltaste nach oben können 
-Sie einen vorherigen Befehl wieder aufrufen * Sofern Sie das Skriptfenster 
-verwenden: einzelne Befehle aus dem Skriptfenster in R Studio können Sie auch 
-mit `Str` und `Enter` an die Console schicken
+- R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. `Oma` und `oma` sind 
+zwei verschiedene Dinge für R!
+- R verwendet den Punkt `.` als 
+Dezimaltrennzeichen.
+- Fehlende Werte werden in R durch `NA` kodiert.
+- Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert. 
+- R wendet Befehle direkt an.
+- R ist objektorientiert, d. h. dieselbe Funktion hat evtl. je nach Funktionsargument unterschiedliche Rückgabewerte. 
+- Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen `?`.
+- Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese 
+müssen ggf. zunächst  installiert werden.
+- Mit der Pfeiltaste "nach oben" können Sie in der Konsole einen vorherigen Befehl wieder aufrufen.
+- Sofern Sie das Skriptfenster verwenden: einzelne Befehle aus dem Skriptfenster in R Studio können Sie auch mit `Str` und `Enter` an die Console schicken.
 
 
 ### R als Taschenrechner Auch wenn Statistik nicht Mathe ist, so kann man mit R 
 auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der 
 Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. 
-`Enter`. ```{r} 4+2 ``` Das Ergebnis wird direkt angezeigt. Bei ```{r} x <- 4+2 
-``` erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert 
-`4+2` zugewiesen. Wenn Sie jetzt ```{r eval=FALSE} x ``` eingeben, wird das 
-Ergebnis ```{r echo=FALSE} x ``` angezeigt. Sie können jetzt auch mit `x` 
-weiterrechnen. ```{r} x/4 ``` Vielleicht fragen Sie sich was die `[1]` vor dem 
+`Enter`. 
+
+
+```r
+4+2 
+#> [1] 6
+```
+Das Ergebnis wird direkt angezeigt. Bei 
+
+```r
+x <- 4+2 
+```
+
+erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert 
+`4+2` zugewiesen. Wenn Sie jetzt 
+
+```r
+x 
+```
+
+eingeben, wird das 
+Ergebnis 
+
+```
+#> [1] 6
+```
+
+angezeigt. Sie können jetzt auch mit `x` 
+weiterrechnen, z.B.: 
+
+
+```r
+x/4 
+#> [1] 1.5
+```
+
+Vielleicht fragen Sie sich was die `[1]` vor dem 
 Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es 
 sich um das erste (und hier auch letzte) Element des Vektors handelt.
 
@@ -485,17 +526,92 @@ Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 
 ## Versionshinweise
 
-```{r session_info} sessionInfo() ```
 
-
-
-
-
-
-[^227]: http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
-
-
-
+```r
+sessionInfo() 
+#> R version 3.3.2 (2016-10-31)
+#> Platform: x86_64-apple-darwin13.4.0 (64-bit)
+#> Running under: macOS Sierra 10.12.3
+#> 
+#> locale:
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#> 
+#> attached base packages:
+#> [1] grid      methods   stats     graphics  grDevices
+#> [6] utils     datasets  base     
+#> 
+#> other attached packages:
+#>  [1] rmarkdown_1.3        nFactors_2.3.3      
+#>  [3] lattice_0.20-34      boot_1.3-18         
+#>  [5] psych_1.6.12         BaylorEdPsych_0.5   
+#>  [7] scatterplot3d_0.3-38 gplots_3.0.1        
+#>  [9] corrplot_0.77        SDMTools_1.1-221    
+#> [11] arulesViz_1.2-0      arules_1.5-0        
+#> [13] Matrix_1.2-8         MASS_7.3-45         
+#> [15] rpart.plot_2.1.1     rpart_4.1-10        
+#> [17] corrr_0.2.1          compute.es_0.2-4    
+#> [19] titanic_0.1.0        GGally_1.3.0        
+#> [21] wesanderson_0.3.2    reshape2_1.4.2      
+#> [23] okcupiddata_0.1.0    wordcloud_2.5       
+#> [25] RColorBrewer_1.1-2   lsa_0.73.1          
+#> [27] SnowballC_0.5.1      tidytext_0.1.2      
+#> [29] tm_0.6-2             NLP_0.1-10          
+#> [31] gridExtra_2.2.1      ggdendro_0.1-20     
+#> [33] downloader_0.4       pdftools_1.0        
+#> [35] ISLR_1.0             nycflights13_0.2.2  
+#> [37] car_2.1-4            stringr_1.2.0       
+#> [39] knitr_1.15.1         dplyr_0.5.0         
+#> [41] purrr_0.2.2.9000     readr_1.0.0         
+#> [43] tidyr_0.6.1          tibble_1.2          
+#> [45] ggplot2_2.2.1        tidyverse_1.1.1     
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] readxl_0.1.1        backports_1.0.5    
+#>  [3] plyr_1.8.4          lazyeval_0.2.0.9000
+#>  [5] splines_3.3.2       digest_0.6.12      
+#>  [7] foreach_1.4.3       htmltools_0.3.5    
+#>  [9] viridis_0.3.4       gdata_2.17.0       
+#> [11] magrittr_1.5        cluster_2.0.5      
+#> [13] gclus_1.3.1         modelr_0.1.0       
+#> [15] R.utils_2.5.0       colorspace_1.3-2   
+#> [17] rvest_0.3.2         haven_1.0.0        
+#> [19] jsonlite_1.3        lme4_1.1-12        
+#> [21] zoo_1.7-14          iterators_1.0.8    
+#> [23] registry_0.3        gtable_0.2.0       
+#> [25] MatrixModels_0.4-1  kernlab_0.9-25     
+#> [27] prabclus_2.2-6      DEoptimR_1.0-8     
+#> [29] SparseM_1.74        scales_0.4.1       
+#> [31] mvtnorm_1.0-5       DBI_0.5-1          
+#> [33] Rcpp_0.12.9         viridisLite_0.1.3  
+#> [35] foreign_0.8-67      mclust_5.2.2       
+#> [37] stats4_3.3.2        DT_0.2             
+#> [39] vcd_1.4-3           htmlwidgets_0.8    
+#> [41] httr_1.2.1          fpc_2.1-10         
+#> [43] modeltools_0.2-21   reshape_0.8.6      
+#> [45] R.methodsS3_1.7.1   flexmix_2.3-13     
+#> [47] nnet_7.3-12         munsell_0.4.3      
+#> [49] tools_3.3.2         broom_0.4.2        
+#> [51] evaluate_0.10       yaml_2.1.14        
+#> [53] robustbase_0.92-7   caTools_1.17.1     
+#> [55] dendextend_1.4.0    nlme_3.1-130       
+#> [57] whisker_0.3-2       quantreg_5.29      
+#> [59] slam_0.1-40         R.oo_1.21.0        
+#> [61] xml2_1.1.1          tokenizers_0.1.4   
+#> [63] pbkrtest_0.4-6      plotly_4.5.6       
+#> [65] stringi_1.1.2       forcats_0.2.0      
+#> [67] trimcluster_0.1-2   nloptr_1.0.4       
+#> [69] lmtest_0.9-35       bitops_1.0-6       
+#> [71] seriation_1.2-1     R6_2.2.0           
+#> [73] bookdown_0.3        TSP_1.1-5          
+#> [75] KernSmooth_2.23-15  janeaustenr_0.1.4  
+#> [77] codetools_0.2-15    gtools_3.5.0       
+#> [79] assertthat_0.1      rprojroot_1.2      
+#> [81] mnormt_1.5-5        diptest_0.75-7     
+#> [83] mgcv_1.8-16         parallel_3.3.2     
+#> [85] hms_0.3             class_7.3-14       
+#> [87] minqa_1.2.4         lubridate_1.6.0    
+#> [89] base64enc_0.1-3
+```
 
 
 

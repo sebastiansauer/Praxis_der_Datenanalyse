@@ -17,13 +17,15 @@ library(corrr)  # Korrelationsplots
 ```
 
 
-<img src="images/Visualisieren.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Visualisieren} \end{center}
 
 
 Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe[^https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
 
 
-<img src="images/anscombe.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/anscombe} \end{center}
 
 
 Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrundeliengenden "Natur") passiert. 
@@ -46,7 +48,9 @@ data(flights, package = "nycflights13")
 qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 
@@ -67,7 +71,9 @@ Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint 
 qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`[^10], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
@@ -96,7 +102,9 @@ wo_men <- read.csv("data/wo_men.csv")
 qplot(x = shoe_size, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:
 
@@ -107,7 +115,9 @@ Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variabl
 qplot(x = shoe_size, data = wo_men, geom = "density")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter *ohne*.
 
@@ -121,7 +131,9 @@ ggplot(data = wo_men) +
   geom_density(color = "blue")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Zuerst haben wir mit dem Parameter `data` den Dateframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Dateframe handelt, sondern um eine "interne" Varialbe von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *übe*r das Histogramm.
 
@@ -133,7 +145,9 @@ qplot(x = shoe_size, data = wo_men, geom = "density", color = sex)
 qplot(x = shoe_size, data = wo_men, geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-12-1} \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-12-2} \end{center}
 
 Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:
 
@@ -146,7 +160,9 @@ wo_men %>%
 qplot(x = shoe_size, data = wo_men2, geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Besser. Man kann das Durchpfeifen auch bis zu `qplot` weiterführen:
 
@@ -157,7 +173,9 @@ wo_men %>%
   qplot(x = shoe_size, data = ., geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Die Pfeife versucht im Standard, das Endprodukt des lezten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des lezten Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
 
@@ -172,7 +190,9 @@ Ein Streudiagramm ist die klassiche Art, zwei metrische Variablen darzustellen. 
 qplot(x = height, y = shoe_size, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt `ggplot2` automatisch ein Streudiagramm - d.h. Punkte als Geom (`geom = "point"`). Wir sollten aber noch die Extremwerte herausnehmen:
 
@@ -183,7 +203,9 @@ wo_men %>%
   qplot(x = height, y = shoe_size, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Der Trend ist deutlich erkennbar: Je größer die Person, desto länger die Füß´. Zeichnen wir noch eine Trendgerade ein.
 
@@ -196,7 +218,9 @@ wo_men %>%
   geom_smooth(method = "lm")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Synonym könnten wir auch schreiben:
 
@@ -227,7 +251,9 @@ ggplot(flights) +
   geom_hex()
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/flights_hexbin-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/flights_hexbin-1} \end{center}
 
 
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
@@ -239,7 +265,9 @@ wo_men %>%
   qplot(x = height, y = shoe_size, color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Mit `color = sex` sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von `sex` eingefärbt werden sollen. Die genaue Farbwahl übernimmt `ggplot2` für uns.
 
@@ -251,7 +279,9 @@ Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel dar
 qplot(x = sex, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom.
 
@@ -264,7 +294,9 @@ wo_men %>%
   qplot(x = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
 
@@ -279,7 +311,9 @@ wo_men %>%
 qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
 
@@ -295,7 +329,9 @@ wo_men2 %>%
   geom_bar(position = "fill")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
@@ -337,7 +373,9 @@ profiles %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 Was haben wir gemacht? Also:
 
@@ -382,7 +420,9 @@ wo_men3 %>%
   qplot(x = sex, y = Groesse_MW, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach `Groesse_Gruppe` ausweisen, wird das noch überschaubar bleiben.
 
@@ -394,7 +434,9 @@ wo_men2 %>%
   qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 
 
@@ -409,44 +451,81 @@ brewer.pal.info %>% rownames_to_column %>% rename(Name = rowname) %>% kable
 ```
 
 
-
-Name        maxcolors  category   colorblind 
----------  ----------  ---------  -----------
-BrBG               11  div        TRUE       
-PiYG               11  div        TRUE       
-PRGn               11  div        TRUE       
-PuOr               11  div        TRUE       
-RdBu               11  div        TRUE       
-RdGy               11  div        FALSE      
-RdYlBu             11  div        TRUE       
-RdYlGn             11  div        FALSE      
-Spectral           11  div        FALSE      
-Accent              8  qual       FALSE      
-Dark2               8  qual       TRUE       
-Paired             12  qual       TRUE       
-Pastel1             9  qual       FALSE      
-Pastel2             8  qual       FALSE      
-Set1                9  qual       FALSE      
-Set2                8  qual       TRUE       
-Set3               12  qual       FALSE      
-Blues               9  seq        TRUE       
-BuGn                9  seq        TRUE       
-BuPu                9  seq        TRUE       
-GnBu                9  seq        TRUE       
-Greens              9  seq        TRUE       
-Greys               9  seq        TRUE       
-Oranges             9  seq        TRUE       
-OrRd                9  seq        TRUE       
-PuBu                9  seq        TRUE       
-PuBuGn              9  seq        TRUE       
-PuRd                9  seq        TRUE       
-Purples             9  seq        TRUE       
-RdPu                9  seq        TRUE       
-Reds                9  seq        TRUE       
-YlGn                9  seq        TRUE       
-YlGnBu              9  seq        TRUE       
-YlOrBr              9  seq        TRUE       
-YlOrRd              9  seq        TRUE       
+\begin{tabular}{l|r|l|l}
+\hline
+Name & maxcolors & category & colorblind\\
+\hline
+BrBG & 11 & div & TRUE\\
+\hline
+PiYG & 11 & div & TRUE\\
+\hline
+PRGn & 11 & div & TRUE\\
+\hline
+PuOr & 11 & div & TRUE\\
+\hline
+RdBu & 11 & div & TRUE\\
+\hline
+RdGy & 11 & div & FALSE\\
+\hline
+RdYlBu & 11 & div & TRUE\\
+\hline
+RdYlGn & 11 & div & FALSE\\
+\hline
+Spectral & 11 & div & FALSE\\
+\hline
+Accent & 8 & qual & FALSE\\
+\hline
+Dark2 & 8 & qual & TRUE\\
+\hline
+Paired & 12 & qual & TRUE\\
+\hline
+Pastel1 & 9 & qual & FALSE\\
+\hline
+Pastel2 & 8 & qual & FALSE\\
+\hline
+Set1 & 9 & qual & FALSE\\
+\hline
+Set2 & 8 & qual & TRUE\\
+\hline
+Set3 & 12 & qual & FALSE\\
+\hline
+Blues & 9 & seq & TRUE\\
+\hline
+BuGn & 9 & seq & TRUE\\
+\hline
+BuPu & 9 & seq & TRUE\\
+\hline
+GnBu & 9 & seq & TRUE\\
+\hline
+Greens & 9 & seq & TRUE\\
+\hline
+Greys & 9 & seq & TRUE\\
+\hline
+Oranges & 9 & seq & TRUE\\
+\hline
+OrRd & 9 & seq & TRUE\\
+\hline
+PuBu & 9 & seq & TRUE\\
+\hline
+PuBuGn & 9 & seq & TRUE\\
+\hline
+PuRd & 9 & seq & TRUE\\
+\hline
+Purples & 9 & seq & TRUE\\
+\hline
+RdPu & 9 & seq & TRUE\\
+\hline
+Reds & 9 & seq & TRUE\\
+\hline
+YlGn & 9 & seq & TRUE\\
+\hline
+YlGnBu & 9 & seq & TRUE\\
+\hline
+YlOrBr & 9 & seq & TRUE\\
+\hline
+YlOrRd & 9 & seq & TRUE\\
+\hline
+\end{tabular}
 
 
 - Kontrastierende Darstellung (nominale/ qualitative Variablen) - z.B. Männer vs. Frauen
@@ -456,7 +535,9 @@ YlOrRd              9  seq        TRUE
 display.brewer.all(type="qual")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 - Sequenzielle Darstellung (unipolare numerische Variablen) - z.B. Preis oder Häufigkeit
 
@@ -464,7 +545,9 @@ display.brewer.all(type="qual")
 display.brewer.all(type="seq")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 - Divergierende Darstellung (bipolare numerische Variablen) - z.B. semantische Potenziale oder Abstufung von "stimme überhaupt nicht zu" über "neutral" bis "stimme voll und ganz zu"
@@ -474,7 +557,9 @@ display.brewer.all(type="seq")
 display.brewer.all(type="div")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 In `ggplot2` können wir folgendermaßen Paletten ändern.
 
@@ -511,7 +596,9 @@ p2 <- flights %>%
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/brewerpal-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{050_Daten_visualisieren_files/figure-latex/brewerpal-1} \end{center}
 
 `scale_color_brewer` meint hier: "Ordne der Variablen, die für 'color' zuständig ist, hier `sex`, eine Farbe aus der Brewer-Palette 'Set1' zu". Die Funktion wählt *automatisch* die richtige Anzahl von Farben.
 
@@ -551,7 +638,9 @@ p3 <- tips %>%
 grid.arrange(p1, p2, p3, ncol = 3)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über `scale_XXX_manual` dann zu. Man kann einerseits aus den in R definierten Farben auswählen[^6] oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.
@@ -571,7 +660,9 @@ tips %>%
   ggpairs(aes(color = sex), columns = c("total_bill", "smoker", "tip"))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 Dabei gibt man an, welche Variable (hier `sex`) für die Farben im Diagramm zuständig sein soll (wir ordnen den Werten von `sex` jeweils eine Farbe zu). Mit `columns` sagen wir, welche Spalten des Dataframes wir dargestellt haben möchten. Lassen wir diesen Parameter weg, so werden alle Spaltne des Dataframes dargestellt.
 
@@ -593,10 +684,14 @@ df %>%
   rplot()  # plotten
 ```
 
-<div class="figure" style="text-align: center">
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" alt="Korr" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-34)Korr</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-34-1} 
+
+}
+
+\caption{Korr}(\#fig:unnamed-chunk-34)
+\end{figure}
 
  
 
@@ -705,7 +800,9 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
 
@@ -732,7 +829,9 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 
 
@@ -747,7 +846,9 @@ ggplot(data = data_long) +
   coord_flip()
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 
 ### Text-Labels für die Items
@@ -773,7 +874,9 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 
 Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen... wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)
@@ -801,7 +904,9 @@ ggplot(data = data_long) +
   scale_y_continuous(name = "Anteile")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 
 ### Diagramm mit Häufigkeiten
@@ -817,7 +922,9 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels) 
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 ### Farbschema
 Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema:
@@ -832,7 +939,9 @@ ggplot(data = data_long) +
   scale_fill_brewer(palette = 17)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 
 

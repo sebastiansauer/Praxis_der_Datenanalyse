@@ -13,7 +13,8 @@ library(tidyverse)
 require(gridExtra)
 ```
 
-<img src="images/Modellieren.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Modellieren} \end{center}
 
 
 
@@ -25,10 +26,14 @@ Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklic
 Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Modell.pdf" alt="Modellieren" width="70%" />
-<p class="caption">(\#fig:modellieren_plot)Modellieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Modell} 
+
+}
+
+\caption{Modellieren}(\#fig:modellieren-plot)
+\end{figure}
 
 
 Damit verstehen wir Modellieren als eine typische Aktivität von Menschen [@9783497008957], genauer eines Menschen mit einem bestimmten Ziel. Wir können gar nicht anders, als nur ein Modell unserer Umwelt zu machen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf *numerische* Modelle konzentrieren, weil es dort am einfachsten ist, die Informationen herauszuziehen.
@@ -39,10 +44,14 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 
-<div class="figure" style="text-align: center">
-<img src="060_Modellieren_files/figure-html/unnamed-chunk-4-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
-<p class="caption">(\#fig:unnamed-chunk-4)Ein Beispiel für Modellieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/plot-women-raster-1} 
+
+}
+
+\caption{Ein Beispiel für Modellieren}(\#fig:plot-women-raster)
+\end{figure}
 
 
 Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Gewicht vs. Körpergröße). Im mittleren Plot sehen wir ein (graphisches) Modell dazu. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss hat. Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein linearer Einfluss (eine Gerade) zwischen Größe und Schuhgröße unterstellt. 
@@ -53,18 +62,26 @@ Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Ge
 
 Ein etwas aufwändigeres Modell könnte so aussehen:
 
-<div class="figure" style="text-align: center">
-<img src="images/Modellieren_Bsp2.pdf" alt="Ein etwas aufwändigeres Modell" width="70%" />
-<p class="caption">(\#fig:modell-bsp2)Ein etwas aufwändigeres Modell</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Modellieren_Bsp2} 
+
+}
+
+\caption{Ein etwas aufwändigeres Modell}(\#fig:plot-modell-bsp2)
+\end{figure}
 
 
 Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Einflussgrößen} bzw. *Prädiktoren*\index{Prädiktoren}, von denen wir annehmen, dass sie einen Einfluss haben auf genau eine *Zielgröße* (*Ausgabegröße*) bzw. *Kriterium*\index{Kriterium}. Modelle, wie wir sie betrachten werden, postulieren eine quantifizierbaren Zusammenhang zwischen diesen beiden Arten von Größen. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
-<div class="figure" style="text-align: center">
-<img src="images/Modell_Blackbox.pdf" alt="Modelle mit schwarzer Kiste" width="70%" />
-<p class="caption">(\#fig:fig-blackbox)Modelle mit schwarzer Kiste</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Modell_Blackbox} 
+
+}
+
+\caption{Modelle mit schwarzer Kiste}(\#fig:fig-blackbox)
+\end{figure}
 
 
 Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage*  "hinten bei rauskommt". Mathematischer ausgedrückt:
@@ -86,7 +103,7 @@ Man kann drei Arten von Zielen abgrenzen: Vorhersagen, Erklären und Reduzieren.
 - *Reduzieren*\index{Reduzieren} meint, dass man die Fülle des Materials verringert, in dem man ähnliche Dinge zusammenfasst. Dabei kann man sowohl Observationen zusammen fassen ("Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann") oder auch Variablen zusammen fassen ("Frage 1", "Frage 2" und "Frage 3" zu "Markentreue" etc.).
 
 
-Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig: fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Warheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
+Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Warheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
 
 
 
@@ -133,10 +150,14 @@ Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbere
 
 
 
-<div class="figure" style="text-align: center">
-<img src="060_Modellieren_files/figure-html/overfitting-4-plots-1.png" alt="Welches Modell passt am besten zu diesen Daten?" width="90%" />
-<p class="caption">(\#fig:overfitting-4-plots)Welches Modell passt am besten zu diesen Daten?</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/overfitting-4-plots-1} 
+
+}
+
+\caption{Welches Modell passt am besten zu diesen Daten?}(\#fig:overfitting-4-plots)
+\end{figure}
 
 Der 1. Plot (links) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (rote Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
@@ -152,7 +173,8 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 
 Je komplexer das Modell, desto kleiner der Fehler im Trainings-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
 
-<img src="images/overfitting.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/overfitting} \end{center}
 
 
 ## Bias-Varianz-Abwägung
@@ -169,7 +191,8 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt[^228].
 
 
-<img src="060_Modellieren_files/figure-html/plot_bias_variance-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{060_Modellieren_files/figure-latex/plot-bias-variance-1} \end{center}
 
 Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten könnnen große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 

@@ -41,7 +41,9 @@ Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.
 qplot(y = tip, x = total_bill, data = tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 Es scheint einen positiven Zusammenhang zu geben. Modellieren wir die **abhängige** Variable `tip` (inhaltliche Entscheidung!) als lineare Funktion der **unabhängigen** Variable `total_bill`:
 
@@ -67,7 +69,9 @@ summary(LinMod.1)
 #> Multiple R-squared:  0.457,	Adjusted R-squared:  0.454 
 #> F-statistic:  203 on 1 and 242 DF,  p-value: <2e-16
 ```
-Der Achsenabschnitt (`intercept`) wird mit 0.92 geschätzt, die Steigung in Richtung `total_bill` mit 0.11: steigt `total_bill` um einen Dollar, steigt im *Durchschnitt* `tip` um 0.11. Die (Punkt-)Prognose für `tip` lautet also
+Der Achsenabschnitt (`intercept`) wird mit 0.92 geschätzt, die Steigung in Richtung `total_bill` mit 0.11: steigt `total_bill` um einen Dollar, steigt im *Durchschnitt* `tip` um 0.11. 
+
+Die (Punkt-)Prognose für `tip` lautet also
 
 `tip` = 0.92 + 0.11 * `total_bill`
 
@@ -94,7 +98,9 @@ In mosaic kann die Modellgerade über
 plotModel(LinMod.1)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 "ok": 46-\% der Variation des Trinkgeldes wird im Modell erklärt.
 
@@ -111,10 +117,13 @@ resid_df <- data.frame(Residuen = resid(LinMod.1))
 qplot(x = Residuen, data = resid_df)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-- *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl `fitted()`[^3] extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot `qplot(x = tip, y = total_bill, data=tips)` erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des Hypothesentests, d. h., $H_0:\beta_1=0$. 
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+
+- *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl `fitted()`[^3] extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot 
+`qplot(x = tip, y = total_bill, data=tips)` erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des Hypothesentests, d. h., $H_0:\beta_1=0$. 
 
 
 ```r
@@ -122,7 +131,9 @@ resid_df$fitted <- fitted(LinMod.1)
 qplot(x = Residuen, y = fitted, data = resid_df)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 - *Extreme Ausreißer*: Wie am Plot der Linearen Regression `plotModel(LinMod.1)` erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.
 
@@ -133,7 +144,9 @@ Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?
 xyplot(total_bill ~ size, data=tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Da bei diskreten metrischen Variablen (hier `size`) Punkte übereinander liegen können, sollte man "jittern" ("schütteln"), d. h., eine (kleine) Zufallszahl addieren:
 
@@ -141,14 +154,17 @@ Da bei diskreten metrischen Variablen (hier `size`) Punkte übereinander liegen 
 qplot(x = total_bill, y = size, data = tips, geom = "jitter")
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 
 
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">1.  Um wie viel Dollar steigt im Durchschnitt das Trinkgeld, wenn eine Person mehr am Tisch sitzt?
 
-2.  Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?</div>\EndKnitrBlock{rmdexercises}
+2.  Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -161,7 +177,9 @@ Zunächst grafisch:
 qplot(x = tip,y = day, data=tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Und als Lineares Modell:
 
@@ -235,7 +253,9 @@ sowie als Plot:
 plotModel(LinMod.3)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Eine Alternative zu `relevel()` zur Bestimmung der Referenzkategorie ist es, innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung zu setzen.
 
@@ -396,7 +416,13 @@ coef(LinMod.5b) # Koeffizienten extrahieren
 #> (Intercept)     sexMale  total_bill 
 #>      0.9333     -0.0266      0.1052
 ```
-Ohne die Berücksichtigung der **Kovariable/Störvariable** Rechnungshöhe geben ` Male ` ein um im Durchschnitt 0.26$ *höheres* Trinkgeld, bei Kontrolle, d. h. gleicher Rechnungshöhe ein um 0.03$ *niedrigeres* Trinkgeld als die Referenzklasse ` Female ` (`levels(tips$sex)[1]`). 
+Ohne die Berücksichtigung der **Kovariable/Störvariable** Rechnungshöhe geben 
+ Male  
+ ein um im Durchschnitt 0.26
+ *höheres* Trinkgeld, bei Kontrolle, d. h. gleicher Rechnungshöhe ein um 
+ 0.03
+ *niedrigeres* Trinkgeld als die Referenzklasse 
+ Female (`levels(tips$sex)[1]`). 
 
 ## Inferenz in der linearen Regression
 Kehren wir noch einmal zur multivariaten Regression (`LinMod.4`) zurück. 
@@ -435,7 +461,8 @@ In der 4. Spalte der, mit Zeilennamen versehenen Tabelle `Coefficients` stehen d
 
 Zur schnelleren Übersicht finden sich dahinter "Sternchen" und "Punkte", die die entsprechenden Signifikanzniveaus symbolisieren: `***` bedeutet eine Irrtumswahrscheinlichkeit, Wahrscheinlichkeit für Fehler 1. Art, von unter 0.001, d. h. unter 0,1\%. `**` entsprechend 1\%, `*` 5\% und `.` 10\%. 
 
-Zum Signifikanzniveau von 10\% sind hier also zwei Faktoren und der Achsenabschnitt (`(Intercept)`) signifikant -- nicht notwendigerweise relevant: Rechnungshöhe `total_bill` sowie Anzahl Personen `size`. Beides wirkt sich linear positiv auf die Trinkgeldhöhe aus: Mit jedem Dollar Rechnungshöhe steigt im Mittelwert die Trinkgeldhöhe um 0.09 Dollar, mit jeder Person um 0.18 Dollar -- gegeben alle anderen Faktoren bleiben konstant. Das Bestimmtheitsmaß R² (`Multiple R-squared:`) liegt bei 
+Zum Signifikanzniveau von 10\% sind hier also zwei Faktoren und der Achsenabschnitt (`(Intercept)`) signifikant -- nicht notwendigerweise relevant: Rechnungshöhe `total_bill` sowie Anzahl Personen `size`. Beides wirkt sich linear positiv auf die Trinkgeldhöhe aus: Mit jedem Dollar Rechnungshöhe steigt im Mittelwert die Trinkgeldhöhe um 0.09 Dollar, 
+mit jeder Person um 0.18 Dollar -- gegeben alle anderen Faktoren bleiben konstant. Das Bestimmtheitsmaß R² (`Multiple R-squared:`) liegt bei 
 0.47, also 47\% der Variation des Trinkgeldes wird im Modell erklärt.
 
 Außerdem wird getestet, ob alle Koeffizienten der unabhängigen Variablen gleich Null sind:
@@ -452,7 +479,8 @@ Die Größe des Unterschieds (Differenz, "Delta") zwischen vorhergesagten (gesch
 
 Graphisch kann man das gut veranschaulichen:
 
-<img src="071_Regression_files/figure-html/resids_plot-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/resids-plot-1} \end{center}
 
 Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschätzten) Werte wieder; die Punkte die beobachteten ("echten") Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler. 
 
@@ -712,7 +740,9 @@ matplot(newdat$total_bill, preddat, lty = c(1,2,2), type="l" )
 points(x=tips$total_bill, y=tips$tip)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 Sie sehen, dass 95\% Prognoseintervall ist recht breit: über den gewählten Rechnungsbereich von $0-75$\$ im Mittelwert bei 4.11\$. 
 

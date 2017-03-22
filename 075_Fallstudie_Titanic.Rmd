@@ -42,7 +42,7 @@ library(tidyverse)
 ### Erster Blick
 Werfen wir einen ersten Blick in die Daten:
   
-```{r}
+```{r glimpse-data}
 # install.packages("dplyr", dependencies = TRUE) # ggf. vorher installieren
 glimpse(titanic_train)
 ```
@@ -55,7 +55,7 @@ Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir fest: Wir u
 
 Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab es pro Klasse? Wie viele Passagiere gab es pro Wert von `Survived` (also die überlebten bzw. nicht überlebten)?
 
-```{r}
+```{r count-titanic}
 c1 <- dplyr::count(titanic_train, Pclass)
 c1
 ```
@@ -69,7 +69,7 @@ Achtung - Namenskollision! Sowohl im Paket `mosaic` als auch im Paket `dplyr` gi
 
 Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm dazu malen). 
 
-```{r}
+```{r plot-titanic1}
 # install.packages("ggplot2", dependencies = TRUE)
 library(ggplot2)
 qplot(x = Pclass, y = n, data = c1)
@@ -92,7 +92,7 @@ OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von `Survived` (dasselbe gi
 
 Zählen wir zuerst die Häufigkeiten für alle Kombinationen von `Survived` und `Pclass`:
   
-  ```{r}
+```{r count-titanic2}
 c3 <- dplyr::count(titanic_train, Survived, Pclass)
 c3
 ```
@@ -135,7 +135,7 @@ qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) +
 
 Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und außerdem zumeist missverstanden wird (er gibt *nicht* die Wahrscheinlichkeit der getesteten Hypothese an, was die Frage aufwirft, warum er mich dann interessieren sollte). Aber seisdrum, berechnen wir mal einen p-Wert. Es gibt mehrere statistische Tests, die sich hier potenziell anböten (was die Frage nach der Objektivität von statistischen Tests in ein ungünstiges Licht rückt). Nehmen wir den $\chi^2$-Test.
 
-```{r}
+```{r titanic-chi}
 chisq.test(titanic_train$Survived, titanic_train$Pclass)
 
 ```
@@ -160,7 +160,7 @@ t2 <- filter(titanic_train, Pclass == 1 | Pclass == 3)  # "|" heißt "oder"
 
 Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:
   
-```{r c4}
+```{r count-c4}
 c4 <- dplyr::count(t2, Pclass)
 c4
 ```
@@ -168,7 +168,7 @@ c4
 
 Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datentabelle operieren:
   
-```{r}
+```{r titanic-chi-2}
 chisq.test(t2$Survived, t2$Pclass)
 
 ```
@@ -187,7 +187,7 @@ Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in
 ### Logististische Regression
 Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression. Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich das Diagramm an. Hier sehen wir die (geschätzten) Überlebens-Wahrscheinlichkeiten für Passagiere der 1. Klasse vs. Passagiere der 3. Klasse.
 
-```{r glm1_titanic}
+```{r glm1-titanic}
 titanic2 <- titanic_train %>% 
   filter(Pclass %in% c(1,3)) %>% 
   mutate(Pclass = factor(Pclass))
@@ -202,7 +202,7 @@ titanic2$pred_prob <- predict(glm1, type = "response")
 ```
 
 
-```{r echo = FALSE}
+```{r fig-titanic, echo = FALSE}
 titanic2 %>% 
   dplyr::select(Pclass, Survived, pred_prob) %>% 
   mutate(Survived = as.numeric(Survived),
@@ -219,13 +219,13 @@ Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist a
 
 Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit `glm` und `family = "binomial"` eine *logistische* Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (`lm(...)`) ist.
 
-Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die "normale" Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-*Chance* (Odds) 1.7 zu 1 betrug - bei der *ersten* Stufe von `Pclass` (`1`)[^2]; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-*Wahrscheinlichkeit*); s. `Intercept`; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert "Null" hat/ haben, bzw. die erste Ausprägung, hier 1. 
+Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die "normale" Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-*Chance* (Odds) 1.7 zu 1 betrug - bei der *ersten* Stufe von `Pclass` (`1`)^[Darum haben wir `Pclass` in eine Faktor-Variable umgewandelt. Die "erste Klasse" ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir `Pclass` als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die "nullte" Klasse geben, was wenig Sinn macht.]; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-*Wahrscheinlichkeit*); s. `Intercept`; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert "Null" hat/ haben, bzw. die erste Ausprägung, hier 1. 
 
 Im Vergleich dazu wird die Überlebens-Chance deutlich schlechter, wenn man die nächste Gruppe von `Pclass` (3) betrachtet. Die Odds verändern sich um den Faktor ~0.2. Da der Faktor *kleiner* als 1 ist, ist das kein gutes Zeichen. Die Überlebens-Chance *sinkt*; etwas genauer auf: 1.7 * 0.2 ≈ 0.34. Das heißt, die Überlebens-Chance ist in der 3. Klasse nur noch ca. 1 zu 3 (Überlebens-Wahrscheinlichkeit: ~25%).
 
 Komfortabler können wir uns die Überlebens-*Wahrscheinlichkeiten* mit der Funktion `predict` ausgeben lassen.
 
-```{r}
+```{r predict-glm1-titanic}
 predict(glm1, newdata = data.frame(Pclass = factor("1")), type = "response")
 predict(glm1, newdata = data.frame(Pclass = factor("3")), type = "response")
 
@@ -266,7 +266,7 @@ für jede der beiden Passagierklassen. FERTIG.
 ### Effektstärken visualieren
 Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe (im Datensatz ohne 2. Klasse, der Einfachheit halber).
 
-```{r}
+```{r c5-count}
 c5 <- dplyr::count(t2, Pclass, Survived)
 c5$prop <- c5$n / 707
 c5
@@ -290,7 +290,7 @@ Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden 
 
 Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wechseln sollten. `qplot` ist in Wirklichkeit nur eine vereinfachte Form von `ggplot`; die Einfachheit wird mit geringeren Möglichkeiten bezahlt. Satteln wir zum Schluss dieser Fallstudie also um:
   
-  ```{r}
+```{r}
 ggplot(data = c5) +
   aes(x = factor(Pclass), y = n, fill = factor(Survived)) + 
   geom_col(position = "fill") +
@@ -303,7 +303,7 @@ Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. 
 
 Eine alternative Darstellung ist diese:
   
-  ```{r}
+```{r}
 c5 %>% 
   ggplot +
   aes(x = factor(Pclass), y = factor(Survived), fill = n) +
@@ -317,6 +317,7 @@ Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch
 In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr weit; `dplyr` und `ggplot2` zählen (zu Recht) zu den am häufigsten verwendeten Paketen. Beide sind flexibel, konsistent und spielen gerne miteinander. Die besten Einblicke haben wir aus deskriptiver bzw. explorativer Analyse (Diagramme) gewonnen. Signifikanztests oder komplizierte Modelle waren nicht zentral. In vielen Studien/Projekten der Datenanalyse gilt ähnliches: Daten umformen und verstehen bzw. "veranschaulichen" sind zentrale Punkte, die häufig viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind Häufigkeitsauswertungen ideal.
 
 
-[^2]: Darum haben wir `Pclass` in eine Faktor-Variable umgewandelt. Die "erste Klasse" ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir `Pclass` als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die "nullte" Klasse geben, was wenig Sinn macht.
 
-[^3]: engl. "to fit": anpassen.
+
+
+

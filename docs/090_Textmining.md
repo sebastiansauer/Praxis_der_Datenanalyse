@@ -47,7 +47,7 @@ Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig 
 
 ### Tidy Text Dataframes
 
-Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor[^1] besteht aus 4 Elementen.
+Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor^[Nach dem Gedicht "Jahrgang 1899" von Erich Kästner] besteht aus 4 Elementen.
 
 
 
@@ -67,12 +67,19 @@ text_df <- data_frame(Zeile = 1:4,
 ```
 
 
- Zeile  text                                     
-------  -----------------------------------------
-     1  Wir haben die Frauen zu Bett gebracht,   
-     2  als die Männer in Frankreich standen.    
-     3  Wir hatten uns das viel schöner gedacht. 
-     4  Wir waren nur Konfirmanden.              
+\begin{tabular}{r|l}
+\hline
+Zeile & text\\
+\hline
+1 & Wir haben die Frauen zu Bett gebracht,\\
+\hline
+2 & als die Männer in Frankreich standen.\\
+\hline
+3 & Wir hatten uns das viel schöner gedacht.\\
+\hline
+4 & Wir waren nur Konfirmanden.\\
+\hline
+\end{tabular}
 
 Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
 
@@ -120,7 +127,7 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD[^2][^120].
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf].
 
 
 
@@ -209,19 +216,31 @@ afd_count %>%
 ```
 
 
-
-token            n
-------------  ----
-deutschland    190
-afd            171
-programm        80
-wollen          67
-bürger          57
-euro            55
-dafür           53
-eu              53
-deutsche        47
-deutschen       47
+\begin{tabular}{l|r}
+\hline
+token & n\\
+\hline
+deutschland & 190\\
+\hline
+afd & 171\\
+\hline
+programm & 80\\
+\hline
+wollen & 67\\
+\hline
+bürger & 57\\
+\hline
+euro & 55\\
+\hline
+dafür & 53\\
+\hline
+eu & 53\\
+\hline
+deutsche & 47\\
+\hline
+deutschen & 47\\
+\hline
+\end{tabular}
 
 Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder trunkieren.
 
@@ -237,19 +256,31 @@ afd_count %>%
 ```
 
 
-
-token_stem       n
-------------  ----
-deutschland    219
-afd            171
-deutsch        119
-polit           88
-staat           85
-programm        81
-europa          80
-woll            67
-burg            66
-soll            63
+\begin{tabular}{l|r}
+\hline
+token\_stem & n\\
+\hline
+deutschland & 219\\
+\hline
+afd & 171\\
+\hline
+deutsch & 119\\
+\hline
+polit & 88\\
+\hline
+staat & 85\\
+\hline
+programm & 81\\
+\hline
+europa & 80\\
+\hline
+woll & 67\\
+\hline
+burg & 66\\
+\hline
+soll & 63\\
+\hline
+\end{tabular}
 
 Das ist schon informativer. Dem Befehl `wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch[^3]). Das ist schon alles.
 
@@ -265,9 +296,12 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
 ```
 
-<img src="090_Textmining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
-Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen[^4].
+
+\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-14-1} \end{center}
+
+Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
+].
 
  
  
@@ -298,7 +332,9 @@ library(gridExtra)
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="090_Textmining_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
@@ -332,15 +368,23 @@ kable(head(sentiment_df))
 ```
 
 
-
-neg_pos   Wort            Wert  Inflektionen                          
---------  -----------  -------  --------------------------------------
-neg       Abbau         -0.058  Abbaus,Abbaues,Abbauen,Abbaue         
-neg       Abbruch       -0.005  Abbruches,Abbrüche,Abbruchs,Abbrüchen 
-neg       Abdankung     -0.005  Abdankungen                           
-neg       Abdämpfung    -0.005  Abdämpfungen                          
-neg       Abfall        -0.005  Abfalles,Abfälle,Abfalls,Abfällen     
-neg       Abfuhr        -0.337  Abfuhren                              
+\begin{tabular}{l|l|r|l}
+\hline
+neg\_pos & Wort & Wert & Inflektionen\\
+\hline
+neg & Abbau & -0.058 & Abbaus,Abbaues,Abbauen,Abbaue\\
+\hline
+neg & Abbruch & -0.005 & Abbruches,Abbrüche,Abbruchs,Abbrüchen\\
+\hline
+neg & Abdankung & -0.005 & Abdankungen\\
+\hline
+neg & Abdämpfung & -0.005 & Abdämpfungen\\
+\hline
+neg & Abfall & -0.005 & Abfalles,Abfälle,Abfalls,Abfällen\\
+\hline
+neg & Abfuhr & -0.337 & Abfuhren\\
+\hline
+\end{tabular}
 
 ### Ungewichtete Sentiment-Analyse
 Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Besser wäre noch: Wir könnten die Sentiment-Werte pro Treffer addieren (und nicht für jeden Term 1 addieren). Aber das heben wir uns für später auf.
@@ -495,19 +539,31 @@ afd_df %>%
 ```
 
 
-
-token           Wert
-------------  ------
-besonders      0.539
-genießen       0.498
-wichtig        0.382
-sicher         0.373
-helfen         0.373
-miteinander    0.370
-groß           0.369
-wertvoll       0.357
-motiviert      0.354
-gepflegt       0.350
+\begin{tabular}{l|r}
+\hline
+token & Wert\\
+\hline
+besonders & 0.539\\
+\hline
+genießen & 0.498\\
+\hline
+wichtig & 0.382\\
+\hline
+sicher & 0.373\\
+\hline
+helfen & 0.373\\
+\hline
+miteinander & 0.370\\
+\hline
+groß & 0.369\\
+\hline
+wertvoll & 0.357\\
+\hline
+motiviert & 0.354\\
+\hline
+gepflegt & 0.350\\
+\hline
+\end{tabular}
 
 ```r
 
@@ -521,19 +577,31 @@ afd_df %>%
 ```
 
 
-
-token           Wert
------------  -------
-schädlich     -0.927
-schwach       -0.921
-brechen       -0.799
-ungerecht     -0.784
-behindern     -0.775
-falsch        -0.762
-gemein        -0.720
-gefährlich    -0.637
-verbieten     -0.629
-vermeiden     -0.526
+\begin{tabular}{l|r}
+\hline
+token & Wert\\
+\hline
+schädlich & -0.927\\
+\hline
+schwach & -0.921\\
+\hline
+brechen & -0.799\\
+\hline
+ungerecht & -0.784\\
+\hline
+behindern & -0.775\\
+\hline
+falsch & -0.762\\
+\hline
+gemein & -0.720\\
+\hline
+gefährlich & -0.637\\
+\hline
+verbieten & -0.629\\
+\hline
+vermeiden & -0.526\\
+\hline
+\end{tabular}
 
 Tatsächlich erscheinen die negativen Wörter "dampfender" und "fauchender" als die positiven.
 
@@ -562,7 +630,9 @@ sentiment_df %>%
   geom_histogram()
 ```
 
-<img src="090_Textmining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 Es scheint einen (leichten) Überhang an negativen Wörtern zu geben. Schauen wir auf die genauen Zahlen.
 
@@ -646,7 +716,7 @@ neg_df %>%
 
 ```
 
-`str_sub` parst[^5] zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
+`str_sub` parst^["parsen" ist denglisch für "einlesen" von engl. "to parse"] zuerst das Wort. Dazu nehmen wir den Wort-Vektor `Wort_POS`, und für jedes Element wird der Text von Position 1 bis vor dem Zeichen `|` geparst; da der Querstrich ein Steuerzeichen in Regex muss er escaped werden. Für `POS` passiert das gleiche von Position `|`+1 bis zum Ende des Text-Elements.
 
 Das gleiche wiederholen wir für positiv konnotierte Wörter.
 
@@ -674,15 +744,23 @@ knitr::kable(head(sentiment_df))
 ```
 
 
-
-neg_pos   token           Wert  Inflektionen                          
---------  -----------  -------  --------------------------------------
-neg       Abbau         -0.058  Abbaus,Abbaues,Abbauen,Abbaue         
-neg       Abbruch       -0.005  Abbruches,Abbrüche,Abbruchs,Abbrüchen 
-neg       Abdankung     -0.005  Abdankungen                           
-neg       Abdämpfung    -0.005  Abdämpfungen                          
-neg       Abfall        -0.005  Abfalles,Abfälle,Abfalls,Abfällen     
-neg       Abfuhr        -0.337  Abfuhren                              
+\begin{tabular}{l|l|r|l}
+\hline
+neg\_pos & token & Wert & Inflektionen\\
+\hline
+neg & Abbau & -0.058 & Abbaus,Abbaues,Abbauen,Abbaue\\
+\hline
+neg & Abbruch & -0.005 & Abbruches,Abbrüche,Abbruchs,Abbrüchen\\
+\hline
+neg & Abdankung & -0.005 & Abdankungen\\
+\hline
+neg & Abdämpfung & -0.005 & Abdämpfungen\\
+\hline
+neg & Abfall & -0.005 & Abfalles,Abfälle,Abfalls,Abfällen\\
+\hline
+neg & Abfuhr & -0.337 & Abfuhren\\
+\hline
+\end{tabular}
 
 
 ## Verweise
@@ -691,19 +769,14 @@ neg       Abfuhr        -0.337  Abfuhren
 
 
 
-[^1]: Nach dem Gedicht "Jahrgang 1899" von Erich Kästner
 
-[^2]: https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf
 
-[^3]: http://www.omegahat.net/Rstem/stemming.pdf 
 
-[^4]: https://cran.r-project.org/web/packages/wordcloud/index.html
 
-[^5]: "parst" ist denglisch für "einlesen" von engl. "to parse"
+
 
 
 
 [^99]: Dank an Karsten Lübke, dessen Fachkompetenz mir mindestens so geholfen hat wie seine Begeisterung an der Statistik ansteckend ist. 
 
 
-[^120]: Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.

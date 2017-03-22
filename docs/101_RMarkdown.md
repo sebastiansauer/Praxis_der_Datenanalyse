@@ -15,7 +15,8 @@ library(tidyverse)
 
 
 
-<img src="images/Kommunizieren.pdf" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Kommunizieren} \end{center}
 
 
 
@@ -113,10 +114,14 @@ Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.
 
 - Klicken Sie das Icon für "neue Datei" und wählen Sie "R Markdown...", um eine neue RMarkdown-Datei zu erstellen.
 
-<div class="figure" style="text-align: center">
-<img src="images/new_rmd.png" alt="Neue Rmd-Datei erstellen" width="30%" />
-<p class="caption">(\#fig:unnamed-chunk-4)Neue Rmd-Datei erstellen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.3\linewidth]{images/new_rmd} 
+
+}
+
+\caption{Neue Rmd-Datei erstellen}(\#fig:unnamed-chunk-4)
+\end{figure}
 
 
 
@@ -124,19 +129,27 @@ Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.
 
 - Jetzt "verstricken" wir R und Prosa zu einer Datei, HTML in dem Fall, welche sowohl Text, R-Ausgaben als auch R-Syntax enthält. Dafür klicken wir auf das Stricknadel-Icon:
 
-<div class="figure" style="text-align: center">
-<img src="images/rmd_demo.png" alt="Wir stricken" width="50%" />
-<p class="caption">(\#fig:unnamed-chunk-5)Wir stricken</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/rmd_demo} 
+
+}
+
+\caption{Wir stricken}(\#fig:unnamed-chunk-5)
+\end{figure}
 
 - Ach ja, RStudio bittet Sie noch, die Rmd-Datei zu speichern. Tun Sie RStudio den Gefallen.
 
 - Als Ergebnis müsste sich im Reiter "Viewer" das Ergebnis zeigen. Sie haben eine, vielleicht Ihre erste HTML-Datei aus einer Rmd-Datei erstellt. Verweilen Sie in Andacht. Sie können sich das Ergebnis, die HTML-Datei im Browser anschauen, in dem Sie betreffende HTML-Datei im Browser öffnen (diese liegt dort, wo auch die zugehörige Rmd-Datei liegt.)
 
-<div class="figure" style="text-align: center">
-<img src="images/rmd_all_panes.png" alt="HTML-Datei aus Rmd-Datei erstellt" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-6)HTML-Datei aus Rmd-Datei erstellt</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/rmd_all_panes} 
+
+}
+
+\caption{HTML-Datei aus Rmd-Datei erstellt}(\#fig:unnamed-chunk-6)
+\end{figure}
 
 
 
@@ -146,10 +159,14 @@ Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.
 
 Die Arbeitsschritte mit RMarkdown von den ersten Gedanken bis zum fertigen Bericht kann man so zusammenfassen.
 
-<div class="figure" style="text-align: center">
-<img src="images/Rmarkdown_flow.pdf" alt="Die Arbeitsschritte mit RMarkdown" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-7)Die Arbeitsschritte mit RMarkdown</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rmarkdown_flow} 
+
+}
+
+\caption{Die Arbeitsschritte mit RMarkdown}(\#fig:unnamed-chunk-7)
+\end{figure}
 
 
 Zuerst bietet es sich an - ganz ohne Gedanken an wohl geformte Sprache und roten Faden - seine Gedanken zu Papier (oder in eine Textdatei) zu kriegen ("Ideen sammeln"). Für viele Menschen sind hier Schmier- und Notizzettel oder Schemata, Mindmaps oder andere Visualisierungen hilfreich. Eine Gliederung zu erstellen gehört auch in diesen Schritt. Hat man schließlich die Struktur erarbeitet, so kann den Text - jetzt mit wohlgeformter(er) Sprache und roten Faden - zusammensetzen ("Text schreiben"). Dabei ist es oft so, dass man die Beiträge der Coautoren ~~ertragen muss~~ integrieren möchte. Dies ist mit am besten mit einer zusätzlichen Software mit dem Namen "Git" bzw. "Github" zu erreichen, die ebenfalls quelloffen, kostenlos (und weit verbreitet bei Tekkies) ist ("Coautoren integrieren"). Diese Software erlaubt nicht nur Versionierung lokal an einem eigenen Computer, sondern auch in Zusammenarbeit mit Coautoren ("Änderungen nachverfolgen"). Parallel zum Schreiben des Textes sind die Daten zu analysieren; eine Aufgabe, die prinzipiell unahbängig vom Schreiben des Textes ist ("Daten analysieren"). Aber die Ergebnisse der Analyse sind in den Text zu integrieren. Um Schnittstellen zu vermeiden, ist es sinnvoll, den Inhalt-Text sowie die R-Syntax in einer Datei zu "verstricken". Dieser Schritt ("R ausführen") wird von einem R-Paket namens "knitr" [@xie2015] besorgt (engl. "to knit" - stricken). Knitr führt die R-Syntax im Dokument aus und liefert das Ergebnis im Markdown-Format zurück. Aus R+Markdown wird reines Markdown. Die Markdown-Datei kann nun in fast jedes denkbare andere Markup-Format übersetzt werden, die wichtigsten sind HTML und TeX. Die Übersetzung führt RStudio wiederum, genau wie das "Knittern" für uns komfortabel im Hintergrund aus. Dazu wird auf ein Programm names "pandoc" (http://pandoc.org) zurückgegriffen. Pandoc übersetzt eine Markup-Sprache in eine andere. Haben wir z.B. in TeX übersetzt, so können wir - vorausgesetzt TeX, LaTeX o.ä. ist installiert - von TeX in PDF umwandeln lassen. Ist TeX auf Ihrem Rechner installiert, so wird dieser Übersetzung wiederum automatisch vorgenommen.
@@ -288,15 +305,22 @@ mtcars %>%
   kable(caption = "Eine Tabelle mit Kable")
 ```
 
+\begin{table}
 
-
-Table: (\#tab:kable)Eine Tabelle mit Kable
-
-  mpg   cyl   disp    hp   drat     wt   qsec   vs   am   gear   carb
------  ----  -----  ----  -----  -----  -----  ---  ---  -----  -----
- 21.0     6    160   110   3.90   2.62   16.5    0    1      4      4
- 21.0     6    160   110   3.90   2.88   17.0    0    1      4      4
- 22.8     4    108    93   3.85   2.32   18.6    1    1      4      1
+\caption{(\#tab:kable)Eine Tabelle mit Kable}
+\centering
+\begin{tabular}[t]{r|r|r|r|r|r|r|r|r|r|r}
+\hline
+mpg & cyl & disp & hp & drat & wt & qsec & vs & am & gear & carb\\
+\hline
+21.0 & 6 & 160 & 110 & 3.90 & 2.62 & 16.5 & 0 & 1 & 4 & 4\\
+\hline
+21.0 & 6 & 160 & 110 & 3.90 & 2.88 & 17.0 & 0 & 1 & 4 & 4\\
+\hline
+22.8 & 4 & 108 & 93 & 3.85 & 2.32 & 18.6 & 1 & 1 & 4 & 1\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

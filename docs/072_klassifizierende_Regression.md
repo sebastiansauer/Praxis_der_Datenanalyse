@@ -27,7 +27,9 @@ Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit
 xyplot(Aktienkauf ~ Risikobereitschaft, data = Aktien)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
 
@@ -56,7 +58,9 @@ summary(lm1)
 plotModel(lm1)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
@@ -68,7 +72,8 @@ $\eta$, das sogenannte *Logit*, ist darin die Linearkombination der Einflussgrö
 
 Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen:
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 ## Die Idee der logistischen Regression
 Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (*general linear model, GLM*). Die Modellgleichung lautet: $$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
@@ -86,7 +91,9 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
 plotModel(glm1)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
 
@@ -191,7 +198,9 @@ Zunächst ein Plot:
 xyplot(jitter(as.numeric(smoker)) ~ day, data = tips)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/jitter_tips-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/jitter_tips-1} \end{center}
 
 **Hinweis:** Um zu sehen, ob es an manchen Tagen mehr Raucher gibt, sollten Sie zumindest eine Variable "verrauschen" ("*jittern*"). Da die Variable `smoker` eine nominale Variable ist und die Funktion `jitter()` nur mit numerischen Variablen arbeitet, muss sie mit `as.numeric()` in eine numerische Variable umgewandelt werden.
 
@@ -307,7 +316,9 @@ summary(glm2)
 #> Number of Fisher Scoring iterations: 5
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/glm2_tips-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/glm2_tips-1} \end{center}
 
 
 
@@ -387,7 +398,9 @@ performance(pred,"auc")@y.values
 #> [1] 0.636
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 
 
