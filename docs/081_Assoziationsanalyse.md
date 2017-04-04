@@ -242,9 +242,7 @@ library(arulesViz)
 plot(lebensmittel.regeln)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{081_Assoziationsanalyse_files/figure-latex/plot-regeln-1} \end{center}
+<img src="081_Assoziationsanalyse_files/figure-html/plot-regeln-1.png" width="70%" style="display: block; margin: auto;" />
 
 Mit Hilfe der Option `interactive=TRUE` kann in Bereiche gezoomt werden -- und Regeln ausgewählt:
 
@@ -259,9 +257,7 @@ Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:
 plot(topregeln, method="graph")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{081_Assoziationsanalyse_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Literatur

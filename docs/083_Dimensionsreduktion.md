@@ -168,9 +168,7 @@ brand.sc %>%
   corrplot()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Visualisierung der Korelation der Adjektive scheint drei allgemeine Cluster zu zeigen:
 
@@ -248,9 +246,7 @@ library(gplots)
 heatmap.2(as.matrix(brand.mean))
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-10-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 `heatmap.2()` sortiert die Spalten und Zeilen, um Ähnlichkeiten und Muster in den Daten hervorzuheben. Eine zusätzliche Analysehilfe ist das Spalten- und Zeilendendrogramm. Hier werden Beobachtungen die nahe beineinanderliegen in einem Baum abgebildet. (Näheres hierzu bei der Clusteranalyse.)
 
@@ -313,9 +309,7 @@ Der Standard-Plot `plot()` für die PCA ist ein **Scree-Plot**, Dieser zeigt uns
 plot(brand.pc, type="l")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-13-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Wir sehen anahnd des Scree-Plots, dass bei den Brand-Rating-Daten der Anteil der Streuung nach der dritten Komponente nicht mehr wesentlich abnimmt. 
@@ -336,9 +330,7 @@ Dazu verwenden wir `biplot()`:
 biplot(brand.pc)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Adjektiv-Gruppierungen auf den Variablen sind als rote Ladungspfeile sichbar. ZUsätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist durch die große Anzahl an Beobachtung recht unübersichtlich. 
 
@@ -382,9 +374,7 @@ Wenn ein Biplot Marken in einem Zweidimensionalen Raum abbildet, dann nennt man 
 biplot(brand.mu.pc)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Biplot der PCA-Lösung für die Mittelwerte gibt einen interpretierbaren Wahrnehmungsraum, der zeigt, wo die Marken in Bezug auf die ersten beiden Hauptkomponenten liegen. Die variablen auf den beiden Komponenten sind mit der PCA auf den gesamten Datensatz konsistent. Wir sehen zunächst vier Bereiche (Positionen) mit gut differenzierten Adjektiven und Marken.
 
@@ -458,9 +448,7 @@ Dies kann auch grafisch mit dem `VSS.Scree` geplotet werden.
 VSS.scree(brand.sc[, 1:9])
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-19-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 __Schätzung der EFA__
@@ -547,9 +535,7 @@ In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückge
 heatmap.2(brand.fa$loadings)
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-22-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 3 Faktoren, die grob interpretierbar sind als **value**, **leader** und **latest**. 
@@ -606,9 +592,7 @@ Mittels Heatmap kann dann sehr schnell analysiert werden, welche Marke auf welch
 heatmap.2(as.matrix(brand.fa.mean))
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-25-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 Drei Dimensionen lassen sich in einem dreidimensionalen Raum darstellen:
 
@@ -619,9 +603,7 @@ scatterplot3d(Leader~Value+Latest, pch=row.names(brand.fa.mean))
 detach(brand.fa.mean) # Datensatz vom Suchpfad entfernen
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-26-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Interne Konsistenz von Skalen

@@ -126,9 +126,7 @@ plot(regbaum, compress = TRUE) # Baum zeichnen
 text(regbaum) # Baum beschriften
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{073_baumbasierte_Verfahren_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="073_baumbasierte_Verfahren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Eine deutlich schönere Ausgabe erhält man z. B. mit dem Zusatzpaket `rpart.plot`, welches man *einmalig* über
@@ -149,9 +147,7 @@ und dann zeichnen:
 rpart.plot(regbaum)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{073_baumbasierte_Verfahren_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="073_baumbasierte_Verfahren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -345,9 +341,7 @@ plot(klassbaum, compress = TRUE) # Baum zeichnen
 text(klassbaum) # Baum beschriften
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{073_baumbasierte_Verfahren_files/figure-latex/unnamed-chunk-23-1} \end{center}
+<img src="073_baumbasierte_Verfahren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
 
 Bzw. "schöner":
 
@@ -355,9 +349,7 @@ Bzw. "schöner":
 rpart.plot(klassbaum)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{073_baumbasierte_Verfahren_files/figure-latex/unnamed-chunk-24-1} \end{center}
+<img src="073_baumbasierte_Verfahren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Kreuzvalidierung
