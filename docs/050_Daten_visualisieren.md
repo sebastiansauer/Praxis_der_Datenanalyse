@@ -3,7 +3,7 @@
 
 # Daten visualisieren
 
-Benötigte Pakete:
+In diesem Kapitel werden folgende Pakete benötigt::
 
 ```r
 library(tidyverse)  # Zum Plotten
@@ -12,21 +12,24 @@ library(knitr)  # HTML-Tabellen
 ```
 
 
-<img src="images/Visualisieren.pdf" width="70%" style="display: block; margin: auto;" />
+<img src="images/visualisieren/Visualisieren.pdf" width="70%" style="display: block; margin: auto;" />
 
 ## Ein Bild sagt mehr als 1000 Worte
 
 
-Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe[^https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
+Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe^[https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
 
 
-<img src="images/anscombe.pdf" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/visualisieren/anscombe.pdf" alt="Das Anscombe-Quartett" width="70%" />
+<p class="caption">(\#fig:plot-anscombe)Das Anscombe-Quartett</p>
+</div>
 
 
-Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrundeliengenden "Natur") passiert. 
+Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden "Natur") passiert. 
 
 
-Es gibt viele Möglichkeiten, Daten zu visualieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`[^"gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot" also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
+Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
 
 Laden wir dazu den Datensatz `nycflights::flights`.
 
@@ -43,7 +46,7 @@ data(flights, package = "nycflights13")
 qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/plot-flights-1.png" width="70%" style="display: block; margin: auto;" />
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 
@@ -64,7 +67,7 @@ Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint 
 qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
@@ -93,7 +96,7 @@ wo_men <- read.csv("data/wo_men.csv")
 qplot(x = shoe_size, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:
 
@@ -104,7 +107,7 @@ Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variabl
 qplot(x = shoe_size, data = wo_men, geom = "density")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter *ohne*.
 
@@ -118,9 +121,9 @@ ggplot(data = wo_men) +
   geom_density(color = "blue")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
-Zuerst haben wir mit dem Parameter `data` den Dateframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Dateframe handelt, sondern um eine "interne" Varialbe von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *übe*r das Histogramm.
+Zuerst haben wir mit dem Parameter `data` den Dataframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Datenframe handelt, sondern um eine "interne" Variable von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *über* das Histogramm.
 
 Wünsche sind ein Fass ohne Boden... Wäre es nicht schön, ein Diagramm für Männer und eines für Frauen zu haben, um die Verteilungen vergleichen zu können?
 
@@ -130,7 +133,7 @@ qplot(x = shoe_size, data = wo_men, geom = "density", color = sex)
 qplot(x = shoe_size, data = wo_men, geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-2.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-2.png" width="70%" style="display: block; margin: auto;" />
 
 Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:
 
@@ -143,7 +146,7 @@ wo_men %>%
 qplot(x = shoe_size, data = wo_men2, geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 Besser. Man kann das Durchpfeifen auch bis zu `qplot` weiterführen:
 
@@ -154,22 +157,22 @@ wo_men %>%
   qplot(x = shoe_size, data = ., geom = "density", fill = sex, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
-Die Pfeife versucht im Standard, das Endprodukt des lezten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des lezten Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
+Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
 
 Mit `fill = sex` sagen wir `qplot`, dass er für Männer und Frauen jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns `ggplot2` im Standard voraussucht). Mit anderen Worten: Die Werte von `sex` werden der Füllfarbe der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: `color = sex`.
 
 ### Zwei kontinuierliche Variablen
 
-Ein Streudiagramm ist die klassiche Art, zwei metrische Variablen darzustellen. Das ist mit `qplot` einfach:
+Ein Streudiagramm ist die klassische Art, zwei metrische Variablen darzustellen. Das ist mit `qplot` einfach:
 
 
 ```r
 qplot(x = height, y = shoe_size, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt `ggplot2` automatisch ein Streudiagramm - d.h. Punkte als Geom (`geom = "point"`). Wir sollten aber noch die Extremwerte herausnehmen:
 
@@ -180,7 +183,7 @@ wo_men %>%
   qplot(x = height, y = shoe_size, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Trend ist deutlich erkennbar: Je größer die Person, desto länger die Füß´. Zeichnen wir noch eine Trendgerade ein.
 
@@ -193,7 +196,7 @@ wo_men %>%
   geom_smooth(method = "lm")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Synonym könnten wir auch schreiben:
 
@@ -207,7 +210,7 @@ wo_men %>%
   geom_smooth(method = "lm")
 ```
 
-Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. *Innerhalb* eines `ggplot`-Aufrufs werden die einzelen Teile durch ein Pluszeichen `+` voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit `aes` ("aes" wie "aesthetics", also das "Sichtbare" eines Diagramms, die Achsen etc., werden definiert). Ein "Smooth-Geom" ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, `lm`).
+Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. *Innerhalb* eines `ggplot`-Aufrufs werden die einzelne Teile durch ein Pluszeichen `+` voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit `aes` ("aes" wie "aesthetics", also das "Sichtbare" eines Diagramms, die Achsen etc., werden definiert). Ein "Smooth-Geom" ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, `lm`).
 
 Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken ("overplotting"). Ein Abhilfe ist es, die Punkte nur "schwach" zu färben. Dazu stellt man die "Füllstärke" der Punkte über `alpha` ein: `geom_point(alpha = 1/100)`. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn `ggplot` viele (>100.000) Punkte malen soll.
 
@@ -232,13 +235,53 @@ Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
 ```r
 wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
+
+wo_men2 %>% 
   qplot(x = height, y = shoe_size, color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 Mit `color = sex` sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von `sex` eingefärbt werden sollen. Die genaue Farbwahl übernimmt `ggplot2` für uns.
+
+
+Alternativ kann man auch zwei "Teil-Bildchen" ("facets") erstellen, eines für Frauen und eines für Männer:
+
+
+```r
+wo_men %>% 
+  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  qplot(x = height, y = shoe_size, facets = "~sex", color = sex, data = .)
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
+
+#### Vertiefung zu Facetten
+
+Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:
+
+
+```r
+wo_men %>% 
+  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  select(-sex) -> wo_men4
+
+wo_men4 %>% 
+  ggplot(aes(x = height, y = shoe_size)) +
+  geom_point(color = "grey80") +
+  facet_wrap(~sex) +
+  geom_point(data = wo_men2, aes(color = sex))
+  
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
+
 
 ### Eine diskrete Variable
 Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind in dem Datensatz?
@@ -248,7 +291,7 @@ Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel dar
 qplot(x = sex, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom.
 
@@ -261,7 +304,7 @@ wo_men %>%
   qplot(x = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
 
@@ -276,11 +319,11 @@ wo_men %>%
 qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
 
-Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Wete `klein` häufig; bei den Männern hingegen die Werte `gross`.
+Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Werte `klein` häufig; bei den Männern hingegen die Werte `gross`.
 
 Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um^[Cleveland fände diese Idee nicht so gut.].
 
@@ -292,7 +335,7 @@ wo_men2 %>%
   geom_bar(position = "fill")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
@@ -304,7 +347,9 @@ Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 `x`: Der X-Achse (Achtung, `x` wird klein geschrieben hier) wird die Variable `sex` zugeordnet.   
 `y`: gibt es nicht??? Wenn in einem ggplot-Diagramm *keine* Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).  
 `fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `groesse_gruppe` darin widerspiegelt.  
+
 `geom_XYZ`: Als "Geom" soll ein Balken ("bar") gezeichnet werden.  Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit `geom_bar`, `geom_boxplot`, geom_point` etc. gewählt.  
+
 `position = fill`: `position_fill` will sagen, dass die Balken alls eine Höhe von 100% (1) haben. Die Balken zeigen also nur die Anteile der Werte der `fill`-Variablen. 
 </div>\EndKnitrBlock{rmdpseudocode}
 
@@ -334,7 +379,7 @@ profiles %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
 
 Was haben wir gemacht? Also:
 
@@ -351,7 +396,7 @@ Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.
 
 
      
-Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häfigsten ist, unabhängig von der Körperformm. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
+Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
 
 ### Zusammenfassungen zeigen
 Manchmal möchten wir *nicht* die Rohwerte einer Variablen darstellen, sondern z.B. die Mittelwerte pro Gruppe. Mittelwerte sind eine bestimmte *Zusammenfassung* einer Spalte; also fassen wir zuerst die Körpergröße zum Mittelwert zusammen - gruppiert nach Geschlecht.
@@ -379,7 +424,7 @@ wo_men3 %>%
   qplot(x = sex, y = Groesse_MW, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
 Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach `Groesse_Gruppe` ausweisen, wird das noch überschaubar bleiben.
 
@@ -391,14 +436,72 @@ wo_men2 %>%
   qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
 ```
 
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+
+## Aufgaben
+
+1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
+
+1. Abb. \@ref(fig:plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+
+Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
+
+Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?
+
+1. Erstellen Sie ein sehr grobes und ein sehr feines Histogramm für die Schuhgröße!
+
+
+1. Vertiefung: Erstellen Sie ein Diagramm, das sowohl eine Zusammenfassung (Mittelwert) der Körpergrößen nach Geschlecht darstellt als auch die einzelnen Werte darstellt!
+
+
+
+## Lösungen
+
+1. :-)
+
+2. :
+
+
+```r
+qplot(x = arr_delay, geom = "histogram", data = flights, facets = "~origin")
+```
+
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
+Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
 
+3. :
 
 
+```r
+qplot(x = shoe_size, data = wo_men, bins = 10)
+qplot(x = shoe_size, data = wo_men, bins = 50)
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-28-2.png" width="70%" style="display: block; margin: auto;" />
+
+4. :
 
 
+```r
+wo_men2 %>% 
+  group_by(sex) %>% 
+  summarise(height = mean(height)) -> wo_men3
+
+
+wo_men3 %>% 
+  ggplot() +
+  aes(x = sex, y = height) +
+  geom_point(color = "red", size = 8) +
+  geom_point(data = wo_men2, color = "grey80")
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+
+Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
 ## Verweise
 
@@ -406,7 +509,7 @@ wo_men2 %>%
 
 - William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren [@Cleveland]. 
 
-- Die Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
+- Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
 
 
 

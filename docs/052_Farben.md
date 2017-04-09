@@ -1,46 +1,16 @@
 
+
+
 # Farben wählen
 
 Benötigte Pakete:
 
 ```r
 library(tidyverse)  # Zum Plotten
-```
-
-```
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-```
-
-```
-## Conflicts with tidy packages ----------------------------------------------
-```
-
-```
-## filter(): dplyr, stats
-## lag():    dplyr, stats
-```
-
-```r
 library(wesanderson)  # Farb-Palette von Wes Anderson
 library(RColorBrewer)  # Farb-Palette von Cynthia Brewer
 library(knitr)  # für HTML-Tabellen
 library(gridExtra)  # für kombinierte Plots
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
 ```
 
 
@@ -101,7 +71,7 @@ YlOrRd              9  seq        TRUE
 display.brewer.all(type="qual")
 ```
 
-<img src="052_Farben_files/figure-html/unnamed-chunk-2-1.png" width="100%" />
+<img src="052_Farben_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
 
 - Sequenzielle Darstellung (unipolare numerische Variablen) - z.B. Preis oder Häufigkeit
 
@@ -109,7 +79,7 @@ display.brewer.all(type="qual")
 display.brewer.all(type="seq")
 ```
 
-<img src="052_Farben_files/figure-html/unnamed-chunk-3-1.png" width="100%" />
+<img src="052_Farben_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 - Divergierende Darstellung (bipolare numerische Variablen) - z.B. semantische Potenziale oder Abstufung von "stimme überhaupt nicht zu" über "neutral" bis "stimme voll und ganz zu"
@@ -119,12 +89,13 @@ display.brewer.all(type="seq")
 display.brewer.all(type="div")
 ```
 
-<img src="052_Farben_files/figure-html/unnamed-chunk-4-1.png" width="100%" />
+<img src="052_Farben_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
 
 In `ggplot2` können wir folgendermaßen Paletten ändern (dazu laden wir den Datensatz `flights` noch einmal, falls Sie ihn nicht mehr geladen haben).
 
 
 ```r
+
 library(nycflights13)
 data(flights)
 
@@ -132,24 +103,15 @@ flights %>%
   group_by(dest) %>% 
   count(dest) %>% 
   top_n(5)
-```
+#> # A tibble: 5 × 2
+#>    dest     n
+#>   <chr> <int>
+#> 1   ATL 17215
+#> 2   BOS 15508
+#> 3   LAX 16174
+#> 4   MCO 14082
+#> 5   ORD 17283
 
-```
-## Selecting by n
-```
-
-```
-## # A tibble: 5 × 2
-##    dest     n
-##   <chr> <int>
-## 1   ATL 17215
-## 2   BOS 15508
-## 3   LAX 16174
-## 4   MCO 14082
-## 5   ORD 17283
-```
-
-```r
 p1 <- flights %>% 
   filter(dest %in% c("BOS", "ATL", "LAX")) %>% 
   ggplot() +
@@ -167,15 +129,7 @@ p2 <- flights %>%
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-```
-## Warning: Removed 1012 rows containing non-finite values (stat_boxplot).
-```
-
-```
-## Warning: Removed 1844 rows containing non-finite values (stat_boxplot).
-```
-
-<img src="052_Farben_files/figure-html/brewerpal-1.png" width="100%" />
+<img src="052_Farben_files/figure-html/brewerpal-1.png" width="100%" style="display: block; margin: auto;" />
 
 `scale_color_brewer` meint hier: "Ordne der Variablen, die für 'color' zuständig ist, hier `sex`, eine Farbe aus der Brewer-Palette 'Set1' zu". Die Funktion wählt *automatisch* die richtige Anzahl von Farben.
 
@@ -215,7 +169,7 @@ p3 <- tips %>%
 grid.arrange(p1, p2, p3, ncol = 3)
 ```
 
-<img src="052_Farben_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="052_Farben_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über `scale_XXX_manual` dann zu. Man kann einerseits aus den in R definierten Farben auswählen^[http://sape.inf.usi.ch/quick-reference/ggplot2/colour] oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.

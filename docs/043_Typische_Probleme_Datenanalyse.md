@@ -1,5 +1,9 @@
 
 
+
+
+# Typische Probleme der Datenanalyse
+
 Laden wir zuerst die benögtigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
 
 ```r
@@ -9,7 +13,6 @@ library(gridExtra)
 ```
 
 
-# Typische Probleme der Datenanalyse
 Stellen wir einige typische Probleme des Datenjudo (Daten aufbereiten) zusammen. Probleme heißt hier nicht, dass es etwas Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar typische Aufgabenstellungen an, die im Rahmen der Datenanalyse häufig anfallen.
 
 ## Auf fehlende Werte prüfen 
@@ -86,6 +89,9 @@ wo_men %>%
 ## Ausreiser identifizieren
 Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
 
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
 ## Hochkorrelierte Variablen finden
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
 
@@ -106,7 +112,7 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
 
@@ -170,7 +176,7 @@ wo_men %>%
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 

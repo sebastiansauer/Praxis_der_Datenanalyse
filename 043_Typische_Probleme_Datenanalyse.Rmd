@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 
 ```
 
+
+
+# Typische Probleme der Datenanalyse
+
 Laden wir zuerst die benögtigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
 ```{r}
 library(tidyverse)
@@ -25,7 +29,6 @@ library(gridExtra)
 ```
 
 
-# Typische Probleme der Datenanalyse
 Stellen wir einige typische Probleme des Datenjudo (Daten aufbereiten) zusammen. Probleme heißt hier nicht, dass es etwas Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar typische Aufgabenstellungen an, die im Rahmen der Datenanalyse häufig anfallen.
 
 ## Auf fehlende Werte prüfen 
@@ -77,6 +80,17 @@ wo_men %>%
 
 ## Ausreiser identifizieren
 Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
+
+```{r echo = FALSE}
+p1 <- qplot(x = shoe_size, y = height, data = wo_men, main = "ungefiltert")
+
+p2 <- wo_men %>% 
+  filter(height > 120, height < 210) %>% 
+  qplot(x = shoe_size, y = height, data = ., main = "gefiltert")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
 
 ## Hochkorrelierte Variablen finden
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.

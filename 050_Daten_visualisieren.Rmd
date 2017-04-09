@@ -143,7 +143,7 @@ Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf d
 ```{r}
 
 wo_men %>% 
-  filter(shoe_size <= 47) 
+  filter(shoe_size <= 47) -> wo_men2
 
 qplot(x = shoe_size, data = wo_men2, geom = "density", fill = sex, alpha = I(.7))
 
@@ -398,9 +398,9 @@ wo_men2 %>%
 
 ## Aufgaben
 
-1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig-anscombe)) erklärt!
+1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
 
-1. Abb. \@ref(plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+1. Abb. \@ref(fig:plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
 Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 

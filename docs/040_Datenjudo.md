@@ -14,12 +14,8 @@ In diesem Kapitel benötigte Pakete:
 
 ```r
 library(tidyverse)  # Datenjudo
-library(corrr)  # Korrelationen berechnen mit der Pfeife
 library(stringr)   # Texte bearbeiten
 library(car)  # für 'recode'
-library(nycflights13)  # Datensatz 'flights'
-library(knitr)  # für HTML-Tabellen
-library(gridExtra)  # für Mehrfachplots
 ```
 
 
@@ -91,7 +87,7 @@ Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefil
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Manche Befehle wie `filter` haben einen Allerweltsnamen; gut möglich, dass ein Befehl mit gleichem Namen in einem anderen (geladenen) Paket existiert. Das kann dann zu Verwirrungen führen - und kryptischen Fehlern. Im Zweifel den Namen des richtigen Pakets ergänzen, und zwar zum Beispiel so: `dplyr::filter(...)`.
 </div>\EndKnitrBlock{rmdcaution}
 
-## Aufgaben^[F, R, F, F, R]
+#### Aufgaben^[F, R, F, F, R]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
@@ -181,7 +177,7 @@ select(stats_test, 5:6) Spalten 5 bis 6 auswählen
 Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu.
 
 
-##### Aufgaben^[F, F, R, R, F]
+#### Aufgaben^[F, F, R, R, F]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
@@ -306,7 +302,7 @@ Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Dat
 
 Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr.
 
-## Aufgaben^[F, F, F, F, R]
+#### Aufgaben^[F, F, F, F, R]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
@@ -356,7 +352,7 @@ Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Aus
 `group_by` an sich ist nicht wirklich nützlich. Nützlich wird es erst, wenn man weitere Funktionen auf den gruppierten Datensatz anwendet - z.B. Mittelwerte ausrechnet (z.B mit `summarise`, s. unten). Die nachfolgenden Funktionen (wenn sie aus `dplyr` kommen), berücksichtigen nämlich die Gruppierung. So kann man einfach Mittelwerte pro Gruppe ausrechnen.
 
 
-## Aufgaben^[R, F, R, R]
+#### Aufgaben^[R, F, R, R]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
