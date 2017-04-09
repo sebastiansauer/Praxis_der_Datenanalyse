@@ -1,0 +1,109 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+```
+
+
+
+# Fallstudie `nycflights13` 
+Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` anhand einer Fallstudie an. Wir verwenden hier den Datensatz `flights`aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
+
+Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`:
+```{r}
+library(tidyverse)
+library(nycflights13)  # für die Daten
+library(knitr)  # für HTML-Tabellen
+```
+
+
+Dann laden wir die Daten aus dem Paket `nycflights13` und werfen eine Blick hinein ("to glimpse").
+
+```{r}
+data(flights)
+glimpse(flights)
+```
+
+Der Befehl `data` lädt Daten aus einem zuvor gestarteten Paket. 
+
+Achtung, Fallstudie. Sie sind der/die Assistent_in des Chefs der New Yorker Flughäfen. Ihr Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der größten Verspätung raussuchen. Nix schickes, aber zacki-zacki...
+
+```{r}
+flights %>% 
+  arrange(arr_delay)
+```
+
+Hm, übersichtlicher wäre es wahrscheinllich, wenn wir weniger Spalten anschauen müssten. Am besten neben der Verspätung nur die Information, die wir zur Identifizierung der Schuldigen... will sagen der gesuchten Flüge benötigen
+
+```{r}
+flights %>% 
+  arrange(arr_delay) %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
+```
+
+Da Zahlen in ihrer natürlichen Form von klein nach groß sortiert sind, sortiert `arrange` in ebendieser Richtung. Wir können das umdrehen mit einem Minuszeichen vor der zu sortierenden Spalte:
+
+```{r}
+flights %>% 
+  arrange(-arr_delay) %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
+```
+
+Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dateframe automatisch in eine (einigermaßen) schöne Tabelle ausgeben lassen. Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10 Plätze.
+
+```{r}
+flights %>% 
+  arrange(-arr_delay) %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
+  filter(row_number() < 11) %>% 
+  kable()
+```
+
+"Geht doch", war die Antwort des Chefs, als sie die Tabelle rübergeben (er mag auch keine Emails). "Ach ja", raunt der Chef, als Sie das Zimmer verlassen wollen, "hatte ich erwähnt, dass ich die gleiche Auswertung für jeden Carrier brauche? Reicht bis in einer halben Stunde".
+
+Wir gruppieren also den Datensatz nach der Fluggesellschaft (`carrier`) und filtern dann  die ersten 3 Zeilen (damit die Tabelle für den Chef nicht zu groß wird). Wie jeder `dplyr`-Befehl wird die vorherige Gruppierung berücksichtigt und daher die Top-3-Zeilen *pro Gruppe*, d.h. pro Fluggesellschaft, ausgegeben.
+
+```{r}
+flights %>% 
+  arrange(-arr_delay) %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
+  group_by(carrier) %>% 
+  filter(row_number() < 4) 
+```
+
+Vielleicht gefällt dem Chef diese Darstellung (sortiert nach `carrier`) besser:
+
+```{r}
+flights %>% 
+  arrange(-arr_delay) %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
+  group_by(carrier) %>% 
+  filter(row_number() < 4) %>% 
+  arrange(carrier)
+```
+
+Da Sie den Chef gut kennen, berechnen Sie gleich noch die durchschnittliche Verspätung pro Fluggesellschaft.
+
+```{r}
+flights %>% 
+  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
+  group_by(carrier) %>% 
+  summarise(delay_mean = mean(arr_delay, na.rm = TRUE)) %>% 
+  arrange(-delay_mean) %>% 
+  kable()
+```
+
+Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...

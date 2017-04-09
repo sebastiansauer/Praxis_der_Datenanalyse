@@ -1,0 +1,359 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+```
+
+
+## Inferenz für metrische Variablen
+
+### Random Walk
+
+
+
+Beim Glücksspiel ist es offensichtlich, aber auch an vielen, vielen anderen Stellen im Leben begegnen wir dem *Zufall*. Daten, Beobachtungen sind häufig Realisationen von sogenannten Zufallsvariablen. Das sind Variablen, deren Werte vom Zufall (und damit auch seinen Modellen und Gesetzen) abhängen. So werden Aktienkurse und -renditen häufig als Random Walk aufgefasst und modelliert - häufig unter der *Annahme* einer Normalverteilung.^[Sowohl die Annahme einer Normalverteilung, als auch die Annahme, dass die Renditen unabhängig voneinander sind (d. h., dass keine *Autokorrelation* vorliegt) und einer identischen Verteilung folgen (hier gleiche Varianz) sind in der Praxis kritisch zu hinterfragen.]
+
+Zur Analyse wird wieder das Paket mosaic verwendet:
+```{r, message=FALSE}
+library(mosaic)
+```
+
+### t-Test für eine Stichprobe
+
+An den `n=251` Handelstagen des Jahres 2015 lag der arithmetische Mittelwert der (logarithmierten) Rendite der Facebook Aktie bei `0.11`, bei einer Standardabweichung (hier auch Volatilität genannt) von `1.62`. Zeigen diese Daten, dass die Rendite der Aktie nicht zufällig größer als Null ist, können wir aus dem Daten also auf die Alternativhypothese $H_A: \mu>0$ schließen? Dabei gehen wir von eine unabhängigen, identischen Normalverteilung der Beobachtungen aus.
+```{r}
+mFB <- 0.11 # Mittelwert
+sdFB <- 1.62 # Standardabweichung
+nFB <- 251 # Anzahl Beobachtungen
+seFB <- sdFB / sqrt(nFB) # Standardfehler
+z0 <- (mFB - 0) / seFB # z-Wert
+xpnorm(z0, lower.tail = FALSE) # p-Wert
+```
+
+Mit einem p-Wert von `r round(pnorm(z0, lower.tail = FALSE), 4)` kann die Nullhypothese, der Lageparameter der Rendite ist kleiner gleich 0 $H_0: \mu \leq 0$ *nicht* verworfen werden. (Teststatistik $T=\frac{\bar{x}-\mu_0}{\frac{sd}{\sqrt{n}}}$)
+
+Das zeigen auch Simulationen: Der Befehl `rnorm` erzeugt Zufallszahlen aus einer Normalverteilung:
+```{r}
+set.seed(1896) # Zufallszahlengenerator setzen
+simFB <- rnorm(n = nFB, mean = mFB, sd = sdFB) # Renditen simulieren
+simkursFB <- cumsum(simFB) # Kursverlauf aus Renditen berechnen
+plot(simkursFB, type="l") # Kurs plotten
+```
+
+Sieht doch *fast* realistisch aus, oder?
+
+```{r}
+mean(simFB)
+```
+
+In der Simulation, für die wir die (Populations-) Parameter durch ihre (Stichproben) Punktschätzer ersetzt haben, haben wir einen Mittelwert der Rendite von `r round(mean(simFB),2)` -- und nicht wie (zufällig) beobachtet von `r mFB`. 
+
+Für Hypothesentests und Konfidenzintervalle reicht natürlich nicht eine Simulation:
+```{r}
+FB1000 <- mosaic::do(1000) *  mean( rnorm(n = nFB, mean = mFB, sd = sdFB) )
+histogram(~FB1000, v=mFB)
+```
+
+Das *simulierte* 95% Konfidenzintervall geht also von
+```{r}
+sort(FB1000$mean)[floor(1000*0.025)]
+```
+bis
+```{r}
+sort(FB1000$mean)[ceiling(1000*0.975)]
+```
+und enthält damit die 0. Von den 1000 Simulationen haben 
+```{r}
+sum(FB1000$mean <= 0)
+```
+einen Mittelwert in der Jahresrendite unter 0. 
+
+
+***
+**Übung:**
+
+1.  Berechnen (nicht simulieren!) Sie das 95\% Konfidenzintervall unter der Annahme einer Normalverteilung.
+2.  Wie ändern sich Standardfehler und p-Werte, wenn die gleichen Punktschätzer nicht auf der Basis von einem sondern von 3 Jahren ermittelt wurden?
+
+***
+
+### t-Test für eine abhängige/ gepaarte Stichprobe
+Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
+
+Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werden:
+```
+download.file("https://goo.gl/0YCEHf", destfile = "data/B3.csv")
+```
+Anschließend können die Daten in R eingelesen werden:
+```{r}
+B3 <- read.csv2("data/B3.csv")
+str(B3) # Datenstruktur
+head(B3); tail(B3)
+```
+Hier interessieren besonders die (Veränderung) der Investitionen in Ausrüstungsgüter (`IAUJW91`) und in Bauten (`IB91JW`). Die deskriptiven Kennzahlen zeigen,
+```{r }
+favstats( ~ IAU91JW, data=B3)
+favstats( ~ IB91JW, data=B3)
+```
+dass im betrachteten Zeitraum die Investitionen in Ausrüstungsgüter mit im arithmetischen Mittelwert von `r round(mean(B3$IAU91JW),2)` im Mittel stärker gestiegen sind als die in Bauten mit `r round(mean(B3$IB91JW),2)`. Da die Investitionen sicherlich in Zusammenhang mit der gesamten konjunkturellen Entwicklung stehen, ist davon auszugehen, dass es sich hier um vom jeweiligen Zeitpunkt abhängige Beobachtungen handelt. Daher wird hier die Differenz der Werte betrachtet: `IB91JW - IAU91JW`.  Der R Befehl für einen t-Test lautet `t.test`:
+```{r}
+t.test (~ (IB91JW - IAU91JW), data=B3)
+```
+```{r, echo=FALSE}
+ptb3 <- t.test (~ (IB91JW - IAU91JW), data=B3)
+```
+
+Der (umfangreichen) Ausgabe können Sie neben dem z- bzw. t-Wert (`r round(ptb3$statistic, 2)`) mit unter der Nullhypothese der Gleichheit des Lageparameters $$H_0: \mu_{\text{IB91JW}-\text{IAU91JW}}=0$$ insbesondere den p-Wert (`r round(ptb3$p.value, 4)`) und das Konfidenzintervall (`r round(ptb3$conf.int,2)`) entnehmen. Zum Signifikanznvieau von 5% wird die Nullhypothese also gerade so *nicht* abgelehnt, da der p-Wert über 5\% liegt.
+
+***
+**Übung:**
+
+3.  Testen Sie, ob es einen nicht zufälligen mittleren Lageunterschied zwischen der Veränderung des Preisindex des Bruttosozialproduktes `PBSPJW` und dem des privaten Verbrauchs `PCPJW` gibt.
+
+***
+
+### t-Test für zwei unabhängige Stichprobe
+Untersuchen wir, ob sich makroökonomische Kennzahlen im Auf- und Abschwung unterscheiden. 
+Zunächst stellen wir fest, dass die eigentlich kategorielle Variable `PHASEN` hier numerisch kodiert wurde, was aber schnell verwirren würde.
+```{r}
+typeof(B3$PHASEN)
+```
+Typänderung zu `factor` geht einfach:
+```{r}
+B3$PHASEN <- as.factor(B3$PHASEN)
+```
+Wenn wir die einzelnen `levels` des Faktors als numerische Werte verwenden wollen würde man den Befehl `as.numeric()` verwenden. Aber sicherheitshalber vorher über `levels()` gucken, ob die Reihenfolge auch stimmt.
+
+Um die Interpretation zu erleichtern können wir hier einfach die Faktorstufe umbenennen.
+```{r}
+levels(B3$PHASEN) <- c("Aufschwung", "Oberer Wendepunkt", 
+                       "Abschwung", "Unterer Wendepunkt")
+```
+
+Jetzt ist keine Verwechselung von kategoriellen und metrischen Variablen mehr möglich.
+
+Zunächst wird der Datensatz, der auch die konjunkturellen Wendepunkte enthält, nur auf Auf- und Abschwung eingeschränkt. 
+```{r}
+B3AufAb <- filter(B3, PHASEN %in% c("Aufschwung", "Abschwung")) 
+B3AufAb <- droplevels(B3AufAb)
+```
+
+In der politischen Diskussion werden immer niedrige Zinsen gefordert. Schauen wir mal, wie die Zinsen in den Konjunkturphasen in der Vergangenheit (1955-1994) verteilt waren:
+```{r}
+bwplot(ZINSK ~ PHASEN, data=B3AufAb)
+```
+
+Anscheinend waren die Zinsen in Zeiten des Aufschwungs niedriger. 
+
+Was sagen die deskriptiven Kennzahlen:
+```{r}
+favstats(ZINSK ~ PHASEN, data=B3AufAb)
+```
+Alle Lagemaße für die Zinskosten sind in der Aufschwungphase niedriger. 
+
+Der t-Test der Zinskosten für $$H_0: \mu_{\text{Aufschwung}}=\mu_{\text{Abschwung}} \Leftrightarrow \mu_{\text{Aufschwung}}-\mu_{\text{Abschwung}}=0$$ mit der Teststatistik $$T=\frac{\bar{x}_A-\bar{x}_B}{\sqrt{\frac{sd^2_A}{{n_A}}+\frac{sd^2_B}{{n_B}}}}$$
+hat dann den gleichen Aufbau des Syntax wie `bwplot` oder `favstats`: Teste die Zinskosten in Abhängigkeit der Konjunkturphase.
+
+Die Berechnung der Teststatistik 
+```{r}
+t.test(ZINSK ~ PHASEN, data=B3AufAb)
+```
+```{r, echo=FALSE}
+tb3 <- t.test (ZINSK ~ PHASEN, data=B3AufAb)
+```
+Der kleine p-Wert von $`r tb3$p.value`$ zeigt, dass die Nullhypothese der Gleichheit der Lageparameter verworfen werden kann. Wir können der Funktion auch eine spezielle Alternativhypothese übergeben:
+```{r}
+t.test(ZINSK ~ PHASEN, data=B3AufAb, alternative = "less")
+```
+Jetzt haben wir die Nullhypothese "Das Lagemaß für die Zinskosten ist im Aufschwung *nicht* kleiner als im Abschwung" gegen die Alternativhypothese (Forschungshypothese) "Das Lagemaß für die Zinskosten ist im Aufschwung kleiner als im Abschwung" getestet:
+$$H_0: \mu_{\text{Aufschwung}} \geq \mu_{\text{Abschwung}} \quad vs. \quad H_A: \mu_{\text{Aufschwung}} < \mu_{\text{Abschwung}}$$
+bzw. 
+$$H_0: \mu_{\text{Aufschwung}} - \mu_{\text{Abschwung}} \geq 0 \quad vs. \quad H_A: \mu_{\text{Aufschwung}} - \mu_{\text{Abschwung}} < 0 $$
+
+***
+**Übung:**
+
+4.  Untersuchen Sie, ob sich die mittlere Entwicklung des privaten Verbrauchs `CP91JW` zwischen den Konjunkturphasen unterscheidet.
+
+***
+
+Auch hier können wir, ohne eine Verteilungsannahme zu verwenden permutieren.
+```{r}
+mdiff <- diff(mean(ZINSK ~ PHASEN, data=B3AufAb))
+mdiff
+mdiff.null <- mosaic::do(1000) * diff(mean(ZINSK ~ sample(PHASEN), data=B3AufAb))
+histogram( ~ mdiff.null)
+```
+
+Unter der Nullhypothese der Gleichheit der Lagemaße kommt eine gleich große oder größere Differenz also
+```{r mdiff-null}
+sum(mdiff.null >= mdiff)
+```
+mal bei 1000 Permutationen vor!
+
+Da die statistische *Signifikanz* vom Standardfehler abhängt, welcher wiederum vom Stichprobenumfang abhängt, wurde von Cohen ein Maß für die *Effektstärke*, **Cohen's d** vorgeschlagen:
+$$d=\frac{\bar{x}_A-\bar{x}_B}{sd_{\text{pool}}}$$
+mit $${sd_{\text{pool}}=\sqrt{\frac{1}{n_A+n_B-2}\Bigl((n_1-1)sd^2_A+(n_2-1)sd^2_B \Bigr)}}$$
+
+```{r}
+# Kennzahlen 1. Stichprobe
+m1 <- mean(B3$ZINSK[B3$PHASEN=="Aufschwung"]) 
+sd1 <- sd(B3$ZINSK[B3$PHASEN=="Aufschwung"]) 
+n1 <- length(B3$ZINSK[B3$PHASEN=="Aufschwung"])
+# Kennzahlen 2. Stichprobe
+m2 <- mean(B3$ZINSK[B3$PHASEN=="Abschwung"]) 
+sd2 <- sd(B3$ZINSK[B3$PHASEN=="Abschwung"]) 
+n2 <- length(B3$ZINSK[B3$PHASEN=="Abschwung"])
+# Gepoolte Standardabweichung
+sdpool <- sqrt( ((n1-1)*sd1^2 + (n2-1)*sd2^2) / (n1+n2-2))
+# Cohen's d
+d <- (m1-m2)/sdpool
+d
+```
+
+Cohen's d ist ein Maß der Überlappung der Verteilungen:
+
+```{r, echo=FALSE}
+xd <- seq(0,15, by=0.1)
+d1 <- dnorm(xd, m1, sdpool)
+d2 <- dnorm(xd, m2, sdpool)
+plot(xd,d1, type="l", ylab="Dichte", xlab="Zinsk", col="blue", main="Dichte bei Normalverteilung", lwd=2, sub="(Gepoolte Standardabweichung)")
+lines(xd, d2, type="l", col="red", lwd=2)
+legend(10, 0.1625, legend=c("Aufschwung", "Abschwung"), col=c("blue", "red"), lwd=2)
+```
+
+Häufig werden Werte 
+
+* |d|<=0.2 als kleine
+* |d|<=0.5 als mittlere 
+* |d|>=0.8 als große Effekte 
+
+bezeichnet.
+
+Eine direkte Berechnung geht über das Paket `lsr`:
+```{r }
+# install.packages("lsr") Einmalig installieren
+library(lsr)
+library(methods)
+lsr::cohensD(ZINSK ~ PHASEN, data=B3AufAb)
+
+```
+
+
+### Varianzanalyse (ANOVA)
+Bei mehr als zwei Gruppen funktionieren die Techniken des t-Tests nicht mehr. Um Lagemaßunterschiede zu testen wird anstelle der Mittelwerte die Streuung verglichen: Ist die Streuung zwischen den Gruppen groß im Vergleich zur Streuung innerhalb der Gruppen?
+
+Unterscheidet sich der mittlere Anteil des Staatsdefizits `DEFRATE` nicht zufällig zwischen den Konjunkturphasen?
+
+```{r}
+bwplot( DEFRATE ~ PHASEN, data=B3)
+favstats( DEFRATE ~ PHASEN, data=B3)
+```
+
+Vielleicht, vielleicht nicht.
+
+Um eine Varianzanalyse (*Analysis of Variance, ANOVA*) mit $$H_0: \mu_1=\mu_2=\ldots =\mu_k$$ gegen $$H_A: \text{Mindestens ein } \mu \text{ ist verschieden.}$$ durchzuführen kann in R u. a. der Befehl `aov` verwendet werden:
+```{r}
+DEFaov <- aov(DEFRATE ~ PHASEN, data=B3)
+summary(DEFaov)
+```
+Der p-Wert des F-Tests der Nullhypothese $$H_0: \mu_{\text{Aufschwung}}=\mu_{\text{Oberer Wendepunt}}=\mu_{\text{Abschwung}}=\mu_{\text{Unterer Wendepunkt}}$$ der Gleichheit der Lage ist mit `r round(summary(DEFaov)[[1]][["Pr(>F)"]][1],4)` größer als 0.05, die Nullhypothese kann also für das Staatsdefizit nicht verworfen werden. 
+
+Unterscheidet sich das Lagemaß der Veränderung der Lohnstückkosten `LSTKJW` nicht zufällig?
+```{r LSTKJW-aov}
+bwplot(LSTKJW ~ PHASEN, data=B3)
+favstats(LSTKJW ~ PHASEN, data=B3)
+LSTKaov <- aov(LSTKJW ~ PHASEN, data=B3)
+summary(LSTKaov)
+```
+Die Nullhypothese der Gleichheit wird hier also verworfen. Interessanterweise unterscheiden sich insbesondere die Lagemaße von Auf- und Abschwung, die beiden Wendepunkte liegen dazwischen.
+
+
+Im Paket `effects` gibt es übrigens eine schöne Plotfunktion für die Effekte:
+```{r}
+# Einmalig installieren:
+# install.packages("effects")
+
+library(effects)
+plot(allEffects(LSTKaov))
+```
+
+Neben dem arithmetischen Mittelwert (Punktschätzer) wird in der Standardeinstellung das 95\% Konfidenzintervall eingezeichnet.
+
+***
+**Übung:** 
+
+5.  Gibt es nicht zufällige Lageunterschiede bei der Änderung der Erwerbstätigen `EWAJW` zwischen den Konjunkturphasen?
+
+***
+
+#### Vertiefung: Mehrfaktorielle Varianzanalyse mit Wechselwirkung
+Betrachten wir noch einmal den  *tips* Datensatz aus *Bryant, P. G. and Smith, M (1995) Practical Data Analysis: Case Studies in Business Statistics. Homewood, IL: Richard D. Irwin Publishing*.
+
+Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
+```
+download.file("https://goo.gl/whKjnl", destfile = "data/tips.csv")
+```
+
+Das Einlesen der Daten in R erfolgt, sofern die Daten im Verzeichnis `data` liegen, über:
+```{r}
+tips <- read.csv("data/tips.csv")
+```
+
+Um zu schauen, inwieweit das Trinkgeld vom Geschlecht *und* dem Rauchverhalten abhängt, kann folgende Analyse durchgeführt werden:
+```{r tips-aov}
+favstats(tip ~ sex + smoker, data=tips)
+tipaov <- aov(tip ~ sex + smoker, data=tips)
+summary(tipaov)
+plot(allEffects(tipaov))
+```
+
+Beide Faktoren sind zum Signifikanzniveau 5\% *nicht* signifikant, d. h., $H_0$, dass sich die Mittelwerte in der Population nicht unterscheiden, wird nicht verworfen.
+
+Allerdings beobachten wir etwas anderes: Während der Mittelwert des Trinkgeldes bei den Frauen bei den Rauchern größer ist, ist es bei den Männern umgekehrt. Hier könnte also eine Wechselwirkung, eine Interaktion vorliegen. Diese wird in R über ein `:` in der Formel eingefügt:
+
+```{r tipaovww}
+tipaovww <- aov(tip ~ sex + smoker + sex:smoker, data=tips)
+summary(tipaovww)
+plot(allEffects(tipaovww ))
+```
+
+Auch hier gilt: Mit einem p-Wert von $0.564$ wird die Nullhypothese, dass in der Population keine Wechselwirkung von Geschlecht und Rauchverhalten für den Mittelwert vorliegt, nicht verworfen.
+
+
+
+
+### Übung: Teaching Rating
+Dieser Datensatz analysiert u. a. den Zusammenhang zwischen Schönheit und Evaluierungsergebnis von Dozenten:
+
+*Hamermesh, D.S., and Parker, A. (2005). Beauty in the Classroom: Instructors' Pulchritude and Putative Pedagogical Productivity. Economics of Education Review, 24, 369–376.*
+
+Sie können ihn, sofern noch nicht geschehen, von [https://goo.gl/6Y3KoK](https://goo.gl/6Y3KoK) als `csv` herunterladen.
+
+1.  Ist das arithmetische Mittel der Evaluierung `eval` nicht zufällig größer als befriedigend (3)?
+2.  Gibt es einen nicht zufälligen Unterschied im Lagemaß der Evaluation `eval` zwischen männlichen und weiblichen Dozent/innen (`gender`)?
+
+### Verweise
+
+
+- David M. Diez, Christopher D. Barr, Mine &Ccedil;etinkaya-Rundel (2014): *Introductory Statistics with Randomization and Simulation*, [https://www.openintro.org/stat/textbook.php?stat_book=isrs](https://www.openintro.org/stat/textbook.php?stat_book=isrs),  Kapitel 4
+- Nicholas J. Horton, Randall Pruim, Daniel T. Kaplan (2015): Project MOSAIC Little Books *A Student's Guide to R*,  [https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf](https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf), Kapitel 7, 10.1
+- Maike Luhmann (2015): *R für Einsteiger*, Kapitel 13, 14
+- Andreas Quatember (2010): *Statistik ohne Angst vor Formeln*, Kapitel 3.5, 3.7, 3.12
+- Daniel Wollschläger (2014): *Grundlagen der Datenanalyse mit R*, Kapitel 7.2, 7.3, 7.5
+
+### Lizenz
+Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übung zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) von Andrew Bray, Mine &Ccedil;etinkaya-Rundel und steht wie diese unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0).  

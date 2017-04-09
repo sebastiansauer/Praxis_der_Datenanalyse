@@ -4,7 +4,7 @@
 ## Der p-Wert
 
 
-```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "10%"}
+```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "10%", fig.align = "center"}
 knitr::include_graphics("images/Ronald_Fisher.jpg")
 ```
 
@@ -13,7 +13,7 @@ knitr::include_graphics("images/Ronald_Fisher.jpg")
 Der p-Wert ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen. 
 
 
-```{r who-said, echo = FALSE, fig.cap  = "Der p-Wert wird oft als wichtig erachtet"}
+```{r who-said, echo = FALSE, fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
 knitr::include_graphics("images/p_value_who_said.png")
 ```
 
@@ -41,7 +41,7 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
 
 
-```{r fig-dino, echo = FALSE, fig.height = 2}
+```{r fig-dino, echo = FALSE, fig.height = 2, fig.align = "center"}
 knitr::include_graphics("images/meme_pwert_1iw22a_pvalue_dino.jpg")
 ```
 

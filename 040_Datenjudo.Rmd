@@ -19,47 +19,42 @@ knitr::opts_chunk$set(
 
 
 
-# Daten aufbereiten
+# Datenjudo
 
 
 ```{r echo = FALSE, fig.cap = "Daten aufbereiten"}
-knitr::include_graphics("images/Aufbereiten.pdf")
+knitr::include_graphics("images/Datenjudo/Aufbereiten.pdf")
 ```
 
 In diesem Kapitel benötigte Pakete: 
 ```{r}
 library(tidyverse)  # Datenjudo
-library(corrr)  # Korrelationen berechnen mit der Pfeife
 library(stringr)   # Texte bearbeiten
 library(car)  # für 'recode'
-library(nycflights13)  # Datensatz 'flights'
-library(knitr)  # für HTML-Tabellen
-library(gridExtra)  # für Mehrfachplots
-
 ```
 
 
-Unter Daten aufbereiten im engeren Sinne ist gemeint, die Daten einer "Grundreinigung" zu unterziehen, dass sie für weitere Analysen in geeigneter Form sind. Daten zusammenfassen meint die deskriptive Statistik; Daten visualisieren ist das Erstellen von Diagrammen. Im Anschluss kann man die Daten modellieren.
+Mit *Datenjudo* ist gemeint, die Daten für die eigentliche Analyse "aufzubereiten". Unter *Aufbereiten* ist hier das Umformen, Prüfen, Bereinigen, Gruppieren und Zusammenfassen von Daten gemeint. Die deskriptive Statistik fällt unter die Rubrik Aufbereiten. Kurz gesagt: Alles, wan tut, nachdem die Daten "da" sind und bevor man mit anspruchsvoller(er) Modellierung beginnt.
 
-Ist das Explorieren von Daten auch nicht statistisch anspruchsvoll, so ist es trotzdem von großer Bedeutung und häufig recht zeitintensiv, vor allem das Daten aufbereiten. Eine Anekdote zur Relevanz der Exploration, die (so will es die Geschichte) mir an einer Bar nach einer einschlägigen Konferenz erzählt wurde (daher keine Quellenangebe, Sie verstehen...). Eine Computerwissenschaftlerin aus den USA (deutschen Ursprungs) hatte einen beeindruckenden "Track Record" an Siegen in Wettkämpfen der Datenanalyse. Tatsächlich hatte sie keine besonderen, raffinierten Modellierungstechniken eingesetzt; klassische Regression war ihre Methode der Wahl. Bei einem Wettkampf, bei dem es darum ging, Krebsfälle aus Krankendaten vorherzusagen (z.B. Röntgenbildern) fand sie nach langem Datenjudo heraus, dass in die "ID-Variablen" Information gesickert war, die dort nicht hingehörte und die sie nutzen konnte für überraschend (aus Sicht der Mitstreiter) gute Vorhersagen zu Krebsfällen. Wie war das möglich? Die Daten stammten aus mehreren Kliniken, jede Klinik verwendete ein anderes System, um IDs für Patienten zu erstellen. Überall waren die IDs stark genug, um die Anonymität der Patienten sicherzustellen, aber gleich wohl konnte man (nach einigem Judo) unterscheiden, welche ID von welcher Klinik stammte. Was das bringt? Einige Kliniken waren reine Screening-Zentren, die die Normalbevölkerung versorgte. Dort sind wenig Krebsfälle zu erwarten. Andere Kliniken jedoch waren Onkologie-Zentren für bereits bekannte Patienten oder für Patienten mit besonderer Risikolage. Wenig überraschen, dass man dann höhere Krebsraten vorhersagen kann. Eigentlich ganz einfach; besondere Mathe steht hier (zumindest in dieser Geschichte) nicht dahinter. Und, wenn man den Trick kennt, ganz einfach. Aber wie so oft ist es nicht leicht, den Trick zu finden. Sorgfältiges Datenjudo hat hier den Schlüssel zum Erfolg gebracht.
+Ist das Aufbereiten von Daten auch nicht statistisch anspruchsvoll, so ist es trotzdem von großer Bedeutung und häufig recht zeitintensiv. Eine Anekdote zur Relevanz der Datenaufbereitung, die (so will es die Geschichte) mir an einer Bar nach einer einschlägigen Konferenz erzählt wurde (daher keine Quellenangebe, Sie verstehen...). Eine Computerwissenschaftlerin aus den USA (deutschen Ursprungs) hatte einen beeindruckenden "Track Record" an Siegen in Wettkämpfen der Datenanalyse. Tatsächlich hatte sie keine besonderen, raffinierten Modellierungstechniken eingesetzt; klassische Regression war ihre Methode der Wahl. Bei einem Wettkampf, bei dem es darum ging, Krebsfälle aus Krankendaten vorherzusagen (z.B. von Röntgenbildern) fand sie nach langem Datenjudo heraus, dass in die "ID-Variablen" Information gesickert war, die dort nicht hingehörte und die sie nutzen konnte für überraschend (aus Sicht der Mitstreiter) gute Vorhersagen zu Krebsfällen. Wie war das möglich? Die Daten stammten aus mehreren Kliniken, jede Klinik verwendete ein anderes System, um IDs für Patienten zu erstellen. Überall waren die IDs stark genug, um die Anonymität der Patienten sicherzustellen, aber gleich wohl konnte man (nach einigem Judo) unterscheiden, welche ID von welcher Klinik stammte. Was das bringt? Einige Kliniken waren reine Screening-Zentren, die die Normalbevölkerung versorgte. Dort sind wenig Krebsfälle zu erwarten. Andere Kliniken jedoch waren Onkologie-Zentren für bereits bekannte Patienten oder für Patienten mit besonderer Risikolage. Wenig überraschen, dass man dann höhere Krebsraten vorhersagen kann. Eigentlich ganz einfach; besondere Mathe steht hier (zumindest in dieser Geschichte) nicht dahinter. Und, wenn man den Trick kennt, ganz einfach. Aber wie so oft ist es nicht leicht, den Trick zu finden. Sorgfältiges Datenjudo hat hier den Schlüssel zum Erfolg gebracht.
 
 
 ## Typische Probleme
 Bevor man seine Statistik-Trickkiste so richtig schön aufmachen kann, muss man die Daten häufig erst noch in Form bringen. Das ist nicht schwierig in dem Sinne, dass es um komplizierte Mathe ginge. Allerdings braucht es mitunter recht viel Zeit und ein paar (oder viele) handwerkliche Tricks sind hilfreich. Hier soll das folgende Kapitel helfen.
 
-Mit "Datenjudo" (ein Fachbegriff aus der östlichen Zahlentheorie) ist gemeint, die Daten so "umzuformen", "aufzubereiten", oder "reinigen" , dass sie passend für statistische Analysen sind. 
+<!-- Mit "Datenjudo" (ein Fachbegriff aus der östlichen Zahlentheorie) ist gemeint, die Daten so "umzuformen", "aufzubereiten", oder "reinigen" , dass sie passend für statistische Analysen sind.  -->
 
 Typische Probleme, die immer wieder auftreten, sind:
 
-- Fehlende Werte: Irgend jemand hat auf eine meiner schönen Fragen in der Umfrage nicht geantwortet!
-- Unerwartete Daten: Auf die Frage, wie viele Facebook-Freunde er oder sie habe, schrieb die Person "I like you a lot". Was tun???
-- Daten müssen umgeformt werden: Für jede der beiden Gruppen seiner Studie hat Joachim einen Google-Forms-Fragebogen aufgesetzt. Jetzt hat er zwei Tabellen, die er "verheiraten" möchte. Geht das?
-- Neue Spalten berechnen: Ein Student fragt nach der Anzahl der richtigen Aufgaben in der Statistik-Probeklausur. Wir wollen helfen und im entsprechenden Datensatz eine Spalte erzeugen, in der pro Person die Anzahl der richtig beantworteten Fragen steht.
+- *Fehlende Werte*: Irgend jemand hat auf eine meiner schönen Fragen in der Umfrage nicht geantwortet!
+- *Unerwartete Daten*: Auf die Frage, wie viele Facebook-Freunde er oder sie habe, schrieb die Person "I like you a lot". Was tun???
+- *Daten müssen umgeformt werden*: Für jede der beiden Gruppen seiner Studie hat Joachim einen Google-Forms-Fragebogen aufgesetzt. Jetzt hat er zwei Tabellen, die er "verheiraten" möchte. Geht das?
+- *Neue Variablen (Spalten) berechnen*: Ein Student fragt nach der Anzahl der richtigen Aufgaben in der Statistik-Probeklausur. Wir wollen helfen und im entsprechenden Datensatz eine Spalte erzeugen, in der pro Person die Anzahl der richtig beantworteten Fragen steht.
 
 
 ## Daten aufbereiten mit `dplyr`
 
-Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr` ist ein populäres Paket dafür. Eine zentrale Idee von `dplyr` ist, dass es nur ein paar wenige Grundbausteine geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, so wie ich das will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). 
+Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr` ist ein populäres Paket dafür. Eine zentrale Idee von `dplyr` ist, dass es nur ein paar wenige Grundbausteine geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, was ich will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). 
 
 
 Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich ausschließlich um *D*ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück (zumindest bei den meisten Befehlen).
@@ -75,7 +70,7 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern. Zum Beispiel man ar
 Ein Sinnbild:
 
 ```{r fig-filter, echo = FALSE, fig.cap = "Zeilen filtern"}
-knitr::include_graphics("./images/filter.pdf")
+knitr::include_graphics("images/Datenjudo/filter.pdf")
 ```
 
 Merke:
@@ -101,10 +96,28 @@ Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefil
 
 
 
-```{block2, fcntn_dublicates, type='rmdcaution', echo = TRUE}
+```{block2, fcntn-dublicates, type='rmdcaution', echo = TRUE}
 Manche Befehle wie `filter` haben einen Allerweltsnamen; gut möglich, dass ein Befehl mit gleichem Namen in einem anderen (geladenen) Paket existiert. Das kann dann zu Verwirrungen führen - und kryptischen Fehlern. Im Zweifel den Namen des richtigen Pakets ergänzen, und zwar zum Beispiel so: `dplyr::filter(...)`.
 
 ```
+
+## Aufgaben^[F, R, F, F, R]
+
+```{block2, exercises-filter, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. `filter` filtert Spalten.
+1. `filter` ist eine Funktion aus dem Paket `dplyr`.
+1. `filter` erwartet als ersten Parameter das Filterkriterium.
+1. `filter` lässt nur ein Filterkriterium zu.
+1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")´.
+
+
+
+```
+
+
+#### Vertiefung: Fortgeschrittene Beispiele für `filter`
 
 Einige fortgeschrittene Beispiele für `filter`:
 
@@ -140,7 +153,7 @@ filter(profiles, !is.na(income) | !is.na(sex))
 Das Gegenstück zu `filter` ist `select`; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
 
 ```{r fig-select, echo = FALSE, fig.cap = "Spalten auswählen"}
-knitr::include_graphics("images/select.pdf")
+knitr::include_graphics("images/Datenjudo/select.pdf")
 ```
 
 
@@ -148,15 +161,26 @@ Merke:
 
 >    Die Funktion select wählt Spalten aus einem Dataframe aus.
 
-```{r}
+Laden wir als ersten einen Datensatz.
+
+```{r eval = FALSE}
+stats_test <- read.csv("data/test_inf_short.csv")
+```
+
+Dieser Datensatz beinhaltet Daten zu einer Statistikklausur.
+
+Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unterordner mit dem Namen `data` befinden, welcher sich im Arbeitsverzeichnis befindet^[der angegebene Pfad ist also *relativ*  zum aktuellen Verzeichnis.].
+
+
+```{r read-test-inf-short, echo = FALSE}
 if (!file.exists("./data/test_inf_short.csv")) {
   stats_test <- read.csv("https://sebastiansauer.github.io/data/test_inf_short.csv") 
 } else {
-  stats_test <- read.csv("./data/test_inf_short.csv")
+  stats_test <- read.csv("data/test_inf_short.csv")
 }
 ```
 
-Hier haben wir erst geprüft, ob die Datei `test_inf_short.csv` existiert; falls nein, laden wir sie herunter. Andernfalls lesen wir sie aus dem lokalen Verzeichnis.
+<!-- Hier haben wir erst geprüft, ob die Datei `test_inf_short.csv` existiert; falls nein, laden wir sie herunter. Andernfalls lesen wir sie aus dem lokalen Verzeichnis. -->
 
 ```{r eval = FALSE}
 select(stats_test, score)  # Spalte `score` auswählen
@@ -168,6 +192,20 @@ select(stats_test, 5:6) Spalten 5 bis 6 auswählen
 Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu.
 
 
+##### Aufgaben^[F, F, R, R, F]
+
+```{block2, exercises-select, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. `select` wählt *Zeilen* aus.
+1. `select` ist eine Funktion aus dem Paket `knitr`.
+1. Möchte man zwei Spalten auswählen, so ist folgende Syntax prinzipiell korrekt: `select(df, spalte1, spalte2)`.
+1. Möchte man Spalten 1 bis 10 auswählen, so ist folgende Syntax prinzipiell korrekt: `select(df, spalte1:spalte10)
+1. Mit `select` können Spalten nur bei ihrem Namen, aber nicht bei ihrer Nummer aufgerufen werden.
+
+
+```
+
 
 ### Zeilen sortieren mit `arrange`
 
@@ -177,27 +215,34 @@ Beim interaktiven Gebrauch von R (oder beliebigen Analyseprogrammen) ist das Sor
 
 Ein R-Befehl hierzu ist `arrange`; einige Beispiele zeigen die Funktionsweise am besten:
 
-```{r arrange-demo}
+```{r arrange-demo, eval = FALSE}
+
+arrange(stats_test, score) # liefert die *schlechtesten* Noten zuerst zurück
+arrange(stats_test, -score) # liefert die *besten* Noten zuerst zurück
+arrange(stats_test, interest, score)
+```
+
+
+```{r arrange-demo2, echo = FALSE}
 
 arrange(stats_test, score)  %>% head() # liefert die *schlechtesten* Noten zurück
 arrange(stats_test, -score) %>% head() # liefert die *besten* Noten zurück
 arrange(stats_test, interest, score) %>% head()
 ```
 
+Einige Anmerkungen. Die generelle Syntax lautet `arrange(df, Spalte1, ...)`, wobei `df` den Dataframe bezeichnet und `Spalte1` die erste zu sortierende Spalte; die Punkte `...` geben an, dass man weitere Parameter übergeben kann. Man kann sowohl numerische Spalten als auch Textspalten sortieren. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.
 
-Einige Anmerkungen. Die generelle Syntax lautet `arrange(df, Spalte1, ...)`, wobei `df` den Dataframe bezeichnet und `Spalte1` die erste zu sortierende Spalte; die Punkte `...` geben an, dass man weitere Parameter übergeben kann. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.
-
-Standardmäßig sortiert `arrange` *aufsteigend*  (weil kleine Zahlen im Zahlenstrahl vor den großen Zahlen kommen). Möchte man diese Reihenfolge umdrehen (große Werte zuert), so kann man ein Minuszeichen vor den Namen der Spalte setzen.
+Standardmäßig sortiert `arrange` *aufsteigend*  (weil kleine Zahlen im Zahlenstrahl vor den großen Zahlen kommen). Möchte man diese Reihenfolge umdrehen (große Werte zuert, d.h. *absteigend*), so kann man ein Minuszeichen vor den Namen der Spalte setzen.
 
 Gibt man *zwei oder mehr* Spalten an, so werden pro Wert von `Spalte1` die Werte von `Spalte2` sortiert etc; man betrachte den Output des Beispiels oben dazu.
 
-Aber was heißt dieses komisch Symbol:  `%>%`? Diese sogenannte "Pfeife" lässt sich mit "und dann" ins Deutshce übersetzen. Also:
+<!-- Aber was heißt dieses komisch Symbol:  `%>%`? Diese sogenannte "Pfeife" lässt sich mit "und dann" ins Deutsce übersetzen. Also: -->
 
-```
-sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen
-```
+<!-- ``` -->
+<!-- sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen -->
+<!-- ``` -->
 
-Der Befehl `head` zeigt dier ersten paar Zeilen eines Dataframes [^5].
+<!-- Der Befehl `head` zeigt dier ersten paar Zeilen eines Dataframes [^5]. -->
 
 
 Merke:
@@ -207,12 +252,12 @@ Merke:
 Ein Sinnbild zur Verdeutlichung:
 
 ```{r fig-arrange, echo = FALSE, fig.cap = "Spalten sortieren"}
-knitr::include_graphics("./images/arrange.pdf")
+knitr::include_graphics("images/Datenjudo/arrange.pdf")
 ```
 
 
 
-Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten* *Ränge* widergibt:
+Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Ränge* widergibt:
 
 ```{r demo-top-n}
 
@@ -224,14 +269,24 @@ Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Dat
 
 Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr.
 
+## Aufgaben^[F, F, F, F, R]
 
+```{block2, exercises-arrange, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. `arrange` arrangiert Spalten.
+1. `arrange` sortiert im Standard absteigend.
+1. `arrange` lässt nur ein Sortierkriterium zu.
+1. `arrange` kann numerische Werte, aber nicht Zeichenketten sortieren.
+1. `top_n(5)` liefert die fünf kleinsten Ränge.
+```
 
 ### Datensatz gruppieren mit `group_by`
 
 Einen Datensatz zu gruppieren ist ebenfalls eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.
 
 ```{r fig-groupby, echo = FALSE, fig.cap = "Datensätze nach Subgruppen aufteilen"}
-knitr::include_graphics("./images/group_by.pdf")
+knitr::include_graphics("images/Datenjudo/group_by.pdf")
 ```
 
 In der Abbildung wurde der Datensatz anhand der Spalte `Fach` in mehrere Gruppen geteilt. Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
@@ -243,6 +298,23 @@ test_gruppiert
 
 Schaut man sich nun den Datensatz an, sieht man erstmal wenig Effekt der Gruppierung. R teilt uns lediglich mit `Groups: interest [7]`, dass es die Gruppen gibt, aber es gibt keine extra Spalte oder sonstige Anzeichen der Gruppierung. Aber keine Sorge, wenn wir gleich einen Mittelwert ausrechnen, bekommen wir den Mittelwert pro Gruppe!
 
+Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Ausgabe sich auf einen `tibble` bezieht^[http://stackoverflow.com/questions/29084380/what-is-the-meaning-of-the-local-data-frame-message-from-dplyrprint-tbl-df], also eine bestimmte Art von Dataframe. `Groups: interest [7]` zeigt, dass der Tibble in 7 Gruppen - entsprechend der Werte von `interest` aufgeteilt ist.
+
+`group_by` an sich ist nicht wirklich nützlich. Nützlich wird es erst, wenn man weitere Funktionen auf den gruppierten Datensatz anwendet - z.B. Mittelwerte ausrechnet (z.B mit `summarise`, s. unten). Die nachfolgenden Funktionen (wenn sie aus `dplyr` kommen), berücksichtigen nämlich die Gruppierung. So kann man einfach Mittelwerte pro Gruppe ausrechnen.
+
+
+## Aufgaben^[R, F, R, R]
+
+```{block2, exercises-group-by, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Mit `group_by` gruppiert man einen Datensatz.
+1. `group_by` lässt nur ein Gruppierungskriterium zu.
+1. Die Gruppierung durch `group_by` wird nur von Funktionen aus `dplyr` erkannt.
+1. `group_by` ist sinnvoll mit `summarise` zu kombinieren.
+
+
+```
 
 
 Merke:
@@ -256,7 +328,7 @@ Merke:
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max`. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
 ```{r fig-summarise, echo = FALSE, fig.cap = "Spalten zu einer Zahl zusammenfassen"}
-knitr::include_graphics("images/summarise.pdf")
+knitr::include_graphics("images/Datenjudo/summarise.pdf")
 ```
 
 
@@ -291,10 +363,25 @@ Merke:
 >    Mit summarise kann man eine Spalte eines Dataframes zu einem Wert zusammenfassen.
 
 
+#### Aufgaben^[R, R, R, R, R]
 
+
+
+```{block2, exercises-summarise, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Möchte man aus der Tabelle `stats_test` den Mittelwert für die Spalte `score` berechnen, so ist folgende Syntax korrekt: `summarise(stats_test, mean(score))`.
+1. `summarise` liefert eine Tabelle, genauer: einen Tibble, zurück.
+1. Die Tabelle, die diese Funktion zurückliefert: `summarise(stats_test, mean(score))`, hat eine Spalte mit dem Namen `mean(score)`.
+1. `summarise` lässt zu, dass die zu berechnende Spalte einen Namen vom Nutzer zugewiesen bekommt.
+1. `summarise` darf nur verwendet werden, wenn eine Spalte zu einem Wert zusammengefasst werden soll.
+
+
+
+```
 
 ### Zeilen zählen mit `n` und `count`
-Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehle `nrow` versteht der `dyplr`-Befehl `n`auch Gruppierungen. `n` darf nur innerhalb von `summarise` oder ähnlichen `dplyr`-Befehlen verwendet werden.
+Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl^[Standardbefehl meint, dass die Funktion zum Standardrepertoire von R gehört, also nicht über ein Paket extra geladen werden muss] `nrow` versteht der `dyplr`-Befehl `n`auch Gruppierungen. `n` darf nur innerhalb von `summarise` oder ähnlichen `dplyr`-Befehlen verwendet werden.
 
 ```{r}
 summarise(stats_test, n())
@@ -320,12 +407,41 @@ Merke:
 >    n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle. 
 
 
+
+#### Aufgaben^[R, R, F, F]
+
+
+
+```{block2, exercises-count, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Mit `count` kann man Zeilen zählen.
+1. `count` ist ähnlich (oder identisch) zu einer Kombination von `group_by` und `n()`. 
+1. Mit `count` kann man nur nur eine Gruppe beim Zählen berücksichtigen.
+1. `count` darf nicht bei nominalskalierten Variablen verwendet werden.
+
+
+
+```
+
+
+## Vertiefung
+
+
 ### Die Pfeife
-Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `[^6]. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.
+Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate.
+
+```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578"}
+knitr::include_graphics("images/Datenjudo/ma-150089-WEB.jpg")
+```
+
+
+
+ Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.
 
 
 ```{r fig-durchpreifen, echo = FALSE, out.width  = "80%", fig.cap = "Das 'Durchpeifen'"}
-knitr::include_graphics("images/durchpfeifen.pdf")
+knitr::include_graphics("images/Datenjudo/durchpfeifen.pdf")
 ```
 
 Die sog. "Pfeife" (pipe: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
@@ -407,7 +523,7 @@ stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; el
 ```
 
 
-Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`[^7]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
+Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
 
 
 #### Numerische Werte in Klassen gruppieren mit `cut`
@@ -440,7 +556,7 @@ levels(temp)
 `cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
 
 
-##### gleiche Gruppengrößen
+###### gleiche Gruppengrößen
 
 ```{r}
 temp <- cut_number(wo_men2$height, n = 2)
@@ -452,7 +568,7 @@ Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) g
 >   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
 
 
-###### In beliebige Klassen gruppieren
+##### In beliebige Klassen gruppieren
 
 ```{r}
 wo_men$groesse_gruppe <- cut(wo_men$height, 
@@ -467,228 +583,9 @@ count(wo_men, groesse_gruppe)
 
 
 
-## Fallstudie `nycflights13`
-Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` an. Wir verwenden hier den Datensatz `flights`aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
-
-
-```{r}
-data(flights)
-glimpse(flights)
-```
-
-Der Befehl `data` lädt Daten aus einem zuvor gestarteten Paket. 
-
-Achtung, Fallstudie. Sie sind der/die Assistent_in des Chefs der New Yorker Flughäfen. Ihr Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der größten Verspätung raussuchen. Nix schickes, aber zacki-zacki...
-
-```{r}
-flights %>% 
-  arrange(arr_delay)
-```
-
-Hm, übersichtlicher wäre es wahrscheinllich, wenn wir weniger Spalten anschauen müssten. Am besten neben der Verspätung nur die Information, die wir zur Identifizierung der Schuldigen... will sagen der gesuchten Flüge benötigen
-
-```{r}
-flights %>% 
-  arrange(arr_delay) %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
-```
-
-Da Zahlen in ihrer natürlichen Form von klein nach groß sortiert sind, sortiert `arrange` in ebendieser Richtung. Wir können das umdrehen mit einem Minuszeichen vor der zu sortierenden Spalte:
-
-```{r}
-flights %>% 
-  arrange(-arr_delay) %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
-```
-
-Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dateframe automatisch in eine (einigermaßen) schöne Tabelle ausgeben lassen. Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10 Plätze.
-
-```{r}
-flights %>% 
-  arrange(-arr_delay) %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
-  filter(row_number() < 11) %>% 
-  kable()
-```
-
-"Geht doch", war die Antwort des Chefs, als sie die Tabelle rübergeben (er mag auch keine Emails). "Ach ja", raunt der Chef, als Sie das Zimmer verlassen wollen, "hatte ich erwähnt, dass ich die gleiche Auswertung für jeden Carrier brauche? Reicht bis in einer halben Stunde".
-
-Wir gruppieren also den Datensatz nach der Fluggesellschaft (`carrier`) und filtern dann  die ersten 3 Zeilen (damit die Tabelle für den Chef nicht zu groß wird). Wie jeder `dplyr`-Befehl wird die vorherige Gruppierung berücksichtigt und daher die Top-3-Zeilen *pro Gruppe*, d.h. pro Fluggesellschaft, ausgegeben.
-
-```{r}
-flights %>% 
-  arrange(-arr_delay) %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
-  group_by(carrier) %>% 
-  filter(row_number() < 4) 
-```
-
-Vielleicht gefällt dem Chef diese Darstellung (sortiert nach `carrier`) besser:
-
-```{r}
-flights %>% 
-  arrange(-arr_delay) %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
-  group_by(carrier) %>% 
-  filter(row_number() < 4) %>% 
-  arrange(carrier)
-```
-
-Da Sie den Chef gut kennen, berechnen Sie gleich noch die durchschnittliche Verspätung pro Fluggesellschaft.
-
-```{r}
-flights %>% 
-  select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
-  group_by(carrier) %>% 
-  summarise(delay_mean = mean(arr_delay, na.rm = TRUE)) %>% 
-  arrange(-delay_mean) %>% 
-  kable()
-```
-
-Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
-
-
-## Checkliste zum Datenjudo
-Fassen wir einige wesentliche Arbeitsschritte der Datenaufbereitung zusammen[^10].
-
-### Auf fehlende Werte prüfen* 
-Das geht recht einfach mit `summarise(meine_daten)`. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.
-
-```{r}
-wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
-summary(wo_men)
-```
-
-### Fälle mit fehlenden Werte löschen
-Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
-
-```{r}
-nrow(wo_men)
-wo_men %>% 
-  na.omit %>% 
-  nrow
-```
-
-Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
-```{r}
-wo_men %>% 
-  rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
-  filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
-```
-
-Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten.
-
-### Fehlende Werte ggf. ersetzen  
-Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses[^Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
-
-```{r}
-wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height, na.rm = TRUE))
-  
-```
-
-`replace` ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt[^532].
-
-### Nach Fehlern suchen
-Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prüfen; so könnte man sich ein Histogramm ausgeben lassen pro Variable, um "ungewöhnliche" Werte gut zu erkennen. Meist geht das besser als durch das reine Betrachten von Zahlen. Gibt es wenig unterschiedliche Werte, so kann man sich auch die unterschiedlichen Werte ausgeben lassen.
-
-```{r}
-wo_men %>% 
-  count(shoe_size) %>% 
-  head  # nur die ersten paar Zeilen
-```
-
-
-### Ausreiser identifizieren
-Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
-
-### Hochkorrelierte Variablen finden
-Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
-
-```{r}
-wo_men %>% 
-  select(height, shoe_size) %>% 
-  correlate() -> km   # Korrelationsmatrix berechnen
-km  
-
-km %>% 
-  shave() %>% # Oberes Dreieck ist redundant, wird "abrasiert"
-  rplot()  # Korrelationsplot
-```
-
-Die Funktion `correlate` stammt aus dem Paket `corrr`[^11], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
-
-
-### z-Standardisieren
-Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur vereinheitlichen. Die z-Standardisierung ist ein übliches Vorgehen. Dabei wird der Mittelwert auf 0 transformiert und die SD auf 1; man spricht - im Falle von (hinreichend) normalverteilten Variablen - jetzt von der *Standardnormalverteilung*\index{Standardnormalverteilung}. Unterscheiden sich zwei Objekte A und B in einer standardnormalverteilten Variablen, so sagt dies nur etwas zur relativen Position von A zu B innerhalb ihrer Verteilung aus - im Gegensatz zu den Rohwerten.
-
-```{r}
-wo_men %>% 
-  select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
-  scale() %>%  # z-standardisieren
-  head()  # nur die ersten paar Zeilen abdrucken
-```
-
-Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
-
-```{r}
-wo_men %>% 
-  mutate_if(is.numeric, funs("z" = scale)) %>% 
-  head
-```
-
-Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
-
-
-### Quasi-Konstante finden
-Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable" nicht wirklich. Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser die Variable Geschlecht dann zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen.
-
-
-### Auf Normalverteilung prüfen
-Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig, wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, immer signifikant sein, sofern die Stichrprobe groß genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: Histogramm oder eine Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
-
-```{r}
-wo_men %>% 
-  ggplot() +
-  aes(x = height) +
-  geom_density() -> p1
-
-wo_men %>% 
-  ggplot() +
-  aes(x = shoe_size) +
-  geom_density() -> p2
-
-grid.arrange(p1, p2, ncol = 2)
-```
-
-Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
-
-
-### Mittelwerte pro Zeile berechnen
-Um Umfragedaten auszuwerten, will man häufig einen Mittelwert *pro Zeile* berechnen. Normalerweise fasst man eine *Spalte* zu einer Zahl zusammen; aber jetzt, fassen wir eine *Zeile* zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversions-Wert pro Person (d.h. pro Zeile) berechnen.
-
-```{r}
-extra <- read.csv("data/extra.csv")
-
-extra_items <- extra %>% 
-  select(i01:i10)
-
-extra$extra_mw <- rowMeans(extra_items)
-
-```
-
-Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
-
-### U
-
-```{r eval = FALSE}
-extra %>% 
-  count(n_faceb)
-```
-
-
 
 ## Verweise
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier[^634].
+- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[: <http://bit.ly/2kX9lvC>].
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 
@@ -696,22 +593,20 @@ extra %>%
 
 
 
-[^2]: Man könnte vorher den Datensatz noch gruppieren, um dann den Mittelwert pro Gruppe zu verweden. Das sollte zu genaueren Ergebnissen führen. Vgl. hier: http://stackoverflow.com/questions/29982141/replacing-missing-values-with-average-groups-in-r-error-out-of-boundaries 
-
-
-[^5]: In der Regel 10 Zeilen, wobei ich irgendwo versteckt gesagt habe, es sollen nur 6 Zeilen am Bildschirm gedruckt werden.
-
-[^6]: Eine Art Smiley für Nerds.
-
-[^7]: https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/. 
-
-[^634]: <http://bit.ly/2kX9lvC>.
 
 
 
 
-[^532]: Hier findet sich eine ausführliche Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html 
 
-[^11]: https://github.com/drsimonj/corrr 
+
+
+
+
+
+
+
+
+
+
 
 

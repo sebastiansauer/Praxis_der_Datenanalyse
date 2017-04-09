@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-04-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="placeholder.html">
+<link rel="next" href="ii-statistisches-modellieren.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Vorwort</a></li>
+<li class="chapter" data-level="" data-path="i-grundlagen.html"><a href="i-grundlagen.html"><i class="fa fa-check"></i>I GRUNDLAGEN</a></li>
+<li class="chapter" data-level="2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>2</b> Tidy Data - Daten sauber einlesen</a></li>
+<li class="chapter" data-level="3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>3</b> Daten aufbereiten</a></li>
+<li class="chapter" data-level="4" data-path="fallstudie-nycflights13.html"><a href="fallstudie-nycflights13.html"><i class="fa fa-check"></i><b>4</b> Fallstudie <code>nycflights13</code></a></li>
+<li class="chapter" data-level="5" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html"><i class="fa fa-check"></i><b>5</b> Typische Probleme der Datenanalyse</a></li>
+<li class="chapter" data-level="6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>6</b> Daten visualisieren</a></li>
+<li class="chapter" data-level="7" data-path="farben-wahlen.html"><a href="farben-wahlen.html"><i class="fa fa-check"></i><b>7</b> Farben wählen</a></li>
+<li class="chapter" data-level="8" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>8</b> Placeholder</a></li>
+<li class="chapter" data-level="9" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>9</b> Fallstudie zur Visualisierung</a><ul>
+<li class="chapter" data-level="9.1" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-einlesen"><i class="fa fa-check"></i><b>9.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="9.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>9.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="9.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>9.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="9.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#um-90-drehen"><i class="fa fa-check"></i><b>9.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="9.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>9.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="9.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>9.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="9.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschema"><i class="fa fa-check"></i><b>9.7</b> Farbschema</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ii-statistisches-modellieren.html"><a href="ii-statistisches-modellieren.html"><i class="fa fa-check"></i>II STATISTISCHES MODELLIEREN</a></li>
+<li class="chapter" data-level="10" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html"><i class="fa fa-check"></i><b>10</b> Inferenzstatistik</a></li>
+<li class="chapter" data-level="" data-path="iii-geleitetes-modellieren.html"><a href="iii-geleitetes-modellieren.html"><i class="fa fa-check"></i>III GELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="11" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>11</b> Klassische lineare (numerische) Regression</a></li>
+<li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a></li>
+<li class="chapter" data-level="13" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html"><i class="fa fa-check"></i><b>13</b> Baumbasierte Verfahren</a></li>
+<li class="chapter" data-level="14" data-path="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><a href="install-packagesdplyr-dependencies-true-ggf-vorher-installieren.html"><i class="fa fa-check"></i><b>14</b> install.packages(“dplyr”, dependencies = TRUE) # ggf. vorher installieren</a></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="15" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html"><i class="fa fa-check"></i><b>15</b> Assoziationsanalyse</a></li>
+<li class="chapter" data-level="16" data-path="clusteranalyse.html"><a href="clusteranalyse.html"><i class="fa fa-check"></i><b>16</b> Clusteranalyse</a></li>
+<li class="chapter" data-level="17" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html"><i class="fa fa-check"></i><b>17</b> Dimensionsreduktion</a></li>
+<li class="chapter" data-level="18" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>18</b> Textmining</a></li>
+<li class="chapter" data-level="" data-path="v-ergebnisse-kommunizieren.html"><a href="v-ergebnisse-kommunizieren.html"><i class="fa fa-check"></i>V ERGEBNISSE KOMMUNIZIEREN</a></li>
+<li class="chapter" data-level="19" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html"><i class="fa fa-check"></i><b>19</b> Was ist RMarkdown?</a></li>
+<li class="chapter" data-level="" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i>VI Anhang</a></li>
+<li class="chapter" data-level="20" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>20</b> Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fallstudie-zur-visualisierung" class="section level1">
+<h1><span class="header-section-number">Kapitel 9</span> Fallstudie zur Visualisierung</h1>
+<p>Benötigte Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrr)
+<span class="kw">library</span>(GGally)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;GGally&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     nasa</code></pre>
+<p>Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben.</p>
+<div id="daten-einlesen" class="section level2">
+<h2><span class="header-section-number">9.1</span> Daten einlesen</h2>
+<p>Hier laden wir einen Datensatz zu einer Online-Umfrage:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://osf.io/meyhp/?action=download&quot;</span>)</code></pre></div>
+<p>Der DOI für diesen Datensatz ist 10.17605/OSF.IO/4KGZH.</p>
+<p>Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.</p>
+<p>Die Umfrage kann hier<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> eingesehen werden. Schauen wir uns die Daten mal an:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(data)</code></pre></div>
+<pre><code>## Observations: 501
+## Variables: 28
+## $ X                  &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, ...
+## $ timestamp          &lt;fctr&gt; 11.03.2015 19:17:48, 11.03.2015 19:18:05, ...
+## $ code               &lt;fctr&gt; HSC, ERB, ADP, KHB, PTG, ABL, ber, hph, IH...
+## $ i01                &lt;int&gt; 3, 2, 3, 3, 4, 3, 4, 3, 4, 4, 3, 3, 4, 4, 3...
+## $ i02r               &lt;int&gt; 3, 2, 4, 3, 3, 2, 4, 3, 4, 4, 3, 4, 3, 3, 3...
+## $ i03                &lt;int&gt; 3, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 4, 1...
+## $ i04                &lt;int&gt; 3, 2, 4, 4, 4, 4, 3, 3, 4, 4, 3, 3, 2, 4, 3...
+## $ i05                &lt;int&gt; 4, 3, 4, 3, 4, 2, 3, 2, 3, 3, 3, 2, 3, 3, 3...
+## $ i06r               &lt;int&gt; 4, 2, 1, 3, 3, 3, 3, 2, 4, 3, 3, 3, 3, 3, 3...
+## $ i07                &lt;int&gt; 3, 2, 3, 3, 4, 4, 2, 3, 3, 3, 2, 4, 2, 3, 3...
+## $ i08                &lt;int&gt; 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 3, 2, 3, 3, 4...
+## $ i09                &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 4, 4, 3, 4, 2, 4, 4, 4...
+## $ i10                &lt;int&gt; 1, 1, 1, 2, 4, 3, 2, 1, 2, 3, 1, 3, 2, 3, 2...
+## $ n_facebook_friends &lt;int&gt; 250, 106, 215, 200, 100, 376, 180, 432, 200...
+## $ n_hangover         &lt;int&gt; 1, 0, 0, 15, 0, 1, 1, 2, 5, 0, 1, 2, 20, 2,...
+## $ age                &lt;int&gt; 24, 35, 25, 39, 29, 33, 24, 28, 29, 38, 25,...
+## $ sex                &lt;fctr&gt; Frau, Frau, Frau, Frau, Frau, Mann, Frau, ...
+## $ extra_single_item  &lt;int&gt; 4, 3, 4, 3, 4, 4, 3, 3, 4, 4, 4, 4, 4, 4, 4...
+## $ time_conversation  &lt;dbl&gt; 10, 15, 15, 5, 5, 20, 2, 15, 10, 10, 1, 5, ...
+## $ presentation       &lt;fctr&gt; nein, nein, nein, nein, nein, ja, ja, ja, ...
+## $ n_party            &lt;int&gt; 20, 5, 3, 25, 4, 4, 3, 6, 12, 5, 10, 5, 10,...
+## $ clients            &lt;fctr&gt; , , , , , , , , , , , , , , , , , , , , , ...
+## $ extra_vignette     &lt;fctr&gt; , , , , , , , , , , , , , , , , , , , , , ...
+## $ extra_description  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ prop_na_per_row    &lt;dbl&gt; 0.04347826, 0.04347826, 0.04347826, 0.04347...
+## $ extra_mean         &lt;dbl&gt; 2.9, 2.1, 2.6, 2.9, 3.2, 2.8, 2.8, 2.5, 3.2...
+## $ extra_median       &lt;dbl&gt; 3.0, 2.0, 3.0, 3.0, 3.5, 3.0, 3.0, 2.5, 3.5...
+## $ client_freq        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...</code></pre>
+</div>
+<div id="daten-umstellen" class="section level2">
+<h2><span class="header-section-number">9.2</span> Daten umstellen</h2>
+<p>Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die Items stehen (1,2,…,n) und auf der Y-Achse die Anzahl der Kreuze nach Kategorien.</p>
+<p>Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur <em>eine</em> Variable steht. <code>ggplot2</code>, das wir hier verwenden, ist da keine Ausnahme. Wir müssen also die “breite” Tabelle (10 Spalten, pro Item eine) in eine “lange Spalte” umbauen: Eine Spalte heißt dann “Itemnummer” und die zweite “Wert des Items” oder so ähnlich.</p>
+<p>Also, los geht’s: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversions-Items, in diesem Fall.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_items &lt;-<span class="st"> </span><span class="kw">select</span>(data, i01:i10)</code></pre></div>
+<p>Dann stellen wir die Daten von “breit” nach “lang” um, so dass die Items eine Variable bilden und damit für <code>ggplot2</code> gut zu verarbeiten sind.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_long &lt;-<span class="st"> </span><span class="kw">gather</span>(data_items, <span class="dt">key =</span> items, <span class="dt">value =</span> Antwort)
+
+data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(data_long$Antwort)</code></pre></div>
+<p>Den Befehl mit <code>factor</code> brauchen wir für zum Diagramm erstellen im Folgenden. Dieser Befehl macht aus den Zahlen bei der Variable <code>Antwort</code> eine nominale Variable (in R: <code>factor</code>) mit Text-Werten “1”, “2” und so weiter. Wozu brauchen wir das? Der Digrammbefehl unten kann nur mit nominalen Variablen Gruppierungen durchführen. Wir werden in dem Diagramm die Anzahl der Antworten darstellen - die Anzahl der Antworten nach Antwort-Gruppe (Gruppe mit Antwort “1” etc.).</p>
+<p>Keine Sorge, wenn sich das reichlich ungewöhnlich anhört. Sie müssen es an dieser Stelle nicht erfinden :-)</p>
+<p>Man gewöhnt sich daran einerseits; und andererseits ist es vielleicht auch so, dass diese Funktionen nicht perfekt sind, oder nicht aus unserer Sicht oder nur aus Sicht des Menschen, der die Funktion geschrieben hat. Jedenfalls brauchen wir hier eine <code>factor</code> Variable zur Gruppierung…</p>
+<p>Damit haben wir es schon! Jetzt wird gemalt.</p>
+</div>
+<div id="diagramme-fur-anteile" class="section level2">
+<h2><span class="header-section-number">9.3</span> Diagramme für Anteile</h2>
+<p>Wir nutzen <code>ggplot2</code>, wie gesagt, und davon die Funktion <code>qplot</code> (q wie quick, nehme ich an.).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Was macht dieser <code>ggplot</code> Befehl? Schauen wir es uns in Einzelnen an:</p>
+<ul>
+<li><code>ggplot(data = ...)</code>: Wir sagen “Ich möchte gern die Funktion ggplot nutzen, um den Datensatz … zu plotten”.</li>
+<li><code>aes(...)</code>: Hier definieren wir die “aesthetics” des Diagramms, d.h. alles “Sichtbare”. Wir ordnen in diesem Fall der X-Achse die Variable <code>items</code> zu. Per Standardeinstellung geht <code>ggplot</code> davon aus, dass sie die Häufigkeiten der X-Werte auf der Y-Achse haben wollen, wenn Sie nichts über die Y-Achse sagen. Jetzt haben wir ein Koordinatensystem definiert (das noch leer ist).</li>
+<li><code>geom_bar()</code>: “Hey R oder ggplot, jetzt male mal einen barplot in den ansonsten noch leeren plot”.</li>
+<li><code>aes(fill = Antwort)</code>: Genauer gesagt nutzen wir <code>aes</code> um einen sichtbaren Aspekte des Diagramms (wie die X-Achse) eine Variable des Datensatzes zuzuordnen. Jetzt sagen wir, dass die Füllung (im Balkendiagramm) durch die Werte von <code>Antwort</code> definiert sein sollen (also “1”, “2” etc.).</li>
+<li><code>position = &quot;fill&quot;</code> sagt, dass die Gesamt-Höhe des Balken aufgeteilt werden soll mit den “Teil-Höhen” der Gruppen (Antwort-Kategorien 1 bis 4); wir hätten die Teil-Höhen auch nebeneinander stellen können.</li>
+</ul>
+<p>Vielleicht ist es schöner, die NAs erst zu entfernen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_long &lt;-<span class="st"> </span><span class="kw">na.omit</span>(data_long)</code></pre></div>
+<p>Und dann noch mal plotten:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="um-90-drehen" class="section level2">
+<h2><span class="header-section-number">9.4</span> Um 90° drehen</h2>
+<p>Dazu nehmen wir <code>+ coord_flip()</code>, also “flippe das Koordinatensystem”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="text-labels-fur-die-items" class="section level2">
+<h2><span class="header-section-number">9.5</span> Text-Labels für die Items</h2>
+<p>Wir definieren die Texte (“Labels”) für die Items:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">item_labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ich bin das erste Item&quot;</span>,
+                 <span class="st">&quot;Das zweite Item&quot;</span>,
+                 <span class="st">&quot;Item 3 sdjfkladsjk&quot;</span>,
+                 <span class="st">&quot;Ich bin ein krasser Couch-Potato UMKODIERT&quot;</span>,
+<span class="st">&quot;i5 asf&quot;</span>, <span class="st">&quot;i6 sdf&quot;</span>, <span class="st">&quot;adfjks&quot;</span>, <span class="st">&quot;sfjlkd&quot;</span>, <span class="st">&quot;sdfkjl&quot;</span>, <span class="st">&quot;sdfjkl&quot;</span>)</code></pre></div>
+<p>Jetzt hängen wir die Labels an die Items im Diagramm:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>() +
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels)</code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen… wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">item_labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ich bin das erste Item&quot;</span>,
+                 <span class="st">&quot;Das zweite Item&quot;</span>,
+                 <span class="st">&quot;Item 3 sdjfkladsjk&quot;</span>,
+                 <span class="st">&quot;Ich bin ein krasser </span><span class="ch">\n</span><span class="st">Couch-Potato***mit Zeilenumbruch***&quot;</span>,
+<span class="st">&quot;i5 asf&quot;</span>, <span class="st">&quot;i6 sdf&quot;</span>, <span class="st">&quot;adfjks&quot;</span>, <span class="st">&quot;sfjlkd&quot;</span>, <span class="st">&quot;sdfkjl&quot;</span>, <span class="st">&quot;sdfjkl&quot;</span>)</code></pre></div>
+<p>Und wieder plotten:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>() +
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels, <span class="dt">name =</span> <span class="st">&quot;Extraversionsitems&quot;</span>) +
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Anteile&quot;</span>)</code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="diagramm-mit-haufigkeiten" class="section level2">
+<h2><span class="header-section-number">9.6</span> Diagramm mit Häufigkeiten</h2>
+<p>Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit <code>position = &quot;fill&quot;</code> wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien “aufeinander stapeln”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>() +
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) </code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="farbschema" class="section level2">
+<h2><span class="header-section-number">9.7</span> Farbschema</h2>
+<p>Ja, die Wünsche hören nicht auf… Also, noch ein anderes Farbschema:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>() +
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) +
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="dv">17</span>)</code></pre></div>
+<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf" class="uri">https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf</a><a href="fallstudie-zur-visualisierung.html#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform" class="uri">https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform</a><a href="fallstudie-zur-visualisierung.html#fnref2">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="placeholder.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ii-statistisches-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

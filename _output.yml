@@ -1,14 +1,3 @@
-# bookdown::pdf_book:
-#  keep_tex: yes
-#     dev: "cairo_pdf"
-#  latex_engine: xelatex
-#  template: null
-#  toc_depth: 3
-#  toc_unnumbered: yes
-#  toc_appendix: yes
-#  quote_footer: ["\\VA{", "}{}"]
-#  includes:
-#    in_header: preamble.tex
 bookdown::gitbook:
   css: style.css
   fig_crop: TRUE

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-04-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="v-ergebnisse-kommunizieren.html">
+<link rel="next" href="vi-anhang.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Vorwort</a></li>
+<li class="chapter" data-level="" data-path="i-explorieren.html"><a href="i-explorieren.html"><i class="fa fa-check"></i>I EXPLORIEREN</a></li>
+<li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
+<li class="chapter" data-level="2.1" data-path="rahmen.html"><a href="rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="rahmen.html"><a href="rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
+<li class="chapter" data-level="2.1.2" data-path="rahmen.html"><a href="rahmen.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
+<li class="chapter" data-level="2.1.3" data-path="rahmen.html"><a href="rahmen.html#hier-werden-sie-geholfen"><i class="fa fa-check"></i><b>2.1.3</b> Hier werden Sie geholfen</a></li>
+<li class="chapter" data-level="2.1.4" data-path="rahmen.html"><a href="rahmen.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>2.1.4</b> Die Denk- und Gefühlswelt von R</a></li>
+<li class="chapter" data-level="2.1.5" data-path="rahmen.html"><a href="rahmen.html#pakete-installieren"><i class="fa fa-check"></i><b>2.1.5</b> Pakete installieren</a></li>
+<li class="chapter" data-level="2.1.6" data-path="rahmen.html"><a href="rahmen.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>2.1.6</b> R-Pakete für dieses Buch</a></li>
+<li class="chapter" data-level="2.1.7" data-path="rahmen.html"><a href="rahmen.html#datensatze"><i class="fa fa-check"></i><b>2.1.7</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.8" data-path="rahmen.html"><a href="rahmen.html#ubungen"><i class="fa fa-check"></i><b>2.1.8</b> Übungen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rahmen.html"><a href="rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="rahmen.html"><a href="rahmen.html#hinweise"><i class="fa fa-check"></i><b>2.2.1</b> Hinweise</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rahmen.html"><a href="rahmen.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>2.2.2</b> R als Taschenrechner</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rahmen.html"><a href="rahmen.html#text-und-variablen-zuweisen"><i class="fa fa-check"></i><b>2.2.3</b> Text und Variablen zuweisen</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rahmen.html"><a href="rahmen.html#funktionen-aufrufen"><i class="fa fa-check"></i><b>2.2.4</b> Funktionen aufrufen</a></li>
+<li class="chapter" data-level="2.2.5" data-path="rahmen.html"><a href="rahmen.html#ubungen-1"><i class="fa fa-check"></i><b>2.2.5</b> Übungen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="rahmen.html"><a href="rahmen.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>2.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="2.4" data-path="rahmen.html"><a href="rahmen.html#verweise"><i class="fa fa-check"></i><b>2.4</b> Verweise</a></li>
+<li class="chapter" data-level="2.5" data-path="rahmen.html"><a href="rahmen.html#versionshinweise"><i class="fa fa-check"></i><b>2.5</b> Versionshinweise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html"><i class="fa fa-check"></i><b>3</b> Tidy Data - Daten sauber einlesen</a><ul>
+<li class="chapter" data-level="3.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.3" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
+<li class="chapter" data-level="3.1.4" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#tabelle-in-normalform-bringen"><i class="fa fa-check"></i><b>3.3.1</b> Tabelle in Normalform bringen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#textkodierung"><i class="fa fa-check"></i><b>3.3.2</b> Textkodierung</a></li>
+<li class="chapter" data-level="3.3.3" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#daten-exportieren"><i class="fa fa-check"></i><b>3.3.3</b> Daten exportieren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#ubungen-2"><i class="fa fa-check"></i><b>3.4</b> Übungen</a></li>
+<li class="chapter" data-level="3.5" data-path="tidy-data-daten-sauber-einlesen.html"><a href="tidy-data-daten-sauber-einlesen.html#verweise-1"><i class="fa fa-check"></i><b>3.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html"><i class="fa fa-check"></i><b>4</b> Daten aufbereiten</a><ul>
+<li class="chapter" data-level="4.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#typische-probleme"><i class="fa fa-check"></i><b>4.1</b> Typische Probleme</a></li>
+<li class="chapter" data-level="4.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>4.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>4.2.1</b> Zeilen filtern mit <code>filter</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#aufgaben"><i class="fa fa-check"></i><b>4.3</b> Aufgaben</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>4.3.1</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>4.3.2</b> Zeilen sortieren mit <code>arrange</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#aufgaben-2"><i class="fa fa-check"></i><b>4.4</b> Aufgaben</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>4.4.1</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#aufgaben-3"><i class="fa fa-check"></i><b>4.5</b> Aufgaben</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>4.5.1</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="4.5.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>4.5.2</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#vertiefung-1"><i class="fa fa-check"></i><b>4.6</b> Vertiefung</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#die-pfeife"><i class="fa fa-check"></i><b>4.6.1</b> Die Pfeife</a></li>
+<li class="chapter" data-level="4.6.2" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#werte-umkodieren-und-binnen"><i class="fa fa-check"></i><b>4.6.2</b> Werte umkodieren und “binnen”</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="daten-aufbereiten.html"><a href="daten-aufbereiten.html#verweise-2"><i class="fa fa-check"></i><b>4.7</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fallstudie-nycflights13.html"><a href="fallstudie-nycflights13.html"><i class="fa fa-check"></i><b>5</b> Fallstudie <code>nycflights13</code></a></li>
+<li class="chapter" data-level="6" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html"><i class="fa fa-check"></i><b>6</b> Typische Probleme der Datenanalyse</a><ul>
+<li class="chapter" data-level="6.1" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>6.1</b> Auf fehlende Werte prüfen</a></li>
+<li class="chapter" data-level="6.2" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>6.2</b> Fälle mit fehlenden Werte löschen</a></li>
+<li class="chapter" data-level="6.3" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>6.3</b> Fehlende Werte ggf. ersetzen</a></li>
+<li class="chapter" data-level="6.4" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>6.4</b> Nach Fehlern suchen</a></li>
+<li class="chapter" data-level="6.5" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#ausreiser-identifizieren"><i class="fa fa-check"></i><b>6.5</b> Ausreiser identifizieren</a></li>
+<li class="chapter" data-level="6.6" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>6.6</b> Hochkorrelierte Variablen finden</a></li>
+<li class="chapter" data-level="6.7" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#z-standardisieren"><i class="fa fa-check"></i><b>6.7</b> z-Standardisieren</a></li>
+<li class="chapter" data-level="6.8" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>6.8</b> Quasi-Konstante finden</a></li>
+<li class="chapter" data-level="6.9" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>6.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="6.10" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>6.10</b> Mittelwerte pro Zeile berechnen</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="typische-probleme-der-datenanalyse.html"><a href="typische-probleme-der-datenanalyse.html#vertiefung-2"><i class="fa fa-check"></i><b>6.10.1</b> Vertiefung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>7.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li class="chapter" data-level="7.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>7.2</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>7.2.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="7.2.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>7.2.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="7.2.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>7.2.3</b> Eine diskrete Variable</a></li>
+<li class="chapter" data-level="7.2.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>7.2.4</b> Zwei diskrete Variablen</a></li>
+<li class="chapter" data-level="7.2.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>7.2.5</b> Zusammenfassungen zeigen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-3"><i class="fa fa-check"></i><b>7.3</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="farben-wahlen.html"><a href="farben-wahlen.html"><i class="fa fa-check"></i><b>8</b> Farben wählen</a></li>
+<li class="chapter" data-level="9" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html"><i class="fa fa-check"></i><b>9</b> Erweiterungen für <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#ggpairs"><i class="fa fa-check"></i><b>9.1</b> ggpairs</a></li>
+<li class="chapter" data-level="9.2" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#correlationsplots"><i class="fa fa-check"></i><b>9.2</b> Correlationsplots</a></li>
+<li class="chapter" data-level="9.3" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#weitere"><i class="fa fa-check"></i><b>9.3</b> Weitere</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>10</b> Fallstudie zur Visualisierung</a><ul>
+<li class="chapter" data-level="10.1" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-einlesen"><i class="fa fa-check"></i><b>10.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="10.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>10.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="10.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>10.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="10.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#um-90-drehen"><i class="fa fa-check"></i><b>10.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="10.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>10.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="10.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>10.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="10.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschema"><i class="fa fa-check"></i><b>10.7</b> Farbschema</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ii-modellieren.html"><a href="ii-modellieren.html"><i class="fa fa-check"></i>II MODELLIEREN</a></li>
+<li class="chapter" data-level="11" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>11</b> Grundlagen des Modellierens</a><ul>
+<li class="chapter" data-level="11.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>11.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="11.2" data-path="mod1.html"><a href="mod1.html#ziele-des-modellierens"><i class="fa fa-check"></i><b>11.2</b> Ziele des Modellierens</a></li>
+<li class="chapter" data-level="11.3" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>11.3</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="11.4" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>11.4</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="11.5" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>11.5</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="11.6" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>11.6</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="11.7" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>11.7</b> Modellgüte</a></li>
+<li class="chapter" data-level="11.8" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>11.8</b> Auswahl von Prädiktoren</a></li>
+<li class="chapter" data-level="11.9" data-path="mod1.html"><a href="mod1.html#aufgaben-6"><i class="fa fa-check"></i><b>11.9</b> Aufgaben</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="mod1.html"><a href="mod1.html#erfolg-beim-online-dating"><i class="fa fa-check"></i><b>11.9.1</b> Erfolg beim Online-Dating</a></li>
+<li class="chapter" data-level="11.9.2" data-path="mod1.html"><a href="mod1.html#ziele-des-modellierens-1"><i class="fa fa-check"></i><b>11.9.2</b> Ziele des Modellierens</a></li>
+<li class="chapter" data-level="11.9.3" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung-1"><i class="fa fa-check"></i><b>11.9.3</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="11.9.4" data-path="mod1.html"><a href="mod1.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>11.9.4</b> Richtig oder falsch?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.10" data-path="mod1.html"><a href="mod1.html#verweise-4"><i class="fa fa-check"></i><b>11.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html"><i class="fa fa-check"></i><b>12</b> Inferenzstatistik</a><ul>
+<li class="chapter" data-level="12.1" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#der-p-wert"><i class="fa fa-check"></i><b>12.1</b> Der p-Wert</a></li>
+<li class="chapter" data-level="12.2" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#inferenz-fur-metrische-variablen"><i class="fa fa-check"></i><b>12.2</b> Inferenz für metrische Variablen</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#random-walk"><i class="fa fa-check"></i><b>12.2.1</b> Random Walk</a></li>
+<li class="chapter" data-level="12.2.2" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#t-test-fur-eine-stichprobe"><i class="fa fa-check"></i><b>12.2.2</b> t-Test für eine Stichprobe</a></li>
+<li class="chapter" data-level="12.2.3" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#t-test-fur-eine-abhangige-gepaarte-stichprobe"><i class="fa fa-check"></i><b>12.2.3</b> t-Test für eine abhängige/ gepaarte Stichprobe</a></li>
+<li class="chapter" data-level="12.2.4" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#t-test-fur-zwei-unabhangige-stichprobe"><i class="fa fa-check"></i><b>12.2.4</b> t-Test für zwei unabhängige Stichprobe</a></li>
+<li class="chapter" data-level="12.2.5" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#varianzanalyse-anova"><i class="fa fa-check"></i><b>12.2.5</b> Varianzanalyse (ANOVA)</a></li>
+<li class="chapter" data-level="12.2.6" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>12.2.6</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="12.2.7" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#verweise-5"><i class="fa fa-check"></i><b>12.2.7</b> Verweise</a></li>
+<li class="chapter" data-level="12.2.8" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#lizenz"><i class="fa fa-check"></i><b>12.2.8</b> Lizenz</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#inferenz-fur-nominale-variablen"><i class="fa fa-check"></i><b>12.3</b> Inferenz für nominale Variablen</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#globaler-index-der-religiositat-und-atheismus"><i class="fa fa-check"></i><b>12.3.1</b> Globaler Index der Religiösität und Atheismus</a></li>
+<li class="chapter" data-level="12.3.2" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#inferenz-eines-anteilswerts"><i class="fa fa-check"></i><b>12.3.2</b> Inferenz eines Anteilswerts</a></li>
+<li class="chapter" data-level="12.3.3" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#differenz-zweier-anteilswerte"><i class="fa fa-check"></i><b>12.3.3</b> Differenz zweier Anteilswerte</a></li>
+<li class="chapter" data-level="12.3.4" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#chi-quadrat-unabhangigkeitstest"><i class="fa fa-check"></i><b>12.3.4</b> Chi-Quadrat Unabhängigkeitstest</a></li>
+<li class="chapter" data-level="12.3.5" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#ubung"><i class="fa fa-check"></i><b>12.3.5</b> Übung</a></li>
+<li class="chapter" data-level="12.3.6" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#literatur"><i class="fa fa-check"></i><b>12.3.6</b> Literatur</a></li>
+<li class="chapter" data-level="12.3.7" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#lizenz-1"><i class="fa fa-check"></i><b>12.3.7</b> Lizenz</a></li>
+<li class="chapter" data-level="12.3.8" data-path="inferenzstatistik.html"><a href="inferenzstatistik.html#versionshinweise-1"><i class="fa fa-check"></i><b>12.3.8</b> Versionshinweise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-geleitetes-modellieren.html"><a href="iii-geleitetes-modellieren.html"><i class="fa fa-check"></i>III GELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="13" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>13</b> Klassische lineare (numerische) Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#einfache-regression"><i class="fa fa-check"></i><b>13.1</b> Einfache Regression</a></li>
+<li class="chapter" data-level="13.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>13.2</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="13.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>13.3</b> Regression mit kategorialen Prädiktoren</a></li>
+<li class="chapter" data-level="13.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#multiple-regression"><i class="fa fa-check"></i><b>13.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="13.5" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>13.5</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="13.6" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellgute-bei-regressionsmodellen"><i class="fa fa-check"></i><b>13.6</b> Modellgüte bei Regressionsmodellen</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>13.6.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="13.6.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>13.6.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="13.6.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>13.6.3</b> Likelihood and Friends</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>13.7</b> Vertiefungen zum Regressionmodell</a><ul>
+<li class="chapter" data-level="13.7.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellwahl"><i class="fa fa-check"></i><b>13.7.1</b> Modellwahl</a></li>
+<li class="chapter" data-level="13.7.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#interaktionen"><i class="fa fa-check"></i><b>13.7.2</b> Interaktionen</a></li>
+<li class="chapter" data-level="13.7.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>13.7.3</b> Weitere Modellierungsmöglichkeiten</a></li>
+<li class="chapter" data-level="13.7.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#prognoseintervalle"><i class="fa fa-check"></i><b>13.7.4</b> Prognoseintervalle</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#ubung-teaching-rating-1"><i class="fa fa-check"></i><b>13.8</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="13.9" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#overfitting_casestudy"><i class="fa fa-check"></i><b>13.9</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="13.10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#literatur-1"><i class="fa fa-check"></i><b>13.10</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>14</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>14.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="14.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>14.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="14.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>14.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="14.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>14.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="14.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>14.5</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>14.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="14.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>14.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>14.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="14.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>14.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="14.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>14.8</b> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="chapter" data-level="14.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#erweiterungen"><i class="fa fa-check"></i><b>14.9</b> Erweiterungen</a><ul>
+<li class="chapter" data-level="14.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>14.9.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="14.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>14.9.2</b> Likelihood Quotienten Test</a></li>
+<li class="chapter" data-level="14.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>14.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>14.10</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="14.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#literatur-2"><i class="fa fa-check"></i><b>14.11</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html"><i class="fa fa-check"></i><b>15</b> Baumbasierte Verfahren</a><ul>
+<li class="chapter" data-level="15.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#konjunturanalyse"><i class="fa fa-check"></i><b>15.1</b> Konjunturanalyse</a></li>
+<li class="chapter" data-level="15.2" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#regressionsbaume"><i class="fa fa-check"></i><b>15.2</b> Regressionsbäume</a></li>
+<li class="chapter" data-level="15.3" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#kreuzvalidierung"><i class="fa fa-check"></i><b>15.3</b> Kreuzvalidierung</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#anpassungsgute"><i class="fa fa-check"></i><b>15.3.1</b> Anpassungsgüte</a></li>
+<li class="chapter" data-level="15.3.2" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#prognosegute"><i class="fa fa-check"></i><b>15.3.2</b> Prognosegüte</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#klassifikationbaume"><i class="fa fa-check"></i><b>15.4</b> Klassifikationbäume</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#kreuzvalidierung-1"><i class="fa fa-check"></i><b>15.4.1</b> Kreuzvalidierung</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#parameter-rpart"><i class="fa fa-check"></i><b>15.5</b> Parameter <code>rpart</code></a></li>
+<li class="chapter" data-level="15.6" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#fallstudie-uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>15.6</b> Fallstudie: Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>15.6.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="15.6.2" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#erster-blick"><i class="fa fa-check"></i><b>15.6.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="15.6.3" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>15.6.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="15.6.4" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>15.6.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="15.6.5" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>15.6.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="15.6.6" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#signifikanztest"><i class="fa fa-check"></i><b>15.6.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="15.6.7" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#effektstarke"><i class="fa fa-check"></i><b>15.6.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="15.6.8" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#logististische-regression"><i class="fa fa-check"></i><b>15.6.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="15.6.9" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>15.6.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="15.6.10" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#fazit"><i class="fa fa-check"></i><b>15.6.10</b> Fazit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="16" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html"><i class="fa fa-check"></i><b>16</b> Assoziationsanalyse</a><ul>
+<li class="chapter" data-level="16.1" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#einfuhrung"><i class="fa fa-check"></i><b>16.1</b> Einführung</a></li>
+<li class="chapter" data-level="16.2" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#kennzahlen-einer-assoziationsanalyse"><i class="fa fa-check"></i><b>16.2</b> Kennzahlen einer Assoziationsanalyse</a></li>
+<li class="chapter" data-level="16.3" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#beispiele"><i class="fa fa-check"></i><b>16.3</b> Beispiele</a></li>
+<li class="chapter" data-level="16.4" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#assoziationsanalyse-mit-r"><i class="fa fa-check"></i><b>16.4</b> Assoziationsanalyse mit R</a></li>
+<li class="chapter" data-level="16.5" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#fallstudie-lebensmittelwaren"><i class="fa fa-check"></i><b>16.5</b> Fallstudie Lebensmittelwaren</a><ul>
+<li class="chapter" data-level="16.5.1" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#regeln-finden"><i class="fa fa-check"></i><b>16.5.1</b> Regeln finden</a></li>
+<li class="chapter" data-level="16.5.2" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#visualisierung"><i class="fa fa-check"></i><b>16.5.2</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#literatur-3"><i class="fa fa-check"></i><b>16.6</b> Literatur</a></li>
+<li class="chapter" data-level="16.7" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#versionshinweise-2"><i class="fa fa-check"></i><b>16.7</b> Versionshinweise:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="clusteranalyse.html"><a href="clusteranalyse.html"><i class="fa fa-check"></i><b>17</b> Clusteranalyse</a><ul>
+<li class="chapter" data-level="17.1" data-path="clusteranalyse.html"><a href="clusteranalyse.html#hierarchische-clusteranalyse"><i class="fa fa-check"></i><b>17.1</b> Hierarchische Clusteranalyse</a></li>
+<li class="chapter" data-level="17.2" data-path="clusteranalyse.html"><a href="clusteranalyse.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>17.2</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="17.3" data-path="clusteranalyse.html"><a href="clusteranalyse.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>17.3</b> Übung: B3 Datensatz</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="clusteranalyse.html"><a href="clusteranalyse.html#literatur-4"><i class="fa fa-check"></i><b>17.3.1</b> Literatur</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html"><i class="fa fa-check"></i><b>18</b> Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="18.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#einfuhrung-1"><i class="fa fa-check"></i><b>18.1</b> Einführung</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>18.1.1</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="18.1.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#benotigte-pakete"><i class="fa fa-check"></i><b>18.1.2</b> Benötigte Pakete</a></li>
+<li class="chapter" data-level="18.1.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#daten-einlesen-1"><i class="fa fa-check"></i><b>18.1.3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="18.1.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>18.1.4</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="18.1.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>18.1.5</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="18.1.6" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#aggregation-der-durchschnittlichen-bewertungen-nach-marke"><i class="fa fa-check"></i><b>18.1.6</b> Aggregation der durchschnittlichen Bewertungen nach Marke</a></li>
+<li class="chapter" data-level="18.1.7" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#visualisierung-der-aggregierten-markenbewertungen"><i class="fa fa-check"></i><b>18.1.7</b> Visualisierung der aggregierten Markenbewertungen</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>18.2</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>18.2.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="18.2.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#scree-plot"><i class="fa fa-check"></i><b>18.2.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="18.2.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#elbow-kriterium"><i class="fa fa-check"></i><b>18.2.3</b> Elbow-Kriterium</a></li>
+<li class="chapter" data-level="18.2.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#biplot"><i class="fa fa-check"></i><b>18.2.4</b> Biplot</a></li>
+<li class="chapter" data-level="18.2.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#wahrnehmungsraum"><i class="fa fa-check"></i><b>18.2.5</b> Wahrnehmungsraum</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>18.3</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>18.3.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="18.3.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>18.3.2</b> Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="18.3.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>18.3.3</b> Berechnung der Faktor-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#interne-konsistenz-von-skalen"><i class="fa fa-check"></i><b>18.4</b> Interne Konsistenz von Skalen</a><ul>
+<li class="chapter" data-level="18.4.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#ubung-1"><i class="fa fa-check"></i><b>18.4.1</b> Übung</a></li>
+<li class="chapter" data-level="18.4.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#literatur-5"><i class="fa fa-check"></i><b>18.4.2</b> Literatur</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>19</b> Textmining</a><ul>
+<li class="chapter" data-level="19.1" data-path="textmining.html"><a href="textmining.html#einfuhrung-2"><i class="fa fa-check"></i><b>19.1</b> Einführung</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>19.1.1</b> Grundbegriffe</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>19.2</b> Grundlegende Analyse</a><ul>
+<li class="chapter" data-level="19.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>19.2.1</b> Tidy Text Dataframes</a></li>
+<li class="chapter" data-level="19.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>19.2.2</b> Text-Daten einlesen</a></li>
+<li class="chapter" data-level="19.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>19.2.3</b> Worthäufigkeiten auszählen</a></li>
+<li class="chapter" data-level="19.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung-1"><i class="fa fa-check"></i><b>19.2.4</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>19.3</b> Sentiment-Analyse</a><ul>
+<li class="chapter" data-level="19.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>19.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="19.3.2" data-path="textmining.html"><a href="textmining.html#anzahl-der-unterschiedlichen-negativen-bzw.-positiven-worter"><i class="fa fa-check"></i><b>19.3.2</b> Anzahl der unterschiedlichen negativen bzw. positiven Wörter</a></li>
+<li class="chapter" data-level="19.3.3" data-path="textmining.html"><a href="textmining.html#gewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>19.3.3</b> Gewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="19.3.4" data-path="textmining.html"><a href="textmining.html#tokens-mit-den-extremsten-sentimentwerten"><i class="fa fa-check"></i><b>19.3.4</b> Tokens mit den extremsten Sentimentwerten</a></li>
+<li class="chapter" data-level="19.3.5" data-path="textmining.html"><a href="textmining.html#relativer-sentiments-wert"><i class="fa fa-check"></i><b>19.3.5</b> Relativer Sentiments-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="textmining.html"><a href="textmining.html#verknupfung-mit-anderen-variablen"><i class="fa fa-check"></i><b>19.4</b> Verknüpfung mit anderen Variablen</a></li>
+<li class="chapter" data-level="19.5" data-path="textmining.html"><a href="textmining.html#vertiefung-3"><i class="fa fa-check"></i><b>19.5</b> Vertiefung</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>19.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
+</ul></li>
+<li class="chapter" data-level="19.6" data-path="textmining.html"><a href="textmining.html#verweise-6"><i class="fa fa-check"></i><b>19.6</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="v-ergebnisse-kommunizieren.html"><a href="v-ergebnisse-kommunizieren.html"><i class="fa fa-check"></i>V ERGEBNISSE KOMMUNIZIEREN</a></li>
+<li class="chapter" data-level="20" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html"><i class="fa fa-check"></i><b>20</b> Was ist RMarkdown?</a><ul>
+<li class="chapter" data-level="20.1" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#forderungen"><i class="fa fa-check"></i><b>20.1</b> Forderungen</a></li>
+<li class="chapter" data-level="20.2" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#bevor-es-losgeht"><i class="fa fa-check"></i><b>20.2</b> Bevor es losgeht</a></li>
+<li class="chapter" data-level="20.3" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#rmarkdown-in-action"><i class="fa fa-check"></i><b>20.3</b> RMarkdown in Action</a></li>
+<li class="chapter" data-level="20.4" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#die-arbeitsschritte-mit-rmarkdown"><i class="fa fa-check"></i><b>20.4</b> Die Arbeitsschritte mit RMarkdown</a></li>
+<li class="chapter" data-level="20.5" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#aufbau-einer-markdown-datei"><i class="fa fa-check"></i><b>20.5</b> Aufbau einer Markdown-Datei</a></li>
+<li class="chapter" data-level="20.6" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#syntax-grundlagen-von-markdown"><i class="fa fa-check"></i><b>20.6</b> Syntax-Grundlagen von Markdown</a></li>
+<li class="chapter" data-level="20.7" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#tabellen"><i class="fa fa-check"></i><b>20.7</b> Tabellen</a></li>
+<li class="chapter" data-level="20.8" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#zitieren"><i class="fa fa-check"></i><b>20.8</b> Zitieren</a></li>
+<li class="chapter" data-level="20.9" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#kollaboration-und-versionierung"><i class="fa fa-check"></i><b>20.9</b> Kollaboration und Versionierung</a></li>
+<li class="chapter" data-level="20.10" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#verweise-7"><i class="fa fa-check"></i><b>20.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i>VI Anhang</a></li>
+<li class="chapter" data-level="21" data-path="studienpfade.html"><a href="studienpfade.html"><i class="fa fa-check"></i><b>21</b> Studienpfade</a><ul>
+<li class="chapter" data-level="21.1" data-path="studienpfade.html"><a href="studienpfade.html#konsequtiver-master-of-science-in-wirtschaftspsychologie"><i class="fa fa-check"></i><b>21.1</b> konsequtiver Master of Science in Wirtschaftspsychologie</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>22</b> Literaturverzeichnis</a></li>
+<li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="was-ist-rmarkdown" class="section level1">
+<h1><span class="header-section-number">Kapitel 20</span> Was ist RMarkdown?</h1>
+<p>Benötigte Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<p><img src="images/Kommunizieren.pdf" width="70%" style="display: block; margin: auto;" /></p>
+<p>Nehmen wir an, Sie möchten die Ergebnisse Ihrer Datenanalyse niederschreiben. Sei es, dass Sie einen Professor beglücken <del>müssen</del> wollen; sei es, dass Sie einem Kunden eine Bericht der Quartalszahlen inkl. Forecast erstellen oder mit einem Kollegen Ideen austauschen. Welche Anforderungen stellen Sie an ein Werkzeug, mit dem Sie die Ergebnisse niederschreiben?</p>
+<div id="forderungen" class="section level2">
+<h2><span class="header-section-number">20.1</span> Forderungen</h2>
+<p>Einige Anforderungen an Werkzeuge zur Berichterstellung sind im Folgenden aufgelistet:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>R sollte integrierbar sein; sowohl die Ergebnisse als auch die Syntax.</li>
+<li>Man sollte sich beim Schreiben auf das Schreiben konzentrieren können - ohne sich auf die Formatierung konzentrieren zu müssen.</li>
+<li>Das Werkzeug sollte einfach zu erlernen (und zu bedienen) sein.</li>
+<li>Es sollte verschiedene Ausgabeformate (PDF, HTML,…) unterstützen.</li>
+<li>Das Dokument sollte optisch ansprechend formatiert sein.</li>
+<li>Das Werkzeug sollte übergreifend (Betriebssysteme, Zeiten, Versionen) arbeiten.</li>
+<li>Das Werzeug sollte mächtig (funktionsreich) sein.</li>
+<li>Das Werkzeug sollte frei (quelloffen sowie ggf. kostenfrei) sein.</li>
+<li>Das Werkzeug sollte Kollaboration leicht machen.</li>
+<li>Das Werkzeug sollte Versionierungen und Änderungsverfolgung unterstützen.</li>
+</ol>
+</blockquote>
+<p>Mit Werkzeug ist hier die Software zur Erstellung des Berichts gemeint; häufig MS Word.</p>
+<p>Betrachten wir die einzelnen Forderungen näher.</p>
+<blockquote>
+<pre><code>R sollte integrierbar sein; sowohl die Ergebnisse als auch die Syntax.</code></pre>
+</blockquote>
+<p>Sind das Werkzeug der Datenanalyse und das Werkzeug zur Berichterstellung voneinander getrennt, gibt es eine Schnittstselle, die wie eine Sollbuchstelle wirkt. Dieser Graben ist stets zu überwinden. Zwei Dinge, die dann fast zwangsläufig passieren: Copy-Paste und manuelles Aktualisieren. Copy-Paste ist mühsam und fehleranfällig. Mitunter weicht man vielleicht auf Neu-Eintippen aus: “Ok, der Mittelwert war doch 12,34…”; Fehler sind dann vorprogrammiert. Zum manuellen Aktualisieren: Stellen Sie sich vor, Ihr Bericht beinhaltet sagen wir 50 Diagramme und eine Reihe Tabellen und sonstige Zahlen - pro Kunde, pro Berichtszeitraum. Sie haben 100 Kunden, die einen Bericht pro Woche verlangen… Und jetzt für jedes Diagramm etc. in der Berichts-Software auf “Einfügen…” klicken??? Professionell geht anders. Kurz: Die Analyse sollte sich nahtlos in Ihren Bericht einfügen. Das ist vor allem für die Ergebnisse (Zahlen, Diagramme, Tabellen…) wichtig, aber sekundär auch für die Syntax.</p>
+<blockquote>
+<pre><code>  Man sollte sich beim Schreiben auf das Schreiben konzentrieren können - ohne sich auf die Formatierung konzentrieren zu müssen.</code></pre>
+</blockquote>
+<p>Entscheidend sind die Inhalte, die Formatierung ist zweitrangig und außerdem zeitlich nachgelagert. Bietet das Werkzeug reichhaltige Möglichkeiten zur Formatierung besteht die Gefahr, dass verfrüht der geistige Fokus von den Inhalten zur Dekoration der Inhalte wandert. Besser ist es, sich in gestalterischer Askese zu üben und die mentalen Ressourcen komplett auf die Inhalte konzentrieren zu können. Außerdem ist es wünschenswert, wenn das Werkzeug sich selbständig um das Formatieren kümmert. Damit soll dem Autor nicht die Möglichkeit verwehrt sein, selber zu gestalten; doch sollte ihm optisch ansprechende Standards automatisch angeboten werden.</p>
+<blockquote>
+<p>Das Werkzeug sollte einfach zu erlernen (und zu bedienen) sein.</p>
+</blockquote>
+<p>Nimmt mir das Werkzeug die Formatierung weitgehend ab, so bleibt (fast nur) das reine Schreiben von Text übrig. Das ist einfach zu bewerkstelligen (oder sollte es sein). Aufwändiges Einarbeiten in neue Werkzeuge sollte entfallen.</p>
+<blockquote>
+<p>Es sollte verschiedene Ausgabeformate (PDF, HTML,…) unterstützen.</p>
+</blockquote>
+<p>Die wichtigsten Formate, um Berichte zu erstellen sind sicherlich PDF, DOC, PPT und neuerdings zunehmend HTML und EPUB-Formate. Diese Formate sollten unterstützt werden. HTML und EPUB gewinnen mit der Verbreitung elektronischer Lesegeräte an Bedeutung. So ist z.B. HTML an einem Tablett oder Handy besser zu lesen als eine PDF-Datei. Ein wesentlicher Grund ist, dass bei HTML Zeilenumbrüche flexibel sind, z.B. je nach Größe des Displays. Bei PDF-Dateien ist dies fix.</p>
+<blockquote>
+<p>Das Dokument sollte optisch ansprechend formatiert sein.</p>
+</blockquote>
+<p>Das Werkzeug sollte - idealerweise als Standard ohne Eingriffe des Nutzers - optisch ansprechende Dokumente erzeugen. Dazu gehört vor allem schöner Schriftsatz: keine hässlichen Löcher zwischen Wörtern oder zwischen Buchstaben, elegante Schriftsätze oder schöne Formeln. Für HTML-Dateien sind “coole” Designs - z.B. mit benuterfreundlicher Navigationsspalte - sinnvoll.</p>
+<blockquote>
+<p>Das Werkzeug sollte übergreifend (Betriebssysteme, Zeiten, Versionen) arbeiten.</p>
+</blockquote>
+<p>Ärgerlich ist, wenn das Werkzeug nur für bestimmte Betriebssysteme (oder Versionen davon) funktioniert. Nicht so schlimm, aber auch nervig ist, wenn die Varianten eines Werkzeugs zwar übergreifend funktionieren, aber nicht <em>ganz</em> gleich sind - wenn z.B. Farben sich ändern oder Textfelder verrutschen. Auch in ein paar Jahren sollten die Dateien noch lesbar sein.</p>
+<blockquote>
+<p>Das Werzeug sollte mächtig (funktionsreich) sein.</p>
+</blockquote>
+<p>Die Quadratur des Kreises: Ein Werkzeug sollte einfach zu bedienen sein, aber mächtig, also einen großen Funktionsumfang besitzen. Beide Ziele sind nicht leicht unter einen Hut zu bringen und vielleicht das Grundproblem von Benutzerfreundlichkeit von Computersystemen. Eine pragmatische Lösung ist es (oder sollte sein), dem Nutzer vernünftige Standardwerte anzubieten bzw. diese ungefragt anzuwenden aber gleichzeitig dem Nutzer die Möglichkeit geben, in viele Details einzugreifen. Letzteres ist häufig kompliziert(er), aber für viele Nutzer nicht nötig, wenn die Standards gut sind.</p>
+<blockquote>
+<p>Das Werkzeug sollte frei (quelloffen sowie ggf. kostenfrei) sein.</p>
+</blockquote>
+<p>Als “Normalnutzer” denken Sie vielleicht: “Ist mir doch egal, ob das Werkzeug von Firma XYZ angeboten wird, kauf ich mir halt!. Das ist in einigen Fällen stimmig. Aber: Die Erfahrung zeigt, dass einige quelloffenen Software tendenziell schneller weiterentwickelt wird (oder Fehler beseitigt werden). Fortgeschrittene Nutzer können so einfach ihre Ideen zur Verfügung stellen. Das geht viel schneller (in der Regel) als wenn es bei einem Konzern durch die Instanzen sickern muss. R ist bestes Beispiel dafür. Außerdem: Manche Werkzeuge der Datenanalyse sind <em>sehr</em> teuer; da ist es schön, wenn man (bessere) Leistung kostenfrei bekommt! Nicht jeder ist mit ausreichend Finanzmitteln gesegnet…”Offen&quot; beinhaltet in dem Zusammenhang idealerweise auch, dass die Quelldateien menschenlesbar sind, also reine Text-Dateien. Damit kann jeder, auch ohne ein bestimmtes Werkzeug zu nutzen, die Quelldatei lesen. Reine Textdateien haben wohl von allen Datei-Formaten die beste Aussicht, in 10, 20, 50 oder 100 Jahren noch lesbar zu sein.</p>
+<blockquote>
+<p>Das Werkzeug sollte Kollaboration leicht machen.</p>
+</blockquote>
+<p>Mit Kollaboration ist gemeint, Sie schreiben einen Bericht sagen wir mit 5 Kollegen. Eine beliebte Variante der Zusammenarbeit ist dabei, dass Sie Ihren Entwurf an die Kollegen senden mit der Bitte um Hinweise, Korrekturen oder Überarbeitung. Netterweise bekommen Sie 6 Versionen zurück (ein Kollege schrieb 3 Mails, sie wusste dann selber nicht mehr warum, dafür meldete sich ein Kollege gar nicht). Ihnen bleibt die glorreiche Aufgabe, diese 6+1 Dokumente zusammenzuführen. Natürlich widersprechen sich die Hinweise der Kollegen, die in Unkenntnis der Hinweise der anderen entstanden… Außerdem nutzten nicht alle die selbe Methode für ihre Hinwese. Kurz: Nach einigen Schreikrämpfen müssen Sie erstmal Spazieren gehen. Schöner wäre ein zentrales Dokument, an dem alle arbeiten. So kann jeder den aktuellen Stand sehen und idealerweise auch die Änderungen der Kollegen (oder die eigenen Änderungen) einsehen. Einfache Werkzeuge dafür sind z.B. Google Docs oder der Drobox, welche Versionierungsfunktionen bietet. Besser (aber komplexer in der Bedienung) sind spezielle Versionierungs-Werkzeuge. Das bekannteste heißt “Git” (<a href="https://de.wikipedia.org/wiki/Git" class="uri">https://de.wikipedia.org/wiki/Git</a>).</p>
+<blockquote>
+<p>Das Werkzeug sollte Versionierungen und Änderungsverfolgung unterstützen.</p>
+</blockquote>
+<p>Ähnlich zur Kolloboration ist die Versionierung. Hier geht es darum, die Entwicklungshistorie eines Dokuments nachvollziehen zu können. Das ist umso wichtiger, je größer das Dokument bzw. das Projekt zu dem Dokument ist. Eine studentische Abschlussarbiet ist ein gutes Beispiel, aber viele Berichte in Unternehmen taugen auch als Beispiel. Haben Sie schon mal Dateinamen gesehen wie “Bericht_V23_Korrektur_Edit_Willi_Final_2017-02-23_v3_final_Ergänzung.pdf”? Ich gebe zu, das Beispiel ist bewusst auf die Spitze getrieben, aber es schält die Problematik gut heraus. Der Änderungsmodus von MS-Word und ähnlichen Werkzeugen ist hilfreich für eine begrenzte Anzahl von Änderungen. Wurde aber eine bestimmte Passage mehrfach geändert, so kommt dieses Funktionalität schnell an ihre Grenzen. Kurz: Bei wichtigeren oder komplexeren Dokumenten ist eine professionelle Lösung sinnvoll.</p>
+<p>RMarkdown erfüllt diese Forderungen. Nicht perfekt, aber besser wohl als jedes andere Werkzeug. Daher ist es ein sehr wertvolles Werkzeug, das Sie kennen sollten, wenn Sie Berichte mit Ergebnissen von Datenanalysen schreiben.</p>
+</div>
+<div id="bevor-es-losgeht" class="section level2">
+<h2><span class="header-section-number">20.2</span> Bevor es losgeht</h2>
+<p>RMarkdown wird als Teil von RStudio mitgeliefert, kostenlos und großteils quelloffen. Es ist bereits installiert, wenn Sie RStudio installiert haben.</p>
+<p>Der Name “RMarkdown” suggeriert, dass R hier eine Rolle spielt. Das ist richtig. Doch was heißt “Markdown”? Der Name rührt von der Idee von Auszeichnungssprachen (engl. “markup languages”) her. Auszeichnungssprachen sind, einfach gesgat, ein paar Befehle, die man in einen Text hineinschreibt, um den Text zu formatieren. Der Text ist also eine Mischung von Inhalt und Formatierungszeichen. HTML oder TeX sind bekannte Auszeichnungsprachen. Beide sind aber recht komplex, bzw. der Text sieht aus wie Kraut und Rüben vor lauter Auszeichnungsbefehlen. Markdown will anders sein, einfacher. Daher keine “Markup-”, sondern eine “Markdown-”Sprache. Vor “Sprache” braucht man sich hier nicht beunruhigen zu lassen. Die “Sprache” Markdown ist in 10 Minuten gelernt!</p>
+<p>RMarkdown-Dateien haben sinnvollerweise die Endung <code>.Rmd</code>. Rmd-Dateiein sind, genau wie normale Markdown-Dateien, schnöde Text-Dateien und können entsprechend von jedem Text-Editor (auch mit RStudio, das hier mit Syntax-Highlighting verwöhnt) geöffnet werden.</p>
+<p>Erstellt man eine Rmd-Datei, so wird das Verzeichnis, in dem diese Datei liegt, als Arbeitsverzeichnis betrachtet. Möchte man auf eine Datei verweisen, die in einem Unterverzeichnis liegt (z.B. ein Bild laden), so ist es meist am einfachsten, einen relativen Pfad vom Arbeitsverzeichnis anzugeben: <code>Bilder/mein_bild.png</code>.</p>
+</div>
+<div id="rmarkdown-in-action" class="section level2">
+<h2><span class="header-section-number">20.3</span> RMarkdown in Action</h2>
+<p>Werden wir praktisch! Ein Beispiel zur Arbeit mit Markdown.</p>
+<ul>
+<li><p>Öffnen Sie RStudio.</p></li>
+<li><p>Klicken Sie das Icon für “neue Datei” und wählen Sie “R Markdown…”, um eine neue RMarkdown-Datei zu erstellen.</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="images/new_rmd.png" alt="Neue Rmd-Datei erstellen" width="30%" />
+<p class="caption">
+Abbildung 9.1: Neue Rmd-Datei erstellen
+</p>
+</div>
+<ul>
+<li><p>Dann öffnet sich eine einfache Rmd-Datei, die nicht ganz leer ist, sondern aus didaktischen Gründen ein paar einfache, aber typische, Rmd-Befehle enthält. Schauen Sie sich den Inhalt kurz an; Sie sehen eine Mischung aus “Prosa” und R.</p></li>
+<li><p>Jetzt “verstricken” wir R und Prosa zu einer Datei, HTML in dem Fall, welche sowohl Text, R-Ausgaben als auch R-Syntax enthält. Dafür klicken wir auf das Stricknadel-Icon:</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="images/rmd_demo.png" alt="Wir stricken" width="50%" />
+<p class="caption">
+Abbildung 20.1: Wir stricken
+</p>
+</div>
+<ul>
+<li><p>Ach ja, RStudio bittet Sie noch, die Rmd-Datei zu speichern. Tun Sie RStudio den Gefallen.</p></li>
+<li><p>Als Ergebnis müsste sich im Reiter “Viewer” das Ergebnis zeigen. Sie haben eine, vielleicht Ihre erste HTML-Datei aus einer Rmd-Datei erstellt. Verweilen Sie in Andacht. Sie können sich das Ergebnis, die HTML-Datei im Browser anschauen, in dem Sie betreffende HTML-Datei im Browser öffnen (diese liegt dort, wo auch die zugehörige Rmd-Datei liegt.)</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="images/rmd_all_panes.png" alt="HTML-Datei aus Rmd-Datei erstellt" width="70%" />
+<p class="caption">
+Abbildung 20.2: HTML-Datei aus Rmd-Datei erstellt
+</p>
+</div>
+</div>
+<div id="die-arbeitsschritte-mit-rmarkdown" class="section level2">
+<h2><span class="header-section-number">20.4</span> Die Arbeitsschritte mit RMarkdown</h2>
+<p>Die Arbeitsschritte mit RMarkdown von den ersten Gedanken bis zum fertigen Bericht kann man so zusammenfassen.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<img src="images/Rmarkdown_flow.pdf" alt="Die Arbeitsschritte mit RMarkdown" width="70%" />
+<p class="caption">
+Abbildung 20.3: Die Arbeitsschritte mit RMarkdown
+</p>
+</div>
+<p>Zuerst bietet es sich an - ganz ohne Gedanken an wohl geformte Sprache und roten Faden - seine Gedanken zu Papier (oder in eine Textdatei) zu kriegen (“Ideen sammeln”). Für viele Menschen sind hier Schmier- und Notizzettel oder Schemata, Mindmaps oder andere Visualisierungen hilfreich. Eine Gliederung zu erstellen gehört auch in diesen Schritt. Hat man schließlich die Struktur erarbeitet, so kann den Text - jetzt mit wohlgeformter(er) Sprache und roten Faden - zusammensetzen (“Text schreiben”). Dabei ist es oft so, dass man die Beiträge der Coautoren <del>ertragen muss</del> integrieren möchte. Dies ist mit am besten mit einer zusätzlichen Software mit dem Namen “Git” bzw. “Github” zu erreichen, die ebenfalls quelloffen, kostenlos (und weit verbreitet bei Tekkies) ist (“Coautoren integrieren”). Diese Software erlaubt nicht nur Versionierung lokal an einem eigenen Computer, sondern auch in Zusammenarbeit mit Coautoren (“Änderungen nachverfolgen”). Parallel zum Schreiben des Textes sind die Daten zu analysieren; eine Aufgabe, die prinzipiell unahbängig vom Schreiben des Textes ist (“Daten analysieren”). Aber die Ergebnisse der Analyse sind in den Text zu integrieren. Um Schnittstellen zu vermeiden, ist es sinnvoll, den Inhalt-Text sowie die R-Syntax in einer Datei zu “verstricken”. Dieser Schritt (“R ausführen”) wird von einem R-Paket namens “knitr” <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> besorgt (engl. “to knit” - stricken). Knitr führt die R-Syntax im Dokument aus und liefert das Ergebnis im Markdown-Format zurück. Aus R+Markdown wird reines Markdown. Die Markdown-Datei kann nun in fast jedes denkbare andere Markup-Format übersetzt werden, die wichtigsten sind HTML und TeX. Die Übersetzung führt RStudio wiederum, genau wie das “Knittern” für uns komfortabel im Hintergrund aus. Dazu wird auf ein Programm names “pandoc” (<a href="http://pandoc.org" class="uri">http://pandoc.org</a>) zurückgegriffen. Pandoc übersetzt eine Markup-Sprache in eine andere. Haben wir z.B. in TeX übersetzt, so können wir - vorausgesetzt TeX, LaTeX o.ä. ist installiert - von TeX in PDF umwandeln lassen. Ist TeX auf Ihrem Rechner installiert, so wird dieser Übersetzung wiederum automatisch vorgenommen.</p>
+</div>
+<div id="aufbau-einer-markdown-datei" class="section level2">
+<h2><span class="header-section-number">20.5</span> Aufbau einer Markdown-Datei</h2>
+<p>Das wichtigste ist: Eine Markdown-Datei (<code>.md</code>) ist eine reine Text-Datei, genau wie eine Rmd-Datei (die ein Spezialfall einer Markdown-Datei ist). Mit jedem Texteditor können Sie sie öffnen und ändern.</p>
+<pre><code>---
+title: &quot;Untitled&quot;
+author: &quot;Sebastian Sauer&quot;
+date: &quot;23 2 2017&quot;
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;http://rmarkdown.rstudio.com&gt;.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```</code></pre>
+<p>Typischerweise besteht eine Markdown-Datei aus drei Teilen:</p>
+<ol style="list-style-type: decimal">
+<li>Einem (optionalen) <strong>YAML-Header</strong> abgegrenzt durch <code>---</code>s.</li>
+<li><strong>R-Chunks</strong> (R-Syntax-Abschnitte) abgegrenzt durch <code>```</code>.</li>
+<li>Normalem Reintext mit einigen Steuerzeichen wie <code>*kursiv*</code> oder <code>#Überschrift_Ebene_1</code>.</li>
+</ol>
+<p>Der YAML-Header definiert einige Meta-Daten für Ihre Datei; Dinge wie Autor, Titel, Datum oder Ausgabeformat werden hier festgelegt. Sie müssen keine YAML-Header angeben, dann werden einige Standards verwendet. YAML steht übrigens, falls Sie sich das gerade fragen, für “yet another markup language”, also eine Auszeichnungssprache, die sehr einfach ist und nur für Metadaten zuständig ist.</p>
+<p>R-Syntax wird (innerhalb von Rmd-Dateien) nur innerhalb der “Chunks” als R verstanden; außerhalb der eingezäunten R-Abschnitte werden Sie als normaler Text verstanden. Sie können Chunks auch nochmal ausführen, in dem Sie z.B. den Button “Run” klicken. Um das ganze Dokument zu “übersetzen”, reicht ein Klick auf das Stricksymbol.</p>
+<p>Der Text bei Markdown sieht im Prinzip so aus, wie man eine Plain-Text-Email früher (oder manchmal heute noch) geschrieben hätte. Auch ohne dass man Markdown kennt, kann man ihn ohne Probleme erfassen.</p>
+</div>
+<div id="syntax-grundlagen-von-markdown" class="section level2">
+<h2><span class="header-section-number">20.6</span> Syntax-Grundlagen von Markdown</h2>
+<p>In RStudio wird Pandocs Markdown verwendet; die Übersetzung von Markdown in eine andere Auszeichnungssprache wird komplett von Pandoc abgewickelt.</p>
+<p>Man braucht etwas Übung, um sich die Syntax zu merken, aber im Grunde ist es ganz einfach. Schauen Sie selbst:</p>
+<pre><code>Text formatieren mit Markdown
+------------------------------------------------------------
+
+*kursiv*  oder so _kursiv_
+**fett**   __fett__
+`R-Syntax`
+hochgestellt^2^ und tiefgestellt~2~
+
+Überschriften
+------------------------------------------------------------
+
+# 1. Ebene
+
+## 2. Ebene
+
+### 3. Ebene
+
+Aufzählungen
+------------------------------------------------------------
+
+*   Listenpunkt 1
+
+*   Listenpunkt 2
+
+    * Listenpunkt 2a
+
+    * Listenpunkt 2b
+
+1.  Element 1 einer nummerierten Liste
+
+1.  Element 2. Die korrekte Nummer wird automatisch erstellt.
+
+Links und Bilder
+------------------------------------------------------------
+
+&lt;http://Beispiel.com&gt;
+
+[Bezeichnung des Links](http://Beispiel.com)
+
+![Optionale Bildbezeichnung](path/to/img.png)
+
+Tabellen 
+------------------------------------------------------------
+
+Spaltenkopf1  | Spaltenkopf1
+------------- | -------------
+Zelleninhalt  | Zelleninhalt
+Zelleninhalt  | Zelleninhalt</code></pre>
+<p>Wenn man mal etwas vergisst, kann man in RStudio hier nachschauen: <em>Help &gt; Markdown Quick Reference</em>.</p>
+</div>
+<div id="tabellen" class="section level2">
+<h2><span class="header-section-number">20.7</span> Tabellen</h2>
+<p>Praktisch ist, dass man sich Dataframes einfach als Tabellen ausgeben lassen kann. Normalerweise werden in RMarkdown Dataframes in gewohnter Manier ausgegeben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">3</span>)
+<span class="co">#&gt;    mpg cyl disp  hp drat   wt qsec vs am gear carb</span>
+<span class="co">#&gt; 1 21.0   6  160 110 3.90 2.62 16.5  0  1    4    4</span>
+<span class="co">#&gt; 2 21.0   6  160 110 3.90 2.88 17.0  0  1    4    4</span>
+<span class="co">#&gt; 3 22.8   4  108  93 3.85 2.32 18.6  1  1    4    1</span></code></pre></div>
+<p>(<code>slice</code> filtert die angegebenen Zeilen, hier 1 bis 3.)</p>
+<p>Möchte man eine “richtige” Tabelle, so kann man z.B. mit dem Befehl <code>knitr::kable</code> arbeiten. Die Tabelle unten (<a href="was-ist-rmarkdown.html#tab:kable">20.1</a>) wurde so erstellt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">3</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;Eine Tabelle mit Kable&quot;</span>)</code></pre></div>
+<table>
+<caption><span id="tab:kable">Tabelle 20.1: </span>Eine Tabelle mit Kable</caption>
+<thead>
+<tr class="header">
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.62</td>
+<td align="right">16.5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.88</td>
+<td align="right">17.0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.32</td>
+<td align="right">18.6</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="zitieren" class="section level2">
+<h2><span class="header-section-number">20.8</span> Zitieren</h2>
+<p>Zitate sind bei Rmarkdown, genau wie Bilder und Verweise, nichts anderes als Links, mit einer kleinen Änderungen:</p>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">Das ist furchtbar wichtig [@WeisOis2017]. </code></pre></div>
+<p>Inerhalb von den eckigen Klammern, die einen Linktext kennzeichen wird ein Klammeraffe geschriebne (<code>@</code>); dieser ist die Bezeichnung für eine Zitation. Dann folgt die ID der Zitation.</p>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">Mehrere Zitationen werden mit Strichpunkt getrennt: So steht es geschreiben [@Weis2017; @Ois2016].
+
+Man kann beliebige Kommentare in die Zitation aufnehmen: So war es schon immer [vgl. @Weis2017, S 777-1234; außerdem @Ois2016, S. 1-999].
+
+Will man eine Zitation ohne Klammer einfügen, so lässt man die eckigen Klammern weg: @Weis2017 sagt, es wäre schon immer so gewesen.
+
+Den Namen des Autors/ der Autoren kann man unterdrücken, in dem man ein <span class="bn">`-`</span> vor die Zitation einfügt: Weis-Ois [-@WeisOis2017] wusste es schon immer.</code></pre></div>
+<p>Eine Reihe von bibliographischen Formaten werden unterstützt; darunter BibLaTEX, BibTeX, endnote und medline. Die bibliographischen Einträge alle Zitationen fügt man in eine Textdatei (z.B. mit Namen <code>bibliography.bib</code>); im YAML-Header gibt man dann den Dateinamen mit den bibliographischen Informationen an:</p>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">bibliography:</span> bibliography.bib
+<span class="fu">csl:</span> apa.csl</code></pre></div>
+<p>Den Zitationsstil kann man, ebenfalls im YAML-Header mit der Variable <code>csl</code> definieren. Dort verweist man auf eine CSL-Stil-Datei. CSL-Dateien sind quelloffen und man kann sie sich z.B. hier herunterladen: <a href="https://github.com/citation-style-language/styles" class="uri">https://github.com/citation-style-language/styles</a>.</p>
+</div>
+<div id="kollaboration-und-versionierung" class="section level2">
+<h2><span class="header-section-number">20.9</span> Kollaboration und Versionierung</h2>
+<p>Kollaboration und Versionierung sind wichtige Aspekte von professionellem Projektmanagement. Das wichtigste Werkzeug hier heißt “Git”. Git ist eine Software, die Versionierungsfunktionen anbietet - auch über mehrere Coautoren hinweg. “Github” ist ein Anbieter, der bekannteste, der “Projektordner” online anbietet, so dass sich man komfortabel synchronisieren kann. Alternativ gibt es Plattformen, die ähnliche Dienste anbieten wie <a href="http://authorea.com" class="uri">http://authorea.com</a>.</p>
+<p>Allerdings ist einiges an Einarbeitung vonnöten; wir werden hier nicht weiter auf solche Werkzeuge eingehen.</p>
+</div>
+<div id="verweise-7" class="section level2">
+<h2><span class="header-section-number">20.10</span> Verweise</h2>
+<p>RMarkdown ist ein junges Ökosystem, das schnell wächst.</p>
+<ul>
+<li><p>Ein guter Startpunkt, mehr über Markdown zu lernen, ist das Buch von Wickham und Grolemund <span class="citation">(<a href="#ref-r4ds">2016</a>)</span>.</p></li>
+<li><p>Größere Texte können mit <code>bookdown</code> geschrieben werden, eine Erweiterung zu Markdown (dieses Buch wurde so geschrieben): <a href="https://bookdown.org/yihui/bookdown/" class="uri">https://bookdown.org/yihui/bookdown/</a></p></li>
+<li><p>Die Cheatsheets von RStudio sind hilfreich: RStudio * Tools &gt; Cheatsheets &gt; …*.</p></li>
+</ul>
+
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-xie2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+</div>
+<div id="ref-r4ds">
+<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media. <a href="https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399">https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="v-ergebnisse-kommunizieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vi-anhang.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

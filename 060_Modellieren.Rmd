@@ -20,11 +20,11 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 
 
-# II STATISTISCHES MODELLIEREN {-}
+# II MODELLIEREN {-}
 
 # Grundlagen des Modellierens {#mod1}
 
-In diesem Kapitel benötigte Pakete:
+In diesem Kapitel benötigen wir diese Pakete:
 ```{r libs}
 library(tidyverse)
 require(gridExtra)
@@ -44,7 +44,7 @@ library(png)
 
 Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit[^41] zu verstehen, erscheint es sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen.
 
-Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42].
+Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42], vgl. Abb. \@(modellieren-plot).
 
 
 ```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
@@ -57,6 +57,7 @@ Damit verstehen wir Modellieren als eine typische Aktivität von Menschen [@9783
 
 
 Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den Datensatz `wo_men`.
+
 ```{r plot-women-smooth, echo = FALSE}
 wo_men <- read.csv("data/wo_men.csv")
 wo_men %>% 
@@ -68,21 +69,29 @@ p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
 ```
 
 
-```{r plot-women-raster, echo = FALSE, fig.cap = "Ein Beispiel für Modellieren", out.width = "90%", fig.height = 1}
+```{r plot-women, echo = FALSE, out.width = "90%", fig.height = 1, fig.cap = "Ein Beispiel für Modellieren"}
 
 
-p3 <- grid::rasterGrob(readPNG("images/Modellieren_Bsp1.png"), interpolate=TRUE)
-grid.arrange(p1, p3, p2, nrow = 1)
+# p3 <- grid::rasterGrob(readPNG("images/Modellieren_Bsp1.png"), interpolate=TRUE)
+grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-Im ersten Plot sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Gewicht vs. Körpergröße). Im mittleren Plot sehen wir ein (graphisches) Modell dazu. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss hat. Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein linearer Einfluss (eine Gerade) zwischen Größe und Schuhgröße unterstellt. 
+Im ersten Plot von Abb. \@ref(fig:plot-women) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Gewicht vs. Körpergröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein linearer Einfluss (eine Gerade) zwischen Größe und Schuhgröße unterstellt. 
+
+Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein (graphisches) Modell dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen Einfluss habe. 
+
+
+```{r mod-beispiel, fig.cap = "Ein Beispiel für ein Pfadmodell", echo = FALSE}
+knitr::include_graphics("images/Modellieren_Bsp1.png")
+```
+
 
 >   Bei einem linearen Modell ist der Zuwachs der Ausgabevariablen konstant. Steigt eine Eingabevariable X um k, so steigt die Ausgabevariable ebenfalls um einen b*k, unabhängig vom Wert von X.
 
 
 
-Ein etwas aufwändigeres Modell könnte so aussehen:
+Ein etwas aufwändigeres Modell könnte so aussehen (Abb. \@ref(plot-modell-bsp2):
 
 ```{r plot-modell-bsp2, echo = FALSE, fig.cap = "Ein etwas aufwändigeres Modell"}
 knitr::include_graphics("images/Modellieren_Bsp2.pdf")
@@ -96,11 +105,11 @@ knitr::include_graphics("images/Modell_Blackbox.pdf")
 ```
 
 
-Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage*  "hinten bei rauskommt". Mathematischer ausgedrückt:
+Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage* "hinten bei rauskommt"^[das ist schließlich entscheidend - frei nach Helmut Kohl.]. Mathematischer ausgedrückt:
 
 $$Y = f(X) + \epsilon$$
 
-Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Die schwarze Kiste könnte man auch als die "datengenerierende Maschine" bezeichnen.
+Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht* mehr *deterministisch*\indes{deterministisch}, sondern beinhaltet einen funktionalen Term ($Y=f(x)$) und einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
 
 Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so "fühlen" qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: "Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?" (qualitatives Kriterium); "Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?" (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als *Klassifikation*\index{Klassifikation}; ein Modell mit quantitativem Kriterium bezeichnet man auch als *Regression*\index{Klassifikation}. Bei letzterem Begriff ist zu beachten, dass er *doppelt* verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.
 
@@ -110,53 +119,53 @@ Man kann drei Arten von Zielen abgrenzen: Vorhersagen, Erklären und Reduzieren.
 
 - *Vorhersagen*\index{Vorhersagen} hat das Ziel, eine geschickte Black Box zu wählen (oder eine Black Box geschickt zu wählen), so dass der Vohersagefehler möglichst klein ist. Sicherlich wird der Vorhersagefehler nie Null sein. Das Innenleben der "schwarzen Kiste" interessiert uns hier nicht.
 
-- *Erklären*\index{Erklären} bedeutet, zu verstehen, *wie* oder *warum* sich der Kriteriumswert so verändert, wie er es tut. Auf *welche Art* werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Präditkoren sind dabei (besonders) wichtig?  Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die Beschaffenheit der schwarzen Kiste.
+- *Erklären*\index{Erklären} bedeutet, zu verstehen, *wie* oder *warum* sich der Kriteriumswert so verändert, wie er es tut. Auf *welche Art* werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Prädikatoren sind dabei (besonders) wichtig?  Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die Beschaffenheit der schwarzen Kiste.
 
 - *Reduzieren*\index{Reduzieren} meint, dass man die Fülle des Materials verringert, in dem man ähnliche Dinge zusammenfasst. Dabei kann man sowohl Observationen zusammen fassen ("Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann") oder auch Variablen zusammen fassen ("Frage 1", "Frage 2" und "Frage 3" zu "Markentreue" etc.).
 
 
-Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktionert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Warheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
+Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktioniert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen* oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder. Soll dem gegenüber das Ziel aber sein, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders. Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen in Dunkeln, was die "Wahrheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
 
 
 
 
-### Modelle zur Erklärung vs. Modelle zur Vorhersage
-Man kann statistische Modelle danach unterscheiden, ob sie sich das Innenleben der schwarzen Kiste interessieren oder nicht. Manchmal will man einfach nur (möglichst) gute Vorhersagen treffen; in anderen Situationen will man erklären, warum sich "die Natur" so verhält, wie sie es tut.
+<!-- ### Modelle zur Erklärung vs. Modelle zur Vorhersage -->
+<!-- Man kann statistische Modelle danach unterscheiden, ob sie sich das Innenleben der schwarzen Kiste interessieren oder nicht. Manchmal will man einfach nur (möglichst) gute Vorhersagen treffen; in anderen Situationen will man erklären, warum sich "die Natur" so verhält, wie sie es tut. -->
 
-Erklären wir das Innenleben der schwarzen Kiste genau, so spricht man von einem *Modell zur Erklärung*; spezifieren wir das Innenleben der schwarzen Kiste nicht oder weniger genau sondern fokussieren und auf die Vorhersagegüte, so kann man von einem *Modell zur Vorhersage* sprechen.
+<!-- Erklären wir das Innenleben der schwarzen Kiste genau(er), so sprechen wir von einem *Modell zur Erklärung*; spezifieren wir das Innenleben der schwarzen Kiste nicht oder weniger genau sondern fokussieren und auf die Vorhersagegüte, so kann man von einem *Modell zur Vorhersage* sprechen. -->
 
 
-Ein Beispiel für ein einfaches "erklärendes Modell" ist:
+<!-- Ein Beispiel für ein einfaches "erklärendes Modell" ist: -->
 
->    Für je 5kg Körpergewicht steigt die Schuhgröße um 1 Nummer, wobei 50kg bei Schuhgröße 36 aufgehangen ist.
+<!-- >    Für je 5kg Körpergewicht steigt die Schuhgröße um 1 Nummer, wobei 50kg bei Schuhgröße 36 aufgehangen ist. -->
 
-Was ist hier die Erklärung? Die Erklärung liegt darin, dass wir eine mathematische Funktion unterstellen. Diese mathematische Funktion soll "die Natur", d.h. den Gegenstandsbereich, widerspiegeln, so unsere Hoffnung. 
+<!-- Was ist hier die Erklärung? Die Erklärung liegt darin, dass wir eine mathematische Funktion unterstellen - die Schuhgröße wird als Funktion des Körpergewichts modelliert. Diese mathematische Funktion soll "die Natur", d.h. den Gegenstandsbereich, widerspiegeln, so unsere Hoffnung.  -->
 
-Ein Beispiel für ein nicht-erkländeres Modell, das sich nur für Vorhersagegüte interessiert, ist:
+<!-- Ein Beispiel für ein nicht-erkländeres Modell, das sich nur für Vorhersagegüte interessiert, ist: -->
 
->    Schau mal, was die Schuhgröße von Leuten mit ähnlicher Größe ist.
-     Bilde den Mittelwert dieser Schuhgrößen.
-     Gib diesen Mittelwert als Schätzwert an.
-     
-     
-Dieses Modell liefert keine "Erklärung", in dem Sinn, dass eine einfache mathematische Funktion, Eingabe- und Ausgabegröße verbindet. Es werden lediglich Vorhersagen getroffen.
+<!-- >    Schau mal, was die Schuhgröße von Leuten mit ähnlicher Größe ist. -->
+<!--      Bilde den Mittelwert dieser Schuhgrößen. -->
+<!--      Gib diesen Mittelwert als Schätzwert an. -->
+
+
+<!-- Dieses Modell liefert keine "Erklärung", in dem Sinn, dass eine (einfache) mathematische Funktion, Eingabe- und Ausgabegröße verbindet. Es werden lediglich Vorhersagen getroffen. -->
 
 
 
 ## Wann welches Modell?
 
-Tja, mit dieser Frage lässt sich ein Gutteil des Kopfzerbrechens in diesem Metier erfassen. Die einfache Antwort lautet: Es gibt kein "bestes Modell", aber es mag für *einen bestimmten Gegenstandsbereich*, in *einem bestimmten (historisch-kulturellen) Kontext*, für *ein bestimmtes Ziel* und mit *einer bestimmten Stichprobe* ein best mögliches Modell geben. Dazu einige Eckpfeiler:
+Tja, mit dieser Frage lässt sich ein Gut teil des Kopfzerbrechens in diesem Metier erfassen. Die einfache Antwort lautet: Es gibt kein "bestes Modell", aber es mag für *einen bestimmten Gegenstandsbereich*, in *einem bestimmten (historisch-kulturellen) Kontext*, für *ein bestimmtes Ziel* und mit *einer bestimmten Stichprobe* ein best mögliches Modell geben. Dazu einige Eckpfeiler:
 
 - Unter sonst gleichen Umständen sind einfachere Modelle den komplexeren vorzuziehen. Gott sei Dank.
 
-- Je nach Ziel der Modellierung ist ein erklärendes Modell oder ein Modell mit reinem Vorhersge-Charakter vorzuziehen.
+- Je nach Ziel der Modellierung ist ein erklärendes Modell oder ein Modell mit reinem Vorhersage-Charakter vorzuziehen.
 
 - Man sollte stets mehrere Modelle vergleichen, um abzuschätzen, welches Modell in der aktuellen Situation geeigneter ist.
 
 
 
 ## Einfache vs. komplexe Modelle: Unter- vs. Überanpassung
-Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbereich. Eine grobe, holzschnittsartige Theorie ist doch schlechter als eine, die feine Nuancen berücksichtigt, oder nicht? Einiges spricht dafür; aber auch einiges dagegen. Schauen wir uns ein Problem mit komplexen Modellen an.
+Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbereich. Eine grobe, Holzschnitt artige Theorie ist doch schlechter als eine, die feine Nuancen berücksichtigt, oder nicht? Einiges spricht dafür; aber auch einiges dagegen. Schauen wir uns ein Problem mit komplexen Modellen an.
 
 
 ```{r overfitting-prep-4-plots, echo = FALSE, include = FALSE, fig.height = 3, fig.width = 3}
@@ -201,7 +210,7 @@ grid.arrange(p1, p2, p3, p4, ncol = 4)
 
 ```
 
-Der 1. Plot (links) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (rote Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
+Der 1. Plot (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (rote Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
 Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue" Modell beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen.
 
@@ -213,7 +222,7 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 >    Je komplexer ein Modell ist, desto besser beschreibt es einen bekannten Datensatz (Trainings-Stichprobe). Allerdings ist das Modell, welches den Trainings-Datensatz am besten beschreibt, nicht zwangsläufig das Modell, welches neue, unbekannte Daten am besten beschreibt. Oft im Gegenteil!
 
 
-Je komplexer das Modell, desto kleiner der Fehler im Trainings-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
+Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
 
 ```{r overfitting-schema, echo = FALSE}
 knitr::include_graphics("images/overfitting.pdf")
@@ -222,7 +231,7 @@ knitr::include_graphics("images/overfitting.pdf")
 
 ## Bias-Varianz-Abwägung
 
-Einfache Modelle bilden (oft) wesentliche Aspekte des Gegenstandsbereich nicht ab; die Wirklichkeit ist komplex. Die resultierende *Verzerrung* in den vorhergesagten Werten nennt man auch *Bias*\index{Bias}. Mit anderen Worten: ist ein Modell zu einfach, passt es zu wenig zu den Daten (engl. *underfitting*). Auf der anderen Seite ist das Modell aber *robust*\index{robust} in dem Sinne, dass sich die vorhergesagten Werte kaum ändern, falls sich der Trainings-Datensatz etwas ändert.
+Einfache Modelle bilden (oft) verfehlen oft wesentliche Aspekte des Gegenstandsbereich; die Wirklichkeit ist häufig zu komplex für einfache Modelle. Die resultierende *Verzerrung* in den vorhergesagten Werten nennt man auch *Bias*\index{Bias}. Mit anderen Worten: ist ein Modell zu einfach, passt es zu wenig zu den Daten (engl. *underfitting*). Auf der anderen Seite ist das Modell aber *robust*\index{robust} in dem Sinne, dass sich die vorhergesagten Werte kaum ändern, falls sich der Trainings-Datensatz etwas ändert.
 
 
 Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Trainings-Datensatzes ab, wird es auch zufällige Variation des Datensatzes vorhersagen; Variation, die nicht relevant ist, der nichts Eigentliches abbildet. Das Modell ist "überangepasst" (engl. *overfitting*); geringfügige Änderungen im Datensatz können das Modell stark verändern. Das Model ist nicht robust. Auf der positiven Seite werden die Nuancen der Daten gut abgebildet; der Bias ist gering bzw. tendenziell geringer als bei einfachen Modellen.
@@ -263,15 +272,15 @@ p2 <-  ggplot(df) +
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten könnnen große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
+Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten können große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 
-Der Plot auf der rechten Seiten hingegen ist sehr einfach und robust. Änderungen in den Daten werden vergleichweise wenig Einfluss auf das Modell (die beiden roten Linien) haben.
+Der Plot auf der rechten Seiten hingegen ist sehr einfach und robust. Änderungen in den Daten werden vergleichsweise wenig Einfluss auf das Modell (die beiden roten Linien) haben.
 
 
 ## Training- vs. Test-Stichprobe
 Wie wir gerade gesehen haben, kann man *immer* ein Modell finden, welches die *vorhandenen* Daten sehr gut beschreibt. Das gleicht der Tatsache, dass man im Nachhinein (also bei vorhandenen Daten) leicht eine Erklärung findet. Ob diese Erklärung sich in der Zukunft, bei unbekannten Daten bewahrheitet, steht auf einem ganz anderen Blatt. 
 
-Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainieren" oder "üben") und an einer zweiten Stichprobe *testen*. Die erste Stichrpobe nennt man auch *training sample* (Trainings-Stichprobe) und die zweite *test sample* (Test-Stichprobe). Entscheidend ist, dass das Test-Sample beim Entwickeln des Modells unbekannt war bzw. nicht verwendet wurde.
+Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainieren" oder "üben") und an einer zweiten Stichprobe *testen*. Die erste Stichprobe nennt man auch *training sample* (Trainings-Stichprobe) und die zweite *test sample* (Test-Stichprobe). Entscheidend ist, dass das Test-Sample beim Entwickeln des Modells unbekannt war bzw. nicht verwendet wurde.
 
 >    Die Güte des Modells sollte nur anhand eines - bislang nicht verwendeten - Test-Samples überprüft werden. Das Test-Sample darf bis zur Modellüberprüfung nicht analysiert werden.
 
@@ -307,9 +316,9 @@ Anstelle "alles mit allem" durchzuprobieren, sollte man sich auf Modelle konzent
 
 >    Kriterium der guten Vorhersage: Die Vorhersagen eines Modells sollen präzise und überraschend sein.
 
-Dass ein Modell die Wirklichkeit präzise vorhersagen soll, liegt auf der Hand. Hier verdient nur der Term *vorher*sagen Beachtung. Es ist einfach, im Nachhinein Fakten (Daten) zu erklären. Jede Nachbesprechung eines Bundesliga-Spiels liefert reichlich Gelegenheit, *posthoc* Erklärungen zu hören. Schwieriger sind Vorhersagen[^233]. Die Modellgüte ist also idealerweise an *in der Zukunft liegende* Ereignisse bzw. deren Vorhersage zu messen. Zur Not kann man auch schon in der Vergangenheit angefallende Daten hernehmen. Dann müssen diese Daten aber *für das Modell* neu sein.
+Dass ein Modell die Wirklichkeit präzise vorhersagen soll, liegt auf der Hand. Hier verdient nur der Term *vorher*sagen Beachtung. Es ist einfach, im Nachhinein Fakten (Daten) zu erklären. Jede Nachbesprechung eines Bundesliga-Spiels liefert reichlich Gelegenheit, *posthoc* Erklärungen zu hören. Schwieriger sind Vorhersagen[^233]. Die Modellgüte ist also idealerweise an *in der Zukunft liegende* Ereignisse bzw. deren Vorhersage zu messen. Zur Not kann man auch schon in der Vergangenheit angefallene Daten hernehmen. Dann müssen diese Daten aber *für das Modell* neu sein.
 
-Was ist mit überraschend gemeint? Eine Vorhersage, dass die Temperatur morgen in Nürnberg zwischen -30 und +40°C liegen wird, ist sicherlich sehr treffend, aber nicht unbedingt präzise und nicht wirklich überraschen. Die Vorhersage, dass der nächste Chef der Maurer-Innung (wenn es diese geben sollte) ein Mann sein wird, und nicht eine Frau, kann zwar präzise sein, ist aber nicht überraschend. Wir werden also in dem Maße unseren Hut vor dem Modell ziehen, wenn die Vorhersagen sowohl präzise als auch überraschen sind. Dazu später mehr Details.
+Was ist mit überraschend gemeint? Eine Vorhersage, dass die Temperatur morgen in Nürnberg zwischen -30 und +40°C liegen wird, ist sicherlich sehr treffend, aber nicht unbedingt präzise und nicht wirklich überraschend. Die Vorhersage, dass der nächste Chef der Maurer-Innung (wenn es diese geben sollte) ein Mann sein wird, und nicht eine Frau, kann zwar präzise sein, ist aber nicht überraschend. Wir werden also in dem Maße unseren Hut vor dem Modell ziehen, wenn die Vorhersagen sowohl präzise als auch überraschen sind. Dazu später mehr Details.
 
 >    Kriterium der Situationsangemessenheit: Die Güte des Modells ist auf die konkrete Situation abzustellen.
 
@@ -318,8 +327,85 @@ Ein Klassifikationsmodell muss anders beurteilt werden als ein Regressionsmodell
 
 ## Auswahl von Prädiktoren
 
-Es gibt drei Möglichkeiten, die Variablen zu bestimmen: theoriegeleitet, datengetrieben oder auf Gut glück.
+Wie oben diskutiert, stellen wir ein Modell gerne als ein Pfaddiagramm des Typs $X \rightarrow Y$ dar (wobei X ein Vektor sein kann). Nehmen wir an das Kriterium $Y$ als gesetzt an; bleibt die Frage: Welche Prädiktoren ($X$) wählen wir, um das Kriterium möglichst gut vorherzusagen?
 
+Eine einfache Frage. Keine leichte Antwort. Es gibt zumindest drei Möglichkeiten, die Prädiktoren zu bestimmen: theoriegeleitet, datengetrieben oder auf gut Glück.
+
+- theoriegeleitet: Eine starke Theorie macht präzise Aussagen, welche Faktoren eine Rolle spielen und welche nicht. Auf dieser Basis wählen wir die Prädiktoren. Diese Situation ist wünschenswert; nicht nur, weil Sie Ihnen das Leben leicht macht, sondern weil es nicht die Gefahr gibt, die Daten zu "overfitten", "Rauschen als Muster" zu bewerten - kurz: zu optimistisch bei der Interpretation von Statistiken zu sein.
+
+- datengetrieben: Kurz gesagt werden die Prädiktoren ausgewählt, welche das Kriterium am besten vorhersagen. Das ist einerseits stimmig, andererseits birgt es die Gefahr, dass Zufälligkeiten in den Daten für echte Strukturen, die sich auch in zukünftigen Stichproben finden würden, missverstanden werden.
+
+- auf gut Glück: tja, kann man keine Theorie zu Rate ziehen und sind die Daten wenig aussagekräftig oder man nicht willens ist, sie nicht genug zu ~~quälen~~ analysieren, so neigen Menschen dazu, zuerst sich selbst und dann andere von der Plausibilität der Entscheidung zu überzeugen. Keine sehr gute Strategie.
+
+
+In späteren Kapiteln betrachten wir Wege, um Prädiktoren für bestimmte Modelle auszuwählen.
+
+
+## Aufgaben
+
+### Erfolg beim Online-Dating
+
+Lesen Sie diesen^[https://thewinnower.com/papers/5202-the-effect-of-a-status-symbol-on-success-in-online-dating-an-experimental-study-data-paper?review_it=true] Artikel [@sauer_wolff]. Zeichnen Sie ein Pfaddiagramm zum Modell!^[Status $\rightarrow$ Erfolg beim Online-Dating].
+
+
+### Ziele des Modellierens
+
+Welche drei Ziele des Modellierens kann man unterscheiden?^[\@ref(Ziele-des-Modellierens)]
+
+
+### Bias-Varianz-Abwägung
+
+Betrachten Sie Abb. \@ref(plot-bias-variance2). Welches der beiden  Modelle (visualiert im jeweiligen Plot) ist wahrscheinlich...
+
+- mehr bzw. weniger robust gegenüber Änderungen im Datensatz?
+- mehr oder weniger präzise?
+
+
+```{r plot-bias-variance2, echo = FALSE}
+
+poly_degree = 5
+df <- data_frame(x = seq(from = 1, to = 10, by = .3),
+                 y = cos(x) + rnorm(n = length(x), mean = 0, sd = .5))
+
+df %>% 
+  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
+  group_by(binned) %>% 
+  mutate(y_group_md = mean(y)) -> df
+
+
+p1 <- ggplot(df) +
+  aes(x = x, y = y) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
+  coord_fixed(ratio = 5/1)
+
+
+p2 <-  ggplot(df) +
+  aes(x = x) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
+  coord_fixed(ratio = 5/1) 
+
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+
+### Richtig oder falsch?^[R, F, F, F, R]
+
+
+```{block2, exercises-modellieren, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Die Aussage "Pro Kilo Schoki steigt der Hüftumfang um einen Zentimeter" kann als Beispiel für ein deterministisches Modell herhalten.
+1. Gruppiert man Kunden nach ähnlichen Kaufprofilen, so ist man insofern an "Reduzieren" der Datenmenge interessiert.
+1. Grundsätzlich gilt: Je komplexer ein Modell, desto besser.
+1. Mit "Bias" ist gemeint, dass ein Modell "zittrig" oder "wackelig" ist - sich also bei geringer Änderung der Stichprobendaten massiv in den Vorhersagen ändert.
+1. In der Gleichung $Y=f(x)+\epsilon$ steht $\epsilon$ für den Teil der Kriteriums, der nicht durch das Modell erklärt wird.
+
+
+
+```
 
 
 

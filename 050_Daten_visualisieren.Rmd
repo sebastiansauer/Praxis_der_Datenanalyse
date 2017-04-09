@@ -15,42 +15,39 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-options(dplyr.print_min = 6, dplyr.print_max = 6)
 ```
 
 
 # Daten visualisieren
 
-Benötigte Pakete:
+In diesem Kapitel werden folgende Pakete benötigt::
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
-library(wesanderson)  # Farb-Palette von Wes Anderson
 library(car)  # Umkodieren
-library(RColorBrewer)  # Farb-Palette von Cynthia Breewr
-library(GGally)  # Scatterplot-Matrizen
 library(knitr)  # HTML-Tabellen
-library(gridExtra)  # Mehrere Plots in einem erstellen
-library(corrr)  # Korrelationsplots
+
 ```
 
 
-```{r echo = FALSE}
-knitr::include_graphics("images/Visualisieren.pdf")
+```{r plot-vis, echo = FALSE}
+knitr::include_graphics("images/visualisieren/Visualisieren.pdf")
+```
+
+## Ein Bild sagt mehr als 1000 Worte
+
+
+Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe^[https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
+
+
+```{r plot-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
+knitr::include_graphics("images/visualisieren/anscombe.pdf")
 ```
 
 
-Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe[^https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
+Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden "Natur") passiert. 
 
 
-```{r echo = FALSE}
-knitr::include_graphics("images/anscombe.pdf")
-```
-
-
-Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrundeliengenden "Natur") passiert. 
-
-
-Es gibt viele Möglichkeiten, Daten zu visualieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`[^"gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot" also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
+Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
 
 Laden wir dazu den Datensatz `nycflights::flights`.
 
@@ -63,7 +60,7 @@ source("includes/Pakete.R")
 ```
 
 
-```{r message = FALSE}
+```{r plot-flights, message = FALSE}
 qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
 ```
 
@@ -132,7 +129,7 @@ ggplot(data = wo_men) +
   geom_density(color = "blue")
 ```
 
-Zuerst haben wir mit dem Parameter `data` den Dateframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Dateframe handelt, sondern um eine "interne" Varialbe von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *übe*r das Histogramm.
+Zuerst haben wir mit dem Parameter `data` den Dataframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Datenframe handelt, sondern um eine "interne" Variable von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *über* das Histogramm.
 
 Wünsche sind ein Fass ohne Boden... Wäre es nicht schön, ein Diagramm für Männer und eines für Frauen zu haben, um die Verteilungen vergleichen zu können?
 
@@ -146,7 +143,7 @@ Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf d
 ```{r}
 
 wo_men %>% 
-  filter(shoe_size <= 47) -> wo_men2
+  filter(shoe_size <= 47) 
 
 qplot(x = shoe_size, data = wo_men2, geom = "density", fill = sex, alpha = I(.7))
 
@@ -161,13 +158,13 @@ wo_men %>%
 
 ```
 
-Die Pfeife versucht im Standard, das Endprodukt des lezten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des lezten Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
+Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
 
 Mit `fill = sex` sagen wir `qplot`, dass er für Männer und Frauen jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns `ggplot2` im Standard voraussucht). Mit anderen Worten: Die Werte von `sex` werden der Füllfarbe der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: `color = sex`.
 
 ### Zwei kontinuierliche Variablen
 
-Ein Streudiagramm ist die klassiche Art, zwei metrische Variablen darzustellen. Das ist mit `qplot` einfach:
+Ein Streudiagramm ist die klassische Art, zwei metrische Variablen darzustellen. Das ist mit `qplot` einfach:
 
 ```{r}
 qplot(x = height, y = shoe_size, data = wo_men)
@@ -203,7 +200,7 @@ wo_men %>%
   geom_smooth(method = "lm")
 ```
 
-Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. *Innerhalb* eines `ggplot`-Aufrufs werden die einzelen Teile durch ein Pluszeichen `+` voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit `aes` ("aes" wie "aesthetics", also das "Sichtbare" eines Diagramms, die Achsen etc., werden definiert). Ein "Smooth-Geom" ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, `lm`).
+Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. *Innerhalb* eines `ggplot`-Aufrufs werden die einzelne Teile durch ein Pluszeichen `+` voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit `aes` ("aes" wie "aesthetics", also das "Sichtbare" eines Diagramms, die Achsen etc., werden definiert). Ein "Smooth-Geom" ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, `lm`).
 
 Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken ("overplotting"). Ein Abhilfe ist es, die Punkte nur "schwach" zu färben. Dazu stellt man die "Füllstärke" der Punkte über `alpha` ein: `geom_point(alpha = 1/100)`. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn `ggplot` viele (>100.000) Punkte malen soll.
 
@@ -223,11 +220,45 @@ Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
 ```{r}
 wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
+
+wo_men2 %>% 
   qplot(x = height, y = shoe_size, color = sex, data = .)
 ```
 
 Mit `color = sex` sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von `sex` eingefärbt werden sollen. Die genaue Farbwahl übernimmt `ggplot2` für uns.
+
+
+Alternativ kann man auch zwei "Teil-Bildchen" ("facets") erstellen, eines für Frauen und eines für Männer:
+
+```{r}
+wo_men %>% 
+  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  qplot(x = height, y = shoe_size, facets = "~sex", color = sex, data = .)
+```
+
+Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
+
+#### Vertiefung zu Facetten
+
+Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:
+
+```{r}
+wo_men %>% 
+  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  select(-sex) -> wo_men4
+
+wo_men4 %>% 
+  ggplot(aes(x = height, y = shoe_size)) +
+  geom_point(color = "grey80") +
+  facet_wrap(~sex) +
+  geom_point(data = wo_men2, aes(color = sex))
+  
+```
+
+
+Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
+
 
 ### Eine diskrete Variable
 Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind in dem Datensatz?
@@ -261,7 +292,7 @@ qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
 
 In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
 
-Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Wete `klein` häufig; bei den Männern hingegen die Werte `gross`.
+Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Werte `klein` häufig; bei den Männern hingegen die Werte `gross`.
 
 Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um^[Cleveland fände diese Idee nicht so gut.].
 
@@ -283,7 +314,9 @@ Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 `x`: Der X-Achse (Achtung, `x` wird klein geschrieben hier) wird die Variable `sex` zugeordnet.   
 `y`: gibt es nicht??? Wenn in einem ggplot-Diagramm *keine* Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).  
 `fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `groesse_gruppe` darin widerspiegelt.  
+
 `geom_XYZ`: Als "Geom" soll ein Balken ("bar") gezeichnet werden.  Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit `geom_bar`, `geom_boxplot`, geom_point` etc. gewählt.  
+
 `position = fill`: `position_fill` will sagen, dass die Balken alls eine Höhe von 100% (1) haben. Die Balken zeigen also nur die Anteile der Werte der `fill`-Variablen. 
 
 ```
@@ -331,7 +364,7 @@ Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.
 
 
      
-Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häfigsten ist, unabhängig von der Körperformm. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
+Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
 
 ### Zusammenfassungen zeigen
 Manchmal möchten wir *nicht* die Rohwerte einer Variablen darstellen, sondern z.B. die Mittelwerte pro Gruppe. Mittelwerte sind eine bestimmte *Zusammenfassung* einer Spalte; also fassen wir zuerst die Körpergröße zum Mittelwert zusammen - gruppiert nach Geschlecht.
@@ -363,316 +396,59 @@ wo_men2 %>%
 
 
 
-## Farblehre
-Erstens, nicht schaden - so könnte hier die Maßregel sein. Es ist leicht, zu grelle oder wenig kontrastierende Farben auszuwählen. Eine gute Farbauswahl (Palette) ist nicht so leicht und hängt vom Zweck der Darstellung ab.
+## Aufgaben
 
-Cynthia Brewer^[http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3] hat einige schöne Farbpaletten zusammengestellt; diese sind in R und in ggplot2 über das Paket `RcolorBrewer` verfügbar. 
+1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig-anscombe)) erklärt!
+
+1. Abb. \@ref(plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+
+Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
+
+Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?
+
+1. Erstellen Sie ein sehr grobes und ein sehr feines Histogramm für die Schuhgröße!
+
+
+1. Vertiefung: Erstellen Sie ein Diagramm, das sowohl eine Zusammenfassung (Mittelwert) der Körpergrößen nach Geschlecht darstellt als auch die einzelnen Werte darstellt!
+
+
+
+## Lösungen
+
+1. :-)
+
+2. :
 
 ```{r}
-brewer.pal.info %>% rownames_to_column %>% rename(Name = rowname) %>% kable
+qplot(x = arr_delay, geom = "histogram", data = flights, facets = "~origin")
 ```
 
+Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
-- Kontrastierende Darstellung (nominale/ qualitative Variablen) - z.B. Männer vs. Frauen
 
-```{r out.width = "100%"}
-display.brewer.all(type="qual")
+3. :
+
+```{r}
+qplot(x = shoe_size, data = wo_men, bins = 10)
+qplot(x = shoe_size, data = wo_men, bins = 50)
 ```
 
-- Sequenzielle Darstellung (unipolare numerische Variablen) - z.B. Preis oder Häufigkeit
-```{r out.width = "100%"}
-display.brewer.all(type="seq")
-```
+4. :
+
+```{r}
+wo_men2 %>% 
+  group_by(sex) %>% 
+  summarise(height = mean(height)) -> wo_men3
 
 
-- Divergierende Darstellung (bipolare numerische Variablen) - z.B. semantische Potenziale oder Abstufung von "stimme überhaupt nicht zu" über "neutral" bis "stimme voll und ganz zu"
-
-```{r out.width = "100%"}
-display.brewer.all(type="div")
-```
-
-In `ggplot2` können wir folgendermaßen Paletten ändern.
-
-```{r brewerpal, out.width = "100%"}
-
-flights %>% 
-  group_by(dest) %>% 
-  count(dest) %>% 
-  top_n(5)
-
-p1 <- flights %>% 
-  filter(dest %in% c("BOS", "ATL", "LAX")) %>% 
+wo_men3 %>% 
   ggplot() +
-  aes(x = dest, y = arr_delay, color = dest) +
-  geom_boxplot() +
-  scale_color_brewer(palette = "Set1")
-
-p2 <- flights %>% 
-  filter(dest %in% c("BOS", "ATL", "LAX", "MCO", "ORD")) %>% 
-  ggplot() +
-  aes(x = dest, y = arr_delay, fill = dest) +
-  geom_boxplot() +
-  scale_fill_brewer(palette = "Set1")
-
-grid.arrange(p1, p2, ncol = 2)
-
+  aes(x = sex, y = height) +
+  geom_point(color = "red", size = 8) +
+  geom_point(data = wo_men2, color = "grey80")
 ```
 
-`scale_color_brewer` meint hier: "Ordne der Variablen, die für 'color' zuständig ist, hier `sex`, eine Farbe aus der Brewer-Palette 'Set1' zu". Die Funktion wählt *automatisch* die richtige Anzahl von Farben.
-
-Man beachte, dass die Linienfarbe über `color` und die Füllfarbe über `fill` zugewiesen wird. Punkte haben nur eine Linienfarbe, keine Füllfarbe.
-
-
-
-Auch die Farbpaletten von Wes Anderson sind erbaulich^[https://github.com/karthik/wesanderson]. Diese sind nicht "hart verdrahtet" in ggplot2, sondern werden über `scale_XXX_manual` zugewiesen (wobei XXX z.B. `color` oder `fill` sein kann).
-
-```{r}
-data(tips, package = "reshape2")
-
-p1 <- tips %>% 
-  ggplot() +
-  aes(x = total_bill, y = tip, color = day) +
-  geom_point() +
-  scale_color_manual(values = wes_palette("GrandBudapest")) +
-  theme(legend.position = "bottom")
-
-p2 <- tips %>% 
-  ggplot() +
-  aes(x = total_bill, y = tip, color = day) +
-  geom_point() +
-  scale_color_manual(values = wes_palette("Chevalier"))  +
-  theme(legend.position = "bottom")
-
-meine_farben <- c("red", "blue", "#009981", "#32F122")
-
-p3 <- tips %>% 
-  ggplot() +
-  aes(x = total_bill, y = tip, color = day) +
-  geom_point() +
-  scale_color_manual(values = meine_farben)  +
-  theme(legend.position = "bottom")
-
-grid.arrange(p1, p2, p3, ncol = 3)
-```
-
-
-Wer sich berufen fühlt, eigene Farben (oder die seiner Organisation zu verwenden), kommt auf ähnlichem Weg zu Ziel. Man definiere sich seine Palette, wobei ausreichend Farben definiert sein müssen. Diese weist man dann über `scale_XXX_manual` dann zu. Man kann einerseits aus den in R definierten Farben auswählen^[http://sape.inf.usi.ch/quick-reference/ggplot2/colour] oder sich selber die RBG-Nummern (in Hexadezimal-Nummern) heraussuchen.
-
-
-
-## Erweiterungen für ggplot
-
-### ggpairs
-
-Um eine Streudiagramm-Matrix darzustellen, ist der Befehl `GGally::ggpairs` praktisch:
-
-```{r}
-
-tips %>% 
-  ggpairs(aes(color = sex), columns = c("total_bill", "smoker", "tip"))
-```
-
-Dabei gibt man an, welche Variable (hier `sex`) für die Farben im Diagramm zuständig sein soll (wir ordnen den Werten von `sex` jeweils eine Farbe zu). Mit `columns` sagen wir, welche Spalten des Dataframes wir dargestellt haben möchten. Lassen wir diesen Parameter weg, so werden alle Spaltne des Dataframes dargestellt.
-
-
-### Correlationsplots
-Mit dem Paket `corrr` lassen sich mehrere Korrelationskoeffizienten auf einmal visualisieren. 
-
-```{r fig.cap = "Korr"}
-df <- read.csv("https://osf.io/meyhp/?action=download")
-
-library(corrr)
-
-df %>% 
-  select(i01:i10) %>%   # Spalten wählen
-  correlate() %>%   # Korrelationsmatrix berechnen
-  rearrange() %>%   # Korrelation der Stärke nach ordnen  
-  shave() %>%   # das obere Dreieck ist redundant, rasieren wir ab
-  rplot()  # plotten
-```
-
- 
-
-### Weitere
-Hier finden sich viele weitere Ergänzungen für ggplot2: https://www.ggplot2-exts.org
-
-
-
-## Fallstudie Extraversion
-
-
-Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. 
-
-
-### Daten einlesen
-Hier laden wir einen Datensatz zu einer Online-Umfrage:
-
-```{r}
-data <- read.csv("https://osf.io/meyhp/?action=download")
-
-```
-
-Der DOI für diesen Datensatz ist 10.17605/OSF.IO/4KGZH.
-
-Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow^[https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
-
-
-Die Umfrage kann hier^[https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform] eingesehen werden. Schauen wir uns die Daten mal an:
-```{r}
-glimpse(data)
-```
-
-
-
-
-### Daten umstellen
-Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die Items stehen (1,2,...,n) und auf der Y-Achse die Anzahl der Kreuze nach Kategorien.
-
-Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur *eine* Variable steht. `ggplot2`, das wir hier verwenden, ist da keine Ausnahme. Wir müssen also die "breite" Tabelle (10 Spalten, pro Item eine) in eine "lange Spalte" umbauen: Eine Spalte heißt dann "Itemnummer" und die zweite "Wert des Items" oder so ähnlich.
-
-
-Also, los geht's: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversions-Items, in diesem Fall.
-
-```{r}
-data_items <- select(data, i01:i10)
-```
-
-Dann stellen wir die Daten von "breit" nach "lang" um, so dass die Items eine Variable bilden und damit für `ggplot2` gut zu verarbeiten sind.
-
-```{r}
-data_long <- gather(data_items, key = items, value = Antwort)
-
-data_long$Antwort <- factor(data_long$Antwort)
-```
-
-Den Befehl mit `factor` brauchen wir für zum Diagramm erstellen im Folgenden. Dieser Befehl macht aus den Zahlen bei der Variable `Antwort` eine nominale Variable (in R: `factor`) mit Text-Werten "1", "2" und so weiter. Wozu brauchen wir das? Der Digrammbefehl unten kann nur mit nominalen Variablen Gruppierungen durchführen. Wir werden in dem Diagramm die Anzahl der Antworten darstellen - die Anzahl der Antworten nach Antwort-Gruppe (Gruppe mit Antwort "1" etc.).
-
-Keine Sorge, wenn sich das reichlich ungewöhnlich anhört. Sie müssen es an dieser Stelle nicht erfinden :-)
-
-Man gewöhnt sich daran einerseits; und andererseits ist es vielleicht auch so, dass diese Funktionen nicht perfekt sind, oder nicht aus unserer Sicht oder nur aus Sicht des Menschen, der die Funktion geschrieben hat. Jedenfalls brauchen wir hier eine `factor` Variable zur Gruppierung...
-
-
-Damit haben wir es schon! Jetzt wird gemalt.
-
-### Diagramme für Anteile
-
-Wir nutzen `ggplot2`, wie gesagt, und davon die Funktion `qplot` (q wie quick, nehme ich an.).
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") 
-```
-
-Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
-
-- `ggplot(data = ...)`: Wir sagen "Ich möchte gern die Funktion ggplot nutzen, um den Datensatz ... zu plotten". 
-- `aes(...)`: Hier definieren wir die "aesthetics" des Diagramms, d.h. alles "Sichtbare". Wir ordnen in diesem Fall der X-Achse die Variable `items` zu. Per Standardeinstellung geht `ggplot` davon aus, dass sie die Häufigkeiten der X-Werte auf der Y-Achse haben wollen, wenn Sie nichts über die Y-Achse sagen. Jetzt haben wir ein Koordinatensystem definiert (das noch leer ist).
-- `geom_bar()`: "Hey R oder ggplot, jetzt male mal einen barplot in den ansonsten noch leeren plot".
-- `aes(fill = Antwort)`: Genauer gesagt nutzen wir `aes` um einen sichtbaren Aspekte des Diagramms (wie die X-Achse) eine Variable des Datensatzes zuzuordnen. Jetzt sagen wir, dass die Füllung (im Balkendiagramm) durch die Werte von `Antwort` definiert sein sollen (also "1", "2" etc.).
-- `position = "fill"` sagt, dass die Gesamt-Höhe des Balken aufgeteilt werden soll mit den "Teil-Höhen" der Gruppen (Antwort-Kategorien 1 bis 4); wir hätten die Teil-Höhen auch nebeneinander stellen können.
-
-Vielleicht ist es schöner, die NAs erst zu entfernen.
-
-```{r}
-data_long <- na.omit(data_long)
-```
-
-Und dann noch mal plotten:
-
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") 
-```
-
-
-
-### Um 90° drehen
-
-Dazu nehmen wir `+ coord_flip()`, also "flippe das Koordinatensystem".
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") +
-  coord_flip()
-```
-
-
-### Text-Labels für die Items
-
-Wir definieren die Texte ("Labels") für die Items:
-```{r}
-item_labels <- c("Ich bin das erste Item",
-                 "Das zweite Item",
-                 "Item 3 sdjfkladsjk",
-                 "Ich bin ein krasser Couch-Potato UMKODIERT",
-"i5 asf", "i6 sdf", "adfjks", "sfjlkd", "sdfkjl", "sdfjkl")
-```
-
-Jetzt hängen wir die Labels an die Items im Diagramm:
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") +
-  coord_flip() +
-  scale_x_discrete(labels = item_labels)
-```
-
-
-Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen... wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)
-
-```{r}
-item_labels <- c("Ich bin das erste Item",
-                 "Das zweite Item",
-                 "Item 3 sdjfkladsjk",
-                 "Ich bin ein krasser \nCouch-Potato***mit Zeilenumbruch***",
-"i5 asf", "i6 sdf", "adfjks", "sfjlkd", "sdfkjl", "sdfjkl")
-```
-
-
-Und wieder plotten:
-
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") +
-  coord_flip() +
-  scale_x_discrete(labels = item_labels, name = "Extraversionsitems") +
-  scale_y_continuous(name = "Anteile")
-```
-
-
-### Diagramm mit Häufigkeiten
-Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit `position = "fill"` wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien "aufeinander stapeln"
-
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "stack") +
-  coord_flip() +
-  scale_x_discrete(labels = item_labels) 
-```
-
-### Farbschema
-Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema:
-
-```{r}
-ggplot(data = data_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "stack") +
-  coord_flip() +
-  scale_x_discrete(labels = item_labels) +
-  scale_fill_brewer(palette = 17)
-```
-
-
-
-
+Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
 ## Verweise
 
@@ -680,7 +456,7 @@ ggplot(data = data_long) +
 
 - William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren [@Cleveland]. 
 
-- Die Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
+- Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
 
 
 

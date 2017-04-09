@@ -20,7 +20,7 @@ width.cutoff=60
 
 \pagenumbering{arabic}
 
-# I GRUNDLAGEN {-}
+# I EXPLORIEREN {-}
 
 
 
@@ -29,7 +29,7 @@ width.cutoff=60
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das 
 "Drumherum" oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
-brauchen wir einen Überblick über das Thema. Voila:
+brauchen wir einen Überblick über das Thema. Voilà:
 
 ```{r echo = FALSE}
 knitr::include_graphics("images/Prozess_Datenanalyse.pdf") 
@@ -59,7 +59,7 @@ Grundannahmen.
 
 
 
-## Software
+## Software installieren
 
 
 Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. 
@@ -89,7 +89,7 @@ Betriebssystem herunter.
 
 Die Oberfläche von R, die "Console", sieht so aus:
 
-![](images/R-small.jpg) ![](images/R-Mac-small.png)
+<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
 
 ```{r eval = FALSE, echo = FALSE,  fig.width = 1} 
 knitr::include_graphics("images/R.jpg") 
@@ -106,6 +106,30 @@ knitr::include_graphics("images/RStudio-Screenshot.png")
 
 ```
 
+
+Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
+praktischerweise finden Sie aber einen Button "run", der 
+die aktuelle Zeile oder die Auswahl "abschickt", d.h. in die 
+Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster
+öffnen möchten, so können Sie das Icon ![new_script](images/new_script.png) 
+klicken^[Alternativ: Cntrl-Shift-N oder File > New File > R Script].
+
+Aus dem Fenster der *Konsole*\index{Konsole} spricht R zu uns bzw. 
+wir mit ihm (ihr?). Wird ein Befehl hier eingegeben, so führt R ihn aus. 
+Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in
+die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.
+
+Im Fenster *Umgebung*\index{Umgebung} (engl. "environment") zeigt R, 
+welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen
+Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht
+in der Umgebung angezeigt wird, existiert nicht für R.
+
+Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. 
+werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster
+rechts unten durch.
+
+
+Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist `Shift-Alt-K`.
 
 
 ### Hilfe! R tut nicht so wie ich das will
@@ -129,7 +153,7 @@ Rs Problem sein könnte.
 morgen noch einmal. 
 3. Googeln.
 
-Sorry für die schnottrigen Tipps. Aber: Es passiert allzu leicht, dass man 
+Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man 
 Fehler wie diese macht:
 
 - `install.packages(dplyr)` 
@@ -150,14 +174,13 @@ installiert werden konnte (z.B. "Package 'Rcpp' could not be installed" oder "es
 gibt kein Paket namens ‘Rcpp’" oder "unable to move temporary installation XXX 
 to YYY"), dann tun Sie folgendes:
 
-- Schließen Sie R und starten Sie es neu. - Installieren Sie das oder die 
-angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = 
-TRUE)` oder mit dem entsprechenden Klick in RStudio. - Starten Sie das 
-entsprechende Paket mit `library(paket_name)`.
+    - Schließen Sie R und starten Sie es neu. 
+    - Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
+    - Starten Sie das entsprechende Paket mit `library(paket_name)`.
 
 
 - Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder
-RComannder) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die 
+RCommander) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die 
 Pakete ("packages") installieren, die Sie für bestimmte R-Funktionen benötigen. 
 Daher schließen Sie R bzw. RStudio und suchen Sie das Icon von R oder wenn Sie 
 RStudio verwenden von RStudio. Rechtsklicken Sie das Icon und wählen Sie "als 
@@ -165,20 +188,13 @@ Administrator ausführen". Damit geben Sie dem Programm Schreibrechte. Jetzt
 können Sie etwaige fehlende Pakete installieren.
 
 - Ein weiterer Grund, warum R bzw. RStudio die Schreibrechte verwehrt werden 
-könnnten (und damit die Installation von Paketen), ist ein Virenscanner. Der 
+könnten (und damit die Installation von Paketen), ist ein Virenscanner. Der 
 Virenscanner sagt, nicht ganz zu Unrecht: "Moment, einfach hier Software zu 
 installieren, das geht nicht, zu gefährlich". Grundsätzlich gut, in diesem Fall 
 unnötig. Schließen Sie R/RStudio und schalten Sie dann den Virenscanner 
 *komplett* (!) aus. Öffnen Sie dann R/RStudio wieder und versuchen Sie fehlende 
 Pakete zu installieren.
 
-- Läuft der RCommander unter Mac nicht, dann prüfen Sie, ob Sie X11 (synonym: 
-XQuartz) installiert haben. X11 muss installiert sein, damit der RCommander 
-unter Mac läuft.
-
-- Die "app nap" Funktion beim Mac kann den RCommander empfindlich ausbremsen. 
-Schalten Sie diese Funktion aus z.B. im RCommander über `Tools - Manage Mac OS X
-app nap for R.app`.
 
 
 ### Hier werden Sie geholfen
@@ -190,7 +206,7 @@ wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
 RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets > 
 ...* oder gehen Sie auf <https://www.rstudio.com/resources/cheatsheets/>.
 
-- In RStudio gibt es eine Reihe (viele) von Tastaturkürzlen (Shortcuts), die Sie
+- In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie
 hier finden: *Tools > Keyboard Shortcuts Help*.
 
 - Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren 
@@ -202,36 +218,31 @@ Sie z.B. `?mean`.
 http://stackoverflow.com.
 
 
+
+
+
 ### Die Denk- und Gefühlswelt von R
 
 - Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn 
 Sie RStudio gestartet haben, *nicht* noch extra R. Damit hätten Sie sonst zwei 
 Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.
 
-- Ein neues R-Skript im RStudio können Sie z.B. öffnen mit `File-New File-R 
-Script`.
+#### R-Skript-Dateien
+
+- Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen...
 
 - R-Skripte können Sie speichern (`File-Save`) und öffnen.
 
 - R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
-Nur statt der Endung `txt`, sind R-Skripte stolzer Träger der Endung `R`. Es 
-bleibt aber eine schnöde Textdatei.
+Nur statt der Endung `.txt`, sind R-Skripte stolzer Träger der Endung `.R`. Es 
+bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung ".R",
+damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar 
+praktische Funktionen wie den "Run-Button".
 
-- Bei der Installation von Paketen mit `install.packages("name_des_pakets")` 
-sollte stets der Parameter `dependencies = TRUE` angefügt werden. Also 
-`install.packages("name_des_pakets", dependencies = TRUE)`. Hintergrund ist: 
-Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht 
-installiert sind (gut möglich), dann werden diese sog. "dependencies" gleich 
-mitinstalliert (wenn Sie  `dependencies = TRUE` setzen).
 
-- Hier finden Sie weitere Hinweise zur Installation des RCommanders: 
-<http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html>.
+#### Stolpersteine beim Errisch lernen
 
-- Sie müssen online sein, um Packages zu installieren.
-
-- Die "app nap" Funktion beim Mac kann den RCommander empfindlich ausbremsen. 
-Schalten Sie diese Funktion aus z.B. im RCommander über `Tools - Manage Mac OS X
-app nap for R.app`.
+>    I Errr, therefore I am...
 
 
 Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres 
@@ -246,6 +257,7 @@ diesen Tugenden zu trainieren :-)
 
 
 
+
 ### Pakete installieren
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt 
@@ -256,9 +268,6 @@ schon einmal, sofern noch nicht geschehen:
 install.packages("dplyr", dependencies = TRUE) 
 ```
 
-Übrigens, das `dependencies = TRUE` sagt sinngemäß "Wenn das Funktionieren von 
-dplyr noch von anderen Paketen abhängig ist (es also Abhängigkeiten 
-(dependencies) gibt), dann installiere die gleich mal mit".
 
 
 
@@ -273,6 +282,16 @@ Spiegelbilder. Suchen Sie sich einfach einen aus, der in der Nähe ist.
 
 ```
 
+
+Bei der Installation von Paketen mit `install.packages("name_des_pakets")` 
+sollte stets der Parameter `dependencies = TRUE` angefügt werden. Also 
+`install.packages("name_des_pakets", dependencies = TRUE)`. Hintergrund ist: 
+Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht 
+installiert sind (gut möglich), dann werden diese sog. "dependencies" gleich 
+mitinstalliert (wenn Sie  `dependencies = TRUE` setzen).
+
+
+Sie müssen online sein, um Packages zu installieren.
 
 Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten* 
 (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder 
@@ -305,8 +324,10 @@ haben Sie Ruhe.
 
 
 
-### R-Pakete für dieses Buch In diesem Buch verwenden wir die folgenden 
-R-Pakete; diese müssen installiert[Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren.] sein und geladen:
+### R-Pakete für dieses Buch 
+
+In diesem Buch verwenden wir die folgenden 
+R-Pakete; diese müssen installiert^[Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.] sein und geladen:
 
 ```{r source_packages, include = FALSE, message = FALSE, warning = FALSE} 
 source("includes/Pakete.R") 
@@ -362,7 +383,7 @@ Wir verwenden zwei Methoden, um Datensätze in R zu laden.
 `okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. 
 Mit dem Befehl `data(name_des_datensatzes, package = "name_des_paketes")`, kann 
 man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des
-Paektes; dafür ist der Befehl `data` zuständig.
+Paketes; dafür ist der Befehl `data` zuständig.
 
 ```{r eval = FALSE} 
 library(okcupiddata) data(profiles, package = "okcupiddata")
@@ -370,12 +391,11 @@ library(okcupiddata) data(profiles, package = "okcupiddata")
 
 
 - Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die 
-Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stic...) 
+Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick...) 
 liegen.
 
 ```{r example_load_data, eval = FALSE} 
-Daten <- 
-read.csv("https://sebastiansauer.github.io/data/tips.csv") 
+Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv") 
 ```
 
 Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
@@ -384,7 +404,23 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
 
+
+### Übungen
+
+1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
+
+2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
+
+
+
+
+
+
 ## ERRRstkontakt
+
+
+### Hinweise
+
 
 Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
 
@@ -394,16 +430,30 @@ zwei verschiedene Dinge für R!
 Dezimaltrennzeichen.
 - Fehlende Werte werden in R durch `NA` kodiert.
 - Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert. 
-- R wendet Befehle direkt an.
-- R ist objektorientiert, d. h. dieselbe Funktion hat evtl. je nach Funktionsargument unterschiedliche Rückgabewerte. 
 - Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen `?`.
 - Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese 
-müssen ggf. zunächst  installiert werden.
-- Mit der Pfeiltaste "nach oben" können Sie in der Konsole einen vorherigen Befehl wieder aufrufen.
-- Sofern Sie das Skriptfenster verwenden: einzelne Befehle aus dem Skriptfenster in R Studio können Sie auch mit `Str` und `Enter` an die Console schicken.
+müssen ggf. zunächst installiert werden.
+- *Variablennamen*\index{Variablen} (synonym: *Objekte*\index{Objekte}) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche `-` und Minuszeichen `-` enthalten sein. Leerzeichen sind nicht erlaubt.
+- Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.
 
+```
+# so nicht:
+var
+x
+dummy
+objekt
+dieser_name_ist_etwas_lang_vielleicht
 
-### R als Taschenrechner Auch wenn Statistik nicht Mathe ist, so kann man mit R 
+# gut:
+tips_mw
+lm1
+```
+
+Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).
+
+### R als Taschenrechner
+
+Auch wenn Statistik nicht Mathe ist, so kann man mit R 
 auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der 
 Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. 
 `Enter`. 
@@ -440,7 +490,83 @@ Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es
 sich um das erste (und hier auch letzte) Element des Vektors handelt.
 
 
+### Text und Variablen zuweisen
 
+Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):
+
+```{r hallo, eval = FALSE}
+y <- "Hallo R!"
+```
+
+
+Man kann auch einer Variablen eine andere zuweisen:
+
+```{r eval = FALSE}
+y <- x
+```
+
+Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil `<-` macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.
+
+
+### Funktionen aufrufen
+
+
+Um einen "Befehl" (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an
+und definieren sog. "Parameter" in einer runden Klammer, z.B. so:
+
+```{r}
+wo_men <- read.csv("data/wo_men.csv")
+```
+
+Allgemein gesprochen:
+
+```
+funktionsname(parametername1 = wert1, parametername2 = wert2, ...)
+```
+
+Die drei Punkte `...` sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. 
+Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. 
+Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:
+
+```{r read-csv-example, eval = FALSE}
+#ok:
+wo_men <- read.csv(file = "data/wo_men.csv", header = TRUE, sep = ",")
+wo_men <- read.csv("data/wo_men.csv", TRUE, ",")
+wo_men <- read.csv(header = TRUE, sep = ",", file = "data/wo_men.csv")
+
+
+# ohno:
+wo_men <- read.csv(TRUE, "data/wo_men.csv", ",")
+```
+
+
+### Übungen 
+
+3. Führen Sie diese Syntax aus:
+
+```{r eval = FALSE}
+meine_coole_variable <- 10
+meine_coole_var1able 
+```
+
+Woher rührt der Fehler?
+
+4. Korrigieren Sie die Syntax:
+
+```{r eval = FALSE}
+install.packages(dplyer)
+```
+
+
+`y <- Hallo R!`
+
+
+`Hallo R <- 1`
+
+
+```{r eval = FALSE}
+Hallo_R < - 1
+```
 
 
 ## Was ist Statistik? Wozu ist sie gut?
@@ -449,11 +575,11 @@ Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Wa
 ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) 
 wichtig?
 
-Was ist Stististik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von
+Was ist Statistik? *Eine* Antwort dazu ist, dass Statistik die Wissenschaft von
 Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe 
 mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle 
 [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden 
-Datenanalyse (ein Teil der Statistik) herausgemeiselt. Statistik wird häufig in 
+Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in 
 die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere 
 fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. 
 Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf 
@@ -500,7 +626,7 @@ Die Konklusion ist *nicht* zwangsläufig richtig. Es ist falsch zu sagen, dass d
 
 Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dunklen Ecke, ein Mann, der sich als Statistik-Professor vorstellt und Sie zu einem Glücksspiel einlädt. Sofort sagen Sie zu. Der Statistiker will 10 Mal eine Münze werfen, er setzt auf Zahl (versteht sich). Wenn er gewinnt, bekommt er 10€ von Ihnen; gewinnen Sie, bekommen Sie 11€ von ihm. Hört sich gut an, oder? Nun wirft er die Münze zehn Mal. Was passiert? Er gewinnt 10 Mal, natürlich (so will es die Geschichte). Sollten wir glauben, dass er ein Betrüger ist?
 
-Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datnlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D "passen" also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist. 
+Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D "passen" also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist. 
 
 Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen *wenn* beginnt. Also davon *ausgeht*, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu? 
 
