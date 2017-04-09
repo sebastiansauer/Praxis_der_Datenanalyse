@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="fallstudie-zur-visualisierung-von-umfragedaten.html">
-<link rel="next" href="mod1.html">
+<link rel="prev" href="baumbasierte-verfahren.html">
+<link rel="next" href="iv-ungeleitetes-modellieren.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -430,16 +430,302 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ii-modellieren" class="section level1 unnumbered">
-<h1>II MODELLIEREN</h1>
+<div id="fallstudien" class="section level1">
+<h1><span class="header-section-number">Kapitel 16</span> Fallstudien</h1>
+<div id="uberleben-auf-der-titanic" class="section level2">
+<h2><span class="header-section-number">16.1</span> Überleben auf der Titanic</h2>
+<p>In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um die beispielhafte Analyse nominaler Daten anhand des “klassischen” Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der derPassagiers reist, ab?</p>
+<div id="daten-und-pakete-laden" class="section level3">
+<h3><span class="header-section-number">16.1.1</span> Daten und Pakete laden</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;titanic&quot;</span>)
+<span class="kw">data</span>(titanic_train)</code></pre></div>
+<p>Man beachte, dass ein Paket nur <em>einmalig</em> zu installieren ist (wie jede Software). Dann aber muss das Paket bei jedem Starten von R wieder von neuem gestartet werden. Außerdem ist es wichtig zu wissen, dass das Laden eines Pakets nicht automatisch die Datensätze aus dem Paket lädt. Man muss das oder die gewünschten Pakete selber (mit <code>data(...)</code>) laden. Und: Der Name eines Pakets (z.B. <code>titanic</code>) muss nicht identisch sein mit dem oder den Datensätzen des Pakets (z.B. <code>titanic_train</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+</div>
+<div id="erster-blick" class="section level3">
+<h3><span class="header-section-number">16.1.2</span> Erster Blick</h3>
+<p>Werfen wir einen ersten Blick in die Daten:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;dplyr&quot;, dependencies = TRUE) # ggf. vorher installieren</span>
+<span class="kw">glimpse</span>(titanic_train)
+<span class="co">#&gt; Observations: 891</span>
+<span class="co">#&gt; Variables: 12</span>
+<span class="co">#&gt; $ PassengerId &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,...</span>
+<span class="co">#&gt; $ Survived    &lt;int&gt; 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0,...</span>
+<span class="co">#&gt; $ Pclass      &lt;int&gt; 3, 1, 3, 1, 3, 3, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3,...</span>
+<span class="co">#&gt; $ Name        &lt;chr&gt; &quot;Braund, Mr. Owen Harris&quot;, &quot;Cumings, Mrs. John Bra...</span>
+<span class="co">#&gt; $ Sex         &lt;chr&gt; &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;, &quot;mal...</span>
+<span class="co">#&gt; $ Age         &lt;dbl&gt; 22, 38, 26, 35, 35, NA, 54, 2, 27, 14, 4, 58, 20, ...</span>
+<span class="co">#&gt; $ SibSp       &lt;int&gt; 1, 1, 0, 1, 0, 0, 0, 3, 0, 1, 1, 0, 0, 1, 0, 0, 4,...</span>
+<span class="co">#&gt; $ Parch       &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 0, 5, 0, 0, 1,...</span>
+<span class="co">#&gt; $ Ticket      &lt;chr&gt; &quot;A/5 21171&quot;, &quot;PC 17599&quot;, &quot;STON/O2. 3101282&quot;, &quot;1138...</span>
+<span class="co">#&gt; $ Fare        &lt;dbl&gt; 7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.07...</span>
+<span class="co">#&gt; $ Cabin       &lt;chr&gt; &quot;&quot;, &quot;C85&quot;, &quot;&quot;, &quot;C123&quot;, &quot;&quot;, &quot;&quot;, &quot;E46&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ...</span>
+<span class="co">#&gt; $ Embarked    &lt;chr&gt; &quot;S&quot;, &quot;C&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;C&quot;, ...</span></code></pre></div>
+</div>
+<div id="welche-variablen-sind-interessant" class="section level3">
+<h3><span class="header-section-number">16.1.3</span> Welche Variablen sind interessant?</h3>
+<p>Von 12 Variablen des Datensatzes interessieren uns offenbar <code>Pclass</code> und <code>Survived</code>; Hilfe zum Datensatz kann man übrigens mit <code>help(titanic_train)</code> bekommen. Diese beiden Variablen sind kategorial (nicht-metrisch), wobei sie in der Tabelle mit Zahlen kodiert sind. Natürlich ändert die Art der Codierung (hier als Zahl) nichts am eigentlichen Skalenniveau. Genauso könnte man “Mann” mit <code>1</code> und “Frau” mit <code>2</code> kodieren; ein Mittelwert bliebe genauso (wenig) aussagekräftig. Zu beachten ist hier nur, dass sich manche R-Befehle verunsichern lassen, wenn nominale Variablen mit Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit Text-Werten zu benennen (wie “survived” vs. “drowned” etc.). Wir kommen später auf diesen Punkt zurück.</p>
+</div>
+<div id="univariate-haufigkeiten" class="section level3">
+<h3><span class="header-section-number">16.1.4</span> Univariate Häufigkeiten</h3>
+<p>Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir fest: Wir untersuchen zwei nominale Variablen. Sprich: wir werden Häufigkeiten auszählen. Häufigkeiten (und relative Häufigkeiten, also Anteile oder Quoten) sind das, was uns hier beschäftigt.</p>
+<p>Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab es pro Klasse? Wie viele Passagiere gab es pro Wert von <code>Survived</code> (also die überlebten bzw. nicht überlebten)?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c1 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Pclass)
+c1
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;   Pclass     n</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1      1   216</span>
+<span class="co">#&gt; 2      2   184</span>
+<span class="co">#&gt; 3      3   491</span></code></pre></div>
+
+<div class="rmdcaution">
+<p>Achtung - Namenskollision! Sowohl im Paket <code>mosaic</code> als auch im Paket <code>dplyr</code> gibt es einen Befehl <code>count</code>. Für <code>select</code> gilt das gleiche. Das arme R weiß nicht, welchen von beiden wir meinen und entscheidet sich im Zweifel für den falschen. Da hilft, zu sagen, aus welchem Paket wir den Befehl beziehen wollen. Das macht der Operator <code>::</code>.</p>
+</div>
+<p></p>
+<p>Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm dazu malen).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;ggplot2&quot;, dependencies = TRUE)</span>
+<span class="kw">library</span>(ggplot2)
+<span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">data =</span> c1)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/plot-titanic1-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der Befehl <code>qplot</code> zeichnet automatisch Punkte, wenn auf beiden Achsen “Zahlen-Variablen” stehen (also Variablen, die keinen “Text”, sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ <code>int</code> (integer), also Ganze Zahlen oder vom Typ <code>num</code> (numeric), also reelle Zahlen).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+c2 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Survived)
+c2
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;   Survived     n</span>
+<span class="co">#&gt;      &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1        0   549</span>
+<span class="co">#&gt; 2        1   342</span></code></pre></div>
+<p>Man beachte, dass der Befehl <code>count</code> stehts eine Tabelle (data.frame bzw. <code>tibble</code>) verlangt und zurückliefert.</p>
+</div>
+<div id="bivariate-haufigkeiten" class="section level3">
+<h3><span class="header-section-number">16.1.5</span> Bivariate Häufigkeiten</h3>
+<p>OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von <code>Survived</code> (dasselbe gilt für <code>Pclass</code>). Eigentlich interessiert uns aber die Frage, ob sich die relativen Häufigkeiten der Stufen von <code>Pclass</code> innerhalb der Stufen von <code>Survived</code> unterscheiden. Einfacher gesagt: Ist der Anteil der Überlebenden in der 1. Klasse größer als in der 3. Klasse?</p>
+<p>Zählen wir zuerst die Häufigkeiten für alle Kombinationen von <code>Survived</code> und <code>Pclass</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c3 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Survived, Pclass)
+c3
+<span class="co">#&gt; Source: local data frame [6 x 3]</span>
+<span class="co">#&gt; Groups: Survived [?]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Survived Pclass     n</span>
+<span class="co">#&gt;      &lt;int&gt;  &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1        0      1    80</span>
+<span class="co">#&gt; 2        0      2    97</span>
+<span class="co">#&gt; 3        0      3   372</span>
+<span class="co">#&gt; 4        1      1   136</span>
+<span class="co">#&gt; 5        1      2    87</span>
+<span class="co">#&gt; 6        1      3   119</span></code></pre></div>
+<p>Da <code>Pclass</code> 3 Stufen hat (1., 2. und 3. Klasse) und innerhalb jeder dieser 3 Klassen es die Gruppe der Überlebenden und der Nicht-Überlebenden gibt, haben wir insgesamt 3*2=6 Gruppen.</p>
+<p>Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den gleichen Befehl wie oben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">data =</span> c3)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für “Überlebt” und welcher Punkt für “Nicht-Überlebt” steht. Mit <code>qplot</code> geht das recht einfach: Wir sagen der Funktion <code>qplot</code>, dass die Farbe (<code>color</code>) der Punkte den Stufen von <code>Survived</code> zugeordnet werden sollen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> Pclass, <span class="dt">y =</span> n, <span class="dt">color =</span> Survived, <span class="dt">data =</span> c3)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Viel besser. Was noch stört, ist, dass <code>Survived</code> als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">color =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c3)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Viel besser. Jetzt noch ein bisschen Schnickschnack:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">color =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c3) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Klasse&quot;</span>, 
+       <span class="dt">title =</span> <span class="st">&quot;Überleben auf der Titanic&quot;</span>,
+       <span class="dt">colour =</span> <span class="st">&quot;Überlebt?&quot;</span>)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="signifikanztest" class="section level3">
+<h3><span class="header-section-number">16.1.6</span> Signifikanztest</h3>
+<p>Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und außerdem zumeist missverstanden wird (er gibt <em>nicht</em> die Wahrscheinlichkeit der getesteten Hypothese an, was die Frage aufwirft, warum er mich dann interessieren sollte). Aber seisdrum, berechnen wir mal einen p-Wert. Es gibt mehrere statistische Tests, die sich hier potenziell anböten (was die Frage nach der Objektivität von statistischen Tests in ein ungünstiges Licht rückt). Nehmen wir den <span class="math inline">\(\chi^2\)</span>-Test.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(titanic_train$Survived, titanic_train$Pclass)
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Pearson&#39;s Chi-squared test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  titanic_train$Survived and titanic_train$Pclass</span>
+<span class="co">#&gt; X-squared = 100, df = 2, p-value &lt;2e-16</span></code></pre></div>
+<p>Der p-Wert ist kleiner als 5%, daher entscheiden wir uns, entsprechend der üblichen Gepflogenheit, gegen die H0 und für die H1: “Es gibt einen Zusammenhang von Überlebensrate und Passagierklasse”.</p>
+</div>
+<div id="effektstarke" class="section level3">
+<h3><span class="header-section-number">16.1.7</span> Effektstärke</h3>
+<p>Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie sehr die Variablen zusammenhängen. Für Häufigkeitsanalysen mit 2*2-Feldern bietet sich das “Odds Ratio” (OR), das Chancenverhältnis an. Das Chancen-Verhältnis beantwortet die Frage: “Um welchen Faktor ist die Überlebenschance in der einen Klasse größer als in der anderen Klasse?”. Eine interessante Frage, als schauen wir es uns an.</p>
+<p>Das OR ist nur definiert für 2*2-Häufigkeitstabellen, daher müssen wir die Anzahl der Passagierklassen von 3 auf 2 verringern. Nehmen wir nur 1. und 3. Klasse, um den vermuteten Effekt deutlich herauszuschälen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t2 &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic_train, Pclass !=<span class="st"> </span><span class="dv">2</span>)  <span class="co"># &quot;!=&quot; heißt &quot;nicht&quot;</span></code></pre></div>
+<p>Alternativ (synonym) könnten wir auch schreiben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t2 &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic_train, Pclass ==<span class="st"> </span><span class="dv">1</span> |<span class="st"> </span>Pclass ==<span class="st"> </span><span class="dv">3</span>)  <span class="co"># &quot;|&quot; heißt &quot;oder&quot;</span></code></pre></div>
+<p>Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c4 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(t2, Pclass)
+c4
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;   Pclass     n</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1      1   216</span>
+<span class="co">#&gt; 2      3   491</span></code></pre></div>
+<p>Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datentabelle operieren:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(t2$Survived, t2$Pclass)
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  t2$Survived and t2$Pclass</span>
+<span class="co">#&gt; X-squared = 100, df = 1, p-value &lt;2e-16</span></code></pre></div>
+<p>Ein <span class="math inline">\(\chi^2\)</span>-Wert von ~96 bei einem <em>n</em> von 707.</p>
+<p>Dann berechnen wir die Effektstärke (OR) mit dem Paket <code>compute.es</code> (muss ebenfalls installiert sein).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(compute.es)
+<span class="kw">chies</span>(<span class="dt">chi.sq =</span> <span class="dv">96</span>, <span class="dt">n =</span> <span class="dv">707</span>)
+<span class="co">#&gt; Mean Differences ES: </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  d [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] </span>
+<span class="co">#&gt;   var(d) = 0.01 </span>
+<span class="co">#&gt;   p-value(d) = 0 </span>
+<span class="co">#&gt;   U3(d) = 78.6 % </span>
+<span class="co">#&gt;   CLES(d) = 71.2 % </span>
+<span class="co">#&gt;   Cliff&#39;s Delta = 0.42 </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  g [ 95 %CI] = 0.79 [ 0.63 , 0.95 ] </span>
+<span class="co">#&gt;   var(g) = 0.01 </span>
+<span class="co">#&gt;   p-value(g) = 0 </span>
+<span class="co">#&gt;   U3(g) = 78.6 % </span>
+<span class="co">#&gt;   CLES(g) = 71.2 % </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  Correlation ES: </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  r [ 95 %CI] = 0.37 [ 0.3 , 0.43 ] </span>
+<span class="co">#&gt;   var(r) = 0 </span>
+<span class="co">#&gt;   p-value(r) = 0 </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  z [ 95 %CI] = 0.39 [ 0.31 , 0.46 ] </span>
+<span class="co">#&gt;   var(z) = 0 </span>
+<span class="co">#&gt;   p-value(z) = 0 </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  Odds Ratio ES: </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  OR [ 95 %CI] = 4.21 [ 3.15 , 5.61 ] </span>
+<span class="co">#&gt;   p-value(OR) = 0 </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  Log OR [ 95 %CI] = 1.44 [ 1.15 , 1.73 ] </span>
+<span class="co">#&gt;   var(lOR) = 0.02 </span>
+<span class="co">#&gt;   p-value(Log OR) = 0 </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  Other: </span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  NNT = 3.57 </span>
+<span class="co">#&gt;  Total N = 707</span></code></pre></div>
+<p>Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you live…</p>
+</div>
+<div id="logististische-regression" class="section level3">
+<h3><span class="header-section-number">16.1.8</span> Logististische Regression</h3>
+<p>Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression. Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich das Diagramm an. Hier sehen wir die (geschätzten) Überlebens-Wahrscheinlichkeiten für Passagiere der 1. Klasse vs. Passagiere der 3. Klasse.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titanic2 &lt;-<span class="st"> </span>titanic_train %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Pclass %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Pclass =</span> <span class="kw">factor</span>(Pclass))
+
+glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="dt">data =</span> titanic2, 
+            <span class="dt">formula =</span> Survived ~<span class="st"> </span>Pclass, 
+            <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
+
+<span class="kw">exp</span>(<span class="kw">coef</span>(glm1))
+<span class="co">#&gt; (Intercept)     Pclass3 </span>
+<span class="co">#&gt;       1.700       0.188</span>
+
+titanic2$pred_prob &lt;-<span class="st"> </span><span class="kw">predict</span>(glm1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/fig-titanic-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.</p>
+<p>Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit <code>glm</code> und <code>family = &quot;binomial&quot;</code> eine <em>logistische</em> Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (<code>lm(...)</code>) ist.</p>
+<p>Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die “normale” Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-<em>Chance</em> (Odds) 1.7 zu 1 betrug - bei der <em>ersten</em> Stufe von <code>Pclass</code> (<code>1</code>)<a href="#fn54" class="footnoteRef" id="fnref54"><sup>54</sup></a>; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-<em>Wahrscheinlichkeit</em>); s. <code>Intercept</code>; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert “Null” hat/ haben, bzw. die erste Ausprägung, hier 1.</p>
+<p>Im Vergleich dazu wird die Überlebens-Chance deutlich schlechter, wenn man die nächste Gruppe von <code>Pclass</code> (3) betrachtet. Die Odds verändern sich um den Faktor ~0.2. Da der Faktor <em>kleiner</em> als 1 ist, ist das kein gutes Zeichen. Die Überlebens-Chance <em>sinkt</em>; etwas genauer auf: 1.7 * 0.2 ≈ 0.34. Das heißt, die Überlebens-Chance ist in der 3. Klasse nur noch ca. 1 zu 3 (Überlebens-Wahrscheinlichkeit: ~25%).</p>
+<p>Komfortabler können wir uns die Überlebens-<em>Wahrscheinlichkeiten</em> mit der Funktion <code>predict</code> ausgeben lassen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glm1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Pclass =</span> <span class="kw">factor</span>(<span class="st">&quot;1&quot;</span>)), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;    1 </span>
+<span class="co">#&gt; 0.63</span>
+<span class="kw">predict</span>(glm1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Pclass =</span> <span class="kw">factor</span>(<span class="st">&quot;3&quot;</span>)), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.242</span></code></pre></div>
+<p>Alternativ kann man die Häufigkeiten auch noch “per Hand” bestimmen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titanic_train %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Pclass %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">select</span>(Survived, Pclass) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(Pclass, Survived) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>() ) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Anteil =</span> n /<span class="st"> </span><span class="kw">sum</span>(n))
+<span class="co">#&gt; Source: local data frame [4 x 4]</span>
+<span class="co">#&gt; Groups: Pclass [2]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Pclass Survived     n Anteil</span>
+<span class="co">#&gt;    &lt;int&gt;    &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      1        0    80  0.370</span>
+<span class="co">#&gt; 2      1        1   136  0.630</span>
+<span class="co">#&gt; 3      3        0   372  0.758</span>
+<span class="co">#&gt; 4      3        1   119  0.242</span></code></pre></div>
+<p>Übersetzen wir dies Syntax auf Deutsch:</p>
+
+<div class="rmdpseudocode">
+<p>Nehme den Datensatz “titanic_train” UND DANN<br />
+Filtere nur die 1. und die 3. Klasse heraus UND DANN<br />
+wähle nur die Spalten “Survived” und “Pclass” UND DANN<br />
+gruppiere nach “Pclass” und “Survived” UND DANN<br />
+zähle die Häufigkeiten für jede dieser Gruppen aus UND DANN<br />
+berechne den Anteil an Überlebenden bzw. Nicht-Überlebenden<br />
+für jede der beiden Passagierklassen. FERTIG.</p>
+</div>
+<p></p>
+</div>
+<div id="effektstarken-visualieren" class="section level3">
+<h3><span class="header-section-number">16.1.9</span> Effektstärken visualieren</h3>
+<p>Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe (im Datensatz ohne 2. Klasse, der Einfachheit halber).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c5 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(t2, Pclass, Survived)
+c5$prop &lt;-<span class="st"> </span>c5$n /<span class="st"> </span><span class="dv">707</span>
+c5
+<span class="co">#&gt; Source: local data frame [4 x 4]</span>
+<span class="co">#&gt; Groups: Pclass [?]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Pclass Survived     n  prop</span>
+<span class="co">#&gt;    &lt;int&gt;    &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      1        0    80 0.113</span>
+<span class="co">#&gt; 2      1        1   136 0.192</span>
+<span class="co">#&gt; 3      3        0   372 0.526</span>
+<span class="co">#&gt; 4      3        1   119 0.168</span></code></pre></div>
+<p>Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf.</p>
+<p>Das visualisieren wir wieder</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Das <code>geom = &quot;col&quot;</code> heißt, dass als “geometrisches Objekt” dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Ganz nett, aber die Häufigkeitsunterscheide von <code>Survived</code> zwischen den beiden Werten von <code>Pclass</code> stechen noch nicht so ins Auge. Wir sollten es anders darstellen.</p>
+<p>Hier kommt der Punkt, wo wir von <code>qplot</code> auf seinen großen Bruder, <code>ggplot</code> wechseln sollten. <code>qplot</code> ist in Wirklichkeit nur eine vereinfachte Form von <code>ggplot</code>; die Einfachheit wird mit geringeren Möglichkeiten bezahlt. Satteln wir zum Schluss dieser Fallstudie also um:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> c5) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Passagierklasse&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Überlebt?&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;Nur Passagiere, keine Besatzung&quot;</span>)</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten.</p>
+<p>Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. Der zu untersuchende Effekt tritt hier am stärken zu Tage; außerdem ist die Analyse relativ einfach.</p>
+<p>Eine alternative Darstellung ist diese:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c5 %&gt;%<span class="st"> </span>
+<span class="st">  </span>ggplot +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> <span class="kw">factor</span>(Survived), <span class="dt">fill =</span> n) +
+<span class="st">  </span><span class="kw">geom_tile</span>()</code></pre></div>
+<p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Hier werden die vier “Fliesen” gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.</p>
+</div>
+<div id="fazit" class="section level3">
+<h3><span class="header-section-number">16.1.10</span> Fazit</h3>
+<p>In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr weit; <code>dplyr</code> und <code>ggplot2</code> zählen (zu Recht) zu den am häufigsten verwendeten Paketen. Beide sind flexibel, konsistent und spielen gerne miteinander. Die besten Einblicke haben wir aus deskriptiver bzw. explorativer Analyse (Diagramme) gewonnen. Signifikanztests oder komplizierte Modelle waren nicht zentral. In vielen Studien/Projekten der Datenanalyse gilt ähnliches: Daten umformen und verstehen bzw. “veranschaulichen” sind zentrale Punkte, die häufig viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind Häufigkeitsauswertungen ideal.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="54">
+<li id="fn54"><p>Darum haben wir <code>Pclass</code> in eine Faktor-Variable umgewandelt. Die “erste Klasse” ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir <code>Pclass</code> als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die “nullte” Klasse geben, was wenig Sinn macht.<a href="fallstudien.html#fnref54">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="fallstudie-zur-visualisierung-von-umfragedaten.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mod1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="baumbasierte-verfahren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iv-ungeleitetes-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

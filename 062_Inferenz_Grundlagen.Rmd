@@ -62,10 +62,10 @@ mosaic::tally(~spiele, format="proportion")
 
 Das **Gesetz der großen Zahl** sagt aus, dass sich auf *lange* Sicht die beobachtete relative Häufigkeit der theoretischen Wahrscheinlichkeit annähert:
 ```{r resample-a-lot}
-tally(~resample(roulette, size=10, prob=c(18/37, 19/37)), format="proportion")
-tally(~resample(roulette, size=100, prob=c(18/37, 19/37)), format="proportion")
-tally(~resample(roulette, size=1000, prob=c(18/37, 19/37)), format="proportion")
-tally(~resample(roulette, size=1000000, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=10, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=100, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=1000, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=1000000, prob=c(18/37, 19/37)), format="proportion")
 ```
 
 Die theoretische Wahrscheinlichkeit eines Gewinns liegt bei $\frac{18}{37} \approx `r round(18/37, 4)`$: Achtung, dass Gesetz der großen Zahl gilt für den Durchschnitt und auf lange Sicht, evtl. Ungleichgewichte, z. B. 5 Gewinne in Folge werden im Laufe der Zeit abgeschwächt, und nicht durch anschließende 5 Verluste ausgeglichen.
@@ -74,7 +74,7 @@ Bei bestimmten Spielstrategien, z. B. bei der sogenannten Martingale oder Verdop
 
 
 ```{r}
-farbspiele <- do(1000)*tally(~resample(roulette, size=8, prob=c(18/37, 19/37)), 
+farbspiele <- do(1000)*mosaic::tally(~resample(roulette, size=8, prob=c(18/37, 19/37)), 
                              format="proportion")
 ```
 `farbspiele` ist jetzt ein Datensatz (`data.frame`) mit 1000 Zeilen (=Simulationen) und den relativen Häufigkeiten für Gewinn und Verlust in den 8 Spielen in den Spalten.
@@ -96,7 +96,7 @@ Wir haben in `r sum(farbspiele$Verlust==1)` von 1000 Wiederholungen nur verloren
 
 Wenn wir uns die Verteilung der Daten der Übung angucken
 ```{r}
-zahlspiele <- do(1000)*tally(~resample(roulette, size=10, 
+zahlspiele <- do(1000)*mosaic::tally(~resample(roulette, size=10, 
                                        prob=c(1/37, 36/37)), format="proportion")
 bargraph(~Gewinn, data=zahlspiele)
 ```
@@ -104,7 +104,7 @@ bargraph(~Gewinn, data=zahlspiele)
 stellen wir fest, dass diese Daten (leider) extrem rechtsschief sind, d. h., i. d. R. gewinnen wir in keiner der 10 Runden, Gewinn=0. Wenn wir  `size=10` durch `size=10000` ersetzen (d. h., bei jeden der 1000 Simulationen 10000 Runden spielen), passiert folgendes (Darstellung jetzt als Histogramm, da es zu sehr viele mögliche Ausprägungen für die Anzahl Gewinne gibt):
 
 ```{r}
-zahlspiele2 <- do(1000)*tally(~resample(roulette, size=10000, 
+zahlspiele2 <- do(1000)*mosaic::tally(~resample(roulette, size=10000, 
                                         prob=c(1/37, 36/37)), format="proportion")
 histogram(~Gewinn, data=zahlspiele2)
 ```
@@ -139,7 +139,7 @@ Zunächst erzeugen wir einen Vektor der Länge 2 mit den Entscheidungstypen, aus
 ```{r}
 typ <- factor(c("A", "B"))
 entscheider <- rep(typ, c(151,143))
-tally(~entscheider)
+mosaic::tally(~entscheider)
 ```
 
 sowie einen Vektor der Entscheidungen:
@@ -147,16 +147,16 @@ sowie einen Vektor der Entscheidungen:
 ```{r}
 rating <- factor(c("Positiv", "Nicht Positiv"))
 entscheidungen <- rep(rating, c(79+79, (151+143)-(79+79)))
-tally(~entscheidungen)
+mosaic::tally(~entscheidungen)
                       
 ```
 
 Aus diesem Vektor ziehen wir eine zufällige Stichprobe von 151 Entscheidungen von Typ A.
 ```{r}
 simentscheidung <- sample(entscheidungen, size=151)
-tally(~simentscheidung)
+mosaic::tally(~simentscheidung)
 ```
-Hier wären also zufällig `r tally(~simentscheidung)["Positiv"]` der 151 Entscheidungen den Typ A Positiv gewesen -- wenn es keinen Zusammanhang zwischen Typ und Rating gibt.
+Hier wären also zufällig `r mosaic::tally(~simentscheidung)["Positiv"]` der 151 Entscheidungen den Typ A Positiv gewesen -- wenn es keinen Zusammanhang zwischen Typ und Rating gibt.
 
 Wir oft kommt also zufällig heraus, dass mindestens 79 der 151 Entscheidungen des Typs A positiv zugeordnet werden? Simulieren wir das z. B. 1000-mal:
 ```{r}
@@ -174,11 +174,11 @@ typA <- rep(rating, c(79, 151-79))
 ```
 erzeugen wir uns einen Vektor, der die $79$ positiven und $151-79$ nicht positiven Urteile von Typ A (alleinige Entscheidung) enthält.
 ```{r}
-tally(~ typA)
+mosaic::tally(~ typA)
 ```
 Wenn wir jetzt diesen Vektor z. B. 1000-mal resampeln:
 ```{r}
-typAboot <- do(1000)*tally(~resample(typA), format="proportion")
+typAboot <- do(1000)*mosaic::tally(~resample(typA), format="proportion")
 ```
 erhalten wir 1000 (resampelte) Stichproben, die jeweils einen zufälligen Stichprobenanteil haben:
 ```{r}

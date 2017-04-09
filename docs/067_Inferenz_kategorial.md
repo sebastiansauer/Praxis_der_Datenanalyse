@@ -375,7 +375,7 @@ Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übu
 
 
 ### Versionshinweise
-* Datum erstellt: 2017-04-09
+* Datum erstellt: 2017-04-10
 * R Version: 3.3.2
 * `mosaic` Version: 0.14.4
 

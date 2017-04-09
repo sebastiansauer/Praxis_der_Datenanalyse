@@ -60,19 +60,19 @@ mosaic::tally(~spiele, format="proportion")
 Das **Gesetz der großen Zahl** sagt aus, dass sich auf *lange* Sicht die beobachtete relative Häufigkeit der theoretischen Wahrscheinlichkeit annähert:
 
 ```r
-tally(~resample(roulette, size=10, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=10, prob=c(18/37, 19/37)), format="proportion")
 #> resample(roulette, size = 10, prob = c(18/37, 19/37))
 #>  Gewinn Verlust 
 #>     0.7     0.3
-tally(~resample(roulette, size=100, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=100, prob=c(18/37, 19/37)), format="proportion")
 #> resample(roulette, size = 100, prob = c(18/37, 19/37))
 #>  Gewinn Verlust 
 #>    0.44    0.56
-tally(~resample(roulette, size=1000, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=1000, prob=c(18/37, 19/37)), format="proportion")
 #> resample(roulette, size = 1000, prob = c(18/37, 19/37))
 #>  Gewinn Verlust 
 #>   0.488   0.512
-tally(~resample(roulette, size=1000000, prob=c(18/37, 19/37)), format="proportion")
+mosaic::tally(~resample(roulette, size=1000000, prob=c(18/37, 19/37)), format="proportion")
 #> resample(roulette, size = 1e+06, prob = c(18/37, 19/37))
 #>  Gewinn Verlust 
 #>   0.486   0.514
@@ -85,7 +85,7 @@ Bei bestimmten Spielstrategien, z. B. bei der sogenannten Martingale oder Verdop
 
 
 ```r
-farbspiele <- do(1000)*tally(~resample(roulette, size=8, prob=c(18/37, 19/37)), 
+farbspiele <- do(1000)*mosaic::tally(~resample(roulette, size=8, prob=c(18/37, 19/37)), 
                              format="proportion")
 ```
 `farbspiele` ist jetzt ein Datensatz (`data.frame`) mit 1000 Zeilen (=Simulationen) und den relativen Häufigkeiten für Gewinn und Verlust in den 8 Spielen in den Spalten.
@@ -111,7 +111,7 @@ Wir haben in 4 von 1000 Wiederholungen nur verloren, d. h. 8 von 8 Spielen.
 Wenn wir uns die Verteilung der Daten der Übung angucken
 
 ```r
-zahlspiele <- do(1000)*tally(~resample(roulette, size=10, 
+zahlspiele <- do(1000)*mosaic::tally(~resample(roulette, size=10, 
                                        prob=c(1/37, 36/37)), format="proportion")
 bargraph(~Gewinn, data=zahlspiele)
 ```
@@ -122,7 +122,7 @@ stellen wir fest, dass diese Daten (leider) extrem rechtsschief sind, d. h., i. 
 
 
 ```r
-zahlspiele2 <- do(1000)*tally(~resample(roulette, size=10000, 
+zahlspiele2 <- do(1000)*mosaic::tally(~resample(roulette, size=10000, 
                                         prob=c(1/37, 36/37)), format="proportion")
 histogram(~Gewinn, data=zahlspiele2)
 ```
@@ -161,7 +161,7 @@ Zunächst erzeugen wir einen Vektor der Länge 2 mit den Entscheidungstypen, aus
 ```r
 typ <- factor(c("A", "B"))
 entscheider <- rep(typ, c(151,143))
-tally(~entscheider)
+mosaic::tally(~entscheider)
 #> entscheider
 #>   A   B 
 #> 151 143
@@ -173,7 +173,7 @@ sowie einen Vektor der Entscheidungen:
 ```r
 rating <- factor(c("Positiv", "Nicht Positiv"))
 entscheidungen <- rep(rating, c(79+79, (151+143)-(79+79)))
-tally(~entscheidungen)
+mosaic::tally(~entscheidungen)
 #> entscheidungen
 #> Nicht Positiv       Positiv 
 #>           136           158
@@ -183,7 +183,7 @@ Aus diesem Vektor ziehen wir eine zufällige Stichprobe von 151 Entscheidungen v
 
 ```r
 simentscheidung <- sample(entscheidungen, size=151)
-tally(~simentscheidung)
+mosaic::tally(~simentscheidung)
 #> simentscheidung
 #> Nicht Positiv       Positiv 
 #>            71            80
@@ -210,7 +210,7 @@ typA <- rep(rating, c(79, 151-79))
 erzeugen wir uns einen Vektor, der die $79$ positiven und $151-79$ nicht positiven Urteile von Typ A (alleinige Entscheidung) enthält.
 
 ```r
-tally(~ typA)
+mosaic::tally(~ typA)
 #> typA
 #> Nicht Positiv       Positiv 
 #>            72            79
@@ -218,7 +218,7 @@ tally(~ typA)
 Wenn wir jetzt diesen Vektor z. B. 1000-mal resampeln:
 
 ```r
-typAboot <- do(1000)*tally(~resample(typA), format="proportion")
+typAboot <- do(1000)*mosaic::tally(~resample(typA), format="proportion")
 ```
 erhalten wir 1000 (resampelte) Stichproben, die jeweils einen zufälligen Stichprobenanteil haben:
 
@@ -391,6 +391,6 @@ Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übu
 
 
 ### Versionshinweise
-* Datum erstellt: 2017-04-09
+* Datum erstellt: 2017-04-10
 * R Version: 3.3.2
 * `mosaic` Version: 0.14.4
