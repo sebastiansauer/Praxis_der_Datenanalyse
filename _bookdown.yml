@@ -23,6 +23,7 @@ rmd_files: [
 "072_klassifizierende_Regression.Rmd",
 "073_baumbasierte_Verfahren.Rmd",
 "075_Fallstudie_Titanic.Rmd",
+"076_Fallstudie_Affairs.Rmd",
 "080_ungeleitetes_Modellieren.Rmd",
 "081_Assoziationsanalyse.Rmd",
 "082_Clusteranalyse.Rmd",

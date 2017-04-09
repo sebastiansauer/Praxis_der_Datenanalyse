@@ -320,6 +320,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.1.9" data-path="fallstudien.html"><a href="fallstudien.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>16.1.9</b> Effektstärken visualieren</a></li>
 <li class="chapter" data-level="16.1.10" data-path="fallstudien.html"><a href="fallstudien.html#fazit"><i class="fa fa-check"></i><b>16.1.10</b> Fazit</a></li>
 </ul></li>
+<li class="chapter" data-level="16.2" data-path="fallstudien.html"><a href="fallstudien.html#auereheliche-affaren"><i class="fa fa-check"></i><b>16.2</b> Außereheliche Affären</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="fallstudien.html"><a href="fallstudien.html#zentrale-statistiken"><i class="fa fa-check"></i><b>16.2.1</b> Zentrale Statistiken</a></li>
+<li class="chapter" data-level="16.2.2" data-path="fallstudien.html"><a href="fallstudien.html#visualisieren"><i class="fa fa-check"></i><b>16.2.2</b> Visualisieren</a></li>
+<li class="chapter" data-level="16.2.3" data-path="fallstudien.html"><a href="fallstudien.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>16.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li class="chapter" data-level="16.2.4" data-path="fallstudien.html"><a href="fallstudien.html#wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>16.2.4</b> Wie viele fehlende Werte gibt es?</a></li>
+<li class="chapter" data-level="16.2.5" data-path="fallstudien.html"><a href="fallstudien.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>16.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li class="chapter" data-level="16.2.6" data-path="fallstudien.html"><a href="fallstudien.html#effektstarken"><i class="fa fa-check"></i><b>16.2.6</b> Effektstärken</a></li>
+<li class="chapter" data-level="16.2.7" data-path="fallstudien.html"><a href="fallstudien.html#korrelationen"><i class="fa fa-check"></i><b>16.2.7</b> Korrelationen</a></li>
+<li class="chapter" data-level="16.2.8" data-path="fallstudien.html"><a href="fallstudien.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>16.2.8</b> Ehejahre und Affären</a></li>
+<li class="chapter" data-level="16.2.9" data-path="fallstudien.html"><a href="fallstudien.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>16.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
+<li class="chapter" data-level="16.2.10" data-path="fallstudien.html"><a href="fallstudien.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>16.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li class="chapter" data-level="16.2.11" data-path="fallstudien.html"><a href="fallstudien.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>16.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
+<li class="chapter" data-level="16.2.12" data-path="fallstudien.html"><a href="fallstudien.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>16.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li class="chapter" data-level="16.2.13" data-path="fallstudien.html"><a href="fallstudien.html#halodries"><i class="fa fa-check"></i><b>16.2.13</b> Halodries</a></li>
+<li class="chapter" data-level="16.2.14" data-path="fallstudien.html"><a href="fallstudien.html#logistische-regression"><i class="fa fa-check"></i><b>16.2.14</b> logistische Regression</a></li>
+<li class="chapter" data-level="16.2.15" data-path="fallstudien.html"><a href="fallstudien.html#zum-abschluss"><i class="fa fa-check"></i><b>16.2.15</b> Zum Abschluss</a></li>
+<li class="chapter" data-level="16.2.16" data-path="fallstudien.html"><a href="fallstudien.html#versionshinweise-und-sessioninfo"><i class="fa fa-check"></i><b>16.2.16</b> Versionshinweise und SessionInfo</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
 <li class="chapter" data-level="17" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html"><i class="fa fa-check"></i><b>17</b> Assoziationsanalyse</a><ul>
@@ -675,13 +693,13 @@ ki
 <p>Wenn wir zu einen gegebenen Wert der Rendite den Wert der Verteilungsfunktion, d. h. den prozentualen Anteil kleiner oder gleich großer Werte suchen (<span class="math inline">\(P(X \leq x)\)</span>) verwenden wir <code>pnorm</code> bzw. <code>xpnorm</code>. Wenn die Überschreitungswahrscheinlichkeit (<span class="math inline">\(P(X&gt;x)\)</span>) gesucht ist, kann zusätzlich die Option <code>lower.tail = TRUE</code> gesetzt werden, oder <code>1-pnorm()</code> gerechnet werden.</p>
 <p>Um zu einem gegebenen Anteil (Prozentwert) den zugehörigen Wert der Rendite zu finden, wir also das Quantil suchen, dann wird <code>p</code> durch <code>q</code> ersetzt, also <code>qnorm</code> bzw. <code>xqnorm</code>.</p>
 <p>Z. B. für die 5% schlechtesten Tage der Appleaktie</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xqnorm</span>(<span class="fl">0.05</span>, <span class="dt">mean=</span>-<span class="fl">0.08</span>, <span class="dt">sd=</span><span class="fl">1.69</span> )
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mosaic::<span class="kw">xqnorm</span>(<span class="fl">0.05</span>, <span class="dt">mean=</span>-<span class="fl">0.08</span>, <span class="dt">sd=</span><span class="fl">1.69</span> )
 <span class="co">#&gt;  P(X &lt;= -2.85980262954799) = 0.05</span>
 <span class="co">#&gt;  P(X &gt;  -2.85980262954799) = 0.95</span>
 <span class="co">#&gt; [1] -2.86</span></code></pre></div>
 <p><img src="062_Inferenz_Grundlagen_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /> Die Wahrscheinlichkeit beträgt also 5%, dass die Tagesrendite unter -2.86 liegt.</p>
 <p>Für die Facebook Aktie gilt, dass Sie nur mit einer Wahrscheinlichkeit von 1% über 3.879 lag:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xqnorm</span>(<span class="fl">0.01</span>, <span class="dt">mean=</span><span class="fl">0.11</span>, <span class="dt">sd=</span><span class="fl">1.62</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mosaic::<span class="kw">xqnorm</span>(<span class="fl">0.01</span>, <span class="dt">mean=</span><span class="fl">0.11</span>, <span class="dt">sd=</span><span class="fl">1.62</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <hr />
 <p><strong>Übung:</strong></p>
 <ol start="6" style="list-style-type: decimal">

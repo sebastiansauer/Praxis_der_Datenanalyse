@@ -337,7 +337,7 @@ Um zu einem gegebenen Anteil (Prozentwert) den zugehörigen Wert der Rendite zu 
 Z. B. für die 5% schlechtesten Tage der Appleaktie
 
 ```r
-xqnorm(0.05, mean=-0.08, sd=1.69 )
+mosaic::xqnorm(0.05, mean=-0.08, sd=1.69 )
 #> 	P(X <= -2.85980262954799) = 0.05
 #> 	P(X >  -2.85980262954799) = 0.95
 #> [1] -2.86
@@ -349,7 +349,7 @@ Die Wahrscheinlichkeit beträgt also 5%, dass die Tagesrendite unter -2.86 liegt
 Für die Facebook Aktie gilt, dass Sie nur mit einer Wahrscheinlichkeit von 1% über 3.879 lag:
 
 ```r
-xqnorm(0.01, mean=0.11, sd=1.62, lower.tail = FALSE)
+mosaic::xqnorm(0.01, mean=0.11, sd=1.62, lower.tail = FALSE)
 ```
 
 ***
