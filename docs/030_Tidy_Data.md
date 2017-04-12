@@ -5,6 +5,18 @@
 # Tidy Data - Daten sauber einlesen
 
 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Wissen, was eine CSV-Datei ist.
+- Wissen, was UTF-8 bedeutet.
+- Erläutern können, was R unter dem "working directory" versteht.
+- Erkennen können, ob eine Tabelle in Normalform vorliegt.
+- Daten aus R hinauskriegen (exportieren).
+
+</div>\EndKnitrBlock{rmdcaution}
+
+Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
+
 <div class="figure" style="text-align: center">
 <img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
 <p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
@@ -96,7 +108,7 @@ Wir haben zuerst geprüft, ob die Datei (`wo_men.csv`) im entsprechenden Ordner 
 ### Das Arbeitsverzeichnis
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
-Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis liegen. 
+Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
 </div>\EndKnitrBlock{rmdcaution}
 
 Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern. In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).

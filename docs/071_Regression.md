@@ -5,6 +5,17 @@
 # Klassische lineare (numerische) Regression
 
 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Wissen, was man unter Regression versteht.
+- Die Annahmen der Regression überprüfen können.
+- Regression mit kategorialen Prädiktoren durchführen können.
+- Die Regression inferenzstatisisch absichern können.
+- Die Modellgüte bei der Regression bestimmen können.
+- Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.
+
+</div>\EndKnitrBlock{rmdcaution}
+
 
 Benötigte Pakete:
 

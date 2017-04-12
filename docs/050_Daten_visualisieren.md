@@ -3,6 +3,17 @@
 
 # Daten visualisieren
 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- An einem Beispiel erläutern können, warum/ wann ein Bild mehr sagt, als 1000 Worte.
+- Häufige Arten von Diagrammen erstellen können.
+- Diagramme bestimmten Zwecken zuordnen können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
 In diesem Kapitel werden folgende Pakete benötigt::
 
 ```r
@@ -13,6 +24,9 @@ library(knitr)  # HTML-Tabellen
 
 
 <img src="images/visualisieren/Visualisieren.pdf" width="70%" style="display: block; margin: auto;" />
+
+
+Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets `ggplot2`.
 
 ## Ein Bild sagt mehr als 1000 Worte
 

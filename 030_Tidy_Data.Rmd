@@ -19,6 +19,20 @@ knitr::opts_chunk$set(
 # Tidy Data - Daten sauber einlesen
 
 
+```{block2, ziele-tidy-data, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Wissen, was eine CSV-Datei ist.
+- Wissen, was UTF-8 bedeutet.
+- Erläutern können, was R unter dem "working directory" versteht.
+- Erkennen können, ob eine Tabelle in Normalform vorliegt.
+- Daten aus R hinauskriegen (exportieren).
+
+
+```
+
+Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
+
 ```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
 knitr::include_graphics("images/Einlesen.pdf")
 ```
@@ -107,7 +121,7 @@ Wir haben zuerst geprüft, ob die Datei (`wo_men.csv`) im entsprechenden Ordner 
 
 ```{block2, working-directory, type='rmdcaution', echo = TRUE} 
 
-Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis liegen. 
+Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
 
 ```
 

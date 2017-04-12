@@ -6,6 +6,21 @@
 
 # Grundlagen des Modellierens {#mod1}
 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Erläutern können, was man unter einem Modell versteht.
+- Die Ziele des Modellieren aufzählen und erläutern können.
+- Die Vor- und Nachteile von einfachen vs. komplexen Modellen vergleichen können.
+- Wissen, was man unter "Bias-Varianz-Abwägung" versteht.
+- Um die Notwendigkeit von Trainings- und Test-Stichproben wissen.
+- Wissen, was man unter Modellgüte versteht.
+- Um die Schwierigkeiten der Prädiktorenauswahl wissen.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
 In diesem Kapitel benötigen wir diese Pakete:
 
 ```r

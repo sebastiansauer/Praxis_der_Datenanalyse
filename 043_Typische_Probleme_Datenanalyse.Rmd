@@ -21,6 +21,21 @@ knitr::opts_chunk$set(
 
 # Typische Probleme der Datenanalyse
 
+
+
+
+
+# Datenjudo
+
+```{block2, ziele-typ-probleme, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Typische Probleme der Datenanalyse kennen.
+- Typische Probleme der Datenanalyse bearbeiten können.
+
+```
+
+
 Laden wir zuerst die benögtigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
 ```{r}
 library(tidyverse)

@@ -1,6 +1,18 @@
 
 # Inferenzstatistik
 
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Den p-Wert erläutern können.
+- Den p-Wert kritisieren können.
+- Den p-Wert auf Basis von Simulationen berechnen können.
+- Grundlegende Inferenzstatistiken für metrische Variablen berechnen können.
+- Grundlegende Inferenzstatistiken für nominale Variablen berechnen können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
 ## Der p-Wert
 
 

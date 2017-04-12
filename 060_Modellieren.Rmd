@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-options(dplyr.print_min = 6, dplyr.print_max = 6)
+
 ```
 
 
@@ -23,6 +23,23 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 # II MODELLIEREN {-}
 
 # Grundlagen des Modellierens {#mod1}
+
+
+
+```{block2, ziele-modellieren, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Erläutern können, was man unter einem Modell versteht.
+- Die Ziele des Modellieren aufzählen und erläutern können.
+- Die Vor- und Nachteile von einfachen vs. komplexen Modellen vergleichen können.
+- Wissen, was man unter "Bias-Varianz-Abwägung" versteht.
+- Um die Notwendigkeit von Trainings- und Test-Stichproben wissen.
+- Wissen, was man unter Modellgüte versteht.
+- Um die Schwierigkeiten der Prädiktorenauswahl wissen.
+
+
+```
+
 
 In diesem Kapitel benötigen wir diese Pakete:
 ```{r libs}

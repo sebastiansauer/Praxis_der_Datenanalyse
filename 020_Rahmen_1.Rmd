@@ -26,12 +26,26 @@ width.cutoff=60
 
 # Rahmen
 
+```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
+- R und RStudio installieren können.
+- Einige häufige technische Probleme zu lösen wissen.
+- R-Pakete installieren können.
+- Einige grundlegende R-Funktionalitäten verstehen.
+- Auf die Frage "Was ist Statistik?" eine Antwort geben können.
+
+
+```
+
+
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das 
 "Drumherum" oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
-brauchen wir einen Überblick über das Thema. Voilà:
+brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-```{r echo = FALSE}
+```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
 knitr::include_graphics("images/Prozess_Datenanalyse.pdf") 
 ```
 

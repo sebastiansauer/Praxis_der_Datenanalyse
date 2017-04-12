@@ -1,5 +1,14 @@
 # Erweiterungen für `ggplot2`
 
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- die Erweiturung `ggpairs` kennen und nutzen können.
+- Korrelationsplots erzeugen können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
 Für `ggplot2` gibt es eine Reihe von Erweiterungen^[http://www.ggplot2-exts.org]; einige stellen wir hier vor.
 
 

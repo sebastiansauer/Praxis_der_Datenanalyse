@@ -20,6 +20,19 @@ knitr::opts_chunk$set(
 
 # Daten visualisieren
 
+
+
+```{block2, ziele-vis, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- An einem Beispiel erläutern können, warum/ wann ein Bild mehr sagt, als 1000 Worte.
+- Häufige Arten von Diagrammen erstellen können.
+- Diagramme bestimmten Zwecken zuordnen können.
+
+
+```
+
+
 In diesem Kapitel werden folgende Pakete benötigt::
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
@@ -33,13 +46,16 @@ library(knitr)  # HTML-Tabellen
 knitr::include_graphics("images/visualisieren/Visualisieren.pdf")
 ```
 
+
+Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets `ggplot2`.
+
 ## Ein Bild sagt mehr als 1000 Worte
 
 
 Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe^[https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
 
 
-```{r plot-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
+```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
 knitr::include_graphics("images/visualisieren/anscombe.pdf")
 ```
 

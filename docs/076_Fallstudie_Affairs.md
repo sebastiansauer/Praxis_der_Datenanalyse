@@ -84,7 +84,7 @@ describe(Affair$rating)
 #> X1    1 601 3.93 1.1      4    4.07 1.48   1   5     4 -0.83    -0.22 0.04
 ```
 
-Dazu muss das Paket `psych` natürlich vorher installiert sein. Beachten Sie, dass man ein Paket nur *einmal* installieren muss, aber jedes Mal, wen Sie R starten, auch starten muss (mit `library`).
+Dazu muss das Paket `psych` natürlich vorher installiert sein. Beachten Sie, dass man ein Paket nur *einmal* installieren muss, aber jedes Mal, wenn Sie R starten, auch starten muss (mit `library`).
 
 
 ```r
@@ -665,35 +665,35 @@ Berechnen Sie für eine logistische Regression mit "Affäre ja vs. nein" als Kri
 
 Affair %>% 
   mutate(affairs_dichotom = if_else(affairs == 0, 0, 1)) %>% 
-  glm(affairs_dichotom ~gender + children + rating + yearsmarried, data = .) -> lm10
+  glm(affairs_dichotom ~gender + children + rating + yearsmarried, data = ., family = "binomial") -> lm10
 
 summary(lm10)
 #> 
 #> Call:
 #> glm(formula = affairs_dichotom ~ gender + children + rating + 
-#>     yearsmarried, data = .)
+#>     yearsmarried, family = "binomial", data = .)
 #> 
 #> Deviance Residuals: 
-#>     Min       1Q   Median       3Q      Max  
-#> -0.5766  -0.2677  -0.1719  -0.0646   0.9329  
+#>    Min      1Q  Median      3Q     Max  
+#> -1.420  -0.764  -0.617  -0.443   2.171  
 #> 
 #> Coefficients:
-#>              Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)   0.51578    0.07934    6.50  1.7e-10 ***
-#> gendermale    0.03794    0.03422    1.11     0.27    
-#> childrenyes   0.05403    0.04631    1.17     0.24    
-#> rating       -0.09034    0.01598   -5.65  2.5e-08 ***
-#> yearsmarried  0.00395    0.00379    1.04     0.30    
+#>              Estimate Std. Error z value Pr(>|z|)    
+#> (Intercept)    0.0537     0.4299    0.12     0.90    
+#> gendermale     0.2416     0.1966    1.23     0.22    
+#> childrenyes    0.3935     0.2831    1.39     0.16    
+#> rating        -0.4654     0.0874   -5.33    1e-07 ***
+#> yearsmarried   0.0221     0.0212    1.04     0.30    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> (Dispersion parameter for gaussian family taken to be 0.175)
+#> (Dispersion parameter for binomial family taken to be 1)
 #> 
-#>     Null deviance: 112.56  on 600  degrees of freedom
-#> Residual deviance: 104.09  on 596  degrees of freedom
-#> AIC: 663.8
+#>     Null deviance: 675.38  on 600  degrees of freedom
+#> Residual deviance: 630.26  on 596  degrees of freedom
+#> AIC: 640.3
 #> 
-#> Number of Fisher Scoring iterations: 2
+#> Number of Fisher Scoring iterations: 4
 ```
 
 Wenn `if_else` unbekannt ist, lohnt sich ein Blick in die Hilfe mit `?if_else` (`dplyr` muss vorher geladen sein).

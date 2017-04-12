@@ -4,10 +4,20 @@
 
 # Datenjudo
 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Typische Probleme der Datenanalyse schildern können.
+- Zentrale `dplyr`-Befehle anwenden können.
+- `dplyr`-Befehle kombinieren können.
+- Die Pfeife anwenden können.
+- Werte umkodieren und "binnen" können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/Aufbereiten.pdf" alt="Daten aufbereiten" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-2)Daten aufbereiten</p>
+<p class="caption">(\#fig:fig-datenjudo)Daten aufbereiten</p>
 </div>
 
 In diesem Kapitel benötigte Pakete: 

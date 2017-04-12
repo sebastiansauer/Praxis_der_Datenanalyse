@@ -4,6 +4,18 @@
 
 # Fallstudie zur Visualisierung von Umfragedaten
 
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Diagramme für nominale Variablen erstellen können.
+- Balkendiagramme mit Prozentpunkten auf der Y-Achse erstellen können.
+- Balkendiagramme drehen können.
+- Text-Labels an Balkendiagramme anfügen können.
+- Farbschemata von Balkendiagrammen ändern können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
 Benötigte Pakete:
 
 ```r

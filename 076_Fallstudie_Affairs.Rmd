@@ -71,7 +71,7 @@ describe(Affair$affairs)
 describe(Affair$rating)
 ```
 
-Dazu muss das Paket `psych` natürlich vorher installiert sein. Beachten Sie, dass man ein Paket nur *einmal* installieren muss, aber jedes Mal, wen Sie R starten, auch starten muss (mit `library`).
+Dazu muss das Paket `psych` natürlich vorher installiert sein. Beachten Sie, dass man ein Paket nur *einmal* installieren muss, aber jedes Mal, wenn Sie R starten, auch starten muss (mit `library`).
 
 ```{r, eval = FALSE}
 install.packages("psych")
@@ -358,7 +358,7 @@ Berechnen Sie für eine logistische Regression mit "Affäre ja vs. nein" als Kri
 
 Affair %>% 
   mutate(affairs_dichotom = if_else(affairs == 0, 0, 1)) %>% 
-  glm(affairs_dichotom ~gender + children + rating + yearsmarried, data = .) -> lm10
+  glm(affairs_dichotom ~gender + children + rating + yearsmarried, data = ., family = "binomial") -> lm10
 
 summary(lm10)
 

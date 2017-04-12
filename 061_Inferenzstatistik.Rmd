@@ -1,6 +1,20 @@
 
 # Inferenzstatistik
 
+
+```{block2, ziele-inferenz, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Den p-Wert erläutern können.
+- Den p-Wert kritisieren können.
+- Den p-Wert auf Basis von Simulationen berechnen können.
+- Grundlegende Inferenzstatistiken für metrische Variablen berechnen können.
+- Grundlegende Inferenzstatistiken für nominale Variablen berechnen können.
+
+
+```
+
+
 ## Der p-Wert
 
 

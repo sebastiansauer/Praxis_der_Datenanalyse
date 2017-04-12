@@ -22,6 +22,19 @@ knitr::opts_chunk$set(
 # Klassische lineare (numerische) Regression
 
 
+```{block2, ziele-regression, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Wissen, was man unter Regression versteht.
+- Die Annahmen der Regression überprüfen können.
+- Regression mit kategorialen Prädiktoren durchführen können.
+- Die Regression inferenzstatisisch absichern können.
+- Die Modellgüte bei der Regression bestimmen können.
+- Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.
+
+
+```
+
 
 Benötigte Pakete:
 ```{r libs}
