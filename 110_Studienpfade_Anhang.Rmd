@@ -27,9 +27,9 @@ Termin    Thema/ Kapitel
           Der p-Wert
 6         Lineare Regression - Grundlagen
 7         Lineare Regression - Vertiefung
-8         Textmining
-9         Clusteranalyse
-10        Fallstudie
+8         Fallstudie
+9         Textmining
+10        Clusteranalyse
 11        Wiederholung
 
           
