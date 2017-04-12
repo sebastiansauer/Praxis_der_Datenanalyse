@@ -1,4 +1,4 @@
-book_filename: "Praxis der Datenanalyse"
+book_filename: "Praxis_der_Datenanalyse"
 chapter_name: "Kapitel "
 # repo: https://github.com/sebastiansauer/Statistik_21
 output_dir: "docs"
@@ -8,29 +8,17 @@ rmd_files: [
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
 "041_Fallstudie_dplyr.Rmd",
-"043_Typische_Probleme_Datenanalyse.Rmd",
 "050_Daten_visualisieren.Rmd",
-"052_Farben.Rmd",
-"054_Vertiefung_ggplot2.Rmd",
 "056_Fallstudie_Visualisierung.Rmd",
 "060_Modellieren.Rmd",
 "061_Inferenzstatistik.Rmd",
-"062_Inferenz_Grundlagen.Rmd",
-"065_Inferenz_metrisch.Rmd",
-"067_Inferenz_kategorial.Rmd",
 "070_geleitetes_Modellieren.Rmd",
 "071_Regression.Rmd",
 "072_klassifizierende_Regression.Rmd",
-"073_baumbasierte_Verfahren.Rmd",
 "075_Fallstudie_Titanic.Rmd",
 "076_Fallstudie_Affairs.Rmd",
 "080_ungeleitetes_Modellieren.Rmd",
-"081_Assoziationsanalyse.Rmd",
 "082_Clusteranalyse.Rmd",
-"083_Dimensionsreduktion.Rmd",
-"090_Textmining.Rmd",
-"100_Kommunizieren.Rmd",
-"101_RMarkdown.Rmd",
 "110_Studienpfade_Anhang.Rmd",
 "120_Literatur.Rmd"
 ]

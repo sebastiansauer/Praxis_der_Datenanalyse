@@ -74,10 +74,10 @@ Aus Gründen des Lesbarkeit wird das männliche Generikum verwendet, welches Fra
 
 
 Die Bildnachweise sind in folgenden Muster aufgebaut:
-Nummer (Verweis) des Bildes, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
+Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-- \@ref(fig:modellieren_plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
+1. Abb. \@ref(fig:modellieren-plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.

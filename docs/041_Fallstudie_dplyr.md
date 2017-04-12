@@ -2,29 +2,28 @@
 
 
 
-# Fallstudie `nycflights13` 
-
+# Fallstudie zum Datenjudo
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Grundlegende Funktionen von `dplyr` andwenden können.
 - Das Konzept der Pfeife in einem echten Datensatz anwenden können.
 - Auch mit relativ großen Daten sicher hantieren können.
+</div>\EndKnitrBlock{rmdcaution}
 
 
-`
 Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` anhand einer Fallstudie an. Wir verwenden hier den Datensatz `flights`aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
 
-Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`:</div>\EndKnitrBlock{rmdcaution}
+Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`, welches diese Pakete lädt:
+
 
 ```r
 library(tidyverse)
 library(nycflights13)  # für die Daten
-library(knitr)  # für HTML-Tabellen
 ```
 
 
-Dann laden wir die Daten aus dem Paket `nycflights13` und werfen eine Blick hinein ("to glimpse").
+Dann laden wir die Daten aus dem Paket `nycflights13` und werfen eine Blick hinein ("to glimpse"). `glimpse` zeigt uns einen Überblick über den Dataframe.
 
 
 ```r
@@ -55,7 +54,9 @@ glimpse(flights)
 
 Der Befehl `data` lädt Daten aus einem zuvor gestarteten Paket. 
 
-Achtung, Fallstudie. Sie sind der/die Assistent_in des Chefs der New Yorker Flughäfen. Ihr Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der größten Verspätung raussuchen. Nix schickes, aber zacki-zacki...
+## Achtung, Fallstudie
+
+Sie sind der/die Assistent_in des Chefs der New Yorker Flughäfen. Ihr Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der größten Verspätung raussuchen. Nix schickes, aber zacki-zacki...
 
 
 ```r
@@ -80,7 +81,7 @@ flights %>%
 #> #   minute <dbl>, time_hour <dttm>
 ```
 
-Hm, übersichtlicher wäre es wahrscheinllich, wenn wir weniger Spalten anschauen müssten. Am besten neben der Verspätung nur die Information, die wir zur Identifizierung der Schuldigen... will sagen der gesuchten Flüge benötigen
+Hm, übersichtlicher wäre es wahrscheinlich, wenn wir weniger Spalten anschauen müssten. Am besten neben der Verspätung nur die Information, die wir zur Identifizierung der Schuldigen... will sagen der gesuchten Flüge benötigen
 
 
 ```r
@@ -126,31 +127,30 @@ flights %>%
 #> # ... with 336,766 more rows
 ```
 
-Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dateframe automatisch in eine (einigermaßen) schöne Tabelle ausgeben lassen. Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10 Plätze.
+<!-- Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dataframe automatisch in eine (einigermaßen) schöne Tabelle ausgeben lassen. -->
+
+Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10 Plätze.
 
 
 ```r
 flights %>% 
   arrange(-arr_delay) %>% 
   select(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>% 
-  filter(row_number() < 11) %>% 
-  kable()
+  filter(row_number() < 11) 
+#> # A tibble: 10 × 8
+#>    arr_delay carrier month   day dep_time tailnum flight  dest
+#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>
+#> 1       1272      HA     1     9      641  N384HA     51   HNL
+#> 2       1127      MQ     6    15     1432  N504MQ   3535   CMH
+#> 3       1109      MQ     1    10     1121  N517MQ   3695   ORD
+#> 4       1007      AA     9    20     1139  N338AA    177   SFO
+#> 5        989      MQ     7    22      845  N665MQ   3075   CVG
+#> 6        931      DL     4    10     1100  N959DL   2391   TPA
+#> 7        915      DL     3    17     2321  N927DA   2119   MSP
+#> 8        895      DL     7    22     2257  N6716C   2047   ATL
+#> 9        878      AA    12     5      756  N5DMAA    172   MIA
+#> 10       875      MQ     5     3     1133  N523MQ   3744   ORD
 ```
-
-
-
- arr_delay  carrier    month   day   dep_time  tailnum    flight  dest 
-----------  --------  ------  ----  ---------  --------  -------  -----
-      1272  HA             1     9        641  N384HA         51  HNL  
-      1127  MQ             6    15       1432  N504MQ       3535  CMH  
-      1109  MQ             1    10       1121  N517MQ       3695  ORD  
-      1007  AA             9    20       1139  N338AA        177  SFO  
-       989  MQ             7    22        845  N665MQ       3075  CVG  
-       931  DL             4    10       1100  N959DL       2391  TPA  
-       915  DL             3    17       2321  N927DA       2119  MSP  
-       895  DL             7    22       2257  N6716C       2047  ATL  
-       878  AA            12     5        756  N5DMAA        172  MIA  
-       875  MQ             5     3       1133  N523MQ       3744  ORD  
 
 "Geht doch", war die Antwort des Chefs, als sie die Tabelle rübergeben (er mag auch keine Emails). "Ach ja", raunt der Chef, als Sie das Zimmer verlassen wollen, "hatte ich erwähnt, dass ich die gleiche Auswertung für jeden Carrier brauche? Reicht bis in einer halben Stunde".
 
@@ -218,31 +218,30 @@ flights %>%
   group_by(carrier) %>% 
   summarise(delay_mean = mean(arr_delay, na.rm = TRUE)) %>% 
   arrange(-delay_mean) %>% 
-  kable()
+  head
+#> # A tibble: 6 × 2
+#>   carrier delay_mean
+#>     <chr>      <dbl>
+#> 1      F9       21.9
+#> 2      FL       20.1
+#> 3      EV       15.8
+#> 4      YV       15.6
+#> 5      OO       11.9
+#> 6      MQ       10.8
 ```
 
-
-
-carrier    delay_mean
---------  -----------
-F9             21.921
-FL             20.116
-EV             15.796
-YV             15.557
-OO             11.931
-MQ             10.775
-WN              9.649
-B6              9.458
-9E              7.380
-UA              3.558
-US              2.130
-VX              1.764
-DL              1.644
-AA              0.364
-HA             -6.915
-AS             -9.931
-
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
+
+
+
+## Befehlsübersicht
+
+
+Funktion             Beschreibung
+-----------------    -------------
+data                 Lädt Daten aus einem Paket.
+dplyr::glimpse       Zeigt einen Überblick über einen Datensatz
+dplyr::row_number    Gibt die Zeilennummern zurück.
 
 
 

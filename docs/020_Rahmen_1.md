@@ -34,7 +34,7 @@ brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozes
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
 Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen 
 Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar
-machen; man nennt dies auch *tidy data*[hört sich cooler an.]. Sobald die Daten in geeigneter 
+machen; man nennt dies auch *tidy data*[hört sich cooler an]. Sobald die Daten in geeigneter 
 Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, 
 Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist 
 das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. 
@@ -75,12 +75,14 @@ schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle:
 
 ### R und RStudio installieren
 
+![](images/Rlogo.svg){ width=20% } 
 
-Setzt natürlich voraus, dass R installiert ist. Sie können R unter 
+Sie können R unter 
 <https://cran.r-project.org> herunterladen und installieren (für Windows, Mac 
 oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: 
 <https://www.rstudio.com>; laden Sie die "Desktop-Version" für Ihr 
 Betriebssystem herunter.
+![](images/rstudiologo.png){ width=20% }
 
 Die Oberfläche von R, die "Console", sieht so aus:
 
@@ -162,9 +164,9 @@ installiert werden konnte (z.B. "Package 'Rcpp' could not be installed" oder "es
 gibt kein Paket namens ‘Rcpp’" oder "unable to move temporary installation XXX 
 to YYY"), dann tun Sie folgendes:
 
-    - Schließen Sie R und starten Sie es neu. 
-    - Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
-    - Starten Sie das entsprechende Paket mit `library(paket_name)`.
+- Schließen Sie R und starten Sie es neu. 
+- Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
+- Starten Sie das entsprechende Paket mit `library(paket_name)`.
 
 
 - Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder
@@ -202,7 +204,7 @@ Sie z.B. `?mean`.
 
 - Im Internet finden sich zuhauf Tutorials.
 
-- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist: 
+- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
 http://stackoverflow.com.
 
 
@@ -333,25 +335,30 @@ Pakete
 #> [37] "nFactors"      "rmarkdown"     "methods"
 ```
 
-Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal), 
-können wir mit etwas R-Judo alle auf einen Haps laden:
+
+<!-- ### Vertiefung: Mehrere Pakete auf einmal installieren/starten -->
+<!-- Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal),  -->
+<!-- können wir mit etwas R-Judo alle auf einen Haps laden: -->
+
+<!-- ```{r eval = FALSE}  -->
+<!-- lapply(Pakete, require, character.only = TRUE)  -->
+<!-- ``` -->
 
 
-```r
-lapply(Pakete, require, character.only = TRUE) 
-```
+<!-- ```{r load_packages, include = FALSE}  -->
+<!-- lapply(Pakete, require, character.only = TRUE)  -->
+<!-- ``` -->
 
 
+<!-- ``` {r include = FALSE, echo = FALSE, eval = FALSE}  -->
+<!-- knitr::write_bib(Pakete, file = "libs.bib")  -->
+<!-- ``` -->
 
+<!-- Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl  -->
+<!-- `library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once]. -->
 
-
-
-
-Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl 
-`library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once].
-
-Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; 
-das geht mit `update.packages()`.
+<!-- Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen;  -->
+<!-- das geht mit `update.packages()` . -->
 
 
 
@@ -411,6 +418,9 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
 ## ERRRstkontakt
+
+<!-- Es fehlen noch: -->
+<!-- - Hinweise zu R-Datentypen -->
 
 
 ### Hinweise
@@ -509,6 +519,16 @@ y <- x
 ```
 
 Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil `<-` macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.
+
+
+Man kann auch einer Variablen *mehr als* einen Wert zuweisen:
+
+
+```r
+x <- c(1, 2, 3)
+```
+
+Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *mehr als* einen Wert zuweisen, muss man die Werte erst in einen Vektor "zusammen binden"; das geht mit dem Befehl `c` (wie *c*ombine).
 
 
 ### Funktionen aufrufen
@@ -616,7 +636,7 @@ Science* gesprochen, wobei der Begriff nicht einheitlich verwendet wird [@r4ds;
 [@cobb2007introductory; @grolemund2014cognitive]. Einfach gesprochen, bedeutet 
 Modellieren in diesem Sinne, ein mathematisches Narrativ ("Geschichte") zu 
 finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. 
-Kap. \@ref{mod1}.
+Kap. \@ref(mod1).
 
 Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab [@grolemund2014cognitive]:
 
@@ -649,6 +669,19 @@ Natürlich ist es keineswegs sicher, *dass* das Modell gilt. Darüber macht die 
 Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze "einschießt" auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein[^447]. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt. 
 
 
+## Befehlsübersicht
+
+
+Funktion             Beschreibung
+-----------------    -------------
+install.packages     installiert ein Paket
+library              lädt ein Paket
+<-                   Weist einer Variablen einen Wert zu
+c                    erstellt eine Spalte/ einen Vektor
+
+Diese Befehle "wohnen" alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.
+
+
 ## Verweise
 
 - Chester Ismay erläutert einige Grundlagen von R und RStudio, die für 
@@ -664,75 +697,6 @@ Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 "mathematisch sanft" behandelt werden möchte, wird bei James et al. 
 [-@introstatlearning] glücklich oder zumindest fündig werden.
 
-
-
-
-## Versionshinweise
-
-
-```r
-sessionInfo() 
-#> R version 3.3.2 (2016-10-31)
-#> Platform: x86_64-apple-darwin13.4.0 (64-bit)
-#> Running under: macOS Sierra 10.12.3
-#> 
-#> locale:
-#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-#> 
-#> attached base packages:
-#> [1] grid      methods   stats     graphics  grDevices utils     datasets 
-#> [8] base     
-#> 
-#> other attached packages:
-#>  [1] rmarkdown_1.3        nFactors_2.3.3       lattice_0.20-34     
-#>  [4] boot_1.3-18          psych_1.6.12         BaylorEdPsych_0.5   
-#>  [7] scatterplot3d_0.3-38 gplots_3.0.1         corrplot_0.77       
-#> [10] SDMTools_1.1-221     arulesViz_1.2-0      arules_1.5-0        
-#> [13] Matrix_1.2-8         MASS_7.3-45          rpart.plot_2.1.1    
-#> [16] rpart_4.1-10         corrr_0.2.1          compute.es_0.2-4    
-#> [19] titanic_0.1.0        GGally_1.3.0         wesanderson_0.3.2   
-#> [22] reshape2_1.4.2       okcupiddata_0.1.0    wordcloud_2.5       
-#> [25] RColorBrewer_1.1-2   lsa_0.73.1           SnowballC_0.5.1     
-#> [28] tidytext_0.1.2       tm_0.6-2             NLP_0.1-10          
-#> [31] gridExtra_2.2.1      ggdendro_0.1-20      downloader_0.4      
-#> [34] pdftools_1.0         ISLR_1.0             nycflights13_0.2.2  
-#> [37] car_2.1-4            stringr_1.2.0        knitr_1.15.1        
-#> [40] dplyr_0.5.0          purrr_0.2.2.9000     readr_1.0.0         
-#> [43] tidyr_0.6.1          tibble_1.2           ggplot2_2.2.1       
-#> [46] tidyverse_1.1.1     
-#> 
-#> loaded via a namespace (and not attached):
-#>  [1] minqa_1.2.4         colorspace_1.3-2    class_7.3-14       
-#>  [4] modeltools_0.2-21   mclust_5.2.2        rprojroot_1.2      
-#>  [7] base64enc_0.1-3     MatrixModels_0.4-1  DT_0.2             
-#> [10] flexmix_2.3-13      mvtnorm_1.0-5       lubridate_1.6.0    
-#> [13] xml2_1.1.1          R.methodsS3_1.7.1   codetools_0.2-15   
-#> [16] splines_3.3.2       mnormt_1.5-5        robustbase_0.92-7  
-#> [19] jsonlite_1.3        nloptr_1.0.4        pbkrtest_0.4-6     
-#> [22] broom_0.4.2         kernlab_0.9-25      cluster_2.0.5      
-#> [25] R.oo_1.21.0         httr_1.2.1          backports_1.0.5    
-#> [28] assertthat_0.1      lazyeval_0.2.0.9000 htmltools_0.3.5    
-#> [31] quantreg_5.29       tools_3.3.2         gtable_0.2.0       
-#> [34] Rcpp_0.12.9         slam_0.1-40         trimcluster_0.1-2  
-#> [37] gdata_2.17.0        nlme_3.1-130        iterators_1.0.8    
-#> [40] fpc_2.1-10          lmtest_0.9-35       lme4_1.1-12        
-#> [43] rvest_0.3.2         gtools_3.5.0        dendextend_1.4.0   
-#> [46] DEoptimR_1.0-8      zoo_1.7-14          scales_0.4.1       
-#> [49] TSP_1.1-5           hms_0.3             parallel_3.3.2     
-#> [52] SparseM_1.74        yaml_2.1.14         reshape_0.8.6      
-#> [55] stringi_1.1.2       gclus_1.3.1         tokenizers_0.1.4   
-#> [58] foreach_1.4.3       seriation_1.2-1     caTools_1.17.1     
-#> [61] prabclus_2.2-6      bitops_1.0-6        evaluate_0.10      
-#> [64] htmlwidgets_0.8     plyr_1.8.4          magrittr_1.5       
-#> [67] bookdown_0.3        R6_2.2.0            DBI_0.5-1          
-#> [70] haven_1.0.0         whisker_0.3-2       foreign_0.8-67     
-#> [73] mgcv_1.8-16         nnet_7.3-12         janeaustenr_0.1.4  
-#> [76] modelr_0.1.0        KernSmooth_2.23-15  plotly_4.5.6       
-#> [79] viridis_0.3.4       readxl_0.1.1        forcats_0.2.0      
-#> [82] vcd_1.4-3           digest_0.6.12       diptest_0.75-7     
-#> [85] R.utils_2.5.0       stats4_3.3.2        munsell_0.4.3      
-#> [88] viridisLite_0.1.3   registry_0.3
-```
 
 
 

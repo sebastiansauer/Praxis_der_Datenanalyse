@@ -206,10 +206,23 @@ Wie bekommt man seine Daten wieder aus R raus ("ich will zu Excel zurück!")?
 Eine Möglichkeit bietet die Funktion `write.csv`; sie schreibt eine CSV-Datei:
 
 ```
-read.csv(name_der_tabelle, "Dateiname.csv")
+write.csv(name_der_tabelle, "Dateiname.csv")
 ```
 
 Mit `help(write.csv)` bekommt man mehr Hinweise dazu. Beachten Sie, dass immer in das aktuelle Arbeitsverzeichnis geschrieben wird.
+
+
+
+## Befehlsübersicht
+
+Paket::Funktion      Beschreibung
+-----------------    -------------
+read.csv             Liest eine CSV-Datei ein.
+write.csv            Schreibt einen Dateframe in eine CSV-Datei.
+readr::gather        Macht aus einem "breiten" Dataframe einen "langen".
+readr::separate      "Zieht" Spalten auseinander.  
+
+
 
 
 ## Übungen^[F, R, F, R, R, R, F, F]

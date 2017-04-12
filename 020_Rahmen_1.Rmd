@@ -53,7 +53,7 @@ knitr::include_graphics("images/Prozess_Datenanalyse.pdf")
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
 Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen 
 Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar
-machen; man nennt dies auch *tidy data*[hört sich cooler an.]. Sobald die Daten in geeigneter 
+machen; man nennt dies auch *tidy data*[hört sich cooler an]. Sobald die Daten in geeigneter 
 Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, 
 Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist 
 das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. 
@@ -94,19 +94,21 @@ schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle:
 
 ### R und RStudio installieren
 
+![](images/Rlogo.svg){ width=20% } 
 
-Setzt natürlich voraus, dass R installiert ist. Sie können R unter 
+Sie können R unter 
 <https://cran.r-project.org> herunterladen und installieren (für Windows, Mac 
 oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: 
 <https://www.rstudio.com>; laden Sie die "Desktop-Version" für Ihr 
 Betriebssystem herunter.
+![](images/rstudiologo.png){ width=20% }
 
 Die Oberfläche von R, die "Console", sieht so aus:
 
 <!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
 
-```{r eval = FALSE, echo = FALSE,  fig.width = 1} 
-knitr::include_graphics("images/R.jpg") 
+```{r eval = FALSE, echo = FALSE,  fig.width = 3} 
+# knitr::include_graphics("images/R.jpg") 
 knitr::include_graphics("images/R-Mac.png")
 
 ```
@@ -188,9 +190,9 @@ installiert werden konnte (z.B. "Package 'Rcpp' could not be installed" oder "es
 gibt kein Paket namens ‘Rcpp’" oder "unable to move temporary installation XXX 
 to YYY"), dann tun Sie folgendes:
 
-    - Schließen Sie R und starten Sie es neu. 
-    - Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
-    - Starten Sie das entsprechende Paket mit `library(paket_name)`.
+- Schließen Sie R und starten Sie es neu. 
+- Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
+- Starten Sie das entsprechende Paket mit `library(paket_name)`.
 
 
 - Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder
@@ -228,7 +230,7 @@ Sie z.B. `?mean`.
 
 - Im Internet finden sich zuhauf Tutorials.
 
-- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist: 
+- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
 http://stackoverflow.com.
 
 
@@ -352,28 +354,30 @@ source("includes/Pakete.R")
 Pakete 
 ```
 
-Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal), 
-können wir mit etwas R-Judo alle auf einen Haps laden:
 
-```{r eval = FALSE} 
-lapply(Pakete, require, character.only = TRUE) 
-```
+<!-- ### Vertiefung: Mehrere Pakete auf einmal installieren/starten -->
+<!-- Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal),  -->
+<!-- können wir mit etwas R-Judo alle auf einen Haps laden: -->
 
-
-```{r load_packages, include = FALSE} 
-lapply(Pakete, require, character.only = TRUE) 
-```
+<!-- ```{r eval = FALSE}  -->
+<!-- lapply(Pakete, require, character.only = TRUE)  -->
+<!-- ``` -->
 
 
-``` {r include = FALSE, echo = FALSE, eval = FALSE} 
-knitr::write_bib(Pakete, file = "libs.bib") 
-```
+<!-- ```{r load_packages, include = FALSE}  -->
+<!-- lapply(Pakete, require, character.only = TRUE)  -->
+<!-- ``` -->
 
-Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl 
-`library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once].
 
-Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen; 
-das geht mit `update.packages()`.
+<!-- ``` {r include = FALSE, echo = FALSE, eval = FALSE}  -->
+<!-- knitr::write_bib(Pakete, file = "libs.bib")  -->
+<!-- ``` -->
+
+<!-- Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl  -->
+<!-- `library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once]. -->
+
+<!-- Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen;  -->
+<!-- das geht mit `update.packages()` . -->
 
 
 
@@ -431,6 +435,9 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
 ## ERRRstkontakt
+
+<!-- Es fehlen noch: -->
+<!-- - Hinweise zu R-Datentypen -->
 
 
 ### Hinweise
@@ -520,6 +527,15 @@ y <- x
 ```
 
 Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil `<-` macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.
+
+
+Man kann auch einer Variablen *mehr als* einen Wert zuweisen:
+
+```{r}
+x <- c(1, 2, 3)
+```
+
+Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *mehr als* einen Wert zuweisen, muss man die Werte erst in einen Vektor "zusammen binden"; das geht mit dem Befehl `c` (wie *c*ombine).
 
 
 ### Funktionen aufrufen
@@ -622,7 +638,7 @@ Science* gesprochen, wobei der Begriff nicht einheitlich verwendet wird [@r4ds;
 [@cobb2007introductory; @grolemund2014cognitive]. Einfach gesprochen, bedeutet 
 Modellieren in diesem Sinne, ein mathematisches Narrativ ("Geschichte") zu 
 finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. 
-Kap. \@ref{mod1}.
+Kap. \@ref(mod1).
 
 Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab [@grolemund2014cognitive]:
 
@@ -655,6 +671,19 @@ Natürlich ist es keineswegs sicher, *dass* das Modell gilt. Darüber macht die 
 Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze "einschießt" auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein[^447]. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt. 
 
 
+## Befehlsübersicht
+
+
+Funktion             Beschreibung
+-----------------    -------------
+install.packages     installiert ein Paket
+library              lädt ein Paket
+<-                   Weist einer Variablen einen Wert zu
+c                    erstellt eine Spalte/ einen Vektor
+
+Diese Befehle "wohnen" alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.
+
+
 ## Verweise
 
 - Chester Ismay erläutert einige Grundlagen von R und RStudio, die für 
@@ -670,14 +699,6 @@ Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 "mathematisch sanft" behandelt werden möchte, wird bei James et al. 
 [-@introstatlearning] glücklich oder zumindest fündig werden.
 
-
-
-
-## Versionshinweise
-
-```{r session_info} 
-sessionInfo() 
-```
 
 
 

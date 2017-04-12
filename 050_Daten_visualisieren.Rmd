@@ -36,8 +36,8 @@ Lernziele:
 In diesem Kapitel werden folgende Pakete benötigt::
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
-library(car)  # Umkodieren
-library(knitr)  # HTML-Tabellen
+# library(car)  # Umkodieren
+# library(knitr)  # HTML-Tabellen
 
 ```
 
@@ -65,18 +65,36 @@ Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. 
 
 Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
 
-Laden wir dazu den Datensatz `nycflights::flights`.
+
+## Die Anatomie eines Diagramms
+
+`ggplot2` unterscheidet folgende Bestandteile ("Anatomie") eines Diagramms (vgl. Abb. \@ref(fig:fig-anatomie)):
+
+- Daten
+- Abbildende Aspekte (Achsen, Farben, ...)
+- Geome (statistische Bilder wie Punkte, Linien, Boxplots, ...)
+
+
+```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms"}
+knitr::include_graphics("images/anatomie_diagramm_crop.pdf")
+```
+
+Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
+
+## Einstieg in `ggplot2` - `qplot`
+
+Los geht's! Laden wir zuerst den Datensatz `nycflights::flights`.
 
 ```{r}
 data(flights, package = "nycflights13")
 ```
 
-```{r include = FALSE}
+```{r include = FALSE, eval = FALSE}
 source("includes/Pakete.R")
 ```
 
 
-```{r plot-flights, message = FALSE}
+```{r fig-flights, message = FALSE, fig.cap = "Mittlere Verspätung nach Flugggesellschaft"}
 qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
 ```
 
@@ -100,7 +118,7 @@ Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint 
 qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
+Kaum ein Unterschied ersichtlich; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
@@ -234,7 +252,7 @@ ggplot(flights) +
 
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
-```{r}
+```{r fig-aes-color}
 wo_men %>% 
   filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
 
@@ -410,13 +428,55 @@ wo_men2 %>%
   qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
 ```
 
+## Die Gefühlswelt von `ggplot2`
+
+- Geben Sie eine *diskrete X-Achs*e an und *keine Y-AchseÜ, so greift qplot im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie kein Geom angeben:
+
+```{r eval = FALSE}
+qplot(x = smoker, data = tips)  # identisch zu
+qplot(x = smoker, data = tips, geom = "bar)
+
+```
+
+- Geben Sie eine *kontinuierliche X-Achse* an und *keine Y-Achse*, so greift qplot im Standard auf das Geom `histogram` zurück (Histogramm).
+
+```{r echo = FALSE}
+data(tips, package = "reshape")
+```
+
+
+```{r eval = FALSE}
+qplot(x = smoker, data = tips)  # identisch zu
+qplot(x = smoker, data = tips, geom = "histogram")
+```
+
+- Geben Sie eine *kontinuierliche X-Achse* an und eine *kontinuierliche Y-Achse* an, so greift qplot im Standard auf das Geom `point` zurück (Streudiagramm).
+
+```{r eval = FALSE}
+qplot(x = total_bill, y = tip, data = tips)  # identisch zu
+qplot(x = total_bill, y=  tip, data = tips, geom = "point")
+```
+
+- Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Variable diskret sein:
+
+```{r eval = FALSE}
+#oh no: 
+qplot(x = rating, y = affairs, geom = "boxplot", data = Affairs)
+
+#oh yes: 
+qplot(x = factor(rating), y = affairs, geom = "boxplot", data = Affairs)
+
+#oh yes: 
+qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
+```
+
 
 
 ## Aufgaben
 
 1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
 
-1. Abb. \@ref(fig:plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+1. Abb. \@ref(fig:fig-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
 Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 
@@ -466,13 +526,110 @@ wo_men3 %>%
 
 Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
+
+## Befehlsübersicht
+
+
+Paket::Funktion        Beschreibung
+-----------------      -------------
+ggplot2::qplot         Malt schnell mal einen Plot
+ggplot2::ggplot        Malt einen Plot
+factor                 Wandelt einen Vektor in den Typ `factor` um
+
+
+## Vertiefung: Geome bei ggplot2 {#geome}
+
+Einen guten Überblick über Geome bietet das Cheatsheet von ggplot2^[https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf].
+
+Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfache ist die folgende; es wird nur ein Teil der verfügbaren Geome dargestellt.
+
+1. Eine kontinuerliche Variable
+
+```{r echo = FALSE}
+p1 <- 
+  ggplot(tips) +
+  aes(x = total_bill) +
+  geom_histogram() +
+  labs(title = "geom_histogram")
+
+p2 <-
+  ggplot(tips) +
+  aes(x = total_bill) +
+  geom_density() +
+  labs(title = "geom_density")
+
+library(gridExtra)
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+
+2. Zwei kontinuierliche Variablen
+
+```{r echo = FALSE}
+
+p1 <- 
+  ggplot(tips) +
+  aes(x = total_bill, y = tip) +
+  geom_point() +
+  labs(title = "geom_point")
+
+p2 <- 
+  ggplot(tips) +
+  aes(x = total_bill, y = tip) +
+  geom_point() +
+  labs(title = "geom_jitter -\nverwackelt")
+
+p3 <- 
+  ggplot(tips) +
+  aes(x = total_bill, y = tip) +
+  geom_smooth() +
+  labs(title = "geom_smooth")
+
+grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+3. Eine diskrete Variable (X-Achse)
+
+```{r}
+
+ggplot(tips) +
+  aes(x = day) +
+  geom_bar()
+```
+
+
+4. Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse
+
+```{r echo = FALSE}
+p1 <- 
+ggplot(tips) +
+  aes(x = sex, y = tip) +
+  geom_boxplot() +
+  labs(title = "geom_boxplot")
+
+p2 <- 
+ggplot(tips) +
+  aes(x = sex, y = tip) +
+  geom_violin() +
+  labs(title = "geom_violin")
+
+grid.arrange(p1, p2, ncol = 2)
+
+```
+
+
 ## Verweise
+
+- Einen Befehlsüberblick zu `ggplot2` findet sich hier: http://ggplot2.tidyverse.org/reference/.
 
 - Edward Tufte gilt als Grand Seigneur der Datenvisualisierung; er hat mehrere lesenswerte Bücher zu dem Thema geschrieben [@1930824130; @1930824165; @1930824149].
 
 - William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren [@Cleveland]. 
 
 - Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
+
+- Es finden sich viele Tutorials online zu `ggplot2`; ein deutschsprachiger Tutorial findet sich hier: http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html.
 
 
 

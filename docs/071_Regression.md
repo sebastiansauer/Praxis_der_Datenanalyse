@@ -757,7 +757,7 @@ Versuchen Sie, das Evaluierungsergebnis als abhängige Variable anhand geeignete
 
 
 
-## Fallstudie zu Overfitting {#overfitting_casestudy}
+## Fallstudie zu Overfitting {#overfitting-casestudy}
 
 Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der *Trainingsstichprobe* schätzt mit einer Regression, bei der die Modellgüte in einer *Test-Stichprobe* überprüft wird.
 

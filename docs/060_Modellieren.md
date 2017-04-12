@@ -25,8 +25,10 @@ In diesem Kapitel benötigen wir diese Pakete:
 
 ```r
 library(tidyverse)
-require(gridExtra)
 ```
+
+
+
 
 <img src="images/Modellieren.pdf" width="70%" style="display: block; margin: auto;" />
 
@@ -37,7 +39,7 @@ require(gridExtra)
 
 Das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit[^41] zu verstehen, erscheint es sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen.
 
-Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung[^42], vgl. Abb. \@(fig:modellieren-plot).
+Manche Aspekte der Wirklichkeit sind wirklicher als andere. Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung  vgl. Abb. \@ref(fig:modellieren-plot). Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle "falsch" in diesem Sinne.
 
 
 <div class="figure" style="text-align: center">
@@ -101,7 +103,7 @@ Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für
 Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so "fühlen" qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: "Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?" (qualitatives Kriterium); "Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?" (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als *Klassifikation*\index{Klassifikation}; ein Modell mit quantitativem Kriterium bezeichnet man auch als *Regression*\index{Klassifikation}. Bei letzterem Begriff ist zu beachten, dass er *doppelt* verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.
 
 
-## Ziele des Modellierens { #ziele }
+## Ziele des Modellierens {#Ziele}
 Man kann drei Arten von Zielen abgrenzen: Vorhersagen, Erklären und Reduzieren.
 
 - *Vorhersagen*\index{Vorhersagen} hat das Ziel, eine geschickte Black Box zu wählen (oder eine Black Box geschickt zu wählen), so dass der Vohersagefehler möglichst klein ist. Sicherlich wird der Vorhersagefehler nie Null sein. Das Innenleben der "schwarzen Kiste" interessiert uns hier nicht.
@@ -191,7 +193,7 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
      Komplexe Modelle: Wenig Bias, viel Varianz.
      
      
-Dieser Sachverhalt ist in folgendem Diagramm dargestellt[^228].
+Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
 
 
 <img src="060_Modellieren_files/figure-html/plot-bias-variance-1.png" width="70%" style="display: block; margin: auto;" />
@@ -209,11 +211,10 @@ Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainier
 >    Die Güte des Modells sollte nur anhand eines - bislang nicht verwendeten - Test-Samples überprüft werden. Das Test-Sample darf bis zur Modellüberprüfung nicht analysiert werden.
 
 
-Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample (vgl. die Fallstudie dazu: \@ref(overfitting_casestudy) [Fallstudie zu Overfitting]).
+Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample (vgl. die Fallstudie dazu: \@ref(overfitting-casestudy)).
 
 
 ```r
-set.seed(42)
 train <- wo_men %>% 
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
@@ -267,12 +268,12 @@ In späteren Kapiteln betrachten wir Wege, um Prädiktoren für bestimmte Modell
 
 ## Aufgaben
 
-### Erfolg beim Online-Dating
+1. Erfolg beim Online-Dating
 
 Lesen Sie diesen^[https://thewinnower.com/papers/5202-the-effect-of-a-status-symbol-on-success-in-online-dating-an-experimental-study-data-paper?review_it=true] Artikel [@sauer_wolff]. Zeichnen Sie ein Pfaddiagramm zum Modell!^[Status $\rightarrow$ Erfolg beim Online-Dating].
 
 
-### Ziele des Modellierens
+2. Ziele des Modellierens
 
 Welche drei Ziele des Modellierens kann man unterscheiden?^[\@ref(Ziele)]
 
@@ -285,7 +286,10 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 - mehr oder weniger präzise?
 
 
-<img src="060_Modellieren_files/figure-html/plot-bias-variance2-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance2-1.png" alt="Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz." width="70%" />
+<p class="caption">(\#fig:plot-bias-variance2)Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz.</p>
+</div>
 
 
 ### Richtig oder falsch?^[R, F, F, F, R]
@@ -303,6 +307,17 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 </div>\EndKnitrBlock{rmdexercises}
 
 
+## Befehlsübersicht
+
+
+Funktion             Beschreibung
+-----------------    -------------
+dplyr::sample_frac   Zielt eine Stichprobe von x% aus einem Dataframe
+dplyr::anti_join     Behält alle Zeilen von df1, die *nicht in df2 vorkommen
+
+
+
+
 
 ## Verweise
 
@@ -318,13 +333,11 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 
 
 
-[^42]: Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle "falsch" in diesem Sinne.
 
 
 [^208]: Tatsächlich wurden die Y-Werte als Sinus-Funktion plus etwas normalverteiltes Rauschen simuliert.
 
 
-[^228]: Basierend auf [@kuhn2013applied]
 
 [^233]: Gerade wenn sie die Zukunft betreffen; ein Bonmot, das Yogi Berra nachgesagt wird.
 

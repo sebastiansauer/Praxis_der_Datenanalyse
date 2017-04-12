@@ -1,4 +1,5 @@
 
+
 # Der p-Wert
 
 
@@ -6,27 +7,23 @@
 
 - Den p-Wert erläutern können.
 - Den p-Wert kritisieren können.
-- Den p-Wert auf Basis von Simulationen berechnen können.
-- Grundlegende Inferenzstatistiken für metrische Variablen berechnen können.
-- Grundlegende Inferenzstatistiken für nominale Variablen berechnen können.
-
 </div>\EndKnitrBlock{rmdcaution}
 
 
 
 <div class="figure" style="text-align: center">
-<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="10%" />
+<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="30%" />
 <p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
 </div>
 
 ## Der p-Wert sagt nicht das, was viele denken
 
 
-Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen. 
+Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen (vgl. Abb. \@ref(fig:who-said)). 
 
 
 <div class="figure" style="text-align: center">
-<img src="images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="234" />
+<img src="images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="15%" />
 <p class="caption">(\#fig:who-said)Der p-Wert wird oft als wichtig erachtet</p>
 </div>
 
@@ -60,22 +57,55 @@ Oder kürzer:
 $$ P(M|T) \ne P(T|M) $$
 
 
-Als Bild:
 
-![](images/moslems_terroristen_crop.pdf)<!-- -->
+
+<img src="images/moslems_terroristen.jpeg" width="70%" style="display: block; margin: auto;" />
+
+
+Das Bild (Abb. \@ref(fig:fig-moslems)) zeigt den Anteil der Moslems an den Terroristen (sehr hoch). Und es zeigt den Anteil der Terroristen von allen Moslems (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist*. Ein großer Unterschied^[die Größe der Anteile sind frei erfunden].
 
 
 ## Weitere Kritik am p-Wert
 
 Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertainty]; z.B. dass die "5%-Hürde" einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema "P-Hacking" argumentieren [@Head2015, @Wicherts2016]; andere statistische Verfahren können auch gehackt werden.
 
-Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit. Die Verteitigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
+Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit (vgl. Abb. \@ref(fig:einfluss-pwert). 
+
+<div class="figure" style="text-align: center">
+<img src="images/einfluss_pwert_crop.pdf" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
+<p class="caption">(\#fig:einfluss-pwert)Zwei Haupteinflüsse auf den p-Wert</p>
+</div>
+
+
+Die Verteitigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
 
 Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
 
 
-<img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="250" style="display: block; margin: auto;" />
+<img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
 
 
+## Mythen zum p-Wert
 
+Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rente gehen, heißt es. Jedenfalls halten sich eine Reihe von Mythen hartnäckig; sie sind alle falsch.
+
+
+>    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) sicher richtig.
+
+Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
+
+>    Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.
+
+Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
+
+>    Wenn der p-Wert kleiner als 5% ist, dann kann ich meine Studie veröffentlichen.
+
+Richtig. Leider entscheidet zu oft der p-Wert über das Wohl und Wehe einer Studie.
+
+
+## Zur Philosophie des p-Werts
+
+Der p-Wert basiert auf der Idee, dass man ein Experiment *unendlich* oft wiederholen könnte; und das unter *zufälligen* aber *ansonsten komplett gleichen* Bedingungen.
+
+Ob es im Universum irgendetwas gibt, das unendlich ist, ist umstritten [@ruckerinfinity]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, kann auch kritisiert werden [@uncertainty].
 

@@ -18,8 +18,8 @@ In diesem Kapitel werden folgende Pakete benötigt::
 
 ```r
 library(tidyverse)  # Zum Plotten
-library(car)  # Umkodieren
-library(knitr)  # HTML-Tabellen
+# library(car)  # Umkodieren
+# library(knitr)  # HTML-Tabellen
 ```
 
 
@@ -45,7 +45,26 @@ Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. 
 
 Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
 
-Laden wir dazu den Datensatz `nycflights::flights`.
+
+## Die Anatomie eines Diagramms
+
+`ggplot2` unterscheidet folgende Bestandteile ("Anatomie") eines Diagramms (vgl. Abb. \@ref(fig:fig-anatomie)):
+
+- Daten
+- Abbildende Aspekte (Achsen, Farben, ...)
+- Geome (statistische Bilder wie Punkte, Linien, Boxplots, ...)
+
+
+<div class="figure" style="text-align: center">
+<img src="images/anatomie_diagramm_crop.pdf" alt="Anatomie eines Diagramms" width="70%" />
+<p class="caption">(\#fig:fig-anatomie)Anatomie eines Diagramms</p>
+</div>
+
+Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
+
+## Einstieg in `ggplot2` - `qplot`
+
+Los geht's! Laden wir zuerst den Datensatz `nycflights::flights`.
 
 
 ```r
@@ -60,7 +79,10 @@ data(flights, package = "nycflights13")
 qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/plot-flights-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="050_Daten_visualisieren_files/figure-html/fig-flights-1.png" alt="Mittlere Verspätung nach Flugggesellschaft" width="70%" />
+<p class="caption">(\#fig:fig-flights)Mittlere Verspätung nach Flugggesellschaft</p>
+</div>
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 
@@ -83,7 +105,7 @@ qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
 
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
-Kaum Unterschied; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
+Kaum ein Unterschied ersichtlich; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
@@ -255,7 +277,7 @@ wo_men2 %>%
   qplot(x = height, y = shoe_size, color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/fig-aes-color-1.png" width="70%" style="display: block; margin: auto;" />
 
 Mit `color = sex` sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von `sex` eingefärbt werden sollen. Die genaue Farbwahl übernimmt `ggplot2` für uns.
 
@@ -269,7 +291,7 @@ wo_men %>%
   qplot(x = height, y = shoe_size, facets = "~sex", color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
 
@@ -291,7 +313,7 @@ wo_men4 %>%
   
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
@@ -305,7 +327,7 @@ Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel dar
 qplot(x = sex, data = wo_men)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom.
 
@@ -318,7 +340,7 @@ wo_men %>%
   qplot(x = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
 
@@ -333,7 +355,7 @@ wo_men %>%
 qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
 
@@ -349,7 +371,7 @@ wo_men2 %>%
   geom_bar(position = "fill")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
@@ -393,7 +415,7 @@ profiles %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 Was haben wir gemacht? Also:
 
@@ -438,7 +460,7 @@ wo_men3 %>%
   qplot(x = sex, y = Groesse_MW, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach `Groesse_Gruppe` ausweisen, wird das noch überschaubar bleiben.
 
@@ -450,7 +472,51 @@ wo_men2 %>%
   qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+## Die Gefühlswelt von `ggplot2`
+
+- Geben Sie eine *diskrete X-Achs*e an und *keine Y-AchseÜ, so greift qplot im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie kein Geom angeben:
+
+
+```r
+qplot(x = smoker, data = tips)  # identisch zu
+qplot(x = smoker, data = tips, geom = "bar)
+
+```
+
+- Geben Sie eine *kontinuierliche X-Achse* an und *keine Y-Achse*, so greift qplot im Standard auf das Geom `histogram` zurück (Histogramm).
+
+
+
+
+
+```r
+qplot(x = smoker, data = tips)  # identisch zu
+qplot(x = smoker, data = tips, geom = "histogram")
+```
+
+- Geben Sie eine *kontinuierliche X-Achse* an und eine *kontinuierliche Y-Achse* an, so greift qplot im Standard auf das Geom `point` zurück (Streudiagramm).
+
+
+```r
+qplot(x = total_bill, y = tip, data = tips)  # identisch zu
+qplot(x = total_bill, y=  tip, data = tips, geom = "point")
+```
+
+- Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Variable diskret sein:
+
+
+```r
+#oh no: 
+qplot(x = rating, y = affairs, geom = "boxplot", data = Affairs)
+
+#oh yes: 
+qplot(x = factor(rating), y = affairs, geom = "boxplot", data = Affairs)
+
+#oh yes: 
+qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
+```
 
 
 
@@ -458,7 +524,7 @@ wo_men2 %>%
 
 1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
 
-1. Abb. \@ref(fig:plot-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+1. Abb. \@ref(fig:fig-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
 Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 
@@ -482,7 +548,7 @@ Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viel
 qplot(x = arr_delay, geom = "histogram", data = flights, facets = "~origin")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
@@ -495,7 +561,7 @@ qplot(x = shoe_size, data = wo_men, bins = 10)
 qplot(x = shoe_size, data = wo_men, bins = 50)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-28-2.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" />
 
 4. :
 
@@ -513,17 +579,65 @@ wo_men3 %>%
   geom_point(data = wo_men2, color = "grey80")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
+
+## Befehlsübersicht
+
+
+Paket::Funktion        Beschreibung
+-----------------      -------------
+ggplot2::qplot         Malt schnell mal einen Plot
+ggplot2::ggplot        Malt einen Plot
+factor                 Wandelt einen Vektor in den Typ `factor` um
+
+
+## Vertiefung: Geome bei ggplot2 {#geome}
+
+Einen guten Überblick über Geome bietet das Cheatsheet von ggplot2^[https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf].
+
+Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfache ist die folgende; es wird nur ein Teil der verfügbaren Geome dargestellt.
+
+1. Eine kontinuerliche Variable
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+2. Zwei kontinuierliche Variablen
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+3. Eine diskrete Variable (X-Achse)
+
+
+```r
+
+ggplot(tips) +
+  aes(x = day) +
+  geom_bar()
+```
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+4. Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse
+
+<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+
+
 ## Verweise
+
+- Einen Befehlsüberblick zu `ggplot2` findet sich hier: http://ggplot2.tidyverse.org/reference/.
 
 - Edward Tufte gilt als Grand Seigneur der Datenvisualisierung; er hat mehrere lesenswerte Bücher zu dem Thema geschrieben [@1930824130; @1930824165; @1930824149].
 
 - William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren [@Cleveland]. 
 
 - Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
+
+- Es finden sich viele Tutorials online zu `ggplot2`; ein deutschsprachiger Tutorial findet sich hier: http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html.
 
 
 

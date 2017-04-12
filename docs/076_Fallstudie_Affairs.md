@@ -708,11 +708,11 @@ Aha, signifikant ist die Ehezufriedenheit: Je größer `rating` desto geringer d
 library(broom)
 tidy(lm10) 
 #>           term estimate std.error statistic  p.value
-#> 1  (Intercept)  0.51578   0.07934      6.50 1.69e-10
-#> 2   gendermale  0.03794   0.03422      1.11 2.68e-01
-#> 3  childrenyes  0.05403   0.04631      1.17 2.44e-01
-#> 4       rating -0.09034   0.01598     -5.65 2.47e-08
-#> 5 yearsmarried  0.00395   0.00379      1.04 2.98e-01
+#> 1  (Intercept)   0.0537    0.4299     0.125 9.01e-01
+#> 2   gendermale   0.2416    0.1966     1.229 2.19e-01
+#> 3  childrenyes   0.3935    0.2831     1.390 1.64e-01
+#> 4       rating  -0.4654    0.0874    -5.327 9.97e-08
+#> 5 yearsmarried   0.0221    0.0212     1.040 2.99e-01
 ```
 
 
@@ -728,11 +728,11 @@ tidy(lm10) %>% kable
 
 term            estimate   std.error   statistic   p.value
 -------------  ---------  ----------  ----------  --------
-(Intercept)        0.516       0.079        6.50     0.000
-gendermale         0.038       0.034        1.11     0.268
-childrenyes        0.054       0.046        1.17     0.244
-rating            -0.090       0.016       -5.65     0.000
-yearsmarried       0.004       0.004        1.04     0.298
+(Intercept)        0.054       0.430       0.125     0.901
+gendermale         0.242       0.197       1.229     0.219
+childrenyes        0.394       0.283       1.390     0.164
+rating            -0.465       0.087      -5.327     0.000
+yearsmarried       0.022       0.021       1.040     0.299
 
 
 ### Zum Abschluss
@@ -777,7 +777,7 @@ Puh. Geschafft!
 sessionInfo()
 #> R version 3.3.2 (2016-10-31)
 #> Platform: x86_64-apple-darwin13.4.0 (64-bit)
-#> Running under: macOS Sierra 10.12.3
+#> Running under: macOS Sierra 10.12.4
 #> 
 #> locale:
 #> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8

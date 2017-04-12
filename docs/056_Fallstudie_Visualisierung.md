@@ -2,7 +2,7 @@
 
 
 
-# Fallstudie zur Visualisierung von Umfragedaten
+# Fallstudie zur Visualisierung
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -26,7 +26,7 @@ library(GGally)
 
 
 
-Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. 
+Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. Das ist der Gegenstand dieser Fallstudie.
 
 
 ## Daten einlesen
