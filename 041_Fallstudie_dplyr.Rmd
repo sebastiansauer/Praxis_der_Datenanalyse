@@ -119,3 +119,11 @@ flights %>%
 
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
 
+
+
+## Verweise
+
+- Eine ausführlichere Version einer "YACSDA"^[yet another case study on data analysis] findet sich hier^[https://sebastiansauer.github.io/Fallstudie_Flights/] oder hier^[https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html].
+
+- Es finden sich online viele ähnliche Datenanalysen zu `dplyr`, z.B. hier^[http://stat545.com/block009_dplyr-intro.html] oder hier^[http://genomicsclass.github.io/book/pages/dplyr_tutorial.html].
+

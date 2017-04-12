@@ -554,10 +554,9 @@ Merke:
 </div>\EndKnitrBlock{rmdexercises}
 
 
-## Vertiefung
 
 
-### Die Pfeife
+## Die Pfeife
 Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate.
 
 <div class="figure" style="text-align: center">
@@ -583,6 +582,7 @@ filter(summarise(group_by(filter(stats_test, !is.na(score)), interest), mw = mea
 ```
 
 mit dieser
+
 
 ```r
 stats_test %>% 
@@ -611,159 +611,129 @@ liefere nur die Werte größer als 30 zurück.
 </div>\EndKnitrBlock{rmdpseudocode}
 
 
+Die zweite Syntax, in "Pfeifenform" ist viel einfacher zu verstehen als die erste! Die erste Syntax ist verschachelt, man muss sie von innen nach außen lesen. Das ist kompliziert. Die Pfeife in der 2. Syntax macht es viel einfacher, die Snytax zu verstehen, da die Befehle "hintereinander" gestellt (sequenziell organisiert) sind.
+
+
 
 Die Pfeife zerlegt die "russische Puppe", also ineinander verschachelteten Code, in sequenzielle Schritte und zwar in der richtigen Reihenfolge (entsprechend der Abarbeitung). Wir müssen den Code nicht mehr von innen nach außen lesen (wie das bei einer mathematischen Formel der Fall ist), sondern können wie bei einem Kochrezept "erstens ..., zweitens .., drittens ..." lesen. Die Pfeife macht die Syntax einfacher. Natürlich hätten wir die verschachtelte Syntax in viele einzelne Befehle zerlegen können und jeweils eine Zwischenergebnis speichern mit dem Zuweisungspfeil `<-` und das Zwischenergebnis dann explizit an den nächsten Befehl weitergeben. Eigentlich macht die Pfeife genau das - nur mit weniger Tipparbeit. Und auch einfacher zu lesen. Flow!
 
 
+### Spalten berechnen mit `mutate`
 
-### Werte umkodieren und "binnen" 
+Wenn man die Pfeife benutzt, ist der Befehl `mutate` ganz praktisch: Er berechnet eine Spalte. Normalerweise kann man einfach eine Spalte berechnen mit dem Zuweisungsoperator:
 
-#### `car::recode`
+Zum Beispiel so:
 
-Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln (ein Klassiker ist `1` in `maennlich` bzw. `2` in `weiblich` oder umgekehrt, kann sich niemand merken). Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Übrigens: Wenn man explizit angeben möchte, aus welchem Paket ein Befehl stammt (z.B. um Verwechslungen zu vermeiden), gibt man `Paketnamen::Befehlnamen` an. Schauen wir uns ein paar Beispiele zum Umkodieren an.
+```
+df$neue_spalte <- df$spalte1 + df$spalte2
+```
 
+Innerhalb einer Pfeifen-Syntax geht das aber nicht (so gut). Da ist man mit der Funtion `mutate` besser beraten; `mutate` leistest just dasselbe wie die Pseudo-Syntax oben:
+
+```
+df %>% 
+  mutate(neue_spalte = spalte1 + spalte2)
+```
+
+In Worten:
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nimm die Tabelle "df" UND DANN  
+bilde eine neue Spalte mit dem Namen `neue_spalte`,
+die sich berechnet als Summe von `spalte1` und `spalte2`.  
+</div>\EndKnitrBlock{rmdpseudocode}
+
+
+Ein konkretes Beispiel:
+
+
+```r
+stats_test %>% 
+  mutate(bestanden = score > 25) %>% 
+  head()
+#>   X                 V_1 study_time self_eval interest score bestanden
+#> 1 1 05.01.2017 13:57:01          5         8        5    29      TRUE
+#> 2 2 05.01.2017 21:07:56          3         7        3    29      TRUE
+#> 3 3 05.01.2017 23:33:47          5        10        6    40      TRUE
+#> 4 4 06.01.2017 09:58:05          2         3        2    18     FALSE
+#> 5 5 06.01.2017 14:13:08          4         8        6    34      TRUE
+#> 6 6 06.01.2017 14:21:18         NA        NA       NA    39      TRUE
+```
+
+Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 25 ist. Falls ja (TRUE), dann ist `bestanden` TRUE, ansonsten ist `bestanden` FALSE (Pech). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
+
+
+Ein Sinnbild für `mutate`:
+
+<img src="images/mutate.png" width="70%" style="display: block; margin: auto;" />
+
+
+
+### Aufgaben
+
+1. Entschlüsseln Sie dieses Ungetüm! Übersetzen Sie diese Syntax auf Deutsch:
 
 
 ```r
 
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = TRUE)
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = FALSE)
+library(nycflights13)
+data(flights)
 
-stats_test$study_time <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 4 = 'wenig'; else = 'Hilfe'", as.factor.result = TRUE)
-
-head(stats_test$study_time)
-#> [1] sehr viel Hilfe     sehr viel Hilfe     wenig     Hilfe    
-#> Levels: Hilfe sehr viel wenig
+verspaetung <-
+  filter(
+    summarise(
+    group_by(filter(flights, !is.na(dep_delay), month)), delay = mean(dep_delay), n = n()), n > 10)
+ 
 ```
 
-Der Befehle `recode` ist wirklich sehr prkatisch; mit `:` kann man "von bis" ansprechen (das ginge mit `c()` übrigens auch); `else` für "ansonsten" ist möglich und mit `as.factor.result` kann man entweder einen Faktor oder eine Text-Variable zurückgeliefert bekommen. Der ganze "Wechselterm" steht in Anführungsstrichen (`"`). Einzelne Teile des Wechselterms sind mit einem Strichpunkt (`;`) voneinander getrennt.
 
-
-Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
+2. Entschlüsseln Sie jetzt diese Syntax bzw. übersetzen Sie sie ins Deutsche:
 
 
 ```r
-stats_test$no_interest <- car::recode(stats_test$interest, "1 = 6; 2 = 5; 3 = 4; 4 = 3; 5 = 2; 6 = 1; else = NA")
-glimpse(stats_test$no_interest)
-#>  num [1:306] 2 4 1 5 1 NA NA 4 2 2 ...
+verspaetung <- flights %>% filter(!is.na(dep_delay)) %>%
+group_by(month) %>%
+summarise(delay = mean(dep_delay), n = n()) %>% filter(n > 10)
 ```
 
-Bei dem Wechselterm muss man aufpassen, nichts zu verwechseln; die Zahlen sehen alle ähnlich aus...
 
-Testen kann man den Erfolg des Umpolens mit
+3. (schwierig) Die Pfeife bei `arr_delay`
+
+- Übersetzen Sie die folgende Pseudo-Syntax ins ERRRische!
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz `flights` UND DANN...  
+Wähle daraus die Spalte `arr_delay` UND DANN...  
+Berechne den Mittelwert der Spalte UND DANN...  
+ziehe vom Mittelwert die Spalte ab UND DANN...
+quadriere die einzelnen Differenzen UND DANN...
+bilde davon den Mittelwert.  
+</div>\EndKnitrBlock{rmdpseudocode}
+
+Lösung:
 
 
 ```r
-dplyr::count(stats_test, interest)
-#> # A tibble: 7 × 2
-#>   interest     n
-#>      <int> <int>
-#> 1        1    30
-#> 2        2    47
-#> 3        3    66
-#> 4        4    41
-#> 5        5    45
-#> 6        6     9
-#> 7       NA    68
-dplyr::count(stats_test, no_interest)
-#> # A tibble: 7 × 2
-#>   no_interest     n
-#>         <dbl> <int>
-#> 1           1     9
-#> 2           2    45
-#> 3           3    41
-#> 4           4    66
-#> 5           5    47
-#> 6           6    30
-#> 7          NA    68
-```
-
-Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann ("binnen"):
-
-
-
-```r
-stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; else = 'bestanden'")
+flights %>% 
+  select(arr_delay) %>% 
+  mutate(arr_delay_delta = arr_delay - mean(flights$arr_delay, na.rm = TRUE)) %>% 
+  mutate(arr_delay_delta_quadrat = arr_delay_delta^2) %>% 
+  summarise(arr_delay_var = mean(arr_delay_delta_quadrat, na.rm = TRUE)) %>% 
+  summarise(sqrt(arr_delay_var))
+#> # A tibble: 1 × 1
+#>   `sqrt(arr_delay_var)`
+#>                   <dbl>
+#> 1                  44.6
 ```
 
 
-Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
+- Berechnen Sie die sd von `arr_delay` in `flights`! Vergleichen Sie sie mit dem Ergebnis der vorherigen Aufgabe!^[`sd(flights$arr_delay, na.rm = TRUE)`]
 
 
-#### Numerische Werte in Klassen gruppieren mit `cut`
-Numerische Werte in Klassen zu gruppieren ("to bin", denglisch: "binnen") kann mit dem Befehl `cut` (and friends) besorgt werden.
-
-Es lassen sich drei typische Anwendungsformen unterscheiden:
-
-Eine numerische Variable ...
-
-1. in *k* gleich große Klassen grupieren (gleichgroße Intervalle)
-2. so in Klassen gruppieren, dass in jeder Klasse *n* Beobachtungen sind (gleiche Gruppengrößen)
-3. in beliebige Klassen gruppieren
-
-
-##### gleichgroße Intervalle
-
-Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen [^d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
-
-
-```r
-wo_men <- read_csv("data/wo_men.csv")
-
-wo_men %>% 
-  filter(height > 150, height < 220) -> wo_men2
-
-temp <- cut_interval(x = wo_men2$height, n = 3)
-
-levels(temp)
-#> [1] "[155,172]" "(172,189]" "(189,206]"
-```
-
-`cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
-
-
-###### gleiche Gruppengrößen
-
-
-```r
-temp <- cut_number(wo_men2$height, n = 2)
-str(temp)
-#>  Factor w/ 2 levels "[155,169]","(169,206]": 1 2 2 2 2 1 1 2 1 2 ...
-```
-
-Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen.
-
->   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
-
-
-##### In beliebige Klassen gruppieren
-
-
-```r
-wo_men$groesse_gruppe <- cut(wo_men$height, 
-                             breaks = c(-Inf, 100, 150, 170, 200, 230, Inf))
-
-count(wo_men, groesse_gruppe)
-#> # A tibble: 6 × 2
-#>   groesse_gruppe     n
-#>           <fctr> <int>
-#> 1     (-Inf,100]     4
-#> 2      (150,170]    55
-#> 3      (170,200]    38
-#> 4      (200,230]     2
-#> 5     (230, Inf]     1
-#> 6             NA     1
-```
-
-`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert wird nicht automatisch als unterste Intervallgrenze herangezogen.
-
-
-
-
+- Was hat die Pfeifen-Syntax oben berechnet?^[die sd von `arr_delay`]
 
 
 ## Verweise
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[: <http://bit.ly/2kX9lvC>].
+- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[<http://bit.ly/2kX9lvC>].
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 

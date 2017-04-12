@@ -437,10 +437,9 @@ Richtig oder Falsch!?
 ```
 
 
-## Vertiefung
 
 
-### Die Pfeife
+## Die Pfeife
 Die zweite Idee kann man salopp als "Durchpfeifen" bezeichnen; ikonographisch mit diesem Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate.
 
 ```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578"}
@@ -463,6 +462,7 @@ filter(summarise(group_by(filter(stats_test, !is.na(score)), interest), mw = mea
 ```
 
 mit dieser
+
 ```{r}
 stats_test %>% 
   filter(!is.na(score)) %>% 
@@ -485,119 +485,120 @@ liefere nur die Werte größer als 30 zurück.
 ```
 
 
+Die zweite Syntax, in "Pfeifenform" ist viel einfacher zu verstehen als die erste! Die erste Syntax ist verschachelt, man muss sie von innen nach außen lesen. Das ist kompliziert. Die Pfeife in der 2. Syntax macht es viel einfacher, die Snytax zu verstehen, da die Befehle "hintereinander" gestellt (sequenziell organisiert) sind.
+
+
 
 Die Pfeife zerlegt die "russische Puppe", also ineinander verschachelteten Code, in sequenzielle Schritte und zwar in der richtigen Reihenfolge (entsprechend der Abarbeitung). Wir müssen den Code nicht mehr von innen nach außen lesen (wie das bei einer mathematischen Formel der Fall ist), sondern können wie bei einem Kochrezept "erstens ..., zweitens .., drittens ..." lesen. Die Pfeife macht die Syntax einfacher. Natürlich hätten wir die verschachtelte Syntax in viele einzelne Befehle zerlegen können und jeweils eine Zwischenergebnis speichern mit dem Zuweisungspfeil `<-` und das Zwischenergebnis dann explizit an den nächsten Befehl weitergeben. Eigentlich macht die Pfeife genau das - nur mit weniger Tipparbeit. Und auch einfacher zu lesen. Flow!
 
 
+### Spalten berechnen mit `mutate`
 
-### Werte umkodieren und "binnen" 
+Wenn man die Pfeife benutzt, ist der Befehl `mutate` ganz praktisch: Er berechnet eine Spalte. Normalerweise kann man einfach eine Spalte berechnen mit dem Zuweisungsoperator:
 
-#### `car::recode`
-
-Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln (ein Klassiker ist `1` in `maennlich` bzw. `2` in `weiblich` oder umgekehrt, kann sich niemand merken). Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Übrigens: Wenn man explizit angeben möchte, aus welchem Paket ein Befehl stammt (z.B. um Verwechslungen zu vermeiden), gibt man `Paketnamen::Befehlnamen` an. Schauen wir uns ein paar Beispiele zum Umkodieren an.
-
-
-```{r}
-
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = TRUE)
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = FALSE)
-
-stats_test$study_time <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 4 = 'wenig'; else = 'Hilfe'", as.factor.result = TRUE)
-
-head(stats_test$study_time)
-```
-
-Der Befehle `recode` ist wirklich sehr prkatisch; mit `:` kann man "von bis" ansprechen (das ginge mit `c()` übrigens auch); `else` für "ansonsten" ist möglich und mit `as.factor.result` kann man entweder einen Faktor oder eine Text-Variable zurückgeliefert bekommen. Der ganze "Wechselterm" steht in Anführungsstrichen (`"`). Einzelne Teile des Wechselterms sind mit einem Strichpunkt (`;`) voneinander getrennt.
-
-
-Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
-
-```{r}
-stats_test$no_interest <- car::recode(stats_test$interest, "1 = 6; 2 = 5; 3 = 4; 4 = 3; 5 = 2; 6 = 1; else = NA")
-glimpse(stats_test$no_interest)
+Zum Beispiel so:
 
 ```
-
-Bei dem Wechselterm muss man aufpassen, nichts zu verwechseln; die Zahlen sehen alle ähnlich aus...
-
-Testen kann man den Erfolg des Umpolens mit
-
-```{r}
-dplyr::count(stats_test, interest)
-dplyr::count(stats_test, no_interest)
+df$neue_spalte <- df$spalte1 + df$spalte2
 ```
 
-Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann ("binnen"):
+Innerhalb einer Pfeifen-Syntax geht das aber nicht (so gut). Da ist man mit der Funtion `mutate` besser beraten; `mutate` leistest just dasselbe wie die Pseudo-Syntax oben:
+
+```
+df %>% 
+  mutate(neue_spalte = spalte1 + spalte2)
+```
+
+In Worten:
 
 
-```{r}
-stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; else = 'bestanden'")
+```{block2, durchpfeifen-mutate, type='rmdpseudocode', echo = TRUE}
+Nimm die Tabelle "df" UND DANN  
+bilde eine neue Spalte mit dem Namen `neue_spalte`,
+die sich berechnet als Summe von `spalte1` und `spalte2`.  
+
 ```
 
 
-Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
-
-
-#### Numerische Werte in Klassen gruppieren mit `cut`
-Numerische Werte in Klassen zu gruppieren ("to bin", denglisch: "binnen") kann mit dem Befehl `cut` (and friends) besorgt werden.
-
-Es lassen sich drei typische Anwendungsformen unterscheiden:
-
-Eine numerische Variable ...
-
-1. in *k* gleich große Klassen grupieren (gleichgroße Intervalle)
-2. so in Klassen gruppieren, dass in jeder Klasse *n* Beobachtungen sind (gleiche Gruppengrößen)
-3. in beliebige Klassen gruppieren
-
-
-##### gleichgroße Intervalle
-
-Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen [^d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
+Ein konkretes Beispiel:
 
 ```{r}
-wo_men <- read_csv("data/wo_men.csv")
-
-wo_men %>% 
-  filter(height > 150, height < 220) -> wo_men2
-
-temp <- cut_interval(x = wo_men2$height, n = 3)
-
-levels(temp)
+stats_test %>% 
+  mutate(bestanden = score > 25) %>% 
+  head()
 ```
 
-`cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
+Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 25 ist. Falls ja (TRUE), dann ist `bestanden` TRUE, ansonsten ist `bestanden` FALSE (Pech). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
 
 
-###### gleiche Gruppengrößen
+Ein Sinnbild für `mutate`:
+
+```{r fig-mutate, echo = FALSE}
+knitr::include_graphics("images/mutate.png")
+```
+
+
+
+### Aufgaben
+
+1. Entschlüsseln Sie dieses Ungetüm! Übersetzen Sie diese Syntax auf Deutsch:
+
+```{r ungetuem}
+
+library(nycflights13)
+data(flights)
+
+verspaetung <-
+  filter(
+    summarise(
+    group_by(filter(flights, !is.na(dep_delay), month)), delay = mean(dep_delay), n = n()), n > 10)
+ 
+```
+
+
+2. Entschlüsseln Sie jetzt diese Syntax bzw. übersetzen Sie sie ins Deutsche:
 
 ```{r}
-temp <- cut_number(wo_men2$height, n = 2)
-str(temp)
+verspaetung <- flights %>% filter(!is.na(dep_delay)) %>%
+group_by(month) %>%
+summarise(delay = mean(dep_delay), n = n()) %>% filter(n > 10)
 ```
 
-Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen.
 
->   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
+3. (schwierig) Die Pfeife bei `arr_delay`
 
+- Übersetzen Sie die folgende Pseudo-Syntax ins ERRRische!
 
-##### In beliebige Klassen gruppieren
+```{block2, pfeife-ungetuem, type='rmdpseudocode', echo = TRUE}
+Nehme den Datensatz `flights` UND DANN...  
+Wähle daraus die Spalte `arr_delay` UND DANN...  
+Berechne den Mittelwert der Spalte UND DANN...  
+ziehe vom Mittelwert die Spalte ab UND DANN...
+quadriere die einzelnen Differenzen UND DANN...
+bilde davon den Mittelwert.  
+
+```
+
+Lösung:
 
 ```{r}
-wo_men$groesse_gruppe <- cut(wo_men$height, 
-                             breaks = c(-Inf, 100, 150, 170, 200, 230, Inf))
-
-count(wo_men, groesse_gruppe)
+flights %>% 
+  select(arr_delay) %>% 
+  mutate(arr_delay_delta = arr_delay - mean(flights$arr_delay, na.rm = TRUE)) %>% 
+  mutate(arr_delay_delta_quadrat = arr_delay_delta^2) %>% 
+  summarise(arr_delay_var = mean(arr_delay_delta_quadrat, na.rm = TRUE)) %>% 
+  summarise(sqrt(arr_delay_var))
 ```
 
-`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert wird nicht automatisch als unterste Intervallgrenze herangezogen.
+
+- Berechnen Sie die sd von `arr_delay` in `flights`! Vergleichen Sie sie mit dem Ergebnis der vorherigen Aufgabe!^[`sd(flights$arr_delay, na.rm = TRUE)`]
 
 
-
-
+- Was hat die Pfeifen-Syntax oben berechnet?^[die sd von `arr_delay`]
 
 
 ## Verweise
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[: <http://bit.ly/2kX9lvC>].
+- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[<http://bit.ly/2kX9lvC>].
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 

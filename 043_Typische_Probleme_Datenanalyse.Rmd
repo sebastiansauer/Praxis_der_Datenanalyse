@@ -19,19 +19,18 @@ knitr::opts_chunk$set(
 
 
 
-# Typische Probleme der Datenanalyse
+# Typische Probleme der Datenaufbereitung
 
 
 
 
 
-# Datenjudo
 
 ```{block2, ziele-typ-probleme, type='rmdcaution', echo = TRUE} 
 Lernziele:
 
-- Typische Probleme der Datenanalyse kennen.
-- Typische Probleme der Datenanalyse bearbeiten können.
+- Typische Probleme der Datenaufbereitung kennen.
+- Typische Probleme der Datenaufbereitung bearbeiten können.
 
 ```
 
@@ -41,13 +40,15 @@ Laden wir zuerst die benögtigten Pakete; v.a. ist das `dplyr` and friends. Das 
 library(tidyverse)
 library(corrr)
 library(gridExtra)
+library(car)
 ```
 
 
-Stellen wir einige typische Probleme des Datenjudo (Daten aufbereiten) zusammen. Probleme heißt hier nicht, dass es etwas Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar typische Aufgabenstellungen an, die im Rahmen der Datenanalyse häufig anfallen.
+Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitung) zusammen. Probleme heißt hier nicht, dass es etwas Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar typische Aufgabenstellungen an, die im Rahmen der Datenaufbereitung häufig anfallen. 
+
 
 ## Auf fehlende Werte prüfen 
-Das geht recht einfach mit `summarise(meine_daten)`. Der Befehl liefert für jede Spalte die Anzahl der fehlenden Werte zurück.
+Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
 ```{r}
 wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
@@ -71,7 +72,17 @@ wo_men %>%
   filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
 ```
 
-Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten.
+Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
+
+In Pseudo-Syntax liest es sich so:
+
+```{block2, no-na-filter, type='rmdpseudocode', echo = TRUE}
+Nehme den Datensatz `wo_men` UND DANN...  
+Mache aus den Zeilennamen (hier identisch zu Zeilennummer) eine eigene Spalte UND DANN...  
+filtere die nicht-kompletten Fälle 
+
+```
+
 
 ## Fehlende Werte ggf. ersetzen  
 Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses^[Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
@@ -170,6 +181,8 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 
 
 ## Mittelwerte pro Zeile berechnen
+
+### `rowMeans`
 Um Umfragedaten auszuwerten, will man häufig einen Mittelwert *pro Zeile* berechnen. Normalerweise fasst man eine *Spalte* zu einer Zahl zusammen; aber jetzt, fassen wir eine *Zeile* zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversions-Wert pro Person (d.h. pro Zeile) berechnen.
 
 ```{r}
@@ -187,7 +200,8 @@ extra$extra_mw <- rowMeans(extra_items)
 
 Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
 
-### Vertiefung
+
+### `dpyr`
 
 Alternativ können wir Mittelwerte mit dplyr berechnen:
 
@@ -214,5 +228,118 @@ extra_items %>%
   select(mean_row) %>% 
   head # nur die ersten paar Zeilen von `mean_row` zeigen
 ```
+
+
+
+## Werte umkodieren und "binnen" 
+
+### Umkodieren mit `car::recode`
+
+Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln (ein Klassiker ist `1` in `maennlich` bzw. `2` in `weiblich` oder umgekehrt, kann sich niemand merken). Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Übrigens: Wenn man explizit angeben möchte, aus welchem Paket ein Befehl stammt (z.B. um Verwechslungen zu vermeiden), gibt man `Paketnamen::Befehlnamen` an. Schauen wir uns ein paar Beispiele zum Umkodieren an.
+
+
+```{r}
+
+stats_test <- read.csv("data/test_inf_short.csv")
+
+stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = TRUE)
+stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = FALSE)
+
+stats_test$study_time <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 4 = 'wenig'; else = 'Hilfe'", as.factor.result = TRUE)
+
+head(stats_test$study_time)
+```
+
+Der Befehle `recode` ist wirklich sehr prkatisch; mit `:` kann man "von bis" ansprechen (das ginge mit `c()` übrigens auch); `else` für "ansonsten" ist möglich und mit `as.factor.result` kann man entweder einen Faktor oder eine Text-Variable zurückgeliefert bekommen. Der ganze "Wechselterm" steht in Anführungsstrichen (`"`). Einzelne Teile des Wechselterms sind mit einem Strichpunkt (`;`) voneinander getrennt.
+
+
+Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
+
+```{r}
+stats_test$no_interest <- car::recode(stats_test$interest, "1 = 6; 2 = 5; 3 = 4; 4 = 3; 5 = 2; 6 = 1; else = NA")
+glimpse(stats_test$no_interest)
+
+```
+
+Bei dem Wechselterm muss man aufpassen, nichts zu verwechseln; die Zahlen sehen alle ähnlich aus...
+
+Testen kann man den Erfolg des Umpolens mit
+
+```{r}
+dplyr::count(stats_test, interest)
+dplyr::count(stats_test, no_interest)
+```
+
+Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann ("binnen"):
+
+
+```{r}
+stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; else = 'bestanden'")
+```
+
+
+Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
+
+
+### Numerische Werte in Klassen gruppieren mit `cut`
+Numerische Werte in Klassen zu gruppieren ("to bin", denglisch: "binnen") kann mit dem Befehl `cut` (and friends) besorgt werden. 
+
+Es lassen sich drei typische Anwendungsformen unterscheiden:
+
+Eine numerische Variable ...
+
+1. in *k* gleich große Klassen grupieren (gleichgroße Intervalle)
+2. so in Klassen gruppieren, dass in jeder Klasse *n* Beobachtungen sind (gleiche Gruppengrößen)
+3. in beliebige Klassen gruppieren
+
+
+#### Gleichgroße Intervalle
+
+Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen [^d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
+
+```{r}
+wo_men <- read_csv("data/wo_men.csv")
+
+wo_men %>% 
+  filter(height > 150, height < 220) -> wo_men2
+
+temp <- cut_interval(x = wo_men2$height, n = 3)
+
+levels(temp)
+```
+
+`cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
+
+
+#### Gleiche Gruppengrößen
+
+```{r}
+temp <- cut_number(wo_men2$height, n = 2)
+str(temp)
+```
+
+Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen.
+
+>   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
+
+
+#### In beliebige Klassen gruppieren
+
+```{r}
+wo_men$groesse_gruppe <- cut(wo_men$height, 
+                             breaks = c(-Inf, 100, 150, 170, 200, 230, Inf))
+
+count(wo_men, groesse_gruppe)
+```
+
+`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert in der Stichprobe wird nicht automatisch als unterste Intervallgrenze herangezogen. Anschaulich gesprochen ist `cut` ein Messer, das ein Seil (die kontinuierliche Variable) mit einem oder mehreren Schnitten zerschneidet. Ein Bild erläutert das am einfachsten:
+
+```{r cut-schere, echo = FALSE, fig.cap = "Sinnbild zur Funktion `cut`"}
+
+knitr::include_graphics("images/cut_schere_crop.pdf")
+
+```
+
+
 
 

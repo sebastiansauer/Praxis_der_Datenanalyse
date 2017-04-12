@@ -3,9 +3,19 @@
 
 
 # Fallstudie `nycflights13` 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Grundlegende Funktionen von `dplyr` andwenden können.
+- Das Konzept der Pfeife in einem echten Datensatz anwenden können.
+- Auch mit relativ großen Daten sicher hantieren können.
+
+
+`
 Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` anhand einer Fallstudie an. Wir verwenden hier den Datensatz `flights`aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
 
-Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`:
+Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`:</div>\EndKnitrBlock{rmdcaution}
 
 ```r
 library(tidyverse)
@@ -233,4 +243,12 @@ HA             -6.915
 AS             -9.931
 
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden...
+
+
+
+## Verweise
+
+- Eine ausführlichere Version einer "YACSDA"^[yet another case study on data analysis] findet sich hier^[https://sebastiansauer.github.io/Fallstudie_Flights/] oder hier^[https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html].
+
+- Es finden sich online viele ähnliche Datenanalysen zu `dplyr`, z.B. hier^[http://stat545.com/block009_dplyr-intro.html] oder hier^[http://genomicsclass.github.io/book/pages/dplyr_tutorial.html].
 

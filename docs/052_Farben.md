@@ -3,8 +3,8 @@
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
-- Mindestens eine bekannte Auswahl an Farben nennen können.
-- Bestimmte Farbpaletten bei ggplot2 anwenden können.
+- Mindestens eine bekannte Farbauswahl (Palette) nennen können.
+- Farbpaletten bei ggplot2 anwenden können.
 - Themen bei ggplot2 ändern können.
 
 </div>\EndKnitrBlock{rmdcaution}

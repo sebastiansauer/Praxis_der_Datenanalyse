@@ -1,5 +1,5 @@
 
-# Inferenzstatistik
+# Der p-Wert
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -13,17 +13,16 @@
 </div>\EndKnitrBlock{rmdcaution}
 
 
-## Der p-Wert
-
 
 <div class="figure" style="text-align: center">
 <img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="10%" />
 <p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
 </div>
 
+## Der p-Wert sagt nicht das, was viele denken
 
 
-Der p-Wert ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen. 
+Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen. 
 
 
 <div class="figure" style="text-align: center">
@@ -48,6 +47,26 @@ Viele Menschen - inkl. Professoren und Statistik-Dozenten - haben Probleme mit d
 
 $$ P(D|H) \ne P(H|D) $$
 
+
+Formeln haben die merkwürdige Angewohnheit vor dem inneren Auge zu verschwimmen; Bilder sind für viele Menschen klarer, scheint's. Übersetzen wir die obige Formel in folgenden Satz:
+
+>   Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist UNGLEICH zur 
+Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist.
+
+
+Oder kürzer:
+
+
+$$ P(M|T) \ne P(T|M) $$
+
+
+Als Bild:
+
+![](images/moslems_terroristen_crop.pdf)<!-- -->
+
+
+## Weitere Kritik am p-Wert
+
 Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertainty]; z.B. dass die "5%-Hürde" einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema "P-Hacking" argumentieren [@Head2015, @Wicherts2016]; andere statistische Verfahren können auch gehackt werden.
 
 Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit. Die Verteitigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
@@ -56,5 +75,7 @@ Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) u
 
 
 <img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="250" style="display: block; margin: auto;" />
+
+
 
 

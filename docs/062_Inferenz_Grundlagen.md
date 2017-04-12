@@ -1,9 +1,9 @@
 
 
 
-## Grundlagen der Inferenzstatistik
+# Grundlagen der Inferenzstatistik
 
-### Zufall und Wahrscheinlichkeit
+## Zufall und Wahrscheinlichkeit
 In dieser Übung werden wir ein wenig programmieren, daher bietet es sich an, die Befehle in einem Skript zu speichern. Gehen Sie dazu in RStudio in das Menü `File` und dort auf `New File` und wählen `R Script` aus. Dies können Sie dann am Ende über `File` und `Save` bzw. `Safe as` speichern -- und über `Open File` später auch wieder öffnen. Um die Befehle an die Konsole zu übergeben klicken Sie entweder auf `Run` (nur ausgewählte Zeile, Tastenkürzel `Strg+Enter`) oder `Source` (ganze Programm).
 
 Zunächst laden wir wieder das Zusatzpaket mosaic, falls noch nicht geschehen:
@@ -145,7 +145,7 @@ anteil
 ```
 Das kommt also eher selten vor. Pech. Vielleicht würden Ihnen aber auch Zweifel kommen, ob der Tisch fair ist. In der Simulation liegt also die Wahrscheinlichkeit, bei einem fairen Tisch bei 8 Spielen höchstens einmal zu gewinnen bei 3.6%. 
 
-### Hypothesentest, p-Wert und Konfidenzintervall
+## Hypothesentest, p-Wert und Konfidenzintervall
 
 Im Paper 
 *Hose, C., Lübke, K., Nolte, T., und Obermeier, T. (2012): Ratingprozess und Ratingergebnis: Ein Experiment bei qualitativen Ratingkriterien, Kredit & Rating Praxis (6), 12-14* 
@@ -258,7 +258,7 @@ Dies ist das **Nicht-parametrische Bootstrap-Konfidenzintervall**.
 
 
 
-### Rechnen mit der Normalverteilung
+## Rechnen mit der Normalverteilung
 
 In der Finanzwissenschaft wird häutig die Annahme verwendet, dass die (logarithmierten) Renditen von Anlagen normalverteilt sind. 
 
@@ -359,7 +359,7 @@ mosaic::xqnorm(0.01, mean=0.11, sd=1.62, lower.tail = FALSE)
 
 ***
 
-### Übung
+## Übung
 
 In einem Test zur Achtsamkeit *Sauer S, Lemke J, Wittmann M, Kohls N, Mochty U, and Walach H. (2012) How long is now for mindfulness meditators? Personality and Individual Differences 52(6), 750–754* konnten 34 von 38 Studienteilnehmern der Kontrollgruppe nach einer Instruktion die Dauer der Fixierung des Necker Würfels (Link/Bild) steigern.
 
@@ -373,7 +373,7 @@ Der IQ hat nach Konstruktion einen arithmetischen Mittelwert von 100 bei einer S
 
 
 
-### Literatur
+## Literatur
 
 
 - David M. Diez, Christopher D. Barr, Mine &Ccedil;etinkaya-Rundel (2014): *Introductory Statistics with Randomization and Simulation*, [https://www.openintro.org/stat/textbook.php?stat_book=isrs](https://www.openintro.org/stat/textbook.php?stat_book=isrs),  Kapitel 2
@@ -385,12 +385,12 @@ Der IQ hat nach Konstruktion einen arithmetischen Mittelwert von 100 bei einer S
 
 
 
-### Lizenz
+## Lizenz
 
 Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übung zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) von Andrew Bray, Mine &Ccedil;etinkaya-Rundel und Mark Hansen und steht wie diese unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
 
 
-### Versionshinweise
-* Datum erstellt: 2017-04-10
+## Versionshinweise
+* Datum erstellt: 2017-04-12
 * R Version: 3.3.2
 * `mosaic` Version: 0.14.4

@@ -2,7 +2,7 @@
 
 
 
-# Tidy Data - Daten sauber einlesen
+# Daten einlesen
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:

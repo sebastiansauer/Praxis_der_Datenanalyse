@@ -36,7 +36,7 @@ Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichun
 
 <div class="figure" style="text-align: center">
 <img src="images/visualisieren/anscombe.pdf" alt="Das Anscombe-Quartett" width="70%" />
-<p class="caption">(\#fig:plot-anscombe)Das Anscombe-Quartett</p>
+<p class="caption">(\#fig:fig-anscombe)Das Anscombe-Quartett</p>
 </div>
 
 

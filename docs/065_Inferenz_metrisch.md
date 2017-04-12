@@ -1,21 +1,36 @@
 
 
 
-## Inferenz für metrische Variablen
-
-### Random Walk
+# Inferenz für metrische Variablen
 
 
 
-Beim Glücksspiel ist es offensichtlich, aber auch an vielen, vielen anderen Stellen im Leben begegnen wir dem *Zufall*. Daten, Beobachtungen sind häufig Realisationen von sogenannten Zufallsvariablen. Das sind Variablen, deren Werte vom Zufall (und damit auch seinen Modellen und Gesetzen) abhängen. So werden Aktienkurse und -renditen häufig als Random Walk aufgefasst und modelliert - häufig unter der *Annahme* einer Normalverteilung.^[Sowohl die Annahme einer Normalverteilung, als auch die Annahme, dass die Renditen unabhängig voneinander sind (d. h., dass keine *Autokorrelation* vorliegt) und einer identischen Verteilung folgen (hier gleiche Varianz) sind in der Praxis kritisch zu hinterfragen.]
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
-Zur Analyse wird wieder das Paket mosaic verwendet:
+- Das Konzept des "random walk" verstehen.
+- den t-Test verstehen und anwenden können.
+- Die (einfaktorielle) Varianzanalyse verstehen und anwenden können.
+
+</div>\EndKnitrBlock{rmdcaution}
+
+
+In diesem Kapitel benötigen wir folgende Pakete:
+
 
 ```r
 library(mosaic)
 ```
 
-### t-Test für eine Stichprobe
+
+## Random Walk
+
+
+
+Beim Glücksspiel ist es offensichtlich, aber auch an vielen, vielen anderen Stellen im Leben begegnen wir dem *Zufall*. Daten, Beobachtungen sind häufig Realisationen von sogenannten Zufallsvariablen. Das sind Variablen, deren Werte vom Zufall (und damit auch seinen Modellen und Gesetzen) abhängen. So werden Aktienkurse und -renditen häufig als Random Walk aufgefasst und modelliert - häufig unter der *Annahme* einer Normalverteilung.^[Sowohl die Annahme einer Normalverteilung, als auch die Annahme, dass die Renditen unabhängig voneinander sind (d. h., dass keine *Autokorrelation* vorliegt) und einer identischen Verteilung folgen (hier gleiche Varianz) sind in der Praxis kritisch zu hinterfragen.]
+
+
+
+## t-Test für eine Stichprobe
 
 An den `n=251` Handelstagen des Jahres 2015 lag der arithmetische Mittelwert der (logarithmierten) Rendite der Facebook Aktie bei `0.11`, bei einer Standardabweichung (hier auch Volatilität genannt) von `1.62`. Zeigen diese Daten, dass die Rendite der Aktie nicht zufällig größer als Null ist, können wir aus dem Daten also auf die Alternativhypothese $H_A: \mu>0$ schließen? Dabei gehen wir von eine unabhängigen, identischen Normalverteilung der Beobachtungen aus.
 
@@ -97,7 +112,7 @@ einen Mittelwert in der Jahresrendite unter 0.
 
 ***
 
-### t-Test für eine abhängige/ gepaarte Stichprobe
+## t-Test für eine abhängige/ gepaarte Stichprobe
 Der B3 Datensatz *Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.* enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.
 
 Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werden:
@@ -191,7 +206,7 @@ Der (umfangreichen) Ausgabe können Sie neben dem z- bzw. t-Wert (-1.96) mit unt
 
 ***
 
-### t-Test für zwei unabhängige Stichprobe
+## t-Test für zwei unabhängige Stichprobe
 Untersuchen wir, ob sich makroökonomische Kennzahlen im Auf- und Abschwung unterscheiden. 
 Zunächst stellen wir fest, dass die eigentlich kategorielle Variable `PHASEN` hier numerisch kodiert wurde, was aber schnell verwirren würde.
 
@@ -356,7 +371,7 @@ lsr::cohensD(ZINSK ~ PHASEN, data=B3AufAb)
 ```
 
 
-### Varianzanalyse (ANOVA)
+## Varianzanalyse (ANOVA)
 Bei mehr als zwei Gruppen funktionieren die Techniken des t-Tests nicht mehr. Um Lagemaßunterschiede zu testen wird anstelle der Mittelwerte die Streuung verglichen: Ist die Streuung zwischen den Gruppen groß im Vergleich zur Streuung innerhalb der Gruppen?
 
 Unterscheidet sich der mittlere Anteil des Staatsdefizits `DEFRATE` nicht zufällig zwischen den Konjunkturphasen?
@@ -431,7 +446,7 @@ Neben dem arithmetischen Mittelwert (Punktschätzer) wird in der Standardeinstel
 
 ***
 
-#### Vertiefung: Mehrfaktorielle Varianzanalyse mit Wechselwirkung
+## Vertiefung: Mehrfaktorielle Varianzanalyse mit Wechselwirkung
 Betrachten wir noch einmal den  *tips* Datensatz aus *Bryant, P. G. and Smith, M (1995) Practical Data Analysis: Case Studies in Business Statistics. Homewood, IL: Richard D. Irwin Publishing*.
 
 Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
@@ -488,7 +503,7 @@ Auch hier gilt: Mit einem p-Wert von $0.564$ wird die Nullhypothese, dass in der
 
 
 
-### Übung: Teaching Rating
+## Übung: Teaching Rating
 Dieser Datensatz analysiert u. a. den Zusammenhang zwischen Schönheit und Evaluierungsergebnis von Dozenten:
 
 *Hamermesh, D.S., and Parker, A. (2005). Beauty in the Classroom: Instructors' Pulchritude and Putative Pedagogical Productivity. Economics of Education Review, 24, 369–376.*
@@ -498,7 +513,7 @@ Sie können ihn, sofern noch nicht geschehen, von [https://goo.gl/6Y3KoK](https:
 1.  Ist das arithmetische Mittel der Evaluierung `eval` nicht zufällig größer als befriedigend (3)?
 2.  Gibt es einen nicht zufälligen Unterschied im Lagemaß der Evaluation `eval` zwischen männlichen und weiblichen Dozent/innen (`gender`)?
 
-### Verweise
+## Verweise
 
 
 - David M. Diez, Christopher D. Barr, Mine &Ccedil;etinkaya-Rundel (2014): *Introductory Statistics with Randomization and Simulation*, [https://www.openintro.org/stat/textbook.php?stat_book=isrs](https://www.openintro.org/stat/textbook.php?stat_book=isrs),  Kapitel 4
@@ -507,5 +522,5 @@ Sie können ihn, sofern noch nicht geschehen, von [https://goo.gl/6Y3KoK](https:
 - Andreas Quatember (2010): *Statistik ohne Angst vor Formeln*, Kapitel 3.5, 3.7, 3.12
 - Daniel Wollschläger (2014): *Grundlagen der Datenanalyse mit R*, Kapitel 7.2, 7.3, 7.5
 
-### Lizenz
+## Lizenz
 Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übung zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) von Andrew Bray, Mine &Ccedil;etinkaya-Rundel und steht wie diese unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0).  

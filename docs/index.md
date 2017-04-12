@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer"
-date: '2017-04-10'
+date: '2017-04-12'
 colorlinks: yes
 cover-image: cover.jpg
 bibliography:

@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="textmining.html">
-<link rel="next" href="was-ist-rmarkdown.html">
+<link rel="prev" href="mod1.html">
+<link rel="next" href="grundlagen-der-inferenzstatistik.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -461,17 +461,89 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="v-ergebnisse-kommunizieren" class="section level1 unnumbered">
-<h1>V ERGEBNISSE KOMMUNIZIEREN</h1>
+<div id="der-p-wert" class="section level1">
+<h1><span class="header-section-number">Kapitel 12</span> Der p-Wert</h1>
 
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Den p-Wert erläutern können.</li>
+<li>Den p-Wert kritisieren können.</li>
+<li>Den p-Wert auf Basis von Simulationen berechnen können.</li>
+<li>Grundlegende Inferenzstatistiken für metrische Variablen berechnen können.</li>
+<li>Grundlegende Inferenzstatistiken für nominale Variablen berechnen können.</li>
+</ul>
+</div>
+<p></p>
+<div class="figure" style="text-align: center"><span id="fig:sir-fisher"></span>
+<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="10%" />
+<p class="caption">
+Abbildung 12.1: Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)
+</p>
+</div>
+<div id="der-p-wert-sagt-nicht-das-was-viele-denken" class="section level2">
+<h2><span class="header-section-number">12.1</span> Der p-Wert sagt nicht das, was viele denken</h2>
+<p>Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. <a href="der-p-wert.html#fig:sir-fisher">12.1</a>), ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen.</p>
+<div class="figure" style="text-align: center"><span id="fig:who-said"></span>
+<img src="images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="234" />
+<p class="caption">
+Abbildung 12.2: Der p-Wert wird oft als wichtig erachtet
+</p>
+</div>
+<p>Was sagt uns der p-Wert? Eine gute intuitive Definition ist:</p>
+<blockquote>
+<p>Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.</p>
+</blockquote>
+<p>Je größer p, desto besser passen die Daten zur Nullhypothese.</p>
+<p>Allerdings hat der p-Wert seine Probleme. Vor allem: Er wird missverstanden. Jetzt kann man sagen, dass es dem p-Wert (dem armen) nicht anzulasten, dass andere/ einige ihm missverstehen. Auf der anderen Seite finde ich, dass sich Technologien dem Nutzer anpassen sollten (soweit als möglich) und nicht umgekehrt. Die (genaue) Definition des p-Werts ist aber auch so kompliziert, man kann sie leicht missverstehen:</p>
+<blockquote>
+<p>Der p-Wert gibt die Wahrscheinlichkeit P unserer Daten D an (und noch extremerer), unter der Annahme, dass die getestete Hypothese H wahr ist (und wenn wir den Versuch unendlich oft wiederholen würden, unter identischen Bedingungen und ansonsten zufällig). p = P(D|H)</p>
+</blockquote>
+<p>Viele Menschen - inkl. Professoren und Statistik-Dozenten - haben Probleme mit dieser Definition <span class="citation">(Gigerenzer <a href="#ref-Gigerenzer2004">2004</a>)</span>. Das ist nicht deren Schuld: Die Definition ist kompliziert. Vielleicht denken viele, der p-Wert sage das, was tatsächlich interessant ist: die Wahrscheinlichkeit der (getesteten) Hypothese H, gegeben der Tatsache, dass bestimmte Daten D vorliegen. Leider ist das <em>nicht</em> die Definition des p-Werts. Also:</p>
+<p><span class="math display">\[ P(D|H) \ne P(H|D) \]</span></p>
+<p>Formeln haben die merkwürdige Angewohnheit vor dem inneren Auge zu verschwimmen; Bilder sind für viele Menschen klarer, scheint’s. Übersetzen wir die obige Formel in folgenden Satz:</p>
+<blockquote>
+<p>Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist UNGLEICH zur Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist.</p>
+</blockquote>
+<p>Oder kürzer:</p>
+<p><span class="math display">\[ P(M|T) \ne P(T|M) \]</span></p>
+<p>Als Bild:</p>
+<p><embed src="images/moslems_terroristen_crop.pdf" /><!-- --></p>
+</div>
+<div id="weitere-kritik-am-p-wert" class="section level2">
+<h2><span class="header-section-number">12.2</span> Weitere Kritik am p-Wert</h2>
+<p>Der p-Wert ist für weitere Dinge kritisiert worden <span class="citation">(Wagenmakers <a href="#ref-Wagenmakers2007">2007</a>, <span class="citation">Briggs (<a href="#ref-uncertainty">2016</a>)</span>)</span>; z.B. dass die “5%-Hürde” einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema “P-Hacking” argumentieren <span class="citation">(Head et al. <a href="#ref-Head2015">2015</a>, <span class="citation">Wicherts et al. (<a href="#ref-Wicherts2016">2016</a>)</span>)</span>; andere statistische Verfahren können auch gehackt werden.</p>
+<p>Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit. Die Verteitigung argumentiert hier, dass das “kein Bug, sondern ein Feature” sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.</p>
+<p>Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.</p>
+<p><img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="250" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-Gigerenzer2004">
+<p>Gigerenzer, Gerd. 2004. “Mindless Statistics.” <em>The Journal of Socio-Economics</em> 33 (5). Elsevier BV: 587–606. doi:<a href="https://doi.org/10.1016/j.socec.2004.09.033">10.1016/j.socec.2004.09.033</a>.</p>
+</div>
+<div id="ref-Wagenmakers2007">
+<p>Wagenmakers, Eric-Jan. 2007. “A Practical Solution to the Pervasive Problems Ofp Values.” <em>Psychonomic Bulletin &amp; Review</em> 14 (5). Springer Nature: 779–804. doi:<a href="https://doi.org/10.3758/bf03194105">10.3758/bf03194105</a>.</p>
+</div>
+<div id="ref-uncertainty">
+<p>Briggs, William M. 2016. <em>Uncertainty: The Soul of Modeling, Probability &amp; Statistics</em>. Springer. <a href="https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK">https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK</a>.</p>
+</div>
+<div id="ref-Head2015">
+<p>Head, Megan L., Luke Holman, Rob Lanfear, Andrew T. Kahn, and Michael D. Jennions. 2015. “The Extent and Consequences of P-Hacking in Science.” <em>PLOS Biology</em> 13 (3). Public Library of Science (PLoS): e1002106. doi:<a href="https://doi.org/10.1371/journal.pbio.1002106">10.1371/journal.pbio.1002106</a>.</p>
+</div>
+<div id="ref-Wicherts2016">
+<p>Wicherts, Jelte M., Coosje L. S. Veldkamp, Hilde E. M. Augusteijn, Marjan Bakker, Robbie C. M. van Aert, and Marcel A. L. M. van Assen. 2016. “Degrees of Freedom in Planning, Running, Analyzing, and Reporting Psychological Studies: A Checklist to Avoid P-Hacking.” <em>Frontiers in Psychology</em> 7 (November). Frontiers Media SA. doi:<a href="https://doi.org/10.3389/fpsyg.2016.01832">10.3389/fpsyg.2016.01832</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="textmining.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="was-ist-rmarkdown.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="mod1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="grundlagen-der-inferenzstatistik.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

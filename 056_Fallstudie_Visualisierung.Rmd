@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 
 
-# Fallstudie zur Visualisierung von Umfragedaten
+# Fallstudie zur Visualisierung
 
 
 ```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
@@ -45,7 +45,7 @@ library(GGally)
 
 
 
-Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. 
+Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. Das ist der Gegenstand dieser Fallstudie.
 
 
 ## Daten einlesen

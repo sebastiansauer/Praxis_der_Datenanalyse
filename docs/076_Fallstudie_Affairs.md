@@ -766,7 +766,7 @@ Puh. Geschafft!
 
 
 ### Versionshinweise und SessionInfo
-* Datum erstellt: 2017-04-10
+* Datum erstellt: 2017-04-12
 * R Version: 3.3.2
 * `dplyr` Version: 0.5.0
 

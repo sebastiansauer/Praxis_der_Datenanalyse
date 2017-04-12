@@ -1,9 +1,27 @@
 
 
 
-## Inferenz für nominale Variablen
+# Inferenz für nominale Variablen
 
-### Globaler Index der Religiösität und Atheismus
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Die Inferenzstatistik für einen Anteilswert verstehen.
+- Die Inferenzstatistik für die Differenz zweier Anteilswerte versthen.
+- Den Chi-Quadrat-Test verstehen und anwenden können.
+</div>\EndKnitrBlock{rmdcaution}
+
+
+In diesem Kapitel benötigen wir folgende Pakete:
+
+
+```r
+library(mosaic)
+```
+
+
+## Globaler Index der Religiösität und Atheismus
 Im Jahre 2012 führte das [WIN/Gallup International Institut](http://www.wingia.com/) in 57 Ländern eine Untersuchung zur Religiosität durch. Die Pressemitteilung zur Studie finden Sie [hier](http://www.wingia.com/web/files/richeditor/filemanager/Global_INDEX_of_Religiosity_and_Atheism_PR__6.pdf). 
 
 Dabei wurde die Frage gestellt:
@@ -58,7 +76,7 @@ Zur Analyse wird wieder das Paket mosaic verwendet:
 library(mosaic)
 ```
 
-### Inferenz eines Anteilswerts
+## Inferenz eines Anteilswerts
 In Tabelle 6 der Pressemitteilung wird der Anteil der Atheisten für Deutschland mit 15% angegeben. Dies ist eine *Statistik* der Stichprobe, nicht der Parameter der *Population*. Es wird also die Frage beantwortet "Wie hoch ist der Anteil der Atheisten in der Stichprobe?". Um die Frage "Wie hoch ist der Anteil der Atheisten in der Population?" zu beantworten, muss von der Stichprobe auf die Population geschlossen werden, d. h., es wird z. B. der Anteilswert *geschätzt*. 
 
 Der folgende Befehl filtert den Datensatz auf das Ergebnis für Deutschland im Jahr 2012, d. h., es werden nur die gewünschten Zeilen im Datensatz belassen:
@@ -134,7 +152,7 @@ xpnorm(z, lower.tail = FALSE)
 #> 0.000112
 ```
 
-<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der *p-Wert* liegt also bei 0.011%, die Nullhypothese wird also zum Signifikanzniveau von 5% verworfen.
 
@@ -160,7 +178,7 @@ Je nach Alternativhypothese ergeben sich unterschiedliche Tests:
 - `alternative="less"`: gerichtet, d. h. einseitig:  $H_0: p\geq 0.1$ gegen $H_A: p<0.1$
 - `alternative="greater"`: gerichtet, d. h. einseitig:  $H_0: p\leq 0.1$ gegen $H_A: p>0.1$
 
-### Differenz zweier Anteilswerte
+## Differenz zweier Anteilswerte
 In den Daten liegen außerdem die Ergebnisse aus 2005 vor:
 
 ```r
@@ -213,7 +231,7 @@ xpnorm(z, lower.tail = FALSE)
 #> 0.00843
 ```
 
-<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der p-Wert ist klein und das Ergebnis damit *statistisch signifikant*. Die Wahrscheinlichkeit *zufällig* eine solche Erhöhung der Anteilswerte zu beobachten ist also gering -- wenn die $H_0$ gilt! d. h. es wird auf eine Veränderung des Anteilswertes in der *Population* geschlossen.
 
@@ -266,7 +284,7 @@ mean(abs(pdiff.null$X2012) >= abs(pdiff))
 #> [1] 0.02
 ```
 
-<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="067_Inferenz_kategorial_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 ***
 **Übung:**
@@ -276,7 +294,7 @@ mean(abs(pdiff.null$X2012) >= abs(pdiff))
 
 ***
 
-### Chi-Quadrat Unabhängigkeitstest
+## Chi-Quadrat Unabhängigkeitstest
 
 Soll allgemein der Zusammenhang zwischen zwei kategoriellen (nominalen) Variablen untersucht werden, wird der Chi²-Unabhängigkeitstest verwendet. Diese testet die Nullhypothese der Unabhängigkeit, gegen die Alternativhypothese des Zusammenhangs. Im vorliegenden Datensatz können wir z. B. testen, ob die Verteilung (Anteil) der Atheisten in den teilnehmenden G7 Ländern gleich ist:
 
@@ -342,7 +360,7 @@ pchisq(504, 5, lower.tail = FALSE)
 ***
 
 
-### Übung
+## Übung
 Wir werden jetzt den *tips* Datensatz aus *Bryant, P. G. and Smith, M (1995) Practical Data Analysis: Case Studies in Business Statistics. Homewood, IL: Richard D. Irwin Publishing* weiter analysieren.
 
 Sofern noch nicht geschehen, können Sie diesen als `csv` Datei herunterladen:
@@ -360,7 +378,7 @@ tips <- read.csv("tips.csv")
 2.  Testen Sie zum Niveau 5%, ob sich der Anteil der Raucher in der Population beim Lunch von dem beim Dinner (`time`) unterscheidet.
 3.  Gibt es einen Zusammenhang zwischen Rauchen und Wochentag (`day`)? 
 
-### Literatur
+## Literatur
 
 
 - David M. Diez, Christopher D. Barr, Mine &Ccedil;etinkaya-Rundel (2014): *Introductory Statistics with Randomization and Simulation*, [https://www.openintro.org/stat/textbook.php?stat_book=isrs](https://www.openintro.org/stat/textbook.php?stat_book=isrs),  Kapitel 3
@@ -370,12 +388,12 @@ tips <- read.csv("tips.csv")
 - Daniel Wollschläger (2014): *Grundlagen der Datenanalyse mit R*, Kapitel 10.2
 
 
-### Lizenz
+## Lizenz
 Diese Übung wurde von Karsten Lübke entwickelt und orientiert sich an der Übung zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) von Andrew Bray, Mine &Ccedil;etinkaya-Rundel und steht wie diese unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
 
 
-### Versionshinweise
-* Datum erstellt: 2017-04-10
+## Versionshinweise
+* Datum erstellt: 2017-04-12
 * R Version: 3.3.2
 * `mosaic` Version: 0.14.4
 

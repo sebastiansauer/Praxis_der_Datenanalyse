@@ -14,23 +14,25 @@ Anahmen:
 - Vorerfahrung: Deskriptive Statistik, Inferenzstatistik, Grundlagen R, Grundlagen Visualisierung
 
 
-Termin    Thema                               Kommentar
--------   ------                              ----------
+Termin    Thema/ Kapitel                      
+-------   --------------------------------------                              
 1         Organisatorisches
           Einführung
           Rahmen
-2         Daten einlesen und aufbereiten
+          Daten einlesen
+2         Datenjudo
 3         Daten visualisieren
-4         Inferenzstatistik                   kurze Wiederholung
-5         Daten modellieren               
-          Lineare Regression                  Wiederholung und Vertiefung
-6         klassifizierende Regression
-7         Baumbasierte Verfahren
-8         Fallstudie
-9         Clusteranalyse
-10        Textmining                   
+4         Fallstudie
+5         Daten modellieren     
+6         Der p-Wert
+          Inferenzstatistik
+7         Lineare Regression - Grundlagen
+8         Lineare Regression - Vertiefung
+9         Textmining
+10        Clusteranalyse
 11        Fallstudie
-12        Wiederholung und Zusammenfassung    ggf. plus Probeklausur
+12        Wiederholung
+
           
 Die einzelnen Kapitel sind dabei nicht umfassend abzuarbeiten. Der Lehrende/ Lernende kann hier eine Auswahl treffen. Teilweise ist der Stoff eines Kapitels - ja nach Vorerfahrung der Lernenden - zu viel für einen Termin (mit jeweils 4 UE).
 
