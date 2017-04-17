@@ -765,10 +765,35 @@ Affair %>%
 Puh. Geschafft!
 
 
+## Befehlsübersicht
+
+
+Funktion               Beschreibung
+-----------------      -------------
+data                   Lädt Daten aus einem Datensatz
+chisq.test             Rechnet einen $\chi^2$-Test
+compute.es::chies      Liefert Effektstärkemaße für einen $\chi^2$-Test
+glm                    Rechnet eine generalisiertes lineares Modell (logistische Regression)
+exp                    Delogarithmiert einen Ausdruck
+coef                   Liefert die Koeffizienten von einem Objekt des Typs `lm` oder `glm` zurück.  
+predict                Macht eine Vorhersage für ein Objekt des Typs `lm` oder `glm`
+psych::describe        Liefert eine Reihe zentraler Statistiken
+is.na                  Zeigt an, ob ein Vektor fehlende Werte beinhaltet
+dplyr::summarise_each  Führt `summarise` für jede Spalte aus
+t.test                 Rechnet einen t-Test
+MBESS:ci.smd           Berechnet Cohens d
+dplyr::ntile           Teilt einen Wertebereich in n gleich große Teile auf und gibt für jeden Fall an, in welchem Teil er sich befindet
+  
+
+  
+
+
+
+
 ### Versionshinweise und SessionInfo
-* Datum erstellt: 2017-04-12
+* Datum erstellt: 2017-04-17
 * R Version: 3.3.2
-* `dplyr` Version: 0.5.0
+* `dplyr` Version: 0.5.0.9002
 
 
 

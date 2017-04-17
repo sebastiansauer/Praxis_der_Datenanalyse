@@ -65,8 +65,16 @@ Außerdem spielt die Visualisierung von Daten eine große Rolle. Zum einen könn
 
 *Übungsaufgaben*: Das Skript beinhaltet in jedem Kapitel Übungsaufgaben oder/und Testfragen. Auf diese wird mit diesem Icon ![](images/exercises.png){ width=5% } verwiesen oder die Übungen sind in einem Abschnitt mit einsichtigem Titel zu finden.
 
-Ansonsten: Wenn Ihnen R diesen Smiley präsentiert, dann sind Sie am Ziel Ihrer Träume: ![](images/love.png){ width=5% }. 
+*Love*: Wenn Ihnen R diesen Smiley präsentiert, dann sind Sie am Ziel Ihrer Träume: ![](images/love.png){ width=5% }. 
 
+
+Dieses Buch hat einige *Voraussetzungen*, was das Vorwissen der Leser angeht; folgende Themengebiete werden vorausgsetzt:
+
+- Deskriptive Statistik
+- Grundlagen der Inferenzstatistik
+- Grundagen der Regressionsanalyse
+- Skalenniveaus
+- Grundlagen von R
 
 Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).
 
@@ -78,6 +86,8 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
 
 
 1. Abb. \@ref(fig:modellieren-plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
+
+2. Abb. \@ref(fig:vwmodell), Lothar Spurzem, VW 1303 von Wiking in 1:87; Größe des Modells: 47,5 mm, https://de.wikipedia.org/wiki/Modellautomobil#/media/File:Wiking-Modell_VW_1303_(um_1975).JPG, CC-BY-SA 2.0, de.
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.

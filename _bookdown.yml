@@ -7,7 +7,8 @@ rmd_files: [
 "020_Rahmen_1.Rmd",
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
-"041_Fallstudie_dplyr.Rmd",
+"043_Typische_Probleme_Datenanalyse.Rmd",
+"045_Fallstudie_dplyr.Rmd",
 "050_Daten_visualisieren.Rmd",
 "056_Fallstudie_Visualisierung.Rmd",
 "060_Modellieren.Rmd",
@@ -20,6 +21,8 @@ rmd_files: [
 "080_ungeleitetes_Modellieren.Rmd",
 "082_Clusteranalyse.Rmd",
 "110_Studienpfade_Anhang.Rmd",
+"114_Pruefung.Rmd",
+"116_Probeklausur.Rmd",
 "120_Literatur.Rmd"
 ]
 clean: [bookdown.bbl]

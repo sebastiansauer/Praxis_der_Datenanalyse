@@ -12,7 +12,7 @@
 
 
 <div class="figure" style="text-align: center">
-<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="30%" />
+<img src="images/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="20%" />
 <p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
 </div>
 
@@ -23,7 +23,7 @@ Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist d
 
 
 <div class="figure" style="text-align: center">
-<img src="images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="15%" />
+<img src="images/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="35%" />
 <p class="caption">(\#fig:who-said)Der p-Wert wird oft als wichtig erachtet</p>
 </div>
 
@@ -44,6 +44,7 @@ Viele Menschen - inkl. Professoren und Statistik-Dozenten - haben Probleme mit d
 
 $$ P(D|H) \ne P(H|D) $$
 
+### Von Moslems und Terroristen
 
 Formeln haben die merkwürdige Angewohnheit vor dem inneren Auge zu verschwimmen; Bilder sind für viele Menschen klarer, scheint's. Übersetzen wir die obige Formel in folgenden Satz:
 
@@ -59,17 +60,20 @@ $$ P(M|T) \ne P(T|M) $$
 
 
 
-<img src="images/moslems_terroristen.jpeg" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/moslems_terroristen.jpeg" alt="Moslem und Terrorist zu sein, ist nicht das gleiche." width="70%" />
+<p class="caption">(\#fig:moslems-terroristen)Moslem und Terrorist zu sein, ist nicht das gleiche.</p>
+</div>
 
 
-Das Bild (Abb. \@ref(fig:fig-moslems)) zeigt den Anteil der Moslems an den Terroristen (sehr hoch). Und es zeigt den Anteil der Terroristen von allen Moslems (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist*. Ein großer Unterschied^[die Größe der Anteile sind frei erfunden].
+Das Bild (Abb. \@ref(fig:moslems-terroristen)) zeigt den Anteil der Moslems an den Terroristen (sehr hoch). Und es zeigt den Anteil der Terroristen von allen Moslems (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist*. Ein großer Unterschied^[die Größe der Anteile sind frei erfunden].
 
 
-## Weitere Kritik am p-Wert
+## Der p-Wert ist eine Funktion der Stichprobengröße
 
 Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertainty]; z.B. dass die "5%-Hürde" einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema "P-Hacking" argumentieren [@Head2015, @Wicherts2016]; andere statistische Verfahren können auch gehackt werden.
 
-Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit (vgl. Abb. \@ref(fig:einfluss-pwert). 
+Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
 
 <div class="figure" style="text-align: center">
 <img src="images/einfluss_pwert_crop.pdf" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
@@ -79,10 +83,20 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 
 Die Verteitigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
 
-Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
+### Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf den p-Wert
 
+Betrachten wir ein praktisches Beispiel des Einfluss der Stichprobengröße auf den p-Wert. Simulieren wir ein paar Variablen und testen wir, ob sich deren Mittelwerte statistisch signifikant unterscheiden (t-Test). Dabei wählen wir die Werte so, dass sie tatsächlich leicht unterschiedlich sind, dass also die H0 (in unseren Daten) wirklich falsch ist.
 
-<img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
+Mit steigender Stichprobengröße sollte der Anteil an statistisch signifikanten Tests steigen. Schauen wir, ob dem so ist (vgl. Abb. \@ref(fig:simulate-pvalues)).
+
+<div class="figure" style="text-align: center">
+<img src="images/simulate_ps.pdf" alt="Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)" width="70%" />
+<p class="caption">(\#fig:simulate-pvalues)Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)</p>
+</div>
+
+Das Diagramm zeigt: Mit steigendem Stichprobenumfang werden die Tests immer signifikanter. Zugespitzt formuliert:
+
+>    Große Stichprobe: Test wird signifikant. Kleine Stichprobe: Test wird nicht signifikant. "Groß" bzw. "klein" heißt hier "groß/klein genug".
 
 
 ## Mythen zum p-Wert
@@ -100,7 +114,7 @@ Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Best
 
 >    Wenn der p-Wert kleiner als 5% ist, dann kann ich meine Studie veröffentlichen.
 
-Richtig. Leider entscheidet zu oft der p-Wert über das Wohl und Wehe einer Studie.
+Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie "gut" das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell?
 
 
 ## Zur Philosophie des p-Werts
@@ -108,4 +122,14 @@ Richtig. Leider entscheidet zu oft der p-Wert über das Wohl und Wehe einer Stud
 Der p-Wert basiert auf der Idee, dass man ein Experiment *unendlich* oft wiederholen könnte; und das unter *zufälligen* aber *ansonsten komplett gleichen* Bedingungen.
 
 Ob es im Universum irgendetwas gibt, das unendlich ist, ist umstritten [@ruckerinfinity]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, kann auch kritisiert werden [@uncertainty].
+
+
+
+## Fazit
+
+Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
+
+
+<img src="images/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
+
 

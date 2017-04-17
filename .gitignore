@@ -1,7 +1,35 @@
+
+# Project files #
+#################
+
 .Rproj.user
 .Rhistory
 .RData
 _bookdown_files
-.DS_Store
-*.rds
 .Rapp.history
+
+
+.httr-oauth
+
+
+# temporary files #
+###################
+
+*.tmp
+
+
+# Knitr database #
+##################
+
+*.rdx
+*.rds
+*.rdb
+
+.DS_Store
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db

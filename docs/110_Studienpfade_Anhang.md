@@ -1,3 +1,6 @@
+
+
+
 # VI Anhang {-}
 
 
@@ -5,7 +8,7 @@
 Je nach Lernziel, Zeit und Interessen bieten sich unterschiedliche Studienpfade durch dieses Buch an. Im folgenden sind einige aufgezählt - untergliedert nach Fachrichtung, Vorerfahrung und Zeit.
 
 
-## konsequtiver Master of Science in Wirtschaftspsychologie
+## Master of Science in Wirtschaftspsychologie und Consulting (MWPC)
 
 Anahmen: 
 

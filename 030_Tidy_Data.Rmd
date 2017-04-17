@@ -148,7 +148,7 @@ Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als
 - Am besten verwendet man keine Sonderzeichen verwenden und keine Leerzeichen in Variablennamen und -werten, sondern nur Ziffern und Buchstaben und Unterstriche.
 - Variablennamen dürfen nicht mit einer Zahl beginnen.
 
-Abbildung \@ref{fig:tidy1} visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
+Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
 
 ```{r tidy1, fig.cap = "Schematische Darstellung eines Dataframes in Normalform", echo = FALSE}
 knitr::include_graphics("images/tidy-1.png")
