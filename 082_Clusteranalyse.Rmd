@@ -19,108 +19,140 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 ```
 
 
+Benötigte Pakte:
+
+```{r}
+library(tidyverse)
+library(cluster)
+```
+
+
 
 
 # Clusteranalyse
 
 
+## Einführung
 
-Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
+Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhatten" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklischen Abstand konzentrieren.
 
-Sie können ihn von [hier](https://goo.gl/eUm8PI) als `csv`-Datei herunterladen:
-```{r }
-#download.file("https://goo.gl/eUm8PI", destfile = "segment.csv")
+
+## Intuitive Darstellung der Clusteranalayse
+
+
+
+```{r cluster-intuition, echo = FALSE}
+
+
+set.seed(2014)
+centers <- data.frame(cluster=factor(1:3), size=c(100, 150, 50), x1=c(5, 0, -3), x2=c(-1, 1, -2))
+points <- centers %>% group_by(cluster) %>%
+    do(data.frame(x1=rnorm(.$size[1], .$x1[1]),
+                  x2=rnorm(.$size[1], .$x2[1])))
+
+library(ggplot2)
+p1 <- ggplot(points, aes(x1, x2)) + geom_point() +
+  xlab("Lernzeit") + ylab("Klasurpunkte")
+
+p2 <- ggplot(points, aes(x1, x2, color=cluster)) + geom_point() +
+  xlab("Lernzeit") + ylab("Klasurpunkte")
 ```
 
-Das Einlesen erfolgt, sofern die Daten im Arbeitsverzeichnis liegen, wieder über:
+Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
+
+```{r cluster1, echo = FALSE, fig.cap = "Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?"}
+p1
+```
+
+Färben wir das Diagramm mal ein (Abb. \@ref(fig:cluster2)).
+
+```{r cluster2, echo = FALSE, fig.cap = "Ein Streudiagramm - mit drei Clustern"}
+p2
+```
+
+Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende "Cluster", "Gruppen" oder "Typen" von Studierenden zu geben:
+
+ - "Blaue Gruppe": Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausr. Tja.
+ 
+ - "Rote Gruppe": Fälle dieser Gruppe lernen viel; der Erfolg ist recht durchwachsen.
+ 
+ - "Grüne Gruppe": Fälle dieser Gruppe lernen mittel viel und erreichen einen vergleichsweise großen Erfolg in der Klausur.
+
+
+Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder weniger Gruppen unterteilen können. Die Clusteranalyse gibt keine definitive Anzahl an Gruppen vor; vielmehr gilt es, aus theoretischen und statistischen Überlegungen heraus die richtige Anzahl auszuwählen (dazu gleich noch mehr).
+
+Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. \@ref(fig:cluster3)).
+
+
+```{r cluster3, echo = FALSE, fig.cap = "Unterschiedliche Anzahlen von Clustern im Vergleich"}
+
+library(tidyr)
+library(broom)
+
+points.matrix <- cbind(x1 = points$x1, x2 = points$x2)
+kclust <- kmeans(points.matrix, 3)
+kclusts <- data.frame(k=1:9) %>% group_by(k) %>% do(kclust=kmeans(points.matrix, .$k))
+
+clusters <- kclusts %>% group_by(k) %>% do(tidy(.$kclust[[1]]))
+assignments <- kclusts %>% group_by(k) %>% do(augment(.$kclust[[1]], points.matrix))
+clusterings <- kclusts %>% group_by(k) %>% do(glance(.$kclust[[1]]))
+
+p3 <- ggplot(assignments, aes(x1, x2)) + geom_point(aes(color=.cluster)) + facet_wrap(~ k)
+
+
+p4 <- p3 + geom_point(data=clusters, size=10, shape="x")
+p4
+```
+
+Das "X" soll den "Mittelpunkt" des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch "Varianz innerhalb des Clusters" oder kurz "Varianz within" bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.
+
+```{r cluster4, echo = FALSE, fig.cap = "Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern"}
+ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept = 3, linetype = "dashed", color = "grey30") +
+  xlab("Anzahl der Cluster") +
+  ylab("Summe der Varianz within über alle Cluster") +
+  scale_x_continuous(breaks = 1:9)
+
+```
+
+Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Fertig!
+
+
+
+
+
+## Daten
+
+Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
+
+Sie können ihn von [hier](https://goo.gl/eUm8PI) als `csv`-Datei herunterladen:
+
 ```{r}
 segment <- read.csv2("https://goo.gl/eUm8PI")
 ```
 
-Ein Überblick über die Daten:
+Wir verwenden die Variante `read.csv2`, da es sich um eine "deutsche" CSV-Datei handelt.
+
+
+Ein Überblick über die Daten verschafft uns die Funktion `glimpse`.
 ```{r}
-str(segment)
-head(segment)
+glimpse(segment)
 ```
 
-Zur Unterstützung der Analyse wird (wieder) `mosaic` und `tidyverse` verwendet:
-```{r, message = FALSE}
-library(tidyverse)
-library(mosaic)
-```
 
-Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie Manhatten oder Gower sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können.
+## Distanzmaße
+
 
 Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
 ```{r}
 dist(head(segment))
 ```
 
-Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). Die Funktion `daisy()` aus dem Paket `cluster` bietet hier nützliche Möglichkeiten.
+Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
+
+Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.
 
 ```{r}
-library(cluster)
-
 daisy(head(segment))
-```
-
-
-## Hierarchische Clusteranalyse
-
-Bei hierarchischen Clusterverfahren werden Beobachtungen sukzessiv zusammengefasst (agglomerativ). Zunächst ist jede Beobachtung ein eigener Cluster, die dann je nach Ähnlichkeitsmaß zusammengefasst werden. 
-
-Fassen wir die Beobachtungen *ohne* die Segmentvariable `Segment`, Variable 7, zusammen:
-```{r}
-seg.dist <- daisy(segment[,-7]) # Abstände
-seg.hc <- hclust(seg.dist) # Hierarchische Clusterung
-```
-
-Das Ergebnis lässt sich schön im Dendrogramm darstellen:
-```{r}
-plot(seg.hc)
-```
-
-Je höher (`Height`) die Stelle ist, an der zwei Beobachtungen oder Cluster zusammengefasst werden, desto größer ist die Distanz. D. h., Beobachtungen bzw. Cluster, die unten zusammengefasst werden, sind sich ähnlich, die, die oben zusammengefasst werden unähnlich.
-
-Hier wurde übrigens die Standardeinstellung für die Berechnung des Abstands von Clustern verwendet: Complete Linkage bedeutet, dass die Distanz zwischen zwei Clustern auf Basis des maximalen Abstands der Beobachtungen innerhalb des Clusters gebildet wird.
-
-Es ist nicht immer einfach zu entscheiden, wie viele Cluster es gibt. In der Praxis und Literatur finden sich häufig Zahlen zwischen 3 und 10. Evt. gibt es im Dendrogramm eine Stelle, an der der Baum gut geteilt werden kann. In unserem Fall vielleicht bei einer Höhe von $0.6$, da sich dann 3 Cluster ergeben:
-```{r}
-plot(seg.hc)
-rect.hclust(seg.hc, h=0.6, border="red")
-```
-
-Das Ergebnis, d. h. die Clusterzuordnung, kann durch den Befehl `cutree()` den Beobachtungen zugeordnet werden.
-```{r}
-segment$hc.clust <- cutree(seg.hc, k=3)
-```
-
-Z. B. haben wir folgende Anzahlen für Beobachtungen je Cluster:
-```{r}
-mosaic::tally(~hc.clust, data=segment)
-```
-Cluster `r which.min(mosaic::tally(~hc.clust, data=segment))`  ist also mit Abstand der kleinste Cluster (mit `r min(mosaic::tally(~hc.clust, data=segment))` Beobachtungen).
-
-Für den Mittelwert des Alters je Cluster gilt:
-```{r}
-
-segment %>% 
-  group_by(hc.clust) %>% 
-  summarise(Alter_nach_Cluster = mean(Alter))
-
-```
-D. h. die Durchschnittsalter ist in Cluster der Cluster unterscheiden sich.
-
-Das spiegelt sich auch im Einkommen wieder:
-```{r}
-segment %>% 
-  group_by(hc.clust) %>% 
-  summarise(Einkommen_nach_Cluster = mean(Einkommen))
-```
-
-Allerdings sind die Unterschiede in der Geschlechtsverteilung eher gering:
-```{r}
-mosaic::tally(Geschlecht~hc.clust, data=segment, format="proportion")
 ```
 
 
@@ -142,10 +174,10 @@ Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung
 Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale, und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:
 ```{r}
 segment.num <- segment %>%
-  mutate(Frau = Geschlecht=="Frau") %>%
-  mutate(Eigenheim = Eigenheim=="Ja") %>%
-  mutate(Mitgliedschaft = Mitgliedschaft=="Ja") %>%
-  dplyr::select(-Geschlecht, -Segment, -hc.clust)
+  mutate(Frau = Geschlecht == "Frau") %>%
+  mutate(Eigenheim = Eigenheim =="Ja") %>%
+  mutate(Mitgliedschaft = Mitgliedschaft == "Ja") %>%
+  dplyr::select(-Geschlecht, -Segment)
 ```
 
 Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzene Variablen ausgewählt. Die "Pfeife" `%>%` übergeben das Ergebnis der vorherigen Funktion an die folgende.
@@ -179,13 +211,21 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 2. Führen Sie eine k-Means Clusteranalyse mit 4 Clustern durch. Worin unterscheiden sich die gefundenen Segmente?
 
 
-### Literatur
+## Literatur
 
 - Chris Chapman, Elea McDonnell Feit (2015): *R for Marketing Research and Analytics*, Kapitel 11.3
 - Reinhold Hatzinger, Kurt Hornik, Herbert Nagel (2011): *R -- Einführung durch angewandte Statistik*. Kapitel 12
-- Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (2013): *An Introduction to Statistical Learning -- with Applications in R*, [http://www-bcf.usc.edu/~gareth/ISL/](http://www-bcf.usc.edu/~gareth/ISL/), Kapitel 10.3, 10.5
 
 
-***
-Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus Chapman und Feit (2015) und steht unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). Der Code steht unter der [Apache Lizenz 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+
+
+## Verweise
+
+- Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus @Chapman2015 und steht unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). Der Code steht unter der [Apache Lizenz 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+- Der erste Teil dieser Übung basiert auf diesem Skript: <https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html>
+
+- Eine weiterführende, aber gut verständliche Einführung findet sich bei @james2013introduction.
+
 

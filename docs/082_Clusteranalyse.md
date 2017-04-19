@@ -1,63 +1,109 @@
 
 
 
+Benötigte Pakte:
+
+
+```r
+library(tidyverse)
+library(cluster)
+```
+
+
 
 
 # Clusteranalyse
 
 
+## Einführung
 
-Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
+Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhatten" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklischen Abstand konzentrieren.
+
+
+## Intuitive Darstellung der Clusteranalayse
+
+
+
+
+
+Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
+
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster1-1.png" alt="Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?" width="70%" />
+<p class="caption">(\#fig:cluster1)Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?</p>
+</div>
+
+Färben wir das Diagramm mal ein (Abb. \@ref(fig:cluster2)).
+
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster2-1.png" alt="Ein Streudiagramm - mit drei Clustern" width="70%" />
+<p class="caption">(\#fig:cluster2)Ein Streudiagramm - mit drei Clustern</p>
+</div>
+
+Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende "Cluster", "Gruppen" oder "Typen" von Studierenden zu geben:
+
+ - "Blaue Gruppe": Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausr. Tja.
+ 
+ - "Rote Gruppe": Fälle dieser Gruppe lernen viel; der Erfolg ist recht durchwachsen.
+ 
+ - "Grüne Gruppe": Fälle dieser Gruppe lernen mittel viel und erreichen einen vergleichsweise großen Erfolg in der Klausur.
+
+
+Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder weniger Gruppen unterteilen können. Die Clusteranalyse gibt keine definitive Anzahl an Gruppen vor; vielmehr gilt es, aus theoretischen und statistischen Überlegungen heraus die richtige Anzahl auszuwählen (dazu gleich noch mehr).
+
+Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. \@ref(fig:cluster3)).
+
+
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster3-1.png" alt="Unterschiedliche Anzahlen von Clustern im Vergleich" width="70%" />
+<p class="caption">(\#fig:cluster3)Unterschiedliche Anzahlen von Clustern im Vergleich</p>
+</div>
+
+Das "X" soll den "Mittelpunkt" des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch "Varianz innerhalb des Clusters" oder kurz "Varianz within" bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.
+
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern" width="70%" />
+<p class="caption">(\#fig:cluster4)Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern</p>
+</div>
+
+Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Fertig!
+
+
+
+
+
+## Daten
+
+Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
 
 Sie können ihn von [hier](https://goo.gl/eUm8PI) als `csv`-Datei herunterladen:
 
-```r
-#download.file("https://goo.gl/eUm8PI", destfile = "segment.csv")
-```
-
-Das Einlesen erfolgt, sofern die Daten im Arbeitsverzeichnis liegen, wieder über:
 
 ```r
 segment <- read.csv2("https://goo.gl/eUm8PI")
 ```
 
-Ein Überblick über die Daten:
+Wir verwenden die Variante `read.csv2`, da es sich um eine "deutsche" CSV-Datei handelt.
+
+
+Ein Überblick über die Daten verschafft uns die Funktion `glimpse`.
 
 ```r
-str(segment)
-#> 'data.frame':	300 obs. of  7 variables:
-#>  $ Alter         : num  50.2 40.7 43 40.3 41.1 ...
-#>  $ Geschlecht    : Factor w/ 2 levels "Frau","Mann": 2 2 1 2 1 2 1 2 1 1 ...
-#>  $ Einkommen     : num  51356 64411 71615 42728 71641 ...
-#>  $ Kinder        : int  0 3 2 1 4 2 5 1 1 0 ...
-#>  $ Eigenheim     : Factor w/ 2 levels "Ja","Nein": 2 2 1 2 2 1 2 2 2 2 ...
-#>  $ Mitgliedschaft: Factor w/ 2 levels "Ja","Nein": 2 2 2 2 2 2 1 1 2 2 ...
-#>  $ Segment       : Factor w/ 4 levels "Aufsteiger","Gemischte Vorstadt",..: 2 2 2 2 2 2 2 2 2 2 ...
-head(segment)
-#>   Alter Geschlecht Einkommen Kinder Eigenheim Mitgliedschaft
-#> 1  50.2       Mann     51356      0      Nein           Nein
-#> 2  40.7       Mann     64411      3      Nein           Nein
-#> 3  43.0       Frau     71615      2        Ja           Nein
-#> 4  40.3       Mann     42728      1      Nein           Nein
-#> 5  41.1       Frau     71641      4      Nein           Nein
-#> 6  40.2       Mann     60325      2        Ja           Nein
-#>              Segment
-#> 1 Gemischte Vorstadt
-#> 2 Gemischte Vorstadt
-#> 3 Gemischte Vorstadt
-#> 4 Gemischte Vorstadt
-#> 5 Gemischte Vorstadt
-#> 6 Gemischte Vorstadt
+glimpse(segment)
+#> Observations: 300
+#> Variables: 7
+#> $ Alter          <dbl> 50.2, 40.7, 43.0, 40.3, 41.1, 40.2, 39.5, 35.7,...
+#> $ Geschlecht     <fctr> Mann, Mann, Frau, Mann, Frau, Mann, Frau, Mann...
+#> $ Einkommen      <dbl> 51356, 64411, 71615, 42728, 71641, 60325, 54746...
+#> $ Kinder         <int> 0, 3, 2, 1, 4, 2, 5, 1, 1, 0, 3, 4, 0, 2, 6, 0,...
+#> $ Eigenheim      <fctr> Nein, Nein, Ja, Nein, Nein, Ja, Nein, Nein, Ne...
+#> $ Mitgliedschaft <fctr> Nein, Nein, Nein, Nein, Nein, Nein, Ja, Ja, Ne...
+#> $ Segment        <fctr> Gemischte Vorstadt, Gemischte Vorstadt, Gemisc...
 ```
 
-Zur Unterstützung der Analyse wird (wieder) `mosaic` und `tidyverse` verwendet:
 
-```r
-library(tidyverse)
-library(mosaic)
-```
+## Distanzmaße
 
-Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie Manhatten oder Gower sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können.
 
 Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
 
@@ -71,12 +117,12 @@ dist(head(segment))
 #> 6 13700.4  6241.5 17245.8 26879.9 17285.5
 ```
 
-Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). Die Funktion `daisy()` aus dem Paket `cluster` bietet hier nützliche Möglichkeiten.
+Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
+
+Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.
 
 
 ```r
-library(cluster)
-
 daisy(head(segment))
 #> Dissimilarities :
 #>       1     2     3     4     5
@@ -88,95 +134,6 @@ daisy(head(segment))
 #> 
 #> Metric :  mixed ;  Types = I, N, I, I, N, N, N 
 #> Number of objects : 6
-```
-
-
-## Hierarchische Clusteranalyse
-
-Bei hierarchischen Clusterverfahren werden Beobachtungen sukzessiv zusammengefasst (agglomerativ). Zunächst ist jede Beobachtung ein eigener Cluster, die dann je nach Ähnlichkeitsmaß zusammengefasst werden. 
-
-Fassen wir die Beobachtungen *ohne* die Segmentvariable `Segment`, Variable 7, zusammen:
-
-```r
-seg.dist <- daisy(segment[,-7]) # Abstände
-seg.hc <- hclust(seg.dist) # Hierarchische Clusterung
-```
-
-Das Ergebnis lässt sich schön im Dendrogramm darstellen:
-
-```r
-plot(seg.hc)
-```
-
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
-
-Je höher (`Height`) die Stelle ist, an der zwei Beobachtungen oder Cluster zusammengefasst werden, desto größer ist die Distanz. D. h., Beobachtungen bzw. Cluster, die unten zusammengefasst werden, sind sich ähnlich, die, die oben zusammengefasst werden unähnlich.
-
-Hier wurde übrigens die Standardeinstellung für die Berechnung des Abstands von Clustern verwendet: Complete Linkage bedeutet, dass die Distanz zwischen zwei Clustern auf Basis des maximalen Abstands der Beobachtungen innerhalb des Clusters gebildet wird.
-
-Es ist nicht immer einfach zu entscheiden, wie viele Cluster es gibt. In der Praxis und Literatur finden sich häufig Zahlen zwischen 3 und 10. Evt. gibt es im Dendrogramm eine Stelle, an der der Baum gut geteilt werden kann. In unserem Fall vielleicht bei einer Höhe von $0.6$, da sich dann 3 Cluster ergeben:
-
-```r
-plot(seg.hc)
-rect.hclust(seg.hc, h=0.6, border="red")
-```
-
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
-
-Das Ergebnis, d. h. die Clusterzuordnung, kann durch den Befehl `cutree()` den Beobachtungen zugeordnet werden.
-
-```r
-segment$hc.clust <- cutree(seg.hc, k=3)
-```
-
-Z. B. haben wir folgende Anzahlen für Beobachtungen je Cluster:
-
-```r
-mosaic::tally(~hc.clust, data=segment)
-#> hc.clust
-#>   1   2   3 
-#> 140 122  38
-```
-Cluster 3  ist also mit Abstand der kleinste Cluster (mit 38 Beobachtungen).
-
-Für den Mittelwert des Alters je Cluster gilt:
-
-```r
-
-segment %>% 
-  group_by(hc.clust) %>% 
-  summarise(Alter_nach_Cluster = mean(Alter))
-#> # A tibble: 3 × 2
-#>   hc.clust Alter_nach_Cluster
-#>      <int>              <dbl>
-#> 1        1               38.5
-#> 2        2               46.4
-#> 3        3               34.5
-```
-D. h. die Durchschnittsalter ist in Cluster der Cluster unterscheiden sich.
-
-Das spiegelt sich auch im Einkommen wieder:
-
-```r
-segment %>% 
-  group_by(hc.clust) %>% 
-  summarise(Einkommen_nach_Cluster = mean(Einkommen))
-#> # A tibble: 3 × 2
-#>   hc.clust Einkommen_nach_Cluster
-#>      <int>                  <dbl>
-#> 1        1                  49452
-#> 2        2                  54355
-#> 3        3                  44113
-```
-
-Allerdings sind die Unterschiede in der Geschlechtsverteilung eher gering:
-
-```r
-mosaic::tally(Geschlecht~hc.clust, data=segment, format="proportion")
-#>           hc.clust
-#> Geschlecht     1     2     3
-#>       Frau 0.543 0.549 0.526
-#>       Mann 0.457 0.451 0.474
 ```
 
 
@@ -199,10 +156,10 @@ Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. bin�
 
 ```r
 segment.num <- segment %>%
-  mutate(Frau = Geschlecht=="Frau") %>%
-  mutate(Eigenheim = Eigenheim=="Ja") %>%
-  mutate(Mitgliedschaft = Mitgliedschaft=="Ja") %>%
-  dplyr::select(-Geschlecht, -Segment, -hc.clust)
+  mutate(Frau = Geschlecht == "Frau") %>%
+  mutate(Eigenheim = Eigenheim =="Ja") %>%
+  mutate(Mitgliedschaft = Mitgliedschaft == "Ja") %>%
+  dplyr::select(-Geschlecht, -Segment)
 ```
 
 Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzene Variablen ausgewählt. Die "Pfeife" `%>%` übergeben das Ergebnis der vorherigen Funktion an die folgende.
@@ -254,7 +211,7 @@ clusplot(segment.num, seg.k$cluster,
          color = TRUE, shade = TRUE, labels = 4)
 ```
 
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?^[Das Paket `NbClust`, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) *NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set*, Journal of Statistical Software, 61(6), 1-36. [http://dx.doi.org/10.18637/jss.v061.i06](http://dx.doi.org/10.18637/jss.v061.i06), bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.]
 
 ***
@@ -269,13 +226,21 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 2. Führen Sie eine k-Means Clusteranalyse mit 4 Clustern durch. Worin unterscheiden sich die gefundenen Segmente?
 
 
-### Literatur
+## Literatur
 
 - Chris Chapman, Elea McDonnell Feit (2015): *R for Marketing Research and Analytics*, Kapitel 11.3
 - Reinhold Hatzinger, Kurt Hornik, Herbert Nagel (2011): *R -- Einführung durch angewandte Statistik*. Kapitel 12
-- Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (2013): *An Introduction to Statistical Learning -- with Applications in R*, [http://www-bcf.usc.edu/~gareth/ISL/](http://www-bcf.usc.edu/~gareth/ISL/), Kapitel 10.3, 10.5
 
 
-***
-Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus Chapman und Feit (2015) und steht unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). Der Code steht unter der [Apache Lizenz 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+
+
+## Verweise
+
+- Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus @Chapman2015 und steht unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). Der Code steht unter der [Apache Lizenz 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+- Der erste Teil dieser Übung basiert auf diesem Skript: <https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html>
+
+- Eine weiterführende, aber gut verständliche Einführung findet sich bei @james2013introduction.
+
 

@@ -5,6 +5,7 @@
 # I EXPLORIEREN {-}
 
 
+<img src="images/farb1.jpg" width="100%" style="display: block; margin: auto;" />
 
 # Rahmen
 

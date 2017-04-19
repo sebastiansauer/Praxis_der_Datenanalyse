@@ -23,6 +23,9 @@ width.cutoff=60
 # I EXPLORIEREN {-}
 
 
+```{r echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/farb1.jpg")
+```
 
 # Rahmen
 

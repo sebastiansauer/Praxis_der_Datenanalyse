@@ -3,6 +3,10 @@
 
 # Probeklausur
 
+Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fragen verlangen einen "Text" als Antwort.
+
+## Fragen
+
 1. Bei `install.packages` spielt der Parameter `dependencies = TRUE` in der Praxis keine Rolle.
 
 2. Dateien mit der Endung `.R` sind keine Textdateien.
@@ -35,7 +39,24 @@
 
 16. Die Funktion `summarise` darf nur für Funktionen verwendet werden, welche genau *einen* Wert zurückliefern.
 
-17. Nennen Sie drei häufige Operationen der Datenaufbereitung!
+17. Was sind drei häufige Operationen der Datenaufbereitung?
+
+18. Um Korrelationen mit R zu berechnen, kann man die Funktion `corrr::correlate` verwenden.
+
+19. `corrr::correlate` liefert stets einen Dataframe zurück.
+
+20. Tibbles sind eine spezielle Art von Dataframes.
+
+21. Was zeigt uns "Anscombes Quartett"?
+
+22. `ggplot` unterscheidet drei Bestandtteile eines Diagramms: Daten, Geome und Transformationen.
+
+23. Um eine kontinuierliche Variable zu plotten, wird häufig ein Histrogramm verwendet.
+
+24. Das Geom `tile` zeigt drei Variablen.
+
+25. Geleitetes Modellieren kann unterteilt werden in prädiktives und explikatives Modellieren.
+
 
 ## Lösungen
 
@@ -56,7 +77,16 @@
 14. Richtig
 15. Falsch
 16. Richtig
-17. Auf fehlende Werte prüfen, Fälle mit fehlenden Werte löschen, Fehlende Werte ggf. ersetzen,Nach Fehlern suche, Ausreiser identifizieren, Hochkorrelierte Variablen finden, z-Standardisieren, Quasi-Konstante finden, Auf Normalverteilung prüfen, Werte umkodieren und “binnen”
+17. Auf fehlende Werte prüfen, Fälle mit fehlenden Werte löschen, Fehlende Werte ggf. ersetzen,Nach Fehlern suche, Ausreiser identifizieren, Hochkorrelierte Variablen finden, z-Standardisieren, Quasi-Konstante finden, Auf Normalverteilung prüfen, Werte umkodieren und "binnen".
+18. Richtig
+19. Richtig
+20. Richtig
+21. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
+22. Falsch
+23. Richtig
+24. Richtig
+25. Falsch
+
 
 
 

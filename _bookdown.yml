@@ -4,6 +4,7 @@ chapter_name: "Kapitel "
 output_dir: "docs"
 rmd_files: [
 "index.Rmd",
+"010_Organisatorisches.Rmd",
 "020_Rahmen_1.Rmd",
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
@@ -20,8 +21,9 @@ rmd_files: [
 "076_Fallstudie_Affairs.Rmd",
 "080_ungeleitetes_Modellieren.Rmd",
 "082_Clusteranalyse.Rmd",
-"110_Studienpfade_Anhang.Rmd",
-"114_Pruefung.Rmd",
+"100_Anhang.Rmd",
+#"110_Studienpfade_Anhang.Rmd",
+#"114_Pruefung.Rmd",
 "116_Probeklausur.Rmd",
 "120_Literatur.Rmd"
 ]
