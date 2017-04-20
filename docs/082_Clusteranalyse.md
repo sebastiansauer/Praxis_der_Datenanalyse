@@ -74,7 +74,7 @@ Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf ein
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
 
 <div class="figure" style="text-align: center">
-<img src="images/cluster/distanz_crop.df" alt="Distanz zwischen zwei Punkten in der Ebene" width="70%" />
+<img src="images/cluster/distanz_crop.pdf" alt="Distanz zwischen zwei Punkten in der Ebene" width="70%" />
 <p class="caption">(\#fig:distanz)Distanz zwischen zwei Punkten in der Ebene</p>
 </div>
 
@@ -91,6 +91,8 @@ Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in 
 <img src="images/cluster/pythagoras2_crop.pdf" alt="Pythagoras in 3D" width="70%" />
 <p class="caption">(\#fig:pythagoras2)Pythagoras in 3D</p>
 </div>
+
+Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
 
 Wieder suchen wir den Abstand zwischen den Punkten $A$ und $B$. Wenn wir die Länge $e$ wüssten, dann hätten wir die Lösung; $e$ ist der Abstand zwischen $A$ und $B$. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: $c^2+d^2=e^2$. Wenn wir also $c$ und $d$ wüssten, so könnten wir $e$ berechnen... $c$ haben wir ja gerade berechnet (5) und $d$ ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also
 

@@ -123,15 +123,15 @@ Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und
 
 ```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene"}
 
-knitr::include_graphics("images/cluster/distanz_crop.df")
+knitr::include_graphics("images/cluster/distanz_crop.pdf")
 ```
 
 
 Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung geliebt:
 
-$$c^2 = a^2 + b^2$$.
+$$c^2 = a^2 + b^2$$
 
-In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\sqrt{25}=5$. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art, den Abstand zu berechnen, nennt man den *euklidischen Abstand*.
+In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\sqrt{25}=5$. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art von "Abstand" nennt man den *euklidischen Abstand*.
 
 Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch "Statistikliebe" erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).
 
@@ -139,6 +139,8 @@ Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in 
 
 knitr::include_graphics("images/cluster/pythagoras2_crop.pdf")
 ```
+
+Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
 
 Wieder suchen wir den Abstand zwischen den Punkten $A$ und $B$. Wenn wir die Länge $e$ wüssten, dann hätten wir die Lösung; $e$ ist der Abstand zwischen $A$ und $B$. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: $c^2+d^2=e^2$. Wenn wir also $c$ und $d$ wüssten, so könnten wir $e$ berechnen... $c$ haben wir ja gerade berechnet (5) und $d$ ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also
 
@@ -152,6 +154,8 @@ Ah! Der Unterschied zwischen den beiden Studentinnen beträgt also ~5.4!
 
 Intuitiv gesprochen, "schalten wir mehrere Pythagoras-Sätze hintereinander".
 
+>   Der euklidische Abstand berechnet sich mit Pythagoras' Satz!
+
 
 ```{r pythagoras, echo = FALSE, fig.cap = "Pythagoras in Reihe geschaltet"}
 
@@ -160,7 +164,7 @@ knitr::include_graphics("images/cluster/pythagoras_crop.pdf")
 
 Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.
 
->   Um den Abstand zweier Objekte mit *k* Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann $$e^2 = a^2 + b^2 + d^2$$. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.
+>   Um den Abstand zweier Objekte mit *k* Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann $e^2 = a^2 + b^2 + d^2$. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.
 
 
 Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: "Die Sendung mit der Maus", "Bugs Bunny", "Rambo Teil 1", "Vom Winde verweht" und "MacGyver".
@@ -296,5 +300,7 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 - Der erste Teil dieser Übung basiert auf diesem Skript: <https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html>
 
 - Eine weiterführende, aber gut verständliche Einführung findet sich bei @james2013introduction.
+
+- Die Intuition zum euklidischen Abstand mit Pythagoras' Satz kann hier im Detail nachgelesen werden: <https://betterexplained.com/articles/measure-any-distance-with-the-pythagorean-theorem/>.
 
 
