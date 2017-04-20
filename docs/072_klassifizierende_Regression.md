@@ -75,9 +75,12 @@ Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Fu
 
 $\eta$, das sogenannte *Logit*, ist darin die Linearkombination der Einflussgrößen: $$\eta=\beta_0+\beta_1\cdot x_1+\dots$$
 
-Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen:
+Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">(\#fig:logist-curve)Die logistische Regression beschreibt eine 's-förmige' Kurve</p>
+</div>
 
 ## Die Idee der logistischen Regression
 Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (*general linear model, GLM*). Die Modellgleichung lautet: $$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
@@ -95,7 +98,7 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
 plotModel(glm1)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
 
@@ -396,7 +399,7 @@ performance(pred,"auc")@y.values
 #> [1] 0.636
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 

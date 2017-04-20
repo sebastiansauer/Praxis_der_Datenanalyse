@@ -791,7 +791,7 @@ dplyr::ntile           Teilt einen Wertebereich in n gleich große Teile auf und
 
 
 ### Versionshinweise und SessionInfo
-* Datum erstellt: 2017-04-19
+* Datum erstellt: 2017-04-20
 * R Version: 3.3.2
 * `dplyr` Version: 0.5.0.9002
 

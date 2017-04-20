@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
-date: '2017-04-19'
+date: '2017-04-20'
 colorlinks: yes
 cover-image: cover.jpg
 bibliography:

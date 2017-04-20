@@ -76,7 +76,7 @@ library(mosaic)
 ## Inferenz eines Anteilswerts
 In Tabelle 6 der Pressemitteilung wird der Anteil der Atheisten für Deutschland mit 15% angegeben. Dies ist eine *Statistik* der Stichprobe, nicht der Parameter der *Population*. Es wird also die Frage beantwortet "Wie hoch ist der Anteil der Atheisten in der Stichprobe?". Um die Frage "Wie hoch ist der Anteil der Atheisten in der Population?" zu beantworten, muss von der Stichprobe auf die Population geschlossen werden, d. h., es wird z. B. der Anteilswert *geschätzt*. 
 
-Der folgende Befehl filtert den Datensatz auf das Ergebnis für Deutschland im Jahr 2012, d. h., es werden nur die gewünschten Zeilen im Datensatz belassen:
+Der folgende Befehl filtert den Datensatz auf das Ergebnis für Deutschland im Jahr 2012, d.h. es werden nur die gewünschten Zeilen im Datensatz belassen:
 ```{r}
 de12 <- filter(atheism, nationality == "Germany", year == "2012")
 ```

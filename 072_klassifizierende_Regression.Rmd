@@ -68,9 +68,9 @@ Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Fu
 
 $\eta$, das sogenannte *Logit*, ist darin die Linearkombination der Einflussgrößen: $$\eta=\beta_0+\beta_1\cdot x_1+\dots$$
 
-Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen:
+Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
-```{r echo = FALSE}
+```{r logist-curve, echo = FALSE, fig.cap = "Die logistische Regression beschreibt eine 's-förmige' Kurve"}
 # eta-Werte von -10 bis +10 erzeugen
 eta <- seq(-10,10,by = 0.1)
 # y-Werte mit logistischer Funktion berechnen

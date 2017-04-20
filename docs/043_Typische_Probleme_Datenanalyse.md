@@ -192,7 +192,7 @@ Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable
 
 
 ### Auf Normalverteilung prüfen
-Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig, wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, immer signifikant sein, sofern die Stichrprobe groß genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: Histogramm oder eine Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
+Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm oder ein   Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
 
 <img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
@@ -505,16 +505,16 @@ Die Logik von `dplyr` lässt auch einfach Subgruppenanalysen zu. Z.B. können wi
 stats_test %>% 
   filter(study_time > 1) %>% 
   group_by(interest) %>% 
-  summarise(mean(score, na.rm = TRUE))
+  summarise(median(score, na.rm = TRUE))
 #> # A tibble: 6 × 2
-#>   interest `mean(score, na.rm = TRUE)`
-#>      <int>                       <dbl>
-#> 1        1                        28.5
-#> 2        2                        30.3
-#> 3        3                        31.5
-#> 4        4                        29.8
-#> 5        5                        32.5
-#> 6        6                        34.0
+#>   interest `median(score, na.rm = TRUE)`
+#>      <int>                         <dbl>
+#> 1        1                            28
+#> 2        2                            30
+#> 3        3                            33
+#> 4        4                            31
+#> 5        5                            34
+#> 6        6                            34
 ```
 
 
@@ -527,12 +527,12 @@ stats_test %>%
   na.omit %>% 
   filter(study_time > 1) %>% 
   group_by(intessiert = interest > 3) %>% 
-  summarise(mean(score))
+  summarise(median(score))
 #> # A tibble: 2 × 2
-#>   intessiert `mean(score)`
-#>        <lgl>         <dbl>
-#> 1      FALSE          30.6
-#> 2       TRUE          31.5
+#>   intessiert `median(score)`
+#>        <lgl>           <dbl>
+#> 1      FALSE              30
+#> 2       TRUE              32
 ```
 
 Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`).
@@ -547,13 +547,20 @@ stats_test %>%
   filter(study_time > 1) %>% 
   mutate(interessiert = interest > 3) %>% 
   group_by(interessiert) %>% 
-  summarise(mean(score))
+  summarise(median(score))
 #> # A tibble: 2 × 2
-#>   interessiert `mean(score)`
-#>          <lgl>         <dbl>
-#> 1        FALSE          30.6
-#> 2         TRUE          31.5
+#>   interessiert `median(score)`
+#>          <lgl>           <dbl>
+#> 1        FALSE              30
+#> 2         TRUE              32
 ```
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreisern: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
+
+Daher: besser robuste Statistiken verwenden. Der Median, der Modus und der IQR bieten sich an. 
+
+</div>\EndKnitrBlock{rmdcaution}
 
 
 ### Korrelationstabellen berechnen

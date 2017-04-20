@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rahmen.html">
-<link rel="next" href="datenjudo.html">
+<link rel="prev" href="iv-ungeleitetes-modellieren.html">
+<link rel="next" href="vi-anhang.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -367,226 +367,241 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="daten-einlesen" class="section level1">
-<h1><span class="header-section-number">Kapitel 4</span> Daten einlesen</h1>
-
-<div class="rmdcaution">
-<p>Lernziele:</p>
+<div id="vertiefung-clusteranalyse" class="section level1">
+<h1><span class="header-section-number">Kapitel 15</span> Vertiefung: Clusteranalyse</h1>
+<div id="einfuhrung" class="section level2">
+<h2><span class="header-section-number">15.1</span> Einführung</h2>
+<p>Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. <em>Cluster</em>) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie “Manhatten” oder “Gower” sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklischen Abstand konzentrieren.</p>
+</div>
+<div id="intuitive-darstellung-der-clusteranalayse" class="section level2">
+<h2><span class="header-section-number">15.2</span> Intuitive Darstellung der Clusteranalayse</h2>
+<p>Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; “simuliert”, sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster1">15.1</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster1"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster1-1.png" alt="Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?" width="70%" />
+<p class="caption">
+Abbildung 15.1: Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?
+</p>
+</div>
+<p>Färben wir das Diagramm mal ein (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster2">15.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster2"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster2-1.png" alt="Ein Streudiagramm - mit drei Clustern" width="70%" />
+<p class="caption">
+Abbildung 15.2: Ein Streudiagramm - mit drei Clustern
+</p>
+</div>
+<p>Nach dieser “Färbung”, d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende “Cluster”, “Gruppen” oder “Typen” von Studierenden zu geben:</p>
 <ul>
-<li>Wissen, was eine CSV-Datei ist.</li>
-<li>Wissen, was UTF-8 bedeutet.</li>
-<li>Erläutern können, was R unter dem “working directory” versteht.</li>
-<li>Erkennen können, ob eine Tabelle in Normalform vorliegt.</li>
-<li>Daten aus R hinauskriegen (exportieren).</li>
+<li><p>“Blaue Gruppe”: Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausr. Tja.</p></li>
+<li><p>“Rote Gruppe”: Fälle dieser Gruppe lernen viel; der Erfolg ist recht durchwachsen.</p></li>
+<li><p>“Grüne Gruppe”: Fälle dieser Gruppe lernen mittel viel und erreichen einen vergleichsweise großen Erfolg in der Klausur.</p></li>
 </ul>
-</div>
-<p></p>
-<p>Dieses Kapitel beantwortet eine Frage: “Wie kriege ich Daten in vernünftiger Form in R hinein?”.</p>
-<div class="figure" style="text-align: center"><span id="fig:step-Einlesen"></span>
-<img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
+<p>Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder weniger Gruppen unterteilen können. Die Clusteranalyse gibt keine definitive Anzahl an Gruppen vor; vielmehr gilt es, aus theoretischen und statistischen Überlegungen heraus die richtige Anzahl auszuwählen (dazu gleich noch mehr).</p>
+<p>Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster3">15.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster3"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster3-1.png" alt="Unterschiedliche Anzahlen von Clustern im Vergleich" width="70%" />
 <p class="caption">
-Abbildung 4.1: Daten sauber einlesen
+Abbildung 15.3: Unterschiedliche Anzahlen von Clustern im Vergleich
 </p>
 </div>
-<div id="daten-in-r-importieren" class="section level2">
-<h2><span class="header-section-number">4.1</span> Daten in R importieren</h2>
-<p>In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel oder CSV) oder weniger gebräuchliche (Feather<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>) Datenformate einlesen. In RStudio lässt sich dies z.B. durch einen schnellen Klick auf <code>Import Dataset</code> im Reiter <code>Environment</code> erledigen<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>.</p>
-<div id="excel-dateien-importieren" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Excel-Dateien importieren</h3>
-<p>Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>:</p>
-<div class="figure" style="text-align: center"><span id="fig:data-import-RStudio"></span>
-<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p>Das “X” soll den “Mittelpunkt” des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch “Varianz innerhalb des Clusters” oder kurz “Varianz within” bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster4"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot." width="70%" />
 <p class="caption">
-Abbildung 4.2: Daten einlesen (importieren) mit RStudio
+Abbildung 15.4: Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.
 </p>
 </div>
-<p>Es ist für bestimmte Zwecke sinnvoll, nicht zu klicken, sondern die Syntax einzutippen. Zum Beispiel: Wenn Sie die komplette Analyse als Syntax in einer Datei haben (eine sog. “Skriptdatei”), dann brauchen Sie (in RStudio) nur alles auszuwählen und auf <code>Run</code> zu klicken, und die komplette Analyse läuft durch! Die Erfahrung zeigt, dass das ein praktisches Vorgehen ist.</p>
-
-<div class="rmdcaution">
-<p>Daten (CSV, Excel,…) können Sie <em>nicht</em> öffnen über <code>File &gt; Open File ...</code>. Dieser Weg ist Skript-Dateien vorbehalten.</p>
+<p>Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal “sprunghaft” weniger wird - just an jedem Knick bei x=3; dieser “Knick” wird auch “Ellbogen” genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als “Screeplot” bezeihchnet. Fertig!</p>
 </div>
-<p></p>
-</div>
-<div id="csv-dateien-importieren" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> CSV-Dateien importieren</h3>
-<p>Die gebräuchlichste Form von Daten für statistische Analysen ist wahrscheinlich das CSV-Format. Das ist ein einfaches Format, basierend auf einer Textdatei. Schauen Sie sich mal diesen Auszug aus einer CSV-Datei an.</p>
-<pre><code>&quot;ID&quot;,&quot;time&quot;,&quot;sex&quot;,&quot;height&quot;,&quot;shoe_size&quot;
-&quot;1&quot;,&quot;04.10.2016 17:58:51&quot;,NA,160.1,40
-&quot;2&quot;,&quot;04.10.2016 17:58:59&quot;,&quot;woman&quot;,171.2,39
-&quot;3&quot;,&quot;04.10.2016 18:00:15&quot;,&quot;woman&quot;,174.2,39
-&quot;4&quot;,&quot;04.10.2016 18:01:17&quot;,&quot;woman&quot;,176.4,40
-&quot;5&quot;,&quot;04.10.2016 18:01:22&quot;,&quot;man&quot;,195.2,46</code></pre>
-<p>Erkennen Sie das Muster? Die erste Zeile gibt die “Spaltenköpfe” wieder, also die Namen der Variablen. Hier sind es 5 Spalten; die vierte heißt “shoe_size”. Die Spalten sind offenbar durch Komma <code>,</code> voneinander getrennt. Dezimalstellen sind in amerikanischer Manier mit einem Punkt <code>.</code> dargestellt. Die Daten sind “rechteckig”; alle Spalten haben gleich viele Zeilen und umgekehrt alle Spalten gleich viele Zeilen. Man kann sich diese Tabelle gut als Excel-Tabelle mit Zellen vorstellen, in denen z.B. “ID” (Zelle oben links) oder “46” (Zelle unten rechts) steht.</p>
-<p>An einer Stelle steht <code>NA</code>. Das ist Errisch für “fehlender Wert”. Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen anderen ab; führt nur zu Verwirrung.</p>
-<p>Lesen wir diese Daten jetzt ein:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Der Befehl <code>read.csv</code> liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit deutscher Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Trennzeichen <code>;</code> (Strichpunkt) und als Dezimaltrennzeichen <code>,</code> verwenden. Da der Befehl <code>read.csv</code> als Standard mit Komma und Punkt arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht ausführen:</span>
-daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daten_deutsch.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
-<p>Dabei steht <code>sep</code> (separator) für das Trennzeichen zwischen den Spalten und <code>dec</code> für das Dezimaltrennzeichen. R bietet eine Kurzfassung für <code>read.csv</code> mit diesen Parametern: <code>read.csv2(&quot;daten_deutsch.csv&quot;)</code>.</p>
-</div>
-<div id="vertiefung-einlesen-mit-prufung" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> Vertiefung: Einlesen mit Prüfung</h3>
-<pre><code>#&gt;   X                time   sex height shoe_size
-#&gt; 1 1 04.10.2016 17:58:51 woman    160        40
-#&gt; 2 2 04.10.2016 17:58:59 woman    171        39
-#&gt; 3 3 04.10.2016 18:00:15 woman    174        39
-#&gt; 4 4 04.10.2016 18:01:17 woman    176        40
-#&gt; 5 5 04.10.2016 18:01:22   man    195        46
-#&gt; 6 6 04.10.2016 18:01:53 woman    157        37</code></pre>
-<p>Wir haben zuerst geprüft, ob die Datei (<code>wo_men.csv</code>) im entsprechenden Ordner existiert oder nicht (das <code>!</code>-Zeichen heißt auf Errisch “nicht”). Falls die Datei nicht im Ordner existiert, laden wir sie mit <code>read.csv</code> herunter und direkt ins R hinein. Andernfalls (<code>else</code>) lesen wir sie direkt ins R hinein.</p>
-</div>
-<div id="das-arbeitsverzeichnis" class="section level3">
-<h3><span class="header-section-number">4.1.4</span> Das Arbeitsverzeichnis</h3>
-
-<div class="rmdcaution">
-<p>Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem <em>working directory</em>) liegen.</p>
-</div>
-<p></p>
-<p>Das aktuelle Verzeichnis (Arbeitsverzeichnis; “working directory”) kann man mit <code>getwd()</code> erfragen und mit <code>setwd()</code> einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern. In RStudio: <code>Session &gt; Set Working Directory &gt; Choose Directory ...</code> (oder per Shortcut, der dort angezeigt wird).</p>
-<p>Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht ausführen:</span>
-daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daten_deutsch.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
-<p>R geht dann davon aus, dass sich die Datei <code>daten_deutsch.csv</code> im Arbeitsverzeichnis befindet.</p>
-</div>
-</div>
-<div id="normalform-einer-tabelle" class="section level2">
-<h2><span class="header-section-number">4.2</span> Normalform einer Tabelle</h2>
-<p>Tabellen in R werden als <code>data frames</code> (“Dataframe” auf Denglisch; moderner: als <code>tibble</code>, Tibble kurz für “Table-df”) bezeichnet. Tabellen sollten in “Normalform” vorliegen (“tidy”), bevor wir weitere Analysen starten. Unter Normalform verstehen sich folgende Punkte:</p>
-<ul>
-<li>Es handelt sich um einen Dataframe, also um eine Tabelle mit Spalten mit Namen und gleicher Länge; eine Datentabelle in rechteckiger Form und die Spalten haben einen Namen.</li>
-<li>In jeder Zeile steht eine Beobachtung, in jeder Spalte eine Variable.</li>
-<li>Fehlende Werte sollten sich in <em>leeren</em> Zellen niederschlagen.</li>
-<li>Daten sollten nicht mit Farbmarkierungen o.ä. kodiert werden.</li>
-<li>Es gibt keine Leerzeilen und keine Leerspalten.</li>
-<li>In jeder Zelle steht ein Wert.</li>
-<li>Am besten verwendet man keine Sonderzeichen verwenden und keine Leerzeichen in Variablennamen und -werten, sondern nur Ziffern und Buchstaben und Unterstriche.</li>
-<li>Variablennamen dürfen nicht mit einer Zahl beginnen.</li>
-</ul>
-<p>Abbildung <a href="daten-einlesen.html#fig:tidy1">4.3</a> visualisiert die Bestimmungsstücke eines Dataframes <span class="citation">(Wickham and Grolemund <a href="#ref-r4ds">2016</a>)</span>:</p>
-<div class="figure" style="text-align: center"><span id="fig:tidy1"></span>
-<img src="images/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
+<div id="euklidische-distanz" class="section level2">
+<h2><span class="header-section-number">15.3</span> Euklidische Distanz</h2>
+<p>Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur <del>geschrieben haben</del>schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der “Abstand” zwischen Anna und Berta (vgl. Abb. <a href="vertiefung-clusteranalyse.html#fig:distanz">15.5</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:distanz"></span>
+<img src="images/cluster/distanz_crop.df" alt="Distanz zwischen zwei Punkten in der Ebene" width="70%" />
 <p class="caption">
-Abbildung 4.3: Schematische Darstellung eines Dataframes in Normalform
+Abbildung 15.5: Distanz zwischen zwei Punkten in der Ebene
 </p>
 </div>
-<p>Der Punkt “Jede Zeile eine Beobachtung, jede Spalte eine Variable” verdient besondere Beachtung. Betrachten Sie dieses Beispiel:</p>
-<div class="figure" style="text-align: center"><span id="fig:lang-breit"></span>
-<img src="images/breit_lang.pdf" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
+<p>Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der <em>Satz des Pythagoras</em> (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung geliebt:</p>
+<p><span class="math display">\[c^2 = a^2 + b^2\]</span>.</p>
+<p>In unserem Beispiel heißt das <span class="math inline">\(c^2 = 3^2+4^2 = 25\)</span>. Folglich ist <span class="math inline">\(\sqrt{c^2}=\sqrt{25}=5\)</span>. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art, den Abstand zu berechnen, nennt man den <em>euklidischen Abstand</em>.</p>
+<p>Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch “Statistikliebe” erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).</p>
+<div class="figure" style="text-align: center"><span id="fig:pythagoras2"></span>
+<img src="images/cluster/pythagoras2_crop.pdf" alt="Pythagoras in 3D" width="70%" />
 <p class="caption">
-Abbildung 4.4: Dieselben Daten - einmal breit, einmal lang
+Abbildung 15.6: Pythagoras in 3D
 </p>
 </div>
-<p>In der rechten Tabelle sind die Variablen <code>Quartal</code> und <code>Umsatz</code> klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-Normalform"></span>
-<img src="images/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
+<p>Wieder suchen wir den Abstand zwischen den Punkten <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span>. Wenn wir die Länge <span class="math inline">\(e\)</span> wüssten, dann hätten wir die Lösung; <span class="math inline">\(e\)</span> ist der Abstand zwischen <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span>. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: <span class="math inline">\(c^2+d^2=e^2\)</span>. Wenn wir also <span class="math inline">\(c\)</span> und <span class="math inline">\(d\)</span> wüssten, so könnten wir <span class="math inline">\(e\)</span> berechnen… <span class="math inline">\(c\)</span> haben wir ja gerade berechnet (5) und <span class="math inline">\(d\)</span> ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also</p>
+<p><span class="math display">\[e^2 = c^2 + d^2\]</span> <span class="math display">\[e^2 = 5^2 + 2^2\]</span> <span class="math display">\[e^2 = 25 + 4\]</span></p>
+<p><span class="math display">\[e = \sqrt{29} \approx 5.4\]</span></p>
+<p>Ah! Der Unterschied zwischen den beiden Studentinnen beträgt also ~5.4!</p>
+<p>Intuitiv gesprochen, “schalten wir mehrere Pythagoras-Sätze hintereinander”.</p>
+<div class="figure" style="text-align: center"><span id="fig:pythagoras"></span>
+<img src="images/cluster/pythagoras_crop.pdf" alt="Pythagoras in Reihe geschaltet" width="70%" />
 <p class="caption">
-Abbildung 4.5: Illustration eines Datensatzes in Normalform
+Abbildung 15.7: Pythagoras in Reihe geschaltet
 </p>
 </div>
-</div>
-<div id="vertiefung" class="section level2">
-<h2><span class="header-section-number">4.3</span> Vertiefung</h2>
-<div id="tabelle-in-normalform-bringen" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Tabelle in Normalform bringen</h3>
-<p>Eine der ersten Aktionen einer Datenanalyse sollte also die “Normalisierung” Ihrer Tabelle sein. In R bietet sich dazu das Paket <code>tidyr</code> an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.</p>
-<p>Ein Beispiel dazu:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meindf &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://stanford.edu/~ejdemyr/r-tutorials/data/unicef-u5mr.csv&quot;</span>)
-
-df_lang &lt;-<span class="st"> </span><span class="kw">gather</span>(meindf, year, u5mr, U5MR<span class="fl">.1950</span>:U5MR<span class="fl">.2015</span>)
-
-df_lang &lt;-<span class="st"> </span><span class="kw">separate</span>(df_lang, year, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;U5MR&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
-<ul>
-<li>Die erste Zeile liest die Daten aus einer CSV-Datei ein; praktischerweise direkt von einer Webseite.<br />
-</li>
-<li>Die zweite Zeile <code>gather</code> formt die Daten <em>von breit nach lang</em> um. Die neuen Spalten, nach der Umformung heißen dann <code>year</code> und <code>u5mr</code> (Sterblichkeit bei Kindern unter fünf Jahren). In die Umformung werden die Spalten <code>U5MR 1950</code> bis <code>U5MR 2015</code> einbezogen.</li>
-<li>Die dritte Zeile <code>separate</code> <em>entzerrt</em> die Werte der Spalte <code>year</code>; hier stehen die ehemaligen Spaltenköpfe. Man nennt sie auch <code>key</code> Spalte daher. Steht in einer Zelle von <code>year</code> bspw. <code>U5MR 1950</code>, so wird <code>U5MR</code> in eine Spalte mit Namen <code>U5MR</code> und <code>1950</code> in eine Spalte mit Namen <code>year</code> geschrieben.</li>
-</ul>
-</div>
-<div id="textkodierung" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Textkodierung</h3>
-<p>Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht man… Text und sonst nichts, also keine Formatierung etc. Eine Textdatei besteht aus Text und sonst nichts (daher der Name…). Auch eine R-Skript-Datei (<code>Coole_Syntax.R</code>) ist eine Textdatei. Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Ein bestimmtes Zeichen wie “A” bekommt einen bestimmten Code wie “41”. Mit etwas Glück weiß der Computer jetzt, dass er das Zeichen “41” auf den Bildschirm ausgeben soll. Es stellt sich jetzt die Frage, welche Code-Tabelle der Computer nutzt? Welchem Code wird “A” (bzw. ein beliebiges Zeichen) zugeordnet? Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt <em>UTF-8</em><a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter <code>File &gt; Save with Encoding...</code> die Kodierung einer Textdatei festlegen.</p>
+<p>Das geht nicht nur für “zwei Dreiecke hintereinander”, sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.</p>
 <blockquote>
-<p>Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.</p>
+<p>Um den Abstand zweier Objekte mit <em>k</em> Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann <span class="math display">\[e^2 = a^2 + b^2 + d^2\]</span>. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.</p>
 </blockquote>
+<p>Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: “Die Sendung mit der Maus”, “Bugs Bunny”, “Rambo Teil 1”, “Vom Winde verweht” und “MacGyver”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">profs &lt;-<span class="st"> </span><span class="kw">data_frame</span>(
+  <span class="dt">film1 =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">8</span>),
+  <span class="dt">film2 =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">7</span>),
+  <span class="dt">film3 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>),
+  <span class="dt">film4 =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>),
+  <span class="dt">film5 =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>)
+)</code></pre></div>
+<p>Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben eingen größeren “Abstand” in ihren Vorlieben?</p>
+<p>Wir könnten einen “fünffachen Pythagoras” zu Rate ziehen. Praktischerweise gibt es aber eine R-Funktion, die uns die Rechnerei abnimmt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dist</span>(profs)
+<span class="co">#&gt;       1     2</span>
+<span class="co">#&gt; 2 13.23      </span>
+<span class="co">#&gt; 3  2.65 10.77</span></code></pre></div>
+<p>Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwischen Prof 2 und 3 auch recht groß (10.8). Aber der Abstand zwischen Prof. 1 und 3 ist relativ klein! Endlich hätten wir diese Frage auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben an…</p>
 </div>
-<div id="daten-exportieren" class="section level3">
-<h3><span class="header-section-number">4.3.3</span> Daten exportieren</h3>
-<p>Wie bekommt man seine Daten wieder aus R raus (“ich will zu Excel zurück!”)?</p>
-<p>Eine Möglichkeit bietet die Funktion <code>write.csv</code>; sie schreibt eine CSV-Datei:</p>
-<pre><code>write.csv(name_der_tabelle, &quot;Dateiname.csv&quot;)</code></pre>
-<p>Mit <code>help(write.csv)</code> bekommt man mehr Hinweise dazu. Beachten Sie, dass immer in das aktuelle Arbeitsverzeichnis geschrieben wird.</p>
+<div id="daten" class="section level2">
+<h2><span class="header-section-number">15.4</span> Daten</h2>
+<p>Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen <em>simulierten</em> Datensatz aus <em>Chapman &amp; Feit (2015): R for Marketing Research and Analytics. Springer</em> analysieren (<a href="http://r-marketing.r-forge.r-project.org" class="uri">http://r-marketing.r-forge.r-project.org</a>). Näheres dazu siehe Kapitel 5 dort.</p>
+<p>Sie können ihn von <a href="https://goo.gl/eUm8PI" class="uri">https://goo.gl/eUm8PI</a> als <code>csv</code>-Datei herunterladen; oder, wenn sich die Datei im Unterordner <code>data/</code> (relativ zu ihrem Arbeitsverzeichnis) befindet:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segment &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/segment.csv&quot;</span>)</code></pre></div>
+<p>Wir verwenden die Variante <code>read.csv2</code>, da es sich um eine “deutsche” CSV-Datei handelt.</p>
+<p>Ein Überblick über die Daten verschafft uns die Funktion <code>glimpse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(segment)
+<span class="co">#&gt; Observations: 300</span>
+<span class="co">#&gt; Variables: 7</span>
+<span class="co">#&gt; $ Alter          &lt;dbl&gt; 50.2, 40.7, 43.0, 40.3, 41.1, 40.2, 39.5, 35.7,...</span>
+<span class="co">#&gt; $ Geschlecht     &lt;fctr&gt; Mann, Mann, Frau, Mann, Frau, Mann, Frau, Mann...</span>
+<span class="co">#&gt; $ Einkommen      &lt;dbl&gt; 51356, 64411, 71615, 42728, 71641, 60325, 54746...</span>
+<span class="co">#&gt; $ Kinder         &lt;int&gt; 0, 3, 2, 1, 4, 2, 5, 1, 1, 0, 3, 4, 0, 2, 6, 0,...</span>
+<span class="co">#&gt; $ Eigenheim      &lt;fctr&gt; Nein, Nein, Ja, Nein, Nein, Ja, Nein, Nein, Ne...</span>
+<span class="co">#&gt; $ Mitgliedschaft &lt;fctr&gt; Nein, Nein, Nein, Nein, Nein, Nein, Ja, Ja, Ne...</span>
+<span class="co">#&gt; $ Segment        &lt;fctr&gt; Gemischte Vorstadt, Gemischte Vorstadt, Gemisc...</span></code></pre></div>
 </div>
+<div id="distanzmae-mit-r-berechnen" class="section level2">
+<h2><span class="header-section-number">15.5</span> Distanzmaße mit R berechnen</h2>
+<p>Auf Basis der drei metrischen Merkmale (d. h. <code>Alter</code>, <code>Einkommen</code> und <code>Kinder</code>) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dist</span>(<span class="kw">head</span>(segment))
+<span class="co">#&gt;         1       2       3       4       5</span>
+<span class="co">#&gt; 2 19941.8                                </span>
+<span class="co">#&gt; 3 30946.1 11004.3                        </span>
+<span class="co">#&gt; 4 13179.5 33121.3 44125.6                </span>
+<span class="co">#&gt; 5 30985.9 11044.0    39.9 44165.3        </span>
+<span class="co">#&gt; 6 13700.4  6241.5 17245.8 26879.9 17285.5</span></code></pre></div>
+<p>Sie können erkennen, dass die Beobachtungen <code>5</code> und <code>3</code> den kleinsten Abstand haben, während <code>5</code> und <code>4</code> den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (<code>Einkommen</code> streut stärker als <code>Kinder</code>). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über <code>scale()</code>).</p>
+<p>Mit der Funktion <code>daisy()</code> aus dem Paket <code>cluster</code> kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">daisy</span>(<span class="kw">head</span>(segment))
+<span class="co">#&gt; Dissimilarities :</span>
+<span class="co">#&gt;       1     2     3     4     5</span>
+<span class="co">#&gt; 2 0.307                        </span>
+<span class="co">#&gt; 3 0.560 0.390                  </span>
+<span class="co">#&gt; 4 0.219 0.184 0.502            </span>
+<span class="co">#&gt; 5 0.516 0.220 0.242 0.404      </span>
+<span class="co">#&gt; 6 0.401 0.206 0.239 0.268 0.426</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Metric :  mixed ;  Types = I, N, I, I, N, N, N </span>
+<span class="co">#&gt; Number of objects : 6</span></code></pre></div>
 </div>
-<div id="befehlsubersicht-1" class="section level2">
-<h2><span class="header-section-number">4.4</span> Befehlsübersicht</h2>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Paket::Funktion</th>
-<th align="left">Beschreibung</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">read.csv</td>
-<td align="left">Liest eine CSV-Datei ein.</td>
-</tr>
-<tr class="even">
-<td align="left">write.csv</td>
-<td align="left">Schreibt einen Dateframe in eine CSV-Datei.</td>
-</tr>
-<tr class="odd">
-<td align="left">readr::gather</td>
-<td align="left">Macht aus einem “breiten” Dataframe einen “langen”.</td>
-</tr>
-<tr class="even">
-<td align="left">readr::separate</td>
-<td align="left">“Zieht” Spalten auseinander.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="ubungen-2" class="section level2">
-<h2><span class="header-section-number">4.5</span> Übungen<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></h2>
-
-<div class="rmdexercises">
-<p>Richtig oder Falsch!?</p>
+<div id="k-means-clusteranalyse" class="section level2">
+<h2><span class="header-section-number">15.6</span> k-Means Clusteranalyse</h2>
+<p>Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt – dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird.</p>
+<p>Der Ablauf des Verfahrens ist wie folgt:</p>
 <ol style="list-style-type: decimal">
-<li>In CSV-Dateien dürfen Spalten <em>nie</em> durch Komma getrennt sein.</li>
-<li>RStudio bietet die Möglichkeit, CSV-Dateien per Klick zu importieren.</li>
-<li>RStudio bietet <em>nicht</em> die Möglichkeit, CSV-Dateien per Klick zu importieren.</li>
-<li>“Deutsche” CSV-Dateien verwenden als Spalten-Trennzeichen einen Strichpunkt.</li>
-<li>In einer Tabelle in Normalform stehen in jeder Zeile eine Beobachtung.</li>
-<li>In einer Tabelle in Normalform stehen in jeder Spalte eine Variable.</li>
-<li>R stellt fehlende Werte mit einem Fragezeichen <code>?</code> dar.</li>
-<li>Um Excel-Dateien zu importieren, kann man den Befehl <code>read.csv</code> verwenden.</li>
+<li>Zufällige Beobachtungen als Clusterzentrum</li>
+<li>Zuordnung der Beobachtungen zum nächsten Clusterzentrum (Ähnlichkeit, z. B. über die euklidische Distanz)</li>
+<li>Neuberechnung der Clusterzentren als Mittelwert der dem Cluster zugeordneten Beobachtungen</li>
+</ol>
+<p>Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung der Zuordnung mehr ergibt – oder eine maximale Anzahl an Iterationen erreicht wurde.</p>
+<p><em>Hinweis:</em> Die (robuste) Funktion <code>pam()</code> aus dem Paket <code>cluster</code> kann auch mit allgemeinen Distanzen umgehen. Außerdem für gemischte Variablentypen gut geeignet: Das Paket <a href="https://cran.r-project.org/web/packages/clustMixType/index.html"><code>clustMixType</code></a>.</p>
+<p>Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale, und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segment.num &lt;-<span class="st"> </span>segment %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Frau =</span> Geschlecht ==<span class="st"> &quot;Frau&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Eigenheim =</span> Eigenheim ==<span class="st">&quot;Ja&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Mitgliedschaft =</span> Mitgliedschaft ==<span class="st"> &quot;Ja&quot;</span>) %&gt;%
+<span class="st">  </span>dplyr::<span class="kw">select</span>(-Geschlecht, -Segment)</code></pre></div>
+<p>Über die Funktion <code>mutate()</code> werden Variablen im Datensatz erzeugt oder verändert. Über <code>select()</code> werden einzene Variablen ausgewählt. Die “Pfeife” <code>%&gt;%</code> übergeben das Ergebnis der vorherigen Funktion an die folgende.</p>
+<p>Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion <code>kmeans()</code> erfolgt dies durch die Option <code>nstart=</code>. Hier mit <code>k=4</code> Clustern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1896</span>)
+
+seg.k &lt;-<span class="st"> </span><span class="kw">kmeans</span>(segment.num, <span class="dt">centers =</span> <span class="dv">4</span>, <span class="dt">nstart =</span> <span class="dv">10</span>)
+seg.k
+<span class="co">#&gt; K-means clustering with 4 clusters of sizes 111, 26, 58, 105</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Cluster means:</span>
+<span class="co">#&gt;   Alter Einkommen Kinder Eigenheim Mitgliedschaft  Frau</span>
+<span class="co">#&gt; 1  42.9     46049  1.649     0.505         0.1081 0.568</span>
+<span class="co">#&gt; 2  56.4     85973  0.385     0.538         0.0385 0.538</span>
+<span class="co">#&gt; 3  27.0     22608  1.224     0.276         0.2069 0.414</span>
+<span class="co">#&gt; 4  43.6     62600  1.505     0.457         0.1238 0.590</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Clustering vector:</span>
+<span class="co">#&gt;   [1] 1 4 4 1 4 4 4 1 2 4 1 1 4 4 1 1 1 1 1 4 4 4 1 4 1 1 1 1 4 1 4 4 1 1 2</span>
+<span class="co">#&gt;  [36] 1 4 1 1 4 4 4 1 4 4 4 4 1 1 1 1 1 2 1 1 4 4 4 4 1 4 1 4 1 1 1 1 4 4 4</span>
+<span class="co">#&gt;  [71] 4 1 1 4 1 1 4 4 4 4 1 4 1 3 1 4 1 1 1 1 4 4 4 1 1 4 1 4 4 4 3 3 3 3 3</span>
+<span class="co">#&gt; [106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span>
+<span class="co">#&gt; [141] 3 3 3 3 3 3 3 3 3 3 1 2 4 2 2 4 1 1 2 2 4 4 1 1 4 2 4 4 1 2 2 3 4 1 2</span>
+<span class="co">#&gt; [176] 2 4 2 3 4 4 4 1 1 1 1 1 1 4 3 1 4 4 4 4 1 1 1 2 4 4 1 2 4 4 1 4 2 1 2</span>
+<span class="co">#&gt; [211] 4 3 4 2 2 4 2 1 4 3 1 2 2 4 2 4 4 1 4 4 1 1 1 1 1 3 1 1 4 1 4 3 1 4 1</span>
+<span class="co">#&gt; [246] 4 1 4 1 4 4 4 4 1 1 1 4 4 1 1 1 1 1 1 4 1 1 1 1 1 2 4 4 1 4 1 1 1 1 2</span>
+<span class="co">#&gt; [281] 4 4 4 4 1 4 1 4 4 4 1 4 1 4 1 4 1 1 4 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Within cluster sum of squares by cluster:</span>
+<span class="co">#&gt; [1] 3.18e+09 2.22e+09 1.69e+09 2.81e+09</span>
+<span class="co">#&gt;  (between_SS / total_SS =  90.6 %)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Available components:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    </span>
+<span class="co">#&gt; [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        </span>
+<span class="co">#&gt; [9] &quot;ifault&quot;</span></code></pre></div>
+<p>Neben der Anzahl Beobachtungen im Cluster (z. B. 26 in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster 3 mit 27 am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit 54 % in Cluster 2 am höchsten.</p>
+<p>Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion <code>clusplot()</code> aus dem Paket <code>cluster</code> erhalten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clusplot</span>(segment.num, seg.k$cluster, 
+         <span class="dt">color =</span> <span class="ot">TRUE</span>, <span class="dt">shade =</span> <span class="ot">TRUE</span>, <span class="dt">labels =</span> <span class="dv">4</span>)</code></pre></div>
+<p><img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /> Wie schon im deskriptiven Ergebnis: Die Cluster <code>1</code> und <code>4</code> unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit <code>centers=3</code> die Analyse wiederholt werden?<a href="#fn63" class="footnoteRef" id="fnref63"><sup>63</sup></a></p>
+<hr />
+</div>
+<div id="ubung-b3-datensatz" class="section level2">
+<h2><span class="header-section-number">15.7</span> Übung: B3 Datensatz</h2>
+<p>Der B3 Datensatz <em>Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.</em> enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.</p>
+<p>Er kann von <a href="https://goo.gl/0YCEHf" class="uri">https://goo.gl/0YCEHf</a> heruntergeladen werden.</p>
+<ol style="list-style-type: decimal">
+<li>Wenn die Konjunkturphase <code>PHASEN</code> nicht berücksichtigt wird, wie viele Cluster könnte es geben? Ändert sich das Ergebnis, wenn die Variablen standardisiert werden?</li>
+<li>Führen Sie eine k-Means Clusteranalyse mit 4 Clustern durch. Worin unterscheiden sich die gefundenen Segmente?</li>
 </ol>
 </div>
-<p></p>
-</div>
-<div id="verweise-1" class="section level2">
-<h2><span class="header-section-number">4.6</span> Verweise</h2>
+<div id="literatur-3" class="section level2">
+<h2><span class="header-section-number">15.8</span> Literatur</h2>
 <ul>
-<li><em>R for Data Science</em> bietet umfangreiche Unterstützung zu diesem Thema <span class="citation">(Wickham and Grolemund <a href="#ref-r4ds">2016</a>)</span>.</li>
+<li>Chris Chapman, Elea McDonnell Feit (2015): <em>R for Marketing Research and Analytics</em>, Kapitel 11.3</li>
+<li>Reinhold Hatzinger, Kurt Hornik, Herbert Nagel (2011): <em>R – Einführung durch angewandte Statistik</em>. Kapitel 12</li>
+</ul>
+</div>
+<div id="verweise-6" class="section level2">
+<h2><span class="header-section-number">15.9</span> Verweise</h2>
+<ul>
+<li><p>Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus <span class="citation">Chapman and Feit (<a href="#ref-Chapman2015">2015</a>)</span> und steht unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>. Der Code steht unter der <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Lizenz 2.0</a></p></li>
+<li><p>Der erste Teil dieser Übung basiert auf diesem Skript: <a href="https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html" class="uri">https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html</a></p></li>
+<li><p>Eine weiterführende, aber gut verständliche Einführung findet sich bei <span class="citation">James, Witten, Hastie, and Tibshirani (<a href="#ref-james2013introduction">2013</a><a href="#ref-james2013introduction">c</a>)</span>.</p></li>
 </ul>
 
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
 <div id="refs" class="references">
-<div id="ref-r4ds">
-<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media. <a href="https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399">https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1491910399</a>.</p>
+<div id="ref-Chapman2015">
+<p>Chapman, Chris, and Elea McDonnell Feit. 2015. <em>R for Marketing Research and Analytics</em>. Springer International Publishing. doi:<a href="https://doi.org/10.1007/978-3-319-14436-8">10.1007/978-3-319-14436-8</a>.</p>
+</div>
+<div id="ref-james2013introduction">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013c. <em>An Introduction to Statistical Learning</em>. Vol. 6. Springer.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="6">
-<li id="fn6"><p><a href="https://cran.r-project.org/web/packages/feather/index.html" class="uri">https://cran.r-project.org/web/packages/feather/index.html</a><a href="daten-einlesen.html#fnref6">↩</a></p></li>
-<li id="fn7"><p>Um CSV-Dateien zu laden wird durch den Klick im Hintergrund das Paket <code>readr</code> verwendet <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a><a href="#ref-readr">a</a>)</span>; die entsprechende Syntax wird in der Konsole ausgegeben, so dass man sie sich anschauen und weiterverwenden kann<a href="daten-einlesen.html#fnref7">↩</a></p></li>
-<li id="fn8"><p>im Hintergrund wird das Paket <code>readxl</code> verwendet<a href="daten-einlesen.html#fnref8">↩</a></p></li>
-<li id="fn9"><p><a href="https://de.wikipedia.org/wiki/UTF-8" class="uri">https://de.wikipedia.org/wiki/UTF-8</a><a href="daten-einlesen.html#fnref9">↩</a></p></li>
-<li id="fn10"><p>F, R, F, R, R, R, F, F<a href="daten-einlesen.html#fnref10">↩</a></p></li>
+<ol start="63">
+<li id="fn63"><p>Das Paket <code>NbClust</code>, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) <em>NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set</em>, Journal of Statistical Software, 61(6), 1-36. <a href="http://dx.doi.org/10.18637/jss.v061.i06" class="uri">http://dx.doi.org/10.18637/jss.v061.i06</a>, bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.<a href="vertiefung-clusteranalyse.html#fnref63">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -594,8 +609,8 @@ df_lang &lt;-<span class="st"> </span><span class="kw">separate</span>(df_lang, 
           </div>
         </div>
       </div>
-<a href="rahmen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="datenjudo.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="iv-ungeleitetes-modellieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vi-anhang.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

@@ -12,7 +12,7 @@ library(cluster)
 
 
 
-# Clusteranalyse
+# Vertiefung: Clusteranalyse
 
 
 ## Einführung
@@ -62,26 +62,99 @@ Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. 
 Das "X" soll den "Mittelpunkt" des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch "Varianz innerhalb des Clusters" oder kurz "Varianz within" bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.
 
 <div class="figure" style="text-align: center">
-<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern" width="70%" />
-<p class="caption">(\#fig:cluster4)Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern</p>
+<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot." width="70%" />
+<p class="caption">(\#fig:cluster4)Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.</p>
 </div>
 
-Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Fertig!
+Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeihchnet. Fertig!
+
+
+## Euklidische Distanz
+
+Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
+
+<div class="figure" style="text-align: center">
+<img src="images/cluster/distanz_crop.df" alt="Distanz zwischen zwei Punkten in der Ebene" width="70%" />
+<p class="caption">(\#fig:distanz)Distanz zwischen zwei Punkten in der Ebene</p>
+</div>
+
+
+Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung geliebt:
+
+$$c^2 = a^2 + b^2$$.
+
+In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\sqrt{25}=5$. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art, den Abstand zu berechnen, nennt man den *euklidischen Abstand*.
+
+Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch "Statistikliebe" erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).
+
+<div class="figure" style="text-align: center">
+<img src="images/cluster/pythagoras2_crop.pdf" alt="Pythagoras in 3D" width="70%" />
+<p class="caption">(\#fig:pythagoras2)Pythagoras in 3D</p>
+</div>
+
+Wieder suchen wir den Abstand zwischen den Punkten $A$ und $B$. Wenn wir die Länge $e$ wüssten, dann hätten wir die Lösung; $e$ ist der Abstand zwischen $A$ und $B$. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: $c^2+d^2=e^2$. Wenn wir also $c$ und $d$ wüssten, so könnten wir $e$ berechnen... $c$ haben wir ja gerade berechnet (5) und $d$ ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also
+
+$$e^2 = c^2 + d^2$$
+$$e^2 = 5^2 + 2^2$$
+$$e^2 = 25 + 4$$
+
+$$e = \sqrt{29} \approx 5.4$$
+
+Ah! Der Unterschied zwischen den beiden Studentinnen beträgt also ~5.4!
+
+Intuitiv gesprochen, "schalten wir mehrere Pythagoras-Sätze hintereinander".
+
+
+<div class="figure" style="text-align: center">
+<img src="images/cluster/pythagoras_crop.pdf" alt="Pythagoras in Reihe geschaltet" width="70%" />
+<p class="caption">(\#fig:pythagoras)Pythagoras in Reihe geschaltet</p>
+</div>
+
+Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.
+
+>   Um den Abstand zweier Objekte mit *k* Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann $$e^2 = a^2 + b^2 + d^2$$. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.
+
+
+Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: "Die Sendung mit der Maus", "Bugs Bunny", "Rambo Teil 1", "Vom Winde verweht" und "MacGyver".
+
+
+```r
+profs <- data_frame(
+  film1 = c(9, 1, 8),
+  film2 = c(8, 2, 7),
+  film3 = c(1, 8, 3),
+  film4 = c(2, 3, 2),
+  film5 = c(7, 2, 6)
+)
+
+```
+
+Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben eingen größeren "Abstand" in ihren Vorlieben? 
+
+Wir könnten einen "fünffachen Pythagoras" zu Rate ziehen. Praktischerweise gibt es aber eine R-Funktion, die uns die Rechnerei abnimmt:
 
 
 
+```r
+dist(profs)
+#>       1     2
+#> 2 13.23      
+#> 3  2.65 10.77
+```
 
+Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwischen Prof 2 und 3 auch recht groß (10.8). Aber der Abstand zwischen Prof. 1 und 3 ist relativ klein! Endlich hätten wir diese Frage auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben an...
 
 ## Daten
 
 Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
 
-Sie können ihn von [hier](https://goo.gl/eUm8PI) als `csv`-Datei herunterladen:
+Sie können ihn von <https://goo.gl/eUm8PI> als `csv`-Datei herunterladen; oder, wenn sich die Datei im Unterordner `data/` (relativ zu ihrem Arbeitsverzeichnis) befindet:
 
 
 ```r
-segment <- read.csv2("https://goo.gl/eUm8PI")
+segment <- read.csv2("data/segment.csv")
 ```
+
 
 Wir verwenden die Variante `read.csv2`, da es sich um eine "deutsche" CSV-Datei handelt.
 
@@ -102,7 +175,7 @@ glimpse(segment)
 ```
 
 
-## Distanzmaße
+## Distanzmaße mit R berechnen
 
 
 Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
@@ -139,7 +212,7 @@ daisy(head(segment))
 
 ## k-Means Clusteranalyse
 
-Beim k-Means Clusterverfahren handelt es sich im Gegensatz zur hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
+Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
 
 Der Ablauf des Verfahrens ist wie folgt:
 
@@ -211,7 +284,7 @@ clusplot(segment.num, seg.k$cluster,
          color = TRUE, shade = TRUE, labels = 4)
 ```
 
-<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?^[Das Paket `NbClust`, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) *NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set*, Journal of Statistical Software, 61(6), 1-36. [http://dx.doi.org/10.18637/jss.v061.i06](http://dx.doi.org/10.18637/jss.v061.i06), bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.]
 
 ***

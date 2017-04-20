@@ -174,7 +174,7 @@ Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable
 
 
 ### Auf Normalverteilung prüfen
-Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig, wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, immer signifikant sein, sofern die Stichrprobe groß genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: Histogramm oder eine Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
+Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm oder ein   Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
 
 ```{r echo = FALSE}
 wo_men %>% 
@@ -422,7 +422,7 @@ Die Logik von `dplyr` lässt auch einfach Subgruppenanalysen zu. Z.B. können wi
 stats_test %>% 
   filter(study_time > 1) %>% 
   group_by(interest) %>% 
-  summarise(mean(score, na.rm = TRUE))
+  summarise(median(score, na.rm = TRUE))
 ```
 
 
@@ -434,7 +434,7 @@ stats_test %>%
   na.omit %>% 
   filter(study_time > 1) %>% 
   group_by(intessiert = interest > 3) %>% 
-  summarise(mean(score))
+  summarise(median(score))
 ```
 
 Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`).
@@ -448,7 +448,16 @@ stats_test %>%
   filter(study_time > 1) %>% 
   mutate(interessiert = interest > 3) %>% 
   group_by(interessiert) %>% 
-  summarise(mean(score))
+  summarise(median(score))
+```
+
+
+```{block2, robust-only, type='rmdcaution', echo = TRUE} 
+Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreisern: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
+
+Daher: besser robuste Statistiken verwenden. Der Median, der Modus und der IQR bieten sich an. 
+
+
 ```
 
 

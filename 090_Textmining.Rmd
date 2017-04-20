@@ -22,17 +22,15 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 
 
 
-# Textmining
+# Vertiefung: Textmining
 
 In diesem Kapitel benötigte R-Pakete:
 ```{r}
 library(tidyverse)  # Datenjudo
-library(okcupiddata)  # Daten
 library(stringr)  # Textverarbeitung
 library(tidytext)  # Textmining
 library(pdftools)  # PDF einlesen
 library(downloader)  # Daten herunterladen
-library(knitr)  # HTML-Tabellen
 library(lsa)  # Stopwörter 
 library(SnowballC)  # Wörter trunkieren
 library(wordcloud)  # Wordcloud anzeigen

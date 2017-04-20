@@ -57,8 +57,8 @@ Termin    Thema/ Kapitel
 6         Lineare Regression - metrisch
 7         Lineare Regression - kategorial
 8         Fallstudie
-9         Ausblick: Textmining und Clusteranalyse
-10        Ausblick: Baumbasierte Verfahren
+9         Vertiefung: Textmining und Clusteranalyse
+10        Vertiefung: Baumbasierte Verfahren
 11        Wiederholung
 
           

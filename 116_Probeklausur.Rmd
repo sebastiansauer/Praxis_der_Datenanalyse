@@ -74,6 +74,36 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 
 25. Geleitetes Modellieren kann unterteilt werden in prädiktives und explikatives Modellieren.
 
+26. Der Befehl `scale` verschiebt den Mittelwert einer Verteilung auf 0 und skaliert die sd auf 1.
+
+27. Mit "binnen" im Sinne der Datenanalyse ist gemeint, eine kategoriale Variable in eine kontinuierliche zu überführen.
+
+28. Die Gleichung `y = ax + b` lässt sich in R darstellen als `y ~ ax + b`.
+
+29. $R^2$, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem "Nullmodell" an.
+
+30. Bei der logistischen Regression gilt: Bei  $β0>0$ ist die Wahrscheinlichkeit *kleiner* als 50% gibt, dass das modellierte Ereignis eintritt, wenn alle anderen Prädiktoren Null sind.
+
+31. Die logistische Regression sollte *nicht* verwendet werden, wenn die abhängige Variable dichotom ist.
+
+32.Die logistische Regression stellt den Zusammenhang zwischen Prädiktor und Kriterium nicht mit einer Geraden, sondern mit einer "s-förmigen" Kurve dar.
+
+33. Bevor die Koeffizienten der logistischen Regression als Odds Ration interpretiert werden können, müssen sie "delogarithmiert" werden.
+
+34. Unter "delogarithmieren" versteht man, die Umkehrfunktion der e-Funktion auf eine Gleichung anzuwenden.
+
+35. Wendet man die "normale" Regression an, um eine dichotome Variable als Kriterium zu modellieren, so kann man Wahrscheinlichkeiten größer als 1 und kleiner als 0 bekommen.
+
+36. Eine typische Idee der Clusteranalyse lautet, die Vaerianz innerhalb der Cluster jeweils zu maximieren.
+
+37. Bei einer k-means-Clusteranalyse darf man nicht die Anzahl der Cluster vorab festlegen; vielmehr ermittelt der Algorithmus die richtige Anzahl der Cluster.
+
+38. Für die Wahl der "richtigen" Anzahl der Cluster kann das "Ellbogen-Kriterium" als Entscheidungsgrundlage herangezogen werden.
+
+39. Ein "Screeplot" stellt die Varianz innerhalb der Cluster als Funktion der Anzahl der Cluster dar (im Rahmen der Clusteranalyse).
+
+40. Die euklidische Distanz zwischen zwei Objekten in der Ebene lässt sich mit dem Satz des Pythagoras berechnen.
+
 
 ## Lösungen
 
@@ -103,6 +133,21 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 23. Richtig
 24. Richtig
 25. Falsch
+26. Richtig
+27. Falsch
+28. Richtig
+29. Richtig
+30. Falsch
+31. Falsch
+32. Richtig
+33. Richtig
+34. Falsch. Richtig wäre: Die Umkehrfunktion des Logarithmus, also die e-Funktion, auf eine Gleichung anzuwenden.
+35. Richtig
+36. Falsch
+37. Falsch. Richtig wäre: Man gibt die Anzahl der Cluster vor. Dann vergleicht man die Varianz within der verschiedenen Lösungen.
+38. Richtig
+39. Richtig
+40. Richtig
 
 
 
