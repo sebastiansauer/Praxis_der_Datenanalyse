@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 
 
-# II MODELLIEREN {-}
+
 
 ```{r echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/farb1.jpg")
@@ -165,7 +165,7 @@ Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht 
 
 $$Y = f(X) + \epsilon$$
 
-Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\indes{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
+Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\index{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
 
 Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so "fühlen" qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: "Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?" (qualitatives Kriterium); "Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?" (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als *Klassifikation*\index{Klassifikation}; ein Modell mit quantitativem Kriterium bezeichnet man auch als *Regression*\index{Klassifikation}. Bei letzterem Begriff ist zu beachten, dass er *doppelt* verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.
 
@@ -308,7 +308,6 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
 
 
-```{r plot-bias-variance, echo = FALSE}
 
 poly_degree = 15
 df <- data_frame(x = seq(from = 1, to = 10, by = .3),

@@ -106,7 +106,9 @@ qplot(x = affairs, data = Affair)
 qplot(x = rating, data = Affair)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-2} \end{center}
 
 Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.
 
@@ -292,7 +294,9 @@ library(corrplot)
 corrplot(cor_tab)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -725,14 +729,21 @@ tidy(lm10) %>% kable
 ```
 
 
-
-term            estimate   std.error   statistic   p.value
--------------  ---------  ----------  ----------  --------
-(Intercept)        0.054       0.430       0.125     0.901
-gendermale         0.242       0.197       1.229     0.219
-childrenyes        0.394       0.283       1.390     0.164
-rating            -0.465       0.087      -5.327     0.000
-yearsmarried       0.022       0.021       1.040     0.299
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 0.054 & 0.430 & 0.125 & 0.901\\
+\hline
+gendermale & 0.242 & 0.197 & 1.229 & 0.219\\
+\hline
+childrenyes & 0.394 & 0.283 & 1.390 & 0.164\\
+\hline
+rating & -0.465 & 0.087 & -5.327 & 0.000\\
+\hline
+yearsmarried & 0.022 & 0.021 & 1.040 & 0.299\\
+\hline
+\end{tabular}
 
 
 ### Zum Abschluss
@@ -748,7 +759,9 @@ Affair %>%
   ggplot(aes(x = affairs, y = rating)) + geom_jitter(aes(color = gender, shape = children)) 
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 
@@ -759,7 +772,9 @@ Affair %>%
   geom_smooth()
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 Puh. Geschafft!
@@ -791,7 +806,7 @@ dplyr::ntile           Teilt einen Wertebereich in n gleich große Teile auf und
 
 
 ### Versionshinweise und SessionInfo
-* Datum erstellt: 2017-04-20
+* Datum erstellt: 2017-04-22
 * R Version: 3.3.2
 * `dplyr` Version: 0.5.0.9002
 
@@ -811,22 +826,22 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  base     
 #> 
 #> other attached packages:
-#> [1] knitr_1.15.1   broom_0.4.2    MBESS_4.2.0    corrplot_0.77 
-#> [5] dplyr_0.5.0    ggplot2_2.2.1  psych_1.7.3.21
+#> [1] knitr_1.15.1     broom_0.4.2      MBESS_4.2.0      corrplot_0.77   
+#> [5] bindrcpp_0.1     dplyr_0.5.0.9002 ggplot2_2.2.1    psych_1.7.3.21  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_0.12.10        magrittr_1.5        mnormt_1.5-5       
-#>  [4] munsell_0.4.3       colorspace_1.3-2    lattice_0.20-34    
-#>  [7] R6_2.2.0            highr_0.6           stringr_1.2.0      
-#> [10] plyr_1.8.4          tools_3.3.2         parallel_3.3.2     
-#> [13] grid_3.3.2          nlme_3.1-130        gtable_0.2.0       
-#> [16] DBI_0.6-1           htmltools_0.3.5     assertthat_0.1     
-#> [19] yaml_2.1.14         lazyeval_0.2.0.9000 rprojroot_1.2      
-#> [22] digest_0.6.12       tibble_1.3.0        bookdown_0.3       
-#> [25] tidyr_0.6.1         reshape2_1.4.2      codetools_0.2-15   
-#> [28] evaluate_0.10       rmarkdown_1.4       labeling_0.3       
-#> [31] stringi_1.1.5       methods_3.3.2       scales_0.4.1       
-#> [34] backports_1.0.5     foreign_0.8-67
+#>  [1] Rcpp_0.12.10        plyr_1.8.4          bindr_0.1          
+#>  [4] methods_3.3.2       tools_3.3.2         digest_0.6.12      
+#>  [7] evaluate_0.10       tibble_1.3.0        gtable_0.2.0       
+#> [10] nlme_3.1-130        lattice_0.20-34     rlang_0.0.0.9014   
+#> [13] yaml_2.1.14         parallel_3.3.2      stringr_1.2.0      
+#> [16] rprojroot_1.2       grid_3.3.2          glue_1.0.0         
+#> [19] R6_2.2.0            foreign_0.8-67      rmarkdown_1.4      
+#> [22] bookdown_0.3        reshape2_1.4.2      tidyr_0.6.1        
+#> [25] magrittr_1.5        backports_1.0.5     scales_0.4.1       
+#> [28] codetools_0.2-15    htmltools_0.3.5     assertthat_0.2.0   
+#> [31] mnormt_1.5-5        colorspace_1.3-2    labeling_0.3       
+#> [34] stringi_1.1.5       lazyeval_0.2.0.9000 munsell_0.4.3
 ```
 
 

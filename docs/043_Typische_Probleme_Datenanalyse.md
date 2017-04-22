@@ -38,13 +38,20 @@ Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für 
 ```r
 wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
 glimpse(wo_men)
+```
+
+
+
+```
 #> Observations: 101
-#> Variables: 4
+#> Variables: 5
+#> $ X         <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
 #> $ time      <fctr> 04.10.2016 17:58:51, 04.10.2016 17:58:59, 04.10.201...
 #> $ sex       <fctr> woman, woman, woman, woman, man, woman, woman, woma...
 #> $ height    <dbl> 160, 171, 174, 176, 195, 157, 160, 178, 168, 171, 16...
 #> $ shoe_size <dbl> 40, 39, 39, 40, 46, 37, 38, 39, 38, 41, 39, 44, 38, ...
 ```
+
 
 ### Fälle mit fehlenden Werte löschen
 Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
@@ -60,7 +67,7 @@ wo_men %>%
 ```
 
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also `nrow` ist erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also ist `nrow` (ohne Klammern) erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
 </div>\EndKnitrBlock{rmdcaution}
 
 
@@ -72,8 +79,8 @@ Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
 wo_men %>% 
   rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
   filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
-#>   rowname                time  sex height shoe_size
-#> 1      86 11.10.2016 12:44:06 <NA>     NA        NA
+#>   rowname  X                time sex height shoe_size
+#> 1      86 86 11.10.2016 12:44:06         NA        NA
 ```
 
 Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
@@ -122,7 +129,8 @@ wo_men %>%
 ### Ausreiser identifizieren
 Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 
 ### Hochkorrelierte Variablen finden
@@ -145,7 +153,9 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
 
@@ -159,13 +169,13 @@ wo_men %>%
   select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
   scale() %>%  # z-standardisieren
   head()  # nur die ersten paar Zeilen abdrucken
-#>      height shoe_size
-#> [1,] -0.132    0.0405
-#> [2,]  0.146   -0.1395
-#> [3,]  0.221   -0.1395
-#> [4,]  0.272    0.0405
-#> [5,]  0.751    1.1204
-#> [6,] -0.208   -0.4994
+#>          X height shoe_size
+#> [1,] -1.71 -0.132    0.0405
+#> [2,] -1.67  0.146   -0.1395
+#> [3,] -1.64  0.221   -0.1395
+#> [4,] -1.60  0.272    0.0405
+#> [5,] -1.57  0.751    1.1204
+#> [6,] -1.54 -0.208   -0.4994
 ```
 
 Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
@@ -175,13 +185,13 @@ Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es ab
 wo_men %>% 
   mutate_if(is.numeric, funs("z" = scale)) %>% 
   head
-#>                  time   sex height shoe_size height_z shoe_size_z
-#> 1 04.10.2016 17:58:51 woman    160        40   -0.132      0.0405
-#> 2 04.10.2016 17:58:59 woman    171        39    0.146     -0.1395
-#> 3 04.10.2016 18:00:15 woman    174        39    0.221     -0.1395
-#> 4 04.10.2016 18:01:17 woman    176        40    0.272      0.0405
-#> 5 04.10.2016 18:01:22   man    195        46    0.751      1.1204
-#> 6 04.10.2016 18:01:53 woman    157        37   -0.208     -0.4994
+#>   X                time   sex height shoe_size   X_z height_z shoe_size_z
+#> 1 1 04.10.2016 17:58:51 woman    160        40 -1.71   -0.132      0.0405
+#> 2 2 04.10.2016 17:58:59 woman    171        39 -1.67    0.146     -0.1395
+#> 3 3 04.10.2016 18:00:15 woman    174        39 -1.64    0.221     -0.1395
+#> 4 4 04.10.2016 18:01:17 woman    176        40 -1.60    0.272      0.0405
+#> 5 5 04.10.2016 18:01:22   man    195        46 -1.57    0.751      1.1204
+#> 6 6 04.10.2016 18:01:53 woman    157        37 -1.54   -0.208     -0.4994
 ```
 
 Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
@@ -194,7 +204,8 @@ Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable
 ### Auf Normalverteilung prüfen
 Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm oder ein   Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 
@@ -203,18 +214,26 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 
 *Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorpragmmiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
-<div class="figure" style="text-align: center">
-<img src="images/umkodieren_crop.pdf" alt="Sinnbild für Umkodieren" width="70%" />
-<p class="caption">(\#fig:umkodieren)Sinnbild für Umkodieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/umkodieren_crop} 
+
+}
+
+\caption{Sinnbild für Umkodieren}(\#fig:umkodieren)
+\end{figure}
 
 
 *Binnen*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
 
-<div class="figure" style="text-align: center">
-<img src="images/cut_schere_crop.pdf" alt="Sinnbild zum 'Binnen'" width="70%" />
-<p class="caption">(\#fig:cut-schere)Sinnbild zum 'Binnen'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/cut_schere_crop} 
+
+}
+
+\caption{Sinnbild zum 'Binnen'}(\#fig:cut-schere)
+\end{figure}
 
 
 
@@ -428,7 +447,7 @@ extra$extra_mw <- rowMeans(extra_items)
 Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
 
 
-#### Vertiefung: `dpyr`
+#### Vertiefung: `dplyr`
 
 Alternativ können wir Mittelwerte mit dplyr berechnen:
 
@@ -630,7 +649,9 @@ stats_test %>%
   rplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/rplot-demo-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/rplot-demo-1} \end{center}
 
 
 ## Befehlsübersicht

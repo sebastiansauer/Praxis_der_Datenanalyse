@@ -2,10 +2,11 @@
 
 \pagenumbering{arabic}
 
-# I EXPLORIEREN {-}
 
 
-<img src="images/farb1.jpg" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{images/farb1} \end{center}
 
 # Rahmen
 
@@ -26,16 +27,20 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-<div class="figure" style="text-align: center">
-<img src="images/Prozess_Datenanalyse.pdf" alt="Der Prozess der Datenanalyse" width="70%" />
-<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Prozess_Datenanalyse} 
+
+}
+
+\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
+\end{figure}
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
 Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen 
 Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar
-machen; man nennt dies auch *tidy data*[hört sich cooler an]. Sobald die Daten in geeigneter 
+machen; man nennt dies auch *tidy data*(hört sich cooler an). Sobald die Daten in geeigneter 
 Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, 
 Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist 
 das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. 
@@ -76,14 +81,14 @@ schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle:
 
 ### R und RStudio installieren
 
-![](images/Rlogo.svg){ width=20% } 
+![](images/Rahmen/Rlogo.png){ width=20% } ![](images/Rahmen/rstudiologo.png){ width=20% }
 
 Sie können R unter 
 <https://cran.r-project.org> herunterladen und installieren (für Windows, Mac 
 oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: 
 <https://www.rstudio.com>; laden Sie die "Desktop-Version" für Ihr 
 Betriebssystem herunter.
-![](images/rstudiologo.png){ width=20% }
+
 
 Die Oberfläche von R, die "Console", sieht so aus:
 
@@ -95,15 +100,16 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-<img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
 praktischerweise finden Sie aber einen Button "run", der 
 die aktuelle Zeile oder die Auswahl "abschickt", d.h. in die 
 Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster
-öffnen möchten, so können Sie das Icon ![new_script](images/new_script.png) 
-klicken^[Alternativ: Cntrl-Shift-N oder File > New File > R Script].
+öffnen möchten, so können Sie das Icon ![new_script](images/Rahmen/new_script.png) 
+klicken (Alternativ: Cntrl-Shift-N oder File > New File > R Script).
 
 Aus dem Fenster der *Konsole*\index{Konsole} spricht R zu uns bzw. 
 wir mit ihm (ihr?). Wird ein Befehl hier eingegeben, so führt R ihn aus. 
@@ -205,8 +211,10 @@ Sie z.B. `?mean`.
 
 - Im Internet finden sich zuhauf Tutorials.
 
+- Der Reiter "Help" bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.
+
 - Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
-http://stackoverflow.com.
+<http://stackoverflow.com>.
 
 
 
@@ -222,7 +230,7 @@ Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann
 
 - Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen...
 
-- R-Skripte können Sie speichern (`File-Save`) und öffnen.
+- R-Skripte können Sie speichern (unter `File-Save`) und öffnen.
 
 - R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
 Nur statt der Endung `.txt`, sind R-Skripte stolzer Träger der Endung `.R`. Es 
@@ -316,7 +324,7 @@ haben Sie Ruhe.
 ### R-Pakete für dieses Buch 
 
 In diesem Buch verwenden wir die folgenden 
-R-Pakete; diese müssen installiert^[Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.] sein und geladen:
+R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein. 
 
 
 
@@ -333,7 +341,8 @@ Pakete
 #> [25] "rpart"         "rpart.plot"    "MASS"          "titanic"      
 #> [29] "arules"        "arulesViz"     "SDMTools"      "corrplot"     
 #> [33] "gplots"        "corrplot"      "scatterplot3d" "BaylorEdPsych"
-#> [37] "nFactors"      "rmarkdown"     "methods"
+#> [37] "nFactors"      "rmarkdown"     "methods"       "broom"        
+#> [41] "tidyr"         "caret"
 ```
 
 
@@ -407,7 +416,7 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 
 
-### Übungen
+### Aufgaben
 
 1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
 
@@ -566,7 +575,7 @@ wo_men <- read.csv(TRUE, "data/wo_men.csv", ",")
 ```
 
 
-### Übungen 
+### Aufgaben 
 
 3. Führen Sie diese Syntax aus:
 

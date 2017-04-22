@@ -1,4 +1,4 @@
-# VI Anhang {-}
+# VI Anhang 
 
 
 ```{r echo = FALSE, out.width = "100%"}

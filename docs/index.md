@@ -2,13 +2,15 @@
 title: "Praxis der Datenanalyse"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
-date: '2017-04-20'
+date: "22 April, 2017"
+lang: de-De
 colorlinks: yes
-cover-image: cover.jpg
+thanks: "Danke an IFES"
+cover-image: images/cover.jpg
 bibliography:
 - Praxis_der_Datenanalyse.bib
 - libs.bib
-description: Eine Einführung in moderne Statistik für Praktiker
+description: "Eine Einführung in moderne Statistik für Praktiker"
 documentclass: book
 fontsize: 12pt
 github-repo: sebastiansauer/Praxis_der_Datenanalyse
@@ -25,14 +27,15 @@ biblio-style: apalike
 
 
 
-# Vorwort
+# Vorwort {-}
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
-<img src="images/Forschung_frueher_heute.jpg" width="4108" />
+![](images/Forschung_frueher_heute.pdf)<!-- --> 
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
 
@@ -42,7 +45,7 @@ Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die
 - Gesichtserkennung
 
 
-Sie werden in diesem Kurs einige praktische Aspekte der modernen Datenanalyse lernen. Ziel ist es, Sie - in Grundzügen - mit der Art und Weise vertraut zu machen, wie angewandte Statistik bei führenden Organisationen und Praktikern verwendet wird^[Statistiker, die dabei als Vorbild Pate standen sind: Roger D. Peng: http://www.biostat.jhsph.edu/~rpeng/, Hadley Wickham: http://hadley.nz, Daniel Lakens: http://daniellakens.blogspot.de und andere).
+Sie werden in diesem Kurs einige praktische Aspekte der modernen Datenanalyse lernen. Ziel ist es, Sie - in Grundzügen - mit der Art und Weise vertraut zu machen, wie angewandte Statistik bei führenden Organisationen und Praktikern verwendet wird^[Statistiker, die dabei als Vorbild Pate standen sind: Roger D. Peng: http://www.biostat.jhsph.edu/~rpeng/, Hadley Wickham: http://hadley.nz, Jennifer Bryan: <https://github.com/jennybc>).
 
 
 Es ist ein Grundlagenkurs; das didaktische Konzept beruht auf einem induktiven, intuitiven Lehr-Lern-Ansatz. Formeln und mathematische Hintergründe such man meist vergebens (tja).
