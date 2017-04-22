@@ -1,8 +1,8 @@
 bookdown::pdf_book:
   #number_sections: TRUE
-  includes:
+  #includes:
     #in_header: latex/preamble.tex
-    before_body: latex/before_body.tex
+    #before_body: latex/before_body.tex
     #after_body: latex/after_body.tex
   #keep_tex: yes
   #dev: "cairo_pdf"
@@ -13,7 +13,7 @@ bookdown::pdf_book:
   #pandoc_args: --top-level-division=section
   #toc_depth: 3
   #toc_unnumbered: no
-  #toc: TRUE
+  toc: TRUE
   #toc_appendix: yes
   #quote_footer: ["\\VA{", "}{}"]
 

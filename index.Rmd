@@ -30,7 +30,7 @@ source("source/libs.R")
 ```
 
 
-# (PART) Vorwort {-}
+# Vorwort {-}
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
 knitr::include_graphics("images/FOM.jpg")
