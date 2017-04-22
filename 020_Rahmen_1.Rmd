@@ -19,8 +19,12 @@ width.cutoff=60
 ```
 
 
+<<<<<<< HEAD
 <!-- \pagenumbering{arabic} -->
 
+=======
+# I EXPLORIEREN {-}
+>>>>>>> parent of c96ce35... formatting
 
 
 # I EXPLORIEREN {-}
