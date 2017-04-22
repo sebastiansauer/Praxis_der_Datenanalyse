@@ -52,7 +52,7 @@ anschauen und weiterverwenden kann].
 Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen^[im Hintergrund wird das Paket `readxl` verwendet]:
 
 ```{r data-import-RStudio, echo = FALSE, out.width = "50%", fig.cap = "Daten einlesen (importieren) mit RStudio"}
-knitr::include_graphics("images/tidy/import_RStudio.png")
+knitr::include_graphics("images/import_RStudio.png")
 ```
 
 
@@ -151,7 +151,7 @@ Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als
 Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
 
 ```{r tidy1, fig.cap = "Schematische Darstellung eines Dataframes in Normalform", echo = FALSE}
-knitr::include_graphics("images/tidy/tidy-1.png")
+knitr::include_graphics("images/tidy-1.png")
 ```
 
 
@@ -159,7 +159,7 @@ knitr::include_graphics("images/tidy/tidy-1.png")
 Der Punkt "Jede Zeile eine Beobachtung, jede Spalte eine Variable" verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
 
 ```{r lang-breit, echo = FALSE, fig.cap = "Dieselben Daten - einmal breit, einmal lang"}
-knitr::include_graphics("images/tidy/breit_lang.pdf")
+knitr::include_graphics("images/breit_lang.pdf")
 ```
 
 
@@ -225,7 +225,7 @@ readr::separate      "Zieht" Spalten auseinander.
 
 
 
-## Aufgaben^[F, R, F, R, R, R, F, F]
+## Übungen^[F, R, F, R, R, R, F, F]
 
 ```{block2, exercises-read-data, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?
@@ -238,6 +238,7 @@ Richtig oder Falsch!?
 2. In einer Tabelle in Normalform stehen in jeder Spalte eine Variable.
 2. R stellt fehlende Werte mit einem Fragezeichen `?` dar.
 2. Um Excel-Dateien zu importieren, kann man den Befehl `read.csv` verwenden.
+
 
 
 ```

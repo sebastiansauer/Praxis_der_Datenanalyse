@@ -52,17 +52,10 @@ Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitu
 ### Auf fehlende Werte prüfen 
 Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
-```{r eval = FALSE}
+```{r}
 wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
 glimpse(wo_men)
 ```
-
-
-```{r echo = FALSE}
-wo_men <- read.csv("data/wo_men.csv")
-glimpse(wo_men)
-```
-
 
 ### Fälle mit fehlenden Werte löschen
 Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
@@ -76,7 +69,7 @@ wo_men %>%
 
 
 ```{block2, dplyr-no-brackets, type='rmdcaution', echo = TRUE} 
-Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also ist `nrow` (ohne Klammern) erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
+Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also `nrow` ist erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
 
 ```
 
@@ -375,7 +368,7 @@ extra$extra_mw <- rowMeans(extra_items)
 Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
 
 
-#### Vertiefung: `dplyr`
+#### Vertiefung: `dpyr`
 
 Alternativ können wir Mittelwerte mit dplyr berechnen:
 

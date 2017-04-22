@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer">
+
+
+<meta name="date" content="2017-04-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="iv-ungeleitetes-modellieren.html">
+<link rel="next" href="clusteranalyse.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Praxis der Datenanalyse</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Vorwort</a></li>
+<li class="chapter" data-level="" data-path="i-explorieren.html"><a href="i-explorieren.html"><i class="fa fa-check"></i>I EXPLORIEREN</a></li>
+<li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
+<li class="chapter" data-level="2.1" data-path="rahmen.html"><a href="rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="rahmen.html"><a href="rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
+<li class="chapter" data-level="2.1.2" data-path="rahmen.html"><a href="rahmen.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
+<li class="chapter" data-level="2.1.3" data-path="rahmen.html"><a href="rahmen.html#hier-werden-sie-geholfen"><i class="fa fa-check"></i><b>2.1.3</b> Hier werden Sie geholfen</a></li>
+<li class="chapter" data-level="2.1.4" data-path="rahmen.html"><a href="rahmen.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>2.1.4</b> Die Denk- und Gefühlswelt von R</a></li>
+<li class="chapter" data-level="2.1.5" data-path="rahmen.html"><a href="rahmen.html#pakete-installieren"><i class="fa fa-check"></i><b>2.1.5</b> Pakete installieren</a></li>
+<li class="chapter" data-level="2.1.6" data-path="rahmen.html"><a href="rahmen.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>2.1.6</b> R-Pakete für dieses Buch</a></li>
+<li class="chapter" data-level="2.1.7" data-path="rahmen.html"><a href="rahmen.html#datensatze"><i class="fa fa-check"></i><b>2.1.7</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.8" data-path="rahmen.html"><a href="rahmen.html#ubungen"><i class="fa fa-check"></i><b>2.1.8</b> Übungen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rahmen.html"><a href="rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="rahmen.html"><a href="rahmen.html#hinweise"><i class="fa fa-check"></i><b>2.2.1</b> Hinweise</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rahmen.html"><a href="rahmen.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>2.2.2</b> R als Taschenrechner</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rahmen.html"><a href="rahmen.html#text-und-variablen-zuweisen"><i class="fa fa-check"></i><b>2.2.3</b> Text und Variablen zuweisen</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rahmen.html"><a href="rahmen.html#funktionen-aufrufen"><i class="fa fa-check"></i><b>2.2.4</b> Funktionen aufrufen</a></li>
+<li class="chapter" data-level="2.2.5" data-path="rahmen.html"><a href="rahmen.html#ubungen-1"><i class="fa fa-check"></i><b>2.2.5</b> Übungen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="rahmen.html"><a href="rahmen.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>2.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="2.4" data-path="rahmen.html"><a href="rahmen.html#verweise"><i class="fa fa-check"></i><b>2.4</b> Verweise</a></li>
+<li class="chapter" data-level="2.5" data-path="rahmen.html"><a href="rahmen.html#versionshinweise"><i class="fa fa-check"></i><b>2.5</b> Versionshinweise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="daten-einlesen.html"><a href="daten-einlesen.html"><i class="fa fa-check"></i><b>3</b> Daten einlesen</a><ul>
+<li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
+<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#tabelle-in-normalform-bringen"><i class="fa fa-check"></i><b>3.3.1</b> Tabelle in Normalform bringen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#textkodierung"><i class="fa fa-check"></i><b>3.3.2</b> Textkodierung</a></li>
+<li class="chapter" data-level="3.3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-exportieren"><i class="fa fa-check"></i><b>3.3.3</b> Daten exportieren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#ubungen-2"><i class="fa fa-check"></i><b>3.4</b> Übungen</a></li>
+<li class="chapter" data-level="3.5" data-path="daten-einlesen.html"><a href="daten-einlesen.html#verweise-1"><i class="fa fa-check"></i><b>3.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>4</b> Datenjudo</a><ul>
+<li class="chapter" data-level="4.1" data-path="datenjudo.html"><a href="datenjudo.html#typische-probleme"><i class="fa fa-check"></i><b>4.1</b> Typische Probleme</a></li>
+<li class="chapter" data-level="4.2" data-path="datenjudo.html"><a href="datenjudo.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>4.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>4.2.1</b> Zeilen filtern mit <code>filter</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="datenjudo.html"><a href="datenjudo.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>4.2.2</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>4.2.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="datenjudo.html"><a href="datenjudo.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>4.2.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="datenjudo.html"><a href="datenjudo.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>4.2.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>4.2.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>4.3</b> Die Pfeife</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>4.3.1</b> Spalten berechnen mit <code>mutate</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-6"><i class="fa fa-check"></i><b>4.3.2</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.4</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fallstudie-nycflights13.html"><a href="fallstudie-nycflights13.html"><i class="fa fa-check"></i><b>5</b> Fallstudie <code>nycflights13</code></a><ul>
+<li class="chapter" data-level="5.1" data-path="fallstudie-nycflights13.html"><a href="fallstudie-nycflights13.html#verweise-3"><i class="fa fa-check"></i><b>5.1</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>6</b> Typische Probleme der Datenaufbereitung</a><ul>
+<li class="chapter" data-level="6.1" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>6.1</b> Auf fehlende Werte prüfen</a></li>
+<li class="chapter" data-level="6.2" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>6.2</b> Fälle mit fehlenden Werte löschen</a></li>
+<li class="chapter" data-level="6.3" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>6.3</b> Fehlende Werte ggf. ersetzen</a></li>
+<li class="chapter" data-level="6.4" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>6.4</b> Nach Fehlern suchen</a></li>
+<li class="chapter" data-level="6.5" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#ausreiser-identifizieren"><i class="fa fa-check"></i><b>6.5</b> Ausreiser identifizieren</a></li>
+<li class="chapter" data-level="6.6" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>6.6</b> Hochkorrelierte Variablen finden</a></li>
+<li class="chapter" data-level="6.7" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#z-standardisieren"><i class="fa fa-check"></i><b>6.7</b> z-Standardisieren</a></li>
+<li class="chapter" data-level="6.8" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>6.8</b> Quasi-Konstante finden</a></li>
+<li class="chapter" data-level="6.9" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>6.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="6.10" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>6.10</b> Mittelwerte pro Zeile berechnen</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#rowmeans"><i class="fa fa-check"></i><b>6.10.1</b> <code>rowMeans</code></a></li>
+<li class="chapter" data-level="6.10.2" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#dpyr"><i class="fa fa-check"></i><b>6.10.2</b> <code>dpyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#werte-umkodieren-und-binnen"><i class="fa fa-check"></i><b>6.11</b> Werte umkodieren und “binnen”</a><ul>
+<li class="chapter" data-level="6.11.1" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#umkodieren-mit-carrecode"><i class="fa fa-check"></i><b>6.11.1</b> Umkodieren mit <code>car::recode</code></a></li>
+<li class="chapter" data-level="6.11.2" data-path="typische-probleme-der-datenaufbereitung.html"><a href="typische-probleme-der-datenaufbereitung.html#numerische-werte-in-klassen-gruppieren-mit-cut"><i class="fa fa-check"></i><b>6.11.2</b> Numerische Werte in Klassen gruppieren mit <code>cut</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>7.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li class="chapter" data-level="7.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>7.2</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>7.2.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="7.2.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>7.2.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="7.2.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>7.2.3</b> Eine diskrete Variable</a></li>
+<li class="chapter" data-level="7.2.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>7.2.4</b> Zwei diskrete Variablen</a></li>
+<li class="chapter" data-level="7.2.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>7.2.5</b> Zusammenfassungen zeigen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#aufgaben-7"><i class="fa fa-check"></i><b>7.3</b> Aufgaben</a></li>
+<li class="chapter" data-level="7.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#losungen"><i class="fa fa-check"></i><b>7.4</b> Lösungen</a></li>
+<li class="chapter" data-level="7.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-4"><i class="fa fa-check"></i><b>7.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="farben-wahlen.html"><a href="farben-wahlen.html"><i class="fa fa-check"></i><b>8</b> Farben wählen</a><ul>
+<li class="chapter" data-level="8.1" data-path="farben-wahlen.html"><a href="farben-wahlen.html#die-farben-von-cynthia-brewer"><i class="fa fa-check"></i><b>8.1</b> Die Farben von Cynthia Brewer</a></li>
+<li class="chapter" data-level="8.2" data-path="farben-wahlen.html"><a href="farben-wahlen.html#die-farben-von-wes-anderson"><i class="fa fa-check"></i><b>8.2</b> Die Farben von Wes Anderson</a></li>
+<li class="chapter" data-level="8.3" data-path="farben-wahlen.html"><a href="farben-wahlen.html#themen-andern"><i class="fa fa-check"></i><b>8.3</b> Themen ändern</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html"><i class="fa fa-check"></i><b>9</b> Erweiterungen für <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#ggpairs"><i class="fa fa-check"></i><b>9.1</b> ggpairs</a></li>
+<li class="chapter" data-level="9.2" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#correlationsplots"><i class="fa fa-check"></i><b>9.2</b> Correlationsplots</a></li>
+<li class="chapter" data-level="9.3" data-path="erweiterungen-fur-ggplot2.html"><a href="erweiterungen-fur-ggplot2.html#weitere"><i class="fa fa-check"></i><b>9.3</b> Weitere</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html"><i class="fa fa-check"></i><b>10</b> Fallstudie zur Visualisierung von Umfragedaten</a><ul>
+<li class="chapter" data-level="10.1" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#daten-einlesen-1"><i class="fa fa-check"></i><b>10.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="10.2" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#daten-umstellen"><i class="fa fa-check"></i><b>10.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="10.3" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>10.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="10.4" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#um-90-drehen"><i class="fa fa-check"></i><b>10.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="10.5" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>10.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="10.6" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>10.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="10.7" data-path="fallstudie-zur-visualisierung-von-umfragedaten.html"><a href="fallstudie-zur-visualisierung-von-umfragedaten.html#farbschema"><i class="fa fa-check"></i><b>10.7</b> Farbschema</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ii-modellieren.html"><a href="ii-modellieren.html"><i class="fa fa-check"></i>II MODELLIEREN</a></li>
+<li class="chapter" data-level="11" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>11</b> Grundlagen des Modellierens</a><ul>
+<li class="chapter" data-level="11.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>11.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="11.2" data-path="mod1.html"><a href="mod1.html#ziele"><i class="fa fa-check"></i><b>11.2</b> Ziele des Modellierens</a></li>
+<li class="chapter" data-level="11.3" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>11.3</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="11.4" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>11.4</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="11.5" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>11.5</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="11.6" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>11.6</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="11.7" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>11.7</b> Modellgüte</a></li>
+<li class="chapter" data-level="11.8" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>11.8</b> Auswahl von Prädiktoren</a></li>
+<li class="chapter" data-level="11.9" data-path="mod1.html"><a href="mod1.html#aufgaben-8"><i class="fa fa-check"></i><b>11.9</b> Aufgaben</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="mod1.html"><a href="mod1.html#erfolg-beim-online-dating"><i class="fa fa-check"></i><b>11.9.1</b> Erfolg beim Online-Dating</a></li>
+<li class="chapter" data-level="11.9.2" data-path="mod1.html"><a href="mod1.html#ziele-des-modellierens"><i class="fa fa-check"></i><b>11.9.2</b> Ziele des Modellierens</a></li>
+<li class="chapter" data-level="11.9.3" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung-1"><i class="fa fa-check"></i><b>11.9.3</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="11.9.4" data-path="mod1.html"><a href="mod1.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>11.9.4</b> Richtig oder falsch?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.10" data-path="mod1.html"><a href="mod1.html#verweise-5"><i class="fa fa-check"></i><b>11.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="der-p-wert.html"><a href="der-p-wert.html"><i class="fa fa-check"></i><b>12</b> Der p-Wert</a><ul>
+<li class="chapter" data-level="12.1" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-sagt-nicht-das-was-viele-denken"><i class="fa fa-check"></i><b>12.1</b> Der p-Wert sagt nicht das, was viele denken</a></li>
+<li class="chapter" data-level="12.2" data-path="der-p-wert.html"><a href="der-p-wert.html#weitere-kritik-am-p-wert"><i class="fa fa-check"></i><b>12.2</b> Weitere Kritik am p-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html"><i class="fa fa-check"></i><b>13</b> Grundlagen der Inferenzstatistik</a><ul>
+<li class="chapter" data-level="13.1" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#zufall-und-wahrscheinlichkeit"><i class="fa fa-check"></i><b>13.1</b> Zufall und Wahrscheinlichkeit</a></li>
+<li class="chapter" data-level="13.2" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#hypothesentest-p-wert-und-konfidenzintervall"><i class="fa fa-check"></i><b>13.2</b> Hypothesentest, p-Wert und Konfidenzintervall</a></li>
+<li class="chapter" data-level="13.3" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#rechnen-mit-der-normalverteilung"><i class="fa fa-check"></i><b>13.3</b> Rechnen mit der Normalverteilung</a></li>
+<li class="chapter" data-level="13.4" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#ubung"><i class="fa fa-check"></i><b>13.4</b> Übung</a></li>
+<li class="chapter" data-level="13.5" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#literatur"><i class="fa fa-check"></i><b>13.5</b> Literatur</a></li>
+<li class="chapter" data-level="13.6" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#lizenz"><i class="fa fa-check"></i><b>13.6</b> Lizenz</a></li>
+<li class="chapter" data-level="13.7" data-path="grundlagen-der-inferenzstatistik.html"><a href="grundlagen-der-inferenzstatistik.html#versionshinweise-1"><i class="fa fa-check"></i><b>13.7</b> Versionshinweise</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html"><i class="fa fa-check"></i><b>14</b> Inferenz für metrische Variablen</a><ul>
+<li class="chapter" data-level="14.1" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#random-walk"><i class="fa fa-check"></i><b>14.1</b> Random Walk</a></li>
+<li class="chapter" data-level="14.2" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#t-test-fur-eine-stichprobe"><i class="fa fa-check"></i><b>14.2</b> t-Test für eine Stichprobe</a></li>
+<li class="chapter" data-level="14.3" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#t-test-fur-eine-abhangige-gepaarte-stichprobe"><i class="fa fa-check"></i><b>14.3</b> t-Test für eine abhängige/ gepaarte Stichprobe</a></li>
+<li class="chapter" data-level="14.4" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#t-test-fur-zwei-unabhangige-stichprobe"><i class="fa fa-check"></i><b>14.4</b> t-Test für zwei unabhängige Stichprobe</a></li>
+<li class="chapter" data-level="14.5" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#varianzanalyse-anova"><i class="fa fa-check"></i><b>14.5</b> Varianzanalyse (ANOVA)</a></li>
+<li class="chapter" data-level="14.6" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#vertiefung-mehrfaktorielle-varianzanalyse-mit-wechselwirkung"><i class="fa fa-check"></i><b>14.6</b> Vertiefung: Mehrfaktorielle Varianzanalyse mit Wechselwirkung</a></li>
+<li class="chapter" data-level="14.7" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>14.7</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="14.8" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#verweise-6"><i class="fa fa-check"></i><b>14.8</b> Verweise</a></li>
+<li class="chapter" data-level="14.9" data-path="inferenz-fur-metrische-variablen.html"><a href="inferenz-fur-metrische-variablen.html#lizenz-1"><i class="fa fa-check"></i><b>14.9</b> Lizenz</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html"><i class="fa fa-check"></i><b>15</b> Inferenz für nominale Variablen</a><ul>
+<li class="chapter" data-level="15.1" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#globaler-index-der-religiositat-und-atheismus"><i class="fa fa-check"></i><b>15.1</b> Globaler Index der Religiösität und Atheismus</a></li>
+<li class="chapter" data-level="15.2" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#inferenz-eines-anteilswerts"><i class="fa fa-check"></i><b>15.2</b> Inferenz eines Anteilswerts</a></li>
+<li class="chapter" data-level="15.3" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#differenz-zweier-anteilswerte"><i class="fa fa-check"></i><b>15.3</b> Differenz zweier Anteilswerte</a></li>
+<li class="chapter" data-level="15.4" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#chi-quadrat-unabhangigkeitstest"><i class="fa fa-check"></i><b>15.4</b> Chi-Quadrat Unabhängigkeitstest</a></li>
+<li class="chapter" data-level="15.5" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#ubung-1"><i class="fa fa-check"></i><b>15.5</b> Übung</a></li>
+<li class="chapter" data-level="15.6" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#literatur-1"><i class="fa fa-check"></i><b>15.6</b> Literatur</a></li>
+<li class="chapter" data-level="15.7" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#lizenz-2"><i class="fa fa-check"></i><b>15.7</b> Lizenz</a></li>
+<li class="chapter" data-level="15.8" data-path="inferenz-fur-nominale-variablen.html"><a href="inferenz-fur-nominale-variablen.html#versionshinweise-2"><i class="fa fa-check"></i><b>15.8</b> Versionshinweise</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-geleitetes-modellieren.html"><a href="iii-geleitetes-modellieren.html"><i class="fa fa-check"></i>III GELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="16" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>16</b> Klassische lineare (numerische) Regression</a><ul>
+<li class="chapter" data-level="16.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#einfache-regression"><i class="fa fa-check"></i><b>16.1</b> Einfache Regression</a></li>
+<li class="chapter" data-level="16.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>16.2</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="16.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>16.3</b> Regression mit kategorialen Prädiktoren</a></li>
+<li class="chapter" data-level="16.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#multiple-regression"><i class="fa fa-check"></i><b>16.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="16.5" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>16.5</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="16.6" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellgute-bei-regressionsmodellen"><i class="fa fa-check"></i><b>16.6</b> Modellgüte bei Regressionsmodellen</a><ul>
+<li class="chapter" data-level="16.6.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>16.6.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="16.6.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>16.6.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="16.6.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>16.6.3</b> Likelihood and Friends</a></li>
+</ul></li>
+<li class="chapter" data-level="16.7" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>16.7</b> Vertiefungen zum Regressionmodell</a><ul>
+<li class="chapter" data-level="16.7.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellwahl"><i class="fa fa-check"></i><b>16.7.1</b> Modellwahl</a></li>
+<li class="chapter" data-level="16.7.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#interaktionen"><i class="fa fa-check"></i><b>16.7.2</b> Interaktionen</a></li>
+<li class="chapter" data-level="16.7.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>16.7.3</b> Weitere Modellierungsmöglichkeiten</a></li>
+<li class="chapter" data-level="16.7.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#prognoseintervalle"><i class="fa fa-check"></i><b>16.7.4</b> Prognoseintervalle</a></li>
+</ul></li>
+<li class="chapter" data-level="16.8" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#ubung-teaching-rating-1"><i class="fa fa-check"></i><b>16.8</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="16.9" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#overfitting_casestudy"><i class="fa fa-check"></i><b>16.9</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="16.10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#literatur-2"><i class="fa fa-check"></i><b>16.10</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>17</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="17.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>17.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="17.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>17.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="17.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>17.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="17.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>17.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="17.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>17.5</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="17.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>17.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="17.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>17.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>17.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="17.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>17.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="17.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>17.8</b> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="chapter" data-level="17.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung-1"><i class="fa fa-check"></i><b>17.9</b> Vertiefung</a><ul>
+<li class="chapter" data-level="17.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>17.9.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="17.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>17.9.2</b> Likelihood Quotienten Test</a></li>
+<li class="chapter" data-level="17.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>17.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>17.10</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="17.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#literatur-3"><i class="fa fa-check"></i><b>17.11</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html"><i class="fa fa-check"></i><b>18</b> Baumbasierte Verfahren</a><ul>
+<li class="chapter" data-level="18.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#konjunturanalyse"><i class="fa fa-check"></i><b>18.1</b> Konjunturanalyse</a></li>
+<li class="chapter" data-level="18.2" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#regressionsbaume"><i class="fa fa-check"></i><b>18.2</b> Regressionsbäume</a></li>
+<li class="chapter" data-level="18.3" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#kreuzvalidierung"><i class="fa fa-check"></i><b>18.3</b> Kreuzvalidierung</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#anpassungsgute"><i class="fa fa-check"></i><b>18.3.1</b> Anpassungsgüte</a></li>
+<li class="chapter" data-level="18.3.2" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#prognosegute"><i class="fa fa-check"></i><b>18.3.2</b> Prognosegüte</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#klassifikationbaume"><i class="fa fa-check"></i><b>18.4</b> Klassifikationbäume</a><ul>
+<li class="chapter" data-level="18.4.1" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#kreuzvalidierung-1"><i class="fa fa-check"></i><b>18.4.1</b> Kreuzvalidierung</a></li>
+</ul></li>
+<li class="chapter" data-level="18.5" data-path="baumbasierte-verfahren.html"><a href="baumbasierte-verfahren.html#parameter-rpart"><i class="fa fa-check"></i><b>18.5</b> Parameter <code>rpart</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="fallstudien.html"><a href="fallstudien.html"><i class="fa fa-check"></i><b>19</b> Fallstudien</a><ul>
+<li class="chapter" data-level="19.1" data-path="fallstudien.html"><a href="fallstudien.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>19.1</b> Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="fallstudien.html"><a href="fallstudien.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>19.1.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="19.1.2" data-path="fallstudien.html"><a href="fallstudien.html#erster-blick"><i class="fa fa-check"></i><b>19.1.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="19.1.3" data-path="fallstudien.html"><a href="fallstudien.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>19.1.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="19.1.4" data-path="fallstudien.html"><a href="fallstudien.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>19.1.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="19.1.5" data-path="fallstudien.html"><a href="fallstudien.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>19.1.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="19.1.6" data-path="fallstudien.html"><a href="fallstudien.html#signifikanztest"><i class="fa fa-check"></i><b>19.1.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="19.1.7" data-path="fallstudien.html"><a href="fallstudien.html#effektstarke"><i class="fa fa-check"></i><b>19.1.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="19.1.8" data-path="fallstudien.html"><a href="fallstudien.html#logististische-regression"><i class="fa fa-check"></i><b>19.1.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="19.1.9" data-path="fallstudien.html"><a href="fallstudien.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>19.1.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="19.1.10" data-path="fallstudien.html"><a href="fallstudien.html#fazit"><i class="fa fa-check"></i><b>19.1.10</b> Fazit</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="fallstudien.html"><a href="fallstudien.html#auereheliche-affaren"><i class="fa fa-check"></i><b>19.2</b> Außereheliche Affären</a><ul>
+<li class="chapter" data-level="19.2.1" data-path="fallstudien.html"><a href="fallstudien.html#zentrale-statistiken"><i class="fa fa-check"></i><b>19.2.1</b> Zentrale Statistiken</a></li>
+<li class="chapter" data-level="19.2.2" data-path="fallstudien.html"><a href="fallstudien.html#visualisieren"><i class="fa fa-check"></i><b>19.2.2</b> Visualisieren</a></li>
+<li class="chapter" data-level="19.2.3" data-path="fallstudien.html"><a href="fallstudien.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>19.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li class="chapter" data-level="19.2.4" data-path="fallstudien.html"><a href="fallstudien.html#wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>19.2.4</b> Wie viele fehlende Werte gibt es?</a></li>
+<li class="chapter" data-level="19.2.5" data-path="fallstudien.html"><a href="fallstudien.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>19.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li class="chapter" data-level="19.2.6" data-path="fallstudien.html"><a href="fallstudien.html#effektstarken"><i class="fa fa-check"></i><b>19.2.6</b> Effektstärken</a></li>
+<li class="chapter" data-level="19.2.7" data-path="fallstudien.html"><a href="fallstudien.html#korrelationen"><i class="fa fa-check"></i><b>19.2.7</b> Korrelationen</a></li>
+<li class="chapter" data-level="19.2.8" data-path="fallstudien.html"><a href="fallstudien.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>19.2.8</b> Ehejahre und Affären</a></li>
+<li class="chapter" data-level="19.2.9" data-path="fallstudien.html"><a href="fallstudien.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>19.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
+<li class="chapter" data-level="19.2.10" data-path="fallstudien.html"><a href="fallstudien.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>19.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li class="chapter" data-level="19.2.11" data-path="fallstudien.html"><a href="fallstudien.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>19.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
+<li class="chapter" data-level="19.2.12" data-path="fallstudien.html"><a href="fallstudien.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>19.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li class="chapter" data-level="19.2.13" data-path="fallstudien.html"><a href="fallstudien.html#halodries"><i class="fa fa-check"></i><b>19.2.13</b> Halodries</a></li>
+<li class="chapter" data-level="19.2.14" data-path="fallstudien.html"><a href="fallstudien.html#logistische-regression"><i class="fa fa-check"></i><b>19.2.14</b> logistische Regression</a></li>
+<li class="chapter" data-level="19.2.15" data-path="fallstudien.html"><a href="fallstudien.html#zum-abschluss"><i class="fa fa-check"></i><b>19.2.15</b> Zum Abschluss</a></li>
+<li class="chapter" data-level="19.2.16" data-path="fallstudien.html"><a href="fallstudien.html#versionshinweise-und-sessioninfo"><i class="fa fa-check"></i><b>19.2.16</b> Versionshinweise und SessionInfo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="20" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html"><i class="fa fa-check"></i><b>20</b> Assoziationsanalyse</a><ul>
+<li class="chapter" data-level="20.1" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#einfuhrung"><i class="fa fa-check"></i><b>20.1</b> Einführung</a></li>
+<li class="chapter" data-level="20.2" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#kennzahlen-einer-assoziationsanalyse"><i class="fa fa-check"></i><b>20.2</b> Kennzahlen einer Assoziationsanalyse</a></li>
+<li class="chapter" data-level="20.3" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#beispiele"><i class="fa fa-check"></i><b>20.3</b> Beispiele</a></li>
+<li class="chapter" data-level="20.4" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#assoziationsanalyse-mit-r"><i class="fa fa-check"></i><b>20.4</b> Assoziationsanalyse mit R</a></li>
+<li class="chapter" data-level="20.5" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#fallstudie-lebensmittelwaren"><i class="fa fa-check"></i><b>20.5</b> Fallstudie Lebensmittelwaren</a><ul>
+<li class="chapter" data-level="20.5.1" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#regeln-finden"><i class="fa fa-check"></i><b>20.5.1</b> Regeln finden</a></li>
+<li class="chapter" data-level="20.5.2" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#visualisierung"><i class="fa fa-check"></i><b>20.5.2</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="20.6" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#literatur-4"><i class="fa fa-check"></i><b>20.6</b> Literatur</a></li>
+<li class="chapter" data-level="20.7" data-path="assoziationsanalyse.html"><a href="assoziationsanalyse.html#versionshinweise-3"><i class="fa fa-check"></i><b>20.7</b> Versionshinweise:</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="clusteranalyse.html"><a href="clusteranalyse.html"><i class="fa fa-check"></i><b>21</b> Clusteranalyse</a><ul>
+<li class="chapter" data-level="21.1" data-path="clusteranalyse.html"><a href="clusteranalyse.html#hierarchische-clusteranalyse"><i class="fa fa-check"></i><b>21.1</b> Hierarchische Clusteranalyse</a></li>
+<li class="chapter" data-level="21.2" data-path="clusteranalyse.html"><a href="clusteranalyse.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>21.2</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="21.3" data-path="clusteranalyse.html"><a href="clusteranalyse.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>21.3</b> Übung: B3 Datensatz</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="clusteranalyse.html"><a href="clusteranalyse.html#literatur-5"><i class="fa fa-check"></i><b>21.3.1</b> Literatur</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html"><i class="fa fa-check"></i><b>22</b> Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="22.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#einfuhrung-1"><i class="fa fa-check"></i><b>22.1</b> Einführung</a><ul>
+<li class="chapter" data-level="22.1.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>22.1.1</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="22.1.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#benotigte-pakete"><i class="fa fa-check"></i><b>22.1.2</b> Benötigte Pakete</a></li>
+<li class="chapter" data-level="22.1.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#daten-einlesen-2"><i class="fa fa-check"></i><b>22.1.3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="22.1.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>22.1.4</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="22.1.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>22.1.5</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="22.1.6" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#aggregation-der-durchschnittlichen-bewertungen-nach-marke"><i class="fa fa-check"></i><b>22.1.6</b> Aggregation der durchschnittlichen Bewertungen nach Marke</a></li>
+<li class="chapter" data-level="22.1.7" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#visualisierung-der-aggregierten-markenbewertungen"><i class="fa fa-check"></i><b>22.1.7</b> Visualisierung der aggregierten Markenbewertungen</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>22.2</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="22.2.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>22.2.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="22.2.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#scree-plot"><i class="fa fa-check"></i><b>22.2.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="22.2.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#elbow-kriterium"><i class="fa fa-check"></i><b>22.2.3</b> Elbow-Kriterium</a></li>
+<li class="chapter" data-level="22.2.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#biplot"><i class="fa fa-check"></i><b>22.2.4</b> Biplot</a></li>
+<li class="chapter" data-level="22.2.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#wahrnehmungsraum"><i class="fa fa-check"></i><b>22.2.5</b> Wahrnehmungsraum</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>22.3</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="22.3.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>22.3.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="22.3.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>22.3.2</b> Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="22.3.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>22.3.3</b> Berechnung der Faktor-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#interne-konsistenz-von-skalen"><i class="fa fa-check"></i><b>22.4</b> Interne Konsistenz von Skalen</a><ul>
+<li class="chapter" data-level="22.4.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#ubung-2"><i class="fa fa-check"></i><b>22.4.1</b> Übung</a></li>
+<li class="chapter" data-level="22.4.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#literatur-6"><i class="fa fa-check"></i><b>22.4.2</b> Literatur</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="textmining.html"><a href="textmining.html"><i class="fa fa-check"></i><b>23</b> Textmining</a><ul>
+<li class="chapter" data-level="23.1" data-path="textmining.html"><a href="textmining.html#einfuhrung-2"><i class="fa fa-check"></i><b>23.1</b> Einführung</a><ul>
+<li class="chapter" data-level="23.1.1" data-path="textmining.html"><a href="textmining.html#grundbegriffe"><i class="fa fa-check"></i><b>23.1.1</b> Grundbegriffe</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="textmining.html"><a href="textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>23.2</b> Grundlegende Analyse</a><ul>
+<li class="chapter" data-level="23.2.1" data-path="textmining.html"><a href="textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>23.2.1</b> Tidy Text Dataframes</a></li>
+<li class="chapter" data-level="23.2.2" data-path="textmining.html"><a href="textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>23.2.2</b> Text-Daten einlesen</a></li>
+<li class="chapter" data-level="23.2.3" data-path="textmining.html"><a href="textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>23.2.3</b> Worthäufigkeiten auszählen</a></li>
+<li class="chapter" data-level="23.2.4" data-path="textmining.html"><a href="textmining.html#visualisierung-1"><i class="fa fa-check"></i><b>23.2.4</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="23.3" data-path="textmining.html"><a href="textmining.html#sentiment-analyse"><i class="fa fa-check"></i><b>23.3</b> Sentiment-Analyse</a><ul>
+<li class="chapter" data-level="23.3.1" data-path="textmining.html"><a href="textmining.html#ungewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>23.3.1</b> Ungewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="23.3.2" data-path="textmining.html"><a href="textmining.html#anzahl-der-unterschiedlichen-negativen-bzw.-positiven-worter"><i class="fa fa-check"></i><b>23.3.2</b> Anzahl der unterschiedlichen negativen bzw. positiven Wörter</a></li>
+<li class="chapter" data-level="23.3.3" data-path="textmining.html"><a href="textmining.html#gewichtete-sentiment-analyse"><i class="fa fa-check"></i><b>23.3.3</b> Gewichtete Sentiment-Analyse</a></li>
+<li class="chapter" data-level="23.3.4" data-path="textmining.html"><a href="textmining.html#tokens-mit-den-extremsten-sentimentwerten"><i class="fa fa-check"></i><b>23.3.4</b> Tokens mit den extremsten Sentimentwerten</a></li>
+<li class="chapter" data-level="23.3.5" data-path="textmining.html"><a href="textmining.html#relativer-sentiments-wert"><i class="fa fa-check"></i><b>23.3.5</b> Relativer Sentiments-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="23.4" data-path="textmining.html"><a href="textmining.html#verknupfung-mit-anderen-variablen"><i class="fa fa-check"></i><b>23.4</b> Verknüpfung mit anderen Variablen</a></li>
+<li class="chapter" data-level="23.5" data-path="textmining.html"><a href="textmining.html#vertiefung-2"><i class="fa fa-check"></i><b>23.5</b> Vertiefung</a><ul>
+<li class="chapter" data-level="23.5.1" data-path="textmining.html"><a href="textmining.html#erstellung-des-sentiment-lexikons"><i class="fa fa-check"></i><b>23.5.1</b> Erstellung des Sentiment-Lexikons</a></li>
+</ul></li>
+<li class="chapter" data-level="23.6" data-path="textmining.html"><a href="textmining.html#verweise-7"><i class="fa fa-check"></i><b>23.6</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="v-ergebnisse-kommunizieren.html"><a href="v-ergebnisse-kommunizieren.html"><i class="fa fa-check"></i>V ERGEBNISSE KOMMUNIZIEREN</a></li>
+<li class="chapter" data-level="24" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html"><i class="fa fa-check"></i><b>24</b> Was ist RMarkdown?</a><ul>
+<li class="chapter" data-level="24.1" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#forderungen"><i class="fa fa-check"></i><b>24.1</b> Forderungen</a></li>
+<li class="chapter" data-level="24.2" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#bevor-es-losgeht"><i class="fa fa-check"></i><b>24.2</b> Bevor es losgeht</a></li>
+<li class="chapter" data-level="24.3" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#rmarkdown-in-action"><i class="fa fa-check"></i><b>24.3</b> RMarkdown in Action</a></li>
+<li class="chapter" data-level="24.4" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#die-arbeitsschritte-mit-rmarkdown"><i class="fa fa-check"></i><b>24.4</b> Die Arbeitsschritte mit RMarkdown</a></li>
+<li class="chapter" data-level="24.5" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#aufbau-einer-markdown-datei"><i class="fa fa-check"></i><b>24.5</b> Aufbau einer Markdown-Datei</a></li>
+<li class="chapter" data-level="24.6" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#syntax-grundlagen-von-markdown"><i class="fa fa-check"></i><b>24.6</b> Syntax-Grundlagen von Markdown</a></li>
+<li class="chapter" data-level="24.7" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#tabellen"><i class="fa fa-check"></i><b>24.7</b> Tabellen</a></li>
+<li class="chapter" data-level="24.8" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#zitieren"><i class="fa fa-check"></i><b>24.8</b> Zitieren</a></li>
+<li class="chapter" data-level="24.9" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#kollaboration-und-versionierung"><i class="fa fa-check"></i><b>24.9</b> Kollaboration und Versionierung</a></li>
+<li class="chapter" data-level="24.10" data-path="was-ist-rmarkdown.html"><a href="was-ist-rmarkdown.html#verweise-8"><i class="fa fa-check"></i><b>24.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i>VI Anhang</a></li>
+<li class="chapter" data-level="25" data-path="studienpfade.html"><a href="studienpfade.html"><i class="fa fa-check"></i><b>25</b> Studienpfade</a><ul>
+<li class="chapter" data-level="25.1" data-path="studienpfade.html"><a href="studienpfade.html#konsequtiver-master-of-science-in-wirtschaftspsychologie"><i class="fa fa-check"></i><b>25.1</b> konsequtiver Master of Science in Wirtschaftspsychologie</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>26</b> Literaturverzeichnis</a></li>
+<li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="assoziationsanalyse" class="section level1">
+<h1><span class="header-section-number">Kapitel 20</span> Assoziationsanalyse</h1>
+<div id="einfuhrung" class="section level2">
+<h2><span class="header-section-number">20.1</span> Einführung</h2>
+<p>Im Rahmen einer Assoziationsanalyse werden Zusammenhänge (Assoziationen) zwischen Ereignissen innerhalb von Datensätzen untersucht, z. B. im Rahmen einer Warenkorbanalyse. Dabei wird eine Menge (<em>Set</em>) von <em>Items</em> (z. B. gekauften Produkten, <span class="math inline">\(I=\{i_1, i_2, \ldots i_m \}\)</span>) innerhalb der <em>Transaktionen</em> (<span class="math inline">\(D=\{t_1, t_2 ,\ldots ,t_n\}\)</span>) betrachtet. Eine <em>Regel</em> (<span class="math inline">\(A \rightarrow B\)</span>) ist dann ein Zusammenhang zwischen den <em>Item Sets</em>. <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span> sind dabei disjunkte, ggfs. leere oder einelementige Teilmengen von Items (<span class="math inline">\(A, B \subseteq I; A\cap B=\emptyset\)</span>).</p>
+<p><strong>Achtung:</strong> Eine <em>Regel</em> impliziert keinen Kausalzusammenhang!</p>
+<p>Die computationale Herausforderung einer Assoziationsanalyse besteht darin, bei vielen <em>Items</em> (und damit sehr, sehr vielen Kombinationsmöglichkeiten) innerhalb von vielen <em>Transaktionen</em> diejenigen <em>Sets</em> zu finden, die häufig vorkommen.</p>
+<p>Eine wichtige Anwendung im (e)CRM ist z. B. die Analyse des <em>Cross Buying</em> Verhaltens.</p>
+<p>Assoziationsregeln sind eine explorative Analysemethode, die keine (statistische) Inferenz oder Kausalität aussagt. D. h. evt. Schlüsse aus der Analysen sollten vorsichtig schrittweise getestet und verglichen werden.</p>
+</div>
+<div id="kennzahlen-einer-assoziationsanalyse" class="section level2">
+<h2><span class="header-section-number">20.2</span> Kennzahlen einer Assoziationsanalyse</h2>
+<ul>
+<li><em>Support(<span class="math inline">\(A\)</span>)</em><span class="math inline">\(=\frac{|\{t\in D; A \subseteq t\}|}{|D|}\)</span>: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen eine Menge von Items (<span class="math inline">\(A\)</span>) vorkommt, bezogen auf alle Transaktionen (vgl. Wahrscheinlichkeit, <span class="math inline">\(P(A)\)</span>)</li>
+<li><em>Support(<span class="math inline">\(A\rightarrow B\)</span>)</em>=Support(<span class="math inline">\(A\cup B\)</span>)<span class="math inline">\(=\frac{|\{t\in D; (A\cup B) \subseteq t\}|}{|D|}\)</span>: Relative Häufigkeit, d. h. der Anteil der Transaktionen, in denen die Vereinigung einer Menge von Items <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span> vorkommt, bezogen auf alle Transaktionen (vgl. gemeinsame Wahrscheinlichkeit, <span class="math inline">\(P(A \cap B)\)</span>)</li>
+<li><em>Confidence</em>(<span class="math inline">\(A \rightarrow B\)</span>)<span class="math inline">\(=\frac{support(A \cup B)}{support(A)}\)</span>: Relative Häufigkeit von <span class="math inline">\(B\)</span> (rechte Seite), bezogen auf alle Transaktionen mit <span class="math inline">\(A\)</span> (linke Seite; vgl. bedingte Wahrscheinlichkeit, <span class="math inline">\(P(B|A)\)</span>)</li>
+<li><em>Lift</em>(<span class="math inline">\(A \rightarrow B\)</span>)<span class="math inline">\(=\frac{support(A \cup B)}{support(A) \cdot support(B)}\)</span>: Steigerung des Supports von <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span> im Vergleich zur unter Unabhängigkeit von <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span> erwarteten Häufigkeit (vgl. <span class="math inline">\(\frac{P(A\cap B)}{P(A) \cdot P(B)}=\frac{P(B|A)}{P(B)}\)</span>)</li>
+</ul>
+<p>Hinweis: Support und Lift sind symmetrisch, Confidence nicht. Als Schätzwerte für Wahrscheinlichkeiten etc. können die genannten Kennzahlen ggfs. ungeeignet sein (insbesondere für seltene Items).</p>
+</div>
+<div id="beispiele" class="section level2">
+<h2><span class="header-section-number">20.3</span> Beispiele</h2>
+<ul>
+<li>Support(Chips)<span class="math inline">\(=0.05\)</span>, d. h. 5% der Transaktionen enthalten Chips</li>
+<li>Support(Bier)<span class="math inline">\(=0.01\)</span>, d. h. 1% der Transaktionen enthalten Bier</li>
+<li>Support(Bier und Chips)<span class="math inline">\(=0.002\)</span>, d. h. 0,2% der Transaktionen enthalten Bier und Chips, dann:</li>
+<li>Confidence(Bier<span class="math inline">\(\rightarrow\)</span>Chips)<span class="math inline">\(=\frac{0.002}{0.01}=0.2\)</span>, d. h. 20% aller Transaktionen mit Bier enthalten auch Chips</li>
+<li>Lift(Bier<span class="math inline">\(\rightarrow\)</span>Chips)<span class="math inline">\(=\frac{0.002}{0.01\cdot 0.05}=\frac{0.2}{0.05}=4\)</span>, d. h. die Chance, dass eine Transaktion Chips enthält ist 4x größer als zu erwarten wäre, wenn es keinen Zusammenhang zwischen Bier und Chips gäbe</li>
+</ul>
+</div>
+<div id="assoziationsanalyse-mit-r" class="section level2">
+<h2><span class="header-section-number">20.4</span> Assoziationsanalyse mit R</h2>
+<p>Für eine Assoziationsanalyse kann in R das Zusatzpaket <code>arules</code> <a href="https://cran.r-project.org/package=arules" class="uri">https://cran.r-project.org/package=arules</a> verwendet werden.</p>
+<p>Die (einmalige) Installation erfolgt über:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;arules&quot;</span>, <span class="st">&quot;arulesViz&quot;</span>), <span class="dt">dep =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Geladen wird das Paket dann über</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arules)</code></pre></div>
+<p>Eine Einführung erhält man über die Paket-Vignette</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;arules&quot;</span>)</code></pre></div>
+</div>
+<div id="fallstudie-lebensmittelwaren" class="section level2">
+<h2><span class="header-section-number">20.5</span> Fallstudie Lebensmittelwaren</h2>
+<p>Im Paket <code>arules</code> sind Point-Of-Sale Daten eines Lebensmittelgeschäftes von einem Monat enthalten.<a href="#fn65" class="footnoteRef" id="fnref65"><sup>65</sup></a> Die Lebensmittel wurden zu 169 Kategorien zusammengefasst, und es gibt 9835 Transaktionen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Groceries, <span class="dt">package =</span> <span class="st">&quot;arules&quot;</span>) <span class="co"># Daten laden</span>
+<span class="co"># load(file = &quot;data/Groceries.Rda&quot;)</span>
+<span class="kw">summary</span>(Groceries)
+<span class="co">#&gt; transactions as itemMatrix in sparse format with</span>
+<span class="co">#&gt;  9835 rows (elements/itemsets/transactions) and</span>
+<span class="co">#&gt;  169 columns (items) and a density of 0.0261 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; most frequent items:</span>
+<span class="co">#&gt;       whole milk other vegetables       rolls/buns             soda </span>
+<span class="co">#&gt;             2513             1903             1809             1715 </span>
+<span class="co">#&gt;           yogurt          (Other) </span>
+<span class="co">#&gt;             1372            34055 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; element (itemset/transaction) length distribution:</span>
+<span class="co">#&gt; sizes</span>
+<span class="co">#&gt;    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 </span>
+<span class="co">#&gt; 2159 1643 1299 1005  855  645  545  438  350  246  182  117   78   77   55 </span>
+<span class="co">#&gt;   16   17   18   19   20   21   22   23   24   26   27   28   29   32 </span>
+<span class="co">#&gt;   46   29   14   14    9   11    4    6    1    1    1    1    3    1 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span class="co">#&gt;     1.0     2.0     3.0     4.4     6.0    32.0 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; includes extended item information - examples:</span>
+<span class="co">#&gt;        labels  level2           level1</span>
+<span class="co">#&gt; 1 frankfurter sausage meat and sausage</span>
+<span class="co">#&gt; 2     sausage sausage meat and sausage</span>
+<span class="co">#&gt; 3  liver loaf sausage meat and sausage</span></code></pre></div>
+<p><em>Hinweis:</em> Um einen Datensatz als Transaktionsdatensatz zu definieren wird der Befehl</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(methods)
+daten.trans &lt;-<span class="st"> </span>methods::<span class="kw">as</span>(Groceries, <span class="st">&quot;transactions&quot;</span>)</code></pre></div>
+<p>verwendet. Siehe auch Hilfeseite zu <code>transactions-class</code>.</p>
+<p>Über <code>inspect()</code> können Transaktionen und Regeln betrachtet werden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">arules::<span class="kw">inspect</span>(<span class="kw">head</span>(daten.trans))
+<span class="co">#&gt;     items                     </span>
+<span class="co">#&gt; [1] {citrus fruit,            </span>
+<span class="co">#&gt;      semi-finished bread,     </span>
+<span class="co">#&gt;      margarine,               </span>
+<span class="co">#&gt;      ready soups}             </span>
+<span class="co">#&gt; [2] {tropical fruit,          </span>
+<span class="co">#&gt;      yogurt,                  </span>
+<span class="co">#&gt;      coffee}                  </span>
+<span class="co">#&gt; [3] {whole milk}              </span>
+<span class="co">#&gt; [4] {pip fruit,               </span>
+<span class="co">#&gt;      yogurt,                  </span>
+<span class="co">#&gt;      cream cheese ,           </span>
+<span class="co">#&gt;      meat spreads}            </span>
+<span class="co">#&gt; [5] {other vegetables,        </span>
+<span class="co">#&gt;      whole milk,              </span>
+<span class="co">#&gt;      condensed milk,          </span>
+<span class="co">#&gt;      long life bakery product}</span>
+<span class="co">#&gt; [6] {whole milk,              </span>
+<span class="co">#&gt;      butter,                  </span>
+<span class="co">#&gt;      yogurt,                  </span>
+<span class="co">#&gt;      rice,                    </span>
+<span class="co">#&gt;      abrasive cleaner}</span></code></pre></div>
+<div id="regeln-finden" class="section level3">
+<h3><span class="header-section-number">20.5.1</span> Regeln finden</h3>
+<p>Es existieren verschiedene Algorithmen um Assoziationsregeln zu finden. Hier wird der <em>Apriori</em> Algorithmus verwendet, wobei verschiedene Parameter (wie z. B. minimalen Support und Confidence) eingestellt werden können:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lebensmittel.regeln &lt;-<span class="st"> </span><span class="kw">apriori</span>(Groceries, 
+                               <span class="dt">parameter=</span><span class="kw">list</span>(<span class="dt">supp=</span><span class="fl">0.02</span>, <span class="dt">conf=</span><span class="fl">0.1</span>,
+                                              <span class="dt">target=</span><span class="st">&quot;rules&quot;</span>))
+<span class="co">#&gt; Apriori</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Parameter specification:</span>
+<span class="co">#&gt;  confidence minval smax arem  aval originalSupport maxtime support minlen</span>
+<span class="co">#&gt;         0.1    0.1    1 none FALSE            TRUE       5    0.02      1</span>
+<span class="co">#&gt;  maxlen target   ext</span>
+<span class="co">#&gt;      10  rules FALSE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Algorithmic control:</span>
+<span class="co">#&gt;  filter tree heap memopt load sort verbose</span>
+<span class="co">#&gt;     0.1 TRUE TRUE  FALSE TRUE    2    TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Absolute minimum support count: 196 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; set item appearances ...[0 item(s)] done [0.00s].</span>
+<span class="co">#&gt; set transactions ...[169 item(s), 9835 transaction(s)] done [0.00s].</span>
+<span class="co">#&gt; sorting and recoding items ... [59 item(s)] done [0.00s].</span>
+<span class="co">#&gt; creating transaction tree ... done [0.00s].</span>
+<span class="co">#&gt; checking subsets of size 1 2 3 done [0.00s].</span>
+<span class="co">#&gt; writing ... [128 rule(s)] done [0.00s].</span>
+<span class="co">#&gt; creating S4 object  ... done [0.00s].</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(<span class="kw">subset</span>(lebensmittel.regeln, lift&gt;<span class="fl">2.5</span>))
+<span class="co">#&gt;     lhs                              rhs               support confidence</span>
+<span class="co">#&gt; [1] {pip fruit}                   =&gt; {tropical fruit}  0.0204  0.270     </span>
+<span class="co">#&gt; [2] {tropical fruit}              =&gt; {pip fruit}       0.0204  0.195     </span>
+<span class="co">#&gt; [3] {other vegetables,whole milk} =&gt; {root vegetables} 0.0232  0.310     </span>
+<span class="co">#&gt;     lift</span>
+<span class="co">#&gt; [1] 2.57</span>
+<span class="co">#&gt; [2] 2.57</span>
+<span class="co">#&gt; [3] 2.84</span></code></pre></div>
+<p>Das Ergebnis zeigt, dass in ca. 2% der Transaktionen Kern- (“pip”, z. B. Äpfel, Birnen) und Südfrüchte (“tropical”, z. B. Zitronen) enthalten waren (<em>support</em>). 27% der Transaktionen mit Kernfrüchten (<em>lhs</em>) enthielten auch Südfrüchte (<em>rhs</em>, <em>confidence</em>). Wenn also eine Transaktion eine Kernfrucht enthält ist ist es 2,57x häufiger, dass die Transaktion auch Südfrüchte enthält unter unabhängigen Häufigkeiten (<em>lift</em>).</p>
+<p>Um die “Top” Regeln zu betrachten müssen die Regeln nach dem gewünschten Kriterium sortiert werden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">topregeln &lt;-<span class="st"> </span><span class="kw">head</span>(<span class="kw">sort</span>(lebensmittel.regeln, <span class="dt">by=</span><span class="st">&quot;confidence&quot;</span>), <span class="dv">20</span>)
+<span class="kw">inspect</span>(topregeln)
+<span class="co">#&gt;      lhs                                   rhs                support</span>
+<span class="co">#&gt; [1]  {other vegetables,yogurt}          =&gt; {whole milk}       0.0223 </span>
+<span class="co">#&gt; [2]  {butter}                           =&gt; {whole milk}       0.0276 </span>
+<span class="co">#&gt; [3]  {curd}                             =&gt; {whole milk}       0.0261 </span>
+<span class="co">#&gt; [4]  {root vegetables,other vegetables} =&gt; {whole milk}       0.0232 </span>
+<span class="co">#&gt; [5]  {root vegetables,whole milk}       =&gt; {other vegetables} 0.0232 </span>
+<span class="co">#&gt; [6]  {domestic eggs}                    =&gt; {whole milk}       0.0300 </span>
+<span class="co">#&gt; [7]  {whipped/sour cream}               =&gt; {whole milk}       0.0322 </span>
+<span class="co">#&gt; [8]  {root vegetables}                  =&gt; {whole milk}       0.0489 </span>
+<span class="co">#&gt; [9]  {root vegetables}                  =&gt; {other vegetables} 0.0474 </span>
+<span class="co">#&gt; [10] {frozen vegetables}                =&gt; {whole milk}       0.0204 </span>
+<span class="co">#&gt; [11] {margarine}                        =&gt; {whole milk}       0.0242 </span>
+<span class="co">#&gt; [12] {beef}                             =&gt; {whole milk}       0.0213 </span>
+<span class="co">#&gt; [13] {tropical fruit}                   =&gt; {whole milk}       0.0423 </span>
+<span class="co">#&gt; [14] {whipped/sour cream}               =&gt; {other vegetables} 0.0289 </span>
+<span class="co">#&gt; [15] {yogurt}                           =&gt; {whole milk}       0.0560 </span>
+<span class="co">#&gt; [16] {pip fruit}                        =&gt; {whole milk}       0.0301 </span>
+<span class="co">#&gt; [17] {whole milk,yogurt}                =&gt; {other vegetables} 0.0223 </span>
+<span class="co">#&gt; [18] {brown bread}                      =&gt; {whole milk}       0.0252 </span>
+<span class="co">#&gt; [19] {other vegetables}                 =&gt; {whole milk}       0.0748 </span>
+<span class="co">#&gt; [20] {pork}                             =&gt; {whole milk}       0.0222 </span>
+<span class="co">#&gt;      confidence lift</span>
+<span class="co">#&gt; [1]  0.513      2.01</span>
+<span class="co">#&gt; [2]  0.497      1.95</span>
+<span class="co">#&gt; [3]  0.490      1.92</span>
+<span class="co">#&gt; [4]  0.489      1.91</span>
+<span class="co">#&gt; [5]  0.474      2.45</span>
+<span class="co">#&gt; [6]  0.473      1.85</span>
+<span class="co">#&gt; [7]  0.450      1.76</span>
+<span class="co">#&gt; [8]  0.449      1.76</span>
+<span class="co">#&gt; [9]  0.435      2.25</span>
+<span class="co">#&gt; [10] 0.425      1.66</span>
+<span class="co">#&gt; [11] 0.413      1.62</span>
+<span class="co">#&gt; [12] 0.405      1.59</span>
+<span class="co">#&gt; [13] 0.403      1.58</span>
+<span class="co">#&gt; [14] 0.403      2.08</span>
+<span class="co">#&gt; [15] 0.402      1.57</span>
+<span class="co">#&gt; [16] 0.398      1.56</span>
+<span class="co">#&gt; [17] 0.397      2.05</span>
+<span class="co">#&gt; [18] 0.389      1.52</span>
+<span class="co">#&gt; [19] 0.387      1.51</span>
+<span class="co">#&gt; [20] 0.384      1.50</span></code></pre></div>
+</div>
+<div id="visualisierung" class="section level3">
+<h3><span class="header-section-number">20.5.2</span> Visualisierung</h3>
+<p>Eine mögliche Visualisierung ist ein Streudiagramm von Support und Confidence</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arulesViz)
+<span class="kw">plot</span>(lebensmittel.regeln)</code></pre></div>
+<p><img src="081_Assoziationsanalyse_files/figure-html/plot-regeln-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Mit Hilfe der Option <code>interactive=TRUE</code> kann in Bereiche gezoomt werden – und Regeln ausgewählt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arulesViz)
+<span class="kw">plot</span>(lebensmittel.regeln, <span class="dt">interactive=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>Aber auch z. B. ein Graph eines entsprechenden Netzwerks ist möglich:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(topregeln, <span class="dt">method=</span><span class="st">&quot;graph&quot;</span>)</code></pre></div>
+<p><img src="081_Assoziationsanalyse_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="literatur-4" class="section level2">
+<h2><span class="header-section-number">20.6</span> Literatur</h2>
+<ul>
+<li><a href="http://r-marketing.r-forge.r-project.org">Chris Chapman und Elea McDonnell Feit (2015), <em>R for Marketing Research and Analytics</em>, Springer</a></li>
+<li><a href="http://michael.hahsler.net/research/association_rules/measures.html">Michael Hahsler (2015), A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, URL: http://michael.hahsler.net/research/association_rules/measures.html</a></li>
+<li><a href="http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html">Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, und Christian Buchta (2011), <em>The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets</em>. Journal of Machine Learning Research, 12:1977–1981</a></li>
+<li><a href="http://dx.doi.org/10.18637/jss.v014.i15">Michael Hahsler, Bettina Gruen und Kurt Hornik (2005), <em>arules - A Computational Environment for Mining Association Rules and Frequent Item Sets</em>. Journal of Statistical Software 14/15.</a></li>
+<li>Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006), <em>Implications of probabilistic data modeling for mining association rules.</em> In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.</li>
+</ul>
+</div>
+<div id="versionshinweise-3" class="section level2">
+<h2><span class="header-section-number">20.7</span> Versionshinweise:</h2>
+<p>Die Darstellung orientiert sich an den Folienunterlagen von Chapman &amp; Feit zum Buch <em>R for Marketing Research and Analytics</em>, Springer, 2015, siehe <a href="http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html" class="uri">http://r-marketing.r-forge.r-project.org/Instructor/slides-index.html</a></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="65">
+<li id="fn65"><p>Michael Hahsler, Kurt Hornik, und Thomas Reutterer (2006) <em>Implications of probabilistic data modeling for mining association rules</em>. In: M. Spiliopoulou, R. Kruse, C. Borgelt, A. Nuernberger, und W. Gaul, Editors, From Data and Information Analysis to Knowledge Engineering, Studies in Classification, Data Analysis, and Knowledge Organization, Seiten 598–605. Springer-Verlag.<a href="assoziationsanalyse.html#fnref65">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="iv-ungeleitetes-modellieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clusteranalyse.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

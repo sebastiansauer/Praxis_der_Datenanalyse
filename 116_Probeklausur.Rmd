@@ -82,7 +82,7 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 
 29. $R^2$, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem "Nullmodell" an.
 
-30. Bei der logistischen Regression gilt: Bei  $\beta_0>0$ ist die Wahrscheinlichkeit *kleiner* als 50% gibt, dass das modellierte Ereignis eintritt, wenn alle anderen Prädiktoren Null sind.
+30. Bei der logistischen Regression gilt: Bei  $β0>0$ ist die Wahrscheinlichkeit *kleiner* als 50% gibt, dass das modellierte Ereignis eintritt, wenn alle anderen Prädiktoren Null sind.
 
 31. Die logistische Regression sollte *nicht* verwendet werden, wenn die abhängige Variable dichotom ist.
 

@@ -1,7 +1,15 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
+
 bibliography: [Praxis_der_Datenanalyse.bib, libs.bib]
+date: '`r Sys.Date()`'
+colorlinks: yes
+cover-image: cover.jpg
+bibliography:
+- Praxis_der_Datenanalyse.bib
+- libs.bib
+description: Eine Einführung in moderne Statistik für Praktiker
 documentclass: book
 #fontsize: 12pt
 #github-repo: sebastiansauer/Praxis_der_Datenanalyse
@@ -43,7 +51,10 @@ Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die
 - Gesichtserkennung
 
 
+
 Sie werden in diesem Kurs einige praktische Aspekte der modernen Datenanalyse lernen. Ziel ist es, Sie - in Grundzügen - mit der Art und Weise vertraut zu machen, wie angewandte Statistik bei führenden Organisationen und Praktikern verwendet wird^[Statistiker, die dabei als Vorbild Pate standen sind: Roger D. Peng: http://www.biostat.jhsph.edu/~rpeng/, Hadley Wickham: http://hadley.nz, Jennifer Bryan: <https://github.com/jennybc>].
+
+
 
 
 Es ist ein Grundlagenkurs; das didaktische Konzept beruht auf einem induktiven, intuitiven Lehr-Lern-Ansatz. Formeln und mathematische Hintergründe such man meist vergebens (tja).

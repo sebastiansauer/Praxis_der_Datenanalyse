@@ -1,6 +1,19 @@
+
 bookdown::pdf_book:
   includes:
     in_header: preamble2.tex
   latex_engine: xelatex
   citation_package: natbib
+
+bookdown::gitbook:
+  css: style.css
+  fig_crop: TRUE
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">Praxis der Datenanalyse</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
 

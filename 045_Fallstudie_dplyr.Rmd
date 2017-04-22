@@ -31,17 +31,17 @@ Lernziele:
 ```
 
 
-Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` anhand einer Fallstudie an. Wir verwenden hier den Datensatz `flights` aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
+Schauen wir uns einige Beispiele der Datenaufbereitung mittels `dplyr` anhand einer Fallstudie an. Wir verwenden hier den Datensatz `flights`aus dem Package `nycflights13`. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:
 
 Laden wir zuerst `dplyr` and friends. Das geht mit dem Paket `tidyverse`, welches diese Pakete lädt:
 
 ```{r}
-library(tidyverse)  # Datenjudo
+library(tidyverse)
 library(nycflights13)  # für die Daten
 ```
 
 
-Dann laden wir die Daten aus dem Paket `nycflights13` mit `data` und werfen eine Blick hinein ("to glimpse") mit `glimpse`; `glimpse` zeigt uns einen Überblick über den Dataframe.
+Dann laden wir die Daten aus dem Paket `nycflights13` und werfen eine Blick hinein ("to glimpse"). `glimpse` zeigt uns einen Überblick über den Dataframe.
 
 ```{r}
 data(flights)
