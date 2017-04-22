@@ -253,6 +253,9 @@ ggplot(flights) +
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
 ```{r fig-aes-color}
+
+wo_men <- read.csv("data/wo_men.csv")
+
 wo_men %>% 
   filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
 
@@ -267,7 +270,7 @@ Alternativ kann man auch zwei "Teil-Bildchen" ("facets") erstellen, eines für F
 
 ```{r}
 wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
+  dplyr::filter(height > 150, height < 210, shoe_size < 55) %>% 
   qplot(x = height, y = shoe_size, facets = "~sex", color = sex, data = .)
 ```
 
@@ -279,14 +282,14 @@ Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkt
 
 ```{r}
 wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
-  select(-sex) -> wo_men4
+  dplyr::filter(height > 150, height < 210, shoe_size < 55) %>% 
+  dplyr::select(-sex) -> wo_men4
 
 wo_men4 %>% 
-  ggplot(aes(x = height, y = shoe_size)) +
+  ggplot(ggplot2::aes(x = height, y = shoe_size)) +
   geom_point(color = "grey80") +
-  facet_wrap(~sex) +
-  geom_point(data = wo_men2, aes(color = sex))
+  #facet_wrap(~sex) +
+  geom_point(data = wo_men2, ggplot2::aes(color = sex))
   
 ```
 

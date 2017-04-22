@@ -1,18 +1,32 @@
-
 bookdown::pdf_book:
   includes:
-    in_header: preamble2.tex
+    in_header: latex/preamble2.tex
   latex_engine: xelatex
   citation_package: natbib
-
 
 bookdown::gitbook:
   css: style.css
   fig_crop: TRUE
   config:
+    download: yes
+    search: yes
+    sharing:
+      facebook: yes
+      twitter: yes
+      google: no
+      weibo: no
+      instapper: no
+      vk: no
+      all: ['facebook', 'google', 'twitter', 'weibo', 'instapaper']
     toc:
       collapse: section
+      scroll_highlight: yes
       before: |
         <li><a href="./">Praxis der Datenanalyse</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+  cover-image: images/cover.jpg
+  favicon: images/favicon/favicon.ico
+
+bookdown::epub_book: default
+

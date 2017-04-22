@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 
 
-# II MODELLIEREN {-}
+
 
 ```{r echo = FALSE, out.width = "100%"}
 knitr::include_graphics("images/farb1.jpg")
@@ -46,7 +46,7 @@ Lernziele:
 
 
 In diesem Kapitel benötigen wir diese Pakete:
-```{r libs}
+```{r libs-modellieren}
 library(tidyverse)
 ```
 

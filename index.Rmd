@@ -1,7 +1,6 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
-bibliography: [Praxis_der_Datenanalyse.bib, libs.bib]
 date: '`r Sys.Date()`'
 colorlinks: yes
 cover-image: cover.jpg
@@ -9,17 +8,18 @@ bibliography:
 - Praxis_der_Datenanalyse.bib
 - libs.bib
 description: Eine Einführung in moderne Statistik für Praktiker
+lang: de-De
 documentclass: book
-#fontsize: 12pt
-#github-repo: sebastiansauer/Praxis_der_Datenanalyse
-#link-citations: yes
-#lof: yes
+fontsize: 12pt
+github-repo: sebastiansauer/Praxis_der_Datenanalyse
+link-citations: yes
+lof: yes
 #lot: yes
 toc: yes
-#nocite: |
-#  @*
+nocite: |
+  @*
 site: bookdown::bookdown_site
-#biblio-style: apalike
+biblio-style: apalike
 ---
 
 
@@ -28,7 +28,7 @@ source("source/libs.R")
 ```
 
 
-# Vorwort
+# Vorwort {-}
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
 knitr::include_graphics("images/FOM.jpg")

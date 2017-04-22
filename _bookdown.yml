@@ -5,37 +5,37 @@ output_dir: "docs"
 rmd_files: [
 "index.Rmd",
 "010_Organisatorisches.Rmd",
-#"020_Rahmen_1.Rmd",
-#"030_Tidy_Data.Rmd",
-#"040_Datenjudo.Rmd",
-#"043_Typische_Probleme_Datenanalyse.Rmd",
-#"045_Fallstudie_dplyr.Rmd",
-#"050_Daten_visualisieren.Rmd",
-#"056_Fallstudie_Visualisierung.Rmd",
-#"059_Modellieren.Rmd",
-#"060_Modellieren.Rmd",
-#"061_Inferenzstatistik.Rmd",
-#"070_geleitetes_Modellieren.Rmd",
-#"071_Regression.Rmd",
-#"072_klassifizierende_Regression.Rmd",
-#"075_Fallstudie_Titanic.Rmd",
-#"076_Fallstudie_Affairs.Rmd",
-#"080_ungeleitetes_Modellieren.Rmd",
-#"082_Clusteranalyse.Rmd",
-#"100_Anhang.Rmd",
-#"110_Studienpfade_Anhang.Rmd",
-#"114_Pruefung.Rmd",
-#"116_Probeklausur.Rmd",
-#"120_Literatur.Rmd"
+"020_Rahmen_1.Rmd",
+"030_Tidy_Data.Rmd",
+"040_Datenjudo.Rmd",
+"043_Typische_Probleme_Datenanalyse.Rmd",
+"045_Fallstudie_dplyr.Rmd",
+"050_Daten_visualisieren.Rmd",
+"056_Fallstudie_Visualisierung.Rmd",
+"059_Modellieren.Rmd",
+"060_Modellieren.Rmd",
+"061_Inferenzstatistik.Rmd",
+"070_geleitetes_Modellieren.Rmd",
+"071_Regression.Rmd",
+"072_klassifizierende_Regression.Rmd",
+"075_Fallstudie_Titanic.Rmd",
+"076_Fallstudie_Affairs.Rmd",
+"080_ungeleitetes_Modellieren.Rmd",
+"082_Clusteranalyse.Rmd",
+"100_Anhang.Rmd",
+"110_Studienpfade_Anhang.Rmd",
+"114_Pruefung.Rmd",
+"116_Probeklausur.Rmd",
+"120_Literatur.Rmd"
 ]
-#clean: [bookdown.bbl]
-#nocite: |
-#  @*
-#new_session: TRUE
-#language:
-#  label:
-#    fig: "Abbildung "
-#    tab: "Tabelle "
-#  ui:
-#    edit: "Bearbeiten "
- #   chapter_name: "Kapitel "
+clean: [bookdown.bbl]
+nocite: |
+  @*
+new_session: TRUE
+language:
+  label:
+    fig: "Abbildung "
+    tab: "Tabelle "
+  ui:
+    edit: "Bearbeiten "
+    chapter_name: "Kapitel "

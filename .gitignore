@@ -2,14 +2,17 @@
 # Project files #
 #################
 
-.Rproj.user
+.Rproj.user/
 .Rhistory
 .RData
 _bookdown_files
 .Rapp.history
-
+docs/
+__Archive__/
 
 .httr-oauth
+*.log
+*.aux
 
 
 # temporary files #

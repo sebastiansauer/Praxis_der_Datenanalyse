@@ -52,10 +52,18 @@ Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitu
 ### Auf fehlende Werte prüfen 
 Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
-```{r}
+```{r eval = FALSE}
 wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
 glimpse(wo_men)
 ```
+
+```{r}
+wo_men <- read.csv("data/wo_men.csv")
+glimpse(wo_men)
+```
+
+
+
 
 ### Fälle mit fehlenden Werte löschen
 Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein, nichts zu tun. Eine andere Möglichkeit besteht darin, alle entsprechenden Zeilen zu löschen. Man sollte aber schauen, wie viele Zeilen dadurch verloren gehen.
@@ -80,7 +88,7 @@ Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
 ```{r}
 wo_men %>% 
   rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
-  filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
+  dplyr::filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
 ```
 
 Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
@@ -103,7 +111,7 @@ wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height
   
 ```
 
-`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
+`replace` (aus dem "Standard-R", d.h. Paket "base") ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
 
 
 
@@ -112,7 +120,7 @@ Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prü
 
 ```{r}
 wo_men %>% 
-  count(shoe_size) %>% 
+  dplyr::count(shoe_size) %>% 
   head  # nur die ersten paar Zeilen
 ```
 
@@ -136,7 +144,7 @@ Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wi
 
 ```{r}
 wo_men %>% 
-  select(height, shoe_size) %>% 
+  dplyr::select(height, shoe_size) %>% 
   correlate() -> km   # Korrelationsmatrix berechnen
 km  
 
