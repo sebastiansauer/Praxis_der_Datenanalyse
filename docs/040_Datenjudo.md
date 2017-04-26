@@ -5,9 +5,11 @@
 # Datenjudo
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -22,10 +24,14 @@
 </div>\EndKnitrBlock{rmdcaution}
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/Aufbereiten.pdf" alt="Daten aufbereiten" width="70%" />
-<p class="caption">(\#fig:fig-datenjudo)Daten aufbereiten</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Aufbereiten} 
+
+}
+
+\caption{Daten aufbereiten}(\#fig:fig-datenjudo)
+\end{figure}
 
 In diesem Kapitel benötigte Pakete: 
 
@@ -72,10 +78,14 @@ Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r
 Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine* geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed...), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, was ich will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Wir schauen wir uns diese Bausteine gleich näher an.
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/Bausteine_dplyr_crop.pdf" alt="Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine" width="70%" />
-<p class="caption">(\#fig:bausteine)Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Bausteine_dplyr_crop} 
+
+}
+
+\caption{Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine}(\#fig:bausteine)
+\end{figure}
 
 
 
@@ -83,10 +93,14 @@ Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine
 Das *zweite Prinzip* von `dplyr` ist es, einen Dataframe von Operation zu Operation *durchzureichen.* `dplyr` arbeitet also *nur* mit Dataframes. Jeder Arbeitsschritt bei `dplyr` erwartet einen Dataframe als Eingabe und gibt im Gegenzug wieder einen Dataframe aus.
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/durchpfeifen_allgemein_crop.pdf" alt="Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht" width="70%" />
-<p class="caption">(\#fig:durchpfeifen-allgemein)Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/durchpfeifen_allgemein_crop} 
+
+}
+
+\caption{Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht}(\#fig:durchpfeifen-allgemein)
+\end{figure}
 
 
 Werfen wir einen Blick auf ein paar typische Bausteine von `dplyr`.
@@ -99,10 +113,14 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern; `filter`\index{dply
 
 Abb. \@ref(fig:fig-filter) zeigt ein Sinnbild für `filter`.
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/filter.pdf" alt="Zeilen filtern" width="70%" />
-<p class="caption">(\#fig:fig-filter)Zeilen filtern</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/filter} 
+
+}
+
+\caption{Zeilen filtern}(\#fig:fig-filter)
+\end{figure}
 
 Merke:
 
@@ -187,10 +205,14 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/select.pdf" alt="Spalten auswählen" width="70%" />
-<p class="caption">(\#fig:fig-select)Spalten auswählen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/select} 
+
+}
+
+\caption{Spalten auswählen}(\#fig:fig-select)
+\end{figure}
 
 
 Merke:
@@ -303,10 +325,14 @@ Merke:
 
 Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/arrange-crop.pdf" alt="Spalten sortieren" width="70%" />
-<p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/arrange-crop} 
+
+}
+
+\caption{Spalten sortieren}(\#fig:fig-arrange)
+\end{figure}
 
 
 
@@ -369,10 +395,14 @@ Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittl
 
 >   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/group_by.pdf" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
-<p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/group_by} 
+
+}
+
+\caption{Datensätze nach Subgruppen aufteilen}(\#fig:fig-groupby)
+\end{figure}
 
 In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. Variable) `Fach` in mehrere Gruppen geteilt (Fach A, Fach B...). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
@@ -407,10 +437,14 @@ Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Aus
 
 Die Idee des "Gruppieren - Zusammenfassen - Kombinieren" ist flexibel; man kann sie häufig brauchen. Es lohnt sich, diese Idee zu lernen (vgl. Abb. \@ref(fig:sac)).
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/sac_crop.pdf" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
-<p class="caption">(\#fig:sac)Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/sac_crop} 
+
+}
+
+\caption{Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'}(\#fig:sac)
+\end{figure}
 
 
 #### Aufgaben^[R, F, R, R]
@@ -435,10 +469,14 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max` (vgl. Abb. \@ref(fig:fig-summarise). Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/summarise.pdf" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
-<p class="caption">(\#fig:fig-summarise)Spalten zu einer Zahl zusammenfassen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/summarise} 
+
+}
+
+\caption{Spalten zu einer Zahl zusammenfassen}(\#fig:fig-summarise)
+\end{figure}
 
 
 
@@ -675,25 +713,34 @@ Ah! Der Score `34` ist der häufigste!
 ## Die Pfeife
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578" width="70%" />
-<p class="caption">(\#fig:cecie-une-pipe)La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/ma-150089-WEB} 
+
+}
+
+\caption{La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578}(\#fig:cecie-une-pipe)
+\end{figure}
 
 
  Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens (s. Abb. \@ref(fig:fig-durchpfeifen)).
 
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
-<p class="caption">(\#fig:fig-durchpfeifen)Das 'Durchpeifen'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/Datenjudo/durchpfeifen} 
+
+}
+
+\caption{Das 'Durchpeifen'}(\#fig:fig-durchpfeifen)
+\end{figure}
 
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
 
 
 ```r
-filter(summarise(group_by(filter(stats_test, !is.na(score)), interest), mw = mean(score)), mw > 30)
+filter(summarise(group_by(filter(stats_test, 
+       !is.na(score)), interest), mw = mean(score)), mw > 30)
 ```
 
 mit dieser
@@ -714,7 +761,7 @@ stats_test %>%
 #> 4       NA  33.1
 ```
 
-Es ist hilfreich, diese "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen.
+Die zweite ist viel einfacher! Lassen Sie uns die "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen.
 
 
 
@@ -787,10 +834,14 @@ Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte p
 
 Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
-<div class="figure" style="text-align: center">
-<img src="images/Datenjudo/mutate.png" alt="Sinnbild für mutate" width="70%" />
-<p class="caption">(\#fig:fig-mutate)Sinnbild für mutate</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/mutate} 
+
+}
+
+\caption{Sinnbild für mutate}(\#fig:fig-mutate)
+\end{figure}
 
 
 
@@ -807,7 +858,8 @@ data(flights)
 verspaetung <-
   filter(
     summarise(
-    group_by(filter(flights, !is.na(dep_delay), month)), delay = mean(dep_delay), n = n()), n > 10)
+    group_by(filter(flights, !is.na(dep_delay), month)), 
+    delay = mean(dep_delay), n = n()), n > 10)
  
 ```
 

@@ -99,6 +99,9 @@
 \usepackage{longtable}
 \usepackage[bf,singlelinecheck=off]{caption}
 
+%ses:
+\pagestyle{headings}
+
 %\setmainfont[UprightFeatures={SmallCapsFont=AlegreyaSC-Regular}]{Alegreya}
 
 \usepackage{framed,color}
@@ -220,10 +223,12 @@
 }
 \listoftables
 \listoffigures
-\section*{Vorwort}\label{vorwort}
+\chapter*{Vorwort}\label{vorwort}
 
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von
 ``gestern'' zu ``heute'' verschoben. Wenig überraschend spielt der
@@ -373,43 +378,50 @@ Dieses Skript ist publiziert unter
 
 \begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
+Bitte zitieren Sie das Skript so (Bib-File
+\href{https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib}{hier}):
+
+Sauer, S., Gehrke, M., Gansser, O., \& Lübke, K. (2017). \emph{Praxis
+der Datenanalyse}. Skript zum Modul im MSc.-Studiengang
+``Wirtschaftspsychologie \& Consulting''" an der FOM, Nürnberg.
+
 Sebastian Sauer
 
-\section{Organisatorisches}\label{organisatorisches}
+\chapter{Organisatorisches}\label{organisatorisches}
 
-\section{Rahmen}\label{rahmen}
+\chapter{Rahmen}\label{rahmen}
 
-\section{Datenjudo}\label{datenjudo}
+\chapter{Datenjudo}\label{datenjudo}
 
-\section{Praxisprobleme der
+\chapter{Praxisprobleme der
 Datenaufbereitung}\label{praxisprobleme-der-datenaufbereitung}
 
-\section{Fallstudie zum Datenjudo}\label{fallstudie-zum-datenjudo}
+\chapter{Fallstudie zum Datenjudo}\label{fallstudie-zum-datenjudo}
 
-\section{Daten visualisieren}\label{daten-visualisieren}
+\chapter{Daten visualisieren}\label{daten-visualisieren}
 
-\section{Fallstudie zur
+\chapter{Fallstudie zur
 Visualisierung}\label{fallstudie-zur-visualisierung}
 
-\section{Grundlagen des Modellierens}\label{mod1}
+\chapter{Grundlagen des Modellierens}\label{mod1}
 
-\section{Der p-Wert}\label{der-p-wert}
+\chapter{Der p-Wert}\label{der-p-wert}
 
-\section{Klassische lineare (numerische)
+\chapter{Klassische lineare (numerische)
 Regression}\label{klassische-lineare-numerische-regression}
 
-\section{Klassifizierende Regression}\label{klassifizierende-regression}
+\chapter{Klassifizierende Regression}\label{klassifizierende-regression}
 
-\section{Fallstudien zum geleiteten
+\chapter{Fallstudien zum geleiteten
 Modellieren}\label{fallstudien-zum-geleiteten-modellieren}
 
-\section{nicht robust:}\label{nicht-robust}
+\chapter{nicht robust:}\label{nicht-robust}
 
-\section{Vertiefung: Clusteranalyse}\label{vertiefung-clusteranalyse}
+\chapter{Vertiefung: Clusteranalyse}\label{vertiefung-clusteranalyse}
 
-\section{Probeklausur}\label{probeklausur}
+\chapter{Probeklausur}\label{probeklausur}
 
-\section{Literaturverzeichnis}\label{literaturverzeichnis}
+\chapter{Literaturverzeichnis}\label{literaturverzeichnis}
 
 \hypertarget{refs}{}
 \hypertarget{ref-rmarkdown}{}
@@ -444,12 +456,10 @@ the C libstemmer UTF-8 library}.
 \hypertarget{ref-breaking}{}
 Briggs, William M. 2008. \emph{Breaking the Law of Averages: Real-Life
 Probability and Statistics in Plain English}. Lulu.com.
-\url{https://www.amazon.com/Breaking-Law-Averages-Probability-Statistics/dp/0557019907\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D0557019907}.
 
 \hypertarget{ref-uncertainty}{}
 ---------. 2016. \emph{Uncertainty: The Soul of Modeling, Probability \&
 Statistics}. Springer.
-\url{https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3DB01JEJNUJK}.
 
 \hypertarget{ref-bryant1995practical}{}
 Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies
@@ -466,7 +476,6 @@ doi:\href{https://doi.org/10.1007/978-3-319-14436-8}{10.1007/978-3-319-14436-8}.
 
 \hypertarget{ref-Cleveland}{}
 Cleveland, William S. 1993. \emph{Visualizing Data}. Hobart Press.
-\url{https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D0963488406}.
 
 \hypertarget{ref-cobb2007introductory}{}
 Cobb, George W. 2007. „The introductory statistics course: a Ptolemaic
@@ -500,7 +509,6 @@ Regression}. \url{https://CRAN.R-project.org/package=car}.
 Gigerenzer, Gerd. 1980. \emph{Messung und Modellbildung in der
 Psychologie (Uni-Taschenbucher. Psychologie, Padagogik, Soziologie,
 Psychiatrie) (German Edition)}. E. Reinhardt.
-\url{https://www.amazon.com/Modellbildung-Psychologie-Uni-Taschenbucher-Soziologie-Psychiatrie/dp/3497008958\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D3497008958}.
 
 \hypertarget{ref-Gigerenzer2004}{}
 ---------. 2004. „Mindless statistics``. \emph{The Journal of
@@ -568,7 +576,6 @@ Springer.
 \hypertarget{ref-tidytextminig}{}
 Julia, PhD Silge, und PhD Robinson David. 2017. \emph{Text Mining with
 R: A tidy approach}. O'Reilly Media.
-\url{https://www.amazon.com/Text-Mining-R-tidy-approach/dp/1491981652\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D1491981652}.
 
 \hypertarget{ref-kim2015okcupid}{}
 Kim, Albert Y, und Adriana Escobedo-Land. 2015. „OkCupid Data for
@@ -652,7 +659,7 @@ Venables and Ripley's MASS}.
 
 \hypertarget{ref-nycflights13}{}
 RITA, Bureau of transportation statistics. 2013. „nycflights13``.
-\href{http://www.transtats.bts.gov/DL\%7B/_\%7DSelectFields.asp?Table\%7B/_\%7DID=236}{http://www.transtats.bts.gov/DL\{\textbackslash{}\_\}SelectFields.asp?Table\{\textbackslash{}\_\}ID=236}.
+\url{http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236}.
 
 \hypertarget{ref-R-gutenbergr}{}
 Robinson, David. 2016. \emph{gutenbergr: Download and Process Public
@@ -728,7 +735,6 @@ theory}. Institute for mathematical studies in the social sciences.
 \hypertarget{ref-oxford}{}
 \emph{The Oxford Dictionary of Statistical Terms}. 2006. Oxford
 University Press.
-\url{https://www.amazon.com/Oxford-Dictionary-Statistical-Terms/dp/0199206139\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D0199206139}.
 
 \hypertarget{ref-R-rpart}{}
 Therneau, Terry, Beth Atkinson, und Brian Ripley. 2015. \emph{rpart:
@@ -737,16 +743,13 @@ Recursive Partitioning and Regression Trees}.
 
 \hypertarget{ref-1930824149}{}
 Tufte, Edward R. 1990. \emph{Envisioning Information}. Graphics Press.
-\url{https://www.amazon.com/Envisioning-Information-Edward-R-Tufte/dp/1930824149\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D1930824149}.
 
 \hypertarget{ref-1930824130}{}
 ---------. 2001. \emph{The Visual Display of Quantitative Information}.
 Graphics Press.
-\url{https://www.amazon.com/Visual-Display-Quantitative-Information/dp/1930824130\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D1930824130}.
 
 \hypertarget{ref-1930824165}{}
 ---------. 2006. \emph{Beautiful Evidence}. Graphics Press.
-\url{https://www.amazon.com/Beautiful-Evidence-Edward-R-Tufte/dp/1930824165\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D1930824165}.
 
 \hypertarget{ref-R-SDMTools}{}
 VanDerWal, Jeremy, Lorena Falconi, Stephanie Januchowski, Luke Shoo, und
@@ -822,7 +825,6 @@ Data Manipulation}. \url{https://CRAN.R-project.org/package=dplyr}.
 \hypertarget{ref-r4ds}{}
 Wickham, Hadley, und Garrett Grolemund. 2016. \emph{R for Data Science:
 Visualize, Model, Transform, Tidy, and Import Data}. O'Reilly Media.
-\url{https://www.amazon.com/Data-Science-Visualize-Model-Transform/dp/1491910399\%3FSubscriptionId\%3D0JYN1NVW651KCA56C102\%26tag\%3Dtechkie-20\%26linkCode\%3Dxm2\%26camp\%3D2025\%26creative\%3D165953\%26creativeASIN\%3D1491910399}.
 
 \hypertarget{ref-wild1999statistical}{}
 Wild, Chris J, und Maxine Pfannkuch. 1999. „Statistical thinking in

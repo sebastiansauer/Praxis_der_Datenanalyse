@@ -178,7 +178,8 @@ Wünsche sind ein Fass ohne Boden... Wäre es nicht schön, ein Diagramm für M�
 
 ```{r}
 qplot(x = shoe_size, data = wo_men, geom = "density", color = sex)
-qplot(x = shoe_size, data = wo_men, geom = "density", fill = sex, alpha = I(.7))
+qplot(x = shoe_size, data = wo_men, geom = "density", fill = sex, 
+      alpha = I(.7))
 ```
 
 Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:
@@ -188,7 +189,8 @@ Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf d
 wo_men %>% 
   filter(shoe_size <= 47) -> wo_men2
 
-qplot(x = shoe_size, data = wo_men2, geom = "density", fill = sex, alpha = I(.7))
+qplot(x = shoe_size, data = wo_men2,      
+      geom = "density", fill = sex, alpha = I(.7))
 
 ```
 
@@ -197,7 +199,8 @@ Besser. Man kann das Durchpfeifen auch bis zu `qplot` weiterführen:
 ```{r}
 wo_men %>% 
   filter(shoe_size <= 47) %>% 
-  qplot(x = shoe_size, data = ., geom = "density", fill = sex, alpha = I(.7))
+  qplot(x = shoe_size, data = ., geom = "density", 
+        fill = sex, alpha = I(.7))
 
 ```
 
@@ -323,7 +326,8 @@ wo_men %>%
 Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
 
 ```{r}
-wo_men$groesse_gruppe <- car::recode(wo_men$height, "lo:175 = 'klein'; else = 'gross'")
+wo_men$groesse_gruppe <- car::recode(wo_men$height,
+                                     "lo:175 = 'klein'; else = 'gross'")
 
 wo_men %>% 
   filter(height > 150, height < 210, shoe_size < 55) %>% 

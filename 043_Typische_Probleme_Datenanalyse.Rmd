@@ -106,7 +106,8 @@ filtere die nicht-kompletten Fälle
 Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses^[Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
 
 ```{r}
-wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height, na.rm = TRUE))
+wo_men$height <- replace(wo_men$height, is.na(wo_men$height),
+                         mean(wo_men$height, na.rm = TRUE))
   
 ```
 
@@ -228,10 +229,17 @@ Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen 
 
 stats_test <- read.csv("data/test_inf_short.csv")
 
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = TRUE)
-stats_test$score_fac <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'", as.factor.result = FALSE)
+stats_test$score_fac <- car::recode(stats_test$study_time, 
+                        "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
+                        as.factor.result = TRUE)
+stats_test$score_fac <- car::recode(stats_test$study_time, 
+                        "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
+                        as.factor.result = FALSE)
 
-stats_test$study_time_2 <- car::recode(stats_test$study_time, "5 = 'sehr viel'; 4 = 'wenig'; else = 'Hilfe'", as.factor.result = TRUE)
+stats_test$study_time_2 <- car::recode(stats_test$study_time, 
+                                       "5 = 'sehr viel'; 4 = 'wenig'; 
+                                       else = 'Hilfe'", 
+                                       as.factor.result = TRUE)
 
 head(stats_test$study_time_2)
 ```
@@ -242,7 +250,9 @@ Der Befehle `recode` ist praktisch; mit `:` kann man "von bis" ansprechen (das g
 Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
 
 ```{r}
-stats_test$no_interest <- car::recode(stats_test$interest, "1 = 6; 2 = 5; 3 = 4; 4 = 3; 5 = 2; 6 = 1; else = NA")
+stats_test$no_interest <- car::recode(stats_test$interest, 
+                                      "1 = 6; 2 = 5; 3 = 4; 4 = 3; 
+                                      5 = 2; 6 = 1; else = NA")
 glimpse(stats_test$no_interest)
 
 ```
@@ -260,7 +270,9 @@ Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen i
 
 
 ```{r}
-stats_test$Ergebnis <- car::recode(stats_test$score, "1:38 = 'durchgefallen'; else = 'bestanden'")
+stats_test$Ergebnis <- car::recode(stats_test$score, 
+                                   "1:38 = 'durchgefallen'; 
+                                   else = 'bestanden'")
 ```
 
 

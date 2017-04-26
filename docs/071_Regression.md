@@ -5,9 +5,11 @@
 # Klassische lineare (numerische) Regression
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -57,7 +59,9 @@ Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.
 qplot(y = tip, x = total_bill, data = tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Es scheint einen positiven Zusammenhang zu geben. Modellieren wir die **abhängige** Variable `tip` (inhaltliche Entscheidung!) als lineare Funktion der **unabhängigen** Variable `total_bill`:
 
@@ -112,7 +116,9 @@ In mosaic kann die Modellgerade über
 plotModel(LinMod.1)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 "ok": 46-\% der Variation des Trinkgeldes wird im Modell erklärt.
 
@@ -129,7 +135,9 @@ resid_df <- data.frame(Residuen = resid(LinMod.1))
 qplot(x = Residuen, data = resid_df)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 
 - *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl `fitted()`[^3] extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot 
@@ -141,7 +149,9 @@ resid_df$fitted <- fitted(LinMod.1)
 qplot(x = Residuen, y = fitted, data = resid_df)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 - *Extreme Ausreißer*: Wie am Plot der Linearen Regression `plotModel(LinMod.1)` erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.
 
@@ -152,7 +162,9 @@ Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?
 xyplot(total_bill ~ size, data=tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Da bei diskreten metrischen Variablen (hier `size`) Punkte übereinander liegen können, sollte man "jittern" ("schütteln"), d. h., eine (kleine) Zufallszahl addieren:
 
@@ -160,7 +172,9 @@ Da bei diskreten metrischen Variablen (hier `size`) Punkte übereinander liegen 
 qplot(x = total_bill, y = size, data = tips, geom = "jitter")
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 
 
@@ -181,7 +195,9 @@ Zunächst grafisch:
 qplot(x = tip,y = day, data=tips)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Und als Lineares Modell:
 
@@ -255,7 +271,9 @@ sowie als Plot:
 plotModel(LinMod.3)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Eine Alternative zu `relevel()` zur Bestimmung der Referenzkategorie ist es, innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung zu setzen.
 
@@ -479,7 +497,8 @@ Die Größe des Unterschieds (Differenz, "Delta") zwischen vorhergesagten (gesch
 
 Graphisch kann man das gut veranschaulichen:
 
-<img src="071_Regression_files/figure-html/resids-plot-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/resids-plot-1} \end{center}
 
 Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschätzten) Werte wieder; die Punkte die beobachteten ("echten") Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler. 
 
@@ -739,7 +758,9 @@ matplot(newdat$total_bill, preddat, lty = c(1,2,2), type="l" )
 points(x=tips$total_bill, y=tips$tip)
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 Sie sehen, dass 95\% Prognoseintervall ist recht breit: über den gewählten Rechnungsbereich von $0-75$\$ im Mittelwert bei 4.11\$. 
 

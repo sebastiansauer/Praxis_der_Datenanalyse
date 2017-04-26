@@ -16,7 +16,7 @@ fontsize: 12pt
 github-repo: sebastiansauer/Praxis_der_Datenanalyse
 link-citations: yes
 lof: yes
-lot: yes
+lot: no
 nocite: |
   @*
 site: bookdown::bookdown_site
@@ -94,9 +94,11 @@ Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
 
 
-1. Abb. \@ref(fig:modellieren-plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12
+1. Abb. \@ref(fig:modellieren-plot), Sebastian Unrau, ohne Titel, https://unsplash.com/photos/CoD2Q92UaEg, CC0, 2017-02-12.
 
-2. Abb. \@ref(fig:vwmodell), Lothar Spurzem, VW 1303 von Wiking in 1:87; Größe des Modells: 47,5 mm, https://de.wikipedia.org/wiki/Modellautomobil#/media/File:Wiking-Modell_VW_1303_(um_1975).JPG, CC-BY-SA 2.0, de.
+2. Abb. \@ref(fig:vwmodell), Lothar Spurzem, VW 1303 von Wiking in 1:87; Größe des Modells: 47,5 mm, https://de.wikipedia.org/wiki/Modellautomobil#/media/File:Wiking-Modell_VW_1303_(um_1975).JPG, CC-BY-SA 2.0 de, 2017-03-20.
+
+3. "Monster-Smileys", LadyOfHats, Smileys, https://commons.wikimedia.org/wiki/User:LadyofHats#Smileys, Public Domain, 2017-01-20.
  
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.

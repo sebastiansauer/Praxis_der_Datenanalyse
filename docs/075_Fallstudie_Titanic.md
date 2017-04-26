@@ -81,7 +81,9 @@ library(ggplot2)
 qplot(x = Pclass, y = n, data = c1)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/plot-titanic1-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/plot-titanic1-1} \end{center}
 
 Der Befehl `qplot` zeichnet automatisch Punkte, wenn auf beiden Achsen "Zahlen-Variablen" stehen (also Variablen, die keinen "Text", sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ `int` (integer), also Ganze Zahlen oder vom Typ `num` (numeric), also reelle Zahlen).
 
@@ -129,7 +131,9 @@ Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den g
 qplot(x = Pclass, y = n, data = c3)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen:
   
@@ -138,7 +142,9 @@ Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, w
 qplot(x = Pclass, y = n, color = Survived, data = c3)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:
   
@@ -147,7 +153,9 @@ Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable versta
 qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 Viel besser. Jetzt noch ein bisschen Schnickschnack:
   
@@ -160,7 +168,9 @@ qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) +
        colour = "Überlebt?")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 
 ### Signifikanztest
@@ -294,7 +304,8 @@ titanic2$pred_prob <- predict(glm1, type = "response")
 ```
 
 
-<img src="075_Fallstudie_Titanic_files/figure-html/fig-titanic-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/fig-titanic-1} \end{center}
 
 Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.
 
@@ -382,7 +393,9 @@ Das visualisieren wir wieder
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.
 
@@ -391,7 +404,9 @@ Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punk
 qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden Werten von `Pclass` stechen noch nicht so ins Auge. Wir sollten es anders darstellen.
 
@@ -402,10 +417,14 @@ Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wec
 ggplot(data = c5) +
   aes(x = factor(Pclass), y = n, fill = factor(Survived)) + 
   geom_col(position = "fill") +
-  labs(x = "Passagierklasse", fill = "Überlebt?", caption = "Nur Passagiere, keine Besatzung")
+  labs(x = "Passagierklasse", 
+       fill = "Überlebt?", 
+       caption = "Nur Passagiere, keine Besatzung")
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 
 
@@ -421,7 +440,9 @@ c5 %>%
   geom_tile()
 ```
 
-<img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.
 

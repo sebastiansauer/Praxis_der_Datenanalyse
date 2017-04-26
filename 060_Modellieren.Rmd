@@ -422,7 +422,7 @@ In späteren Kapiteln betrachten wir Wege, um Prädiktoren für bestimmte Modell
 
 1. Erfolg beim Online-Dating
 
-Lesen Sie diesen^[https://thewinnower.com/papers/5202-the-effect-of-a-status-symbol-on-success-in-online-dating-an-experimental-study-data-paper?review_it=true] Artikel [@sauer_wolff]. Zeichnen Sie ein Pfaddiagramm zum Modell!^[Status $\rightarrow$ Erfolg beim Online-Dating].
+Lesen Sie diesen^[https://thewinnower.com/papers/\\5202-the-effect-of-a-status-symbol-on-success-in-online-dating-\\an-experimental-study-data-paper?review_it=true] Artikel [@sauer_wolff]. Zeichnen Sie ein Pfaddiagramm zum Modell!^[Status $\rightarrow$ Erfolg beim Online-Dating].
 
 
 2. Ziele des Modellierens

@@ -295,7 +295,9 @@ Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wec
 ggplot(data = c5) +
   aes(x = factor(Pclass), y = n, fill = factor(Survived)) + 
   geom_col(position = "fill") +
-  labs(x = "Passagierklasse", fill = "Überlebt?", caption = "Nur Passagiere, keine Besatzung")
+  labs(x = "Passagierklasse", 
+       fill = "Überlebt?", 
+       caption = "Nur Passagiere, keine Besatzung")
 ```
 
 Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 

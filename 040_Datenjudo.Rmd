@@ -564,7 +564,8 @@ knitr::include_graphics("images/Datenjudo/durchpfeifen.pdf")
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
 
 ```{r eval = FALSE}
-filter(summarise(group_by(filter(stats_test, !is.na(score)), interest), mw = mean(score)), mw > 30)
+filter(summarise(group_by(filter(stats_test, 
+       !is.na(score)), interest), mw = mean(score)), mw > 30)
 ```
 
 mit dieser
@@ -577,7 +578,7 @@ stats_test %>%
   filter(mw > 30)
 ```
 
-Es ist hilfreich, diese "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen.
+Die zweite ist viel einfacher! Lassen Sie uns die "Pfeifen-Syntax" in deutschen Pseudo-Code zu übersetzen.
 
 
 
@@ -666,7 +667,8 @@ data(flights)
 verspaetung <-
   filter(
     summarise(
-    group_by(filter(flights, !is.na(dep_delay), month)), delay = mean(dep_delay), n = n()), n > 10)
+    group_by(filter(flights, !is.na(dep_delay), month)), 
+    delay = mean(dep_delay), n = n()), n > 10)
  
 ```
 

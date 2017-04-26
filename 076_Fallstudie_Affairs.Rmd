@@ -102,7 +102,8 @@ Nehmen wir dazu mal ein paar `dplyr`-Befehle:
 library(dplyr)
 Affair %>% 
   group_by(children) %>% 
-  summarise(rating_children = mean(rating, na.rm = T))
+  summarise(rating_children = 
+              mean(rating, na.rm = T))
 ```
 
 Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass wir das geklärt haben.
@@ -358,7 +359,9 @@ Berechnen Sie für eine logistische Regression mit "Affäre ja vs. nein" als Kri
 
 Affair %>% 
   mutate(affairs_dichotom = if_else(affairs == 0, 0, 1)) %>% 
-  glm(affairs_dichotom ~gender + children + rating + yearsmarried, data = ., family = "binomial") -> lm10
+  glm(affairs_dichotom ~ gender + children + rating + yearsmarried,
+      data = ., 
+      family = "binomial") -> lm10
 
 summary(lm10)
 
@@ -394,14 +397,16 @@ Ok, wie wäre es damit:
 ```{r}
 Affair %>% 
    select(affairs, gender, children, rating) %>%
-  ggplot(aes(x = affairs, y = rating)) + geom_jitter(aes(color = gender, shape = children)) 
+  ggplot(aes(x = affairs, y = rating)) + 
+  geom_jitter(aes(color = gender, shape = children)) 
 ```
 
 
 ```{r}
 Affair %>% 
-   mutate(rating_dichotom = ntile(rating, 2)) %>% 
-   ggplot(aes(x = yearsmarried, y = affairs)) + geom_jitter(aes(color = gender)) +
+  mutate(rating_dichotom = ntile(rating, 2)) %>% 
+  ggplot(aes(x = yearsmarried, y = affairs)) +
+  geom_jitter(aes(color = gender)) +
   geom_smooth()
 ```
 
@@ -426,7 +431,8 @@ is.na                  Zeigt an, ob ein Vektor fehlende Werte beinhaltet
 dplyr::summarise_each  Führt `summarise` für jede Spalte aus
 t.test                 Rechnet einen t-Test
 MBESS:ci.smd           Berechnet Cohens d
-dplyr::ntile           Teilt einen Wertebereich in n gleich große Teile auf und gibt für jeden Fall an, in welchem Teil er sich befindet
+dplyr::ntile           Teilt einen Wertebereich in $n$ gleich große Teile auf
+.                      und gibt für jeden Fall an, in welchem Teil er sich befindet
   
 
   

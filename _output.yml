@@ -6,15 +6,16 @@ bookdown::pdf_book:
     after_body: latex/after_body.tex
   keep_tex: yes
   dev: "cairo_pdf"
-  #latex_engine: xelatex
+  latex_engine: xelatex
   #citation_package: natbib
   #template: null
   #pandoc_args: --chapters
-  pandoc_args: --top-level-division=section
+  #pandoc_args: --top-level-division=section
   toc_depth: 3
   toc_unnumbered: no
   toc: TRUE
   toc_appendix: yes
+  # colorlinks: yes
   quote_footer: ["\\VA{", "}{}"]
 
 bookdown::gitbook:

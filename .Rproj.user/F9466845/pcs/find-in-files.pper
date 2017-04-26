@@ -20,7 +20,7 @@
             "*.cpp"
         ],
         "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse",
-        "query" : "fig:plot-bias-variance",
+        "query" : "winnower",
         "regex" : false
     }
 }
