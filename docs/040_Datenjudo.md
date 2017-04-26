@@ -55,7 +55,7 @@ Typische Probleme, die immer wieder auftreten, sind:
 Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich ausschließlich um *D*ataframes bemüht; es erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück (zumindest bei den meisten Befehlen).
 
 
-## Die zwei Prinzipien von `dplyr` 
+### Die zwei Prinzipien von `dplyr` 
 
 Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r-project.org/web/packages/dplyr/index.html] ist ein populäres Paket dafür. `dplyr` basiert auf zwei Ideen: 
 
@@ -82,6 +82,8 @@ Das zweite Prinzip ist is, einen Dataframe von Operation zu Operation durchzurei
 
 
 Werfen wir einen Blick auf ein paar typische Bausteine von `dplyr`.
+
+## Zentrale Bausteine von `dplyr`
 
 ### Zeilen filtern mit `filter`
 
@@ -663,7 +665,7 @@ Ah! Der Score `34` ist der häufigste!
 
 
 ## Die Pfeife
-Die zweite Idee kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Pfeife} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
+Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578" width="70%" />
