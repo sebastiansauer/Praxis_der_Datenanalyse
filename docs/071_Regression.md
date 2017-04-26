@@ -108,11 +108,6 @@ In mosaic kann die Modellgerade über
 plotModel(LinMod.1)
 ```
 
-<<<<<<< HEAD
-=======
-<img src="071_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
-
->>>>>>> debug
 betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 "ok": 46-\% der Variation des Trinkgeldes wird im Modell erklärt.
 
 ## Überprüfung der Annahmen der linearen Regression
@@ -254,11 +249,6 @@ sowie als Plot:
 plotModel(LinMod.3)
 ```
 
-<<<<<<< HEAD
-=======
-<img src="071_Regression_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
-
->>>>>>> debug
 Eine Alternative zu `relevel()` zur Bestimmung der Referenzkategorie ist es, innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung zu setzen.
 
 ```r

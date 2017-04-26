@@ -1,12 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
-<<<<<<< HEAD
 date: '2017-04-26'
-=======
-date: "26 April, 2017"
-lang: de-De
->>>>>>> debug
 colorlinks: yes
 cover-image: cover.jpg
 bibliography:
@@ -34,10 +29,7 @@ biblio-style: apalike
 # Vorwort {-}
 
 <img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
-<<<<<<< HEAD
 
-=======
->>>>>>> debug
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [cobb2007introductory]. Die Zeiten haben sich geändert!

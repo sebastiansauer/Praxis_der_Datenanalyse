@@ -316,11 +316,7 @@ wo_men4 %>%
   
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/wo-men-facetten-bsp-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 
 Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
@@ -334,11 +330,7 @@ Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel dar
 qplot(x = sex, data = wo_men)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom.
 
@@ -351,11 +343,7 @@ wo_men %>%
   qplot(x = sex, data = .)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
 
@@ -370,11 +358,7 @@ wo_men %>%
 qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
 
@@ -390,11 +374,7 @@ wo_men2 %>%
   geom_bar(position = "fill")
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
@@ -438,11 +418,7 @@ profiles %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Was haben wir gemacht? Also:
 
@@ -487,11 +463,7 @@ wo_men3 %>%
   qplot(x = sex, y = Groesse_MW, data = .)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach `Groesse_Gruppe` ausweisen, wird das noch überschaubar bleiben.
 
@@ -503,11 +475,7 @@ wo_men2 %>%
   qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 ## Die Gefühlswelt von `ggplot2`
 
@@ -583,11 +551,7 @@ Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viel
 qplot(x = arr_delay, geom = "histogram", data = flights, facets = "~origin")
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
@@ -600,11 +564,7 @@ qplot(x = shoe_size, data = wo_men, bins = 10)
 qplot(x = shoe_size, data = wo_men, bins = 50)
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-2.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 4. :
 
@@ -622,11 +582,7 @@ wo_men3 %>%
   geom_point(data = wo_men2, color = "grey80")
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
@@ -649,20 +605,12 @@ Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfach
 
 1. Eine kontinuerliche Variable
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 
 2. Zwei kontinuierliche Variablen
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 3. Eine diskrete Variable (X-Achse)
 
@@ -674,20 +622,12 @@ ggplot(tips) +
   geom_bar()
 ```
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 
 4. Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse
 
-<<<<<<< HEAD
 <img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
-=======
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
->>>>>>> debug
 
 
 ## Verweise
