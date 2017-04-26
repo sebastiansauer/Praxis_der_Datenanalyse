@@ -131,7 +131,7 @@ Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht 
 
 $$Y = f(X) + \epsilon$$
 
-Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\indes{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
+Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\index{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
 
 Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so "fühlen" qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: "Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?" (qualitatives Kriterium); "Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?" (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als *Klassifikation*\index{Klassifikation}; ein Modell mit quantitativem Kriterium bezeichnet man auch als *Regression*\index{Klassifikation}. Bei letzterem Begriff ist zu beachten, dass er *doppelt* verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.
 
@@ -237,7 +237,33 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
 
 
-<img src="060_Modellieren_files/figure-html/plot-bias-variance-1.png" width="70%" style="display: block; margin: auto;" />
+
+poly_degree = 15
+df <- data_frame(x = seq(from = 1, to = 10, by = .3),
+                 y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))
+
+df %>% 
+  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
+  group_by(binned) %>% 
+  mutate(y_group_md = median(y)) -> df
+
+
+p1 <- ggplot(df) +
+  aes(x = x, y = y) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
+  coord_fixed(ratio = 5/1)
+
+
+p2 <-  ggplot(df) +
+  aes(x = x) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
+  coord_fixed(ratio = 5/1) 
+
+
+grid.arrange(p1, p2, ncol = 2)
+```
 
 Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten können große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 

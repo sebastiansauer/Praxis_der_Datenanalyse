@@ -253,11 +253,8 @@ ggplot(flights) +
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
 
 ```{r fig-aes-color}
-
-wo_men <- read.csv("data/wo_men.csv")
-
 wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
+  dplyr::filter(height > 150, height < 210, shoe_size < 55) -> wo_men2
 
 wo_men2 %>% 
   qplot(x = height, y = shoe_size, color = sex, data = .)
@@ -280,7 +277,7 @@ Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen is
 
 Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:
 
-```{r}
+```{r wo-men-facetten-bsp}
 wo_men %>% 
   dplyr::filter(height > 150, height < 210, shoe_size < 55) %>% 
   dplyr::select(-sex) -> wo_men4
@@ -288,7 +285,7 @@ wo_men %>%
 wo_men4 %>% 
   ggplot(ggplot2::aes(x = height, y = shoe_size)) +
   geom_point(color = "grey80") +
-  #facet_wrap(~sex) +
+  # facet_wrap(~sex) +
   geom_point(data = wo_men2, ggplot2::aes(color = sex))
   
 ```
@@ -376,7 +373,7 @@ Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. 
 data(profiles, package = "okcupiddata")
 
 profiles %>% 
-  count(drinks, body_type) %>% 
+  dplyr::count(drinks, body_type) %>% 
   ggplot +
   aes(x = drinks, y = body_type, fill = n) +
   geom_tile() +
@@ -481,14 +478,15 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 
 1. Abb. \@ref(fig:fig-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
-Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
+1. Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 
-Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?
+1. Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?
 
 1. Erstellen Sie ein sehr grobes und ein sehr feines Histogramm für die Schuhgröße!
 
 
 1. Vertiefung: Erstellen Sie ein Diagramm, das sowohl eine Zusammenfassung (Mittelwert) der Körpergrößen nach Geschlecht darstellt als auch die einzelnen Werte darstellt!
+
 
 
 
@@ -528,6 +526,25 @@ wo_men3 %>%
 ```
 
 Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
+
+
+## Richtig oder Falsch^[R, R, F, F, R]
+
+```{block2, exercises-visualisieren, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Diese Geome gehören zum (Standard-) ggplot2: bar, histogram, point, density, jitter, boxplot.
+
+1. `qplot` ist eine Funktion im Paket `ggplot2`.
+
+1. Mi `aes` definiert man, wie "ästethisch" das Diagramm sein soll (z.B. grauer Hintergrund vs. weißer Hintergrund, Farbe der Achsen etc.).
+
+1. Diese Geome gehören zum (Standard-) ggplot2: smooth, line, boxwhisker, mosaicplot.
+
+1. Möchte man ein Diagramm erstellen, welches auf der X-Achse `total_bill`, auf der Y-Achse `tip` darstellt, als Geom Punkte verwendet und die Daten aus der Tabelle `tips` bezieht, so ist folgende Syntax korrekt: `qplot(x = total, bill, y = tip, geom = "point", data = tips)
+
+
+```
 
 
 ## Befehlsübersicht

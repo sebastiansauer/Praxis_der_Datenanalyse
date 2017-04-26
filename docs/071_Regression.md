@@ -20,7 +20,7 @@
 Benötigte Pakete:
 
 ```r
-library(caret)  # Modellieren (R^2)
+library(caret)  # Modellieren
 library(tidyverse)  # Datenjudo, Visualisierung,...
 library(gridExtra)  # Mehrere Plots kombinieren
 ```
@@ -39,6 +39,7 @@ Zur Unterstützung der Analyse wird (wieder) das Paket `mosaic` verwendet; auße
 
 
 ```r
+library(mosaic)
 library(ggplot2)
 ```
 
@@ -91,22 +92,22 @@ In mosaic kann ein solches Modell einfach als neue Funktion definiert werden:
 ```r
 LinMod.1Fun <- makeFun(LinMod.1)
 ```
-
-
-Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann berechnet werden mit
+Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann dann berechnet werden
 
 ```r
-predict(LinMod.1, data.frame(total_bill=30))
+LinMod.1Fun(total_bill=30)
 #>    1 
 #> 4.07
 ```
-
+also 4.07$.
 
 In mosaic kann die Modellgerade über 
 
 ```r
 plotModel(LinMod.1)
 ```
+
+<img src="071_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 "ok": 46-\% der Variation des Trinkgeldes wird im Modell erklärt.
 
@@ -143,7 +144,7 @@ qplot(x = Residuen, y = fitted, data = resid_df)
 Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?
 
 ```r
-qplot(x =total_bill, y = size, data=tips)
+xyplot(total_bill ~ size, data=tips)
 ```
 
 <img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
@@ -249,6 +250,8 @@ sowie als Plot:
 plotModel(LinMod.3)
 ```
 
+<img src="071_Regression_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
 Eine Alternative zu `relevel()` zur Bestimmung der Referenzkategorie ist es, innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung zu setzen.
 
 ```r
@@ -261,6 +264,8 @@ Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. an einen Freitag kann dann b
 ```r
 LinMod.3Fun <- makeFun(LinMod.3)
 LinMod.3Fun(day="Fri")
+#>    1 
+#> 2.73
 ```
 
 
@@ -735,9 +740,9 @@ Sie sehen, dass 95\% Prognoseintervall ist recht breit: über den gewählten Rec
 
 
 ```r
-summary((preddat[,3]-preddat[,2]))
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>    4.03    4.04    4.07    4.12    4.17    4.34
+favstats((preddat[,3]-preddat[,2]))
+#>   min   Q1 median   Q3  max mean     sd  n missing
+#>  4.03 4.04   4.07 4.17 4.34 4.12 0.0904 76       0
 ```
 
 Zu den Rändern hin wird es breiter. Am schmalsten ist es übrigens beim Mittelwert der unabhängigen Beobachtungen, hier also bei 19.79\$.
@@ -799,7 +804,7 @@ Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Sampl
 
 
 ```r
-postResample(pred = lm2_predict, obs = test$shoe_size)
+caret::postResample(pred = lm2_predict, obs = test$shoe_size)
 #>     RMSE Rsquared 
 #>   10.540    0.634
 ```

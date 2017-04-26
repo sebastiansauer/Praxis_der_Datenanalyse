@@ -89,7 +89,7 @@ Werfen wir einen Blick auf ein paar typische Bausteine von `dplyr`.
 
 Häufig will man bestimmte Zeilen aus einer Tabelle filtern; `filter`\index{dplyr::filter}. Zum Beispiel man arbeitet für die Zigarettenindustrie und ist nur an den Rauchern interessiert (die im Übrigen unser Gesundheitssystem retten [@kraemer2011wir]), nicht an Nicht-Rauchern; es sollen die nur Umsatzzahlen des letzten Quartals untersucht werden, nicht die vorherigen Quartale; es sollen nur die Daten aus Labor X (nicht Labor Y) ausgewertet werden etc.
 
-Ein Sinnbild:
+Abb. \@ref(fig:fig-filter) zeigt ein Sinnbild für `filter`.
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/filter.pdf" alt="Zeilen filtern" width="70%" />
@@ -111,8 +111,10 @@ data(profiles, package = "okcupiddata")  # Das Paket muss installiert sein
 
 ```r
 df_frauen <- filter(profiles, sex == "f")  # nur die Frauen
-df_alt <- filter(profiles, age > 70)  # nur die alten
-df_alte_frauen <- filter(profiles, age > 70, sex == "f")  # nur die alten Frauen, d.h. UND-Verknüpfung
+df_alt <- filter(profiles, age > 70)  # nur die alten Menschen
+df_alte_frauen <- filter(profiles, age > 70, sex == "f") 
+# nur die alten Frauen, d.h. UND-Verknüpfung
+
 df_nosmoke_nodrinks <- filter(profiles, smokes == "no" | drinks == "not at all") 
 # liefert alle Personen, die Nicht-Raucher *oder* Nicht-Trinker sind
 ```
@@ -175,7 +177,7 @@ filter(profiles, !is.na(income) | !is.na(sex))
 
 ### Spalten wählen mit `select`
 
-Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Das Sinnbild für diesen Befehl:
+Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/select.pdf" alt="Spalten auswählen" width="70%" />
@@ -206,9 +208,11 @@ Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unte
 
 ```r
 select(stats_test, score)  # Spalte `score` auswählen
-select(stats_test, score, study_time)  # Splaten `score` und `study_time` auswählen
+select(stats_test, score, study_time)  
+# Spalten `score` und `study_time` auswählen
+
 select(stats_test, score:study_time) # dito
-select(stats_test, 5:6) Spalten 5 bis 6 auswählen
+select(stats_test, 5:6)  # Spalten 5 bis 6 auswählen
 ```
 
 Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu.
@@ -241,6 +245,7 @@ Ein R-Befehl hierzu ist `arrange`\index{dplyr::arrange}; einige Beispiele zeigen
 arrange(stats_test, score) # liefert die *schlechtesten* Noten zuerst zurück
 arrange(stats_test, -score) # liefert die *besten* Noten zuerst zurück
 arrange(stats_test, interest, score)
+
 ```
 
 
@@ -288,10 +293,10 @@ Merke:
 
 >    Die Funktion arrange sortiert die Zeilen eines Datafames.
 
-Ein Sinnbild zur Verdeutlichung:
+Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
 <div class="figure" style="text-align: center">
-<img src="images/Datenjudo/arrange.pdf" alt="Spalten sortieren" width="70%" />
+<img src="images/Datenjudo/arrange-crop.pdf" alt="Spalten sortieren" width="70%" />
 <p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
 </div>
 
@@ -347,20 +352,21 @@ Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir 
 1. `arrange` sortiert im Standard absteigend.
 1. `arrange` lässt nur ein Sortierkriterium zu.
 1. `arrange` kann numerische Werte, aber nicht Zeichenketten sortieren.
-1. `top_n(5)` liefert die fünf kleinsten Ränge.</div>\EndKnitrBlock{rmdexercises}
+1. `top_n(5)` liefert die fünf kleinsten Ränge.
+</div>\EndKnitrBlock{rmdexercises}
 
 ### Datensatz gruppieren mit `group_by`
 
 Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.
 
->   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. Mann vs. Frau).
+>   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/group_by.pdf" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
 <p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
 </div>
 
-In der Abbildung wurde der Datensatz anhand der Spalte `Fach` in mehrere Gruppen geteilt. Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
+In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. Variable) `Fach` in mehrere Gruppen geteilt (Fach A, Fach B...). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
 
 ```r
@@ -394,7 +400,7 @@ Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Aus
 Die Idee des "Gruppieren - Zusammenfassen - Kombinieren" ist flexibel; man kann sie häufig brauchen. Es lohnt sich, diese Idee zu lernen (vgl. Abb. \@ref(fig:sac)).
 
 <div class="figure" style="text-align: center">
-<img src="images/sac_crop.pdf" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
+<img src="images/Datenjudo/sac_crop.pdf" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
 <p class="caption">(\#fig:sac)Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'</p>
 </div>
 
@@ -419,7 +425,7 @@ Merke:
 
 ### Eine Spalte zusammenfassen mit `summarise`
 
-Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max`. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
+Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max` (vgl. Abb. \@ref(fig:fig-summarise). Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/summarise.pdf" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
@@ -531,15 +537,14 @@ median(stats_test$score)
 1. Die Tabelle, die diese Funktion zurückliefert: `summarise(stats_test, mean(score))`, hat eine Spalte mit dem Namen `mean(score)`.
 1. `summarise` lässt zu, dass die zu berechnende Spalte einen Namen vom Nutzer zugewiesen bekommt.
 1. `summarise` darf nur verwendet werden, wenn eine Spalte zu einem Wert zusammengefasst werden soll.
-
-
+</div>\EndKnitrBlock{rmdexercises}
 
 
 1. (Fortgeschritten) Bauen Sie einen eigenen Weg, um den mittleren Absolutabstand auszurechnen! Gehen Sie der Einfachheit halber (zuerst) von einem Vektor mit den Werten (1,2,3) aus!
 
 
 Lösung:
-</div>\EndKnitrBlock{rmdexercises}
+
 
 ```r
 x <- c(1, 2, 3)
@@ -551,7 +556,7 @@ mad
 #> [1] 0.667
 ```
 
-```
+
 
 ### Zeilen zählen mit `n` und `count`
 Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl^[Standardbefehl meint, dass die Funktion zum Standardrepertoire von R gehört, also nicht über ein Paket extra geladen werden muss] `nrow` versteht der `dyplr`-Befehl `n`\index{dplyr::n} auch Gruppierungen. `n` darf nur innerhalb von `summarise` oder ähnlichen `dplyr`-Befehlen verwendet werden.
@@ -660,11 +665,7 @@ Ah! Der Score `34` ist der häufigste!
 
 
 ## Die Pfeife
-<<<<<<< HEAD
-Die zweite Idee kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Pfeife} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate.
-=======
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
->>>>>>> debug
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578" width="70%" />
@@ -672,12 +673,12 @@ Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\ind
 </div>
 
 
- Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens.
+ Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens (s. Abb. \@ref(fig:fig-durchpfeifen)).
 
 
 <div class="figure" style="text-align: center">
 <img src="images/Datenjudo/durchpfeifen.pdf" alt="Das 'Durchpeifen'" width="80%" />
-<p class="caption">(\#fig:fig-durchpreifen)Das 'Durchpeifen'</p>
+<p class="caption">(\#fig:fig-durchpfeifen)Das 'Durchpeifen'</p>
 </div>
 
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
@@ -776,9 +777,12 @@ stats_test %>%
 Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 25 ist. Falls ja (TRUE), dann ist `bestanden` TRUE, ansonsten ist `bestanden` FALSE (Pech). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
 
 
-Ein Sinnbild für `mutate`:
+Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
-<img src="images/mutate.png" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/mutate.png" alt="Sinnbild für mutate" width="70%" />
+<p class="caption">(\#fig:fig-mutate)Sinnbild für mutate</p>
+</div>
 
 
 
@@ -862,9 +866,9 @@ dplyr::mutate       erzeugt/berechnet Spalten
 
 ## Verweise
 
-- Die offizielle Dokumentation von `dplyr` findet sich hier^[https://cran.r-project.org/web/packages/dplyr/dplyr.pdf]. 
+- Die offizielle Dokumentation von `dplyr` findet sich hier: https://cran.r-project.org/web/packages/dplyr/dplyr.pdf. 
 
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier^[<http://bit.ly/2kX9lvC>].
+- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier:  <http://bit.ly/2kX9lvC>.
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 

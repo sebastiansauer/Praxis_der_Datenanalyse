@@ -37,8 +37,8 @@ Lernziele:
 
 
 Benötigte Pakete:
-```{r libs-regression}
-library(caret)  # Modellieren (R^2)
+```{r libs}
+library(caret)  # Modellieren
 library(tidyverse)  # Datenjudo, Visualisierung,...
 library(gridExtra)  # Mehrere Plots kombinieren
 ```
@@ -55,6 +55,7 @@ tips <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
 Zur Unterstützung der Analyse wird (wieder) das Paket `mosaic` verwendet; außerdem laden wir `ggplot2` für `qplot`:
 
 ```{r pckgs, message = FALSE}
+library(mosaic)
 library(ggplot2)
 
 ```
@@ -82,19 +83,17 @@ Die Koeffzienten werden dabei so geschätzt, dass $\sum \epsilon_i^2$ minimiert 
 
 
 In mosaic kann ein solches Modell einfach als neue Funktion definiert werden:
-```{r eval = FALSE}
+```{r}
 LinMod.1Fun <- makeFun(LinMod.1)
 ```
-
-
-Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann berechnet werden mit
+Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann dann berechnet werden
 ```{r}
-predict(LinMod.1, data.frame(total_bill=30))
+LinMod.1Fun(total_bill=30)
 ```
-
+also `r round(LinMod.1Fun(total_bill=30),2)`$.
 
 In mosaic kann die Modellgerade über 
-```{r eval = FALSE}
+```{r}
 plotModel(LinMod.1)
 ```
 
@@ -126,7 +125,7 @@ qplot(x = Residuen, y = fitted, data = resid_df)
 
 Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?
 ```{r}
-qplot(x =total_bill, y = size, data=tips)
+xyplot(total_bill ~ size, data=tips)
 ```
 
 Da bei diskreten metrischen Variablen (hier `size`) Punkte übereinander liegen können, sollte man "jittern" ("schütteln"), d. h., eine (kleine) Zufallszahl addieren:
@@ -175,7 +174,7 @@ LinMod.3 <- lm(tip ~ day, data=tips)
 summary(LinMod.3)
 ```
 sowie als Plot:
-```{r eval = FALSE}
+```{r}
 plotModel(LinMod.3)
 ```
 
@@ -186,7 +185,7 @@ day <- factor(tips$day, levels=c("Thur", "Fri", "Sat",  "Sun"))
 
 
 Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. an einen Freitag kann dann berechnet werden
-```{r eval = FALSE}
+```{r}
 LinMod.3Fun <- makeFun(LinMod.3)
 LinMod.3Fun(day="Fri")
 ```
@@ -433,7 +432,7 @@ points(x=tips$total_bill, y=tips$tip)
 Sie sehen, dass 95\% Prognoseintervall ist recht breit: über den gewählten Rechnungsbereich von $0-75$\$ im Mittelwert bei 4.11\$. 
 
 ```{r}
-summary((preddat[,3]-preddat[,2]))
+favstats((preddat[,3]-preddat[,2]))
 ```
 
 Zu den Rändern hin wird es breiter. Am schmalsten ist es übrigens beim Mittelwert der unabhängigen Beobachtungen, hier also bei `r round(mean(tips$total_bill),2)`\$.
@@ -492,7 +491,7 @@ wobei frische Daten ("data = test") verwendet werden sollen.
 Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Trinkgeld-Wert speichert.
 
 ```{r R2-postresample}
-postResample(pred = lm2_predict, obs = test$shoe_size)
+caret::postResample(pred = lm2_predict, obs = test$shoe_size)
 
 ```
 

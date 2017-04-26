@@ -1,6 +1,6 @@
 \usepackage{booktabs}
 \usepackage{longtable}
-%\usepackage[bf,singlelinecheck=off]{caption}
+\usepackage[bf,singlelinecheck=off]{caption}
 
 %\setmainfont[UprightFeatures={SmallCapsFont=AlegreyaSC-Regular}]{Alegreya}
 
@@ -29,6 +29,11 @@
     }%
   }%
 \fi
+
+\renewcommand{\thesection}{\arabic{section}}  % ses
+
+
+
 
 \makeatletter
 \newenvironment{kframe}{%

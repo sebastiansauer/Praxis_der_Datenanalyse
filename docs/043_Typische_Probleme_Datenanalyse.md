@@ -41,9 +41,8 @@ glimpse(wo_men)
 ```
 
 
-```r
-wo_men <- read.csv("data/wo_men.csv")
-glimpse(wo_men)
+
+```
 #> Observations: 101
 #> Variables: 5
 #> $ X         <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
@@ -52,8 +51,6 @@ glimpse(wo_men)
 #> $ height    <dbl> 160, 171, 174, 176, 195, 157, 160, 178, 168, 171, 16...
 #> $ shoe_size <dbl> 40, 39, 39, 40, 46, 37, 38, 39, 38, 41, 39, 44, 38, ...
 ```
-
-
 
 
 ### Fälle mit fehlenden Werte löschen
@@ -70,7 +67,7 @@ wo_men %>%
 ```
 
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also `nrow` ist erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klammern weglassen, wenn man keinen Parameter schreibt. Also ist `nrow` (ohne Klammern) erlaubt bei `dplyr`, wo es eigentlich `nrow()` heißen müsste. Sie dürfen die Klammern natürlich schreiben, aber sie müssen nicht.
 </div>\EndKnitrBlock{rmdcaution}
 
 
@@ -81,7 +78,7 @@ Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
 ```r
 wo_men %>% 
   rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
-  dplyr::filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
+  filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
 #>   rowname  X                time sex height shoe_size
 #> 1      86 86 11.10.2016 12:44:06         NA        NA
 ```
@@ -105,7 +102,7 @@ wo_men$height <- replace(wo_men$height, is.na(wo_men$height), mean(wo_men$height
   
 ```
 
-`replace` (aus dem "Standard-R", d.h. Paket "base") ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
+`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
 
 
 
@@ -115,7 +112,7 @@ Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prü
 
 ```r
 wo_men %>% 
-  dplyr::count(shoe_size) %>% 
+  count(shoe_size) %>% 
   head  # nur die ersten paar Zeilen
 #> # A tibble: 6 × 2
 #>   shoe_size     n
@@ -141,7 +138,7 @@ Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wi
 
 ```r
 wo_men %>% 
-  dplyr::select(height, shoe_size) %>% 
+  select(height, shoe_size) %>% 
   correlate() -> km   # Korrelationsmatrix berechnen
 km  
 #> # A tibble: 2 × 3
@@ -438,7 +435,7 @@ extra$extra_mw <- rowMeans(extra_items)
 Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
 
 
-#### Vertiefung: `dpyr`
+#### Vertiefung: `dplyr`
 
 Alternativ können wir Mittelwerte mit dplyr berechnen:
 

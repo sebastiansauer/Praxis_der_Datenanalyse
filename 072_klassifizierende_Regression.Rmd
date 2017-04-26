@@ -45,13 +45,6 @@ library(mosaic)
 library(ggplot2)
 ```
 
-
-```{r echo = FALSE}
-library(dplyr)
-```
-
-
-
 ## Problemstellung
 Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an:
 

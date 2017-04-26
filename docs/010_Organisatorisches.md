@@ -18,12 +18,12 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 ## Themen pro Termin
 
-Anahmen: 
+Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:Themen)).
 
-- Zeitumfang: 44 UE für Lehre
 
-- Vorerfahrung: Deskriptive Statistik, Inferenzstatistik, Grundlagen R, Grundlagen Visualisierung
 
+
+Table: (\#tab:Themen) Themen pro Termin.
 
 Termin    Thema/ Kapitel                      
 -------   --------------------------------------                              
@@ -44,7 +44,14 @@ Termin    Thema/ Kapitel
 11        Wiederholung
 
           
+## Vorerfahrung
 
+Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
+
+- Deskriptive Statistik
+- Inferenzstatistik
+- Grundlagen R
+- Grundlagen der Datenvisualisierung
   
 ## Prüfung
 
@@ -63,7 +70,8 @@ Termin    Thema/ Kapitel
   - Inhalte/Abschnitte, die als "Vertiefung" gekennzeichnet sind,
   - Fallstudien (nur für Klausuren nicht prüfungslevant),
   - die Inhalte von Links,
-  - die Inhalte von Fußnoten.
+  - die Inhalte von Fußnoten,
+  - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
   
   
   
