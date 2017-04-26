@@ -28,14 +28,7 @@ __Archive__/
 *.fdb_latexmk
 
 
-# Knitr database #
-##################
 
-*.rdx
-*.rds
-*.rdb
-
-.DS_Store
 
 # OS generated files #
 ######################
