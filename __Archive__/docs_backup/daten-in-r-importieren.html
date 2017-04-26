@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="daten-einlesen.html">
+<link rel="next" href="normalform-einer-tabelle.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="daten-in-r-importieren" class="section level2">
+<h2><span class="header-section-number">3.1</span> Daten in R importieren</h2>
+<p>In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel oder CSV) oder weniger gebräuchliche (Feather<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>) Datenformate einlesen. In RStudio lässt sich dies z.B. durch einen schnellen Klick auf <code>Import Dataset</code> im Reiter <code>Environment</code> erledigen<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>.</p>
+<div id="excel-dateien-importieren" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Excel-Dateien importieren</h3>
+<p>Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>:</p>
+<div class="figure" style="text-align: center"><span id="fig:data-import-RStudio"></span>
+<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p class="caption">
+Abbildung 3.2: Daten einlesen (importieren) mit RStudio
+</p>
+</div>
+<p>Es ist für bestimmte Zwecke sinnvoll, nicht zu klicken, sondern die Syntax einzutippen. Zum Beispiel: Wenn Sie die komplette Analyse als Syntax in einer Datei haben (eine sog. “Skriptdatei”), dann brauchen Sie (in RStudio) nur alles auszuwählen und auf <code>Run</code> zu klicken, und die komplette Analyse läuft durch! Die Erfahrung zeigt, dass das ein praktisches Vorgehen ist.</p>
+
+<div class="rmdcaution">
+<p>Daten (CSV, Excel,…) können Sie <em>nicht</em> öffnen über <code>File &gt; Open File ...</code>. Dieser Weg ist Skript-Dateien vorbehalten.</p>
+</div>
+<p></p>
+</div>
+<div id="csv-dateien-importieren" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> CSV-Dateien importieren</h3>
+<p>Die gebräuchlichste Form von Daten für statistische Analysen ist wahrscheinlich das CSV-Format. Das ist ein einfaches Format, basierend auf einer Textdatei. Schauen Sie sich mal diesen Auszug aus einer CSV-Datei an.</p>
+<pre><code>&quot;ID&quot;,&quot;time&quot;,&quot;sex&quot;,&quot;height&quot;,&quot;shoe_size&quot;
+&quot;1&quot;,&quot;04.10.2016 17:58:51&quot;,NA,160.1,40
+&quot;2&quot;,&quot;04.10.2016 17:58:59&quot;,&quot;woman&quot;,171.2,39
+&quot;3&quot;,&quot;04.10.2016 18:00:15&quot;,&quot;woman&quot;,174.2,39
+&quot;4&quot;,&quot;04.10.2016 18:01:17&quot;,&quot;woman&quot;,176.4,40
+&quot;5&quot;,&quot;04.10.2016 18:01:22&quot;,&quot;man&quot;,195.2,46</code></pre>
+<p>Erkennen Sie das Muster? Die erste Zeile gibt die “Spaltenköpfe” wieder, also die Namen der Variablen. Hier sind es 5 Spalten; die vierte heißt “shoe_size”. Die Spalten sind offenbar durch Komma <code>,</code> voneinander getrennt. Dezimalstellen sind in amerikanischer Manier mit einem Punkt <code>.</code> dargestellt. Die Daten sind “rechteckig”; alle Spalten haben gleich viele Zeilen und umgekehrt alle Spalten gleich viele Zeilen. Man kann sich diese Tabelle gut als Excel-Tabelle mit Zellen vorstellen, in denen z.B. “ID” (Zelle oben links) oder “46” (Zelle unten rechts) steht.</p>
+<p>An einer Stelle steht <code>NA</code>. Das ist Errisch für “fehlender Wert”. Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen anderen ab; führt nur zu Verwirrung.</p>
+<p>Lesen wir diese Daten jetzt ein:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
+<p>Der Befehl <code>read.csv</code> liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit deutscher Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Trennzeichen <code>;</code> (Strichpunkt) und als Dezimaltrennzeichen <code>,</code> verwenden. Da der Befehl <code>read.csv</code> als Standard mit Komma und Punkt arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht ausführen:</span>
+daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daten_deutsch.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
+<p>Dabei steht <code>sep</code> (separator) für das Trennzeichen zwischen den Spalten und <code>dec</code> für das Dezimaltrennzeichen. R bietet eine Kurzfassung für <code>read.csv</code> mit diesen Parametern: <code>read.csv2(&quot;daten_deutsch.csv&quot;)</code>.</p>
+</div>
+<div id="vertiefung-einlesen-mit-prufung" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Vertiefung: Einlesen mit Prüfung</h3>
+<pre><code>#&gt;   X                time   sex height shoe_size
+#&gt; 1 1 04.10.2016 17:58:51 woman    160        40
+#&gt; 2 2 04.10.2016 17:58:59 woman    171        39
+#&gt; 3 3 04.10.2016 18:00:15 woman    174        39
+#&gt; 4 4 04.10.2016 18:01:17 woman    176        40
+#&gt; 5 5 04.10.2016 18:01:22   man    195        46
+#&gt; 6 6 04.10.2016 18:01:53 woman    157        37</code></pre>
+<p>Wir haben zuerst geprüft, ob die Datei (<code>wo_men.csv</code>) im entsprechenden Ordner existiert oder nicht (das <code>!</code>-Zeichen heißt auf Errisch “nicht”). Falls die Datei nicht im Ordner existiert, laden wir sie mit <code>read.csv</code> herunter und direkt ins R hinein. Andernfalls (<code>else</code>) lesen wir sie direkt ins R hinein.</p>
+</div>
+<div id="das-arbeitsverzeichnis" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Das Arbeitsverzeichnis</h3>
+
+<div class="rmdcaution">
+<p>Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem <em>working directory</em>) liegen.</p>
+</div>
+<p></p>
+<p>Das aktuelle Verzeichnis (Arbeitsverzeichnis; “working directory”) kann man mit <code>getwd()</code> erfragen und mit <code>setwd()</code> einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern. In RStudio: <code>Session &gt; Set Working Directory &gt; Choose Directory ...</code> (oder per Shortcut, der dort angezeigt wird).</p>
+<p>Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht ausführen:</span>
+daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daten_deutsch.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
+<p>R geht dann davon aus, dass sich die Datei <code>daten_deutsch.csv</code> im Arbeitsverzeichnis befindet.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p><a href="https://cran.r-project.org/web/packages/feather/index.html" class="uri">https://cran.r-project.org/web/packages/feather/index.html</a><a href="daten-in-r-importieren.html#fnref7">↩</a></p></li>
+<li id="fn8"><p>Um CSV-Dateien zu laden wird durch den Klick im Hintergrund das Paket <code>readr</code> verwendet <span class="citation">(Wickham, Hester, und Francois <a href="#ref-readr">2016</a>)</span>; die entsprechende Syntax wird in der Konsole ausgegeben, so dass man sie sich anschauen und weiterverwenden kann<a href="daten-in-r-importieren.html#fnref8">↩</a></p></li>
+<li id="fn9"><p>im Hintergrund wird das Paket <code>readxl</code> verwendet<a href="daten-in-r-importieren.html#fnref9">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="daten-einlesen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="normalform-einer-tabelle.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
