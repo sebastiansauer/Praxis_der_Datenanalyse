@@ -31,6 +31,8 @@ biblio-style: apalike
 
 <img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
@@ -92,7 +94,16 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.
 
 
-Ein Teil dieses Skripts basiert auf Arbeiten von meinen Kollegen Oliver Gansser, Matthias Gehrke und Karsten Lübke. Ohne deren Unterstützung, Ermutigung und Kritik gäbe es diesen Kurs nicht. Gerade von Karsten Lübke habe ich einiges gelernt.
+Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
+
+
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+
+Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib)):
+
+Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting"" an der FOM, Nürnberg.
+
 
 
 Sebastian Sauer

@@ -24,6 +24,18 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 
 # Vertiefung: Textmining
 
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+
+
 In diesem Kapitel benötigte R-Pakete:
 ```{r}
 library(tidyverse)  # Datenjudo

@@ -100,21 +100,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Praxis der Datenanalyse</a></li>
+<li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
+title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
 <li class="chapter" data-level="1" data-path="organisatorisches.html"><a href="organisatorisches.html"><i class="fa fa-check"></i><b>1</b> Organisatorisches</a><ul>
-<li class="chapter" data-level="1.1" data-path="modulziele.html"><a href="modulziele.html"><i class="fa fa-check"></i><b>1.1</b> Modulziele</a></li>
-<li class="chapter" data-level="1.2" data-path="themen-pro-termin.html"><a href="themen-pro-termin.html"><i class="fa fa-check"></i><b>1.2</b> Themen pro Termin</a></li>
-<li class="chapter" data-level="1.3" data-path="vorerfahrung.html"><a href="vorerfahrung.html"><i class="fa fa-check"></i><b>1.3</b> Vorerfahrung</a></li>
-<li class="chapter" data-level="1.4" data-path="prufung.html"><a href="prufung.html"><i class="fa fa-check"></i><b>1.4</b> Prüfung</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="prufung.html"><a href="prufung.html#prufungshinweise"><i class="fa fa-check"></i><b>1.4.1</b> Prüfungshinweise</a></li>
-<li class="chapter" data-level="1.4.2" data-path="prufung.html"><a href="prufung.html#klausur"><i class="fa fa-check"></i><b>1.4.2</b> Klausur</a></li>
-<li class="chapter" data-level="1.4.3" data-path="prufung.html"><a href="prufung.html#datenanalyse"><i class="fa fa-check"></i><b>1.4.3</b> Datenanalyse</a></li>
-<li class="chapter" data-level="1.4.4" data-path="prufung.html"><a href="prufung.html#gliederungsvorschlag-zur-datenanalyse"><i class="fa fa-check"></i><b>1.4.4</b> Gliederungsvorschlag zur Datenanalyse</a></li>
+<li class="chapter" data-level="1.1" data-path="themen-pro-termin.html"><a href="themen-pro-termin.html"><i class="fa fa-check"></i><b>1.1</b> Themen pro Termin</a></li>
+<li class="chapter" data-level="1.2" data-path="vorerfahrung.html"><a href="vorerfahrung.html"><i class="fa fa-check"></i><b>1.2</b> Vorerfahrung</a></li>
+<li class="chapter" data-level="1.3" data-path="prufung.html"><a href="prufung.html"><i class="fa fa-check"></i><b>1.3</b> Prüfung</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="prufung.html"><a href="prufung.html#prufungshinweise"><i class="fa fa-check"></i><b>1.3.1</b> Prüfungshinweise</a></li>
+<li class="chapter" data-level="1.3.2" data-path="prufung.html"><a href="prufung.html#klausur"><i class="fa fa-check"></i><b>1.3.2</b> Klausur</a></li>
+<li class="chapter" data-level="1.3.3" data-path="prufung.html"><a href="prufung.html#datenanalyse"><i class="fa fa-check"></i><b>1.3.3</b> Datenanalyse</a></li>
+<li class="chapter" data-level="1.3.4" data-path="prufung.html"><a href="prufung.html#gliederungsvorschlag-zur-datenanalyse"><i class="fa fa-check"></i><b>1.3.4</b> Gliederungsvorschlag zur Datenanalyse</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i><b>1.5</b> Literatur</a></li>
+<li class="chapter" data-level="1.4" data-path="literatur.html"><a href="literatur.html"><i class="fa fa-check"></i><b>1.4</b> Literatur</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
 <li class="chapter" data-level="2.1" data-path="software-installieren.html"><a href="software-installieren.html"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
@@ -329,9 +329,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>15</b> Literaturverzeichnis</a></li>
 <li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -358,22 +355,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Residuen =</span> <span class="kw">resid</span>(LinMod<span class="fl">.1</span>))
 <span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">data =</span> resid_df)</code></pre></div>
-<p><img src="071_Regression_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><em>Konstante Varianz</em>: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl <code>fitted()</code>[^3] extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot <code>qplot(x = tip, y = total_bill, data=tips)</code> erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst <em>nicht</em> die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des Hypothesentests, d. h., <span class="math inline">\(H_0:\beta_1=0\)</span>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df$fitted &lt;-<span class="st"> </span><span class="kw">fitted</span>(LinMod<span class="fl">.1</span>)
 <span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">y =</span> fitted, <span class="dt">data =</span> resid_df)</code></pre></div>
-<p><img src="071_Regression_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><em>Extreme Ausreißer</em>: Wie am Plot der Linearen Regression <code>plotModel(LinMod.1)</code> erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.</li>
 </ul>
 <p>Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xyplot</span>(total_bill ~<span class="st"> </span>size, <span class="dt">data=</span>tips)</code></pre></div>
-<p><img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Da bei diskreten metrischen Variablen (hier <code>size</code>) Punkte übereinander liegen können, sollte man “jittern” (“schütteln”), d. h., eine (kleine) Zufallszahl addieren:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> size, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
-<p><img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 
 <div class="rmdexercises">
 <ol style="list-style-type: decimal">

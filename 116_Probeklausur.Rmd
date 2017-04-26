@@ -20,6 +20,17 @@ knitr::opts_chunk$set(
 
 # Probeklausur
 
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+
 Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fragen verlangen einen "Text" als Antwort.
 
 ## Fragen

@@ -22,12 +22,17 @@ width.cutoff=60
 
 
 
+# Rahmen
 
-```{r echo = FALSE, out.width = "100%"}
-knitr::include_graphics("images/farb1.jpg")
+
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
 ```
 
-# Rahmen
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
 
 ```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
 Lernziele:

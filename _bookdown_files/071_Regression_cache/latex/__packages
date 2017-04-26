@@ -9,3 +9,7 @@ readr
 purrr
 dplyr
 gridExtra
+mosaicData
+Matrix
+mosaic
+bindrcpp

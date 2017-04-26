@@ -19,6 +19,14 @@ knitr::opts_chunk$set(
 # Daten einlesen
 
 
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
 ```{block2, ziele-tidy-data, type='rmdcaution', echo = TRUE} 
 Lernziele:
 

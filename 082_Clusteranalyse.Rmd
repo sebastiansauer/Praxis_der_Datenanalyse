@@ -24,6 +24,22 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 ```
 
 
+
+
+
+# Vertiefung: Clusteranalyse
+
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+
 Benötigte Pakte:
 
 ```{r}
@@ -31,10 +47,6 @@ library(tidyverse)
 library(cluster)
 ```
 
-
-
-
-# Vertiefung: Clusteranalyse
 
 
 ## Einführung

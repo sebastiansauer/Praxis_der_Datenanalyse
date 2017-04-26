@@ -35,12 +35,14 @@ bookdown::gitbook:
       collapse: none
       scroll_highlight: yes
       before: |
-        <li><a href="./">Praxis der Datenanalyse</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+        <li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
+        title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
   cover-image: images/cover.jpg
   favicon: images/favicon/favicon.ico
-  split_by: section
+  #split_by: section
 
 bookdown::epub_book: default
+
+bookdown::html_book:
+    theme: united
 

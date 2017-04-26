@@ -3,6 +3,13 @@
 
 # Probeklausur
 
+
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+
+
 Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fragen verlangen einen "Text" als Antwort.
 
 ## Fragen

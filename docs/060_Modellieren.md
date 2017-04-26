@@ -2,9 +2,10 @@
 
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
-<img src="images/farb1.jpg" width="100%" style="display: block; margin: auto;" />
 
 # Grundlagen des Modellierens {#mod1}
 
@@ -237,33 +238,10 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
 
 
-
-poly_degree = 15
-df <- data_frame(x = seq(from = 1, to = 10, by = .3),
-                 y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))
-
-df %>% 
-  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
-  group_by(binned) %>% 
-  mutate(y_group_md = median(y)) -> df
-
-
-p1 <- ggplot(df) +
-  aes(x = x, y = y) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
-  coord_fixed(ratio = 5/1)
-
-
-p2 <-  ggplot(df) +
-  aes(x = x) +
-  geom_point(aes(y = y)) +
-  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
-  coord_fixed(ratio = 5/1) 
-
-
-grid.arrange(p1, p2, ncol = 2)
-```
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance-1.png" alt="Der Spagat zwischen Verzerrung und Varianz" width="70%" />
+<p class="caption">(\#fig:plot-bias-variance)Der Spagat zwischen Verzerrung und Varianz</p>
+</div>
 
 Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten können große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 

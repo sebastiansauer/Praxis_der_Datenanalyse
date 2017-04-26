@@ -20,11 +20,14 @@ knitr::opts_chunk$set(
 
 
 
-
-
-```{r echo = FALSE, out.width = "100%"}
-knitr::include_graphics("images/farb1.jpg")
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
 ```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
 
 # Grundlagen des Modellierens {#mod1}
 
@@ -308,7 +311,7 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
 
 
-
+```{r plot-bias-variance, echo = FALSE, fig.cap = "Der Spagat zwischen Verzerrung und Varianz"}
 poly_degree = 15
 df <- data_frame(x = seq(from = 1, to = 10, by = .3),
                  y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))

@@ -3,6 +3,11 @@
 # Klassifizierende Regression
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Die Idee der logistischen Regression verstehen.
@@ -36,7 +41,7 @@ Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit
 xyplot(Aktienkauf ~ Risikobereitschaft, data = Aktien)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
 
@@ -65,7 +70,7 @@ summary(lm1)
 plotModel(lm1)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
@@ -98,7 +103,7 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
 plotModel(glm1)
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
 
@@ -399,7 +404,7 @@ performance(pred,"auc")@y.values
 #> [1] 0.636
 ```
 
-<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 

@@ -20,7 +20,7 @@
             "*.cpp"
         ],
         "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse",
-        "query" : "filter(height > 150, height < 210, shoe_size < 55)",
+        "query" : "fig:plot-bias-variance",
         "regex" : false
     }
 }

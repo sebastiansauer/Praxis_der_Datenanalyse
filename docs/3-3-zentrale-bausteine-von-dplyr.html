@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-De" xml:lang="de-De">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Praxis der Datenanalyse" />
+<meta property="og:type" content="book" />
+
+<meta property="og:image" content="images/cover.jpg" />
+<meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+<meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+
+<title>Praxis der Datenanalyse</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#vorwort">Vorwort</a></li>
+<li class="has-sub"><a href="1-organisatorisches.html#organisatorisches"><span class="toc-section-number">1</span> Organisatorisches</a><ul>
+<li><a href="1-1-themen-pro-termin.html#themen-pro-termin"><span class="toc-section-number">1.1</span> Themen pro Termin</a></li>
+<li><a href="1-2-vorerfahrung.html#vorerfahrung"><span class="toc-section-number">1.2</span> Vorerfahrung</a></li>
+<li class="has-sub"><a href="1-3-prufung.html#prufung"><span class="toc-section-number">1.3</span> Prüfung</a><ul>
+<li><a href="1-3-prufung.html#prufungshinweise"><span class="toc-section-number">1.3.1</span> Prüfungshinweise</a></li>
+<li><a href="1-3-prufung.html#klausur"><span class="toc-section-number">1.3.2</span> Klausur</a></li>
+<li><a href="1-3-prufung.html#datenanalyse"><span class="toc-section-number">1.3.3</span> Datenanalyse</a></li>
+<li><a href="1-3-prufung.html#gliederungsvorschlag-zur-datenanalyse"><span class="toc-section-number">1.3.4</span> Gliederungsvorschlag zur Datenanalyse</a></li>
+</ul></li>
+<li><a href="1-4-literatur.html#literatur"><span class="toc-section-number">1.4</span> Literatur</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-rahmen.html#rahmen"><span class="toc-section-number">2</span> Rahmen</a><ul>
+<li class="has-sub"><a href="2-1-software-installieren.html#software-installieren"><span class="toc-section-number">2.1</span> Software installieren</a><ul>
+<li><a href="2-1-software-installieren.html#r-und-rstudio-installieren"><span class="toc-section-number">2.1.1</span> R und RStudio installieren</a></li>
+<li><a href="2-1-software-installieren.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><span class="toc-section-number">2.1.2</span> Hilfe! R tut nicht so wie ich das will</a></li>
+<li><a href="2-1-software-installieren.html#hier-werden-sie-geholfen"><span class="toc-section-number">2.1.3</span> Hier werden Sie geholfen</a></li>
+<li><a href="2-1-software-installieren.html#die-denk--und-gefuhlswelt-von-r"><span class="toc-section-number">2.1.4</span> Die Denk- und Gefühlswelt von R</a></li>
+<li><a href="2-1-software-installieren.html#pakete-installieren"><span class="toc-section-number">2.1.5</span> Pakete installieren</a></li>
+<li><a href="2-1-software-installieren.html#r-pakete-fur-dieses-buch"><span class="toc-section-number">2.1.6</span> R-Pakete für dieses Buch</a></li>
+<li><a href="2-1-software-installieren.html#daten"><span class="toc-section-number">2.1.7</span> Datensätze</a></li>
+<li><a href="2-1-software-installieren.html#aufgaben"><span class="toc-section-number">2.1.8</span> Aufgaben</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-2-errrstkontakt.html#errrstkontakt"><span class="toc-section-number">2.2</span> ERRRstkontakt</a><ul>
+<li><a href="2-2-errrstkontakt.html#hinweise"><span class="toc-section-number">2.2.1</span> Hinweise</a></li>
+<li><a href="2-2-errrstkontakt.html#r-als-taschenrechner"><span class="toc-section-number">2.2.2</span> R als Taschenrechner</a></li>
+<li><a href="2-2-errrstkontakt.html#text-und-variablen-zuweisen"><span class="toc-section-number">2.2.3</span> Text und Variablen zuweisen</a></li>
+<li><a href="2-2-errrstkontakt.html#funktionen-aufrufen"><span class="toc-section-number">2.2.4</span> Funktionen aufrufen</a></li>
+<li><a href="2-2-errrstkontakt.html#aufgaben-1"><span class="toc-section-number">2.2.5</span> Aufgaben</a></li>
+</ul></li>
+<li><a href="2-3-was-ist-statistik-wozu-ist-sie-gut.html#was-ist-statistik-wozu-ist-sie-gut"><span class="toc-section-number">2.3</span> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li><a href="2-4-befehlsubersicht.html#befehlsubersicht"><span class="toc-section-number">2.4</span> Befehlsübersicht</a></li>
+<li><a href="2-5-verweise.html#verweise"><span class="toc-section-number">2.5</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-datenjudo.html#datenjudo"><span class="toc-section-number">3</span> Datenjudo</a><ul>
+<li><a href="3-1-typische-probleme.html#typische-probleme"><span class="toc-section-number">3.1</span> Typische Probleme</a></li>
+<li class="has-sub"><a href="3-2-daten-aufbereiten-mit-dplyr.html#daten-aufbereiten-mit-dplyr"><span class="toc-section-number">3.2</span> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li><a href="3-2-daten-aufbereiten-mit-dplyr.html#die-zwei-prinzipien-von-dplyr"><span class="toc-section-number">3.2.1</span> Die zwei Prinzipien von <code>dplyr</code></a></li>
+</ul></li>
+<li class="has-sub"><a href="3-3-zentrale-bausteine-von-dplyr.html#zentrale-bausteine-von-dplyr"><span class="toc-section-number">3.3</span> Zentrale Bausteine von <code>dplyr</code></a><ul>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#zeilen-filtern-mit-filter"><span class="toc-section-number">3.3.1</span> Zeilen filtern mit <code>filter</code></a></li>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#spalten-wahlen-mit-select"><span class="toc-section-number">3.3.2</span> Spalten wählen mit <code>select</code></a></li>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#zeilen-sortieren-mit-arrange"><span class="toc-section-number">3.3.3</span> Zeilen sortieren mit <code>arrange</code></a></li>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#datensatz-gruppieren-mit-group_by"><span class="toc-section-number">3.3.4</span> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#eine-spalte-zusammenfassen-mit-summarise"><span class="toc-section-number">3.3.5</span> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li><a href="3-3-zentrale-bausteine-von-dplyr.html#zeilen-zahlen-mit-n-und-count"><span class="toc-section-number">3.3.6</span> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+</ul></li>
+<li class="has-sub"><a href="3-4-die-pfeife.html#die-pfeife"><span class="toc-section-number">3.4</span> Die Pfeife</a><ul>
+<li><a href="3-4-die-pfeife.html#spalten-berechnen-mit-mutate"><span class="toc-section-number">3.4.1</span> Spalten berechnen mit <code>mutate</code></a></li>
+<li><a href="3-4-die-pfeife.html#aufgaben-8"><span class="toc-section-number">3.4.2</span> Aufgaben</a></li>
+</ul></li>
+<li><a href="3-5-befehlsubersicht-1.html#befehlsubersicht-1"><span class="toc-section-number">3.5</span> Befehlsübersicht</a></li>
+<li><a href="3-6-verweise-1.html#verweise-1"><span class="toc-section-number">3.6</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="4-praxisprobleme-der-datenaufbereitung.html#praxisprobleme-der-datenaufbereitung"><span class="toc-section-number">4</span> Praxisprobleme der Datenaufbereitung</a><ul>
+<li class="has-sub"><a href="4-1-datenaufbereitung.html#datenaufbereitung"><span class="toc-section-number">4.1</span> Datenaufbereitung</a><ul>
+<li><a href="4-1-datenaufbereitung.html#auf-fehlende-werte-prufen"><span class="toc-section-number">4.1.1</span> Auf fehlende Werte prüfen</a></li>
+<li><a href="4-1-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><span class="toc-section-number">4.1.2</span> Fälle mit fehlenden Werte löschen</a></li>
+<li><a href="4-1-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><span class="toc-section-number">4.1.3</span> Fehlende Werte ggf. ersetzen</a></li>
+<li><a href="4-1-datenaufbereitung.html#nach-fehlern-suchen"><span class="toc-section-number">4.1.4</span> Nach Fehlern suchen</a></li>
+<li><a href="4-1-datenaufbereitung.html#ausreiser-identifizieren"><span class="toc-section-number">4.1.5</span> Ausreiser identifizieren</a></li>
+<li><a href="4-1-datenaufbereitung.html#hochkorrelierte-variablen-finden"><span class="toc-section-number">4.1.6</span> Hochkorrelierte Variablen finden</a></li>
+<li><a href="4-1-datenaufbereitung.html#z-standardisieren"><span class="toc-section-number">4.1.7</span> z-Standardisieren</a></li>
+<li><a href="4-1-datenaufbereitung.html#quasi-konstante-finden"><span class="toc-section-number">4.1.8</span> Quasi-Konstante finden</a></li>
+<li><a href="4-1-datenaufbereitung.html#auf-normalverteilung-prufen"><span class="toc-section-number">4.1.9</span> Auf Normalverteilung prüfen</a></li>
+<li><a href="4-1-datenaufbereitung.html#werte-umkodieren-und-binnen"><span class="toc-section-number">4.1.10</span> Werte umkodieren und “binnen”</a></li>
+</ul></li>
+<li class="has-sub"><a href="4-2-deskriptive-statistiken-berechnen.html#deskriptive-statistiken-berechnen"><span class="toc-section-number">4.2</span> Deskriptive Statistiken berechnen</a><ul>
+<li><a href="4-2-deskriptive-statistiken-berechnen.html#mittelwerte-pro-zeile-berechnen"><span class="toc-section-number">4.2.1</span> Mittelwerte pro Zeile berechnen</a></li>
+<li><a href="4-2-deskriptive-statistiken-berechnen.html#mittelwerte-pro-spalte-berechnen"><span class="toc-section-number">4.2.2</span> Mittelwerte pro Spalte berechnen</a></li>
+<li><a href="4-2-deskriptive-statistiken-berechnen.html#korrelationstabellen-berechnen"><span class="toc-section-number">4.2.3</span> Korrelationstabellen berechnen</a></li>
+</ul></li>
+<li><a href="4-3-befehlsubersicht-2.html#befehlsubersicht-2"><span class="toc-section-number">4.3</span> Befehlsübersicht</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-fallstudie-zum-datenjudo.html#fallstudie-zum-datenjudo"><span class="toc-section-number">5</span> Fallstudie zum Datenjudo</a><ul>
+<li><a href="5-1-achtung-fallstudie.html#achtung-fallstudie"><span class="toc-section-number">5.1</span> Achtung, Fallstudie</a></li>
+<li><a href="5-2-befehlsubersicht-3.html#befehlsubersicht-3"><span class="toc-section-number">5.2</span> Befehlsübersicht</a></li>
+<li><a href="5-3-verweise-2.html#verweise-2"><span class="toc-section-number">5.3</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-daten-visualisieren.html#daten-visualisieren"><span class="toc-section-number">6</span> Daten visualisieren</a><ul>
+<li><a href="6-1-ein-bild-sagt-mehr-als-1000-worte.html#ein-bild-sagt-mehr-als-1000-worte"><span class="toc-section-number">6.1</span> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li><a href="6-2-die-anatomie-eines-diagramms.html#die-anatomie-eines-diagramms"><span class="toc-section-number">6.2</span> Die Anatomie eines Diagramms</a></li>
+<li><a href="6-3-einstieg-in-ggplot2-qplot.html#einstieg-in-ggplot2---qplot"><span class="toc-section-number">6.3</span> Einstieg in <code>ggplot2</code> - <code>qplot</code></a></li>
+<li class="has-sub"><a href="6-4-haufige-arten-von-diagrammen.html#haufige-arten-von-diagrammen"><span class="toc-section-number">6.4</span> Häufige Arten von Diagrammen</a><ul>
+<li><a href="6-4-haufige-arten-von-diagrammen.html#eine-kontinuierliche-variable"><span class="toc-section-number">6.4.1</span> Eine kontinuierliche Variable</a></li>
+<li><a href="6-4-haufige-arten-von-diagrammen.html#zwei-kontinuierliche-variablen"><span class="toc-section-number">6.4.2</span> Zwei kontinuierliche Variablen</a></li>
+<li><a href="6-4-haufige-arten-von-diagrammen.html#eine-diskrete-variable"><span class="toc-section-number">6.4.3</span> Eine diskrete Variable</a></li>
+<li><a href="6-4-haufige-arten-von-diagrammen.html#zwei-diskrete-variablen"><span class="toc-section-number">6.4.4</span> Zwei diskrete Variablen</a></li>
+<li><a href="6-4-haufige-arten-von-diagrammen.html#zusammenfassungen-zeigen"><span class="toc-section-number">6.4.5</span> Zusammenfassungen zeigen</a></li>
+</ul></li>
+<li><a href="6-5-die-gefuhlswelt-von-ggplot2.html#die-gefuhlswelt-von-ggplot2"><span class="toc-section-number">6.5</span> Die Gefühlswelt von <code>ggplot2</code></a></li>
+<li><a href="6-6-aufgaben-9.html#aufgaben-9"><span class="toc-section-number">6.6</span> Aufgaben</a></li>
+<li><a href="6-7-losungen.html#losungen"><span class="toc-section-number">6.7</span> Lösungen</a></li>
+<li><a href="6-8-richtig-oder-falsch.html#richtig-oder-falsch"><span class="toc-section-number">6.8</span> Richtig oder Falsch</a></li>
+<li><a href="6-9-befehlsubersicht-4.html#befehlsubersicht-4"><span class="toc-section-number">6.9</span> Befehlsübersicht</a></li>
+<li><a href="6-10-geome.html#geome"><span class="toc-section-number">6.10</span> Vertiefung: Geome bei ggplot2</a></li>
+<li><a href="6-11-verweise-3.html#verweise-3"><span class="toc-section-number">6.11</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="7-fallstudie-zur-visualisierung.html#fallstudie-zur-visualisierung"><span class="toc-section-number">7</span> Fallstudie zur Visualisierung</a><ul>
+<li><a href="7-1-daten-einlesen.html#daten-einlesen"><span class="toc-section-number">7.1</span> Daten einlesen</a></li>
+<li><a href="7-2-daten-umstellen.html#daten-umstellen"><span class="toc-section-number">7.2</span> Daten umstellen</a></li>
+<li><a href="7-3-diagramme-fur-anteile.html#diagramme-fur-anteile"><span class="toc-section-number">7.3</span> Diagramme für Anteile</a></li>
+<li><a href="7-4-um-90-drehen.html#um-90-drehen"><span class="toc-section-number">7.4</span> Um 90° drehen</a></li>
+<li><a href="7-5-text-labels-fur-die-items.html#text-labels-fur-die-items"><span class="toc-section-number">7.5</span> Text-Labels für die Items</a></li>
+<li><a href="7-6-diagramm-mit-haufigkeiten.html#diagramm-mit-haufigkeiten"><span class="toc-section-number">7.6</span> Diagramm mit Häufigkeiten</a></li>
+<li><a href="7-7-farbschema.html#farbschema"><span class="toc-section-number">7.7</span> Farbschema</a></li>
+</ul></li>
+<li class="has-sub"><a href="8-mod1.html#mod1"><span class="toc-section-number">8</span> Grundlagen des Modellierens</a><ul>
+<li><a href="8-1-Modellieren.html#Modellieren"><span class="toc-section-number">8.1</span> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li><a href="8-2-ein-besipiel-zum-modellieren-in-der-datenanalyse.html#ein-besipiel-zum-modellieren-in-der-datenanalyse"><span class="toc-section-number">8.2</span> Ein Besipiel zum Modellieren in der Datenanalyse</a></li>
+<li><a href="8-3-Ziele.html#Ziele"><span class="toc-section-number">8.3</span> Taxonomie der Ziele des Modellierens</a></li>
+<li><a href="8-4-die-vier-schritte-des-statistischen-modellierens.html#die-vier-schritte-des-statistischen-modellierens"><span class="toc-section-number">8.4</span> Die vier Schritte des statistischen Modellierens</a></li>
+<li><a href="8-5-einfache-vs-komplexe-modelle-unter-vs-uberanpassung.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><span class="toc-section-number">8.5</span> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li><a href="8-6-bias-varianz-abwagung.html#bias-varianz-abwagung"><span class="toc-section-number">8.6</span> Bias-Varianz-Abwägung</a></li>
+<li><a href="8-7-training-vs-test-stichprobe.html#training--vs.test-stichprobe"><span class="toc-section-number">8.7</span> Training- vs. Test-Stichprobe</a></li>
+<li><a href="8-8-wann-welches-modell.html#wann-welches-modell"><span class="toc-section-number">8.8</span> Wann welches Modell?</a></li>
+<li><a href="8-9-modellgute.html#modellgute"><span class="toc-section-number">8.9</span> Modellgüte</a></li>
+<li><a href="8-10-auswahl-von-pradiktoren.html#auswahl-von-pradiktoren"><span class="toc-section-number">8.10</span> Auswahl von Prädiktoren</a></li>
+<li><a href="8-11-aufgaben-10.html#aufgaben-10"><span class="toc-section-number">8.11</span> Aufgaben</a></li>
+<li><a href="8-12-befehlsubersicht-5.html#befehlsubersicht-5"><span class="toc-section-number">8.12</span> Befehlsübersicht</a></li>
+<li><a href="8-13-verweise-4.html#verweise-4"><span class="toc-section-number">8.13</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="9-der-p-wert.html#der-p-wert"><span class="toc-section-number">9</span> Der p-Wert</a><ul>
+<li class="has-sub"><a href="9-1-der-p-wert-sagt-nicht-das-was-viele-denken.html#der-p-wert-sagt-nicht-das-was-viele-denken"><span class="toc-section-number">9.1</span> Der p-Wert sagt nicht das, was viele denken</a><ul>
+<li><a href="9-1-der-p-wert-sagt-nicht-das-was-viele-denken.html#von-moslems-und-terroristen"><span class="toc-section-number">9.1.1</span> Von Moslems und Terroristen</a></li>
+</ul></li>
+<li class="has-sub"><a href="9-2-der-p-wert-ist-eine-funktion-der-stichprobengroe.html#der-p-wert-ist-eine-funktion-der-stichprobengroe"><span class="toc-section-number">9.2</span> Der p-Wert ist eine Funktion der Stichprobengröße</a><ul>
+<li><a href="9-2-der-p-wert-ist-eine-funktion-der-stichprobengroe.html#vertiefung-praktisches-beispiel-zum-stichprobeneinfluss-auf-den-p-wert"><span class="toc-section-number">9.2.1</span> Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf den p-Wert</a></li>
+</ul></li>
+<li><a href="9-3-mythen-zum-p-wert.html#mythen-zum-p-wert"><span class="toc-section-number">9.3</span> Mythen zum p-Wert</a></li>
+<li><a href="9-4-zur-philosophie-des-p-werts.html#zur-philosophie-des-p-werts"><span class="toc-section-number">9.4</span> Zur Philosophie des p-Werts</a></li>
+<li><a href="9-5-fazit.html#fazit"><span class="toc-section-number">9.5</span> Fazit</a></li>
+</ul></li>
+<li class="has-sub"><a href="10-klassische-lineare-numerische-regression.html#klassische-lineare-numerische-regression"><span class="toc-section-number">10</span> Klassische lineare (numerische) Regression</a><ul>
+<li><a href="10-1-einfache-regression.html#einfache-regression"><span class="toc-section-number">10.1</span> Einfache Regression</a></li>
+<li><a href="10-2-uberprufung-der-annahmen-der-linearen-regression.html#uberprufung-der-annahmen-der-linearen-regression"><span class="toc-section-number">10.2</span> Überprüfung der Annahmen der linearen Regression</a></li>
+<li><a href="10-3-regression-mit-kategorialen-pradiktoren.html#regression-mit-kategorialen-pradiktoren"><span class="toc-section-number">10.3</span> Regression mit kategorialen Prädiktoren</a></li>
+<li><a href="10-4-multiple-regression.html#multiple-regression"><span class="toc-section-number">10.4</span> Multiple Regression</a></li>
+<li><a href="10-5-inferenz-in-der-linearen-regression.html#inferenz-in-der-linearen-regression"><span class="toc-section-number">10.5</span> Inferenz in der linearen Regression</a></li>
+<li class="has-sub"><a href="10-6-modellgute-bei-regressionsmodellen.html#modellgute-bei-regressionsmodellen"><span class="toc-section-number">10.6</span> Modellgüte bei Regressionsmodellen</a><ul>
+<li><a href="10-6-modellgute-bei-regressionsmodellen.html#mittlere-quadratfehler"><span class="toc-section-number">10.6.1</span> Mittlere Quadratfehler</a></li>
+<li><a href="10-6-modellgute-bei-regressionsmodellen.html#r-quadrat-r2"><span class="toc-section-number">10.6.2</span> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+<li><a href="10-6-modellgute-bei-regressionsmodellen.html#likelihood-and-friends"><span class="toc-section-number">10.6.3</span> Likelihood and Friends</a></li>
+</ul></li>
+<li class="has-sub"><a href="10-7-vertiefungen-zum-regressionmodell.html#vertiefungen-zum-regressionmodell"><span class="toc-section-number">10.7</span> Vertiefungen zum Regressionmodell</a><ul>
+<li><a href="10-7-vertiefungen-zum-regressionmodell.html#modellwahl"><span class="toc-section-number">10.7.1</span> Modellwahl</a></li>
+<li><a href="10-7-vertiefungen-zum-regressionmodell.html#interaktionen"><span class="toc-section-number">10.7.2</span> Interaktionen</a></li>
+<li><a href="10-7-vertiefungen-zum-regressionmodell.html#weitere-modellierungsmoglichkeiten"><span class="toc-section-number">10.7.3</span> Weitere Modellierungsmöglichkeiten</a></li>
+<li><a href="10-7-vertiefungen-zum-regressionmodell.html#prognoseintervalle"><span class="toc-section-number">10.7.4</span> Prognoseintervalle</a></li>
+</ul></li>
+<li><a href="10-8-ubung-teaching-rating.html#ubung-teaching-rating"><span class="toc-section-number">10.8</span> Übung: Teaching Rating</a></li>
+<li><a href="10-9-overfitting-casestudy.html#overfitting-casestudy"><span class="toc-section-number">10.9</span> Fallstudie zu Overfitting</a></li>
+<li><a href="10-10-literatur-1.html#literatur-1"><span class="toc-section-number">10.10</span> Literatur</a></li>
+</ul></li>
+<li class="has-sub"><a href="11-klassifizierende-regression.html#klassifizierende-regression"><span class="toc-section-number">11</span> Klassifizierende Regression</a><ul>
+<li><a href="11-1-vorbereitung.html#vorbereitung"><span class="toc-section-number">11.1</span> Vorbereitung</a></li>
+<li><a href="11-2-problemstellung.html#problemstellung"><span class="toc-section-number">11.2</span> Problemstellung</a></li>
+<li><a href="11-3-die-idee-der-logistischen-regression.html#die-idee-der-logistischen-regression"><span class="toc-section-number">11.3</span> Die Idee der logistischen Regression</a></li>
+<li><a href="11-4-welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><span class="toc-section-number">11.4</span> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="has-sub"><a href="11-5-interpretation-der-koeffizienten.html#interpretation-der-koeffizienten"><span class="toc-section-number">11.5</span> Interpretation der Koeffizienten</a><ul>
+<li><a href="11-5-interpretation-der-koeffizienten.html#y-achsenabschnitt-intercept-beta_0"><span class="toc-section-number">11.5.1</span> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li><a href="11-5-interpretation-der-koeffizienten.html#steigung-beta_i-mit-i12...k"><span class="toc-section-number">11.5.2</span> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+</ul></li>
+<li><a href="11-6-kategoriale-variablen.html#kategoriale-variablen"><span class="toc-section-number">11.6</span> Kategoriale Variablen</a></li>
+<li><a href="11-7-multiple-logistische-regression.html#multiple-logistische-regression"><span class="toc-section-number">11.7</span> Multiple logistische Regression</a></li>
+<li><a href="11-8-modell-bzw-klassifikationsgute.html#modell--bzw.-klassifikationsgute"><span class="toc-section-number">11.8</span> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="has-sub"><a href="11-9-vertiefung.html#vertiefung"><span class="toc-section-number">11.9</span> Vertiefung</a><ul>
+<li><a href="11-9-vertiefung.html#modellschatzung"><span class="toc-section-number">11.9.1</span> Modellschätzung</a></li>
+<li><a href="11-9-vertiefung.html#likelihood-quotienten-test"><span class="toc-section-number">11.9.2</span> Likelihood Quotienten Test</a></li>
+<li><a href="11-9-vertiefung.html#pseudo-r2"><span class="toc-section-number">11.9.3</span> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+</ul></li>
+<li><a href="11-10-ubung-rot-oder-weiwein.html#ubung-rot--oder-weiwein"><span class="toc-section-number">11.10</span> Übung: Rot- oder Weißwein?</a></li>
+<li><a href="11-11-literatur-2.html#literatur-2"><span class="toc-section-number">11.11</span> Literatur</a></li>
+</ul></li>
+<li class="has-sub"><a href="12-fallstudien-zum-geleiteten-modellieren.html#fallstudien-zum-geleiteten-modellieren"><span class="toc-section-number">12</span> Fallstudien zum geleiteten Modellieren</a><ul>
+<li class="has-sub"><a href="12-1-uberleben-auf-der-titanic.html#uberleben-auf-der-titanic"><span class="toc-section-number">12.1</span> Überleben auf der Titanic</a><ul>
+<li><a href="12-1-uberleben-auf-der-titanic.html#daten-und-pakete-laden"><span class="toc-section-number">12.1.1</span> Daten und Pakete laden</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#erster-blick"><span class="toc-section-number">12.1.2</span> Erster Blick</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#welche-variablen-sind-interessant"><span class="toc-section-number">12.1.3</span> Welche Variablen sind interessant?</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#univariate-haufigkeiten"><span class="toc-section-number">12.1.4</span> Univariate Häufigkeiten</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#bivariate-haufigkeiten"><span class="toc-section-number">12.1.5</span> Bivariate Häufigkeiten</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#signifikanztest"><span class="toc-section-number">12.1.6</span> Signifikanztest</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#effektstarke"><span class="toc-section-number">12.1.7</span> Effektstärke</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#logististische-regression"><span class="toc-section-number">12.1.8</span> Logististische Regression</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#effektstarken-visualieren"><span class="toc-section-number">12.1.9</span> Effektstärken visualieren</a></li>
+<li><a href="12-1-uberleben-auf-der-titanic.html#fazit-1"><span class="toc-section-number">12.1.10</span> Fazit</a></li>
+</ul></li>
+<li class="has-sub"><a href="12-2-auereheliche-affaren.html#auereheliche-affaren"><span class="toc-section-number">12.2</span> Außereheliche Affären</a><ul>
+<li><a href="12-2-auereheliche-affaren.html#zentrale-statistiken"><span class="toc-section-number">12.2.1</span> Zentrale Statistiken</a></li>
+<li><a href="12-2-auereheliche-affaren.html#visualisieren"><span class="toc-section-number">12.2.2</span> Visualisieren</a></li>
+<li><a href="12-2-auereheliche-affaren.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><span class="toc-section-number">12.2.3</span> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li><a href="12-2-auereheliche-affaren.html#wie-viele-fehlende-werte-gibt-es"><span class="toc-section-number">12.2.4</span> Wie viele fehlende Werte gibt es?</a></li>
+<li><a href="12-2-auereheliche-affaren.html#wer-ist-glucklicher-manner-oder-frauen"><span class="toc-section-number">12.2.5</span> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li><a href="12-2-auereheliche-affaren.html#effektstarken"><span class="toc-section-number">12.2.6</span> Effektstärken</a></li>
+<li><a href="12-2-auereheliche-affaren.html#korrelationen"><span class="toc-section-number">12.2.7</span> Korrelationen</a></li>
+<li><a href="12-2-auereheliche-affaren.html#ehejahre-und-affaren"><span class="toc-section-number">12.2.8</span> Ehejahre und Affären</a></li>
+<li><a href="12-2-auereheliche-affaren.html#ehezufriedenheit-als-pradiktor"><span class="toc-section-number">12.2.9</span> Ehezufriedenheit als Prädiktor</a></li>
+<li><a href="12-2-auereheliche-affaren.html#weitere-pradiktoren-der-affarenhaufigkeit"><span class="toc-section-number">12.2.10</span> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li><a href="12-2-auereheliche-affaren.html#unterschied-zwischen-den-geschlechtern"><span class="toc-section-number">12.2.11</span> Unterschied zwischen den Geschlechtern</a></li>
+<li><a href="12-2-auereheliche-affaren.html#kinderlose-ehe-vs.ehen-mit-kindern"><span class="toc-section-number">12.2.12</span> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li><a href="12-2-auereheliche-affaren.html#halodries"><span class="toc-section-number">12.2.13</span> Halodries</a></li>
+<li><a href="12-2-auereheliche-affaren.html#logistische-regression"><span class="toc-section-number">12.2.14</span> logistische Regression</a></li>
+<li><a href="12-2-auereheliche-affaren.html#zum-abschluss"><span class="toc-section-number">12.2.15</span> Zum Abschluss</a></li>
+</ul></li>
+<li class="has-sub"><a href="12-3-befehlsubersicht-6.html#befehlsubersicht-6"><span class="toc-section-number">12.3</span> Befehlsübersicht</a><ul>
+<li><a href="12-3-befehlsubersicht-6.html#versionshinweise-und-sessioninfo"><span class="toc-section-number">12.3.1</span> Versionshinweise und SessionInfo</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="13-vertiefung-clusteranalyse.html#vertiefung-clusteranalyse"><span class="toc-section-number">13</span> Vertiefung: Clusteranalyse</a><ul>
+<li><a href="13-1-einfuhrung.html#einfuhrung"><span class="toc-section-number">13.1</span> Einführung</a></li>
+<li><a href="13-2-intuitive-darstellung-der-clusteranalayse.html#intuitive-darstellung-der-clusteranalayse"><span class="toc-section-number">13.2</span> Intuitive Darstellung der Clusteranalayse</a></li>
+<li><a href="13-3-euklidische-distanz.html#euklidische-distanz"><span class="toc-section-number">13.3</span> Euklidische Distanz</a></li>
+<li><a href="2-1-software-installieren.html#daten"><span class="toc-section-number">13.4</span> Daten</a></li>
+<li><a href="13-5-distanzmae-mit-r-berechnen.html#distanzmae-mit-r-berechnen"><span class="toc-section-number">13.5</span> Distanzmaße mit R berechnen</a></li>
+<li><a href="13-6-k-means-clusteranalyse.html#k-means-clusteranalyse"><span class="toc-section-number">13.6</span> k-Means Clusteranalyse</a></li>
+<li><a href="13-7-ubung-b3-datensatz.html#ubung-b3-datensatz"><span class="toc-section-number">13.7</span> Übung: B3 Datensatz</a></li>
+<li><a href="13-8-literatur-3.html#literatur-3"><span class="toc-section-number">13.8</span> Literatur</a></li>
+<li><a href="13-9-verweise-5.html#verweise-5"><span class="toc-section-number">13.9</span> Verweise</a></li>
+</ul></li>
+<li class="has-sub"><a href="14-probeklausur.html#probeklausur"><span class="toc-section-number">14</span> Probeklausur</a><ul>
+<li><a href="14-1-fragen.html#fragen"><span class="toc-section-number">14.1</span> Fragen</a></li>
+<li><a href="14-2-losungen-1.html#losungen-1"><span class="toc-section-number">14.2</span> Lösungen</a></li>
+</ul></li>
+<li><a href="15-literaturverzeichnis.html#literaturverzeichnis"><span class="toc-section-number">15</span> Literaturverzeichnis</a></li>
+<li><a href="literaturverzeichnis-1.html#literaturverzeichnis-1">Literaturverzeichnis</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="zentrale-bausteine-von-dplyr" class="section level2">
+<h2><span class="header-section-number">3.3</span> Zentrale Bausteine von <code>dplyr</code></h2>
+<div id="zeilen-filtern-mit-filter" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Zeilen filtern mit <code>filter</code></h3>
+<p>Häufig will man bestimmte Zeilen aus einer Tabelle filtern; <code>filter</code>. Zum Beispiel man arbeitet für die Zigarettenindustrie und ist nur an den Rauchern interessiert (die im Übrigen unser Gesundheitssystem retten <span class="citation">(Krämer <a href="#ref-kraemer2011wir">2011</a>)</span>), nicht an Nicht-Rauchern; es sollen die nur Umsatzzahlen des letzten Quartals untersucht werden, nicht die vorherigen Quartale; es sollen nur die Daten aus Labor X (nicht Labor Y) ausgewertet werden etc.</p>
+<p>Abb. <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:fig-filter">3.4</a> zeigt ein Sinnbild für <code>filter</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-filter"></span>
+<img src="images/Datenjudo/filter.pdf" alt="Zeilen filtern" width="70%" />
+<p class="caption">
+Abbildung 3.4: Zeilen filtern
+</p>
+</div>
+<p>Merke:</p>
+<blockquote>
+<p>Die Funktion <code>filter</code> filtert Zeilen aus einem Dataframe.</p>
+</blockquote>
+<p>Schauen wir uns einige Beispiel an; zuerst die Daten laden nicht vergessen. Achtung: “Wohnen” die Daten in einem Paket, muss dieses Paket installiert sein, damit man auf die Daten zugreifen kann.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)  <span class="co"># Das Paket muss installiert sein</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_frauen &lt;-<span class="st"> </span><span class="kw">filter</span>(profiles, sex ==<span class="st"> &quot;f&quot;</span>)  <span class="co"># nur die Frauen</span>
+df_alt &lt;-<span class="st"> </span><span class="kw">filter</span>(profiles, age &gt;<span class="st"> </span><span class="dv">70</span>)  <span class="co"># nur die alten Menschen</span>
+df_alte_frauen &lt;-<span class="st"> </span><span class="kw">filter</span>(profiles, age &gt;<span class="st"> </span><span class="dv">70</span>, sex ==<span class="st"> &quot;f&quot;</span>) 
+<span class="co"># nur die alten Frauen, d.h. UND-Verknüpfung</span>
+
+df_nosmoke_nodrinks &lt;-<span class="st"> </span><span class="kw">filter</span>(profiles, smokes ==<span class="st"> &quot;no&quot;</span> |<span class="st"> </span>drinks ==<span class="st"> &quot;not at all&quot;</span>) 
+<span class="co"># liefert alle Personen, die Nicht-Raucher *oder* Nicht-Trinker sind</span></code></pre></div>
+<p>Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefiltert (also behalten bzw. zurückgeliefert), für die das Filterkriterium <code>TRUE</code> ist.</p>
+
+<div class="rmdcaution">
+<p>Manche Befehle wie <code>filter</code> haben einen Allerweltsnamen; gut möglich, dass ein Befehl mit gleichem Namen in einem anderen (geladenen) Paket existiert. Das kann dann zu Verwirrungen führen - und kryptischen Fehlern. Im Zweifel den Namen des richtigen Pakets ergänzen, und zwar zum Beispiel so: <code>dplyr::filter(...)</code>.</p>
+</div>
+<p></p>
+<div id="aufgaben-2" class="section level4">
+<h4><span class="header-section-number">3.3.1.1</span> Aufgaben<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li><code>filter</code> filtert Spalten.</li>
+<li><code>filter</code> ist eine Funktion aus dem Paket <code>dplyr</code>.</li>
+<li><code>filter</code> erwartet als ersten Parameter das Filterkriterium.</li>
+<li><code>filter</code> lässt nur ein Filterkriterium zu.</li>
+<li>Möchte man aus dem Datensatz <code>profiles</code> (<code>okcupiddata</code>) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == “f”)´.</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="vertiefung-fortgeschrittene-beispiele-fur-filter" class="section level4">
+<h4><span class="header-section-number">3.3.1.2</span> Vertiefung: Fortgeschrittene Beispiele für <code>filter</code></h4>
+<p>Einige fortgeschrittene Beispiele für <code>filter</code>:</p>
+<p>Man kann alle Elemente (Zeilen) filtern, die zu einer Menge gehören und zwar mit diesem Operator: <code>%in%</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(profiles, body_type %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a little extra&quot;</span>, <span class="st">&quot;average&quot;</span>))</code></pre></div>
+<p>Besonders Textdaten laden zu einigen Extra-Überlegungen ein; sagen wir, wir wollen alle Personen filtern, die Katzen bei den Haustieren erwähnen. Es soll reichen, wenn <code>cat</code> ein Teil des Textes ist; also <code>likes dogs and likes cats</code> wäre OK (soll gefiltert werden). Dazu nutzen wir ein Paket zur Bearbeitung von Strings (Textdaten):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">filter</span>(profiles, <span class="kw">str_detect</span>(pets, <span class="st">&quot;cats&quot;</span>))</code></pre></div>
+<p>Ein häufiger Fall ist, Zeilen <em>ohne</em> fehlende Werte (<code>NA</code>s) zu filtern. Das geht einfach:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">profiles_keine_nas &lt;-<span class="st"> </span><span class="kw">na.omit</span>(profiles)</code></pre></div>
+<p>Aber was ist, wenn wir nur bei bestimmten Spalten wegen fehlender Werte besorgt sind? Sagen wir bei <code>income</code> und bei <code>sex</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(profiles, !<span class="kw">is.na</span>(income) |<span class="st"> </span>!<span class="kw">is.na</span>(sex))</code></pre></div>
+</div>
+</div>
+<div id="spalten-wahlen-mit-select" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Spalten wählen mit <code>select</code></h3>
+<p>Das Gegenstück zu <code>filter</code> ist <code>select</code>; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr “breit” ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:fig-select">3.5</a> zeigt Sinnbild für diesen Befehl:</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-select"></span>
+<img src="images/Datenjudo/select.pdf" alt="Spalten auswählen" width="70%" />
+<p class="caption">
+Abbildung 3.5: Spalten auswählen
+</p>
+</div>
+<p>Merke:</p>
+<blockquote>
+<p>Die Funktion select wählt Spalten aus einem Dataframe aus.</p>
+</blockquote>
+<p>Laden wir als ersten einen Datensatz.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/test_inf_short.csv&quot;</span>)</code></pre></div>
+<p>Dieser Datensatz beinhaltet Daten zu einer Statistikklausur.</p>
+<p>Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unterordner mit dem Namen <code>data</code> befinden, welcher sich im Arbeitsverzeichnis befindet<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>.</p>
+<!-- Hier haben wir erst geprüft, ob die Datei `test_inf_short.csv` existiert; falls nein, laden wir sie herunter. Andernfalls lesen wir sie aus dem lokalen Verzeichnis. -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(stats_test, score)  <span class="co"># Spalte `score` auswählen</span>
+<span class="kw">select</span>(stats_test, score, study_time)  
+<span class="co"># Spalten `score` und `study_time` auswählen</span>
+
+<span class="kw">select</span>(stats_test, score:study_time) <span class="co"># dito</span>
+<span class="kw">select</span>(stats_test, <span class="dv">5</span>:<span class="dv">6</span>)  <span class="co"># Spalten 5 bis 6 auswählen</span></code></pre></div>
+<p>Tatsächlich ist der Befehl <code>select</code> sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im <code>dplyr</code>-Cheatsheet findet sich ein guter Überblick dazu.</p>
+<div id="aufgaben-3" class="section level4">
+<h4><span class="header-section-number">3.3.2.1</span> Aufgaben<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li><code>select</code> wählt <em>Zeilen</em> aus.</li>
+<li><code>select</code> ist eine Funktion aus dem Paket <code>knitr</code>.</li>
+<li>Möchte man zwei Spalten auswählen, so ist folgende Syntax prinzipiell korrekt: <code>select(df, spalte1, spalte2)</code>.</li>
+<li>Möchte man Spalten 1 bis 10 auswählen, so ist folgende Syntax prinzipiell korrekt: `select(df, spalte1:spalte10)</li>
+<li>Mit <code>select</code> können Spalten nur bei ihrem Namen, aber nicht bei ihrer Nummer aufgerufen werden.</li>
+</ol>
+</div>
+<p></p>
+</div>
+</div>
+<div id="zeilen-sortieren-mit-arrange" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Zeilen sortieren mit <code>arrange</code></h3>
+<p>Man kann zwei Arten des Umgangs mit R unterscheiden: Zum einen der “interaktive Gebrauch” und zum anderen “richtiges Programmieren”. Im interaktiven Gebrauch geht es uns darum, die Fragen zum aktuell vorliegenden Datensatz (schnell) zu beantworten. Es geht nicht darum, eine allgemeine Lösung zu entwickeln, die wir in die Welt verschicken können und die dort ein bestimmtes Problem löst, ohne dass der Entwickler (wir) dabei Hilfestellung geben muss. “Richtige” Software, wie ein R-Paket oder Microsoft Powerpoint, muss diese Erwartung erfüllen; “richtiges Programmieren” ist dazu vonnöten. Natürlich sind in diesem Fall die Ansprüche an die Syntax (der “Code”, hört sich cooler an) viel höher. In dem Fall muss man alle Eventualitäten voraussehen und sicherstellen, dass das Programm auch beim merkwürdigsten Nutzer brav seinen Dienst tut. Wir haben hier, beim interaktiven Gebrauch, niedrigere Ansprüche bzw. andere Ziele.</p>
+<p>Beim interaktiven Gebrauch von R (oder beliebigen Analyseprogrammen) ist das Sortieren von Zeilen eine recht häufige Tätigkeit. Typisches Beispiel wäre der Lehrer, der eine Tabelle mit Noten hat und wissen will, welche Schüler die schlechtesten oder die besten sind in einem bestimmten Fach. Oder bei der Prüfung der Umsätze nach Filialen möchten wir die umsatzstärksten sowie -schwächsten Niederlassungen kennen.</p>
+<p>Ein R-Befehl hierzu ist <code>arrange</code>; einige Beispiele zeigen die Funktionsweise am besten:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">arrange</span>(stats_test, score) <span class="co"># liefert die *schlechtesten* Noten zuerst zurück</span>
+<span class="kw">arrange</span>(stats_test, -score) <span class="co"># liefert die *besten* Noten zuerst zurück</span>
+<span class="kw">arrange</span>(stats_test, interest, score)</code></pre></div>
+<pre><code>#&gt;     X                 V_1 study_time self_eval interest score
+#&gt; 1 234 23.01.2017 18:13:15          3         1        1    17
+#&gt; 2   4 06.01.2017 09:58:05          2         3        2    18
+#&gt; 3 131 19.01.2017 18:03:45          2         3        4    18
+#&gt; 4 142 19.01.2017 19:02:12          3         4        1    18
+#&gt; 5  35 12.01.2017 19:04:43          1         2        3    19
+#&gt; 6  71 15.01.2017 15:03:29          3         3        3    20
+#&gt;    X                 V_1 study_time self_eval interest score
+#&gt; 1  3 05.01.2017 23:33:47          5        10        6    40
+#&gt; 2  7 06.01.2017 14:25:49         NA        NA       NA    40
+#&gt; 3 29 12.01.2017 09:48:16          4        10        3    40
+#&gt; 4 41 13.01.2017 12:07:29          4        10        3    40
+#&gt; 5 58 14.01.2017 15:43:01          3         8        2    40
+#&gt; 6 83 16.01.2017 10:16:52         NA        NA       NA    40
+#&gt;     X                 V_1 study_time self_eval interest score
+#&gt; 1 234 23.01.2017 18:13:15          3         1        1    17
+#&gt; 2 142 19.01.2017 19:02:12          3         4        1    18
+#&gt; 3 221 23.01.2017 11:40:30          1         1        1    23
+#&gt; 4 230 23.01.2017 16:27:49          1         1        1    23
+#&gt; 5  92 17.01.2017 17:18:55          1         1        1    24
+#&gt; 6 107 18.01.2017 16:01:36          3         2        1    24</code></pre>
+<p>Einige Anmerkungen. Die generelle Syntax lautet <code>arrange(df, Spalte1, ...)</code>, wobei <code>df</code> den Dataframe bezeichnet und <code>Spalte1</code> die erste zu sortierende Spalte; die Punkte <code>...</code> geben an, dass man weitere Parameter übergeben kann. Man kann sowohl numerische Spalten als auch Textspalten sortieren. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.</p>
+<p>Standardmäßig sortiert <code>arrange</code> <em>aufsteigend</em> (weil kleine Zahlen im Zahlenstrahl vor den großen Zahlen kommen). Möchte man diese Reihenfolge umdrehen (große Werte zuert, d.h. <em>absteigend</em>), so kann man ein Minuszeichen vor den Namen der Spalte setzen.</p>
+<p>Gibt man <em>zwei oder mehr</em> Spalten an, so werden pro Wert von <code>Spalte1</code> die Werte von <code>Spalte2</code> sortiert etc; man betrachte den Output des Beispiels oben dazu.</p>
+<!-- Aber was heißt dieses komisch Symbol:  `%>%`? Diese sogenannte "Pfeife" lässt sich mit "und dann" ins Deutsce übersetzen. Also: -->
+<!-- ``` -->
+<!-- sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen -->
+<!-- ``` -->
+<!-- Der Befehl `head` zeigt dier ersten paar Zeilen eines Dataframes [^5]. -->
+<p>Merke:</p>
+<blockquote>
+<p>Die Funktion arrange sortiert die Zeilen eines Datafames.</p>
+</blockquote>
+<p>Ein Sinnbild zur Verdeutlichung (s. Abb. <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:fig-arrange">3.6</a>):</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-arrange"></span>
+<img src="images/Datenjudo/arrange-crop.pdf" alt="Spalten sortieren" width="70%" />
+<p class="caption">
+Abbildung 3.6: Spalten sortieren
+</p>
+</div>
+<p>Ein ähnliches Ergebnis erhält mit man <code>top_n()</code>, welches die <code>n</code> <em>größten Ränge</em> widergibt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">top_n</span>(stats_test, <span class="dv">3</span>)
+<span class="co">#&gt;      X                 V_1 study_time self_eval interest score</span>
+<span class="co">#&gt; 1    3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt; 2    7 06.01.2017 14:25:49         NA        NA       NA    40</span>
+<span class="co">#&gt; 3   29 12.01.2017 09:48:16          4        10        3    40</span>
+<span class="co">#&gt; 4   41 13.01.2017 12:07:29          4        10        3    40</span>
+<span class="co">#&gt; 5   58 14.01.2017 15:43:01          3         8        2    40</span>
+<span class="co">#&gt; 6   83 16.01.2017 10:16:52         NA        NA       NA    40</span>
+<span class="co">#&gt; 7  116 18.01.2017 23:07:32          4         8        5    40</span>
+<span class="co">#&gt; 8  119 19.01.2017 09:05:01         NA        NA       NA    40</span>
+<span class="co">#&gt; 9  132 19.01.2017 18:22:32         NA        NA       NA    40</span>
+<span class="co">#&gt; 10 175 20.01.2017 23:03:36          5        10        5    40</span>
+<span class="co">#&gt; 11 179 21.01.2017 07:40:05          5         9        1    40</span>
+<span class="co">#&gt; 12 185 21.01.2017 15:01:26          4        10        5    40</span>
+<span class="co">#&gt; 13 196 22.01.2017 13:38:56          4        10        5    40</span>
+<span class="co">#&gt; 14 197 22.01.2017 14:55:17          4        10        5    40</span>
+<span class="co">#&gt; 15 248 24.01.2017 16:29:45          2        10        2    40</span>
+<span class="co">#&gt; 16 249 24.01.2017 17:19:54         NA        NA       NA    40</span>
+<span class="co">#&gt; 17 257 25.01.2017 10:44:34          2         9        3    40</span>
+<span class="co">#&gt; 18 306 27.01.2017 11:29:48          4         9        3    40</span>
+<span class="kw">top_n</span>(stats_test, <span class="dv">3</span>, interest)
+<span class="co">#&gt;     X                 V_1 study_time self_eval interest score</span>
+<span class="co">#&gt; 1   3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt; 2   5 06.01.2017 14:13:08          4         8        6    34</span>
+<span class="co">#&gt; 3  43 13.01.2017 14:14:16          4         8        6    36</span>
+<span class="co">#&gt; 4  65 15.01.2017 12:41:27          3         6        6    22</span>
+<span class="co">#&gt; 5 110 18.01.2017 18:53:02          5         8        6    37</span>
+<span class="co">#&gt; 6 136 19.01.2017 18:22:57          3         1        6    39</span>
+<span class="co">#&gt; 7 172 20.01.2017 20:42:46          5        10        6    34</span>
+<span class="co">#&gt; 8 214 22.01.2017 21:57:36          2         6        6    31</span>
+<span class="co">#&gt; 9 301 27.01.2017 08:17:59          4         8        6    33</span></code></pre></div>
+<p>Gibt man <em>keine</em> Spalte an, so bezieht sich <code>top_n</code> auf die letzte Spalte im Datensatz.</p>
+<p>Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir <em>nicht</em> 3 Zeilen zurückgeliefert, sondern entsprechend mehr.</p>
+<div id="aufgaben-4" class="section level4">
+<h4><span class="header-section-number">3.3.3.1</span> Aufgaben<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li><code>arrange</code> arrangiert Spalten.</li>
+<li><code>arrange</code> sortiert im Standard absteigend.</li>
+<li><code>arrange</code> lässt nur ein Sortierkriterium zu.</li>
+<li><code>arrange</code> kann numerische Werte, aber nicht Zeichenketten sortieren.</li>
+<li><code>top_n(5)</code> liefert die fünf kleinsten Ränge.</li>
+</ol>
+</div>
+<p></p>
+</div>
+</div>
+<div id="datensatz-gruppieren-mit-group_by" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Datensatz gruppieren mit <code>group_by</code></h3>
+<p>Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittlere Umsatz in Region X im Vergleich zu Region Y? Ist die Reaktionszeit in der Experimentalgruppe kleiner als in der Kontrollgruppe? Können Männer schneller ausparken als Frauen? Man sieht, dass das Gruppieren v.a. in Verbindung mit Mittelwerten oder anderen Zusammenfassungen sinnvol ist; dazu im nächsten Abschnitt mehr.</p>
+<blockquote>
+<p>Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).</p>
+</blockquote>
+<div class="figure" style="text-align: center"><span id="fig:fig-groupby"></span>
+<img src="images/Datenjudo/group_by.pdf" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
+<p class="caption">
+Abbildung 3.7: Datensätze nach Subgruppen aufteilen
+</p>
+</div>
+<p>In Abbildung <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:fig-groupby">3.7</a> wurde der Datensatz anhand der Spalte (d.h. Variable) <code>Fach</code> in mehrere Gruppen geteilt (Fach A, Fach B…). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von <code>Fach</code>) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_gruppiert &lt;-<span class="st"> </span><span class="kw">group_by</span>(stats_test, interest)
+test_gruppiert
+<span class="co">#&gt; Source: local data frame [306 x 6]</span>
+<span class="co">#&gt; Groups: interest [7]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;        X                 V_1 study_time self_eval interest score</span>
+<span class="co">#&gt;    &lt;int&gt;              &lt;fctr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1      1 05.01.2017 13:57:01          5         8        5    29</span>
+<span class="co">#&gt; 2      2 05.01.2017 21:07:56          3         7        3    29</span>
+<span class="co">#&gt; 3      3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt; 4      4 06.01.2017 09:58:05          2         3        2    18</span>
+<span class="co">#&gt; 5      5 06.01.2017 14:13:08          4         8        6    34</span>
+<span class="co">#&gt; 6      6 06.01.2017 14:21:18         NA        NA       NA    39</span>
+<span class="co">#&gt; 7      7 06.01.2017 14:25:49         NA        NA       NA    40</span>
+<span class="co">#&gt; 8      8 06.01.2017 17:24:53          2         5        3    24</span>
+<span class="co">#&gt; 9      9 07.01.2017 10:11:17          2         3        5    25</span>
+<span class="co">#&gt; 10    10 07.01.2017 18:10:05          4         5        5    33</span>
+<span class="co">#&gt; # ... with 296 more rows</span></code></pre></div>
+<p>Schaut man sich nun den Datensatz an, sieht man erstmal wenig Effekt der Gruppierung. R teilt uns lediglich mit <code>Groups: interest [7]</code>, dass es 7 Gruppen gibt, aber es gibt keine extra Spalte oder sonstige Anzeichen der Gruppierung. Aber keine Sorge, wenn wir gleich einen Mittelwert ausrechnen, bekommen wir den Mittelwert pro Gruppe!</p>
+<p>Ein paar Hinweise: <code>Source: local data frame [306 x 6]</code> will sagen, dass die Ausgabe sich auf einen <code>tibble</code> bezieht<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>, also eine bestimmte Art von Dataframe. <code>Groups: interest [7]</code> zeigt, dass der Tibble in 7 Gruppen - entsprechend der Werte von <code>interest</code> aufgeteilt ist.</p>
+<p><code>group_by</code> an sich ist nicht wirklich nützlich. Nützlich wird es erst, wenn man weitere Funktionen auf den gruppierten Datensatz anwendet - z.B. Mittelwerte ausrechnet (z.B mit <code>summarise</code>, s. unten). Die nachfolgenden Funktionen (wenn sie aus <code>dplyr</code> kommen), berücksichtigen nämlich die Gruppierung. So kann man einfach Mittelwerte pro Gruppe ausrechnen. <code>dplyr</code> kombiniert dann die Zusammenfassungen (z.B. Mittelwerte) der einzelnen Gruppen in einen Dataframe und gibt diesen dann aus.</p>
+<p>Die Idee des “Gruppieren - Zusammenfassen - Kombinieren” ist flexibel; man kann sie häufig brauchen. Es lohnt sich, diese Idee zu lernen (vgl. Abb. <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:sac">3.8</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:sac"></span>
+<img src="images/Datenjudo/sac_crop.pdf" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
+<p class="caption">
+Abbildung 3.8: Schematische Darstellung des ‘Gruppieren - Zusammenfassen - Kombinieren’
+</p>
+</div>
+<div id="aufgaben-5" class="section level4">
+<h4><span class="header-section-number">3.3.4.1</span> Aufgaben<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li>Mit <code>group_by</code> gruppiert man einen Datensatz.</li>
+<li><code>group_by</code> lässt nur ein Gruppierungskriterium zu.</li>
+<li>Die Gruppierung durch <code>group_by</code> wird nur von Funktionen aus <code>dplyr</code> erkannt.</li>
+<li><code>group_by</code> ist sinnvoll mit <code>summarise</code> zu kombinieren.</li>
+</ol>
+</div>
+<p></p>
+<p>Merke:</p>
+<blockquote>
+<p>Mit group_by teilt man einen Datensatz in Gruppen ein, entsprechend der Werte einer mehrerer Spalten.</p>
+</blockquote>
+</div>
+</div>
+<div id="eine-spalte-zusammenfassen-mit-summarise" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Eine Spalte zusammenfassen mit <code>summarise</code></h3>
+<p>Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu <em>einem</em> Wert zusammenzufassen; <code>summarise</code> leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, “aus Spalte mach Zahl”, sozusagen. Daher ist der Name des Befehls <code>summarise</code> ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen <em>anhand</em> einer Funktion wie <code>mean</code> oder <code>max</code> (vgl. Abb. <a href="3-3-zentrale-bausteine-von-dplyr.html#fig:fig-summarise">3.9</a>. Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei <code>summarise</code> nicht erlaubt.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-summarise"></span>
+<img src="images/Datenjudo/summarise.pdf" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
+<p class="caption">
+Abbildung 3.9: Spalten zu einer Zahl zusammenfassen
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">mean</span>(score))
+<span class="co">#&gt;   mean(score)</span>
+<span class="co">#&gt; 1        31.1</span></code></pre></div>
+<p>Man könnte diesen Befehl so ins Deutsche übersetzen: <code>Fasse aus Tabelle stats_test die Spalte score anhand des Mittelwerts zusammen</code>. Nicht vergessen, wenn die Spalte <code>score</code> fehlende Werte hat, wird der Befehl <code>mean</code> standardmäßig dies mit <code>NA</code> quittieren. Ergänzt man den Parameter <code>nr.rm = TRUE</code>, so ignoriert R fehlende Werte und der Befehl <code>mean</code> liefert ein Ergebnis zurück.</p>
+<p>Jetzt können wir auch die Gruppierung nutzen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_gruppiert &lt;-<span class="st"> </span><span class="kw">group_by</span>(stats_test, interest)
+<span class="kw">summarise</span>(test_gruppiert, <span class="kw">mean</span>(score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt; # A tibble: 7 × 2</span>
+<span class="co">#&gt;   interest `mean(score, na.rm = TRUE)`</span>
+<span class="co">#&gt;      &lt;int&gt;                       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        1                        28.3</span>
+<span class="co">#&gt; 2        2                        29.7</span>
+<span class="co">#&gt; 3        3                        30.8</span>
+<span class="co">#&gt; 4        4                        29.9</span>
+<span class="co">#&gt; 5        5                        32.5</span>
+<span class="co">#&gt; 6        6                        34.0</span>
+<span class="co">#&gt; 7       NA                        33.1</span></code></pre></div>
+<p>Der Befehl <code>summarise</code> erkennt also, wenn eine (mit <code>group_by</code>) gruppierte Tabelle vorliegt. Jegliche Zusammenfassung, die wir anfordern, wird anhand der Gruppierungsinformation aufgeteilt werden. In dem Beispiel bekommen wir einen Mittelwert für jeden Wert von <code>interest</code>. Interessanterweise sehen wir, dass der Mittelwert tendenziell größer wird, je größer <code>interest</code> wird.</p>
+<p>Alle diese <code>dplyr</code>-Befehle geben einen Dataframe zurück, was praktisch ist für weitere Verarbeitung. In diesem Fall heißen die Spalten <code>interst</code> und <code>mean(score)</code>. Zweiter Name ist nicht so schön, daher ändern wir den wie folgt:</p>
+<p>Jetzt können wir auch die Gruppierung nutzen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_gruppiert &lt;-<span class="st"> </span><span class="kw">group_by</span>(stats_test, interest)
+<span class="kw">summarise</span>(test_gruppiert, <span class="dt">mw_pro_gruppe =</span> <span class="kw">mean</span>(score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt; # A tibble: 7 × 2</span>
+<span class="co">#&gt;   interest mw_pro_gruppe</span>
+<span class="co">#&gt;      &lt;int&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        1          28.3</span>
+<span class="co">#&gt; 2        2          29.7</span>
+<span class="co">#&gt; 3        3          30.8</span>
+<span class="co">#&gt; 4        4          29.9</span>
+<span class="co">#&gt; 5        5          32.5</span>
+<span class="co">#&gt; 6        6          34.0</span>
+<span class="co">#&gt; 7       NA          33.1</span></code></pre></div>
+<p>Nun heißt die zweite Spalte <code>mw_pro_Gruppe</code>. <code>na.rm = TRUE</code> veranlasst, bei fehlenden Werten trotzdem einen Mittelwert zurückzuliefern (die Zeilen mit fehlenden Werten werden in dem Fall ignoriert).</p>
+<p>Grundsätzlich ist die Philosophie der <code>dplyr</code>-Befehle: “Mach nur eine Sache, aber die dafür gut”. Entsprechend kann <code>summarise</code> nur <em>Spalten</em> zusammenfassen, aber keine <em>Zeilen</em>.</p>
+<p>Merke:</p>
+<blockquote>
+<p>Mit summarise kann man eine Spalte eines Dataframes zu einem Wert zusammenfassen.</p>
+</blockquote>
+<div id="deskriptive-statistik-mit-summarise" class="section level4">
+<h4><span class="header-section-number">3.3.5.1</span> Deskriptive Statistik mit <code>summarise</code></h4>
+<blockquote>
+<p>Die deskriptive Statistik hat zwei Haupt-Bereiche: Lagemaße und Streuungsmaße.</p>
+</blockquote>
+<p><em>Lagemaße</em> geben den “typischen”, “mittleren” oder “repräsentativen” Vertreter der Verteilung an. Bei den Lagemaßen denkt man sofort an das <em>arithmetische Mittel</em> (synonym: Mittelwert; häufig als <span class="math inline">\(\bar{X}\)</span> abgekürzt; <code>mean</code>). Ein Nachteil von Mittelwerten ist, dass sie nicht robust gegenüber Extremwerte sind: Schon ein vergleichsweise großer Einzelwert kann den Mittelwert deutlich verändern und damit die Repräsentativität des Mittelwerts für die Gesamtmenge der Daten in Frage stellen. Eine robuste Variante ist der <em>Median</em> (Md; <code>median</code>). Ist die Anzahl der (unterschiedlichen) Ausprägungen nicht zu groß im Verhältnis zur Fallzahl, so ist der <em>Modus</em> eine sinnvolle Statistik; er gibt die häufigste Ausprägung an<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>.</p>
+<p><em>Streuungsmaße</em> geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der <em>mittlere Absolutabstand</em> (MAA; MAD),<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> die <em>Standardabweichung</em> (sd; <code>sd</code>), die <em>Varianz</em> (Var; <code>var</code>) und der <em>Interquartilsabstand</em> (IQR; <code>IQR</code>). Da nur der IQR <em>nicht</em> auf dem Mittelwert basiert, ist er am robustesten. Beliebige Quantile bekommt man mit dem R-Befehl <code>quantile</code>.</p>
+<p>Der Befehl <code>summarise</code> eignet sich, um deskriptive Statistiken auszurechnen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">mean</span>(score))
+<span class="co">#&gt;   mean(score)</span>
+<span class="co">#&gt; 1        31.1</span>
+<span class="kw">summarise</span>(stats_test, <span class="kw">sd</span>(score))
+<span class="co">#&gt;   sd(score)</span>
+<span class="co">#&gt; 1      5.74</span></code></pre></div>
+<p>Natürlich könnte man auch einfacher schreiben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(stats_test$score)
+<span class="co">#&gt; [1] 31.1</span>
+<span class="kw">median</span>(stats_test$score)
+<span class="co">#&gt; [1] 31</span></code></pre></div>
+<p><code>summarise</code> liefert aber im Unterschied zu <code>mean</code> etc. immer einen Dataframe zurück. Da der Dataframe die typische Datenstruktur ist, ist es häufig praktisch, wenn man einen Dataframe zurückbekommt, mit dem man weiterarbeiten kann. Außerdem lassen <code>mean</code> etc. keine Gruppierungsoperationen zu; über <code>group_by</code> kann man dies aber bei <code>dplyr</code> erreichen.</p>
+</div>
+<div id="aufgaben-6" class="section level4">
+<h4><span class="header-section-number">3.3.5.2</span> Aufgaben<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li>Möchte man aus der Tabelle <code>stats_test</code> den Mittelwert für die Spalte <code>score</code> berechnen, so ist folgende Syntax korrekt: <code>summarise(stats_test, mean(score))</code>.</li>
+<li><code>summarise</code> liefert eine Tabelle, genauer: einen Tibble, zurück.</li>
+<li>Die Tabelle, die diese Funktion zurückliefert: <code>summarise(stats_test, mean(score))</code>, hat eine Spalte mit dem Namen <code>mean(score)</code>.</li>
+<li><code>summarise</code> lässt zu, dass die zu berechnende Spalte einen Namen vom Nutzer zugewiesen bekommt.</li>
+<li><code>summarise</code> darf nur verwendet werden, wenn eine Spalte zu einem Wert zusammengefasst werden soll.</li>
+</ol>
+</div>
+<p></p>
+<ol style="list-style-type: decimal">
+<li>(Fortgeschritten) Bauen Sie einen eigenen Weg, um den mittleren Absolutabstand auszurechnen! Gehen Sie der Einfachheit halber (zuerst) von einem Vektor mit den Werten (1,2,3) aus!</li>
+</ol>
+<p>Lösung:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+x_mw &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
+x_delta &lt;-<span class="st"> </span>x -<span class="st"> </span>x_mw
+x_delta &lt;-<span class="st"> </span><span class="kw">abs</span>(x_delta)
+mad &lt;-<span class="st"> </span><span class="kw">mean</span>(x_delta)
+mad
+<span class="co">#&gt; [1] 0.667</span></code></pre></div>
+</div>
+</div>
+<div id="zeilen-zahlen-mit-n-und-count" class="section level3">
+<h3><span class="header-section-number">3.3.6</span> Zeilen zählen mit <code>n</code> und <code>count</code></h3>
+<p>Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a> <code>nrow</code> versteht der <code>dyplr</code>-Befehl <code>n</code> auch Gruppierungen. <code>n</code> darf nur innerhalb von <code>summarise</code> oder ähnlichen <code>dplyr</code>-Befehlen verwendet werden.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">n</span>())
+<span class="co">#&gt;   n()</span>
+<span class="co">#&gt; 1 306</span>
+<span class="kw">summarise</span>(test_gruppiert, <span class="kw">n</span>())
+<span class="co">#&gt; # A tibble: 7 × 2</span>
+<span class="co">#&gt;   interest `n()`</span>
+<span class="co">#&gt;      &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1        1    30</span>
+<span class="co">#&gt; 2        2    47</span>
+<span class="co">#&gt; 3        3    66</span>
+<span class="co">#&gt; 4        4    41</span>
+<span class="co">#&gt; 5        5    45</span>
+<span class="co">#&gt; 6        6     9</span>
+<span class="co">#&gt; 7       NA    68</span>
+<span class="kw">nrow</span>(stats_test)
+<span class="co">#&gt; [1] 306</span></code></pre></div>
+<p>Außerhalb von gruppierten Datensätzen ist <code>nrow</code> meist praktischer.</p>
+<p>Praktischer ist der Befehl <code>count</code>, der nichts anderes ist als die Hintereinanderschaltung von <code>group_by</code> und <code>n</code>. Mit <code>count</code> zählen wir die Häufigkeiten nach Gruppen; Gruppen sind hier zumeist die Werte einer auszuzählenden Variablen (oder mehrerer auszuzählender Variablen). Das macht <code>count</code> zu einem wichtigen Helfer bei der Analyse von Häufigkeitsdaten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr::<span class="kw">count</span>(stats_test, interest)
+<span class="co">#&gt; # A tibble: 7 × 2</span>
+<span class="co">#&gt;   interest     n</span>
+<span class="co">#&gt;      &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1        1    30</span>
+<span class="co">#&gt; 2        2    47</span>
+<span class="co">#&gt; 3        3    66</span>
+<span class="co">#&gt; 4        4    41</span>
+<span class="co">#&gt; 5        5    45</span>
+<span class="co">#&gt; 6        6     9</span>
+<span class="co">#&gt; 7       NA    68</span>
+dplyr::<span class="kw">count</span>(stats_test, study_time)
+<span class="co">#&gt; # A tibble: 6 × 2</span>
+<span class="co">#&gt;   study_time     n</span>
+<span class="co">#&gt;        &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1          1    31</span>
+<span class="co">#&gt; 2          2    49</span>
+<span class="co">#&gt; 3          3    85</span>
+<span class="co">#&gt; 4          4    56</span>
+<span class="co">#&gt; 5          5    17</span>
+<span class="co">#&gt; 6         NA    68</span>
+dplyr::<span class="kw">count</span>(stats_test, interest, study_time)
+<span class="co">#&gt; # A tibble: 29 × 3</span>
+<span class="co">#&gt;    interest study_time     n</span>
+<span class="co">#&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1         1          1    12</span>
+<span class="co">#&gt; 2         1          2     7</span>
+<span class="co">#&gt; 3         1          3     8</span>
+<span class="co">#&gt; 4         1          4     2</span>
+<span class="co">#&gt; 5         1          5     1</span>
+<span class="co">#&gt; 6         2          1     9</span>
+<span class="co">#&gt; 7         2          2    15</span>
+<span class="co">#&gt; 8         2          3    16</span>
+<span class="co">#&gt; 9         2          4     6</span>
+<span class="co">#&gt; 10        2          5     1</span>
+<span class="co">#&gt; # ... with 19 more rows</span></code></pre></div>
+<p>Allgemeiner formuliert lautet die Syntax: <code>count(df, Spalte1, ...)</code>, wobei <code>df</code> der Dataframe ist und <code>Spalte1</code> die erste (es können mehrere sein) auszuzählende Spalte. Gibt man z.B. zwei Spalten an, so wird pro Wert der 1. Spalte die Häufigkeiten der 2. Spalte ausgegeben.</p>
+<p>Merke:</p>
+<blockquote>
+<p>n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle.</p>
+</blockquote>
+<div id="aufgaben-7" class="section level4">
+<h4><span class="header-section-number">3.3.6.1</span> Aufgaben<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a></h4>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li>Mit <code>count</code> kann man Zeilen zählen.</li>
+<li><code>count</code> ist ähnlich (oder identisch) zu einer Kombination von <code>group_by</code> und <code>n()</code>.</li>
+<li>Mit <code>count</code> kann man nur nur eine Gruppe beim Zählen berücksichtigen.</li>
+<li><code>count</code> darf nicht bei nominalskalierten Variablen verwendet werden.</li>
+</ol>
+</div>
+<p></p>
+<ol style="list-style-type: decimal">
+<li>Bauen Sie sich einen Weg, um den Modus mithilfe von <code>count</code> und <code>arrange</code> zu bekommen!</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_count &lt;-<span class="st"> </span><span class="kw">count</span>(stats_test, score)
+stats_count_sortiert &lt;-<span class="st"> </span><span class="kw">arrange</span>(stats_count, -n)
+<span class="kw">head</span>(stats_count_sortiert,<span class="dv">1</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;   score     n</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1    34    22</span></code></pre></div>
+<p>Ah! Der Score <code>34</code> ist der häufigste!</p>
+</div>
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-kraemer2011wir">
+<p>Krämer, W. 2011. <em>Wie wir uns von falschen Theorien täuschen lassen</em>. Berlin University Press. <a href="https://books.google.de/books?id=HWUKaAEACAAJ" class="uri">https://books.google.de/books?id=HWUKaAEACAAJ</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="6">
+<li id="fn6"><p>F, R, F, F, R<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref6">↩</a></p></li>
+<li id="fn7"><p>der angegebene Pfad ist also <em>relativ</em> zum aktuellen Verzeichnis.<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref7">↩</a></p></li>
+<li id="fn8"><p>F, F, R, R, F<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref8">↩</a></p></li>
+<li id="fn9"><p>F, F, F, F, R<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref9">↩</a></p></li>
+<li id="fn10"><p><a href="http://stackoverflow.com/questions/29084380/what-is-the-meaning-of-the-local-data-frame-message-from-dplyrprint-tbl-df" class="uri">http://stackoverflow.com/questions/29084380/what-is-the-meaning-of-the-local-data-frame-message-from-dplyrprint-tbl-df</a><a href="3-3-zentrale-bausteine-von-dplyr.html#fnref10">↩</a></p></li>
+<li id="fn11"><p>R, F, R, R<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref11">↩</a></p></li>
+<li id="fn12"><p>Der <em>Modus</em> ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. <a href="https://cran.r-project.org/web/packages/modes/index.html" class="uri">https://cran.r-project.org/web/packages/modes/index.html</a><a href="3-3-zentrale-bausteine-von-dplyr.html#fnref12">↩</a></p></li>
+<li id="fn13"><p>Der <em>MAD</em> ist im Standard-R nicht mit einem eigenen Befehl vertreten. Es gibt einige Pakete, die diese Funktion anbieten: z.B. <a href="https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html" class="uri">https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html</a><a href="3-3-zentrale-bausteine-von-dplyr.html#fnref13">↩</a></p></li>
+<li id="fn14"><p>R, R, R, R, R<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref14">↩</a></p></li>
+<li id="fn15"><p>Standardbefehl meint, dass die Funktion zum Standardrepertoire von R gehört, also nicht über ein Paket extra geladen werden muss<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref15">↩</a></p></li>
+<li id="fn16"><p>R, R, F, F<a href="3-3-zentrale-bausteine-von-dplyr.html#fnref16">↩</a></p></li>
+</ol>
+</div>
+<p style="text-align: center;">
+<a href="3-2-daten-aufbereiten-mit-dplyr.html"><button class="btn btn-default">Previous</button></a>
+<a href="3-4-die-pfeife.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

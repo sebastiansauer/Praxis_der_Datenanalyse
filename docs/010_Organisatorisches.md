@@ -3,6 +3,11 @@
 
 # Organisatorisches
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+
 ## Modulziele
 
 Die Studierenden können nach erfolgreichem Abschluss des Moduls:
