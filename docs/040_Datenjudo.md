@@ -59,8 +59,8 @@ Willkommen in der Welt von `dyplr`! `dplyr` hat seinen Namen, weil es sich aussc
 
 Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r-project.org/web/packages/dplyr/index.html] ist ein populäres Paket dafür. `dplyr` basiert auf zwei Ideen: 
 
-1. "Lego-Prinzip": Komplexe Datenanalysen in Bausteine zerlegen (vgl. Abb. \@ref(fig:bausteine)).
-2. "Durchpfeifen": Alle Operationen werden nur auf Dataframes angewendet; jede Operation erwartet einen Dataframe als Eingabe und gibt wieder einen Dataframe aus (vgl. Abb. \@ref(fig:durchpfeifen-allgemein)).
+1. *Lego-Prinzip* Komplexe Datenanalysen in Bausteine zerlegen (vgl. Abb. \@ref(fig:bausteine)).
+2. *Durchpfeifen*: Alle Operationen werden nur auf Dataframes angewendet; jede Operation erwartet einen Dataframe als Eingabe und gibt wieder einen Dataframe aus (vgl. Abb. \@ref(fig:durchpfeifen-allgemein)).
 
 
 <div class="figure" style="text-align: center">
