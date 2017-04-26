@@ -5,11 +5,14 @@
 <!-- \pagenumbering{arabic} -->
 
 
+<<<<<<< HEAD
 
 
 # I EXPLORIEREN {-}
 
 
+=======
+>>>>>>> debug
 <img src="images/farb1.jpg" width="100%" style="display: block; margin: auto;" />
 
 # Rahmen
@@ -100,7 +103,11 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
+<<<<<<< HEAD
 <img src="images/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+=======
+<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+>>>>>>> debug
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
