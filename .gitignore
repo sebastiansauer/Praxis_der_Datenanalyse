@@ -28,6 +28,7 @@ __Archive__/
 *.toc
 *.fdb_latexmk
 
+
 # Knitr database #
 ##################
 
