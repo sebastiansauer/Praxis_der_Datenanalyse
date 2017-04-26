@@ -1,0 +1,9 @@
+base
+psych
+ggplot2
+dplyr
+bindrcpp
+corrplot
+MBESS
+broom
+knitr

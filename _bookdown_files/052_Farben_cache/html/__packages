@@ -1,0 +1,15 @@
+base
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+wesanderson
+RColorBrewer
+knitr
+gridExtra
+nycflights13
+ggthemes
+cowplot

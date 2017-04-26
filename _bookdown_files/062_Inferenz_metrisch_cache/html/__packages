@@ -1,0 +1,9 @@
+base
+dplyr
+lattice
+ggplot2
+mosaicData
+Matrix
+mosaic
+effects
+lsr

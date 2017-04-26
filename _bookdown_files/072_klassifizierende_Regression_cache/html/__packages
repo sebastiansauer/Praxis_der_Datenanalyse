@@ -1,0 +1,14 @@
+base
+dplyr
+lattice
+ggplot2
+mosaicData
+Matrix
+mosaic
+bindrcpp
+SDMTools
+gplots
+ROCR
+zoo
+lmtest
+BaylorEdPsych
