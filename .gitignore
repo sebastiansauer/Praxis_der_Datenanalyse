@@ -2,16 +2,10 @@
 # Project files #
 #################
 
-.Rproj.user/
-.Rhistory
-.RData
-.Rapp.history
-
-__Archive__/
 
 .httr-oauth
 *.log
-*.aux
+
 
 
 # temporary files #
@@ -19,13 +13,8 @@ __Archive__/
 
 *.tmp
 *.aux
-*.fls
-*.ilg
-*.ind
-*.lof
-*.out
-*.toc
-*.fdb_latexmk
+
+
 
 
 
