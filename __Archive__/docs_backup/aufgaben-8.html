@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="auswahl-von-pradiktoren.html">
+<link rel="next" href="befehlsubersicht-6.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aufgaben-8" class="section level2">
+<h2><span class="header-section-number">9.11</span> Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li>Erfolg beim Online-Dating</li>
+</ol>
+<p>Lesen Sie diesen<a href="#fn50" class="footnoteRef" id="fnref50"><sup>50</sup></a> Artikel <span class="citation">(Sauer und Wolff <a href="#ref-sauer_wolff">2016</a>)</span>. Zeichnen Sie ein Pfaddiagramm zum Modell!<a href="#fn51" class="footnoteRef" id="fnref51"><sup>51</sup></a>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Ziele des Modellierens</li>
+</ol>
+<p>Welche drei Ziele des Modellierens kann man unterscheiden?<a href="#fn52" class="footnoteRef" id="fnref52"><sup>52</sup></a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Bias-Varianz-Abwägung</li>
+</ol>
+<p>Betrachten Sie Abb. <a href="aufgaben-8.html#fig:plot-bias-variance2">9.10</a>. Welches der beiden Modelle (visualiert im jeweiligen Plot) ist wahrscheinlich…</p>
+<ul>
+<li>mehr bzw. weniger robust gegenüber Änderungen im Datensatz?</li>
+<li>mehr oder weniger präzise?</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:plot-bias-variance2"></span>
+<img src="060_Modellieren_files/figure-html/plot-bias-variance2-1.png" alt="Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz." width="70%" />
+<p class="caption">
+Abbildung 9.10: Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz.
+</p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Richtig oder falsch?<a href="#fn53" class="footnoteRef" id="fnref53"><sup>53</sup></a></li>
+</ol>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li>Die Aussage “Pro Kilo Schoki steigt der Hüftumfang um einen Zentimeter” kann als Beispiel für ein deterministisches Modell herhalten.</li>
+<li>Gruppiert man Kunden nach ähnlichen Kaufprofilen, so ist man insofern an “Reduzieren” der Datenmenge interessiert.</li>
+<li>Grundsätzlich gilt: Je komplexer ein Modell, desto besser.</li>
+<li>Mit “Bias” ist gemeint, dass ein Modell “zittrig” oder “wackelig” ist - sich also bei geringer Änderung der Stichprobendaten massiv in den Vorhersagen ändert.</li>
+<li>In der Gleichung <span class="math inline">\(Y=f(x)+\epsilon\)</span> steht <span class="math inline">\(\epsilon\)</span> für den Teil der Kriteriums, der nicht durch das Modell erklärt wird.</li>
+</ol>
+</div>
+<p></p>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-sauer_wolff">
+<p>Sauer, Sebastian, und Alexander Wolff. 2016. „The effect of a status symbol on success in online dating: an experimental study (data paper)“. <em>The Winnower</em>, August. doi:<a href="https://doi.org/10.15200/winn.147241.13309">10.15200/winn.147241.13309</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="50">
+<li id="fn50"><p><a href="https://thewinnower.com/papers/5202-the-effect-of-a-status-symbol-on-success-in-online-dating-an-experimental-study-data-paper?review_it=true" class="uri">https://thewinnower.com/papers/5202-the-effect-of-a-status-symbol-on-success-in-online-dating-an-experimental-study-data-paper?review_it=true</a><a href="aufgaben-8.html#fnref50">↩</a></p></li>
+<li id="fn51"><p>Status <span class="math inline">\(\rightarrow\)</span> Erfolg beim Online-Dating<a href="aufgaben-8.html#fnref51">↩</a></p></li>
+<li id="fn52"><p><a href="Ziele.html#Ziele">9.3</a><a href="aufgaben-8.html#fnref52">↩</a></p></li>
+<li id="fn53"><p>R, F, F, F, R<a href="aufgaben-8.html#fnref53">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="auswahl-von-pradiktoren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="befehlsubersicht-6.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

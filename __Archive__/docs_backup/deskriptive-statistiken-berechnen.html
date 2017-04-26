@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="datenaufbereitung.html">
+<link rel="next" href="befehlsubersicht-3.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="deskriptive-statistiken-berechnen" class="section level2">
+<h2><span class="header-section-number">5.2</span> Deskriptive Statistiken berechnen</h2>
+<div id="mittelwerte-pro-zeile-berechnen" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Mittelwerte pro Zeile berechnen</h3>
+<div id="rowmeans" class="section level4">
+<h4><span class="header-section-number">5.2.1.1</span> <code>rowMeans</code></h4>
+<p>Um Umfragedaten auszuwerten, will man häufig einen Mittelwert <em>pro Zeile</em> berechnen. Normalerweise fasst man eine <em>Spalte</em> zu einer Zahl zusammen; aber jetzt, fassen wir eine <em>Zeile</em> zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversions-Wert pro Person (d.h. pro Zeile) berechnen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extra &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/extra.csv&quot;</span>)
+
+extra_items &lt;-<span class="st"> </span>extra %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(i01:i10)  <span class="co"># `select` ist aus `dplyr`</span>
+
+<span class="co"># oder:</span>
+<span class="co"># select(extra_items, i01:i10)</span>
+
+extra$extra_mw &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(extra_items)</code></pre></div>
+<p>Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen “schmäleren” Datensatz, <code>extra_items</code>. Im Anschluss berechnen wir mit <code>rowMeans</code> die Mittelwerte pro Zeile (engl. “row”).</p>
+</div>
+<div id="vertiefung-dpyr" class="section level4">
+<h4><span class="header-section-number">5.2.1.2</span> Vertiefung: <code>dpyr</code></h4>
+<p>Alternativ können wir Mittelwerte mit dplyr berechnen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extra_items %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rowwise</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mean_row =</span> <span class="kw">mean</span>(i01:i10)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(mean_row) %&gt;%<span class="st"> </span>
+<span class="st">  </span>head <span class="co"># nur die ersten paar Zeilen von `mean_row` zeigen</span>
+<span class="co">#&gt; # A tibble: 6 × 1</span>
+<span class="co">#&gt;   mean_row</span>
+<span class="co">#&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      2.0</span>
+<span class="co">#&gt; 2      1.5</span>
+<span class="co">#&gt; 3      2.0</span>
+<span class="co">#&gt; 4      2.5</span>
+<span class="co">#&gt; 5      4.0</span>
+<span class="co">#&gt; 6      3.0</span></code></pre></div>
+<p><code>na.omit</code> wirft alle Zeilen raus, in denen fehlende Werte vorkommen. Das ist nötig, damit <code>mean</code> ein Ergebnis ausgibt (bei fehlenden Werten gibt <code>mean</code> sonst <code>NA</code> zurück).</p>
+<p><code>rowwise</code> gruppiert den Datensatz nach Zeilen (<code>row_number()</code>), ist also synonym zu:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extra_items %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(<span class="kw">row_number</span>()) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mean_row =</span> <span class="kw">mean</span>(i01:i10)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(mean_row) %&gt;%<span class="st"> </span>
+<span class="st">  </span>head <span class="co"># nur die ersten paar Zeilen von `mean_row` zeigen</span>
+<span class="co">#&gt; Source: local data frame [6 x 2]</span>
+<span class="co">#&gt; Groups: row_number() [6]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   `row_number()` mean_row</span>
+<span class="co">#&gt;            &lt;int&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1              1      2.0</span>
+<span class="co">#&gt; 2              2      1.5</span>
+<span class="co">#&gt; 3              3      2.0</span>
+<span class="co">#&gt; 4              4      2.5</span>
+<span class="co">#&gt; 5              5      4.0</span>
+<span class="co">#&gt; 6              6      3.0</span></code></pre></div>
+</div>
+</div>
+<div id="mittelwerte-pro-spalte-berechnen" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Mittelwerte pro Spalte berechnen</h3>
+<p>Eine Möglichkeit ist der Befehl <code>summary</code> aus <code>dplyr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(score),
+            <span class="kw">sd</span>(score),
+            <span class="kw">median</span>(score),
+            <span class="kw">IQR</span>(score))
+<span class="co">#&gt;   mean(score) sd(score) median(score) IQR(score)</span>
+<span class="co">#&gt; 1        30.6      5.72            31          9</span></code></pre></div>
+<p>Die Logik von <code>dplyr</code> lässt auch einfach Subgruppenanalysen zu. Z.B. können wir eine Teilmenge des Datensatzes mit <code>filter</code> erstellen und dann mit <code>group_by</code> Gruppen vergleichen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(study_time &gt;<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(interest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">median</span>(score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt; # A tibble: 6 × 2</span>
+<span class="co">#&gt;   interest `median(score, na.rm = TRUE)`</span>
+<span class="co">#&gt;      &lt;int&gt;                         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        1                            28</span>
+<span class="co">#&gt; 2        2                            30</span>
+<span class="co">#&gt; 3        3                            33</span>
+<span class="co">#&gt; 4        4                            31</span>
+<span class="co">#&gt; 5        5                            34</span>
+<span class="co">#&gt; 6        6                            34</span></code></pre></div>
+<p>Wir können auch Gruppierungskriterien unterwegs erstellen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(study_time &gt;<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(<span class="dt">intessiert =</span> interest &gt;<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">median</span>(score))
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;   intessiert `median(score)`</span>
+<span class="co">#&gt;        &lt;lgl&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      FALSE              30</span>
+<span class="co">#&gt; 2       TRUE              32</span></code></pre></div>
+<p>Die beiden Gruppen von <code>interessiert</code> sind “ja, interessiert” (<code>interest &gt; 3</code> ist <code>TRUE</code>) und “nein, nicht interessiert” (<code>interest &gt; 3</code> ist <code>FALSE</code>).</p>
+<p>Etwas expliziter wäre es, <code>mutate</code> zu verwenden, um die Variable <code>interessiert</code> zu erstellen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(study_time &gt;<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">interessiert =</span> interest &gt;<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(interessiert) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">median</span>(score))
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;   interessiert `median(score)`</span>
+<span class="co">#&gt;          &lt;lgl&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        FALSE              30</span>
+<span class="co">#&gt; 2         TRUE              32</span></code></pre></div>
+
+<div class="rmdcaution">
+<p>Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreisern: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.</p>
+<p>Daher: besser robuste Statistiken verwenden. Der Median, der Modus und der IQR bieten sich an.</p>
+</div>
+<p></p>
+</div>
+<div id="korrelationstabellen-berechnen" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Korrelationstabellen berechnen</h3>
+<p>Korrelationen bzw. Korrelationstabellen lassen sich mit dem R-Standardbefehl <code>cor</code> berechnen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/test_inf_short.csv&quot;</span>)
+
+stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(study_time,interest,score) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">cor</span>()
+<span class="co">#&gt;            study_time interest score</span>
+<span class="co">#&gt; study_time          1       NA    NA</span>
+<span class="co">#&gt; interest           NA        1    NA</span>
+<span class="co">#&gt; score              NA       NA     1</span></code></pre></div>
+<p>Oh! Lauter NAs! Besser wir löschen Zeilen mit fehlenden Werten bevor wir die Korrelation ausrechnen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(study_time:score) %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">cor</span>()
+<span class="co">#&gt;            study_time self_eval interest score</span>
+<span class="co">#&gt; study_time      1.000     0.559    0.461 0.441</span>
+<span class="co">#&gt; self_eval       0.559     1.000    0.360 0.628</span>
+<span class="co">#&gt; interest        0.461     0.360    1.000 0.223</span>
+<span class="co">#&gt; score           0.441     0.628    0.223 1.000</span></code></pre></div>
+<p>Alternativ zu <code>cor</code> kann man auch <code>corrr:correlate</code> verwenden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/test_inf_short.csv&quot;</span>)
+
+
+stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(study_time:score) %&gt;%<span class="st"> </span>
+<span class="st">  </span>correlate
+<span class="co">#&gt; # A tibble: 4 × 5</span>
+<span class="co">#&gt;      rowname study_time self_eval interest score</span>
+<span class="co">#&gt;        &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 study_time         NA     0.559    0.461 0.441</span>
+<span class="co">#&gt; 2  self_eval      0.559        NA    0.360 0.628</span>
+<span class="co">#&gt; 3   interest      0.461     0.360       NA 0.223</span>
+<span class="co">#&gt; 4      score      0.441     0.628    0.223    NA</span></code></pre></div>
+<p><code>correlate</code> hat den Vorteil, dass es bei fehlenden Werten einen Wert ausgibt; die Korrelation wird paarweise mit den verfügbaren (nicht-fehlenden) Werten berechnet. Außerdme wird eine Dataframe (genauer: tibble) zurückgeliefert, was häufig praktischer ist zur Weiterverarbeitung. Wir könnten jetzt die resultierende Korrelationstabelle plotten, vorher “rasieren” wir noch das redundaten obere Dreieck ab (da Korrelationstabellen ja symmetrisch sind):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(study_time:score) %&gt;%<span class="st"> </span>
+<span class="st">  </span>correlate %&gt;%<span class="st"> </span>
+<span class="st">  </span>shave %&gt;%<span class="st"> </span>
+<span class="st">  </span>rplot</code></pre></div>
+<p><img src="043_Typische_Probleme_Datenanalyse_files/figure-html/rplot-demo-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="datenaufbereitung.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="befehlsubersicht-3.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

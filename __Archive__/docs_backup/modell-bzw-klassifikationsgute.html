@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="multiple-logistische-regression.html">
+<link rel="next" href="vertiefung-1.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modell--bzw.-klassifikationsgute" class="section level2">
+<h2><span class="header-section-number">12.8</span> Modell- bzw. Klassifikationsgüte</h2>
+<p>Logistische Regressionsmodelle werden häufig zur Klassifikation verwendet, z. B. ob der Kredit für einen Neukunden ein “guter” Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.</p>
+<p>Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (<em>cutpoint</em>), häufig <span class="math inline">\(0.5\)</span>, einer geschätzten <span class="math inline">\(1\)</span> zugeordnet, unterhalb des Schwellenwertes einer <span class="math inline">\(0\)</span>. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (<em>confusion matrix</em>) mit den beobachteten Häufigkeiten verglichen.</p>
+<p>Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (<em>True Positive Rate, TPR</em>), also der Anteil der mit <span class="math inline">\(1\)</span> geschätzten an allen mit <span class="math inline">\(1\)</span> beobachten Werten, und die Spezifität (<em>True Negative Rate</em>) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.</p>
+<p>Sie können die Konfusionsmatrix “zu Fuß” berechnen, in dem Sie eine neue Variable einfügen, die ab dem cutpoint <span class="math inline">\(1\)</span> und sonst <span class="math inline">\(0\)</span> ist und mit dem Befehl <code>tally()</code> ausgeben. Alternativ können Sie das Paket <code>SDMTools</code> verwenden mit der Funktion <code>confusion.matrix()</code>. Ein Parameter ist <code>cutpoint</code>, der standardmäßig auf <span class="math inline">\(0.5\)</span> steht.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Konfusionsmatrix &quot;zu Fuß&quot; berechnen</span>
+<span class="co"># cutpoint = 0.5 setzen</span>
+<span class="co"># neue Variable predicted anlegen mit 1, wenn modellierte Wahrscheinlichkeit &gt; 1 ist</span>
+cutpoint =<span class="st"> </span><span class="fl">0.5</span>
+Aktien$predicted &lt;-<span class="st"> </span>((glm1$fitted.values) &gt;<span class="st"> </span>cutpoint)*<span class="dv">1</span>
+<span class="co"># Kreuztabelle berechnen</span>
+(cm &lt;-<span class="st"> </span><span class="kw">tally</span>(~predicted+Aktienkauf, <span class="dt">data =</span> Aktien))
+<span class="co">#&gt;          Aktienkauf</span>
+<span class="co">#&gt; predicted   0   1</span>
+<span class="co">#&gt;         0 509 163</span>
+<span class="co">#&gt;         1   8  20</span>
+<span class="co"># Sensitivität (TPR)</span>
+cm[<span class="dv">2</span>,<span class="dv">2</span>]/<span class="kw">sum</span>(cm[,<span class="dv">2</span>])
+<span class="co">#&gt; [1] 0.109</span>
+<span class="co"># Spezifität (TNR)</span>
+cm[<span class="dv">1</span>,<span class="dv">1</span>]/<span class="kw">sum</span>(cm[,<span class="dv">1</span>])
+<span class="co">#&gt; [1] 0.985</span>
+
+<span class="co"># mit Hilfe des Pakets SDMTools</span>
+<span class="co"># ggf. install.packages(&quot;SDMTools&quot;)</span>
+<span class="kw">library</span>(SDMTools)
+<span class="co"># optional noch Parameter cutpoint = 0.5  angeben</span>
+(cm &lt;-<span class="st"> </span><span class="kw">confusion.matrix</span>(Aktien$Aktienkauf, glm1$fitted.values)) 
+<span class="co">#&gt;     obs</span>
+<span class="co">#&gt; pred   0   1</span>
+<span class="co">#&gt;    0 509 163</span>
+<span class="co">#&gt;    1   8  20</span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;confusion.matrix&quot;</span>
+<span class="kw">sensitivity</span>(cm)
+<span class="co">#&gt; [1] 0.109</span>
+<span class="kw">specificity</span>(cm)
+<span class="co">#&gt; [1] 0.985</span></code></pre></div>
+<p>Wenn die Anteile der <span class="math inline">\(1\)</span> in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten <span class="math inline">\(p(y=1)\)</span> alle unter <span class="math inline">\(0.5\)</span> liegen. Das würde zu einer Sensitität von <span class="math inline">\(0\)</span> und einer Spezifiät von <span class="math inline">\(1\)</span> führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die <em>ROC</em>-Kurve (<em>Return Operating Characteristic</em>) und den daraus abgeleiteten <em>AUC</em>-Wert (<em>Area Under Curve</em>).</p>
+<p>Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen <span class="math inline">\(1-\)</span>Spezifität (welche Werte sind als <span class="math inline">\(1\)</span> modelliert worden unter den beobachten <span class="math inline">\(0\)</span>, <em>False Positive Rate, FPR</em>). Um diese Werte auszugeben, benötigen Sie das Paket <code>ROCR</code> und die Funktion <code>performance()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggf. install.packages(&quot;ROCR&quot;)</span>
+<span class="kw">library</span>(ROCR)
+<span class="co"># Ein für die Auswertung notwendiges prediction Objekt anlegen</span>
+pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(glm1$fitted.values, Aktien$Aktienkauf)
+<span class="co"># ROC Kurve</span>
+perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<span class="st">&quot;tpr&quot;</span>,<span class="st">&quot;fpr&quot;</span>)
+<span class="kw">plot</span>(perf)
+<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)
+<span class="co"># Area under curve (ROC-Wert)</span>
+<span class="kw">performance</span>(pred,<span class="st">&quot;auc&quot;</span>)@y.values
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 0.636</span></code></pre></div>
+<p><img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>AUC liegt zwischen <span class="math inline">\(0.5\)</span>, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und <span class="math inline">\(1\)</span>. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei <span class="math inline">\(0.7\)</span> und größer, gute Werte sind es ab <span class="math inline">\(0.8\)</span>.<a href="#fn59" class="footnoteRef" id="fnref59"><sup>59</sup></a></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="59">
+<li id="fn59"><p>Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164<a href="modell-bzw-klassifikationsgute.html#fnref59">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multiple-logistische-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vertiefung-1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
