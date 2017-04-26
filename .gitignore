@@ -16,6 +16,14 @@ _bookdown_files
 ###################
 
 *.tmp
+*.aux
+*.fls
+*.ilg
+*.ind
+*.lof
+*.out
+*.toc
+*.fdb_latexmk
 
 
 # Knitr database #
