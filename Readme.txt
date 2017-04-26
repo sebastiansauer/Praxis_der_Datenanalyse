@@ -1,4 +1,10 @@
+PRAXIS DER DATENANALYSE
+=======================
+
+
 Hier entsteht ein Kurs in angewandter Datenanalyse mit einem Schwerpunkt auf modernen Methoden.
+
+Dieses Werk ist publiziert unter CC-BY-SA-NC 3.0 de.
 
 Um die HTML-Version des Buches zu öffnen, öffnen Sie die Datei "docs/index.html" mit ihrem Browser.
 
