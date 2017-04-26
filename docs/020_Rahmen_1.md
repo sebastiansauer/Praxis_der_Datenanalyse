@@ -5,8 +5,7 @@
 
 
 
-
-\begin{center}\includegraphics[width=1\linewidth]{images/farb1} \end{center}
+<img src="images/farb1.jpg" width="100%" style="display: block; margin: auto;" />
 
 # Rahmen
 
@@ -27,14 +26,10 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Prozess_Datenanalyse} 
-
-}
-
-\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Prozess_Datenanalyse.pdf" alt="Der Prozess der Datenanalyse" width="70%" />
+<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
+</div>
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -100,8 +95,7 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
+<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
