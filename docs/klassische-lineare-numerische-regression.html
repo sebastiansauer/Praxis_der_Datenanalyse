@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-26">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="iii-geleitetes-modellieren.html">
+<link rel="next" href="klassifizierende-regression.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="klassische-lineare-numerische-regression" class="section level1">
+<h1><span class="header-section-number">Kapitel 11</span> Klassische lineare (numerische) Regression</h1>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Wissen, was man unter Regression versteht.</li>
+<li>Die Annahmen der Regression überprüfen können.</li>
+<li>Regression mit kategorialen Prädiktoren durchführen können.</li>
+<li>Die Regression inferenzstatisisch absichern können.</li>
+<li>Die Modellgüte bei der Regression bestimmen können.</li>
+<li>Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.</li>
+</ul>
+</div>
+<p></p>
+<p>Benötigte Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)  <span class="co"># Modellieren (R^2)</span>
+<span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo, Visualisierung,...</span>
+<span class="kw">library</span>(gridExtra)  <span class="co"># Mehrere Plots kombinieren</span></code></pre></div>
+<div id="einfache-regression" class="section level2">
+<h2><span class="header-section-number">11.1</span> Einfache Regression</h2>
+<p>Wir werden weiter den Datensatz <em>tips</em> analysieren <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>.</p>
+<p>Sofern noch nicht geschehen, können Sie in <a href="https://goo.gl/whKjnl">hier</a> als <code>csv</code>-Datei herunterladen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>)</code></pre></div>
+<p>Zur Unterstützung der Analyse wird (wieder) das Paket <code>mosaic</code> verwendet; außerdem laden wir <code>ggplot2</code> für <code>qplot</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<p>Wie hängen Trinkgeldhöhe <code>tip</code> und Rechnungshöhe <code>total_bill</code> zusammen? Kann die Höhe des Trinkgeldes als <em>lineare</em> Funktion der Rechnungshöhe linear modelliert werden? <span class="math display">\[tip_i=\beta_0+\beta_1\cdot total\_bill_i+\epsilon_i\]</span></p>
+<p>Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">y =</span> tip, <span class="dt">x =</span> total_bill, <span class="dt">data =</span> tips)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Es scheint einen positiven Zusammenhang zu geben. Modellieren wir die <strong>abhängige</strong> Variable <code>tip</code> (inhaltliche Entscheidung!) als lineare Funktion der <strong>unabhängigen</strong> Variable <code>total_bill</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>total_bill, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.1</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -3.198 -0.565 -0.097  0.486  3.743 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)  0.92027    0.15973    5.76  2.5e-08 ***</span>
+<span class="co">#&gt; total_bill   0.10502    0.00736   14.26  &lt; 2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.457,  Adjusted R-squared:  0.454 </span>
+<span class="co">#&gt; F-statistic:  203 on 1 and 242 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Der Achsenabschnitt (<code>intercept</code>) wird mit 0.92 geschätzt, die Steigung in Richtung <code>total_bill</code> mit 0.11: steigt <code>total_bill</code> um einen Dollar, steigt im <em>Durchschnitt</em> <code>tip</code> um 0.11.</p>
+<p>Die (Punkt-)Prognose für <code>tip</code> lautet also</p>
+<p><code>tip</code> = 0.92 + 0.11 * <code>total_bill</code></p>
+<p>Die Koeffzienten werden dabei so geschätzt, dass <span class="math inline">\(\sum \epsilon_i^2\)</span> minimiert wird. Dies wird auch als <em>Kleinste Quadrate</em> (<em>Ordinary Least Squares</em>, <em>OLS</em>) Kriterium bezeichnet. Eine robuste Regression ist z. B. mit der Funktion <code>rlm()</code> aus dem Paket <code>MASS</code> möglich.</p>
+<p>In mosaic kann ein solches Modell einfach als neue Funktion definiert werden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod.1Fun &lt;-<span class="st"> </span><span class="kw">makeFun</span>(LinMod<span class="fl">.1</span>)</code></pre></div>
+<p>Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann berechnet werden mit</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(LinMod<span class="fl">.1</span>, <span class="kw">data.frame</span>(<span class="dt">total_bill=</span><span class="dv">30</span>))
+<span class="co">#&gt;    1 </span>
+<span class="co">#&gt; 4.07</span></code></pre></div>
+<p>In mosaic kann die Modellgerade über</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotModel</span>(LinMod<span class="fl">.1</span>)</code></pre></div>
+<p>betrachtet werden. Das Bestimmtheitsmaß R² ist mit 0.46 “ok”: 46-% der Variation des Trinkgeldes wird im Modell erklärt.</p>
+</div>
+<div id="uberprufung-der-annahmen-der-linearen-regression" class="section level2">
+<h2><span class="header-section-number">11.2</span> Überprüfung der Annahmen der linearen Regression</h2>
+<p>Aber wie sieht es mit den Annahmen aus?</p>
+<ul>
+<li>Die Linearität des Zusammenhangs haben wir zu Beginn mit Hilfe des Scatterplots “überprüft”.</li>
+<li>Zur Überprüfung der Normalverteilung der Residuen zeichnen wir ein Histogramm. Die <em>Residuen</em> können über den Befehl <code>resid()</code> aus einem Linearen Modell extrahiert werden. Hier scheint es zu passen:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Residuen =</span> <span class="kw">resid</span>(LinMod<span class="fl">.1</span>))
+<span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">data =</span> resid_df)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><em>Konstante Varianz</em>: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Die angepassten (geschätzten) Werte werden über den Befehl <code>fitted()</code>[^3] extrahiert. Diese Annahme scheint verletzt zu sein (siehe unten): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot <code>qplot(x = tip, y = total_bill, data=tips)</code> erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst <em>nicht</em> die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des Hypothesentests, d. h., <span class="math inline">\(H_0:\beta_1=0\)</span>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resid_df$fitted &lt;-<span class="st"> </span><span class="kw">fitted</span>(LinMod<span class="fl">.1</span>)
+<span class="kw">qplot</span>(<span class="dt">x =</span> Residuen, <span class="dt">y =</span> fitted, <span class="dt">data =</span> resid_df)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><em>Extreme Ausreißer</em>: Wie am Plot der Linearen Regression <code>plotModel(LinMod.1)</code> erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.</li>
+</ul>
+<p>Hängt die Rechnungshöhe von der Anzahl der Personen ab? Bestimmt, aber wie?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span>total_bill, <span class="dt">y =</span> size, <span class="dt">data=</span>tips)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Da bei diskreten metrischen Variablen (hier <code>size</code>) Punkte übereinander liegen können, sollte man “jittern” (“schütteln”), d. h., eine (kleine) Zufallszahl addieren:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> size, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+
+<div class="rmdexercises">
+<ol style="list-style-type: decimal">
+<li><p>Um wie viel Dollar steigt im Durchschnitt das Trinkgeld, wenn eine Person mehr am Tisch sitzt?</p></li>
+<li>Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="regression-mit-kategorialen-pradiktoren" class="section level2">
+<h2><span class="header-section-number">11.3</span> Regression mit kategorialen Prädiktoren</h2>
+<p>Der Wochentag <code>day</code> ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?</p>
+<p>Zunächst grafisch:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> tip,<span class="dt">y =</span> day, <span class="dt">data=</span>tips)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Und als Lineares Modell:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>day, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.2</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ day, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.245 -0.993 -0.235  0.538  7.007 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   2.7347     0.3161    8.65  7.5e-16 ***</span>
+<span class="co">#&gt; daySat        0.2584     0.3489    0.74     0.46    </span>
+<span class="co">#&gt; daySun        0.5204     0.3534    1.47     0.14    </span>
+<span class="co">#&gt; dayThur       0.0367     0.3613    0.10     0.92    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.38 on 240 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0205, Adjusted R-squared:  0.00823 </span>
+<span class="co">#&gt; F-statistic: 1.67 on 3 and 240 DF,  p-value: 0.174</span></code></pre></div>
+<p>Die im Modell angegebenen Schätzwerte sind die Änderung der Trinkgeldprognose, wenn z. B. der Tag ein Samstag (<code>daySat</code>) im Vergleich zu einer Referenzkategorie. Dies ist in R das erste Element des Vektors der Faktorlevel. Welcher dies ist ist über den Befehl <code>levels()</code> zu erfahren</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(tips$day)
+<span class="co">#&gt; [1] &quot;Fri&quot;  &quot;Sat&quot;  &quot;Sun&quot;  &quot;Thur&quot;</span></code></pre></div>
+<p>hier also Fri (aufgrund der standardmäßig aufsteigenden alphanumerischen Sortierung). Dies kann über <code>relevel()</code> geändert werden. Soll z. B. die Referenz der Donnerstag, <code>Thur</code> sein:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips$day &lt;-<span class="st"> </span><span class="kw">relevel</span>(tips$day, <span class="dt">ref =</span> <span class="st">&quot;Thur&quot;</span>)
+<span class="kw">levels</span>(tips$day)
+<span class="co">#&gt; [1] &quot;Thur&quot; &quot;Fri&quot;  &quot;Sat&quot;  &quot;Sun&quot;</span></code></pre></div>
+<p>Das Modell ändert sich entsprechend:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>day, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.3</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ day, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.245 -0.993 -0.235  0.538  7.007 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   2.7715     0.1750   15.84   &lt;2e-16 ***</span>
+<span class="co">#&gt; dayFri       -0.0367     0.3613   -0.10    0.919    </span>
+<span class="co">#&gt; daySat        0.2217     0.2290    0.97    0.334    </span>
+<span class="co">#&gt; daySun        0.4837     0.2358    2.05    0.041 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.38 on 240 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0205, Adjusted R-squared:  0.00823 </span>
+<span class="co">#&gt; F-statistic: 1.67 on 3 and 240 DF,  p-value: 0.174</span></code></pre></div>
+<p>sowie als Plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotModel</span>(LinMod<span class="fl">.3</span>)</code></pre></div>
+<p>Eine Alternative zu <code>relevel()</code> zur Bestimmung der Referenzkategorie ist es, innerhalb von <code>factor()</code> die Option <code>levels=</code> direkt in der gewünschten Sortierung zu setzen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day &lt;-<span class="st"> </span><span class="kw">factor</span>(tips$day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,  <span class="st">&quot;Sun&quot;</span>))</code></pre></div>
+<p>Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. an einen Freitag kann dann berechnet werden</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod.3Fun &lt;-<span class="st"> </span><span class="kw">makeFun</span>(LinMod<span class="fl">.3</span>)
+<span class="kw">LinMod.3Fun</span>(<span class="dt">day=</span><span class="st">&quot;Fri&quot;</span>)</code></pre></div>
+
+<div class="rmdexercises">
+<ol start="3" style="list-style-type: decimal">
+<li>Wie verändert sich die Rechnungshöhe im Durchschnitt, wenn die Essenszeit Dinner statt Lunch ist?</li>
+<li>Wie viel % der Variation der Rechnungshöhe können Sie durch die Essenszeit modellieren?</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2><span class="header-section-number">11.4</span> Multiple Regression</h2>
+<p>Aber wie wirken sich die Einflussgrößen <em>zusammen</em> auf das Trinkgeld aus?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>total_bill +<span class="st"> </span>size +<span class="st"> </span>sex  +<span class="st"> </span>smoker +<span class="st"> </span>day +<span class="st"> </span>time, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size + sex + smoker + day + time, </span>
+<span class="co">#&gt;     data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.848 -0.573 -0.103  0.476  4.108 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   0.6416     0.4976    1.29    0.199    </span>
+<span class="co">#&gt; total_bill    0.0945     0.0096    9.84   &lt;2e-16 ***</span>
+<span class="co">#&gt; size          0.1760     0.0895    1.97    0.051 .  </span>
+<span class="co">#&gt; sexMale      -0.0324     0.1416   -0.23    0.819    </span>
+<span class="co">#&gt; smokerYes    -0.0864     0.1466   -0.59    0.556    </span>
+<span class="co">#&gt; dayFri        0.1623     0.3934    0.41    0.680    </span>
+<span class="co">#&gt; daySat        0.0408     0.4706    0.09    0.931    </span>
+<span class="co">#&gt; daySun        0.1368     0.4717    0.29    0.772    </span>
+<span class="co">#&gt; timeLunch     0.0681     0.4446    0.15    0.878    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 235 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.47,   Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic: 26.1 on 8 and 235 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Interessant sind die negativen Vorzeichen vor den Schätzwerten für <code>sexMale</code> und <code>smokerYes</code> – anscheinend geben Männer und Raucher weniger Trinkgeld, wenn alle anderen Faktoren konstant bleiben. Bei einer rein univariaten Betrachtung wäre etwas anderes herausgekommen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(tip ~<span class="st"> </span>sex, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ sex, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.090 -1.090 -0.090  0.667  6.910 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)    2.833      0.148   19.14   &lt;2e-16 ***</span>
+<span class="co">#&gt; sexMale        0.256      0.185    1.39     0.17    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.38 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0079, Adjusted R-squared:  0.0038 </span>
+<span class="co">#&gt; F-statistic: 1.93 on 1 and 242 DF,  p-value: 0.166</span>
+<span class="kw">summary</span>(<span class="kw">lm</span>(tip ~<span class="st"> </span>smoker, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ smoker, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.009 -0.994 -0.100  0.558  6.991 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   2.9919     0.1128   26.52   &lt;2e-16 ***</span>
+<span class="co">#&gt; smokerYes     0.0169     0.1828    0.09     0.93    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.39 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  3.51e-05,   Adjusted R-squared:  -0.0041 </span>
+<span class="co">#&gt; F-statistic: 0.00851 on 1 and 242 DF,  p-value: 0.927</span></code></pre></div>
+<p>Diese <em>Umkehrung</em> des modellierten Effektes liegt daran, dass es auch einen positiven Zusammenhang zur Rechnungshöhe gibt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(total_bill ~<span class="st"> </span>sex, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = total_bill ~ sex, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -14.99  -6.02  -1.94   3.99  30.07 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   18.057      0.946   19.08   &lt;2e-16 ***</span>
+<span class="co">#&gt; sexMale        2.687      1.180    2.28    0.024 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 8.83 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.021,  Adjusted R-squared:  0.0169 </span>
+<span class="co">#&gt; F-statistic: 5.19 on 1 and 242 DF,  p-value: 0.0236</span>
+<span class="kw">summary</span>(<span class="kw">lm</span>(total_bill ~<span class="st"> </span>smoker, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = total_bill ~ smoker, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -17.69  -6.46  -1.89   4.58  30.05 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   19.188      0.723   26.53   &lt;2e-16 ***</span>
+<span class="co">#&gt; smokerYes      1.568      1.172    1.34     0.18    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 8.89 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.00735,    Adjusted R-squared:  0.00325 </span>
+<span class="co">#&gt; F-statistic: 1.79 on 1 and 242 DF,  p-value: 0.182</span></code></pre></div>
+<p>Im vollem Modell <code>LinMod.4</code> sind alle unabhängigen Variablen berücksichtigt, die Koeffizienten beziehen sich dann immer auf: gegeben, die anderen Variablen bleiben konstant, d. h. ceteris paribus.</p>
+<p>Vergleichen wir mal zwei Modelle:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod.5a &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st">  </span>sex, <span class="dt">data=</span>tips)
+<span class="kw">coef</span>(LinMod.5a) <span class="co"># Koeffizienten extrahieren</span>
+<span class="co">#&gt; (Intercept)     sexMale </span>
+<span class="co">#&gt;       2.833       0.256</span>
+LinMod.5b &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st">  </span>sex +<span class="st"> </span>total_bill, <span class="dt">data=</span>tips)
+<span class="kw">coef</span>(LinMod.5b) <span class="co"># Koeffizienten extrahieren</span>
+<span class="co">#&gt; (Intercept)     sexMale  total_bill </span>
+<span class="co">#&gt;      0.9333     -0.0266      0.1052</span></code></pre></div>
+<p>Ohne die Berücksichtigung der <strong>Kovariable/Störvariable</strong> Rechnungshöhe geben Male<br />
+ein um im Durchschnitt 0.26 <em>höheres</em> Trinkgeld, bei Kontrolle, d. h. gleicher Rechnungshöhe ein um 0.03 <em>niedrigeres</em> Trinkgeld als die Referenzklasse Female (<code>levels(tips$sex)[1]</code>).</p>
+</div>
+<div id="inferenz-in-der-linearen-regression" class="section level2">
+<h2><span class="header-section-number">11.5</span> Inferenz in der linearen Regression</h2>
+<p>Kehren wir noch einmal zur multivariaten Regression (<code>LinMod.4</code>) zurück.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size + sex + smoker + day + time, </span>
+<span class="co">#&gt;     data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.848 -0.573 -0.103  0.476  4.108 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   0.6416     0.4976    1.29    0.199    </span>
+<span class="co">#&gt; total_bill    0.0945     0.0096    9.84   &lt;2e-16 ***</span>
+<span class="co">#&gt; size          0.1760     0.0895    1.97    0.051 .  </span>
+<span class="co">#&gt; sexMale      -0.0324     0.1416   -0.23    0.819    </span>
+<span class="co">#&gt; smokerYes    -0.0864     0.1466   -0.59    0.556    </span>
+<span class="co">#&gt; dayFri        0.1623     0.3934    0.41    0.680    </span>
+<span class="co">#&gt; daySat        0.0408     0.4706    0.09    0.931    </span>
+<span class="co">#&gt; daySun        0.1368     0.4717    0.29    0.772    </span>
+<span class="co">#&gt; timeLunch     0.0681     0.4446    0.15    0.878    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 235 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.47,   Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic: 26.1 on 8 and 235 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>In der 4. Spalte der, mit Zeilennamen versehenen Tabelle <code>Coefficients</code> stehen die p-Werte der Nullhypothese, die unabhängige Variable hat, gegeben alle anderen Variablen im Modell, keinen linearen Einfluss auf die abhängige Variable: <span class="math inline">\(H_0: \beta_i=0\)</span>. Zur Bestimmung des p-Wertes wird der Schätzer (<code>Estimate</code>) durch den Standardfehler (<code>Std. Error</code>) dividiert. Der resultierende t-Wert (<code>t value</code>) wird dann, zusammen mit der Anzahl an Freiheitsgraden zur Berechnung des p-Wertes (<code>Pr(&gt;|t|)</code>) verwendet. Ein einfacher t-Test!</p>
+<p>Zur schnelleren Übersicht finden sich dahinter “Sternchen” und “Punkte”, die die entsprechenden Signifikanzniveaus symbolisieren: <code>***</code> bedeutet eine Irrtumswahrscheinlichkeit, Wahrscheinlichkeit für Fehler 1. Art, von unter 0.001, d. h. unter 0,1%. <code>**</code> entsprechend 1%, <code>*</code> 5% und <code>.</code> 10%.</p>
+<p>Zum Signifikanzniveau von 10% sind hier also zwei Faktoren und der Achsenabschnitt (<code>(Intercept)</code>) signifikant – nicht notwendigerweise relevant: Rechnungshöhe <code>total_bill</code> sowie Anzahl Personen <code>size</code>. Beides wirkt sich linear positiv auf die Trinkgeldhöhe aus: Mit jedem Dollar Rechnungshöhe steigt im Mittelwert die Trinkgeldhöhe um 0.09 Dollar, mit jeder Person um 0.18 Dollar – gegeben alle anderen Faktoren bleiben konstant. Das Bestimmtheitsmaß R² (<code>Multiple R-squared:</code>) liegt bei 0.47, also 47% der Variation des Trinkgeldes wird im Modell erklärt.</p>
+<p>Außerdem wird getestet, ob alle Koeffizienten der unabhängigen Variablen gleich Null sind: <span class="math display">\[H_0: \beta_1=\beta_2=\cdots=\beta_k=0\]</span> Das Ergebnis des zugrundeliegenden F-Tests (vgl. Varianzanalyse) wird in der letzten Zeile angegeben (<code>F-Statistic</code>). Hier wird <span class="math inline">\(H_0\)</span> also verworfen.</p>
+</div>
+<div id="modellgute-bei-regressionsmodellen" class="section level2">
+<h2><span class="header-section-number">11.6</span> Modellgüte bei Regressionsmodellen</h2>
+<p>In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte so:</p>
+<blockquote>
+<p>Wie groß ist der Unterschied zwischen Vorhersage und Wirklichkeit?</p>
+</blockquote>
+<p>Die Größe des Unterschieds (Differenz, “Delta”) zwischen vorhergesagten (geschätzten) Wert und Wirklichkeit, bezeichnet man als <em>Fehler</em>, <em>Residuum</em> oder Vohersagefehler, häufig mit <span class="math inline">\(\epsilon\)</span> (griechisch e wie “error”) abgekürzt.</p>
+<p>Graphisch kann man das gut veranschaulichen:</p>
+<p><img src="071_Regression_files/figure-html/resids-plot-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Betrachten Sie die beiden Plots. Die rote Linie gibt die vorhergesagten (geschätzten) Werte wieder; die Punkte die beobachteten (“echten”) Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler.</p>
+<blockquote>
+<p>Je kürzer die typische “Abweichungslinie”, desto besser die Vohersage.</p>
+</blockquote>
+<p>Sagt mein Modell voraus, dass Ihre Schuhgröße 49 ist, aber in Wahrheit liegt sie bei 39, so werden Sie dieses Modell als schlecht beurteilen.</p>
+<p>Leider ist es nicht immer einfach zu sagen, wie groß der Fehler sein muss, damit das Modell als “schlecht” gilt. Man kann argumentieren, dass es keine wissenschaftliche Frage sei, wie viel “viel” oder “genug” ist <span class="citation">(Briggs <a href="#ref-uncertainty">2016</a>)</span>. Das ist zwar plausibel, hilft aber nicht, wenn ich eine Entscheidung treffen muss. Stellen Sie sich vor: Ich zwinge Sie mit der Pistole auf der Brust, meine Schuhgröße zu schätzen.</p>
+<p>Eine einfache Lösung ist, das beste Modell unter mehreren Kandidaten zu wählen.</p>
+<p>Ein anderer Ansatz ist, die Vorhersage in Bezug zu einem Kriterium zu setzen. Dieses “andere Kriterium” könnte sein “einfach raten”. Oder, etwas intelligenter, Sie schätzen meine Schuhgröße auf einen Wert, der eine gewisse Plausibiliät hat, also z.B. die durchschnittliche Schuhgröße des deutschen Mannes. Auf dieser Basis kann man dann quantifizieren, ob und wieviel besser man als dieses Referenzkriterium ist.</p>
+<div id="mittlere-quadratfehler" class="section level3">
+<h3><span class="header-section-number">11.6.1</span> Mittlere Quadratfehler</h3>
+<p>Eine der häufigsten Gütekennzahlen ist der <em>mittlere quadrierte Fehler</em> (engl. “mean squared error”, MSE), wobei Fehler wieder als Differenz zwischen Vorhersage (<code>pred</code>) und beobachtete Wirklichkeit (<code>obs</code>, <code>y</code>) definiert ist. Dieser berechnet für jede Beobachtung den Fehler, quadriert diesen Fehler und bilden dann den Mittelwert dieser “Quadratfehler”, also einen <em>mittleren Quadratfehler</em>. Die englische Abkürzung <em>MSE</em> ist auch im Deutschen gebräuchlich.</p>
+<p><span class="math display">\[ MSE = \frac{1}{n} \sum{(pred - obs)^2} \]</span></p>
+<p>Konzeptionell ist dieses Maß an die Varianz angelehnt. Zieht man aus diesem Maß die Wurzel, so erhält man den sog. <em>root mean square error</em> (RMSE), welchen man sich als die Standardabweichung der Vorhesagefehler vorstellen kann. In Pseudo-R-Syntax:</p>
+<pre class="pseudo"><code>RMSE &lt;- sqrt(mean((df$pred - df$obs)^2))</code></pre>
+<p>Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also z.B. Schuhgrößen-Nummern.</p>
+<p>Übrigens: Der RMSE hat eine Reihe von wünschenswerten statistischen Eigenschaften, über die wir uns hier ausschweigen</p>
+</div>
+<div id="r-quadrat-r2" class="section level3">
+<h3><span class="header-section-number">11.6.2</span> R-Quadrat (<span class="math inline">\(R^2\)</span>)</h3>
+<p><span class="math inline">\(R^2\)</span>, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem “Nullmodell” an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: “Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!”.</p>
+<p>Damit gibt <span class="math inline">\(R^2\)</span> an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein <span class="math inline">\(R^2\)</span> von 25% (0.25) hieße, dass unser Vorhersagefehler 25% <em>kleiner</em> ist als der der Nullmodells. Ein <span class="math inline">\(R^2\)</span> von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man <span class="math inline">\(R^2\)</span> so definieren:</p>
+<p><span class="math display">\[ R^2 = 1 - (\frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler})\]</span></p>
+<p>Präziser, in R-Syntax:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span><span class="kw">sum</span>((df$pred -<span class="st"> </span>df$obs)^<span class="dv">2</span>) /<span class="st"> </span><span class="kw">sum</span>((<span class="kw">mean</span>(df$obs) -<span class="st"> </span>df$obs)^<span class="dv">2</span>)</code></pre></div>
+<p>Praktischerweise gibt es einige R-Pakete, die diese Berechnung für uns besorgen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
+<span class="kw">postResample</span>(<span class="dt">obs =</span> obs, <span class="dt">pred =</span> pred)</code></pre></div>
+<p>Hier steht<code>obs</code> für beobachtete Werte und <code>pred</code> für die vorhergesagten Werte. Dieser Befehl gibt sowohl RMSE als auch <span class="math inline">\(R^2\)</span> wieder.</p>
+</div>
+<div id="likelihood-and-friends" class="section level3">
+<h3><span class="header-section-number">11.6.3</span> Likelihood and Friends</h3>
+<p>Der <em>Likelihood</em> <span class="math inline">\(L\)</span> beantwortet folgende Frage:</p>
+<blockquote>
+<p>Angenommen, ein Modell M ist wahr. Wie wahrscheinlich ist es dann, die Daten D zu beobachten?</p>
+</blockquote>
+<p>Zum Beispiel: Eine faire Münze wird 10 Mal geworfen (Modell M: faire Münze). Wie wahrscheinlich ist es, 10 Mal Zahl zu werfen? Die Wahrscheinlichkeit hierfür liegt bei ca. 0.1%. Der Likelihood wäre also hier ~0.1%.</p>
+<p>Bei komplexen Modellen kann der Likelihood sehr klein werden. Damit haben Computer Probleme, weil z.B. nur eine begrenzte Anzahl von Dezimalen berücksichtigt werden. Werden zuviele Dezimalstellen gerundet, kann es das Ergebnis verfälschen. Daher wird der Likelihood häufig logarithmiert; man spricht dann vom <em>log Likelihood</em>. Der Logarithmus von einer positiven, sehr kleine Zahl ist eine negative Zahl mit großen Absolutwert. Man verwendet meist den natürlichen Logarithmus, wobei das eigentlich keine Rolle spielt. Manchmal dreht man noch das Vorzeichen um, damit der Log Likelihood wieder positiv ist.</p>
+<p>Gütekriterien wie AIC, BIC, CAIC oder die Devianz (engl. <em>deviance</em>) sind vom Likelihood abgeleitet. Meist wird noch berücksichtigt, wie komplex das Modell ist; komplexe Modelle tun sich leichter als einfachere Modelle, die Daten zu erklären. Aber sie könnten die Daten auch “überanpassen”. Um die mögliche Scheingenauigkeit komplexerer Modelle auszugleichen, wird der Likelihood vom AIC etc. mit einem Strafwert belegt, der proportional zur Komplexität des Modells ist <span class="citation">(Zumel, Mount, und Porzak <a href="#ref-zumel2014practical">2014</a>)</span>.</p>
+
+<div class="rmdcaution">
+<p>Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.</p>
+</div>
+<p></p>
+</div>
+</div>
+<div id="vertiefungen-zum-regressionmodell" class="section level2">
+<h2><span class="header-section-number">11.7</span> Vertiefungen zum Regressionmodell</h2>
+<div id="modellwahl" class="section level3">
+<h3><span class="header-section-number">11.7.1</span> Modellwahl</h3>
+<p>Das Modell mit allen Variablen des Datensatzes, d. h., mit 6 unabhängigen (<code>LinMod.4</code>) erklärt 47.01% der Variation, das Modell <em>nur</em> mit der Rechnungshöhe als erklärende Variable (<code>LinMod.1</code>) schon 45.66%, der Erklärungszuwachs liegt also gerade einmal bei 1.35 Prozentpunkten. In der Statistik ist die Wahl des <em>richtigen</em> Modells eine der größten Herausforderungen, auch deshalb, weil das wahre Modell in der Regel nicht bekannt ist und es schwer ist, die richtige Balance zwischen Einfachheit und Komplexität zu finden. Aufgrund des Zufalls kann es immer passieren, dass das Modell sich zu sehr an die <em>zufälligen</em> Daten anpasst (Stichwort: Overfitting). Es gibt unzählige Modellwahlmethoden, und leider garantiert keine, dass immer das beste Modell gefunden wird. Eine Möglichkeit ist die sogenannte Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums (AIC)<a href="#fn56" class="footnoteRef" id="fnref56"><sup>56</sup></a>. Diese ist nicht nur recht weit verbreitet - und liefert unter bestimmten Annahmen das “richtige” Modell - sondern in R durch den Befehl <code>step()</code> einfach umsetzbar:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">step</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; Start:  AIC=20.5</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker + day + time</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS   AIC</span>
+<span class="co">#&gt; - day         3       0.6 247  15.1</span>
+<span class="co">#&gt; - time        1       0.0 247  18.5</span>
+<span class="co">#&gt; - sex         1       0.1 247  18.6</span>
+<span class="co">#&gt; - smoker      1       0.4 247  18.9</span>
+<span class="co">#&gt; &lt;none&gt;                    247  20.5</span>
+<span class="co">#&gt; - size        1       4.1 251  22.5</span>
+<span class="co">#&gt; - total_bill  1     101.6 348 102.7</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=15.1</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker + time</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - time        1       0.0 247 13.1</span>
+<span class="co">#&gt; - sex         1       0.0 247 13.2</span>
+<span class="co">#&gt; - smoker      1       0.4 248 13.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 15.1</span>
+<span class="co">#&gt; - size        1       4.3 251 17.4</span>
+<span class="co">#&gt; - total_bill  1     101.7 349 97.2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=13.1</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - sex         1       0.0 247 11.2</span>
+<span class="co">#&gt; - smoker      1       0.4 248 11.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 13.1</span>
+<span class="co">#&gt; - size        1       4.3 251 15.4</span>
+<span class="co">#&gt; - total_bill  1     103.3 350 96.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=11.2</span>
+<span class="co">#&gt; tip ~ total_bill + size + smoker</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - smoker      1       0.4 248  9.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 11.2</span>
+<span class="co">#&gt; - size        1       4.3 252 13.4</span>
+<span class="co">#&gt; - total_bill  1     104.3 351 95.0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=9.53</span>
+<span class="co">#&gt; tip ~ total_bill + size</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; &lt;none&gt;                    248  9.5</span>
+<span class="co">#&gt; - size        1       5.2 253 12.6</span>
+<span class="co">#&gt; - total_bill  1     106.3 354 94.7</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill         size  </span>
+<span class="co">#&gt;      0.6689       0.0927       0.1926</span></code></pre></div>
+<p>In den letzten Zeilen der Ausgabe steht das beste Modell, das diese Methode (schrittweise, rückwärts) mit diesem Kriterium (AIC) bei diesen Daten findet (Punktprognose, d. h. ohne Residuum):</p>
+<p><code>tip =  0.66894 +  0.09271 * total_bill + 0.19260 * size</code></p>
+<p>Der Ausgabe können Sie auch entnehmen, welche Variablen in welcher Reihenfolge <em>entfernt</em> wurden: Zunächst <code>day</code>, dann <code>time</code>, danach <code>sex</code> und schließlich <code>smoker</code>. Hier sind also dieselben Variablen noch im Modell, die auch in <code>LinMod.4</code> signifikant zum Niveau 10% waren, eine Auswahl der dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist häufig so, aber nicht immer!</p>
+</div>
+<div id="interaktionen" class="section level3">
+<h3><span class="header-section-number">11.7.2</span> Interaktionen</h3>
+<p>Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der Zusammenhang je nachdem, ob geraucht wurde, d. h., vielleicht gibt es eine Interaktion (Wechselwirkung). Die kann in <code>lm</code> einfach durch ein <code>*</code> zwischen den unabhängigen Variablen modelliert werden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>smoker*total_bill, <span class="dt">data =</span> tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.6</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ smoker * total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.679 -0.524 -0.120  0.475  4.900 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                      Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)           0.36007    0.20206    1.78  0.07601 .  </span>
+<span class="co">#&gt; smokerYes             1.20420    0.31226    3.86  0.00015 ***</span>
+<span class="co">#&gt; total_bill            0.13716    0.00968   14.17  &lt; 2e-16 ***</span>
+<span class="co">#&gt; smokerYes:total_bill -0.06757    0.01419   -4.76  3.3e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.979 on 240 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.506,  Adjusted R-squared:   0.5 </span>
+<span class="co">#&gt; F-statistic: 81.9 on 3 and 240 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Der Schätzwert für die Interaktion steht bei <code>:</code>. Hier also: Wenn geraucht wurde, ist die Steigung im Durchschnitt um 6,8 Cent geringer. Aber wenn geraucht wurde, ist die Rechnung im Achsenabschnitt erstmal um 1,20$ höher (Effekt, ceteris paribus). Wer will, kann ausrechnen, ab welcher Rechnungshöhe Rauchertische im Mittelwert lukrativer sind…</p>
+<p>Das gleiche Bild (höhere Achsenabschnitt, geringere Steigung) ergibt sich übrigens bei getrennten Regressionen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(tip~total_bill, <span class="dt">data=</span>tips, <span class="dt">subset =</span> smoker==<span class="st">&quot;Yes&quot;</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips, subset = smoker == </span>
+<span class="co">#&gt;     &quot;Yes&quot;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill  </span>
+<span class="co">#&gt;      1.5643       0.0696</span>
+<span class="kw">lm</span>(tip~total_bill, <span class="dt">data=</span>tips, <span class="dt">subset =</span> smoker==<span class="st">&quot;No&quot;</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips, subset = smoker == </span>
+<span class="co">#&gt;     &quot;No&quot;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill  </span>
+<span class="co">#&gt;       0.360        0.137</span></code></pre></div>
+</div>
+<div id="weitere-modellierungsmoglichkeiten" class="section level3">
+<h3><span class="header-section-number">11.7.3</span> Weitere Modellierungsmöglichkeiten</h3>
+<p>Über das Formelinterface <code>y~x</code> können auch direkt z. B. Polynome modelliert werden. Hier eine quadratische Funktion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(tip~<span class="kw">I</span>(total_bill^<span class="dv">2</span>)+total_bill, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ I(total_bill^2) + total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -3.200 -0.559 -0.098  0.484  3.776 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                  Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)      8.91e-01   3.47e-01    2.57  0.01078 *  </span>
+<span class="co">#&gt; I(total_bill^2) -5.71e-05   6.02e-04   -0.09  0.92457    </span>
+<span class="co">#&gt; total_bill       1.08e-01   3.08e-02    3.51  0.00054 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 241 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.457,  Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic:  101 on 2 and 241 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>D. h., die geschätzte Funktion ist eine “umgedrehte Parabel” (negatives Vorzeichen bei <code>I(total_bill^2)</code>), bzw. die Funktion ist konkav, die Steigung nimmt ab. Allerdings ist der Effekt nicht signifikant. <strong>Hinweis:</strong> Um zu “rechnen” und nicht beispielsweise Interaktion zu modellieren, geben Sie die Variablen in der Formel in der Funktion <code>I()</code> (<em>As Is</em>) ein.</p>
+</div>
+<div id="prognoseintervalle" class="section level3">
+<h3><span class="header-section-number">11.7.4</span> Prognoseintervalle</h3>
+<p>Insgesamt haben wir viel “Unsicherheit” u. a. aufgrund von Variabilität in den Beobachtungen und in den Schätzungen. Wie wirken sich diese auf die Prognose aus?</p>
+<p>Dazu können wir über die Funktion <code>predict.lm</code> Prognoseintervalle berechnen – hier für das einfache Modell <code>LinMod.1</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newdat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">total_bill =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>))
+preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(LinMod<span class="fl">.1</span>, <span class="dt">newdata =</span> newdat, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)
+<span class="kw">head</span>(preddat)
+<span class="co">#&gt;    fit    lwr  upr</span>
+<span class="co">#&gt; 1 0.92 -1.117 2.96</span>
+<span class="co">#&gt; 2 1.03 -1.010 3.06</span>
+<span class="co">#&gt; 3 1.13 -0.903 3.16</span>
+<span class="co">#&gt; 4 1.24 -0.797 3.27</span>
+<span class="co">#&gt; 5 1.34 -0.690 3.37</span>
+<span class="co">#&gt; 6 1.45 -0.583 3.47</span>
+<span class="kw">tail</span>(preddat)
+<span class="co">#&gt;     fit  lwr  upr</span>
+<span class="co">#&gt; 71 8.27 6.13 10.4</span>
+<span class="co">#&gt; 72 8.38 6.23 10.5</span>
+<span class="co">#&gt; 73 8.48 6.33 10.6</span>
+<span class="co">#&gt; 74 8.59 6.43 10.7</span>
+<span class="co">#&gt; 75 8.69 6.53 10.9</span>
+<span class="co">#&gt; 76 8.80 6.63 11.0</span>
+<span class="kw">matplot</span>(newdat$total_bill, preddat, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">type=</span><span class="st">&quot;l&quot;</span> )
+<span class="kw">points</span>(<span class="dt">x=</span>tips$total_bill, <span class="dt">y=</span>tips$tip)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Sie sehen, dass 95% Prognoseintervall ist recht breit: über den gewählten Rechnungsbereich von <span class="math inline">\(0-75\)</span>$ im Mittelwert bei 4.11$.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>((preddat[,<span class="dv">3</span>]-preddat[,<span class="dv">2</span>]))
+<span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span class="co">#&gt;    4.03    4.04    4.07    4.12    4.17    4.34</span></code></pre></div>
+<p>Zu den Rändern hin wird es breiter. Am schmalsten ist es übrigens beim Mittelwert der unabhängigen Beobachtungen, hier also bei 19.79$.</p>
+<hr />
+</div>
+</div>
+<div id="ubung-teaching-rating" class="section level2">
+<h2><span class="header-section-number">11.8</span> Übung: Teaching Rating</h2>
+<p>Dieser Datensatz analysiert u. a. den Zusammenhang zwischen Schönheit und Evaluierungsergebnis von Dozenten <span class="citation">(Hamermesh und Parker <a href="#ref-hamermesh2005beauty">2005</a>)</span>. Sie können ihn, sofern noch nicht geschehen, von <a href="https://goo.gl/6Y3KoK" class="uri">https://goo.gl/6Y3KoK</a> als <code>csv</code> herunterladen.</p>
+<p>Versuchen Sie, das Evaluierungsergebnis als abhängige Variable anhand geeigneter Variablen des Datensatzes zu erklären. Wie groß ist der Einfluss der Schönheit? Sind die Modellannahmen erfüllt und wie beurteilen Sie die Modellgüte?</p>
+</div>
+<div id="overfitting-casestudy" class="section level2">
+<h2><span class="header-section-number">11.9</span> Fallstudie zu Overfitting</h2>
+<p>Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der <em>Trainingsstichprobe</em> schätzt mit einer Regression, bei der die Modellgüte in einer <em>Test-Stichprobe</em> überprüft wird.</p>
+<p>Zuerst führen wir dafür eine simple Regression aus und lassen uns <span class="math inline">\(R^2\)</span> ausgeben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/wo_men.csv&quot;</span>)
+
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(shoe_size ~<span class="st"> </span>height, <span class="dt">data =</span> df)
+<span class="kw">summary</span>(lm1)$r.squared
+<span class="co">#&gt; [1] 0.306</span></code></pre></div>
+<p>Im zweiten Schritt teilen wir die Stichprobe in eine Trainings- und eine Test-Stichprobe auf. Wir “trainineren” das Modell anhand der Daten aus der Trainings-Stichprobe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">train &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_frac</span>(.<span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)  <span class="co"># Stichprobe von 80%, ohne Zurücklegen</span>
+
+test &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(train)  <span class="co"># Alle Zeilen von &quot;df&quot;, die nicht in &quot;train&quot; vorkommen</span>
+
+lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(shoe_size ~<span class="st"> </span>height, <span class="dt">data =</span> train)</code></pre></div>
+<p>Dann testen wir (die Modellgüte) anhand der Test-Stichprobe. Also los, <code>lm2</code>, mach Deine Vorhersage:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(lm2, <span class="dt">newdata =</span> test)</code></pre></div>
+<p>Diese Syntax sagt:</p>
+
+<div class="rmdpseudocode">
+<p>Speichere unter dem Namen “lm2_predict” das Ergebnis folgender Berechnung:<br />
+Mache eine Vorhersage (“to predict”) anhand des Modells “lm2”,<br />
+wobei frische Daten (“data = test”) verwendet werden sollen.</p>
+</div>
+<p></p>
+<p>Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Trinkgeld-Wert speichert.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred =</span> lm2_predict, <span class="dt">obs =</span> test$shoe_size)
+<span class="co">#&gt;     RMSE Rsquared </span>
+<span class="co">#&gt;   10.540    0.634</span></code></pre></div>
+<p>Die Funktion <code>postResample</code> aus dem Paket <code>caret</code> liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!</p>
+</div>
+<div id="literatur-1" class="section level2">
+<h2><span class="header-section-number">11.10</span> Literatur</h2>
+<ul>
+<li>David M. Diez, Christopher D. Barr, Mine Çetinkaya-Rundel (2014): <em>Introductory Statistics with Randomization and Simulation</em>, <a href="https://www.openintro.org/stat/textbook.php?stat_book=isrs" class="uri">https://www.openintro.org/stat/textbook.php?stat_book=isrs</a>, Kapitel 5, 6.1-6.3</li>
+<li>Nicholas J. Horton, Randall Pruim, Daniel T. Kaplan (2015): Project MOSAIC Little Books <em>A Student’s Guide to R</em>, <a href="https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf" class="uri">https://github.com/ProjectMOSAIC/LittleBooks/raw/master/StudentGuide/MOSAIC-StudentGuide.pdf</a>, Kapitel 5.4, 10.2</li>
+<li>Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (2013): <em>An Introduction to Statistical Learning – with Applications in R</em>, <a href="http://www-bcf.usc.edu/~gareth/ISL/" class="uri">http://www-bcf.usc.edu/~gareth/ISL/</a>, Kapitel 3</li>
+<li>Maike Luhmann (2015): <em>R für Einsteiger</em>, Kapitel 16, 17.1-17.3</li>
+<li>Andreas Quatember (2010): <em>Statistik ohne Angst vor Formeln</em>, Kapitel 3.11</li>
+<li>Daniel Wollschläger (2014): <em>Grundlagen der Datenanalyse mit R</em>, Kapitel 6</li>
+</ul>
+<hr />
+<p>Diese Übung basiert teilweise auf Übungen zum Buch <a href="https://www.openintro.org/stat/index.php?stat_book=isrs">OpenIntro</a> von Andrew Bray und Mine Çetinkaya-Rundel unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.</p>
+
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-bryant1995practical">
+<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
+</div>
+<div id="ref-uncertainty">
+<p>Briggs, William M. 2016. <em>Uncertainty: The Soul of Modeling, Probability &amp; Statistics</em>. Springer. <a href="https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK">https://www.amazon.com/Uncertainty-Soul-Modeling-Probability-Statistics-ebook/dp/B01JEJNUJK%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01JEJNUJK</a>.</p>
+</div>
+<div id="ref-zumel2014practical">
+<p>Zumel, Nina, John Mount, und Jim Porzak. 2014. <em>Practical data science with R</em>. Manning.</p>
+</div>
+<div id="ref-hamermesh2005beauty">
+<p>Hamermesh, Daniel S, und Amy Parker. 2005. „Beauty in the classroom: Instructors’ pulchritude and putative pedagogical productivity“. <em>Economics of Education Review</em> 24 (4). Elsevier: 369–76.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="56">
+<li id="fn56"><p>siehe z. B. Rob J Hyndman &amp; George Athanasopoulos, Forecasting: principles and practice, Kapitel 5.3: Selecting predictors, <a href="https://www.otexts.org/fpp/5/3" class="uri">https://www.otexts.org/fpp/5/3</a><a href="klassische-lineare-numerische-regression.html#fnref56">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="iii-geleitetes-modellieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="klassifizierende-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

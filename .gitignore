@@ -7,7 +7,7 @@
 .RData
 _bookdown_files
 .Rapp.history
-docs/
+
 __Archive__/
 
 .httr-oauth
@@ -19,7 +19,14 @@ __Archive__/
 ###################
 
 *.tmp
-
+*.aux
+*.fls
+*.ilg
+*.ind
+*.lof
+*.out
+*.toc
+*.fdb_latexmk
 
 # Knitr database #
 ##################

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+<meta name="date" content="2017-04-26">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="praxisprobleme-der-datenaufbereitung.html">
+<link rel="next" href="daten-visualisieren.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+true
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fallstudie-zum-datenjudo" class="section level1">
+<h1><span class="header-section-number">Kapitel 6</span> Fallstudie zum Datenjudo</h1>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Grundlegende Funktionen von <code>dplyr</code> andwenden können.</li>
+<li>Das Konzept der Pfeife in einem echten Datensatz anwenden können.</li>
+<li>Auch mit relativ großen Daten sicher hantieren können.</li>
+</ul>
+</div>
+<p></p>
+<p>Schauen wir uns einige Beispiele der Datenaufbereitung mittels <code>dplyr</code> anhand einer Fallstudie an. Wir verwenden hier den Datensatz <code>flights</code>aus dem Package <code>nycflights13</code>. Der Datensatz ist recht groß (~300.000 Zeilen und 19 Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen wir einen ersten Blick in die Daten:</p>
+<p>Laden wir zuerst <code>dplyr</code> and friends. Das geht mit dem Paket <code>tidyverse</code>, welches diese Pakete lädt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(nycflights13)  <span class="co"># für die Daten</span></code></pre></div>
+<p>Dann laden wir die Daten aus dem Paket <code>nycflights13</code> und werfen eine Blick hinein (“to glimpse”). <code>glimpse</code> zeigt uns einen Überblick über den Dataframe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(flights)
+<span class="kw">glimpse</span>(flights)
+<span class="co">#&gt; Observations: 336,776</span>
+<span class="co">#&gt; Variables: 19</span>
+<span class="co">#&gt; $ year           &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013,...</span>
+<span class="co">#&gt; $ month          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...</span>
+<span class="co">#&gt; $ day            &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...</span>
+<span class="co">#&gt; $ dep_time       &lt;int&gt; 517, 533, 542, 544, 554, 554, 555, 557, 557, 55...</span>
+<span class="co">#&gt; $ sched_dep_time &lt;int&gt; 515, 529, 540, 545, 600, 558, 600, 600, 600, 60...</span>
+<span class="co">#&gt; $ dep_delay      &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2...</span>
+<span class="co">#&gt; $ arr_time       &lt;int&gt; 830, 850, 923, 1004, 812, 740, 913, 709, 838, 7...</span>
+<span class="co">#&gt; $ sched_arr_time &lt;int&gt; 819, 830, 850, 1022, 837, 728, 854, 723, 846, 7...</span>
+<span class="co">#&gt; $ arr_delay      &lt;dbl&gt; 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -...</span>
+<span class="co">#&gt; $ carrier        &lt;chr&gt; &quot;UA&quot;, &quot;UA&quot;, &quot;AA&quot;, &quot;B6&quot;, &quot;DL&quot;, &quot;UA&quot;, &quot;B6&quot;, &quot;EV&quot;,...</span>
+<span class="co">#&gt; $ flight         &lt;int&gt; 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79...</span>
+<span class="co">#&gt; $ tailnum        &lt;chr&gt; &quot;N14228&quot;, &quot;N24211&quot;, &quot;N619AA&quot;, &quot;N804JB&quot;, &quot;N668DN...</span>
+<span class="co">#&gt; $ origin         &lt;chr&gt; &quot;EWR&quot;, &quot;LGA&quot;, &quot;JFK&quot;, &quot;JFK&quot;, &quot;LGA&quot;, &quot;EWR&quot;, &quot;EWR&quot;...</span>
+<span class="co">#&gt; $ dest           &lt;chr&gt; &quot;IAH&quot;, &quot;IAH&quot;, &quot;MIA&quot;, &quot;BQN&quot;, &quot;ATL&quot;, &quot;ORD&quot;, &quot;FLL&quot;...</span>
+<span class="co">#&gt; $ air_time       &lt;dbl&gt; 227, 227, 160, 183, 116, 150, 158, 53, 140, 138...</span>
+<span class="co">#&gt; $ distance       &lt;dbl&gt; 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 94...</span>
+<span class="co">#&gt; $ hour           &lt;dbl&gt; 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5,...</span>
+<span class="co">#&gt; $ minute         &lt;dbl&gt; 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, ...</span>
+<span class="co">#&gt; $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...</span></code></pre></div>
+<p>Der Befehl <code>data</code> lädt Daten aus einem zuvor gestarteten Paket.</p>
+<div id="achtung-fallstudie" class="section level2">
+<h2><span class="header-section-number">6.1</span> Achtung, Fallstudie</h2>
+<p>Sie sind der/die Assistent_in des Chefs der New Yorker Flughäfen. Ihr Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der größten Verspätung raussuchen. Nix schickes, aber zacki-zacki…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(arr_delay)
+<span class="co">#&gt; # A tibble: 336,776 × 19</span>
+<span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1   2013     5     7     1715           1729       -14     1944</span>
+<span class="co">#&gt; 2   2013     5    20      719            735       -16      951</span>
+<span class="co">#&gt; 3   2013     5     2     1947           1949        -2     2209</span>
+<span class="co">#&gt; 4   2013     5     6     1826           1830        -4     2045</span>
+<span class="co">#&gt; 5   2013     5     4     1816           1820        -4     2017</span>
+<span class="co">#&gt; 6   2013     5     2     1926           1929        -3     2157</span>
+<span class="co">#&gt; 7   2013     5     6     1753           1755        -2     2004</span>
+<span class="co">#&gt; 8   2013     5     7     2054           2055        -1     2317</span>
+<span class="co">#&gt; 9   2013     5    13      657            700        -3      908</span>
+<span class="co">#&gt; 10  2013     1     4     1026           1030        -4     1305</span>
+<span class="co">#&gt; # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,</span>
+<span class="co">#&gt; #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span>
+<span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+<p>Hm, übersichtlicher wäre es wahrscheinlich, wenn wir weniger Spalten anschauen müssten. Am besten neben der Verspätung nur die Information, die wir zur Identifizierung der Schuldigen… will sagen der gesuchten Flüge benötigen</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(arr_delay) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
+<span class="co">#&gt; # A tibble: 336,776 × 8</span>
+<span class="co">#&gt;    arr_delay carrier month   day dep_time tailnum flight  dest</span>
+<span class="co">#&gt;        &lt;dbl&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1        -86      VX     5     7     1715  N843VA    193   SFO</span>
+<span class="co">#&gt; 2        -79      VX     5    20      719  N840VA     11   SFO</span>
+<span class="co">#&gt; 3        -75      UA     5     2     1947  N851UA    612   LAX</span>
+<span class="co">#&gt; 4        -75      AA     5     6     1826  N3KCAA    269   SEA</span>
+<span class="co">#&gt; 5        -74      AS     5     4     1816  N551AS      7   SEA</span>
+<span class="co">#&gt; 6        -73      UA     5     2     1926  N24212   1628   SFO</span>
+<span class="co">#&gt; 7        -71      DL     5     6     1753  N3760C   1394   PDX</span>
+<span class="co">#&gt; 8        -71      UA     5     7     2054  N806UA    622   SFO</span>
+<span class="co">#&gt; 9        -71      B6     5    13      657  N805JB    671   LAX</span>
+<span class="co">#&gt; 10       -70      VX     1     4     1026  N855VA     23   SFO</span>
+<span class="co">#&gt; # ... with 336,766 more rows</span></code></pre></div>
+<p>Da Zahlen in ihrer natürlichen Form von klein nach groß sortiert sind, sortiert <code>arrange</code> in ebendieser Richtung. Wir können das umdrehen mit einem Minuszeichen vor der zu sortierenden Spalte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-arr_delay) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)
+<span class="co">#&gt; # A tibble: 336,776 × 8</span>
+<span class="co">#&gt;    arr_delay carrier month   day dep_time tailnum flight  dest</span>
+<span class="co">#&gt;        &lt;dbl&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1       1272      HA     1     9      641  N384HA     51   HNL</span>
+<span class="co">#&gt; 2       1127      MQ     6    15     1432  N504MQ   3535   CMH</span>
+<span class="co">#&gt; 3       1109      MQ     1    10     1121  N517MQ   3695   ORD</span>
+<span class="co">#&gt; 4       1007      AA     9    20     1139  N338AA    177   SFO</span>
+<span class="co">#&gt; 5        989      MQ     7    22      845  N665MQ   3075   CVG</span>
+<span class="co">#&gt; 6        931      DL     4    10     1100  N959DL   2391   TPA</span>
+<span class="co">#&gt; 7        915      DL     3    17     2321  N927DA   2119   MSP</span>
+<span class="co">#&gt; 8        895      DL     7    22     2257  N6716C   2047   ATL</span>
+<span class="co">#&gt; 9        878      AA    12     5      756  N5DMAA    172   MIA</span>
+<span class="co">#&gt; 10       875      MQ     5     3     1133  N523MQ   3744   ORD</span>
+<span class="co">#&gt; # ... with 336,766 more rows</span></code></pre></div>
+<!-- Eine kleine Zugabe: Mit dem Befehl `knitr::kable` kann man einen Dataframe automatisch in eine (einigermaßen) schöne Tabelle ausgeben lassen. -->
+<p>Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10 Plätze.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-arr_delay) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() &lt;<span class="st"> </span><span class="dv">11</span>) 
+<span class="co">#&gt; # A tibble: 10 × 8</span>
+<span class="co">#&gt;    arr_delay carrier month   day dep_time tailnum flight  dest</span>
+<span class="co">#&gt;        &lt;dbl&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1       1272      HA     1     9      641  N384HA     51   HNL</span>
+<span class="co">#&gt; 2       1127      MQ     6    15     1432  N504MQ   3535   CMH</span>
+<span class="co">#&gt; 3       1109      MQ     1    10     1121  N517MQ   3695   ORD</span>
+<span class="co">#&gt; 4       1007      AA     9    20     1139  N338AA    177   SFO</span>
+<span class="co">#&gt; 5        989      MQ     7    22      845  N665MQ   3075   CVG</span>
+<span class="co">#&gt; 6        931      DL     4    10     1100  N959DL   2391   TPA</span>
+<span class="co">#&gt; 7        915      DL     3    17     2321  N927DA   2119   MSP</span>
+<span class="co">#&gt; 8        895      DL     7    22     2257  N6716C   2047   ATL</span>
+<span class="co">#&gt; 9        878      AA    12     5      756  N5DMAA    172   MIA</span>
+<span class="co">#&gt; 10       875      MQ     5     3     1133  N523MQ   3744   ORD</span></code></pre></div>
+<p>“Geht doch”, war die Antwort des Chefs, als sie die Tabelle rübergeben (er mag auch keine Emails). “Ach ja”, raunt der Chef, als Sie das Zimmer verlassen wollen, “hatte ich erwähnt, dass ich die gleiche Auswertung für jeden Carrier brauche? Reicht bis in einer halben Stunde”.</p>
+<p>Wir gruppieren also den Datensatz nach der Fluggesellschaft (<code>carrier</code>) und filtern dann die ersten 3 Zeilen (damit die Tabelle für den Chef nicht zu groß wird). Wie jeder <code>dplyr</code>-Befehl wird die vorherige Gruppierung berücksichtigt und daher die Top-3-Zeilen <em>pro Gruppe</em>, d.h. pro Fluggesellschaft, ausgegeben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-arr_delay) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(carrier) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() &lt;<span class="st"> </span><span class="dv">4</span>) 
+<span class="co">#&gt; Source: local data frame [48 x 8]</span>
+<span class="co">#&gt; Groups: carrier [16]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    arr_delay carrier month   day dep_time tailnum flight  dest</span>
+<span class="co">#&gt;        &lt;dbl&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1       1272      HA     1     9      641  N384HA     51   HNL</span>
+<span class="co">#&gt; 2       1127      MQ     6    15     1432  N504MQ   3535   CMH</span>
+<span class="co">#&gt; 3       1109      MQ     1    10     1121  N517MQ   3695   ORD</span>
+<span class="co">#&gt; 4       1007      AA     9    20     1139  N338AA    177   SFO</span>
+<span class="co">#&gt; 5        989      MQ     7    22      845  N665MQ   3075   CVG</span>
+<span class="co">#&gt; 6        931      DL     4    10     1100  N959DL   2391   TPA</span>
+<span class="co">#&gt; 7        915      DL     3    17     2321  N927DA   2119   MSP</span>
+<span class="co">#&gt; 8        895      DL     7    22     2257  N6716C   2047   ATL</span>
+<span class="co">#&gt; 9        878      AA    12     5      756  N5DMAA    172   MIA</span>
+<span class="co">#&gt; 10       852      AA     5    19      713  N3HEAA    257   LAS</span>
+<span class="co">#&gt; # ... with 38 more rows</span></code></pre></div>
+<p>Vielleicht gefällt dem Chef diese Darstellung (sortiert nach <code>carrier</code>) besser:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-arr_delay) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(carrier) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() &lt;<span class="st"> </span><span class="dv">4</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(carrier)
+<span class="co">#&gt; Source: local data frame [48 x 8]</span>
+<span class="co">#&gt; Groups: carrier [16]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    arr_delay carrier month   day dep_time tailnum flight  dest</span>
+<span class="co">#&gt;        &lt;dbl&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1        744      9E     2    16      757  N8940E   3798   CLT</span>
+<span class="co">#&gt; 2        458      9E     7    24     1525  N927XJ   3538   MSP</span>
+<span class="co">#&gt; 3        421      9E     7    10     2054  N937XJ   3325   DFW</span>
+<span class="co">#&gt; 4       1007      AA     9    20     1139  N338AA    177   SFO</span>
+<span class="co">#&gt; 5        878      AA    12     5      756  N5DMAA    172   MIA</span>
+<span class="co">#&gt; 6        852      AA     5    19      713  N3HEAA    257   LAS</span>
+<span class="co">#&gt; 7        198      AS     3     8     1012  N587AS     11   SEA</span>
+<span class="co">#&gt; 8        196      AS     1    20     2157  N305AS      7   SEA</span>
+<span class="co">#&gt; 9        188      AS     5    23     2205  N516AS      7   SEA</span>
+<span class="co">#&gt; 10       497      B6     1    16     1622  N661JB    517   MCO</span>
+<span class="co">#&gt; # ... with 38 more rows</span></code></pre></div>
+<p>Da Sie den Chef gut kennen, berechnen Sie gleich noch die durchschnittliche Verspätung pro Fluggesellschaft.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(carrier) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay_mean =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-delay_mean) %&gt;%<span class="st"> </span>
+<span class="st">  </span>head
+<span class="co">#&gt; # A tibble: 6 × 2</span>
+<span class="co">#&gt;   carrier delay_mean</span>
+<span class="co">#&gt;     &lt;chr&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      F9       21.9</span>
+<span class="co">#&gt; 2      FL       20.1</span>
+<span class="co">#&gt; 3      EV       15.8</span>
+<span class="co">#&gt; 4      YV       15.6</span>
+<span class="co">#&gt; 5      OO       11.9</span>
+<span class="co">#&gt; 6      MQ       10.8</span></code></pre></div>
+<p>Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben zuwenden…</p>
+</div>
+<div id="befehlsubersicht-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Befehlsübersicht</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Funktion</th>
+<th align="left">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">data</td>
+<td align="left">Lädt Daten aus einem Paket.</td>
+</tr>
+<tr class="even">
+<td align="left">dplyr::glimpse</td>
+<td align="left">Zeigt einen Überblick über einen Datensatz</td>
+</tr>
+<tr class="odd">
+<td align="left">dplyr::row_number</td>
+<td align="left">Gibt die Zeilennummern zurück.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="verweise-3" class="section level2">
+<h2><span class="header-section-number">6.3</span> Verweise</h2>
+<ul>
+<li><p>Eine ausführlichere Version einer “YACSDA”<a href="#fn33" class="footnoteRef" id="fnref33"><sup>33</sup></a> findet sich hier<a href="#fn34" class="footnoteRef" id="fnref34"><sup>34</sup></a> oder hier<a href="#fn35" class="footnoteRef" id="fnref35"><sup>35</sup></a>.</p></li>
+<li><p>Es finden sich online viele ähnliche Datenanalysen zu <code>dplyr</code>, z.B. hier<a href="#fn36" class="footnoteRef" id="fnref36"><sup>36</sup></a> oder hier<a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a>.</p></li>
+</ul>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="33">
+<li id="fn33"><p>yet another case study on data analysis<a href="fallstudie-zum-datenjudo.html#fnref33">↩</a></p></li>
+<li id="fn34"><p><a href="https://sebastiansauer.github.io/Fallstudie_Flights/" class="uri">https://sebastiansauer.github.io/Fallstudie_Flights/</a><a href="fallstudie-zum-datenjudo.html#fnref34">↩</a></p></li>
+<li id="fn35"><p><a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" class="uri">https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html</a><a href="fallstudie-zum-datenjudo.html#fnref35">↩</a></p></li>
+<li id="fn36"><p><a href="http://stat545.com/block009_dplyr-intro.html" class="uri">http://stat545.com/block009_dplyr-intro.html</a><a href="fallstudie-zum-datenjudo.html#fnref36">↩</a></p></li>
+<li id="fn37"><p><a href="http://genomicsclass.github.io/book/pages/dplyr_tutorial.html" class="uri">http://genomicsclass.github.io/book/pages/dplyr_tutorial.html</a><a href="fallstudie-zum-datenjudo.html#fnref37">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="praxisprobleme-der-datenaufbereitung.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="daten-visualisieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
