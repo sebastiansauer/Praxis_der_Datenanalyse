@@ -103,7 +103,7 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 
 ```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
 
-knitr::include_graphics("images/inferenz/einfluss_pwert_crop.pdf")
+knitr::include_graphics("images/inferenz/einfluss_pwert_crop.png")
 ```
 
 
@@ -117,7 +117,7 @@ Mit steigender Stichprobengröße sollte der Anteil an statistisch signifikanten
 
 ```{r simulate-pvalues, echo = FALSE, fig.cap = "Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)"}
 
-knitr::include_graphics("images/inferenz/simulate_ps.pdf")
+knitr::include_graphics("images/inferenz/simulate_ps.png")
 
 ```
 

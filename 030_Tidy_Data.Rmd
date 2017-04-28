@@ -42,7 +42,7 @@ Lernziele:
 Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
 
 ```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
-knitr::include_graphics("images/tidy/Einlesen.pdf")
+knitr::include_graphics("images/tidy/Einlesen.png")
 ```
 
 

@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 ```{r include=FALSE, cache=FALSE}
 set.seed(1014)
 options(digits = 3)
@@ -140,7 +136,7 @@ Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und
 
 ```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene"}
 
-knitr::include_graphics("images/cluster/distanz_crop.pdf")
+knitr::include_graphics("images/cluster/distanz_crop.png")
 ```
 
 
@@ -154,7 +150,7 @@ Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in 
 
 ```{r pythagoras2, echo = FALSE, fig.cap = "Pythagoras in 3D"}
 
-knitr::include_graphics("images/cluster/pythagoras2_crop.pdf")
+knitr::include_graphics("images/cluster/pythagoras2_crop.png")
 ```
 
 Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
@@ -176,7 +172,7 @@ Intuitiv gesprochen, "schalten wir mehrere Pythagoras-Sätze hintereinander".
 
 ```{r pythagoras, echo = FALSE, fig.cap = "Pythagoras in Reihe geschaltet"}
 
-knitr::include_graphics("images/cluster/pythagoras_crop.pdf")
+knitr::include_graphics("images/cluster/pythagoras_crop.png")
 ```
 
 Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.

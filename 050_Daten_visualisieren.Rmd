@@ -52,7 +52,7 @@ library(tidyverse)  # Zum Plotten
 
 
 ```{r plot-vis, echo = FALSE}
-knitr::include_graphics("images/visualisieren/Visualisieren.pdf")
+knitr::include_graphics("images/visualisieren/Visualisieren.png")
 ```
 
 
@@ -65,7 +65,7 @@ Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichun
 
 
 ```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
-knitr::include_graphics("images/visualisieren/anscombe.pdf")
+knitr::include_graphics("images/visualisieren/anscombe.png")
 ```
 
 

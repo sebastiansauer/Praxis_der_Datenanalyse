@@ -206,7 +206,7 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 *Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorpragmmiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
 ```{r umkodieren, echo = FALSE, fig.cap = "Sinnbild für Umkodieren"}
-knitr::include_graphics("images/typ_prob/umkodieren_crop.pdf")
+knitr::include_graphics("images/typ_prob/umkodieren_crop.png")
 ```
 
 
@@ -214,7 +214,7 @@ knitr::include_graphics("images/typ_prob/umkodieren_crop.pdf")
 
 ```{r cut-schere, echo = FALSE, fig.cap = "Sinnbild zum 'Binnen'"}
 
-knitr::include_graphics("images/typ_prob/cut_schere_crop.pdf")
+knitr::include_graphics("images/typ_prob/cut_schere_crop.png")
 
 ```
 

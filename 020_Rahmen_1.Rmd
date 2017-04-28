@@ -54,7 +54,7 @@ einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
 ```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
-knitr::include_graphics("images/Rahmen/Prozess_Datenanalyse.pdf") 
+knitr::include_graphics("images/Rahmen/Prozess_Datenanalyse.png") 
 ```
 
 
