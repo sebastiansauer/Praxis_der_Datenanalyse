@@ -5,12 +5,12 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Praxis der Datenanalyse</title>
+  <title>Praxis der Datenanalyse ENTWURF</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
   <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Praxis der Datenanalyse" />
+  <meta property="og:title" content="Praxis der Datenanalyse ENTWURF" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.jpg" />
@@ -18,7 +18,7 @@
   <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Praxis der Datenanalyse" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse ENTWURF" />
   
   <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
   <meta name="twitter:image" content="images/cover.jpg" />
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="klassifizierende-regression.html">
-<link rel="next" href="vertiefung-clusteranalyse.html">
+<link rel="next" href="iv-ungeleitetes-modellieren.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -139,196 +139,216 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="2.4" data-path="rahmen.html"><a href="rahmen.html#befehlsubersicht"><i class="fa fa-check"></i><b>2.4</b> Befehlsübersicht</a></li>
 <li class="chapter" data-level="2.5" data-path="rahmen.html"><a href="rahmen.html#verweise"><i class="fa fa-check"></i><b>2.5</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>3</b> Datenjudo</a><ul>
-<li class="chapter" data-level="3.1" data-path="datenjudo.html"><a href="datenjudo.html#typische-probleme"><i class="fa fa-check"></i><b>3.1</b> Typische Probleme</a></li>
-<li class="chapter" data-level="3.2" data-path="datenjudo.html"><a href="datenjudo.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>3.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
-<li class="chapter" data-level="3.2.1" data-path="datenjudo.html"><a href="datenjudo.html#die-zwei-prinzipien-von-dplyr"><i class="fa fa-check"></i><b>3.2.1</b> Die zwei Prinzipien von <code>dplyr</code></a></li>
+<li class="chapter" data-level="3" data-path="daten-einlesen.html"><a href="daten-einlesen.html"><i class="fa fa-check"></i><b>3</b> Daten einlesen</a><ul>
+<li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
+<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="datenjudo.html"><a href="datenjudo.html#zentrale-bausteine-von-dplyr"><i class="fa fa-check"></i><b>3.3</b> Zentrale Bausteine von <code>dplyr</code></a><ul>
-<li class="chapter" data-level="3.3.1" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>3.3.1</b> Zeilen filtern mit <code>filter</code></a></li>
-<li class="chapter" data-level="3.3.2" data-path="datenjudo.html"><a href="datenjudo.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>3.3.2</b> Spalten wählen mit <code>select</code></a></li>
-<li class="chapter" data-level="3.3.3" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>3.3.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
-<li class="chapter" data-level="3.3.4" data-path="datenjudo.html"><a href="datenjudo.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>3.3.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
-<li class="chapter" data-level="3.3.5" data-path="datenjudo.html"><a href="datenjudo.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>3.3.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
-<li class="chapter" data-level="3.3.6" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>3.3.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+<li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#tabelle-in-normalform-bringen"><i class="fa fa-check"></i><b>3.3.1</b> Tabelle in Normalform bringen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#textkodierung"><i class="fa fa-check"></i><b>3.3.2</b> Textkodierung</a></li>
+<li class="chapter" data-level="3.3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-exportieren"><i class="fa fa-check"></i><b>3.3.3</b> Daten exportieren</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>3.4</b> Die Pfeife</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>3.4.1</b> Spalten berechnen mit <code>mutate</code></a></li>
-<li class="chapter" data-level="3.4.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-8"><i class="fa fa-check"></i><b>3.4.2</b> Aufgaben</a></li>
+<li class="chapter" data-level="3.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#befehlsubersicht-1"><i class="fa fa-check"></i><b>3.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="3.5" data-path="daten-einlesen.html"><a href="daten-einlesen.html#aufgaben-2"><i class="fa fa-check"></i><b>3.5</b> Aufgaben</a></li>
+<li class="chapter" data-level="3.6" data-path="daten-einlesen.html"><a href="daten-einlesen.html#verweise-1"><i class="fa fa-check"></i><b>3.6</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-1"><i class="fa fa-check"></i><b>3.5</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="3.6" data-path="datenjudo.html"><a href="datenjudo.html#verweise-1"><i class="fa fa-check"></i><b>3.6</b> Verweise</a></li>
+<li class="chapter" data-level="4" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>4</b> Datenjudo</a><ul>
+<li class="chapter" data-level="4.1" data-path="datenjudo.html"><a href="datenjudo.html#typische-probleme"><i class="fa fa-check"></i><b>4.1</b> Typische Probleme</a></li>
+<li class="chapter" data-level="4.2" data-path="datenjudo.html"><a href="datenjudo.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>4.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datenjudo.html"><a href="datenjudo.html#die-zwei-prinzipien-von-dplyr"><i class="fa fa-check"></i><b>4.2.1</b> Die zwei Prinzipien von <code>dplyr</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>4</b> Praxisprobleme der Datenaufbereitung</a><ul>
-<li class="chapter" data-level="4.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#datenaufbereitung"><i class="fa fa-check"></i><b>4.1</b> Datenaufbereitung</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>4.1.1</b> Auf fehlende Werte prüfen</a></li>
-<li class="chapter" data-level="4.1.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>4.1.2</b> Fälle mit fehlenden Werte löschen</a></li>
-<li class="chapter" data-level="4.1.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>4.1.3</b> Fehlende Werte ggf. ersetzen</a></li>
-<li class="chapter" data-level="4.1.4" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>4.1.4</b> Nach Fehlern suchen</a></li>
-<li class="chapter" data-level="4.1.5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#ausreiser-identifizieren"><i class="fa fa-check"></i><b>4.1.5</b> Ausreiser identifizieren</a></li>
-<li class="chapter" data-level="4.1.6" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>4.1.6</b> Hochkorrelierte Variablen finden</a></li>
-<li class="chapter" data-level="4.1.7" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#z-standardisieren"><i class="fa fa-check"></i><b>4.1.7</b> z-Standardisieren</a></li>
-<li class="chapter" data-level="4.1.8" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>4.1.8</b> Quasi-Konstante finden</a></li>
-<li class="chapter" data-level="4.1.9" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>4.1.9</b> Auf Normalverteilung prüfen</a></li>
-<li class="chapter" data-level="4.1.10" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#werte-umkodieren-und-binnen"><i class="fa fa-check"></i><b>4.1.10</b> Werte umkodieren und “binnen”</a></li>
+<li class="chapter" data-level="4.3" data-path="datenjudo.html"><a href="datenjudo.html#zentrale-bausteine-von-dplyr"><i class="fa fa-check"></i><b>4.3</b> Zentrale Bausteine von <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>4.3.1</b> Zeilen filtern mit <code>filter</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="datenjudo.html"><a href="datenjudo.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>4.3.2</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>4.3.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="datenjudo.html"><a href="datenjudo.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>4.3.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li class="chapter" data-level="4.3.5" data-path="datenjudo.html"><a href="datenjudo.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>4.3.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="4.3.6" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>4.3.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#deskriptive-statistiken-berechnen"><i class="fa fa-check"></i><b>4.2</b> Deskriptive Statistiken berechnen</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>4.2.1</b> Mittelwerte pro Zeile berechnen</a></li>
-<li class="chapter" data-level="4.2.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-spalte-berechnen"><i class="fa fa-check"></i><b>4.2.2</b> Mittelwerte pro Spalte berechnen</a></li>
-<li class="chapter" data-level="4.2.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#korrelationstabellen-berechnen"><i class="fa fa-check"></i><b>4.2.3</b> Korrelationstabellen berechnen</a></li>
+<li class="chapter" data-level="4.4" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>4.4</b> Die Pfeife</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>4.4.1</b> Spalten berechnen mit <code>mutate</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-9"><i class="fa fa-check"></i><b>4.4.2</b> Aufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.3</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="4.5" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.5</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="4.6" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html"><i class="fa fa-check"></i><b>5</b> Fallstudie zum Datenjudo</a><ul>
-<li class="chapter" data-level="5.1" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#achtung-fallstudie"><i class="fa fa-check"></i><b>5.1</b> Achtung, Fallstudie</a></li>
-<li class="chapter" data-level="5.2" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#befehlsubersicht-3"><i class="fa fa-check"></i><b>5.2</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="5.3" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>5.3</b> Verweise</a></li>
+<li class="chapter" data-level="5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>5</b> Praxisprobleme der Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#datenaufbereitung"><i class="fa fa-check"></i><b>5.1</b> Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>5.1.1</b> Auf fehlende Werte prüfen</a></li>
+<li class="chapter" data-level="5.1.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>5.1.2</b> Fälle mit fehlenden Werte löschen</a></li>
+<li class="chapter" data-level="5.1.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>5.1.3</b> Fehlende Werte ggf. ersetzen</a></li>
+<li class="chapter" data-level="5.1.4" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>5.1.4</b> Nach Fehlern suchen</a></li>
+<li class="chapter" data-level="5.1.5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#ausreiser-identifizieren"><i class="fa fa-check"></i><b>5.1.5</b> Ausreiser identifizieren</a></li>
+<li class="chapter" data-level="5.1.6" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>5.1.6</b> Hochkorrelierte Variablen finden</a></li>
+<li class="chapter" data-level="5.1.7" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#z-standardisieren"><i class="fa fa-check"></i><b>5.1.7</b> z-Standardisieren</a></li>
+<li class="chapter" data-level="5.1.8" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>5.1.8</b> Quasi-Konstante finden</a></li>
+<li class="chapter" data-level="5.1.9" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>5.1.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="5.1.10" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#werte-umkodieren-und-binnen"><i class="fa fa-check"></i><b>5.1.10</b> Werte umkodieren und “binnen”</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>6</b> Daten visualisieren</a><ul>
-<li class="chapter" data-level="6.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>6.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
-<li class="chapter" data-level="6.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-anatomie-eines-diagramms"><i class="fa fa-check"></i><b>6.2</b> Die Anatomie eines Diagramms</a></li>
-<li class="chapter" data-level="6.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#einstieg-in-ggplot2---qplot"><i class="fa fa-check"></i><b>6.3</b> Einstieg in <code>ggplot2</code> - <code>qplot</code></a></li>
-<li class="chapter" data-level="6.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>6.4</b> Häufige Arten von Diagrammen</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>6.4.1</b> Eine kontinuierliche Variable</a></li>
-<li class="chapter" data-level="6.4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>6.4.2</b> Zwei kontinuierliche Variablen</a></li>
-<li class="chapter" data-level="6.4.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>6.4.3</b> Eine diskrete Variable</a></li>
-<li class="chapter" data-level="6.4.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>6.4.4</b> Zwei diskrete Variablen</a></li>
-<li class="chapter" data-level="6.4.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>6.4.5</b> Zusammenfassungen zeigen</a></li>
+<li class="chapter" data-level="5.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#deskriptive-statistiken-berechnen"><i class="fa fa-check"></i><b>5.2</b> Deskriptive Statistiken berechnen</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>5.2.1</b> Mittelwerte pro Zeile berechnen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-spalte-berechnen"><i class="fa fa-check"></i><b>5.2.2</b> Mittelwerte pro Spalte berechnen</a></li>
+<li class="chapter" data-level="5.2.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#korrelationstabellen-berechnen"><i class="fa fa-check"></i><b>5.2.3</b> Korrelationstabellen berechnen</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-gefuhlswelt-von-ggplot2"><i class="fa fa-check"></i><b>6.5</b> Die Gefühlswelt von <code>ggplot2</code></a></li>
-<li class="chapter" data-level="6.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#aufgaben-9"><i class="fa fa-check"></i><b>6.6</b> Aufgaben</a></li>
-<li class="chapter" data-level="6.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#losungen"><i class="fa fa-check"></i><b>6.7</b> Lösungen</a></li>
-<li class="chapter" data-level="6.8" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>6.8</b> Richtig oder Falsch</a></li>
-<li class="chapter" data-level="6.9" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#befehlsubersicht-4"><i class="fa fa-check"></i><b>6.9</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="6.10" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#geome"><i class="fa fa-check"></i><b>6.10</b> Vertiefung: Geome bei ggplot2</a></li>
-<li class="chapter" data-level="6.11" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-3"><i class="fa fa-check"></i><b>6.11</b> Verweise</a></li>
+<li class="chapter" data-level="5.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#befehlsubersicht-3"><i class="fa fa-check"></i><b>5.3</b> Befehlsübersicht</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>7</b> Fallstudie zur Visualisierung</a><ul>
-<li class="chapter" data-level="7.1" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-einlesen"><i class="fa fa-check"></i><b>7.1</b> Daten einlesen</a></li>
-<li class="chapter" data-level="7.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>7.2</b> Daten umstellen</a></li>
-<li class="chapter" data-level="7.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>7.3</b> Diagramme für Anteile</a></li>
-<li class="chapter" data-level="7.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#um-90-drehen"><i class="fa fa-check"></i><b>7.4</b> Um 90° drehen</a></li>
-<li class="chapter" data-level="7.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>7.5</b> Text-Labels für die Items</a></li>
-<li class="chapter" data-level="7.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>7.6</b> Diagramm mit Häufigkeiten</a></li>
-<li class="chapter" data-level="7.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschema"><i class="fa fa-check"></i><b>7.7</b> Farbschema</a></li>
+<li class="chapter" data-level="6" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html"><i class="fa fa-check"></i><b>6</b> Fallstudie zum Datenjudo</a><ul>
+<li class="chapter" data-level="6.1" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#achtung-fallstudie"><i class="fa fa-check"></i><b>6.1</b> Achtung, Fallstudie</a></li>
+<li class="chapter" data-level="6.2" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#befehlsubersicht-4"><i class="fa fa-check"></i><b>6.2</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="6.3" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#verweise-3"><i class="fa fa-check"></i><b>6.3</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>8</b> Grundlagen des Modellierens</a><ul>
-<li class="chapter" data-level="8.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>8.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
-<li class="chapter" data-level="8.2" data-path="mod1.html"><a href="mod1.html#ein-besipiel-zum-modellieren-in-der-datenanalyse"><i class="fa fa-check"></i><b>8.2</b> Ein Besipiel zum Modellieren in der Datenanalyse</a></li>
-<li class="chapter" data-level="8.3" data-path="mod1.html"><a href="mod1.html#Ziele"><i class="fa fa-check"></i><b>8.3</b> Taxonomie der Ziele des Modellierens</a></li>
-<li class="chapter" data-level="8.4" data-path="mod1.html"><a href="mod1.html#die-vier-schritte-des-statistischen-modellierens"><i class="fa fa-check"></i><b>8.4</b> Die vier Schritte des statistischen Modellierens</a></li>
-<li class="chapter" data-level="8.5" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>8.5</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
-<li class="chapter" data-level="8.6" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>8.6</b> Bias-Varianz-Abwägung</a></li>
-<li class="chapter" data-level="8.7" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>8.7</b> Training- vs. Test-Stichprobe</a></li>
-<li class="chapter" data-level="8.8" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>8.8</b> Wann welches Modell?</a></li>
-<li class="chapter" data-level="8.9" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>8.9</b> Modellgüte</a></li>
-<li class="chapter" data-level="8.10" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>8.10</b> Auswahl von Prädiktoren</a></li>
-<li class="chapter" data-level="8.11" data-path="mod1.html"><a href="mod1.html#aufgaben-10"><i class="fa fa-check"></i><b>8.11</b> Aufgaben</a></li>
-<li class="chapter" data-level="8.12" data-path="mod1.html"><a href="mod1.html#befehlsubersicht-5"><i class="fa fa-check"></i><b>8.12</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="8.13" data-path="mod1.html"><a href="mod1.html#verweise-4"><i class="fa fa-check"></i><b>8.13</b> Verweise</a></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>7.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li class="chapter" data-level="7.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-anatomie-eines-diagramms"><i class="fa fa-check"></i><b>7.2</b> Die Anatomie eines Diagramms</a></li>
+<li class="chapter" data-level="7.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#einstieg-in-ggplot2---qplot"><i class="fa fa-check"></i><b>7.3</b> Einstieg in <code>ggplot2</code> - <code>qplot</code></a></li>
+<li class="chapter" data-level="7.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>7.4</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>7.4.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="7.4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>7.4.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>7.4.3</b> Eine diskrete Variable</a></li>
+<li class="chapter" data-level="7.4.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>7.4.4</b> Zwei diskrete Variablen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>7.4.5</b> Zusammenfassungen zeigen</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="der-p-wert.html"><a href="der-p-wert.html"><i class="fa fa-check"></i><b>9</b> Der p-Wert</a><ul>
-<li class="chapter" data-level="9.1" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-sagt-nicht-das-was-viele-denken"><i class="fa fa-check"></i><b>9.1</b> Der p-Wert sagt nicht das, was viele denken</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="der-p-wert.html"><a href="der-p-wert.html#von-moslems-und-terroristen"><i class="fa fa-check"></i><b>9.1.1</b> Von Moslems und Terroristen</a></li>
+<li class="chapter" data-level="7.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-gefuhlswelt-von-ggplot2"><i class="fa fa-check"></i><b>7.5</b> Die Gefühlswelt von <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#aufgaben-10"><i class="fa fa-check"></i><b>7.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="7.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#losungen"><i class="fa fa-check"></i><b>7.7</b> Lösungen</a></li>
+<li class="chapter" data-level="7.8" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>7.8</b> Richtig oder Falsch</a></li>
+<li class="chapter" data-level="7.9" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#befehlsubersicht-5"><i class="fa fa-check"></i><b>7.9</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="7.10" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#geome"><i class="fa fa-check"></i><b>7.10</b> Vertiefung: Geome bei ggplot2</a></li>
+<li class="chapter" data-level="7.11" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-4"><i class="fa fa-check"></i><b>7.11</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-ist-eine-funktion-der-stichprobengroe"><i class="fa fa-check"></i><b>9.2</b> Der p-Wert ist eine Funktion der Stichprobengröße</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="der-p-wert.html"><a href="der-p-wert.html#vertiefung-praktisches-beispiel-zum-stichprobeneinfluss-auf-den-p-wert"><i class="fa fa-check"></i><b>9.2.1</b> Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf den p-Wert</a></li>
+<li class="chapter" data-level="8" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>8</b> Fallstudie zur Visualisierung</a><ul>
+<li class="chapter" data-level="8.1" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-einlesen-1"><i class="fa fa-check"></i><b>8.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="8.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>8.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="8.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>8.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="8.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#um-90-drehen"><i class="fa fa-check"></i><b>8.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="8.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>8.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="8.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>8.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="8.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschema"><i class="fa fa-check"></i><b>8.7</b> Farbschema</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="der-p-wert.html"><a href="der-p-wert.html#mythen-zum-p-wert"><i class="fa fa-check"></i><b>9.3</b> Mythen zum p-Wert</a></li>
-<li class="chapter" data-level="9.4" data-path="der-p-wert.html"><a href="der-p-wert.html#zur-philosophie-des-p-werts"><i class="fa fa-check"></i><b>9.4</b> Zur Philosophie des p-Werts</a></li>
-<li class="chapter" data-level="9.5" data-path="der-p-wert.html"><a href="der-p-wert.html#fazit"><i class="fa fa-check"></i><b>9.5</b> Fazit</a></li>
+<li class="chapter" data-level="" data-path="ii-modellieren.html"><a href="ii-modellieren.html"><i class="fa fa-check"></i>II MODELLIEREN</a></li>
+<li class="chapter" data-level="9" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>9</b> Grundlagen des Modellierens</a><ul>
+<li class="chapter" data-level="9.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>9.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="9.2" data-path="mod1.html"><a href="mod1.html#ein-besipiel-zum-modellieren-in-der-datenanalyse"><i class="fa fa-check"></i><b>9.2</b> Ein Besipiel zum Modellieren in der Datenanalyse</a></li>
+<li class="chapter" data-level="9.3" data-path="mod1.html"><a href="mod1.html#Ziele"><i class="fa fa-check"></i><b>9.3</b> Taxonomie der Ziele des Modellierens</a></li>
+<li class="chapter" data-level="9.4" data-path="mod1.html"><a href="mod1.html#die-vier-schritte-des-statistischen-modellierens"><i class="fa fa-check"></i><b>9.4</b> Die vier Schritte des statistischen Modellierens</a></li>
+<li class="chapter" data-level="9.5" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>9.5</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="9.6" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>9.6</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="9.7" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>9.7</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="9.8" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>9.8</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="9.9" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>9.9</b> Modellgüte</a></li>
+<li class="chapter" data-level="9.10" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>9.10</b> Auswahl von Prädiktoren</a></li>
+<li class="chapter" data-level="9.11" data-path="mod1.html"><a href="mod1.html#aufgaben-11"><i class="fa fa-check"></i><b>9.11</b> Aufgaben</a></li>
+<li class="chapter" data-level="9.12" data-path="mod1.html"><a href="mod1.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>9.12</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="9.13" data-path="mod1.html"><a href="mod1.html#verweise-5"><i class="fa fa-check"></i><b>9.13</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>10</b> Klassische lineare (numerische) Regression</a><ul>
-<li class="chapter" data-level="10.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#einfache-regression"><i class="fa fa-check"></i><b>10.1</b> Einfache Regression</a></li>
-<li class="chapter" data-level="10.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>10.2</b> Überprüfung der Annahmen der linearen Regression</a></li>
-<li class="chapter" data-level="10.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>10.3</b> Regression mit kategorialen Prädiktoren</a></li>
-<li class="chapter" data-level="10.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#multiple-regression"><i class="fa fa-check"></i><b>10.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="10.5" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>10.5</b> Inferenz in der linearen Regression</a></li>
-<li class="chapter" data-level="10.6" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellgute-bei-regressionsmodellen"><i class="fa fa-check"></i><b>10.6</b> Modellgüte bei Regressionsmodellen</a><ul>
-<li class="chapter" data-level="10.6.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>10.6.1</b> Mittlere Quadratfehler</a></li>
-<li class="chapter" data-level="10.6.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>10.6.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
-<li class="chapter" data-level="10.6.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>10.6.3</b> Likelihood and Friends</a></li>
+<li class="chapter" data-level="10" data-path="der-p-wert.html"><a href="der-p-wert.html"><i class="fa fa-check"></i><b>10</b> Der p-Wert</a><ul>
+<li class="chapter" data-level="10.1" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-sagt-nicht-das-was-viele-denken"><i class="fa fa-check"></i><b>10.1</b> Der p-Wert sagt nicht das, was viele denken</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="der-p-wert.html"><a href="der-p-wert.html#von-moslems-und-terroristen"><i class="fa fa-check"></i><b>10.1.1</b> Von Moslems und Terroristen</a></li>
 </ul></li>
-<li class="chapter" data-level="10.7" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>10.7</b> Vertiefungen zum Regressionmodell</a><ul>
-<li class="chapter" data-level="10.7.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellwahl"><i class="fa fa-check"></i><b>10.7.1</b> Modellwahl</a></li>
-<li class="chapter" data-level="10.7.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#interaktionen"><i class="fa fa-check"></i><b>10.7.2</b> Interaktionen</a></li>
-<li class="chapter" data-level="10.7.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>10.7.3</b> Weitere Modellierungsmöglichkeiten</a></li>
-<li class="chapter" data-level="10.7.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#prognoseintervalle"><i class="fa fa-check"></i><b>10.7.4</b> Prognoseintervalle</a></li>
+<li class="chapter" data-level="10.2" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-ist-eine-funktion-der-stichprobengroe"><i class="fa fa-check"></i><b>10.2</b> Der p-Wert ist eine Funktion der Stichprobengröße</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="der-p-wert.html"><a href="der-p-wert.html#vertiefung-praktisches-beispiel-zum-stichprobeneinfluss-auf-den-p-wert"><i class="fa fa-check"></i><b>10.2.1</b> Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf den p-Wert</a></li>
 </ul></li>
-<li class="chapter" data-level="10.8" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>10.8</b> Übung: Teaching Rating</a></li>
-<li class="chapter" data-level="10.9" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>10.9</b> Fallstudie zu Overfitting</a></li>
-<li class="chapter" data-level="10.10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#literatur-1"><i class="fa fa-check"></i><b>10.10</b> Literatur</a></li>
+<li class="chapter" data-level="10.3" data-path="der-p-wert.html"><a href="der-p-wert.html#mythen-zum-p-wert"><i class="fa fa-check"></i><b>10.3</b> Mythen zum p-Wert</a></li>
+<li class="chapter" data-level="10.4" data-path="der-p-wert.html"><a href="der-p-wert.html#zur-philosophie-des-p-werts"><i class="fa fa-check"></i><b>10.4</b> Zur Philosophie des p-Werts</a></li>
+<li class="chapter" data-level="10.5" data-path="der-p-wert.html"><a href="der-p-wert.html#fazit"><i class="fa fa-check"></i><b>10.5</b> Fazit</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>11</b> Klassifizierende Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>11.1</b> Vorbereitung</a></li>
-<li class="chapter" data-level="11.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>11.2</b> Problemstellung</a></li>
-<li class="chapter" data-level="11.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>11.3</b> Die Idee der logistischen Regression</a></li>
-<li class="chapter" data-level="11.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>11.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
-<li class="chapter" data-level="11.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>11.5</b> Interpretation der Koeffizienten</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>11.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
-<li class="chapter" data-level="11.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>11.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+<li class="chapter" data-level="11" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>11</b> Klassische lineare (numerische) Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#einfache-regression"><i class="fa fa-check"></i><b>11.1</b> Einfache Regression</a></li>
+<li class="chapter" data-level="11.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>11.2</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="11.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>11.3</b> Regression mit kategorialen Prädiktoren</a></li>
+<li class="chapter" data-level="11.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#multiple-regression"><i class="fa fa-check"></i><b>11.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="11.5" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>11.5</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="11.6" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellgute-bei-regressionsmodellen"><i class="fa fa-check"></i><b>11.6</b> Modellgüte bei Regressionsmodellen</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>11.6.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="11.6.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>11.6.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="11.6.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>11.6.3</b> Likelihood and Friends</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>11.6</b> Kategoriale Variablen</a></li>
-<li class="chapter" data-level="11.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>11.7</b> Multiple logistische Regression</a></li>
-<li class="chapter" data-level="11.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>11.8</b> Modell- bzw. Klassifikationsgüte</a></li>
-<li class="chapter" data-level="11.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung"><i class="fa fa-check"></i><b>11.9</b> Vertiefung</a><ul>
-<li class="chapter" data-level="11.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>11.9.1</b> Modellschätzung</a></li>
-<li class="chapter" data-level="11.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>11.9.2</b> Likelihood Quotienten Test</a></li>
-<li class="chapter" data-level="11.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>11.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="11.7" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>11.7</b> Vertiefungen zum Regressionmodell</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellwahl"><i class="fa fa-check"></i><b>11.7.1</b> Modellwahl</a></li>
+<li class="chapter" data-level="11.7.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#interaktionen"><i class="fa fa-check"></i><b>11.7.2</b> Interaktionen</a></li>
+<li class="chapter" data-level="11.7.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>11.7.3</b> Weitere Modellierungsmöglichkeiten</a></li>
+<li class="chapter" data-level="11.7.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#prognoseintervalle"><i class="fa fa-check"></i><b>11.7.4</b> Prognoseintervalle</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>11.10</b> Übung: Rot- oder Weißwein?</a></li>
-<li class="chapter" data-level="11.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#literatur-2"><i class="fa fa-check"></i><b>11.11</b> Literatur</a></li>
+<li class="chapter" data-level="11.8" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#ubung-teaching-rating"><i class="fa fa-check"></i><b>11.8</b> Übung: Teaching Rating</a></li>
+<li class="chapter" data-level="11.9" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>11.9</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="11.10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#literatur-1"><i class="fa fa-check"></i><b>11.10</b> Literatur</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>12</b> Fallstudien zum geleiteten Modellieren</a><ul>
-<li class="chapter" data-level="12.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>12.1</b> Überleben auf der Titanic</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>12.1.1</b> Daten und Pakete laden</a></li>
-<li class="chapter" data-level="12.1.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>12.1.2</b> Erster Blick</a></li>
-<li class="chapter" data-level="12.1.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>12.1.3</b> Welche Variablen sind interessant?</a></li>
-<li class="chapter" data-level="12.1.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>12.1.4</b> Univariate Häufigkeiten</a></li>
-<li class="chapter" data-level="12.1.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>12.1.5</b> Bivariate Häufigkeiten</a></li>
-<li class="chapter" data-level="12.1.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>12.1.6</b> Signifikanztest</a></li>
-<li class="chapter" data-level="12.1.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>12.1.7</b> Effektstärke</a></li>
-<li class="chapter" data-level="12.1.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>12.1.8</b> Logististische Regression</a></li>
-<li class="chapter" data-level="12.1.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>12.1.9</b> Effektstärken visualieren</a></li>
-<li class="chapter" data-level="12.1.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#fazit-1"><i class="fa fa-check"></i><b>12.1.10</b> Fazit</a></li>
+<li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>12.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="12.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>12.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="12.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>12.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>12.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="12.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>12.5</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>12.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>12.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#auereheliche-affaren"><i class="fa fa-check"></i><b>12.2</b> Außereheliche Affären</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zentrale-statistiken"><i class="fa fa-check"></i><b>12.2.1</b> Zentrale Statistiken</a></li>
-<li class="chapter" data-level="12.2.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#visualisieren"><i class="fa fa-check"></i><b>12.2.2</b> Visualisieren</a></li>
-<li class="chapter" data-level="12.2.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>12.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
-<li class="chapter" data-level="12.2.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>12.2.4</b> Wie viele fehlende Werte gibt es?</a></li>
-<li class="chapter" data-level="12.2.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>12.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
-<li class="chapter" data-level="12.2.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken"><i class="fa fa-check"></i><b>12.2.6</b> Effektstärken</a></li>
-<li class="chapter" data-level="12.2.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#korrelationen"><i class="fa fa-check"></i><b>12.2.7</b> Korrelationen</a></li>
-<li class="chapter" data-level="12.2.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>12.2.8</b> Ehejahre und Affären</a></li>
-<li class="chapter" data-level="12.2.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>12.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
-<li class="chapter" data-level="12.2.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>12.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
-<li class="chapter" data-level="12.2.11" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>12.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
-<li class="chapter" data-level="12.2.12" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>12.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
-<li class="chapter" data-level="12.2.13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#halodries"><i class="fa fa-check"></i><b>12.2.13</b> Halodries</a></li>
-<li class="chapter" data-level="12.2.14" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logistische-regression"><i class="fa fa-check"></i><b>12.2.14</b> logistische Regression</a></li>
-<li class="chapter" data-level="12.2.15" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zum-abschluss"><i class="fa fa-check"></i><b>12.2.15</b> Zum Abschluss</a></li>
+<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>12.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="12.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>12.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>12.8</b> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung-1"><i class="fa fa-check"></i><b>12.9</b> Vertiefung</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>12.9.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="12.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>12.9.2</b> Likelihood Quotienten Test</a></li>
+<li class="chapter" data-level="12.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>12.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>12.3</b> Befehlsübersicht</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#versionshinweise-und-sessioninfo"><i class="fa fa-check"></i><b>12.3.1</b> Versionshinweise und SessionInfo</a></li>
+<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>12.10</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="12.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#literatur-2"><i class="fa fa-check"></i><b>12.11</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>13</b> Fallstudien zum geleiteten Modellieren</a><ul>
+<li class="chapter" data-level="13.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>13.1</b> Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>13.1.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>13.1.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>13.1.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>13.1.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>13.1.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>13.1.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="13.1.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>13.1.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="13.1.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#fazit-1"><i class="fa fa-check"></i><b>13.1.10</b> Fazit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#auereheliche-affaren"><i class="fa fa-check"></i><b>13.2</b> Außereheliche Affären</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zentrale-statistiken"><i class="fa fa-check"></i><b>13.2.1</b> Zentrale Statistiken</a></li>
+<li class="chapter" data-level="13.2.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#visualisieren"><i class="fa fa-check"></i><b>13.2.2</b> Visualisieren</a></li>
+<li class="chapter" data-level="13.2.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>13.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li class="chapter" data-level="13.2.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>13.2.4</b> Wie viele fehlende Werte gibt es?</a></li>
+<li class="chapter" data-level="13.2.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>13.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li class="chapter" data-level="13.2.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken"><i class="fa fa-check"></i><b>13.2.6</b> Effektstärken</a></li>
+<li class="chapter" data-level="13.2.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#korrelationen"><i class="fa fa-check"></i><b>13.2.7</b> Korrelationen</a></li>
+<li class="chapter" data-level="13.2.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>13.2.8</b> Ehejahre und Affären</a></li>
+<li class="chapter" data-level="13.2.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>13.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
+<li class="chapter" data-level="13.2.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>13.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li class="chapter" data-level="13.2.11" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>13.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
+<li class="chapter" data-level="13.2.12" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>13.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li class="chapter" data-level="13.2.13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#halodries"><i class="fa fa-check"></i><b>13.2.13</b> Halodries</a></li>
+<li class="chapter" data-level="13.2.14" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logistische-regression"><i class="fa fa-check"></i><b>13.2.14</b> logistische Regression</a></li>
+<li class="chapter" data-level="13.2.15" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zum-abschluss"><i class="fa fa-check"></i><b>13.2.15</b> Zum Abschluss</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#befehlsubersicht-7"><i class="fa fa-check"></i><b>13.3</b> Befehlsübersicht</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#versionshinweise-und-sessioninfo"><i class="fa fa-check"></i><b>13.3.1</b> Versionshinweise und SessionInfo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html"><i class="fa fa-check"></i><b>13</b> Vertiefung: Clusteranalyse</a><ul>
-<li class="chapter" data-level="13.1" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#einfuhrung"><i class="fa fa-check"></i><b>13.1</b> Einführung</a></li>
-<li class="chapter" data-level="13.2" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#intuitive-darstellung-der-clusteranalayse"><i class="fa fa-check"></i><b>13.2</b> Intuitive Darstellung der Clusteranalayse</a></li>
-<li class="chapter" data-level="13.3" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#euklidische-distanz"><i class="fa fa-check"></i><b>13.3</b> Euklidische Distanz</a></li>
-<li class="chapter" data-level="13.4" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>13.4</b> Daten</a></li>
-<li class="chapter" data-level="13.5" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#distanzmae-mit-r-berechnen"><i class="fa fa-check"></i><b>13.5</b> Distanzmaße mit R berechnen</a></li>
-<li class="chapter" data-level="13.6" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>13.6</b> k-Means Clusteranalyse</a></li>
-<li class="chapter" data-level="13.7" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>13.7</b> Übung: B3 Datensatz</a></li>
-<li class="chapter" data-level="13.8" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#literatur-3"><i class="fa fa-check"></i><b>13.8</b> Literatur</a></li>
-<li class="chapter" data-level="13.9" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#verweise-5"><i class="fa fa-check"></i><b>13.9</b> Verweise</a></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="14" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html"><i class="fa fa-check"></i><b>14</b> Vertiefung: Clusteranalyse</a><ul>
+<li class="chapter" data-level="14.1" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#einfuhrung"><i class="fa fa-check"></i><b>14.1</b> Einführung</a></li>
+<li class="chapter" data-level="14.2" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#intuitive-darstellung-der-clusteranalayse"><i class="fa fa-check"></i><b>14.2</b> Intuitive Darstellung der Clusteranalayse</a></li>
+<li class="chapter" data-level="14.3" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#euklidische-distanz"><i class="fa fa-check"></i><b>14.3</b> Euklidische Distanz</a></li>
+<li class="chapter" data-level="14.4" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>14.4</b> Daten</a></li>
+<li class="chapter" data-level="14.5" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#distanzmae-mit-r-berechnen"><i class="fa fa-check"></i><b>14.5</b> Distanzmaße mit R berechnen</a></li>
+<li class="chapter" data-level="14.6" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>14.6</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="14.7" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>14.7</b> Übung: B3 Datensatz</a></li>
+<li class="chapter" data-level="14.8" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#literatur-3"><i class="fa fa-check"></i><b>14.8</b> Literatur</a></li>
+<li class="chapter" data-level="14.9" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#verweise-6"><i class="fa fa-check"></i><b>14.9</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>14</b> Probeklausur</a><ul>
-<li class="chapter" data-level="14.1" data-path="probeklausur.html"><a href="probeklausur.html#fragen"><i class="fa fa-check"></i><b>14.1</b> Fragen</a></li>
-<li class="chapter" data-level="14.2" data-path="probeklausur.html"><a href="probeklausur.html#losungen-1"><i class="fa fa-check"></i><b>14.2</b> Lösungen</a></li>
+<li class="chapter" data-level="15" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i><b>15</b> VI Anhang</a></li>
+<li class="chapter" data-level="16" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>16</b> Probeklausur</a><ul>
+<li class="chapter" data-level="16.1" data-path="probeklausur.html"><a href="probeklausur.html#fragen"><i class="fa fa-check"></i><b>16.1</b> Fragen</a></li>
+<li class="chapter" data-level="16.2" data-path="probeklausur.html"><a href="probeklausur.html#losungen-1"><i class="fa fa-check"></i><b>16.2</b> Lösungen</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>15</b> Literaturverzeichnis</a></li>
+<li class="chapter" data-level="17" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>17</b> Literaturverzeichnis</a></li>
 <li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
 </ul>
 
@@ -339,7 +359,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse ENTWURF</a>
           </h1>
         </div>
 
@@ -348,19 +368,19 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 
             <section class="normal" id="section-">
 <div id="fallstudien-zum-geleiteten-modellieren" class="section level1">
-<h1><span class="header-section-number">Kapitel 12</span> Fallstudien zum geleiteten Modellieren</h1>
+<h1><span class="header-section-number">Kapitel 13</span> Fallstudien zum geleiteten Modellieren</h1>
 <div id="uberleben-auf-der-titanic" class="section level2">
-<h2><span class="header-section-number">12.1</span> Überleben auf der Titanic</h2>
+<h2><span class="header-section-number">13.1</span> Überleben auf der Titanic</h2>
 <p>In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um die beispielhafte Analyse nominaler Daten anhand des “klassischen” Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der derPassagiers reist, ab?</p>
 <div id="daten-und-pakete-laden" class="section level3">
-<h3><span class="header-section-number">12.1.1</span> Daten und Pakete laden</h3>
+<h3><span class="header-section-number">13.1.1</span> Daten und Pakete laden</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;titanic&quot;</span>)
 <span class="kw">data</span>(titanic_train)</code></pre></div>
 <p>Man beachte, dass ein Paket nur <em>einmalig</em> zu installieren ist (wie jede Software). Dann aber muss das Paket bei jedem Starten von R wieder von neuem gestartet werden. Außerdem ist es wichtig zu wissen, dass das Laden eines Pakets nicht automatisch die Datensätze aus dem Paket lädt. Man muss das oder die gewünschten Pakete selber (mit <code>data(...)</code>) laden. Und: Der Name eines Pakets (z.B. <code>titanic</code>) muss nicht identisch sein mit dem oder den Datensätzen des Pakets (z.B. <code>titanic_train</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
 </div>
 <div id="erster-blick" class="section level3">
-<h3><span class="header-section-number">12.1.2</span> Erster Blick</h3>
+<h3><span class="header-section-number">13.1.2</span> Erster Blick</h3>
 <p>Werfen wir einen ersten Blick in die Daten:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;dplyr&quot;, dependencies = TRUE) # ggf. vorher installieren</span>
 <span class="kw">glimpse</span>(titanic_train)
@@ -380,11 +400,11 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <span class="co">#&gt; $ Embarked    &lt;chr&gt; &quot;S&quot;, &quot;C&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;C&quot;, ...</span></code></pre></div>
 </div>
 <div id="welche-variablen-sind-interessant" class="section level3">
-<h3><span class="header-section-number">12.1.3</span> Welche Variablen sind interessant?</h3>
+<h3><span class="header-section-number">13.1.3</span> Welche Variablen sind interessant?</h3>
 <p>Von 12 Variablen des Datensatzes interessieren uns offenbar <code>Pclass</code> und <code>Survived</code>; Hilfe zum Datensatz kann man übrigens mit <code>help(titanic_train)</code> bekommen. Diese beiden Variablen sind kategorial (nicht-metrisch), wobei sie in der Tabelle mit Zahlen kodiert sind. Natürlich ändert die Art der Codierung (hier als Zahl) nichts am eigentlichen Skalenniveau. Genauso könnte man “Mann” mit <code>1</code> und “Frau” mit <code>2</code> kodieren; ein Mittelwert bliebe genauso (wenig) aussagekräftig. Zu beachten ist hier nur, dass sich manche R-Befehle verunsichern lassen, wenn nominale Variablen mit Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit Text-Werten zu benennen (wie “survived” vs. “drowned” etc.). Wir kommen später auf diesen Punkt zurück.</p>
 </div>
 <div id="univariate-haufigkeiten" class="section level3">
-<h3><span class="header-section-number">12.1.4</span> Univariate Häufigkeiten</h3>
+<h3><span class="header-section-number">13.1.4</span> Univariate Häufigkeiten</h3>
 <p>Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir fest: Wir untersuchen zwei nominale Variablen. Sprich: wir werden Häufigkeiten auszählen. Häufigkeiten (und relative Häufigkeiten, also Anteile oder Quoten) sind das, was uns hier beschäftigt.</p>
 <p>Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab es pro Klasse? Wie viele Passagiere gab es pro Wert von <code>Survived</code> (also die überlebten bzw. nicht überlebten)?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c1 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Pclass)
@@ -417,7 +437,7 @@ c2
 <p>Man beachte, dass der Befehl <code>count</code> stehts eine Tabelle (data.frame bzw. <code>tibble</code>) verlangt und zurückliefert.</p>
 </div>
 <div id="bivariate-haufigkeiten" class="section level3">
-<h3><span class="header-section-number">12.1.5</span> Bivariate Häufigkeiten</h3>
+<h3><span class="header-section-number">13.1.5</span> Bivariate Häufigkeiten</h3>
 <p>OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von <code>Survived</code> (dasselbe gilt für <code>Pclass</code>). Eigentlich interessiert uns aber die Frage, ob sich die relativen Häufigkeiten der Stufen von <code>Pclass</code> innerhalb der Stufen von <code>Survived</code> unterscheiden. Einfacher gesagt: Ist der Anteil der Überlebenden in der 1. Klasse größer als in der 3. Klasse?</p>
 <p>Zählen wir zuerst die Häufigkeiten für alle Kombinationen von <code>Survived</code> und <code>Pclass</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c3 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(titanic_train, Survived, Pclass)
@@ -449,7 +469,7 @@ c3
 <p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="signifikanztest" class="section level3">
-<h3><span class="header-section-number">12.1.6</span> Signifikanztest</h3>
+<h3><span class="header-section-number">13.1.6</span> Signifikanztest</h3>
 <p>Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und außerdem zumeist missverstanden wird (er gibt <em>nicht</em> die Wahrscheinlichkeit der getesteten Hypothese an, was die Frage aufwirft, warum er mich dann interessieren sollte). Aber seisdrum, berechnen wir mal einen p-Wert. Es gibt mehrere statistische Tests, die sich hier potenziell anböten (was die Frage nach der Objektivität von statistischen Tests in ein ungünstiges Licht rückt). Nehmen wir den <span class="math inline">\(\chi^2\)</span>-Test.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(titanic_train$Survived, titanic_train$Pclass)
 <span class="co">#&gt; </span>
@@ -460,7 +480,7 @@ c3
 <p>Der p-Wert ist kleiner als 5%, daher entscheiden wir uns, entsprechend der üblichen Gepflogenheit, gegen die H0 und für die H1: “Es gibt einen Zusammenhang von Überlebensrate und Passagierklasse”.</p>
 </div>
 <div id="effektstarke" class="section level3">
-<h3><span class="header-section-number">12.1.7</span> Effektstärke</h3>
+<h3><span class="header-section-number">13.1.7</span> Effektstärke</h3>
 <p>Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie sehr die Variablen zusammenhängen. Für Häufigkeitsanalysen mit 2*2-Feldern bietet sich das “Odds Ratio” (OR), das Chancenverhältnis an. Das Chancen-Verhältnis beantwortet die Frage: “Um welchen Faktor ist die Überlebenschance in der einen Klasse größer als in der anderen Klasse?”. Eine interessante Frage, als schauen wir es uns an.</p>
 <p>Das OR ist nur definiert für 2*2-Häufigkeitstabellen, daher müssen wir die Anzahl der Passagierklassen von 3 auf 2 verringern. Nehmen wir nur 1. und 3. Klasse, um den vermuteten Effekt deutlich herauszuschälen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t2 &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic_train, Pclass !=<span class="st"> </span><span class="dv">2</span>)  <span class="co"># &quot;!=&quot; heißt &quot;nicht&quot;</span></code></pre></div>
@@ -526,7 +546,7 @@ c4
 <p>Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you live…</p>
 </div>
 <div id="logististische-regression" class="section level3">
-<h3><span class="header-section-number">12.1.8</span> Logististische Regression</h3>
+<h3><span class="header-section-number">13.1.8</span> Logististische Regression</h3>
 <p>Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression. Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich das Diagramm an. Hier sehen wir die (geschätzten) Überlebens-Wahrscheinlichkeiten für Passagiere der 1. Klasse vs. Passagiere der 3. Klasse.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titanic2 &lt;-<span class="st"> </span>titanic_train %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(Pclass %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) %&gt;%<span class="st"> </span>
@@ -544,7 +564,7 @@ titanic2$pred_prob &lt;-<span class="st"> </span><span class="kw">predict</span>
 <p><img src="075_Fallstudie_Titanic_files/figure-html/fig-titanic-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.</p>
 <p>Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit <code>glm</code> und <code>family = &quot;binomial&quot;</code> eine <em>logistische</em> Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (<code>lm(...)</code>) ist.</p>
-<p>Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die “normale” Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-<em>Chance</em> (Odds) 1.7 zu 1 betrug - bei der <em>ersten</em> Stufe von <code>Pclass</code> (<code>1</code>)<a href="#fn54" class="footnoteRef" id="fnref54"><sup>54</sup></a>; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-<em>Wahrscheinlichkeit</em>); s. <code>Intercept</code>; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert “Null” hat/ haben, bzw. die erste Ausprägung, hier 1.</p>
+<p>Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die “normale” Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-<em>Chance</em> (Odds) 1.7 zu 1 betrug - bei der <em>ersten</em> Stufe von <code>Pclass</code> (<code>1</code>)<a href="#fn59" class="footnoteRef" id="fnref59"><sup>59</sup></a>; von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-<em>Wahrscheinlichkeit</em>); s. <code>Intercept</code>; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert “Null” hat/ haben, bzw. die erste Ausprägung, hier 1.</p>
 <p>Im Vergleich dazu wird die Überlebens-Chance deutlich schlechter, wenn man die nächste Gruppe von <code>Pclass</code> (3) betrachtet. Die Odds verändern sich um den Faktor ~0.2. Da der Faktor <em>kleiner</em> als 1 ist, ist das kein gutes Zeichen. Die Überlebens-Chance <em>sinkt</em>; etwas genauer auf: <span class="math inline">\(1.7 * 0.2 \approx 0.34\)</span>. Das heißt, die Überlebens-Chance ist in der 3. Klasse nur noch ca. 1 zu 3 (Überlebens-Wahrscheinlichkeit: ~25%).</p>
 <p>Komfortabler können wir uns die Überlebens-<em>Wahrscheinlichkeiten</em> mit der Funktion <code>predict</code> ausgeben lassen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glm1, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Pclass =</span> <span class="kw">factor</span>(<span class="st">&quot;1&quot;</span>)), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
@@ -583,7 +603,7 @@ für jede der beiden Passagierklassen. FERTIG.</p>
 <p></p>
 </div>
 <div id="effektstarken-visualieren" class="section level3">
-<h3><span class="header-section-number">12.1.9</span> Effektstärken visualieren</h3>
+<h3><span class="header-section-number">13.1.9</span> Effektstärken visualieren</h3>
 <p>Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe (im Datensatz ohne 2. Klasse, der Einfachheit halber).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c5 &lt;-<span class="st"> </span>dplyr::<span class="kw">count</span>(t2, Pclass, Survived)
 c5$prop &lt;-<span class="st"> </span>c5$n /<span class="st"> </span><span class="dv">707</span>
@@ -607,7 +627,9 @@ c5
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> c5) +
 <span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> n, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Passagierklasse&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Überlebt?&quot;</span>, <span class="dt">caption =</span> <span class="st">&quot;Nur Passagiere, keine Besatzung&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Passagierklasse&quot;</span>, 
+       <span class="dt">fill =</span> <span class="st">&quot;Überlebt?&quot;</span>, 
+       <span class="dt">caption =</span> <span class="st">&quot;Nur Passagiere, keine Besatzung&quot;</span>)</code></pre></div>
 <p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten.</p>
 <p>Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. Der zu untersuchende Effekt tritt hier am stärken zu Tage; außerdem ist die Analyse relativ einfach.</p>
@@ -620,13 +642,13 @@ c5
 <p>Hier werden die vier “Fliesen” gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.</p>
 </div>
 <div id="fazit-1" class="section level3">
-<h3><span class="header-section-number">12.1.10</span> Fazit</h3>
+<h3><span class="header-section-number">13.1.10</span> Fazit</h3>
 <p>In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr weit; <code>dplyr</code> und <code>ggplot2</code> zählen (zu Recht) zu den am häufigsten verwendeten Paketen. Beide sind flexibel, konsistent und spielen gerne miteinander. Die besten Einblicke haben wir aus deskriptiver bzw. explorativer Analyse (Diagramme) gewonnen. Signifikanztests oder komplizierte Modelle waren nicht zentral. In vielen Studien/Projekten der Datenanalyse gilt ähnliches: Daten umformen und verstehen bzw. “veranschaulichen” sind zentrale Punkte, die häufig viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind Häufigkeitsauswertungen ideal.</p>
 
 </div>
 </div>
 <div id="auereheliche-affaren" class="section level2">
-<h2><span class="header-section-number">12.2</span> Außereheliche Affären</h2>
+<h2><span class="header-section-number">13.2</span> Außereheliche Affären</h2>
 <p>Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig? Diese Frage soll anhand des Datensates <code>Affair</code> untersucht werden.</p>
 <p>Quelle: <a href="http://statsmodels.sourceforge.net/0.5.0/datasets/generated/fair.html" class="uri">http://statsmodels.sourceforge.net/0.5.0/datasets/generated/fair.html</a></p>
 <p>Der Datensatz findet sich (in ähnlicher Form) auch im R-Paket <code>COUNT</code> (<a href="https://cran.r-project.org/web/packages/COUNT/index.html" class="uri">https://cran.r-project.org/web/packages/COUNT/index.html</a>).</p>
@@ -650,7 +672,7 @@ c5
 <span class="co">#&gt; 6          5      5</span></code></pre></div>
 <p>Ok scheint zu passen. Was jetzt?</p>
 <div id="zentrale-statistiken" class="section level3">
-<h3><span class="header-section-number">12.2.1</span> Zentrale Statistiken</h3>
+<h3><span class="header-section-number">13.2.1</span> Zentrale Statistiken</h3>
 <p>Geben Sie zentrale deskriptive Statistiken an für Affärenhäufigkeit und Ehezufriedenheit!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht robust:</span>
 <span class="kw">mean</span>(Affair$affairs, <span class="dt">na.rm =</span> T)
@@ -680,7 +702,7 @@ c5
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;psych&quot;</span>)</code></pre></div>
 </div>
 <div id="visualisieren" class="section level3">
-<h3><span class="header-section-number">12.2.2</span> Visualisieren</h3>
+<h3><span class="header-section-number">13.2.2</span> Visualisieren</h3>
 <p>Visualisieren Sie zentrale Variablen!</p>
 <p>Sicherlich sind Diagramme auch hilfreich. Dies geht wiederum mit dem R-Commander oder z.B. mit folgenden Befehlen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -691,12 +713,13 @@ c5
 <p>Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.</p>
 </div>
 <div id="wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne" class="section level3">
-<h3><span class="header-section-number">12.2.3</span> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</h3>
+<h3><span class="header-section-number">13.2.3</span> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</h3>
 <p>Nehmen wir dazu mal ein paar <code>dplyr</code>-Befehle:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 Affair %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(children) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">rating_children =</span> <span class="kw">mean</span>(rating, <span class="dt">na.rm =</span> T))
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">rating_children =</span> 
+              <span class="kw">mean</span>(rating, <span class="dt">na.rm =</span> T))
 <span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   children rating_children</span>
 <span class="co">#&gt;     &lt;fctr&gt;           &lt;dbl&gt;</span>
@@ -705,7 +728,7 @@ Affair %&gt;%<span class="st"> </span>
 <p>Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass wir das geklärt haben.</p>
 </div>
 <div id="wie-viele-fehlende-werte-gibt-es" class="section level3">
-<h3><span class="header-section-number">12.2.4</span> Wie viele fehlende Werte gibt es?</h3>
+<h3><span class="header-section-number">13.2.4</span> Wie viele fehlende Werte gibt es?</h3>
 <p>Was machen wir am besten damit?</p>
 <p>Diesen Befehl könnten wir für jede Spalte auführen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">is.na</span>(Affair$affairs))
@@ -721,7 +744,7 @@ Affair %&gt;%<span class="st"> </span>
 <p>Ah, gut, keine fehlenden Werte. Das macht uns das Leben leichter.</p>
 </div>
 <div id="wer-ist-glucklicher-manner-oder-frauen" class="section level3">
-<h3><span class="header-section-number">12.2.5</span> Wer ist glücklicher: Männer oder Frauen?</h3>
+<h3><span class="header-section-number">13.2.5</span> Wer ist glücklicher: Männer oder Frauen?</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(gender) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">rating_gender =</span> <span class="kw">mean</span>(rating))
@@ -770,7 +793,7 @@ Affair %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 4      yes   male        1.659        3.86</span></code></pre></div>
 </div>
 <div id="effektstarken" class="section level3">
-<h3><span class="header-section-number">12.2.6</span> Effektstärken</h3>
+<h3><span class="header-section-number">13.2.6</span> Effektstärken</h3>
 <p>Berichten Sie eine relevante Effektstärke!</p>
 <p>Hm, auch keine gewaltigen Unterschiede. Höchstens für die Zufriedenheit mit der Partnerschaft bei kinderlosen Personen scheinen sich Männer und Frauen etwas zu unterscheiden. Hier stellt sich die Frage nach der Größe des Effekts, z.B. anhand Cohen’s d. Dafür müssen wir noch die SD pro Gruppe wissen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair %&gt;%<span class="st"> </span>
@@ -790,7 +813,7 @@ Affair %&gt;%<span class="st"> </span>
 <p>Die Effektstärke beträgt etwa 0.3.</p>
 </div>
 <div id="korrelationen" class="section level3">
-<h3><span class="header-section-number">12.2.7</span> Korrelationen</h3>
+<h3><span class="header-section-number">13.2.7</span> Korrelationen</h3>
 <p>Berechnen und visualisieren Sie zentrale Korrelationen!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">select_if</span>(is.numeric) %&gt;%<span class="st"> </span>
@@ -821,7 +844,7 @@ cor_tab
 <p><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ehejahre-und-affaren" class="section level3">
-<h3><span class="header-section-number">12.2.8</span> Ehejahre und Affären</h3>
+<h3><span class="header-section-number">13.2.8</span> Ehejahre und Affären</h3>
 <p>Wie groß ist der Einfluss (das Einflussgewicht) der Ehejahre bzw. Ehezufriedenheit auf die Anzahl der Affären?</p>
 <p>Dazu sagen wir R: “Hey R, rechne mal ein lineares Modell”, also eine normale (lineare) Regression. Dazu können wir entweder das entsprechende Menü im R-Commander auswählen, oder folgende R-Befehle ausführen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span class="st"> </span>yearsmarried, <span class="dt">data =</span> Affair)
@@ -867,7 +890,7 @@ lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span clas
 <p>Also: <code>yearsmarried</code> und <code>rating</code> sind beide statistisch signifikante Prädiktoren für die Häufigkeit von Affären. Das adjustierte <span class="math inline">\(R^2\)</span> ist allerdings in beiden Fällen nicht so groß.</p>
 </div>
 <div id="ehezufriedenheit-als-pradiktor" class="section level3">
-<h3><span class="header-section-number">12.2.9</span> Ehezufriedenheit als Prädiktor</h3>
+<h3><span class="header-section-number">13.2.9</span> Ehezufriedenheit als Prädiktor</h3>
 <p>Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span class="st"> </span>rating +<span class="st"> </span>yearsmarried, <span class="dt">data =</span> Affair)
 lm4 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span class="st"> </span>yearsmarried +<span class="st"> </span>rating, <span class="dt">data =</span> Affair)
@@ -915,7 +938,7 @@ lm4 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span clas
 <p>Wir sehen, dass beim 1. Regressionsmodell das R^2 0.03 war; beim 2. Modell 0.08 und beim 3. Modell liegt R^2 bei 0.09. Die Differenz zwischen Modell 1 und 3 liegt bei (gerundet) 0.06; wenig.</p>
 </div>
 <div id="weitere-pradiktoren-der-affarenhaufigkeit" class="section level3">
-<h3><span class="header-section-number">12.2.10</span> Weitere Prädiktoren der Affärenhäufigkeit</h3>
+<h3><span class="header-section-number">13.2.10</span> Weitere Prädiktoren der Affärenhäufigkeit</h3>
 <p>Welche Prädiktoren würden Sie noch in die Regressionsanalyse aufnehmen?</p>
 <p>Hm, diese Frage klingt nicht so, als ob der Dozent die Antwort selber wüsste… Naja, welche Variablen gibt es denn alles:</p>
 <pre><code>#&gt;  [1] &quot;X&quot;             &quot;affairs&quot;       &quot;gender&quot;        &quot;age&quot;          
@@ -980,7 +1003,7 @@ r2_lm6 &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="
 <p>Insgesamt bleibt die erklärte Varian in sehr bescheidenem Rahmen: 0.39. Das zeigt uns, dass es immer noch nur schlecht verstanden ist – im Rahmen dieser Analyse – welche Faktoren die Affärenhäufigkeit erklärt.</p>
 </div>
 <div id="unterschied-zwischen-den-geschlechtern" class="section level3">
-<h3><span class="header-section-number">12.2.11</span> Unterschied zwischen den Geschlechtern</h3>
+<h3><span class="header-section-number">13.2.11</span> Unterschied zwischen den Geschlechtern</h3>
 <p>Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß ist der Unterschied? Sollte hierlieber das d-Maß oder Rohwerte als Effektmaß angegeben werden?</p>
 <p>Hier bietet sich ein t-Test für unabhängige Gruppen an. Die Frage lässt auf eine ungerichtete Hypothese schließen (<span class="math inline">\(\alpha\)</span> sei .05). Mit dem entsprechenden Menüpunkt im R-Commander oder mit folgender Syntax lässt sich diese Analyse angehen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t1 &lt;-<span class="st"> </span><span class="kw">t.test</span>(affairs ~<span class="st"> </span>gender, <span class="dt">data =</span> Affair)
@@ -1015,7 +1038,7 @@ t1
 <p>Das Konfidenzintervall ist zwar relativ klein (die Schätzung also aufgrund der recht großen Stichprobe relativ präzise), aber der Schätzwert für d <code>smd</code> liegt sehr nahe bei Null. Das stärkt unsere Entscheidung, von einer Gleichheit der Populationen (Männer vs. Frauen) auszugehen.</p>
 </div>
 <div id="kinderlose-ehe-vs.ehen-mit-kindern" class="section level3">
-<h3><span class="header-section-number">12.2.12</span> Kinderlose Ehe vs. Ehen mit Kindern</h3>
+<h3><span class="header-section-number">13.2.12</span> Kinderlose Ehe vs. Ehen mit Kindern</h3>
 <p>Rechnen Sie die Regressionsanalyse getrennt für kinderlose Ehe und Ehen mit Kindern!</p>
 <p>Hier geht es im ersten Schritt darum, die entsprechenden Teil-Mengen der Datenmatrix zu erstellen. Das kann man natürlich mit Excel o.ä. tun. Alternativ könnte man es in R z.B. so machen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair2 &lt;-<span class="st"> </span>Affair[Affair$children ==<span class="st"> &quot;yes&quot;</span>, ]
@@ -1081,7 +1104,7 @@ Affair4 &lt;-<span class="st"> </span><span class="kw">filter</span>(Affair, chi
 <span class="co">#&gt; 6          6      4</span></code></pre></div>
 </div>
 <div id="halodries" class="section level3">
-<h3><span class="header-section-number">12.2.13</span> Halodries</h3>
+<h3><span class="header-section-number">13.2.13</span> Halodries</h3>
 <p>Rechnen Sie die Regression nur für “Halodries”; d.h. für Menschen mit Seitensprüngen. Dafür müssen Sie alle Menschen ohne Affären aus den Datensatz entfernen.</p>
 <p>Also, rechnen wir nochmal die Standardregression (<code>lm1</code>). Probieren wir den Befehl <code>filter</code> dazu nochmal aus:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair5 &lt;-<span class="st"> </span><span class="kw">filter</span>(Affair, affairs !=<span class="st"> </span><span class="dv">0</span>)
@@ -1107,12 +1130,14 @@ lm9 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs ~<span clas
 <span class="co">#&gt; F-statistic: 9.18 on 1 and 148 DF,  p-value: 0.00289</span></code></pre></div>
 </div>
 <div id="logistische-regression" class="section level3">
-<h3><span class="header-section-number">12.2.14</span> logistische Regression</h3>
+<h3><span class="header-section-number">13.2.14</span> logistische Regression</h3>
 <p>Berechnen Sie für eine logistische Regression mit “Affäre ja vs. nein” als Kriterium, wie stark der Einfluss von Geschlecht, Kinderstatus, Ehezufriedenheit und Ehedauer ist!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 Affair %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">affairs_dichotom =</span> <span class="kw">if_else</span>(affairs ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">glm</span>(affairs_dichotom ~gender +<span class="st"> </span>children +<span class="st"> </span>rating +<span class="st"> </span>yearsmarried, <span class="dt">data =</span> ., <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>) -&gt;<span class="st"> </span>lm10
+<span class="st">  </span><span class="kw">glm</span>(affairs_dichotom ~<span class="st"> </span>gender +<span class="st"> </span>children +<span class="st"> </span>rating +<span class="st"> </span>yearsmarried,
+      <span class="dt">data =</span> ., 
+      <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>) -&gt;<span class="st"> </span>lm10
 
 <span class="kw">summary</span>(lm10)
 <span class="co">#&gt; </span>
@@ -1205,23 +1230,25 @@ Affair %&gt;%<span class="st"> </span>
 </table>
 </div>
 <div id="zum-abschluss" class="section level3">
-<h3><span class="header-section-number">12.2.15</span> Zum Abschluss</h3>
+<h3><span class="header-section-number">13.2.15</span> Zum Abschluss</h3>
 <p>Visualisieren wir mal was!</p>
 <p>Ok, wie wäre es damit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair %&gt;%<span class="st"> </span>
 <span class="st">   </span><span class="kw">select</span>(affairs, gender, children, rating) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> affairs, <span class="dt">y =</span> rating)) +<span class="st"> </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> gender, <span class="dt">shape =</span> children)) </code></pre></div>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> affairs, <span class="dt">y =</span> rating)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> gender, <span class="dt">shape =</span> children)) </code></pre></div>
 <p><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Affair %&gt;%<span class="st"> </span>
-<span class="st">   </span><span class="kw">mutate</span>(<span class="dt">rating_dichotom =</span> <span class="kw">ntile</span>(rating, <span class="dv">2</span>)) %&gt;%<span class="st"> </span>
-<span class="st">   </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> yearsmarried, <span class="dt">y =</span> affairs)) +<span class="st"> </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> gender)) +
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating_dichotom =</span> <span class="kw">ntile</span>(rating, <span class="dv">2</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> yearsmarried, <span class="dt">y =</span> affairs)) +
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
 <p><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Puh. Geschafft!</p>
 </div>
 </div>
-<div id="befehlsubersicht-6" class="section level2">
-<h2><span class="header-section-number">12.3</span> Befehlsübersicht</h2>
+<div id="befehlsubersicht-7" class="section level2">
+<h2><span class="header-section-number">13.3</span> Befehlsübersicht</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1280,14 +1307,18 @@ Affair %&gt;%<span class="st"> </span>
 </tr>
 <tr class="odd">
 <td align="left">dplyr::ntile</td>
-<td align="left">Teilt einen Wertebereich in n gleich große Teile auf und gibt für jeden Fall an, in welchem Teil er sich befindet</td>
+<td align="left">Teilt einen Wertebereich in <span class="math inline">\(n\)</span> gleich große Teile auf</td>
+</tr>
+<tr class="even">
+<td align="left">.</td>
+<td align="left">und gibt für jeden Fall an, in welchem Teil er sich befindet</td>
 </tr>
 </tbody>
 </table>
 <div id="versionshinweise-und-sessioninfo" class="section level3">
-<h3><span class="header-section-number">12.3.1</span> Versionshinweise und SessionInfo</h3>
+<h3><span class="header-section-number">13.3.1</span> Versionshinweise und SessionInfo</h3>
 <ul>
-<li>Datum erstellt: 2017-04-26</li>
+<li>Datum erstellt: 2017-04-28</li>
 <li>R Version: 3.3.2</li>
 <li><code>dplyr</code> Version: 0.5.0.9002</li>
 </ul>
@@ -1327,8 +1358,8 @@ Affair %&gt;%<span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="54">
-<li id="fn54"><p>Darum haben wir <code>Pclass</code> in eine Faktor-Variable umgewandelt. Die “erste Klasse” ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir <code>Pclass</code> als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die “nullte” Klasse geben, was wenig Sinn macht.<a href="fallstudien-zum-geleiteten-modellieren.html#fnref54">↩</a></p></li>
+<ol start="59">
+<li id="fn59"><p>Darum haben wir <code>Pclass</code> in eine Faktor-Variable umgewandelt. Die “erste Klasse” ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir <code>Pclass</code> als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrat für die “nullte” Klasse geben, was wenig Sinn macht.<a href="fallstudien-zum-geleiteten-modellieren.html#fnref59">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -1337,7 +1368,7 @@ Affair %&gt;%<span class="st"> </span>
         </div>
       </div>
 <a href="klassifizierende-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="vertiefung-clusteranalyse.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="iv-ungeleitetes-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -1368,7 +1399,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Praxis_der_Datenanalyse.pdf"],
+"download": ["Praxis_der_Datenanalyse.pdf", "Praxis_der_Datenanalyse.epub"],
 "toc": {
 "collapse": "none",
 "scroll_highlight": true

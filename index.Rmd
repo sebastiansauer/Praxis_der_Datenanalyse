@@ -25,7 +25,7 @@ biblio-style: apalike
 
 
 ```{r sourcelibs, echo = FALSE, include = FALSE, warning = FALSE, message = FALSE}
-source("source/libs.R")
+source("includes/libs.R")
 ```
 
 

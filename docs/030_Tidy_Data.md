@@ -5,6 +5,10 @@
 # Daten einlesen
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Wissen, was eine CSV-Datei ist.
@@ -18,7 +22,7 @@
 Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
 
 <div class="figure" style="text-align: center">
-<img src="images/Einlesen.pdf" alt="Daten sauber einlesen" width="70%" />
+<img src="images/tidy/Einlesen.png" alt="Daten sauber einlesen" width="70%" />
 <p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
 </div>
 
@@ -37,7 +41,7 @@ anschauen und weiterverwenden kann].
 Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen^[im Hintergrund wird das Paket `readxl` verwendet]:
 
 <div class="figure" style="text-align: center">
-<img src="images/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<img src="images/tidy/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
 <p class="caption">(\#fig:data-import-RStudio)Daten einlesen (importieren) mit RStudio</p>
 </div>
 
@@ -138,7 +142,7 @@ Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als
 Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
 
 <div class="figure" style="text-align: center">
-<img src="images/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
+<img src="images/tidy/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
 <p class="caption">(\#fig:tidy1)Schematische Darstellung eines Dataframes in Normalform</p>
 </div>
 
@@ -147,7 +151,7 @@ Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes 
 Der Punkt "Jede Zeile eine Beobachtung, jede Spalte eine Variable" verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
 
 <div class="figure" style="text-align: center">
-<img src="images/breit_lang.pdf" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
+<img src="images/tidy/breit_lang.pdf" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
 <p class="caption">(\#fig:lang-breit)Dieselben Daten - einmal breit, einmal lang</p>
 </div>
 
@@ -156,7 +160,7 @@ In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; 
 
 
 <div class="figure" style="text-align: center">
-<img src="images/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
+<img src="images/tidy/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
 <p class="caption">(\#fig:fig-Normalform)Illustration eines Datensatzes in Normalform</p>
 </div>
 
@@ -216,7 +220,7 @@ readr::separate      "Zieht" Spalten auseinander.
 
 
 
-## Übungen^[F, R, F, R, R, R, F, F]
+## Aufgaben^[F, R, F, R, R, R, F, F]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
@@ -228,7 +232,6 @@ readr::separate      "Zieht" Spalten auseinander.
 2. In einer Tabelle in Normalform stehen in jeder Spalte eine Variable.
 2. R stellt fehlende Werte mit einem Fragezeichen `?` dar.
 2. Um Excel-Dateien zu importieren, kann man den Befehl `read.csv` verwenden.
-
 
 </div>\EndKnitrBlock{rmdexercises}
 

@@ -8,11 +8,9 @@
 
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
@@ -31,14 +29,10 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Prozess_Datenanalyse} 
-
-}
-
-\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
+</div>
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -104,8 +98,7 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
+<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -383,11 +376,11 @@ Pakete
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
-- Datensatz `inf_test_short`, hier herunterzuladen: <osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
+- Datensatz `inf_test_short`, hier herunterzuladen: <https://osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
 - Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
-- Datensatz 'wo_men`, hier herunterzuladen: <osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
+- Datensatz 'wo_men`, hier herunterzuladen: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
-- Datensatz `extra`, hier herunterzuladen: <osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
+- Datensatz `extra`, hier herunterzuladen: <https://osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
 
 
 Wir verwenden zwei Methoden, um Datensätze in R zu laden.
@@ -692,6 +685,9 @@ install.packages     installiert ein Paket
 library              lädt ein Paket
 <-                   Weist einer Variablen einen Wert zu
 c                    erstellt eine Spalte/ einen Vektor
+
+
+
 
 Diese Befehle "wohnen" alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.
 
