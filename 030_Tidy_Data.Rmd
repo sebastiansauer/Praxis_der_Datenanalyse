@@ -42,7 +42,7 @@ Lernziele:
 Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
 
 ```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
-knitr::include_graphics("images/Einlesen.pdf")
+knitr::include_graphics("images/tidy/Einlesen.pdf")
 ```
 
 
@@ -175,7 +175,7 @@ In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; 
 
 
 ```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform"}
-knitr::include_graphics("images/Normalform.pdf")
+knitr::include_graphics("images/tidy/Normalform.pdf")
 ```
 
 ## Vertiefung

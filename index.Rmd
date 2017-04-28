@@ -1,5 +1,5 @@
 --- 
-title: "Praxis der Datenanalyse"
+title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -16,7 +16,7 @@ fontsize: 12pt
 github-repo: sebastiansauer/Praxis_der_Datenanalyse
 link-citations: yes
 lof: yes
-lot: no
+lot: yes
 nocite: |
   @*
 site: bookdown::bookdown_site
@@ -43,7 +43,7 @@ knitr::include_graphics("images/licence.png")
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
 ```{r research_plot, echo = FALSE}
-knitr::include_graphics("images/Forschung_frueher_heute.jpg")
+knitr::include_graphics("images/vorwort/Forschung_frueher_heute.jpg")
 ```
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
@@ -114,7 +114,7 @@ knitr::include_graphics("images/licence.png")
 
 Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib)):
 
-Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting"" an der FOM, Nürnberg.
+Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM, Nürnberg.
 
 
 

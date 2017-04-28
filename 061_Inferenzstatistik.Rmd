@@ -41,7 +41,7 @@ Lernziele:
 
 
 ```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "20%", fig.align = "center"}
-knitr::include_graphics("images/Ronald_Fisher.jpg")
+knitr::include_graphics("images/inferenz/Ronald_Fisher.jpg")
 ```
 
 ## Der p-Wert sagt nicht das, was viele denken
@@ -51,7 +51,7 @@ Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist d
 
 
 ```{r who-said, echo = FALSE, out.width = "35%", fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
-knitr::include_graphics("images/p_value_who_said.png")
+knitr::include_graphics("images/inferenz/p_value_who_said.png")
 ```
 
 
@@ -88,7 +88,7 @@ $$ P(M|T) \ne P(T|M) $$
 
 
 ```{r moslems-terroristen, echo = FALSE, fig.cap = "Moslem und Terrorist zu sein, ist nicht das gleiche."}
-knitr::include_graphics("images/moslems_terroristen.jpeg")
+knitr::include_graphics("images/inferenz/moslems_terroristen.jpeg")
 ```
 
 
@@ -103,7 +103,7 @@ Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der E
 
 ```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
 
-knitr::include_graphics("images/einfluss_pwert_crop.pdf")
+knitr::include_graphics("images/inferenz/einfluss_pwert_crop.pdf")
 ```
 
 
@@ -117,7 +117,7 @@ Mit steigender Stichprobengröße sollte der Anteil an statistisch signifikanten
 
 ```{r simulate-pvalues, echo = FALSE, fig.cap = "Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)"}
 
-knitr::include_graphics("images/simulate_ps.pdf")
+knitr::include_graphics("images/inferenz/simulate_ps.pdf")
 
 ```
 
@@ -158,7 +158,7 @@ Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) u
 
 
 ```{r fig-dino, echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/meme_pwert_1iw22a_pvalue_dino.jpg")
+knitr::include_graphics("images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg")
 ```
 
 

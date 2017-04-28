@@ -54,7 +54,7 @@ einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
 ```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
-knitr::include_graphics("images/Prozess_Datenanalyse.pdf") 
+knitr::include_graphics("images/Rahmen/Prozess_Datenanalyse.pdf") 
 ```
 
 
@@ -116,8 +116,8 @@ Die Oberfläche von R, die "Console", sieht so aus:
 <!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
 
 ```{r eval = FALSE, echo = FALSE,  fig.width = 3} 
-# knitr::include_graphics("images/R.jpg") 
-knitr::include_graphics("images/R-Mac.png")
+# knitr::include_graphics("images/Rahmen/R.jpg") 
+knitr::include_graphics("images/Rahmen/R-Mac.png")
 
 ```
 
@@ -690,6 +690,9 @@ install.packages     installiert ein Paket
 library              lädt ein Paket
 <-                   Weist einer Variablen einen Wert zu
 c                    erstellt eine Spalte/ einen Vektor
+
+
+
 
 Diese Befehle "wohnen" alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.
 

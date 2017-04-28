@@ -85,7 +85,7 @@ Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier
 
 
 ```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms"}
-knitr::include_graphics("images/anatomie_diagramm_crop.pdf")
+knitr::include_graphics("images/visualisieren/anatomie_diagramm_crop.jpg")
 ```
 
 Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
