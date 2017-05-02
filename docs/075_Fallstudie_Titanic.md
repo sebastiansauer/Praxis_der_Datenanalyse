@@ -379,7 +379,11 @@ Das visualisieren wir wieder
 
 
 ```r
-qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
+qplot(x = factor(Pclass), 
+      y = prop, 
+      fill = factor(Survived), 
+      data = c5, 
+      geom = "col")
 ```
 
 <img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />

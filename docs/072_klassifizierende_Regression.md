@@ -349,7 +349,8 @@ Sie können die Konfusionsmatrix "zu Fuß" berechnen, in dem Sie eine neue Varia
 ```r
 # Konfusionsmatrix "zu Fuß" berechnen
 # cutpoint = 0.5 setzen
-# neue Variable predicted anlegen mit 1, wenn modellierte Wahrscheinlichkeit > 1 ist
+# neue Variable predicted anlegen mit 1, 
+# wenn modellierte Wahrscheinlichkeit > 1 ist
 cutpoint = 0.5
 Aktien$predicted <- ((glm1$fitted.values) > cutpoint)*1
 # Kreuztabelle berechnen

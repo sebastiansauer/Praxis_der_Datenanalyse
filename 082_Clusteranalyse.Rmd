@@ -140,7 +140,7 @@ knitr::include_graphics("images/cluster/distanz_crop.png")
 ```
 
 
-Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung geliebt:
+Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung ähmm... geliebt:
 
 $$c^2 = a^2 + b^2$$
 

@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -736,7 +735,7 @@ ein um im Durchschnitt 0.26 <em>höheres</em> Trinkgeld, bei Kontrolle, d. h. gl
 <h3><span class="header-section-number">11.6.2</span> R-Quadrat (<span class="math inline">\(R^2\)</span>)</h3>
 <p><span class="math inline">\(R^2\)</span>, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem “Nullmodell” an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: “Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!”.</p>
 <p>Damit gibt <span class="math inline">\(R^2\)</span> an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein <span class="math inline">\(R^2\)</span> von 25% (0.25) hieße, dass unser Vorhersagefehler 25% <em>kleiner</em> ist als der der Nullmodells. Ein <span class="math inline">\(R^2\)</span> von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man <span class="math inline">\(R^2\)</span> so definieren:</p>
-<p><span class="math display">\[ R^2 = 1 - (\frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler})\]</span></p>
+<p><span class="math display">\[ R^2 = 1 - \left( \frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler} \right)\]</span></p>
 <p>Präziser, in R-Syntax:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span><span class="kw">sum</span>((df$pred -<span class="st"> </span>df$obs)^<span class="dv">2</span>) /<span class="st"> </span><span class="kw">sum</span>((<span class="kw">mean</span>(df$obs) -<span class="st"> </span>df$obs)^<span class="dv">2</span>)</code></pre></div>
 <p>Praktischerweise gibt es einige R-Pakete, die diese Berechnung für uns besorgen:</p>

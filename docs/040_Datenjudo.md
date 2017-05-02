@@ -142,7 +142,7 @@ Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefil
 1. `filter` ist eine Funktion aus dem Paket `dplyr`.
 1. `filter` erwartet als ersten Parameter das Filterkriterium.
 1. `filter` lässt nur ein Filterkriterium zu.
-1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")´.
+1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")`.
 
 
 </div>\EndKnitrBlock{rmdexercises}
@@ -239,6 +239,7 @@ Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten
 </div>\EndKnitrBlock{rmdexercises}
 
 
+
 ### Zeilen sortieren mit `arrange`
 
 Man kann zwei Arten des Umgangs mit R unterscheiden: Zum einen der "interaktive Gebrauch" und zum anderen "richtiges Programmieren". Im interaktiven Gebrauch geht es uns darum, die Fragen zum aktuell vorliegenden Datensatz (schnell) zu beantworten. Es geht nicht darum, eine allgemeine Lösung zu entwickeln, die wir in die Welt verschicken können und die dort ein bestimmtes Problem löst, ohne dass der Entwickler (wir) dabei Hilfestellung geben muss. "Richtige" Software, wie ein R-Paket oder Microsoft Powerpoint, muss diese Erwartung erfüllen; "richtiges Programmieren" ist dazu vonnöten. Natürlich sind in diesem Fall die Ansprüche an die Syntax (der "Code", hört sich cooler an) viel höher. In dem Fall muss man alle Eventualitäten voraussehen und sicherstellen, dass das Programm auch beim merkwürdigsten Nutzer brav seinen Dienst tut. Wir haben hier, beim interaktiven Gebrauch, niedrigere Ansprüche bzw. andere Ziele. 
@@ -310,7 +311,7 @@ Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
 
 
-Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Ränge* widergibt:
+Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Elemente* widergibt:
 
 
 ```r
@@ -350,9 +351,9 @@ top_n(stats_test, 3, interest)
 
 Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
 
-Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr.
+Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr "denkt" sich: "Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde". 
 
-#### Aufgaben^[F, F, F, F, R]
+#### Aufgaben^[F, F, F, F, F]
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
@@ -360,7 +361,7 @@ Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir 
 1. `arrange` sortiert im Standard absteigend.
 1. `arrange` lässt nur ein Sortierkriterium zu.
 1. `arrange` kann numerische Werte, aber nicht Zeichenketten sortieren.
-1. `top_n(5)` liefert die fünf kleinsten Ränge.
+1. `top_n(5)` liefert immer fünf Werte zurück.
 </div>\EndKnitrBlock{rmdexercises}
 
 ### Datensatz gruppieren mit `group_by`
@@ -641,6 +642,85 @@ Merke:
 >    n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle. 
 
 
+#### Vertiefung zum Zählen von Zeilen: Relative Häufigkeiten
+
+Manchmal ist es praktisch, nicht zur die (absolute) Häufigkeiten von Zeilen zu zählen, sondern ihren Anteil nach (relative Häufigkeit). Klassisches Beispiel: Wieviel Prozent der Fälle sind Frauen, wie viele sind Männer?
+
+In `dplyr` kann man das so umsetzen:
+
+
+```r
+stats_test %>% 
+  count(interest) %>% 
+  mutate(prop_interest = n / sum(n))
+#> # A tibble: 7 × 3
+#>   interest     n prop_interest
+#>      <int> <int>         <dbl>
+#> 1        1    30        0.0980
+#> 2        2    47        0.1536
+#> 3        3    66        0.2157
+#> 4        4    41        0.1340
+#> 5        5    45        0.1471
+#> 6        6     9        0.0294
+#> 7       NA    68        0.2222
+```
+
+`prop` steht hier für "Proportion", also Anteil. `sum(n)` liefert die Summe der Fälle zurück, also 306 in diesem Fall.
+
+Etwas komplexer ist es, wenn man zwei Gruppierungsvariablen hat und dann Anteile auszählen möchte:
+
+
+```r
+
+stats_test$bestanden <- stats_test$score > 25
+
+stats_test %>% 
+  group_by(interest, bestanden) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop_interest = n / sum(n)) 
+#> Source: local data frame [14 x 4]
+#> Groups: interest [7]
+#> 
+#>    interest bestanden     n prop_interest
+#>       <int>     <lgl> <int>         <dbl>
+#> 1         1     FALSE    10         0.333
+#> 2         1      TRUE    20         0.667
+#> 3         2     FALSE     9         0.191
+#> 4         2      TRUE    38         0.809
+#> 5         3     FALSE    14         0.212
+#> 6         3      TRUE    52         0.788
+#> 7         4     FALSE     9         0.220
+#> 8         4      TRUE    32         0.780
+#> 9         5     FALSE     6         0.133
+#> 10        5      TRUE    39         0.867
+#> 11        6     FALSE     1         0.111
+#> 12        6      TRUE     8         0.889
+#> 13       NA     FALSE     7         0.103
+#> 14       NA      TRUE    61         0.897
+
+stats_test %>% 
+  count(interest, bestanden) %>% 
+  mutate(prop_interest = n / sum(n)) 
+#> # A tibble: 14 × 4
+#>    interest bestanden     n prop_interest
+#>       <int>     <lgl> <int>         <dbl>
+#> 1         1     FALSE    10       0.03268
+#> 2         1      TRUE    20       0.06536
+#> 3         2     FALSE     9       0.02941
+#> 4         2      TRUE    38       0.12418
+#> 5         3     FALSE    14       0.04575
+#> 6         3      TRUE    52       0.16993
+#> 7         4     FALSE     9       0.02941
+#> 8         4      TRUE    32       0.10458
+#> 9         5     FALSE     6       0.01961
+#> 10        5      TRUE    39       0.12745
+#> 11        6     FALSE     1       0.00327
+#> 12        6      TRUE     8       0.02614
+#> 13       NA     FALSE     7       0.02288
+#> 14       NA      TRUE    61       0.19935
+```
+
+
 
 #### Aufgaben^[R, R, F, F]
 
@@ -676,8 +756,8 @@ Ah! Der Score `34` ist der häufigste!
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
 <div class="figure" style="text-align: center">
-<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578" width="70%" />
-<p class="caption">(\#fig:cecie-une-pipe)La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578</p>
+<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe]" width="70%" />
+<p class="caption">(\#fig:cecie-une-pipe)La trahison des images [Ceci n'est pas une pipe]</p>
 </div>
 
 
@@ -861,17 +941,22 @@ flights %>%
 
 ## Befehlsübersicht
 
+Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
 
-Paket::Funktion     Beschreibung
-----------------    -------------
-dplyr::arrange      Sortiert Spalten
-dplyr::filter       Filtert Zeilen
-dplyr::select       Wählt Spalten
-dplyr::group_by     gruppiert einen Dataframe
-dplyr::n            zählt Zeilen
-dplyr::count        zählt Zeilen nach Untergruppen
-%>% (dplyr)         verkettet Befehle
-dplyr::mutate       erzeugt/berechnet Spalten
+
+Table: (\#tab:befehle-datenjudo)Befehle des Kapitels Datenjudo
+
+Paket und Funktion   Beschreibung                   
+-------------------  -------------------------------
+dplyr::arrange       Sortiert Spalten               
+dplyr::filter        Filtert Zeilen                 
+dplyr::select        Wählt Spalten                  
+dplyr::group_by      gruppiert einen Dataframe      
+dplyr::n             zählt Zeilen                   
+dplyr::count         zählt Zeilen nach Untergruppen 
+%>% (dplyr)          verkettet Befehle              
+dplyr::mutate        erzeugt/berechnet Spalten      
+
 
 
 ## Verweise

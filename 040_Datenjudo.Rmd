@@ -161,7 +161,7 @@ Richtig oder Falsch!?
 1. `filter` ist eine Funktion aus dem Paket `dplyr`.
 1. `filter` erwartet als ersten Parameter das Filterkriterium.
 1. `filter` lässt nur ein Filterkriterium zu.
-1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")´.
+1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")`.
 
 
 
@@ -258,6 +258,7 @@ Richtig oder Falsch!?
 
 
 ```
+
 
 
 ### Zeilen sortieren mit `arrange`
@@ -580,7 +581,7 @@ Ah! Der Score `34` ist der häufigste!
 ## Die Pfeife
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
-```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578"}
+```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe]"}
 knitr::include_graphics("images/Datenjudo/ma-150089-WEB.jpg")
 ```
 
@@ -747,17 +748,16 @@ flights %>%
 
 ## Befehlsübersicht
 
+Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
 
-Paket::Funktion     Beschreibung
-----------------    -------------
-dplyr::arrange      Sortiert Spalten
-dplyr::filter       Filtert Zeilen
-dplyr::select       Wählt Spalten
-dplyr::group_by     gruppiert einen Dataframe
-dplyr::n            zählt Zeilen
-dplyr::count        zählt Zeilen nach Untergruppen
-%>% (dplyr)         verkettet Befehle
-dplyr::mutate       erzeugt/berechnet Spalten
+```{r befehle-datenjudo, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Datenjudo.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels Datenjudo")
+```
+
 
 
 ## Verweise

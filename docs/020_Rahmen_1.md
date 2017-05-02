@@ -38,7 +38,7 @@ brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozes
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
 Zuerst muss man die Daten *einlesen*, die Daten also in R (oder einer anderen 
 Software) verfügbar machen (laden). Fügen wir hinzu: In *schöner Form* verfügbar
-machen; man nennt dies auch *tidy data*(hört sich cooler an). Sobald die Daten in geeigneter 
+machen; man nennt dies auch *tidy data* (hört sich cooler an). Sobald die Daten in geeigneter 
 Form in R geladen sind, folgt das *Aufbereiten*. Das beinhaltet Zusammenfassen, 
 Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist 
 das *Visualisieren* der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. 
@@ -109,7 +109,7 @@ Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster
 klicken (Alternativ: Cntrl-Shift-N oder File > New File > R Script).
 
 Aus dem Fenster der *Konsole*\index{Konsole} spricht R zu uns bzw. 
-wir mit ihm (ihr?). Wird ein Befehl hier eingegeben, so führt R ihn aus. 
+wir mit ihm (ihr?). Wird ein Befehl\index{Funktion} (synonym: *Funktion\index{Funktion}) hier eingegeben, so führt R ihn aus. 
 Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in
 die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.
 
@@ -148,14 +148,22 @@ morgen noch einmal.
 3. Googeln.
 
 Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man 
-Fehler wie diese macht:
+*Fehler* wie diese macht:
 
-- `install.packages(dplyr)` 
-- `install.packages("dliar")`
-- `install.packages("derpyler")` 
-- `install.packages("dplyr")  # dependencies vergessen` 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+OH NO:
+- install.packages(dplyr) 
+- install.packages("dliar")
+- install.packages("derpyler") 
+- install.packages("dplyr")  # dependencies vergessen 
 - Keine Internet-Verbindung 
-- `library(dplyr)  # ohne vorher zu installieren`
+- library(dplyr)  # ohne vorher zu installieren
+</div>\EndKnitrBlock{rmdcaution}
+
+
+
 
 
 Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, 
@@ -679,12 +687,19 @@ Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gema
 ## Befehlsübersicht
 
 
-Funktion             Beschreibung
------------------    -------------
-install.packages     installiert ein Paket
-library              lädt ein Paket
-<-                   Weist einer Variablen einen Wert zu
-c                    erstellt eine Spalte/ einen Vektor
+Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
+
+
+Table: (\#tab:befehle-rahmen)Befehle des Kapitels Rahmen
+
+Funktion                Beschreibung                        
+----------------------  ------------------------------------
+install.packages("x")   Installiert Paket "x" (nicht: "X")  
+library                 lädt ein Paket                      
+<-                      Weist einer Variablen einen Wert zu 
+c                       erstellt eine Spalte/ einen Vektor  
+
+
 
 
 

@@ -347,7 +347,7 @@ $R^2$, auch Bestimmtheitsmaß oder Determinationskoeffizient genannt, gibt die V
 
 Damit gibt $R^2$ an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein $R^2$ von 25% (0.25) hieße, dass unser Vorhersagefehler 25% *kleiner* ist als der der Nullmodells. Ein $R^2$ von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man $R^2$ so definieren:
 
-$$ R^2 = 1 - (\frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler})$$
+$$ R^2 = 1 - \left( \frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler} \right)$$
 
 Präziser, in R-Syntax:
 

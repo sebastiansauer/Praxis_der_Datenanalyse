@@ -88,7 +88,7 @@ Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und
 </div>
 
 
-Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung geliebt:
+Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung ähmm... geliebt:
 
 $$c^2 = a^2 + b^2$$
 

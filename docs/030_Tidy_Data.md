@@ -80,9 +80,9 @@ Lesen wir diese Daten jetzt ein:
 daten <- read.csv("data/wo_men.csv")
 ```
 
+#### Vorsicht bei nicht-amerikanisch kodierten Textdateien
 
-
-Der Befehl `read.csv` liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit deutscher Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Trennzeichen `;` (Strichpunkt) und als Dezimaltrennzeichen `,` verwenden. Da der Befehl `read.csv` als Standard mit Komma und Punkt arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:
+Der Befehl `read.csv` liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit *deutscher* Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Spaltentrennung `;` (Strichpunkt) und als Dezimaltrennzeichen `,` verwenden. Da der Befehl `read.csv` laut  amerikanischen Standard mit Komma als Spaltentrennung und Punkt als Dezimaltrennzeichen arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:
 
 
 ```r
@@ -92,7 +92,16 @@ daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
 
 Dabei steht `sep` (separator) für das Trennzeichen zwischen den Spalten und `dec` für das Dezimaltrennzeichen. R bietet eine Kurzfassung für `read.csv` mit diesen Parametern: `read.csv2("daten_deutsch.csv")`.
 
-### Vertiefung: Einlesen mit Prüfung
+Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Import Dataset" (für CSV-Dateien) gibt es den Auswahlpunkt "Delimiter" (Trennzeichen). Dort kann man das Komma durch einen Strichkpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.
+
+<div class="figure" style="text-align: center">
+<img src="images/tidy/delimiter.png" alt="Trennzeichen einer CSV-Datei in RStudio einstellen" width="70%" />
+<p class="caption">(\#fig:rstudio-delimiter)Trennzeichen einer CSV-Datei in RStudio einstellen</p>
+</div>
+
+
+
+#### Vertiefung: Einlesen mit Prüfung
 
 
 ```

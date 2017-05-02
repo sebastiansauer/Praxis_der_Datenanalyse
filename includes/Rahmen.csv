@@ -1,0 +1,5 @@
+Funktion,Beschreibung
+"install.packages(""x"")","Installiert Paket ""x"" (nicht: Paket ""X"")"
+library,lädt ein Paket
+<-             ,Weist einer Variablen einen Wert zu
+c,erstellt eine Spalte/ einen Vektor

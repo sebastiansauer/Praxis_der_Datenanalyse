@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -422,13 +421,22 @@ Abbildung 3.2: Daten einlesen (importieren) mit RStudio
 <p>An einer Stelle steht <code>NA</code>. Das ist Errisch für “fehlender Wert”. Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen anderen ab; führt nur zu Verwirrung.</p>
 <p>Lesen wir diese Daten jetzt ein:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Der Befehl <code>read.csv</code> liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit deutscher Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Trennzeichen <code>;</code> (Strichpunkt) und als Dezimaltrennzeichen <code>,</code> verwenden. Da der Befehl <code>read.csv</code> als Standard mit Komma und Punkt arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:</p>
+<div id="vorsicht-bei-nicht-amerikanisch-kodierten-textdateien" class="section level4">
+<h4><span class="header-section-number">3.1.2.1</span> Vorsicht bei nicht-amerikanisch kodierten Textdateien</h4>
+<p>Der Befehl <code>read.csv</code> liest also eine CSV-Datei, was uns jetzt nicht übermäßig überrascht. Aber Achtung: Wenn Sie aus einem Excel mit <em>deutscher</em> Einstellung eine CSV-Datei exportieren, wird diese CSV-Datei als Spaltentrennung <code>;</code> (Strichpunkt) und als Dezimaltrennzeichen <code>,</code> verwenden. Da der Befehl <code>read.csv</code> laut amerikanischen Standard mit Komma als Spaltentrennung und Punkt als Dezimaltrennzeichen arbeitet, müssen wir die deutschen Sonderlocken explizit angeben, z.B. so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nicht ausführen:</span>
 daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daten_deutsch.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</code></pre></div>
 <p>Dabei steht <code>sep</code> (separator) für das Trennzeichen zwischen den Spalten und <code>dec</code> für das Dezimaltrennzeichen. R bietet eine Kurzfassung für <code>read.csv</code> mit diesen Parametern: <code>read.csv2(&quot;daten_deutsch.csv&quot;)</code>.</p>
+<p>Man kommt hier auch mit “Klicken statt Tippen” zum Ziel; in der Maske von “Import Dataset” (für CSV-Dateien) gibt es den Auswahlpunkt “Delimiter” (Trennzeichen). Dort kann man das Komma durch einen Strichkpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.</p>
+<div class="figure" style="text-align: center"><span id="fig:rstudio-delimiter"></span>
+<img src="images/tidy/delimiter.png" alt="Trennzeichen einer CSV-Datei in RStudio einstellen" width="70%" />
+<p class="caption">
+Abbildung 3.3: Trennzeichen einer CSV-Datei in RStudio einstellen
+</p>
 </div>
-<div id="vertiefung-einlesen-mit-prufung" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Vertiefung: Einlesen mit Prüfung</h3>
+</div>
+<div id="vertiefung-einlesen-mit-prufung" class="section level4">
+<h4><span class="header-section-number">3.1.2.2</span> Vertiefung: Einlesen mit Prüfung</h4>
 <pre><code>#&gt;   X                time   sex height shoe_size
 #&gt; 1 1 04.10.2016 17:58:51 woman    160        40
 #&gt; 2 2 04.10.2016 17:58:59 woman    171        39
@@ -438,8 +446,9 @@ daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<sp
 #&gt; 6 6 04.10.2016 18:01:53 woman    157        37</code></pre>
 <p>Wir haben zuerst geprüft, ob die Datei (<code>wo_men.csv</code>) im entsprechenden Ordner existiert oder nicht (das <code>!</code>-Zeichen heißt auf Errisch “nicht”). Falls die Datei nicht im Ordner existiert, laden wir sie mit <code>read.csv</code> herunter und direkt ins R hinein. Andernfalls (<code>else</code>) lesen wir sie direkt ins R hinein.</p>
 </div>
+</div>
 <div id="das-arbeitsverzeichnis" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Das Arbeitsverzeichnis</h3>
+<h3><span class="header-section-number">3.1.3</span> Das Arbeitsverzeichnis</h3>
 
 <div class="rmdcaution">
 <p>Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem <em>working directory</em>) liegen.</p>
@@ -465,25 +474,25 @@ daten_deutsch &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<sp
 <li>Am besten verwendet man keine Sonderzeichen verwenden und keine Leerzeichen in Variablennamen und -werten, sondern nur Ziffern und Buchstaben und Unterstriche.</li>
 <li>Variablennamen dürfen nicht mit einer Zahl beginnen.</li>
 </ul>
-<p>Abbildung <a href="daten-einlesen.html#fig:tidy1">3.3</a> visualisiert die Bestimmungsstücke eines Dataframes <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>:</p>
+<p>Abbildung <a href="daten-einlesen.html#fig:tidy1">3.4</a> visualisiert die Bestimmungsstücke eines Dataframes <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>:</p>
 <div class="figure" style="text-align: center"><span id="fig:tidy1"></span>
 <img src="images/tidy/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
 <p class="caption">
-Abbildung 3.3: Schematische Darstellung eines Dataframes in Normalform
+Abbildung 3.4: Schematische Darstellung eines Dataframes in Normalform
 </p>
 </div>
 <p>Der Punkt “Jede Zeile eine Beobachtung, jede Spalte eine Variable” verdient besondere Beachtung. Betrachten Sie dieses Beispiel:</p>
 <div class="figure" style="text-align: center"><span id="fig:lang-breit"></span>
 <img src="images/tidy/breit_lang.pdf" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
 <p class="caption">
-Abbildung 3.4: Dieselben Daten - einmal breit, einmal lang
+Abbildung 3.5: Dieselben Daten - einmal breit, einmal lang
 </p>
 </div>
 <p>In der rechten Tabelle sind die Variablen <code>Quartal</code> und <code>Umsatz</code> klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-Normalform"></span>
 <img src="images/tidy/Normalform.pdf" alt="Illustration eines Datensatzes in Normalform" width="70%" />
 <p class="caption">
-Abbildung 3.5: Illustration eines Datensatzes in Normalform
+Abbildung 3.6: Illustration eines Datensatzes in Normalform
 </p>
 </div>
 </div>

@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -617,7 +616,11 @@ c5
 <span class="co">#&gt; 4      3        1   119 0.168</span></code></pre></div>
 <p>Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf.</p>
 <p>Das visualisieren wir wieder</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), 
+      <span class="dt">y =</span> prop, 
+      <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), 
+      <span class="dt">data =</span> c5, 
+      <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
 <p><img src="075_Fallstudie_Titanic_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Das <code>geom = &quot;col&quot;</code> heißt, dass als “geometrisches Objekt” dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Pclass), <span class="dt">y =</span> prop, <span class="dt">fill =</span> <span class="kw">factor</span>(Survived), <span class="dt">data =</span> c5, <span class="dt">geom =</span> <span class="st">&quot;col&quot;</span>)</code></pre></div>
@@ -1318,7 +1321,7 @@ Affair %&gt;%<span class="st"> </span>
 <div id="versionshinweise-und-sessioninfo" class="section level3">
 <h3><span class="header-section-number">13.3.1</span> Versionshinweise und SessionInfo</h3>
 <ul>
-<li>Datum erstellt: 2017-04-28</li>
+<li>Datum erstellt: 2017-05-02</li>
 <li>R Version: 3.3.2</li>
 <li><code>dplyr</code> Version: 0.5.0.9002</li>
 </ul>

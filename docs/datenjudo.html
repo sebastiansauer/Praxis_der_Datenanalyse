@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -477,7 +476,7 @@ df_nosmoke_nodrinks &lt;-<span class="st"> </span><span class="kw">filter</span>
 <li><code>filter</code> ist eine Funktion aus dem Paket <code>dplyr</code>.</li>
 <li><code>filter</code> erwartet als ersten Parameter das Filterkriterium.</li>
 <li><code>filter</code> lässt nur ein Filterkriterium zu.</li>
-<li>Möchte man aus dem Datensatz <code>profiles</code> (<code>okcupiddata</code>) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == “f”)´.</li>
+<li>Möchte man aus dem Datensatz <code>profiles</code> (<code>okcupiddata</code>) die Frauen filtern, so ist folgende Syntax korrekt: <code>filter(profiles, sex == &quot;f&quot;)</code>.</li>
 </ol>
 </div>
 <p></p>
@@ -586,7 +585,7 @@ Abbildung 4.5: Spalten auswählen
 Abbildung 4.6: Spalten sortieren
 </p>
 </div>
-<p>Ein ähnliches Ergebnis erhält mit man <code>top_n()</code>, welches die <code>n</code> <em>größten Ränge</em> widergibt:</p>
+<p>Ein ähnliches Ergebnis erhält mit man <code>top_n()</code>, welches die <code>n</code> <em>größten Elemente</em> widergibt:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">top_n</span>(stats_test, <span class="dv">3</span>)
 <span class="co">#&gt;      X                 V_1 study_time self_eval interest score</span>
@@ -620,7 +619,7 @@ Abbildung 4.6: Spalten sortieren
 <span class="co">#&gt; 8 214 22.01.2017 21:57:36          2         6        6    31</span>
 <span class="co">#&gt; 9 301 27.01.2017 08:17:59          4         8        6    33</span></code></pre></div>
 <p>Gibt man <em>keine</em> Spalte an, so bezieht sich <code>top_n</code> auf die letzte Spalte im Datensatz.</p>
-<p>Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir <em>nicht</em> 3 Zeilen zurückgeliefert, sondern entsprechend mehr.</p>
+<p>Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir <em>nicht</em> 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr “denkt” sich: “Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde”.</p>
 <div id="aufgaben-5" class="section level4">
 <h4><span class="header-section-number">4.3.3.1</span> Aufgaben<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></h4>
 
@@ -631,7 +630,7 @@ Abbildung 4.6: Spalten sortieren
 <li><code>arrange</code> sortiert im Standard absteigend.</li>
 <li><code>arrange</code> lässt nur ein Sortierkriterium zu.</li>
 <li><code>arrange</code> kann numerische Werte, aber nicht Zeichenketten sortieren.</li>
-<li><code>top_n(5)</code> liefert die fünf kleinsten Ränge.</li>
+<li><code>top_n(5)</code> liefert immer fünf Werte zurück.</li>
 </ol>
 </div>
 <p></p>
@@ -854,8 +853,75 @@ dplyr::<span class="kw">count</span>(stats_test, interest, study_time)
 <blockquote>
 <p>n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle.</p>
 </blockquote>
+<div id="vertiefung-zum-zahlen-von-zeilen-relative-haufigkeiten" class="section level4">
+<h4><span class="header-section-number">4.3.6.1</span> Vertiefung zum Zählen von Zeilen: Relative Häufigkeiten</h4>
+<p>Manchmal ist es praktisch, nicht zur die (absolute) Häufigkeiten von Zeilen zu zählen, sondern ihren Anteil nach (relative Häufigkeit). Klassisches Beispiel: Wieviel Prozent der Fälle sind Frauen, wie viele sind Männer?</p>
+<p>In <code>dplyr</code> kann man das so umsetzen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(interest) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop_interest =</span> n /<span class="st"> </span><span class="kw">sum</span>(n))
+<span class="co">#&gt; # A tibble: 7 × 3</span>
+<span class="co">#&gt;   interest     n prop_interest</span>
+<span class="co">#&gt;      &lt;int&gt; &lt;int&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        1    30        0.0980</span>
+<span class="co">#&gt; 2        2    47        0.1536</span>
+<span class="co">#&gt; 3        3    66        0.2157</span>
+<span class="co">#&gt; 4        4    41        0.1340</span>
+<span class="co">#&gt; 5        5    45        0.1471</span>
+<span class="co">#&gt; 6        6     9        0.0294</span>
+<span class="co">#&gt; 7       NA    68        0.2222</span></code></pre></div>
+<p><code>prop</code> steht hier für “Proportion”, also Anteil. <code>sum(n)</code> liefert die Summe der Fälle zurück, also 306 in diesem Fall.</p>
+<p>Etwas komplexer ist es, wenn man zwei Gruppierungsvariablen hat und dann Anteile auszählen möchte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+stats_test$bestanden &lt;-<span class="st"> </span>stats_test$score &gt;<span class="st"> </span><span class="dv">25</span>
+
+stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(interest, bestanden) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop_interest =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) 
+<span class="co">#&gt; Source: local data frame [14 x 4]</span>
+<span class="co">#&gt; Groups: interest [7]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    interest bestanden     n prop_interest</span>
+<span class="co">#&gt;       &lt;int&gt;     &lt;lgl&gt; &lt;int&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1         1     FALSE    10         0.333</span>
+<span class="co">#&gt; 2         1      TRUE    20         0.667</span>
+<span class="co">#&gt; 3         2     FALSE     9         0.191</span>
+<span class="co">#&gt; 4         2      TRUE    38         0.809</span>
+<span class="co">#&gt; 5         3     FALSE    14         0.212</span>
+<span class="co">#&gt; 6         3      TRUE    52         0.788</span>
+<span class="co">#&gt; 7         4     FALSE     9         0.220</span>
+<span class="co">#&gt; 8         4      TRUE    32         0.780</span>
+<span class="co">#&gt; 9         5     FALSE     6         0.133</span>
+<span class="co">#&gt; 10        5      TRUE    39         0.867</span>
+<span class="co">#&gt; 11        6     FALSE     1         0.111</span>
+<span class="co">#&gt; 12        6      TRUE     8         0.889</span>
+<span class="co">#&gt; 13       NA     FALSE     7         0.103</span>
+<span class="co">#&gt; 14       NA      TRUE    61         0.897</span>
+
+stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(interest, bestanden) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop_interest =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) 
+<span class="co">#&gt; # A tibble: 14 × 4</span>
+<span class="co">#&gt;    interest bestanden     n prop_interest</span>
+<span class="co">#&gt;       &lt;int&gt;     &lt;lgl&gt; &lt;int&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1         1     FALSE    10       0.03268</span>
+<span class="co">#&gt; 2         1      TRUE    20       0.06536</span>
+<span class="co">#&gt; 3         2     FALSE     9       0.02941</span>
+<span class="co">#&gt; 4         2      TRUE    38       0.12418</span>
+<span class="co">#&gt; 5         3     FALSE    14       0.04575</span>
+<span class="co">#&gt; 6         3      TRUE    52       0.16993</span>
+<span class="co">#&gt; 7         4     FALSE     9       0.02941</span>
+<span class="co">#&gt; 8         4      TRUE    32       0.10458</span>
+<span class="co">#&gt; 9         5     FALSE     6       0.01961</span>
+<span class="co">#&gt; 10        5      TRUE    39       0.12745</span>
+<span class="co">#&gt; 11        6     FALSE     1       0.00327</span>
+<span class="co">#&gt; 12        6      TRUE     8       0.02614</span>
+<span class="co">#&gt; 13       NA     FALSE     7       0.02288</span>
+<span class="co">#&gt; 14       NA      TRUE    61       0.19935</span></code></pre></div>
+</div>
 <div id="aufgaben-8" class="section level4">
-<h4><span class="header-section-number">4.3.6.1</span> Aufgaben<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a></h4>
+<h4><span class="header-section-number">4.3.6.2</span> Aufgaben<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a></h4>
 
 <div class="rmdexercises">
 <p>Richtig oder Falsch!?</p>
@@ -885,9 +951,9 @@ stats_count_sortiert &lt;-<span class="st"> </span><span class="kw">arrange</spa
 <h2><span class="header-section-number">4.4</span> Die Pfeife</h2>
 <p>Die zweite Idee zentrale Idee von <code>dplyr</code> kann man salopp als “Durchpfeifen” oder die “Idee der Pfeife bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt <code>%&gt;%</code>. Der Begriff”Durchpfeifen&quot; ist frei vom Englischen “to pipe” übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. <a href="datenjudo.html#fig:cecie-une-pipe">4.10</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:cecie-une-pipe"></span>
-<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578" width="70%" />
+<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe]" width="70%" />
 <p class="caption">
-Abbildung 4.10: La trahison des images [Ceci n’est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, <a href="http://collections.lacma.org/node/239578" class="uri">http://collections.lacma.org/node/239578</a>
+Abbildung 4.10: La trahison des images [Ceci n’est pas une pipe]
 </p>
 </div>
 <p>Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als “Rohstoff” eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen “Flow” an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens (s. Abb. <a href="datenjudo.html#fig:fig-durchpfeifen">4.11</a>).</p>
@@ -1020,10 +1086,12 @@ ziehe vom Mittelwert die Spalte ab UND DANN… quadriere die einzelnen Differenz
 </div>
 <div id="befehlsubersicht-2" class="section level2">
 <h2><span class="header-section-number">4.5</span> Befehlsübersicht</h2>
+<p>Tabelle <a href="datenjudo.html#tab:befehle-datenjudo">4.1</a> fasst die R-Funktionen dieses Kapitels zusammen.</p>
 <table>
+<caption><span id="tab:befehle-datenjudo">Tabelle 4.1: </span>Befehle des Kapitels Datenjudo</caption>
 <thead>
 <tr class="header">
-<th align="left">Paket::Funktion</th>
+<th align="left">Paket und Funktion</th>
 <th align="left">Beschreibung</th>
 </tr>
 </thead>
@@ -1091,7 +1159,7 @@ ziehe vom Mittelwert die Spalte ab UND DANN… quadriere die einzelnen Differenz
 <li id="fn11"><p>F, R, F, F, R<a href="datenjudo.html#fnref11">↩</a></p></li>
 <li id="fn12"><p>der angegebene Pfad ist also <em>relativ</em> zum aktuellen Verzeichnis.<a href="datenjudo.html#fnref12">↩</a></p></li>
 <li id="fn13"><p>F, F, R, R, F<a href="datenjudo.html#fnref13">↩</a></p></li>
-<li id="fn14"><p>F, F, F, F, R<a href="datenjudo.html#fnref14">↩</a></p></li>
+<li id="fn14"><p>F, F, F, F, F<a href="datenjudo.html#fnref14">↩</a></p></li>
 <li id="fn15"><p><a href="http://stackoverflow.com/questions/29084380/what-is-the-meaning-of-the-local-data-frame-message-from-dplyrprint-tbl-df" class="uri">http://stackoverflow.com/questions/29084380/what-is-the-meaning-of-the-local-data-frame-message-from-dplyrprint-tbl-df</a><a href="datenjudo.html#fnref15">↩</a></p></li>
 <li id="fn16"><p>R, F, R, R<a href="datenjudo.html#fnref16">↩</a></p></li>
 <li id="fn17"><p>Der <em>Modus</em> ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. <a href="https://cran.r-project.org/web/packages/modes/index.html" class="uri">https://cran.r-project.org/web/packages/modes/index.html</a><a href="datenjudo.html#fnref17">↩</a></p></li>

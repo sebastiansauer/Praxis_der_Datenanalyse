@@ -135,6 +135,10 @@ Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rent
 
 Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
 
+>    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwarhscheinlich richtig.
+
+Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+
 >    Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.
 
 Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.

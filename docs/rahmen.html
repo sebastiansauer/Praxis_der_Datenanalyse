@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -391,7 +390,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 Abbildung 2.1: Der Prozess der Datenanalyse
 </p>
 </div>
-<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em>(hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
+<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em> (hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
 <p>Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem <em>Rahmen</em> eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen.</p>
 <div id="software-installieren" class="section level2">
 <h2><span class="header-section-number">2.1</span> Software installieren</h2>
@@ -405,7 +404,7 @@ Abbildung 2.1: Der Prozess der Datenanalyse
 <p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
 <p><img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Das <em>Skript-Fenster</em> ähnelt einem normalem Text-Editor; praktischerweise finden Sie aber einen Button “run”, der die aktuelle Zeile oder die Auswahl “abschickt”, d.h. in die Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster öffnen möchten, so können Sie das Icon <img src="images/Rahmen/new_script.png" alt="new_script" /> klicken (Alternativ: Cntrl-Shift-N oder File &gt; New File &gt; R Script).</p>
-<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit ihm (ihr?). Wird ein Befehl hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
+<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit ihm (ihr?). Wird ein Befehl (synonym: *Funktion) hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
 <p>Im Fenster <em>Umgebung</em> (engl. “environment”) zeigt R, welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht in der Umgebung angezeigt wird, existiert nicht für R.</p>
 <p>Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster rechts unten durch.</p>
 <p>Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist <code>Shift-Alt-K</code>.</p>
@@ -425,15 +424,12 @@ will nich so, as ik wol will.</p>
 <li>Schalten Sie den Rechner aus und probieren Sie es morgen noch einmal.</li>
 <li>Googeln.</li>
 </ol>
-<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man Fehler wie diese macht:</p>
-<ul>
-<li><code>install.packages(dplyr)</code></li>
-<li><code>install.packages(&quot;dliar&quot;)</code></li>
-<li><code>install.packages(&quot;derpyler&quot;)</code></li>
-<li><code>install.packages(&quot;dplyr&quot;)  # dependencies vergessen</code></li>
-<li>Keine Internet-Verbindung</li>
-<li><code>library(dplyr)  # ohne vorher zu installieren</code></li>
-</ul>
+<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man <em>Fehler</em> wie diese macht:</p>
+
+<div class="rmdcaution">
+<p>OH NO: - install.packages(dplyr) - install.packages(“dliar”) - install.packages(“derpyler”) - install.packages(“dplyr”) # dependencies vergessen - Keine Internet-Verbindung - library(dplyr) # ohne vorher zu installieren</p>
+</div>
+<p></p>
 <p>Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, probieren Sie dieses:</p>
 <ul>
 <li><p>Sehen Sie eine Fehlermeldung, die von einem fehlenden Paket spricht (z.B. “Package ‘Rcpp’ not available”) oder davon spricht, dass ein Paket nicht installiert werden konnte (z.B. “Package ‘Rcpp’ could not be installed” oder “es gibt kein Paket namens ‘Rcpp’” oder “unable to move temporary installation XXX to YYY”), dann tun Sie folgendes:</p></li>
@@ -681,7 +677,9 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 </div>
 <div id="befehlsubersicht" class="section level2">
 <h2><span class="header-section-number">2.4</span> Befehlsübersicht</h2>
+<p>Tabelle <a href="rahmen.html#tab:befehle-rahmen">2.1</a> stellt die Befehle dieses Kapitels dar.</p>
 <table>
+<caption><span id="tab:befehle-rahmen">Tabelle 2.1: </span>Befehle des Kapitels Rahmen</caption>
 <thead>
 <tr class="header">
 <th align="left">Funktion</th>
@@ -690,8 +688,8 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">install.packages</td>
-<td align="left">installiert ein Paket</td>
+<td align="left">install.packages(“x”)</td>
+<td align="left">Installiert Paket “x” (nicht: “X”)</td>
 </tr>
 <tr class="even">
 <td align="left">library</td>

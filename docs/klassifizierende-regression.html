@@ -143,8 +143,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
 <li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
-<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung-einlesen-mit-prufung"><i class="fa fa-check"></i><b>3.1.3</b> Vertiefung: Einlesen mit Prüfung</a></li>
-<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.4</b> Das Arbeitsverzeichnis</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
 <li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
@@ -616,7 +615,8 @@ fun1 &lt;-<span class="st"> </span><span class="kw">makeFun</span>(glm1)
 <p>Sie können die Konfusionsmatrix “zu Fuß” berechnen, in dem Sie eine neue Variable einfügen, die ab dem cutpoint <span class="math inline">\(1\)</span> und sonst <span class="math inline">\(0\)</span> ist und mit dem Befehl <code>tally()</code> ausgeben. Alternativ können Sie das Paket <code>SDMTools</code> verwenden mit der Funktion <code>confusion.matrix()</code>. Ein Parameter ist <code>cutpoint</code>, der standardmäßig auf <span class="math inline">\(0.5\)</span> steht.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Konfusionsmatrix &quot;zu Fuß&quot; berechnen</span>
 <span class="co"># cutpoint = 0.5 setzen</span>
-<span class="co"># neue Variable predicted anlegen mit 1, wenn modellierte Wahrscheinlichkeit &gt; 1 ist</span>
+<span class="co"># neue Variable predicted anlegen mit 1, </span>
+<span class="co"># wenn modellierte Wahrscheinlichkeit &gt; 1 ist</span>
 cutpoint =<span class="st"> </span><span class="fl">0.5</span>
 Aktien$predicted &lt;-<span class="st"> </span>((glm1$fitted.values) &gt;<span class="st"> </span>cutpoint)*<span class="dv">1</span>
 <span class="co"># Kreuztabelle berechnen</span>
