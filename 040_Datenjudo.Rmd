@@ -312,7 +312,7 @@ knitr::include_graphics("images/Datenjudo/arrange-crop.png")
 
 
 
-Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Ränge* widergibt:
+Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Elemente* widergibt:
 
 ```{r demo-top-n}
 
@@ -322,9 +322,9 @@ top_n(stats_test, 3, interest)
 
 Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
 
-Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr.
+Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr "denkt" sich: "Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde". 
 
-#### Aufgaben^[F, F, F, F, R]
+#### Aufgaben^[F, F, F, F, F]
 
 ```{block2, exercises-arrange, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?
@@ -333,7 +333,7 @@ Richtig oder Falsch!?
 1. `arrange` sortiert im Standard absteigend.
 1. `arrange` lässt nur ein Sortierkriterium zu.
 1. `arrange` kann numerische Werte, aber nicht Zeichenketten sortieren.
-1. `top_n(5)` liefert die fünf kleinsten Ränge.
+1. `top_n(5)` liefert immer fünf Werte zurück.
 
 ```
 
@@ -516,6 +516,37 @@ Allgemeiner formuliert lautet die Syntax: `count(df, Spalte1, ...)`, wobei `df` 
 Merke:
 
 >    n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle. 
+
+
+#### Vertiefung zum Zählen von Zeilen: Relative Häufigkeiten
+
+Manchmal ist es praktisch, nicht zur die (absolute) Häufigkeiten von Zeilen zu zählen, sondern ihren Anteil nach (relative Häufigkeit). Klassisches Beispiel: Wieviel Prozent der Fälle sind Frauen, wie viele sind Männer?
+
+In `dplyr` kann man das so umsetzen:
+
+```{r}
+stats_test %>% 
+  count(interest) %>% 
+  mutate(prop_interest = n / sum(n))
+```
+
+`prop` steht hier für "Proportion", also Anteil. `sum(n)` liefert die Summe der Fälle zurück, also 306 in diesem Fall.
+
+Etwas komplexer ist es, wenn man zwei Gruppierungsvariablen hat und dann Anteile auszählen möchte:
+
+```{r}
+
+stats_test$bestanden <- stats_test$score > 25
+
+stats_test %>% 
+  group_by(interest, bestanden) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop_interest = n / sum(n)) 
+
+stats_test %>% 
+  count(interest, bestanden) %>% 
+  mutate(prop_interest = n / sum(n)) 
+```
 
 
 

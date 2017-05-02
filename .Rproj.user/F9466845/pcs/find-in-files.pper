@@ -20,7 +20,7 @@
             "*.cpp"
         ],
         "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse",
-        "query" : "prozess_datenanalyse",
+        "query" : "source/",
         "regex" : false
     }
 }
