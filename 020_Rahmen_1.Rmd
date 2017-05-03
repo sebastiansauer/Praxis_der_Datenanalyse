@@ -136,10 +136,10 @@ praktischerweise finden Sie aber einen Button "run", der
 die aktuelle Zeile oder die Auswahl "abschickt", d.h. in die 
 Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster
 öffnen möchten, so können Sie das Icon ![new_script](images/Rahmen/new_script.png) 
-klicken (Alternativ: Cntrl-Shift-N oder File > New File > R Script).
+klicken (Alternativ: Ctrl-Shift-N oder File > New File > R Script).
 
 Aus dem Fenster der *Konsole*\index{Konsole} spricht R zu uns bzw. 
-wir mit ihm (ihr?). Wird ein Befehl\index{Funktion} (synonym: *Funktion\index{Funktion}) hier eingegeben, so führt R ihn aus. 
+wir mit R. Wird ein Befehl\index{Funktion} (synonym: *Funktion*\index{Funktion}) hier eingegeben, so führt R ihn aus. 
 Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in
 die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.
 
@@ -185,11 +185,17 @@ Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man
 ```{block2, typ-fehler, type='rmdcaution', echo = TRUE} 
 
 OH NO:
+
 - install.packages(dplyr) 
+
 - install.packages("dliar")
+
 - install.packages("derpyler") 
+
 - install.packages("dplyr")  # dependencies vergessen 
+
 - Keine Internet-Verbindung 
+
 - library(dplyr)  # ohne vorher zu installieren
 
 ```
@@ -210,7 +216,7 @@ to YYY"), dann tun Sie folgendes:
 
 - Schließen Sie R und starten Sie es neu. 
 - Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
-- Starten Sie das entsprechende Paket mit `library(paket_name)`.
+- Starten Sie das entsprechende Paket mit `library(name_des_pakets)`.
 
 
 - Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder
@@ -313,8 +319,8 @@ R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten.
 Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen
 CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner
 Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, 
-ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - die "Mirrors", 
-Spiegelbilder. Suchen Sie sich einfach einen aus, der in der Nähe ist.
+ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. "mirrors"). 
+Suchen Sie sich einfach einen aus, der in der Nähe ist.
 
 ```
 
@@ -424,7 +430,8 @@ man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten de
 Paketes; dafür ist der Befehl `data` zuständig.
 
 ```{r eval = FALSE} 
-library(okcupiddata) data(profiles, package = "okcupiddata")
+library(okcupiddata) 
+data(profiles, package = "okcupiddata")
 ```
 
 
@@ -555,7 +562,7 @@ Man kann auch einer Variablen *mehr als* einen Wert zuweisen:
 x <- c(1, 2, 3)
 ```
 
-Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *mehr als* einen Wert zuweisen, muss man die Werte erst in einen Vektor "zusammen binden"; das geht mit dem Befehl `c` (wie *c*ombine).
+Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *mehr als* einen Wert zuweisen, muss man die Werte erst in einen Vektor "zusammen binden"; das geht mit dem Befehl `c` (vom engl. "***c**ombine*").
 
 
 ### Funktionen aufrufen
