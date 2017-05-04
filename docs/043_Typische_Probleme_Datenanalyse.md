@@ -130,7 +130,8 @@ wo_men %>%
 ### Ausreiser identifizieren
 Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 
 ### Hochkorrelierte Variablen finden
@@ -153,7 +154,9 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
 
@@ -202,7 +205,8 @@ Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable
 ### Auf Normalverteilung prüfen
 Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm oder ein   Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 
@@ -211,18 +215,26 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 
 *Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorpragmmiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
-<div class="figure" style="text-align: center">
-<img src="images/typ_prob/umkodieren_crop.png" alt="Sinnbild für Umkodieren" width="70%" />
-<p class="caption">(\#fig:umkodieren)Sinnbild für Umkodieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/umkodieren_crop} 
+
+}
+
+\caption{Sinnbild für Umkodieren}(\#fig:umkodieren)
+\end{figure}
 
 
 *Binnen*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
 
-<div class="figure" style="text-align: center">
-<img src="images/typ_prob/cut_schere_crop.png" alt="Sinnbild zum 'Binnen'" width="70%" />
-<p class="caption">(\#fig:cut-schere)Sinnbild zum 'Binnen'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/cut_schere_crop} 
+
+}
+
+\caption{Sinnbild zum 'Binnen'}(\#fig:cut-schere)
+\end{figure}
 
 
 
@@ -649,7 +661,9 @@ stats_test %>%
   rplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-html/rplot-demo-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/rplot-demo-1} \end{center}
 
 
 ## Befehlsübersicht

@@ -106,7 +106,9 @@ qplot(x = affairs, data = Affair)
 qplot(x = rating, data = Affair)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-2} \end{center}
 
 Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.
 
@@ -293,7 +295,9 @@ library(corrplot)
 corrplot(cor_tab)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -728,14 +732,21 @@ tidy(lm10) %>% kable
 ```
 
 
-
-term            estimate   std.error   statistic   p.value
--------------  ---------  ----------  ----------  --------
-(Intercept)        0.054       0.430       0.125     0.901
-gendermale         0.242       0.197       1.229     0.219
-childrenyes        0.394       0.283       1.390     0.164
-rating            -0.465       0.087      -5.327     0.000
-yearsmarried       0.022       0.021       1.040     0.299
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 0.054 & 0.430 & 0.125 & 0.901\\
+\hline
+gendermale & 0.242 & 0.197 & 1.229 & 0.219\\
+\hline
+childrenyes & 0.394 & 0.283 & 1.390 & 0.164\\
+\hline
+rating & -0.465 & 0.087 & -5.327 & 0.000\\
+\hline
+yearsmarried & 0.022 & 0.021 & 1.040 & 0.299\\
+\hline
+\end{tabular}
 
 
 ### Zum Abschluss
@@ -752,7 +763,9 @@ Affair %>%
   geom_jitter(aes(color = gender, shape = children)) 
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 
@@ -764,7 +777,9 @@ Affair %>%
   geom_smooth()
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 Puh. Geschafft!
@@ -821,20 +836,20 @@ sessionInfo()
 #> [5] bindrcpp_0.1     dplyr_0.5.0.9002 ggplot2_2.2.1    psych_1.7.3.21  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_0.12.10        highr_0.6           bindr_0.1          
-#>  [4] plyr_1.8.4          methods_3.3.2       tools_3.3.2        
-#>  [7] digest_0.6.12       evaluate_0.10       tibble_1.3.0       
-#> [10] nlme_3.1-130        gtable_0.2.0        lattice_0.20-34    
-#> [13] rlang_0.0.0.9014    shiny_1.0.2         yaml_2.1.14        
-#> [16] parallel_3.3.2      stringr_1.2.0       rprojroot_1.2      
-#> [19] grid_3.3.2          glue_1.0.0          R6_2.2.0           
-#> [22] foreign_0.8-67      rmarkdown_1.4       bookdown_0.2.3     
-#> [25] tidyr_0.6.1         reshape2_1.4.2      magrittr_1.5       
-#> [28] backports_1.0.5     scales_0.4.1        codetools_0.2-15   
-#> [31] htmltools_0.3.5     assertthat_0.2.0    mnormt_1.5-5       
-#> [34] mime_0.5            xtable_1.8-2        colorspace_1.3-2   
-#> [37] httpuv_1.3.3        labeling_0.3        stringi_1.1.5      
-#> [40] miniUI_0.1.1        lazyeval_0.2.0.9000 munsell_0.4.3
+#>  [1] Rcpp_0.12.10        bindr_0.1           plyr_1.8.4         
+#>  [4] methods_3.3.2       tools_3.3.2         digest_0.6.12      
+#>  [7] evaluate_0.10       tibble_1.3.0        nlme_3.1-130       
+#> [10] gtable_0.2.0        lattice_0.20-34     rlang_0.0.0.9014   
+#> [13] shiny_1.0.2         yaml_2.1.14         parallel_3.3.2     
+#> [16] stringr_1.2.0       rprojroot_1.2       grid_3.3.2         
+#> [19] glue_1.0.0          R6_2.2.0            foreign_0.8-67     
+#> [22] rmarkdown_1.4       bookdown_0.2.3      tidyr_0.6.1        
+#> [25] reshape2_1.4.2      magrittr_1.5        codetools_0.2-15   
+#> [28] backports_1.0.5     scales_0.4.1        htmltools_0.3.5    
+#> [31] assertthat_0.2.0    mnormt_1.5-5        mime_0.5           
+#> [34] xtable_1.8-2        colorspace_1.3-2    httpuv_1.3.3       
+#> [37] labeling_0.3        stringi_1.1.5       miniUI_0.1.1       
+#> [40] lazyeval_0.2.0.9000 munsell_0.4.3
 ```
 
 
