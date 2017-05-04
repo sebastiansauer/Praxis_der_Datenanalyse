@@ -205,7 +205,7 @@ Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Un
 
 ```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
 
-knitr::include_graphics("images/modellieren/ungeleitetes_modellieren_crop.png")
+knitr::include_graphics("images/modellieren/ungeleitetes_Modellieren_crop.png")
 
 ```
 
