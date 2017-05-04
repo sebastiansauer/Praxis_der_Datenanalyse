@@ -1,8 +1,7 @@
 # IV UNGELEITETES MODELLIEREN {-}
 
 
-
-\includegraphics[width=1\linewidth]{images/farb1} 
+<img src="images/farb1.jpg" width="100%" />
 
 
 
