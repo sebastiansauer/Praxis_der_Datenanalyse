@@ -129,7 +129,7 @@ Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; i
 
 Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib)):
 
-Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM, Nürnberg.
+Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg.
 
 
 
