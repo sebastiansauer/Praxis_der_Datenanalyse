@@ -168,7 +168,7 @@ Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um 
 Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modelieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
 
 <div class="figure" style="text-align: center">
-<img src="images/modellieren/ungeleitetes_modellieren_crop.png" alt="Die zwei Arten des ungeleiteten Modellierens" width="70%" />
+<img src="images/modellieren/ungeleitetes_Modellieren_crop.png" alt="Die zwei Arten des ungeleiteten Modellierens" width="70%" />
 <p class="caption">(\#fig:ungeleitetes-modellieren)Die zwei Arten des ungeleiteten Modellierens</p>
 </div>
 
