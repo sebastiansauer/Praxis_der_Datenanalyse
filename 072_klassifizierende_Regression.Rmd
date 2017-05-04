@@ -48,6 +48,11 @@ library(ROCR)
 ```
 
 
+```{r nm_setup, ECHO=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
 
 
 ## Vorbereitung
@@ -226,6 +231,15 @@ tips %>%
   summarise(n = n()) %>% 
   mutate(prop = n / sum(n)) %>% 
   kable
+```
+
+```{r nm-make-tab_smoke, echo = FALSE}
+tips %>% 
+  select(one_of(c("day","smoker"))) %>% 
+   group_by(day, smoker) %>% 
+  mutate(prop = n()/ sum(n())) %>% 
+  table %>%
+  matrix(nrow=4)-> tab_smoke
 ```
 
 
