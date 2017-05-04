@@ -1,14 +1,17 @@
+
+# OS generated files #
 ######################
 
 Icon?
 Thumbs.db
 .DS_Store
 .Rproj.user
-.Rproj.user/*
-docs/*
+.Rproj.user/**
+.Rhistory
+docs/**
 docs
 _bookdown_files
-_bookdown_files/*
+_bookdown_files/**
 Praxis_der_Datenanalyse.log
 Praxis_der_Datenanalyse.ilg
 Praxis_der_Datenanalyse.lof
@@ -22,7 +25,9 @@ Praxis_der_Datenanalyse.rds
 Praxis_der_Datenanalyse.fls
 Praxis_der_Datenanalyse.idx
 Praxis_der_Datenanalyse.fds_latexmk
-"Praxis der Datenanalyse."
+"Praxis der Datenanalyse.*"
 *.rds
 *.RData
 *.knit.*
+*.utf8.md
+???_*.md
