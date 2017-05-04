@@ -45,6 +45,7 @@ Für dieses Kapitel benötigen Sie folgende Pakete:
 ```{r libs-logist-regr}
 library(SDMTools)
 library(ROCR)
+library(tidyverse)
 ```
 
 
@@ -58,26 +59,34 @@ Hier werden wir den Datensatz *Aktienkauf* der Universität Zürich ([Universit�
 - Risikobereitschaft (Skala von 0 bis 25) 
 - Interesse an der aktuellen Marktlage (Skala von 0 bis 45).
 
+
 Importieren Sie zunächst die Daten.
 
-```{r}
-Aktien <- read.csv("data/Aktien.csv")
+```{r load-data-Aktien}
+Aktien <- read_csv("data/Aktien.csv")
 ```
 
 
 ## Problemstellung
-Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. \@ref(fig:logist-regr1)).
+Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. \@ref(fig:fig-logist-regr1)).
 
-```{r logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf"}
-p1 <- qplot(y = Aktienkauf, x = Risikobereitschaft, data = Aktien)
+```{r fig-logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf"}
+p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_point()
 p1
 ```
 
-Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
+Berechnen wir dann eine normale Regression.
 
-```{r}
+```{r logist-regr1}
 lm1 <- lm(Aktienkauf ~ Risikobereitschaft, data = Aktien)
 summary(lm1)
+```
+
+
+Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
+
+```{r fig-logist-regr2, fig.cap = "Regressionsgerade für Aktien-Modell"}
+
 
 p1 + geom_abline(intercept = .18, slope = .05, color = "red")
 
@@ -205,9 +214,9 @@ Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit wei
 ## Kategoriale Variablen
 Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz `tips` und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (`smoker == yes`), in Abhängigkeit vom Wochentag ändert. 
 
-Sofern noch nicht geschehen, können Sie so als `csv`-Datei herunterladen:
+Laden Sie dazu zunächst den Trinkgeld-Datensatz.
 ```{r read_tips_klass_regr}
-tips <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
+tips <- read.csv("data/tips.csv")
 
 ```
 
@@ -221,11 +230,11 @@ qplot(x = smoker, y = day, data = tips, geom = "jitter")
 Die relativen Häufigkeiten zeigt folgende Tabelle:
 
 ```{r tips-count, echo = FALSE}
-tips %>% 
+tab_smoke <- 
+  tips %>% 
   group_by(day, smoker) %>% 
   summarise(n = n()) %>% 
-  mutate(prop = n / sum(n)) %>% 
-  kable
+  mutate(prop = n / sum(n)) 
 ```
 
 
@@ -249,9 +258,9 @@ Daher ist das Chancenverhältnis (*Odds Ratio*), dass am Samstag ein Raucher am 
 
 $${OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
 {\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
-=\frac{\frac{`r round(tab_smoke[2,2],4)`}{`r round(tab_smoke[1,2],4)`}}
-{\frac{`r round(tab_smoke[2,1],4)`}{`r round(tab_smoke[1,1],4)`}}
-\approx `r round((tab_smoke[2,2]/tab_smoke[1,2])/(tab_smoke[2,1]/tab_smoke[1,1]),4)`}$$
+=\frac{\frac{`r round(tab_smoke[4,4],4)`}{`r round(tab_smoke[3,4],4)`}}
+{\frac{`r round(tab_smoke[2,4],4)`}{`r round(tab_smoke[1,4],4)`}}
+\approx `r round((tab_smoke[4,4]/tab_smoke[3,4])/(tab_smoke[2,4]/tab_smoke[1,4]),4)`}$$
 
 Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder  so ausgeben lassen:
 

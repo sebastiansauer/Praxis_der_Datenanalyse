@@ -12,3 +12,8 @@ ROCR
 zoo
 lmtest
 BaylorEdPsych
+tidyverse
+tibble
+tidyr
+readr
+purrr

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse ENTWURF</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse ENTWURF" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/div/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse ENTWURF" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="images/div/cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="klassische-lineare-numerische-regression.html">
+<link rel="next" href="fallstudien-zum-geleiteten-modellieren.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
+title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="organisatorisches.html"><a href="organisatorisches.html"><i class="fa fa-check"></i><b>1</b> Organisatorisches</a></li>
+<li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a></li>
+<li class="chapter" data-level="3" data-path="daten-einlesen.html"><a href="daten-einlesen.html"><i class="fa fa-check"></i><b>3</b> Daten einlesen</a></li>
+<li class="chapter" data-level="4" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>4</b> Datenjudo</a></li>
+<li class="chapter" data-level="5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>5</b> Praxisprobleme der Datenaufbereitung</a></li>
+<li class="chapter" data-level="6" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html"><i class="fa fa-check"></i><b>6</b> Fallstudie zum Datenjudo</a></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a></li>
+<li class="chapter" data-level="8" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>8</b> Fallstudie zur Visualisierung</a></li>
+<li class="chapter" data-level="" data-path="ii-modellieren.html"><a href="ii-modellieren.html"><i class="fa fa-check"></i>II MODELLIEREN</a></li>
+<li class="chapter" data-level="9" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>9</b> Grundlagen des Modellierens</a></li>
+<li class="chapter" data-level="10" data-path="der-p-wert.html"><a href="der-p-wert.html"><i class="fa fa-check"></i><b>10</b> Der p-Wert</a></li>
+<li class="chapter" data-level="11" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>11</b> Klassische lineare (numerische) Regression</a></li>
+<li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>12.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="12.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>12.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="12.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>12.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>12.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="12.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>12.5</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>12.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>12.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+<li class="chapter" data-level="12.5.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#aufgabe"><i class="fa fa-check"></i><b>12.5.3</b> Aufgabe</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>12.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="12.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>12.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>12.8</b> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung"><i class="fa fa-check"></i><b>12.9</b> Vertiefung</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>12.9.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="12.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>12.9.2</b> Likelihood Quotienten Test</a></li>
+<li class="chapter" data-level="12.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>12.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>12.10</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="12.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#verweise"><i class="fa fa-check"></i><b>12.11</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>13</b> Fallstudien zum geleiteten Modellieren</a></li>
+<li class="chapter" data-level="14" data-path="nicht-robust.html"><a href="nicht-robust.html"><i class="fa fa-check"></i><b>14</b> nicht robust:</a></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="15" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html"><i class="fa fa-check"></i><b>15</b> Vertiefung: Clusteranalyse</a></li>
+<li class="chapter" data-level="16" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i><b>16</b> VI Anhang</a></li>
+<li class="chapter" data-level="17" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>17</b> Probeklausur</a></li>
+<li class="chapter" data-level="18" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>18</b> Literaturverzeichnis</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse ENTWURF</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="klassifizierende-regression" class="section level1">
+<h1><span class="header-section-number">Kapitel 12</span> Klassifizierende Regression</h1>
+<p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Die Idee der logistischen Regression verstehen.</li>
+<li>Die Koeffizienten der logistischen Regression interpretieren können.</li>
+<li>Vertiefungen wie Modellgüte kennen.</li>
+</ul>
+</div>
+<p></p>
+<p>Für dieses Kapitel benötigen Sie folgende Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SDMTools)
+<span class="kw">library</span>(ROCR)
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<div id="vorbereitung" class="section level2">
+<h2><span class="header-section-number">12.1</span> Vorbereitung</h2>
+<p>Hier werden wir den Datensatz <em>Aktienkauf</em> der Universität Zürich (<a href="http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html">Universität Zürich, Methodenberatung</a>) analysieren. Es handelt es sich um eine finanzpsychologische Fragestellung. Es wurde untersucht, welche Variablen mit der Wahrscheinlichkeit, dass jemand Aktien erwirbt, zusammenhängen. Insgesamt wurden 700 Personen befragt. Folgende Daten wurden erhoben:</p>
+<ul>
+<li>Aktienkauf (0 = nein, 1 = ja)</li>
+<li>Jahreseinkommen (in Tausend CHF),</li>
+<li>Risikobereitschaft (Skala von 0 bis 25)</li>
+<li>Interesse an der aktuellen Marktlage (Skala von 0 bis 45).</li>
+</ul>
+<p>Importieren Sie zunächst die Daten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aktien &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/Aktien.csv&quot;</span>)</code></pre></div>
+</div>
+<div id="problemstellung" class="section level2">
+<h2><span class="header-section-number">12.2</span> Problemstellung</h2>
+<p>Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. <a href="klassifizierende-regression.html#fig:fig-logist-regr1">12.1</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Aktienkauf, <span class="dt">x =</span> Risikobereitschaft), <span class="dt">data =</span> Aktien) +<span class="st"> </span><span class="kw">geom_point</span>()
+p1</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr1"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
+<p class="caption">
+Abbildung 12.1: Streudiagramm von Risikobereitschaft und Aktienkauf
+</p>
+</div>
+<p>Berechnen wir dann eine normale Regression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">data =</span> Aktien)
+<span class="kw">summary</span>(lm1)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = Aktienkauf ~ Risikobereitschaft, data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -0.684 -0.243 -0.204  0.348  0.814 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)         0.18246    0.02001    9.12  &lt; 2e-16 ***</span>
+<span class="co">#&gt; Risikobereitschaft  0.05083    0.00762    6.67  5.2e-11 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.427 on 698 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0599, Adjusted R-squared:  0.0586 </span>
+<span class="co">#&gt; F-statistic: 44.5 on 1 and 698 DF,  p-value: 5.25e-11</span></code></pre></div>
+<p>Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+
+p1 +<span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> .<span class="dv">18</span>, <span class="dt">slope =</span> .<span class="dv">05</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr2"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
+<p class="caption">
+Abbildung 12.2: Regressionsgerade für Aktien-Modell
+</p>
+</div>
+<p>Der Schätzer für die Steigung für <code>Risikobereitschaft</code> ist signifikant. Das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.</p>
+<p>Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?</p>
+<p>Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 “umbiegt” (die sogenannte <em>Linkfunktion</em>). Eine häufig dafür verwendete Funktion ist die <em>logistische Funktion</em>. Im einfachsten Fall:</p>
+<p><span class="math display">\[p(y=1)=\frac{e^x}{1+e^x}\]</span></p>
+<p>Exemplarisch können wir die logistische Funktion für einen Bereich von <span class="math inline">\(\eta=-10\)</span> bis <span class="math inline">\(+10\)</span> darstellen (vgl. <a href="klassifizierende-regression.html#fig:logist-curve">12.3</a>). Der Graph der logistischen Funktion ähnelt einem langgestreckten S (“Ogive” genannt).</p>
+<div class="figure" style="text-align: center"><span id="fig:logist-curve"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">
+Abbildung 12.3: Die logistische Regression beschreibt eine ‘s-förmige’ Kurve
+</p>
+</div>
+</div>
+<div id="die-idee-der-logistischen-regression" class="section level2">
+<h2><span class="header-section-number">12.3</span> Die Idee der logistischen Regression</h2>
+<p>Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (<em>general linear model, GLM</em>). Die Modellgleichung lautet: <span class="math display">\[p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i\]</span></p>
+<blockquote>
+<p><span class="math inline">\(L\)</span> ist die Linkfunktion, in unserer Anwendung die logistische Funktion.<br />
+<span class="math inline">\(x_{ik}\)</span> sind die beobachten Werte der unabhängigen Variablen <span class="math inline">\(X_k\)</span>.<br />
+<span class="math inline">\(k\)</span> sind die unabhängigen Variablen <span class="math inline">\(1\)</span> bis <span class="math inline">\(K\)</span>.</p>
+</blockquote>
+<p>Die Funktion <code>glm</code> führt die logistische Regression durch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
+            <span class="dt">data =</span> Aktien)</code></pre></div>
+<p>Wir schauen uns zunächst den Plot an (Abb. <a href="klassifizierende-regression.html#fig:aktien-plot">12.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:aktien-plot"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
+<p class="caption">
+Abbildung 12.4: Modelldiagramm für den Aktien-Datensatz
+</p>
+</div>
+<blockquote>
+<p>Es werden ein Streudiagramm der beobachten Werte sowie die <em>Regressionslinie</em> ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.</p>
+</blockquote>
+<p>Die Zusammenfassung des Modells zeigt folgendes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(glm1)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft, family = binomial(&quot;logit&quot;), </span>
+<span class="co">#&gt;     data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -1.653  -0.738  -0.677   0.825   1.823  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)         -1.4689     0.1184   -12.4  &lt; 2e-16 ***</span>
+<span class="co">#&gt; Risikobereitschaft   0.2573     0.0468     5.5  3.8e-08 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 765.86  on 698  degrees of freedom</span>
+<span class="co">#&gt; AIC: 769.9</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
+<p>Der Achsenabschnitt (<code>intercept</code>) des logits <span class="math inline">\(\eta\)</span> wird mit -1.47 geschätzt, die Steigung in Richtung <code>Risikobereitschaft</code> mit 0.26. Die (Punkt-)Prognose für die Wahrscheinlickeit eines Aktienkaufs <span class="math inline">\(p(y=1)\)</span> benötigt anders als in der linearen Regression noch die Linkfunktion und ergibt sich somit zu: <span class="math display">\[p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(-1.47 + 0.26 \cdot \texttt{Risikobereitschaft})}}\]</span></p>
+<p>Die p-Werte der Koeffizienten können in der Spalte <code>Pr(&gt;|z|)</code> abgelesen werden.</p>
+</div>
+<div id="welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe" class="section level2">
+<h2><span class="header-section-number">12.4</span> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</h2>
+<p>Es gibt kein <span class="math inline">\(R^2\)</span> im Sinne einer erklärten Streuung der <span class="math inline">\(y\)</span>-Werte, da die beobachteten <span class="math inline">\(y\)</span>-Werte nur <span class="math inline">\(0\)</span> oder <span class="math inline">\(1\)</span> annehmen können. Das Gütemaß bei der logistischen Regression ist das <em>Akaike Information Criterion</em> (<em>AIC</em>). Hier gilt allerdings: je <strong>kleiner</strong>, desto <strong>besser</strong>. (Anmerkung: es kann ein Pseudo-<span class="math inline">\(R^2\)</span> berechnet werden – kommt später.)</p>
+<p>Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden – kommt später.)</p>
+</div>
+<div id="interpretation-der-koeffizienten" class="section level2">
+<h2><span class="header-section-number">12.5</span> Interpretation der Koeffizienten</h2>
+<div id="y-achsenabschnitt-intercept-beta_0" class="section level3">
+<h3><span class="header-section-number">12.5.1</span> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></h3>
+<p>Für <span class="math inline">\(\beta_0&gt;0\)</span> gilt, dass selbst wenn alle anderen unabhängigen Variablen <span class="math inline">\(0\)</span> sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für <span class="math inline">\(\beta_0&lt;0\)</span> gilt entsprechend das Umgekehrte.</p>
+</div>
+<div id="steigung-beta_i-mit-i12...k" class="section level3">
+<h3><span class="header-section-number">12.5.2</span> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></h3>
+<p>Für <span class="math inline">\(\beta_i&gt;0\)</span> gilt, dass mit zunehmenden <span class="math inline">\(x_i\)</span> die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei <span class="math inline">\(\beta_i&lt;0\)</span> nimmt die Wahrscheinlichkeit entsprechend ab.</p>
+<p>Eine Abschätzung der Änderung der Wahrscheinlichkeit (<em>relatives Risiko</em>, <em>relative risk</em> <span class="math inline">\(RR\)</span>) kann über das Chancenverhältnis (<em>Odds Ratio</em> <span class="math inline">\(OR\)</span>) gemacht werden.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Es ergibt sich vereinfacht <span class="math inline">\(e^{\beta_i}\)</span>. Die Wahrscheinlichkeit ändert sich näherungsweise um diesen Faktor, wenn sich <span class="math inline">\(x_i\)</span> um eine Einheit erhöht. <strong>Hinweis:</strong> <span class="math inline">\(RR\approx OR\)</span> gilt nur, wenn der Anteil des modellierten Ereignisses in den beobachteten Daten sehr klein (<span class="math inline">\(&lt;5\%\)</span>) oder sehr groß ist (<span class="math inline">\(&gt;95\%\)</span>).</p>
+</div>
+<div id="aufgabe" class="section level3">
+<h3><span class="header-section-number">12.5.3</span> Aufgabe</h3>
+<p>Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die <code>Risikobereitschaft</code> um 1 erhöht (Funktion <code>exp()</code>). Vergleichen Sie das Ergebnis mit der Punktprognose für <code>Risikobereitschaft</code><span class="math inline">\(=7\)</span> im Vergleich zu <code>Risikobereitschaft</code><span class="math inline">\(=8\)</span>.</p>
+<p>Lösung:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aus Koeffizient abgeschätzt</span>
+<span class="kw">exp</span>(<span class="kw">coef</span>(glm1)[<span class="dv">2</span>])
+<span class="co">#&gt; Risikobereitschaft </span>
+<span class="co">#&gt;               1.29</span></code></pre></div>
+<p>In Worten: “Mit jedem Punkt mehr Risikobereitschaft steigen die Chancen (das OR) für Aktienkauf um 1.293”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># mit dem vollständigen Modell berechnet</span>
+<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">1</span>), 
+        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.229</span>
+
+<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">8</span>), 
+        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.643</span></code></pre></div>
+<p>Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für <span class="math inline">\(y=1\)</span>, d.h. für das Ereignis “Aktienkauf”, 0.23. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei 0.64.</p>
+<p>Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit <code>Risikobereitschaft</code><span class="math inline">\(=1\)</span> liegt allerdings auch bei 0.26.</p>
+</div>
+</div>
+<div id="kategoriale-variablen" class="section level2">
+<h2><span class="header-section-number">12.6</span> Kategoriale Variablen</h2>
+<p>Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz <code>tips</code> und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (<code>smoker == yes</code>), in Abhängigkeit vom Wochentag ändert.</p>
+<p>Laden Sie dazu zunächst den Trinkgeld-Datensatz.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/tips.csv&quot;</span>)</code></pre></div>
+<p>Zunächst ein Plot (Abb. <a href="#fig:jitter-tips"><strong>??</strong></a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">y =</span> day, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
+<p><img src="072_klassifizierende_Regression_files/figure-html/jitter-tips-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Die relativen Häufigkeiten zeigt folgende Tabelle:</p>
+<p>Probieren wir die logistische Regression aus:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glmtips &lt;-<span class="st"> </span><span class="kw">glm</span>(smoker ~<span class="st"> </span>day, 
+               <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
+               <span class="dt">data =</span> tips)
+<span class="kw">summary</span>(glmtips)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = smoker ~ day, family = binomial(&quot;logit&quot;), data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -1.765  -0.801  -0.758   1.207   1.665  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)    1.322      0.563    2.35  0.01883 *  </span>
+<span class="co">#&gt; daySat        -1.391      0.602   -2.31  0.02093 *  </span>
+<span class="co">#&gt; daySun        -2.420      0.622   -3.89    1e-04 ***</span>
+<span class="co">#&gt; dayThur       -2.295      0.631   -3.64  0.00027 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 324.34  on 243  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 298.37  on 240  degrees of freedom</span>
+<span class="co">#&gt; AIC: 306.4</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
+<p>Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier: Freitag) interpretieren. Die Wahrscheinlichkeit ist an einem Samstag niedriger, der Wert für <code>daySat</code> ist negativ. Eine Abschätzung erhalten wir wieder mit <span class="math inline">\(e^{\beta_i}\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(glmtips)[<span class="dv">2</span>])
+<span class="co">#&gt; daySat </span>
+<span class="co">#&gt;  0.249</span></code></pre></div>
+<p>Daher ist das Chancenverhältnis (<em>Odds Ratio</em>), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor 0.25 niedriger als am Freitag<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:</p>
+<p><span class="math display">\[{OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
+{\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
+=\frac{\frac{0.483}{0.517}}
+{\frac{0.79}{0.21}}
+\approx 0.249}\]</span></p>
+<p>Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder so ausgeben lassen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glmtips, <span class="kw">list</span>(<span class="dt">day =</span> <span class="st">&quot;Sat&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.483</span></code></pre></div>
+</div>
+<div id="multiple-logistische-regression" class="section level2">
+<h2><span class="header-section-number">12.7</span> Multiple logistische Regression</h2>
+<p>Wir kehren wieder zurück zu dem Datensatz <em>Aktienkauf</em>. Können wir unser Model <code>glm1</code> mit nur einer erklärenden Variable verbessern, indem weitere unabhängige Variablen hinzugefügt werden?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm2 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft +<span class="st"> </span>Einkommen +<span class="st"> </span>Interesse, 
+            <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), 
+            <span class="dt">data =</span> Aktien)
+
+<span class="kw">summary</span>(glm2)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, </span>
+<span class="co">#&gt;     family = binomial(&quot;logit&quot;), data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -2.130  -0.715  -0.539   0.518   3.214  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)        -1.66791    0.27903   -5.98  2.3e-09 ***</span>
+<span class="co">#&gt; Risikobereitschaft  0.34781    0.08822    3.94  8.1e-05 ***</span>
+<span class="co">#&gt; Einkommen          -0.02157    0.00564   -3.83  0.00013 ***</span>
+<span class="co">#&gt; Interesse           0.08520    0.01775    4.80  1.6e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 679.01  on 696  degrees of freedom</span>
+<span class="co">#&gt; AIC: 687</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
+<p>Alle Schätzer sind signifkant zum 0.1 %-Niveau (<code>***</code> in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.</p>
+<p>Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86 auf 687.01 gesunken ist.</p>
+</div>
+<div id="modell--bzw.-klassifikationsgute" class="section level2">
+<h2><span class="header-section-number">12.8</span> Modell- bzw. Klassifikationsgüte</h2>
+<p>Logistische Regressionsmodelle werden häufig zur <em>Klassifikation</em> verwendet, z.B. ob der Kredit für einen Neukunden ein “guter” Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.</p>
+<p>Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (<em>cutpoint</em>), häufig <span class="math inline">\(0.5\)</span>, einer geschätzten <span class="math inline">\(1\)</span> zugeordnet, unterhalb des Schwellenwertes einer <span class="math inline">\(0\)</span>. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (<em>confusion matrix</em>) mit den beobachteten Häufigkeiten verglichen.</p>
+<p>Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (<em>True Positive Rate, TPR</em>), also der Anteil der mit <span class="math inline">\(1\)</span> geschätzten an allen mit <span class="math inline">\(1\)</span> beobachten Werten, und die Spezifität (<em>True Negative Rate</em>) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.</p>
+<p>Sie können die Konfusionsmatrix mit dem Paket <code>confusion.matrix()</code> aus dem Paket <code>SDMTools</code>. Ein Parameter ist <code>cutpoint</code>, der standardmäßig auf <span class="math inline">\(0.5\)</span> steht.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+(cm &lt;-<span class="st"> </span><span class="kw">confusion.matrix</span>(Aktien$Aktienkauf, glm1$fitted.values)) 
+<span class="co">#&gt;     obs</span>
+<span class="co">#&gt; pred   0   1</span>
+<span class="co">#&gt;    0 509 163</span>
+<span class="co">#&gt;    1   8  20</span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;confusion.matrix&quot;</span>
+<span class="kw">sensitivity</span>(cm)
+<span class="co">#&gt; [1] 0.109</span>
+<span class="kw">specificity</span>(cm)
+<span class="co">#&gt; [1] 0.985</span></code></pre></div>
+<p>Wenn die Anteile der <span class="math inline">\(1\)</span> in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten <span class="math inline">\(p(y=1)\)</span> alle unter <span class="math inline">\(0.5\)</span> liegen. Das würde zu einer Sensitität von <span class="math inline">\(0\)</span> und einer Spezifiät von <span class="math inline">\(1\)</span> führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die <em>ROC</em>-Kurve (<em>Return Operating Characteristic</em>) und den daraus abgeleiteten <em>AUC</em>-Wert (<em>Area Under Curve</em>).</p>
+<p>Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen <span class="math inline">\(1-\)</span>Spezifität (welche Werte sind als <span class="math inline">\(1\)</span> modelliert worden unter den beobachten <span class="math inline">\(0\)</span>, <em>False Positive Rate, FPR</em>). Um diese Werte auszugeben, benötigen Sie das Paket <code>ROCR</code> und die Funktion <code>performance()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggf. install.packages(&quot;ROCR&quot;)</span>
+<span class="kw">library</span>(ROCR)
+<span class="co"># Ein für die Auswertung notwendiges prediction Objekt anlegen</span>
+pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(glm1$fitted.values, Aktien$Aktienkauf)
+<span class="co"># ROC Kurve</span>
+perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<span class="st">&quot;tpr&quot;</span>,<span class="st">&quot;fpr&quot;</span>)
+<span class="kw">plot</span>(perf)
+<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)
+<span class="co"># Area under curve (ROC-Wert)</span>
+<span class="kw">performance</span>(pred,<span class="st">&quot;auc&quot;</span>)@y.values
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 0.636</span></code></pre></div>
+<p><img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>AUC liegt zwischen <span class="math inline">\(0.5\)</span>, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und <span class="math inline">\(1\)</span>. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei <span class="math inline">\(0.7\)</span> und größer, gute Werte sind es ab <span class="math inline">\(0.8\)</span>.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+</div>
+<div id="vertiefung" class="section level2">
+<h2><span class="header-section-number">12.9</span> Vertiefung</h2>
+<div id="modellschatzung" class="section level3">
+<h3><span class="header-section-number">12.9.1</span> Modellschätzung</h3>
+<p>Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die <em>Maximum Likelihood</em> Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (<em>Maximum Likelihood</em>) werden.</p>
+<p>Das ist ein iteratives Verfahren (OLS erfolgt rein analytisch), daher wird in der letzten Zeile der Ausgabe auch die Anzahl der Iterationen (<code>Fisher Scoring Iterations</code>) ausgegeben.</p>
+<p>Die Devianz des Modells (<code>Residual deviance</code>) ist <span class="math inline">\(-2\)</span> mal die logarithmierte Likelihood. Die Nulldevianz (<code>Null deviance</code>) ist die Devianz eines Nullmodells, d. h., alle <span class="math inline">\(\beta\)</span> außer der Konstanten sind 0.</p>
+</div>
+<div id="likelihood-quotienten-test" class="section level3">
+<h3><span class="header-section-number">12.9.2</span> Likelihood Quotienten Test</h3>
+<p>Der Likelihood Quotienten Test (<em>Likelihood Ratio Test, LR-Test</em>) vergleicht die Likelihood <span class="math inline">\(L_0\)</span> des Nullmodels mit der Likelihood <span class="math inline">\(L_{\beta}\)</span> des geschätzten Modells. Die Prüfgröße des LR-Tests ergibt sich aus: <span class="math display">\[{T=-2\cdot ln\left( \frac{L_0}{L_{\beta}}\right)}\]</span> <span class="math inline">\(T\)</span> ist näherungsweise <span class="math inline">\(\chi ^2\)</span>-verteilt mit <span class="math inline">\(k\)</span> Freiheitsgraden.</p>
+<p>In R können Sie den Test mit <code>lrtest()</code> aufrufen. Sie benötigen dazu das Paket <code>lmtest</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lmtest)
+<span class="kw">lrtest</span>(glm2)
+<span class="co">#&gt; Likelihood ratio test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
+<span class="co">#&gt; Model 2: Aktienkauf ~ 1</span>
+<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
+<span class="co">#&gt; 1   4   -340                        </span>
+<span class="co">#&gt; 2   1   -402 -3   125     &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
+<p>Das Modell <code>glm2</code> ist als Ganzes signifikant, der p-Wert ist sehr klein.</p>
+<p>Den Likelihood Quotienten Test können Sie auch verwenden, um zwei Modelle miteinander zu vergleichen, z. B., wenn Sie eine weitere Variable hinzugenommen haben und wissen wollen, ob die Verbesserung auch signifikant war.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lrtest</span>(glm1, glm2)
+<span class="co">#&gt; Likelihood ratio test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft</span>
+<span class="co">#&gt; Model 2: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
+<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
+<span class="co">#&gt; 1   2   -383                        </span>
+<span class="co">#&gt; 2   4   -340  2  86.9     &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
+<p>Ja, die Modelle <code>glm1</code> (mit einer erklärenden Variable) und <code>glm2</code> unterscheiden sich signifikant voneinander.</p>
+</div>
+<div id="pseudo-r2" class="section level3">
+<h3><span class="header-section-number">12.9.3</span> Pseudo-<span class="math inline">\(R^2\)</span></h3>
+<p>Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem <span class="math inline">\(R^2\)</span> der linearen Regression entspricht. Exemplarisch sei hier McFaddens <span class="math inline">\(R^2\)</span> gezeigt: <span class="math display">\[{R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}\]</span> Wie bei bei dem <span class="math inline">\(R^2\)</span> der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen <span class="math inline">\(R^2\)</span> der beiden Modelle <code>glm1</code> und <code>glm2</code>? Sie können es direkt berechnen oder das Paket <code>BaylorEdPsych</code> verwenden.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># direkte Berechnung</span>
+<span class="dv">1</span> -<span class="st"> </span>glm1$deviance/glm1$null.deviance
+<span class="co">#&gt; [1] 0.0479</span>
+<span class="dv">1</span> -<span class="st"> </span>glm2$deviance/glm2$null.deviance
+<span class="co">#&gt; [1] 0.156</span>
+<span class="co"># ggf. install.packages(&quot;BaylorEdPsych&quot;)</span>
+<span class="kw">library</span>(BaylorEdPsych)
+<span class="kw">PseudoR2</span>(glm1)
+<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
+<span class="co">#&gt;           0.0479           0.0404           0.0535           0.0783 </span>
+<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
+<span class="co">#&gt;           0.0826           0.0584           0.7557           0.0656 </span>
+<span class="co">#&gt;              AIC    Corrected.AIC </span>
+<span class="co">#&gt;         769.8624         769.8796</span>
+<span class="kw">PseudoR2</span>(glm2)
+<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
+<span class="co">#&gt;           0.1558           0.1434           0.1640           0.2400 </span>
+<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
+<span class="co">#&gt;           0.2828           0.1845           0.7614           0.0874 </span>
+<span class="co">#&gt;              AIC    Corrected.AIC </span>
+<span class="co">#&gt;         687.0068         687.0644</span></code></pre></div>
+<p>Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. <strong>Hinweis:</strong> Die Funktion <code>PseudoR2(model)</code> zeigt verschiedene Pseudo-<span class="math inline">\(R^2\)</span> Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.</p>
+</div>
+</div>
+<div id="ubung-rot--oder-weiwein" class="section level2">
+<h2><span class="header-section-number">12.10</span> Übung: Rot- oder Weißwein?</h2>
+<p>Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen <span class="citation">(Cortez u. a. <a href="#ref-cortez2009modeling">2009</a>)</span>.</p>
+<p>Sie können in unter <a href="https://goo.gl/Dkd7nK" class="uri">https://goo.gl/Dkd7nK</a> herunterladen. Die Originaldaten finden Sie im UCI Machine Learning Repository<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
+<p>Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<p><strong>Zusatzaufgabe:</strong> Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable <code>color</code> aufgenommen wird (Rot = 0, Weiß = 1).</p>
+</div>
+<div id="verweise" class="section level2">
+<h2><span class="header-section-number">12.11</span> Verweise</h2>
+<p>Dieses Kapitel basiert teilweise auf Übungen zum Buch <a href="https://www.openintro.org/stat/index.php?stat_book=isrs">OpenIntro</a> <span class="citation">(Diez, Barr, und Cetinkaya-Rundel <a href="#ref-introstats">2014</a>)</span> unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.</p>
+
+</div>
+</div>
+<h3> Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-cortez2009modeling">
+<p>Cortez, Paulo, António Cerdeira, Fernando Almeida, Telmo Matos, und José Reis. 2009. „Modeling wine preferences by data mining from physicochemical properties“. <em>Decision Support Systems</em> 47 (4). Elsevier: 547–53.</p>
+</div>
+<div id="ref-introstats">
+<p>Diez, David M, Christopher D Barr, und Mine Cetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. CreateSpace Independent Publishing Platform.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Wahrscheinlichkeit vs. Chance: Die Wahrscheinlichkeit bei einem fairen Würfel, eine 6 zu würfeln, ist <span class="math inline">\(1/6\)</span>. Die Chance (<em>Odd</em>), eine 6 zu würfeln, ist die Wahrscheinlichkeit dividiert durch die Gegenwahrscheinlichkeit, also <span class="math inline">\(\frac{1/6}{5/6}=1/5\)</span>.<a href="klassifizierende-regression.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>Am Freitag liegen die Chancen (das OR) für einen Raucher bei 3.75. Das OR für Samstag ist das Produkt dieser beiden OR. Um das OR zu einer Wahrscheinlichkeit umzurechnen kann man, möchte vom “von Hand” arbeiten, diese Formel verwenden: <span class="math inline">\(p = OR / (OR + 1)\)</span>.<a href="klassifizierende-regression.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164<a href="klassifizierende-regression.html#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">http://archive.ics.uci.edu/ml/datasets/Wine+Quality</a><a href="klassifizierende-regression.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>Anregungen zu dieser Übung stammen von INTW Statistics: <a href="https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html" class="uri">https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html</a><a href="klassifizierende-regression.html#fnref5">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="klassische-lineare-numerische-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fallstudien-zum-geleiteten-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
