@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse ENTWURF</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.2.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse ENTWURF" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/div/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse ENTWURF" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="images/div/cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="der-p-wert.html">
+<link rel="next" href="klassifizierende-regression.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
+title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="organisatorisches.html"><a href="organisatorisches.html"><i class="fa fa-check"></i><b>1</b> Organisatorisches</a><ul>
+<li class="chapter" data-level="1.1" data-path="organisatorisches.html"><a href="organisatorisches.html#modulziele"><i class="fa fa-check"></i><b>1.1</b> Modulziele</a></li>
+<li class="chapter" data-level="1.2" data-path="organisatorisches.html"><a href="organisatorisches.html#themen-pro-termin"><i class="fa fa-check"></i><b>1.2</b> Themen pro Termin</a></li>
+<li class="chapter" data-level="1.3" data-path="organisatorisches.html"><a href="organisatorisches.html#vorerfahrung"><i class="fa fa-check"></i><b>1.3</b> Vorerfahrung</a></li>
+<li class="chapter" data-level="1.4" data-path="organisatorisches.html"><a href="organisatorisches.html#prufung"><i class="fa fa-check"></i><b>1.4</b> Prüfung</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="organisatorisches.html"><a href="organisatorisches.html#prufungshinweise"><i class="fa fa-check"></i><b>1.4.1</b> Prüfungshinweise</a></li>
+<li class="chapter" data-level="1.4.2" data-path="organisatorisches.html"><a href="organisatorisches.html#klausur"><i class="fa fa-check"></i><b>1.4.2</b> Klausur</a></li>
+<li class="chapter" data-level="1.4.3" data-path="organisatorisches.html"><a href="organisatorisches.html#datenanalyse"><i class="fa fa-check"></i><b>1.4.3</b> Datenanalyse</a></li>
+<li class="chapter" data-level="1.4.4" data-path="organisatorisches.html"><a href="organisatorisches.html#gliederungsvorschlag-zur-datenanalyse"><i class="fa fa-check"></i><b>1.4.4</b> Gliederungsvorschlag zur Datenanalyse</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organisatorisches.html"><a href="organisatorisches.html#literatur"><i class="fa fa-check"></i><b>1.5</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
+<li class="chapter" data-level="2.1" data-path="rahmen.html"><a href="rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="rahmen.html"><a href="rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
+<li class="chapter" data-level="2.1.2" data-path="rahmen.html"><a href="rahmen.html#hilfe-r-tut-nicht-so-wie-ich-das-will"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R tut nicht so wie ich das will</a></li>
+<li class="chapter" data-level="2.1.3" data-path="rahmen.html"><a href="rahmen.html#hier-werden-sie-geholfen"><i class="fa fa-check"></i><b>2.1.3</b> Hier werden Sie geholfen</a></li>
+<li class="chapter" data-level="2.1.4" data-path="rahmen.html"><a href="rahmen.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>2.1.4</b> Die Denk- und Gefühlswelt von R</a></li>
+<li class="chapter" data-level="2.1.5" data-path="rahmen.html"><a href="rahmen.html#pakete-installieren"><i class="fa fa-check"></i><b>2.1.5</b> Pakete installieren</a></li>
+<li class="chapter" data-level="2.1.6" data-path="rahmen.html"><a href="rahmen.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>2.1.6</b> R-Pakete für dieses Buch</a></li>
+<li class="chapter" data-level="2.1.7" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.7</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.8" data-path="rahmen.html"><a href="rahmen.html#aufgaben"><i class="fa fa-check"></i><b>2.1.8</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rahmen.html"><a href="rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="rahmen.html"><a href="rahmen.html#hinweise"><i class="fa fa-check"></i><b>2.2.1</b> Hinweise</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rahmen.html"><a href="rahmen.html#r-als-taschenrechner"><i class="fa fa-check"></i><b>2.2.2</b> R als Taschenrechner</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rahmen.html"><a href="rahmen.html#text-und-variablen-zuweisen"><i class="fa fa-check"></i><b>2.2.3</b> Text und Variablen zuweisen</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rahmen.html"><a href="rahmen.html#funktionen-aufrufen"><i class="fa fa-check"></i><b>2.2.4</b> Funktionen aufrufen</a></li>
+<li class="chapter" data-level="2.2.5" data-path="rahmen.html"><a href="rahmen.html#aufgaben-1"><i class="fa fa-check"></i><b>2.2.5</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="rahmen.html"><a href="rahmen.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>2.3</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="2.4" data-path="rahmen.html"><a href="rahmen.html#befehlsubersicht"><i class="fa fa-check"></i><b>2.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="2.5" data-path="rahmen.html"><a href="rahmen.html#verweise"><i class="fa fa-check"></i><b>2.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="daten-einlesen.html"><a href="daten-einlesen.html"><i class="fa fa-check"></i><b>3</b> Daten einlesen</a><ul>
+<li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.2</b> CSV-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#das-arbeitsverzeichnis"><i class="fa fa-check"></i><b>3.1.3</b> Das Arbeitsverzeichnis</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#vertiefung"><i class="fa fa-check"></i><b>3.3</b> Vertiefung</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#tabelle-in-normalform-bringen"><i class="fa fa-check"></i><b>3.3.1</b> Tabelle in Normalform bringen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#textkodierung"><i class="fa fa-check"></i><b>3.3.2</b> Textkodierung</a></li>
+<li class="chapter" data-level="3.3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-exportieren"><i class="fa fa-check"></i><b>3.3.3</b> Daten exportieren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#befehlsubersicht-1"><i class="fa fa-check"></i><b>3.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="3.5" data-path="daten-einlesen.html"><a href="daten-einlesen.html#aufgaben-2"><i class="fa fa-check"></i><b>3.5</b> Aufgaben</a></li>
+<li class="chapter" data-level="3.6" data-path="daten-einlesen.html"><a href="daten-einlesen.html#verweise-1"><i class="fa fa-check"></i><b>3.6</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>4</b> Datenjudo</a><ul>
+<li class="chapter" data-level="4.1" data-path="datenjudo.html"><a href="datenjudo.html#typische-probleme"><i class="fa fa-check"></i><b>4.1</b> Typische Probleme</a></li>
+<li class="chapter" data-level="4.2" data-path="datenjudo.html"><a href="datenjudo.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>4.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datenjudo.html"><a href="datenjudo.html#die-zwei-prinzipien-von-dplyr"><i class="fa fa-check"></i><b>4.2.1</b> Die zwei Prinzipien von <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="datenjudo.html"><a href="datenjudo.html#zentrale-bausteine-von-dplyr"><i class="fa fa-check"></i><b>4.3</b> Zentrale Bausteine von <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>4.3.1</b> Zeilen filtern mit <code>filter</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="datenjudo.html"><a href="datenjudo.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>4.3.2</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>4.3.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="datenjudo.html"><a href="datenjudo.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>4.3.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li class="chapter" data-level="4.3.5" data-path="datenjudo.html"><a href="datenjudo.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>4.3.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="4.3.6" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>4.3.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>4.4</b> Die Pfeife</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>4.4.1</b> Spalten berechnen mit <code>mutate</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-9"><i class="fa fa-check"></i><b>4.4.2</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.5</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="4.6" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>5</b> Praxisprobleme der Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#datenaufbereitung"><i class="fa fa-check"></i><b>5.1</b> Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>5.1.1</b> Auf fehlende Werte prüfen</a></li>
+<li class="chapter" data-level="5.1.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>5.1.2</b> Fälle mit fehlenden Werte löschen</a></li>
+<li class="chapter" data-level="5.1.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>5.1.3</b> Fehlende Werte ggf. ersetzen</a></li>
+<li class="chapter" data-level="5.1.4" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>5.1.4</b> Nach Fehlern suchen</a></li>
+<li class="chapter" data-level="5.1.5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#ausreiser-identifizieren"><i class="fa fa-check"></i><b>5.1.5</b> Ausreiser identifizieren</a></li>
+<li class="chapter" data-level="5.1.6" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>5.1.6</b> Hochkorrelierte Variablen finden</a></li>
+<li class="chapter" data-level="5.1.7" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#z-standardisieren"><i class="fa fa-check"></i><b>5.1.7</b> z-Standardisieren</a></li>
+<li class="chapter" data-level="5.1.8" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>5.1.8</b> Quasi-Konstante finden</a></li>
+<li class="chapter" data-level="5.1.9" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>5.1.9</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="5.1.10" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#werte-umkodieren-und-binnen"><i class="fa fa-check"></i><b>5.1.10</b> Werte umkodieren und “binnen”</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#deskriptive-statistiken-berechnen"><i class="fa fa-check"></i><b>5.2</b> Deskriptive Statistiken berechnen</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>5.2.1</b> Mittelwerte pro Zeile berechnen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-spalte-berechnen"><i class="fa fa-check"></i><b>5.2.2</b> Mittelwerte pro Spalte berechnen</a></li>
+<li class="chapter" data-level="5.2.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#korrelationstabellen-berechnen"><i class="fa fa-check"></i><b>5.2.3</b> Korrelationstabellen berechnen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#befehlsubersicht-3"><i class="fa fa-check"></i><b>5.3</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html"><i class="fa fa-check"></i><b>6</b> Fallstudie zum Datenjudo</a><ul>
+<li class="chapter" data-level="6.1" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#achtung-fallstudie"><i class="fa fa-check"></i><b>6.1</b> Achtung, Fallstudie</a></li>
+<li class="chapter" data-level="6.2" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#befehlsubersicht-4"><i class="fa fa-check"></i><b>6.2</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="6.3" data-path="fallstudie-zum-datenjudo.html"><a href="fallstudie-zum-datenjudo.html#verweise-3"><i class="fa fa-check"></i><b>6.3</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>7.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li class="chapter" data-level="7.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-anatomie-eines-diagramms"><i class="fa fa-check"></i><b>7.2</b> Die Anatomie eines Diagramms</a></li>
+<li class="chapter" data-level="7.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#einstieg-in-ggplot2---qplot"><i class="fa fa-check"></i><b>7.3</b> Einstieg in <code>ggplot2</code> - <code>qplot</code></a></li>
+<li class="chapter" data-level="7.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>7.4</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>7.4.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="7.4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>7.4.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-diskrete-variable"><i class="fa fa-check"></i><b>7.4.3</b> Eine diskrete Variable</a></li>
+<li class="chapter" data-level="7.4.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-diskrete-variablen"><i class="fa fa-check"></i><b>7.4.4</b> Zwei diskrete Variablen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>7.4.5</b> Zusammenfassungen zeigen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-gefuhlswelt-von-ggplot2"><i class="fa fa-check"></i><b>7.5</b> Die Gefühlswelt von <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#aufgaben-10"><i class="fa fa-check"></i><b>7.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="7.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#losungen"><i class="fa fa-check"></i><b>7.7</b> Lösungen</a></li>
+<li class="chapter" data-level="7.8" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>7.8</b> Richtig oder Falsch</a></li>
+<li class="chapter" data-level="7.9" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#befehlsubersicht-5"><i class="fa fa-check"></i><b>7.9</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="7.10" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#geome"><i class="fa fa-check"></i><b>7.10</b> Vertiefung: Geome bei ggplot2</a></li>
+<li class="chapter" data-level="7.11" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-4"><i class="fa fa-check"></i><b>7.11</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>8</b> Fallstudie zur Visualisierung</a><ul>
+<li class="chapter" data-level="8.1" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-einlesen-1"><i class="fa fa-check"></i><b>8.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="8.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>8.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="8.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>8.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="8.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#um-90-drehen"><i class="fa fa-check"></i><b>8.4</b> Um 90° drehen</a></li>
+<li class="chapter" data-level="8.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>8.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="8.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>8.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="8.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschema"><i class="fa fa-check"></i><b>8.7</b> Farbschema</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ii-modellieren.html"><a href="ii-modellieren.html"><i class="fa fa-check"></i>II MODELLIEREN</a></li>
+<li class="chapter" data-level="9" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>9</b> Grundlagen des Modellierens</a><ul>
+<li class="chapter" data-level="9.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>9.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="9.2" data-path="mod1.html"><a href="mod1.html#ein-besipiel-zum-modellieren-in-der-datenanalyse"><i class="fa fa-check"></i><b>9.2</b> Ein Besipiel zum Modellieren in der Datenanalyse</a></li>
+<li class="chapter" data-level="9.3" data-path="mod1.html"><a href="mod1.html#Ziele"><i class="fa fa-check"></i><b>9.3</b> Taxonomie der Ziele des Modellierens</a></li>
+<li class="chapter" data-level="9.4" data-path="mod1.html"><a href="mod1.html#die-vier-schritte-des-statistischen-modellierens"><i class="fa fa-check"></i><b>9.4</b> Die vier Schritte des statistischen Modellierens</a></li>
+<li class="chapter" data-level="9.5" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>9.5</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="9.6" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>9.6</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="9.7" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>9.7</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="9.8" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>9.8</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="9.9" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>9.9</b> Modellgüte</a></li>
+<li class="chapter" data-level="9.10" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>9.10</b> Auswahl von Prädiktoren</a></li>
+<li class="chapter" data-level="9.11" data-path="mod1.html"><a href="mod1.html#aufgaben-11"><i class="fa fa-check"></i><b>9.11</b> Aufgaben</a></li>
+<li class="chapter" data-level="9.12" data-path="mod1.html"><a href="mod1.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>9.12</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="9.13" data-path="mod1.html"><a href="mod1.html#verweise-5"><i class="fa fa-check"></i><b>9.13</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="der-p-wert.html"><a href="der-p-wert.html"><i class="fa fa-check"></i><b>10</b> Der p-Wert</a><ul>
+<li class="chapter" data-level="10.1" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-sagt-nicht-das-was-viele-denken"><i class="fa fa-check"></i><b>10.1</b> Der p-Wert sagt nicht das, was viele denken</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="der-p-wert.html"><a href="der-p-wert.html#von-moslems-und-terroristen"><i class="fa fa-check"></i><b>10.1.1</b> Von Moslems und Terroristen</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="der-p-wert.html"><a href="der-p-wert.html#der-p-wert-ist-eine-funktion-der-stichprobengroe"><i class="fa fa-check"></i><b>10.2</b> Der p-Wert ist eine Funktion der Stichprobengröße</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="der-p-wert.html"><a href="der-p-wert.html#vertiefung-praktisches-beispiel-zum-stichprobeneinfluss-auf-den-p-wert"><i class="fa fa-check"></i><b>10.2.1</b> Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf den p-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="der-p-wert.html"><a href="der-p-wert.html#mythen-zum-p-wert"><i class="fa fa-check"></i><b>10.3</b> Mythen zum p-Wert</a></li>
+<li class="chapter" data-level="10.4" data-path="der-p-wert.html"><a href="der-p-wert.html#zur-philosophie-des-p-werts"><i class="fa fa-check"></i><b>10.4</b> Zur Philosophie des p-Werts</a></li>
+<li class="chapter" data-level="10.5" data-path="der-p-wert.html"><a href="der-p-wert.html#fazit"><i class="fa fa-check"></i><b>10.5</b> Fazit</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html"><i class="fa fa-check"></i><b>11</b> Klassische lineare (numerische) Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#die-idee-der-klassischen-regression"><i class="fa fa-check"></i><b>11.1</b> Die Idee der klassischen Regression</a></li>
+<li class="chapter" data-level="11.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vorhersagegute"><i class="fa fa-check"></i><b>11.2</b> Vorhersagegüte</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>11.2.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="11.2.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>11.2.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="11.2.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>11.2.3</b> Likelihood and Friends</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#beispiel-fur-eine-regression"><i class="fa fa-check"></i><b>11.3</b> Beispiel für eine Regression</a></li>
+<li class="chapter" data-level="11.4" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>11.4</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="11.5" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>11.5</b> Regression mit kategorialen Prädiktoren</a></li>
+<li class="chapter" data-level="11.6" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#multiple-regression"><i class="fa fa-check"></i><b>11.6</b> Multiple Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>11.7</b> Inferenz in der linearen Regression</a></li>
+<li class="chapter" data-level="11.8" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>11.8</b> Vertiefungen zum Regressionmodell</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#modellwahl"><i class="fa fa-check"></i><b>11.8.1</b> Modellwahl</a></li>
+<li class="chapter" data-level="11.8.2" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#interaktionen"><i class="fa fa-check"></i><b>11.8.2</b> Interaktionen</a></li>
+<li class="chapter" data-level="11.8.3" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>11.8.3</b> Weitere Modellierungsmöglichkeiten</a></li>
+</ul></li>
+<li class="chapter" data-level="11.9" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>11.9</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="11.10" data-path="klassische-lineare-numerische-regression.html"><a href="klassische-lineare-numerische-regression.html#verweise-6"><i class="fa fa-check"></i><b>11.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>12.1</b> Vorbereitung</a></li>
+<li class="chapter" data-level="12.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>12.2</b> Problemstellung</a></li>
+<li class="chapter" data-level="12.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>12.3</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>12.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="12.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>12.5</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>12.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>12.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+<li class="chapter" data-level="12.5.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#aufgabe"><i class="fa fa-check"></i><b>12.5.3</b> Aufgabe</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>12.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="12.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>12.7</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>12.8</b> Modell- bzw. Klassifikationsgüte</a></li>
+<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung-1"><i class="fa fa-check"></i><b>12.9</b> Vertiefung</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>12.9.1</b> Modellschätzung</a></li>
+<li class="chapter" data-level="12.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>12.9.2</b> Likelihood Quotienten Test</a></li>
+<li class="chapter" data-level="12.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>12.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>12.10</b> Übung: Rot- oder Weißwein?</a></li>
+<li class="chapter" data-level="12.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#verweise-7"><i class="fa fa-check"></i><b>12.11</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>13</b> Fallstudien zum geleiteten Modellieren</a><ul>
+<li class="chapter" data-level="13.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>13.1</b> Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#daten-und-pakete-laden"><i class="fa fa-check"></i><b>13.1.1</b> Daten und Pakete laden</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>13.1.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>13.1.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>13.1.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarke"><i class="fa fa-check"></i><b>13.1.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>13.1.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="13.1.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>13.1.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="13.1.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#fazit-1"><i class="fa fa-check"></i><b>13.1.10</b> Fazit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#auereheliche-affaren"><i class="fa fa-check"></i><b>13.2</b> Außereheliche Affären</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zentrale-statistiken"><i class="fa fa-check"></i><b>13.2.1</b> Zentrale Statistiken</a></li>
+<li class="chapter" data-level="13.2.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#visualisieren"><i class="fa fa-check"></i><b>13.2.2</b> Visualisieren</a></li>
+<li class="chapter" data-level="13.2.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>13.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li class="chapter" data-level="13.2.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>13.2.4</b> Wie viele fehlende Werte gibt es?</a></li>
+<li class="chapter" data-level="13.2.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>13.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li class="chapter" data-level="13.2.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken"><i class="fa fa-check"></i><b>13.2.6</b> Effektstärken</a></li>
+<li class="chapter" data-level="13.2.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#korrelationen"><i class="fa fa-check"></i><b>13.2.7</b> Korrelationen</a></li>
+<li class="chapter" data-level="13.2.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>13.2.8</b> Ehejahre und Affären</a></li>
+<li class="chapter" data-level="13.2.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>13.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
+<li class="chapter" data-level="13.2.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>13.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li class="chapter" data-level="13.2.11" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>13.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
+<li class="chapter" data-level="13.2.12" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>13.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li class="chapter" data-level="13.2.13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#halodries"><i class="fa fa-check"></i><b>13.2.13</b> Halodries</a></li>
+<li class="chapter" data-level="13.2.14" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logistische-regression"><i class="fa fa-check"></i><b>13.2.14</b> logistische Regression</a></li>
+<li class="chapter" data-level="13.2.15" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zum-abschluss"><i class="fa fa-check"></i><b>13.2.15</b> Zum Abschluss</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#befehlsubersicht-7"><i class="fa fa-check"></i><b>13.3</b> Befehlsübersicht</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#versionshinweise-und-sessioninfo"><i class="fa fa-check"></i><b>13.3.1</b> Versionshinweise und SessionInfo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iv-ungeleitetes-modellieren.html"><a href="iv-ungeleitetes-modellieren.html"><i class="fa fa-check"></i>IV UNGELEITETES MODELLIEREN</a></li>
+<li class="chapter" data-level="14" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html"><i class="fa fa-check"></i><b>14</b> Vertiefung: Clusteranalyse</a><ul>
+<li class="chapter" data-level="14.1" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#einfuhrung"><i class="fa fa-check"></i><b>14.1</b> Einführung</a></li>
+<li class="chapter" data-level="14.2" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#intuitive-darstellung-der-clusteranalayse"><i class="fa fa-check"></i><b>14.2</b> Intuitive Darstellung der Clusteranalayse</a></li>
+<li class="chapter" data-level="14.3" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#euklidische-distanz"><i class="fa fa-check"></i><b>14.3</b> Euklidische Distanz</a></li>
+<li class="chapter" data-level="14.4" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>14.4</b> Daten</a></li>
+<li class="chapter" data-level="14.5" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#distanzmae-mit-r-berechnen"><i class="fa fa-check"></i><b>14.5</b> Distanzmaße mit R berechnen</a></li>
+<li class="chapter" data-level="14.6" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>14.6</b> k-Means Clusteranalyse</a></li>
+<li class="chapter" data-level="14.7" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>14.7</b> Übung: B3 Datensatz</a></li>
+<li class="chapter" data-level="14.8" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#literatur-1"><i class="fa fa-check"></i><b>14.8</b> Literatur</a></li>
+<li class="chapter" data-level="14.9" data-path="vertiefung-clusteranalyse.html"><a href="vertiefung-clusteranalyse.html#verweise-8"><i class="fa fa-check"></i><b>14.9</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="vi-anhang.html"><a href="vi-anhang.html"><i class="fa fa-check"></i><b>15</b> VI Anhang</a></li>
+<li class="chapter" data-level="16" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>16</b> Probeklausur</a><ul>
+<li class="chapter" data-level="16.1" data-path="probeklausur.html"><a href="probeklausur.html#fragen"><i class="fa fa-check"></i><b>16.1</b> Fragen</a></li>
+<li class="chapter" data-level="16.2" data-path="probeklausur.html"><a href="probeklausur.html#losungen-1"><i class="fa fa-check"></i><b>16.2</b> Lösungen</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>17</b> Literaturverzeichnis</a></li>
+<li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse ENTWURF</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="klassische-lineare-numerische-regression" class="section level1">
+<h1><span class="header-section-number">Kapitel 11</span> Klassische lineare (numerische) Regression</h1>
+<p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Wissen, was man unter Regression versteht.</li>
+<li>Die Annahmen der Regression überprüfen können.</li>
+<li>Regression mit kategorialen Prädiktoren durchführen können.</li>
+<li>Die Regression inferenzstatisisch absichern können.</li>
+<li>Die Modellgüte bei der Regression bestimmen können.</li>
+<li>Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.</li>
+</ul>
+</div>
+<p></p>
+<p>Für dieses Kapitel benötigen Sie folgende Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)  <span class="co"># Modellieren</span>
+<span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo, Visualisierung,...</span>
+<span class="kw">library</span>(gridExtra)  <span class="co"># Mehrere Plots kombinieren</span>
+<span class="kw">library</span>(modelr)  <span class="co"># Residuen und Schätzwerte zum Datensatz hinzufügen</span></code></pre></div>
+<div id="die-idee-der-klassischen-regression" class="section level2">
+<h2><span class="header-section-number">11.1</span> Die Idee der klassischen Regression</h2>
+<p>Regression ist eine bestimmte Art der <em>Modellierung</em> von Daten. Wir legen eine Gerade “schön mittig” in die Daten; damit haben wir ein einfaches Modell der Daten (vgl. Abb. <a href="klassische-lineare-numerische-regression.html#fig:bsp-regression">11.1</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/test_inf_short.csv&quot;</span>)
+
+stats_test %&gt;%<span class="st"> </span>
+<span class="st">  </span>ggplot +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> study_time, <span class="dt">y =</span> score) +
+<span class="st">  </span><span class="kw">geom_jitter</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="dv">24</span>, 
+              <span class="dt">slope =</span> <span class="fl">2.3</span>, 
+              <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:bsp-regression"></span>
+<img src="071_Regression_files/figure-html/bsp-regression-1.png" alt="Beispiel für eine Regression" width="70%" />
+<p class="caption">
+Abbildung 11.1: Beispiel für eine Regression
+</p>
+</div>
+<p>Schauen wir uns die Syntax genauer an.</p>
+
+<div class="rmdpseudocode">
+<p>Lade die CSV-Datei mit den Daten als <code>stats_test</code>.</p>
+<p>Nehme <code>stats_test</code> UND DANN…<br />
+starte ein neues Diagramm mit ggplot<br />
+definiere das Diagramm (X-Achse, Y-Achse)<br />
+zeichne das Geom “Jitter” (verwackeltes Punktediagramm)<br />
+und zeichne danach eine Gerade (“abline” in rot).</p>
+</div>
+<p></p>
+<p>Eine Regression zeigt anhand einer Regressionsgeraden einen “Trend” in den Daten an (s. weitere Beispiele in Abb. <a href="klassische-lineare-numerische-regression.html#fig:bsp-regression2">11.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:bsp-regression2"></span>
+<img src="071_Regression_files/figure-html/bsp-regression2-1.png" alt="Zwei weitere Beispiele für Regressionen" width="70%" />
+<p class="caption">
+Abbildung 11.2: Zwei weitere Beispiele für Regressionen
+</p>
+</div>
+<p>Eine Regression lädt förmlich dazu ein, Vorhersagen zu treffen: Hat man erstmal eine Gerade, so kann man für jeden X-Wert (“Prädiktor”) eine Vorhersage für den Y-Wert (“Kriterium”) treffen. Anhand des Diagramms kann man also für jede Person (d.h. jeden Wert innerhalb des Wertebereichs von <code>study_time</code> oder einem anderen Prädiktor) einen Wert für <code>score</code> vorhersagen. Wie gut die Vorhersage ist, steht erstmal auf einen anderen Blatt.</p>
+<p>Man beachte, dass eine Gerade über ihre <em>Steigung</em> und ihren <em>Achsenabschnitt</em> festgelegt ist; in Abb. <a href="klassische-lineare-numerische-regression.html#fig:bsp-regression">11.1</a> ist die Steigung 2.3 und der Achsenabschnitt 24.</p>
+<p>Der Achsenabschnitt zeigt also an, wie viele Klausurpunkte man “bekommt”, wenn man gar nicht lernt (Gott bewahre); die Steigung gibt eine Art “Wechselkurs” an: Wie viele Klausurpunkte bekomme ich pro Stunde, die ich lerne.</p>
+<p>Unser Modell ist übrigens einfach gehalten: Man könnte argumentieren, dass der Zusatznutzen der 393. Stunde lernen geringer ist als der Zusatznutzen der ersten paar Stunden. Aber dann müssten wir anstelle der Gerade eine andere Funktion nutzen, um die Daten zu modellieren. Lassen wir es erst einmal einfach hier.</p>
+<p>Als “Pseudo-R-Formel” ausgedrückt:</p>
+<pre><code>score = achsenabschnitt + steigung*study_time</code></pre>
+<p>Die Vorhersage für die Klausurpunkte (<code>score</code>) einer Person sind der Wert des Achsenabschnitts plus das Produkt aus der Anzahl der gelernten Stunden mal den Zusatznutzen pro gelernter Stunde.</p>
+<p>Aber wie erkannt man, ob eine Regression “gut” ist - die Vorhersagen also präzise?</p>
+<p>In R kann man eine Regression so berechnen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(score ~<span class="st"> </span>study_time, <span class="dt">data =</span> stats_test)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = score ~ study_time, data = stats_test)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   study_time  </span>
+<span class="co">#&gt;       23.98         2.26</span></code></pre></div>
+<p><code>lm</code> steht dabei für “lineares Modell”; allgemeiner gesprochen lautet die Rechtschreibung für diesen Befehl:</p>
+<pre><code>lm(kriterium ~ praediktor, data = meine_datentabelle)</code></pre>
+<p>Um ausführlichere Informationen über das Regressionsmodell zu bekommen, kann man die Funktion <code>summary</code> nutzen:</p>
+<pre><code>mein_lm &lt;- lm(kriterium ~ praediktor, data = meine_datentabelle)
+summary(lm)</code></pre>
+<p>Natürlich kann das auch <del>in der Pfeife rauchen</del> mit der Pfeife darstellen:</p>
+<pre><code>lm(kriterium ~ praediktor, data = meine_datentabelle) %&gt;% 
+  lm</code></pre>
+</div>
+<div id="vorhersagegute" class="section level2">
+<h2><span class="header-section-number">11.2</span> Vorhersagegüte</h2>
+<p>Der einfache Grundsatz lautet: Je geringer die Vorhersagefehler, desto besser; Abb. <a href="klassische-lineare-numerische-regression.html#fig:resids-plot">11.3</a> zeigt ein Regressionsmodell mit wenig Vorhersagefehler (links) und ein Regressionsmodell mit viel Vorhersagefehler (rechts).</p>
+<div class="figure" style="text-align: center"><span id="fig:resids-plot"></span>
+<img src="071_Regression_files/figure-html/resids-plot-1.png" alt="Geringer (links) vs. hoher (rechts) Vorhersagefehler" width="70%" />
+<p class="caption">
+Abbildung 11.3: Geringer (links) vs. hoher (rechts) Vorhersagefehler
+</p>
+</div>
+<p>In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte damit:</p>
+<blockquote>
+<p>Wie groß ist der Unterschied zwischen Vorhersage und Wirklichkeit?</p>
+</blockquote>
+<p>Die Größe des Unterschieds (Differenz, “Delta”) zwischen vorhergesagten (geschätzten) Wert und Wirklichkeit, bezeichnet man als <em>Fehler</em>, <em>Residuum</em> oder Vohersagefehler, häufig mit <span class="math inline">\(\epsilon\)</span> (griechisches e wie “error”) abgekürzt.</p>
+<p>Betrachten Sie die beiden Plots in Abb. <a href="klassische-lineare-numerische-regression.html#fig:resids-plot">11.3</a>. Die rote Linie gibt die <em>vorhergesagten</em> (geschätzten) Werte wieder; die Punkte die <em>beobachteten</em> (“echten”) Werte. Je länger die blauen Linien, desto größer die Vorhersagefehler. Je größer der Vorhersagefehler, desto schlechter. Und umgekehrt.</p>
+<blockquote>
+<p>Je kürzer die typische “Abweichungslinie”, desto besser die Vohersage.</p>
+</blockquote>
+<p>Sagt mein Modell voraus, dass Ihre Schuhgröße 49 ist, aber in Wahrheit liegt sie bei 39, so werden Sie dieses Modell als schlecht beurteilen, wahrscheinlich.</p>
+<p>Leider ist es nicht immer einfach zu sagen, wie groß der Fehler sein muss, damit das Modell als “gut” bzw. “schlecht” gilt. Man kann argumentieren, dass es keine wissenschaftliche Frage sei, wie viel “viel” oder “genug” ist <span class="citation">(Briggs <a href="#ref-uncertainty">2016</a>)</span>. Das ist zwar plausibel, hilft aber nicht, wenn ich eine Entscheidung treffen muss. Stellen Sie sich vor: Ich zwinge Sie mit der Pistole auf der Brust, meine Schuhgröße zu schätzen.</p>
+<p>Eine einfache Lösung ist, das beste Modell unter mehreren Kandidaten zu wählen.</p>
+<p>Ein anderer Ansatz ist, die Vorhersage in Bezug zu einem Kriterium zu setzen. Dieses “andere Kriterium” könnte sein “einfach die Schuhgröße raten”. Oder, etwas intelligenter, Sie schätzen meine Schuhgröße auf einen Wert, der eine gewisse Plausibilität hat, also z.B. die durchschnittliche Schuhgröße des deutschen Mannes. Auf dieser Basis kann man dann quantifizieren, ob und wieviel besser man als dieses Referenzkriterium ist.</p>
+<div id="mittlere-quadratfehler" class="section level3">
+<h3><span class="header-section-number">11.2.1</span> Mittlere Quadratfehler</h3>
+<p>Eine der häufigsten Gütekennzahlen ist der <em>mittlere quadrierte Fehler</em> (engl. “mean squared error”, MSE), wobei Fehler wieder als Differenz zwischen Vorhersage (<code>pred</code>) und beobachtete Wirklichkeit (<code>obs</code>, <code>y</code>) definiert ist. Dieser berechnet für jede Beobachtung den Fehler, quadriert diesen Fehler und bilden dann den Mittelwert dieser “Quadratfehler”, also einen <em>mittleren Quadratfehler</em>. Die englische Abkürzung <em>MSE</em> ist auch im Deutschen gebräuchlich.</p>
+<p><span class="math display">\[ MSE = \frac{1}{n} \sum{(pred - obs)^2} \]</span></p>
+<p>Konzeptionell ist dieses Maß an die Varianz angelehnt. Zieht man aus diesem Maß die Wurzel, so erhält man den sog. <em>root mean square error</em> (RMSE), welchen man sich als die Standardabweichung der Vorhersagefehler vorstellen kann. In Pseudo-R-Syntax:</p>
+<pre><code>RMSE &lt;- sqrt(mean((df$pred - df$obs)^2))</code></pre>
+<p>Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also z.B. Schuhgrößen-Nummern.</p>
+</div>
+<div id="r-quadrat-r2" class="section level3">
+<h3><span class="header-section-number">11.2.2</span> R-Quadrat (<span class="math inline">\(R^2\)</span>)</h3>
+<p><span class="math inline">\(R^2\)</span>, auch <em>Bestimmtheitsmaß</em> oder Determinationskoeffizient genannt, gibt die Vorhersagegüte im Verhältnis zu einem “Nullmodell” an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: “Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!”.</p>
+<p>Damit gibt <span class="math inline">\(R^2\)</span> an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein <span class="math inline">\(R^2\)</span> von 25% (0.25) hieße, dass unser Vorhersagefehler 25% <em>kleiner</em> ist als der der Nullmodells. Ein <span class="math inline">\(R^2\)</span> von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man <span class="math inline">\(R^2\)</span> so definieren:</p>
+<p><span class="math display">\[ R^2 = 1 - \left( \frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler} \right)\]</span></p>
+<p>Präziser, in R-Syntax:</p>
+<p><code>R2 &lt;- 1 - sum((df$pred - df$obs)^2) / sum((mean(df$obs) - df$obs)^2)</code></p>
+<p>Praktischerweise gibt es einige R-Pakete, z.B. <code>caret</code>, die diese Berechnung für uns besorgen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">postResample</span>(<span class="dt">obs =</span> obs, <span class="dt">pred =</span> pred)</code></pre></div>
+<p>Hier steht <code>obs</code> für beobachtete Werte und <code>pred</code> für die vorhergesagten Werte (beides numerische Vektoren). Dieser Befehl gibt sowohl RMSE als auch <span class="math inline">\(R^2\)</span> wieder.</p>
+</div>
+<div id="likelihood-and-friends" class="section level3">
+<h3><span class="header-section-number">11.2.3</span> Likelihood and Friends</h3>
+<p>Der <em>Likelihood</em> <span class="math inline">\(L\)</span> beantwortet folgende Frage:</p>
+<blockquote>
+<p>Angenommen, ein Modell M ist wahr. Wie wahrscheinlich ist es dann, die Daten D zu beobachten?</p>
+</blockquote>
+<p>Zum Beispiel: Eine faire Münze wird 10 Mal geworfen (Modell M: faire Münze). Wie wahrscheinlich ist es, 10 Mal Zahl zu werfen? Die Wahrscheinlichkeit hierfür liegt bei ca. 0.1%. Der Likelihood wäre also hier ~0.1%.</p>
+<p>Bei komplexen Modellen kann der Likelihood sehr klein werden. Damit haben Computer Probleme, weil z.B. nur eine begrenzte Anzahl von Dezimalen berücksichtigt werden. Werden zu viele Dezimalstellen gerundet, kann es das Ergebnis verfälschen. Daher wird der Likelihood häufig logarithmiert; man spricht dann vom <em>log Likelihood</em>. Der Logarithmus von einer positiven, sehr kleine Zahl ist eine negative Zahl mit großen Absolutwert. Man verwendet meist den natürlichen Logarithmus, wobei das eigentlich keine Rolle spielt. Manchmal dreht man noch das Vorzeichen um, damit der Log Likelihood wieder positiv ist.</p>
+<p>Gütekriterien wie AIC, BIC, CAIC oder die Devianz (engl. <em>deviance</em>) sind vom Likelihood abgeleitet. Meist wird noch berücksichtigt, wie komplex das Modell ist; komplexe Modelle tun sich leichter als einfachere Modelle, die Daten zu erklären. Aber sie könnten die Daten auch “überanpassen”. Um die mögliche Scheingenauigkeit komplexerer Modelle auszugleichen, wird der Likelihood vom AIC etc. mit einem Strafwert belegt, der proportional zur Komplexität des Modells ist <span class="citation">(Zumel, Mount, und Porzak <a href="#ref-zumel2014practical">2014</a>)</span>.</p>
+
+<div class="rmdcaution">
+<p>Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.</p>
+</div>
+<p></p>
+</div>
+</div>
+<div id="beispiel-fur-eine-regression" class="section level2">
+<h2><span class="header-section-number">11.3</span> Beispiel für eine Regression</h2>
+<p>Wir werden weiter den Datensatz <em>tips</em> analysieren <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>.</p>
+<p>Sofern noch nicht geschehen, können Sie in <a href="https://goo.gl/whKjnl">hier</a> als <code>csv</code>-Datei herunterladen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>)</code></pre></div>
+<p>Wie hängen Trinkgeldhöhe <code>tip</code> und Rechnungshöhe <code>total_bill</code> zusammen? Kann die Höhe des Trinkgeldes als <em>lineare</em> Funktion der Rechnungshöhe linear modelliert werden? <span class="math display">\[tip_i=\beta_0+\beta_1\cdot total\_bill_i+\epsilon_i\]</span></p>
+<p>Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">y =</span> tip, <span class="dt">x =</span> total_bill, <span class="dt">data =</span> tips)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Es scheint einen positiven Zusammenhang zu geben. Modellieren wir das Kriterium <code>tip</code> (inhaltliche Entscheidung!) als lineare Funktion des Prädiktors <code>total_bill</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>total_bill, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.1</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -3.198 -0.565 -0.097  0.486  3.743 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)  0.92027    0.15973    5.76  2.5e-08 ***</span>
+<span class="co">#&gt; total_bill   0.10502    0.00736   14.26  &lt; 2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.457,  Adjusted R-squared:  0.454 </span>
+<span class="co">#&gt; F-statistic:  203 on 1 and 242 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Der Achsenabschnitt (<code>intercept</code>) wird mit 0.92 geschätzt, die Steigung in Richtung <code>total_bill</code> mit 0.11: steigt <code>total_bill</code> um einen Dollar, steigt im <em>Durchschnitt</em> <code>tip</code> um 0.11.</p>
+<p>Die (Punkt-)Prognose für <code>tip</code> lautet also</p>
+<p><code>tip</code> = 0.92 + 0.11 * <code>total_bill</code></p>
+<p>Die Koeffizienten (Steigung und Achsenabschnitt) werden dabei so geschätzt, dass <span class="math inline">\(\sum \epsilon_i^2\)</span> minimiert wird. Dies wird auch als <em>Kleinste Quadrate</em> (<em>Ordinary Least Squares</em>, <em>OLS</em>) Kriterium bezeichnet<a href="#fn53" class="footnoteRef" id="fnref53"><sup>53</sup></a>.</p>
+<p>Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann einfacher berechnet werden mit</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(LinMod<span class="fl">.1</span>, <span class="kw">data.frame</span>(<span class="dt">total_bill =</span> <span class="dv">30</span>))
+<span class="co">#&gt;    1 </span>
+<span class="co">#&gt; 4.07</span></code></pre></div>
+<p>also ca. 4$.</p>
+<p>Berechnen wir noch die Vorversagegüte des Modells.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(LinMod<span class="fl">.1</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -3.198 -0.565 -0.097  0.486  3.743 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)  0.92027    0.15973    5.76  2.5e-08 ***</span>
+<span class="co">#&gt; total_bill   0.10502    0.00736   14.26  &lt; 2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.457,  Adjusted R-squared:  0.454 </span>
+<span class="co">#&gt; F-statistic:  203 on 1 and 242 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> ist mit 0.46 “ok”: 46-% der Variation des Trinkgeldes wird im Modell “erklärt”.</p>
+</div>
+<div id="uberprufung-der-annahmen-der-linearen-regression" class="section level2">
+<h2><span class="header-section-number">11.4</span> Überprüfung der Annahmen der linearen Regression</h2>
+<p>Aber wie sieht es mit den Annahmen aus?</p>
+<ul>
+<li>Die <em>Linearität des Zusammenhangs</em> haben wir zu Beginn mit Hilfe des Scatterplots “überprüft”.</li>
+<li>Zur Überprüfung der <em>Normalverteilung der Residuen</em> zeichnen wir ein Histogramm. Die <em>Residuen</em> können über den Befehl <code>add_residuals</code> (Paket <code>modelr</code>) zum Datensatz hinzugefügt werden. Dann wird eine Spalte mit dem Namen <code>resid</code> zum Datensatz hinzugefügt.</li>
+</ul>
+<p>Hier scheint es zu passen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_residuals</span>(LinMod<span class="fl">.1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>ggplot +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> resid) +
+<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Übrigens kann man das Paket <code>modelr</code> auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte <code>pred</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_predictions</span>(LinMod<span class="fl">.1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>ggplot +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> pred) +
+<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><em>Konstante Varianz</em>: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Bei jedem X-Wert sollte die Varianz der Y-Werte (etwa) gleich sein.</li>
+</ul>
+<p>Die angepassten (geschätzten) Werte kann man über den Befehl <code>add_predictions()</code> aus dem Paket <code>modelr</code> bekommen. Die Fehlerwerte entsprechend mit dem Befehl <code>add_residuals</code>. Hypothesentests, d. h., <span class="math inline">\(H_0:\beta_1=0\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_predictions</span>(LinMod<span class="fl">.1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_residuals</span>(LinMod<span class="fl">.1</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">y =</span> resid, <span class="dt">x =</span> pred) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:tips-preds-resid"></span>
+<img src="071_Regression_files/figure-html/tips-preds-resid-1.png" alt="Vorhergesagte Werte vs. Residualwerte im Datensatz tips" width="70%" />
+<p class="caption">
+Abbildung 11.4: Vorhergesagte Werte vs. Residualwerte im Datensatz tips
+</p>
+</div>
+<p>Die Annahme der konstanten Varianz scheint verletzt zu sein (vgl. Abb. <a href="klassische-lineare-numerische-regression.html#fig:tips-preds-resid">11.4</a>): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot <code>qplot(x = tip, y = total_bill, data=tips)</code> erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst <em>nicht</em> die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des</p>
+<ul>
+<li><em>Extreme Ausreißer</em>: Wie am Streudiagramm erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.</li>
+</ul>
+
+<div class="rmdexercises">
+<ol style="list-style-type: decimal">
+<li><p>Um wie viel Dollar steigt im Durchschnitt das Trinkgeld, wenn eine Person mehr am Tisch sitzt?</p></li>
+<li>Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="regression-mit-kategorialen-pradiktoren" class="section level2">
+<h2><span class="header-section-number">11.5</span> Regression mit kategorialen Prädiktoren</h2>
+<p>Der Wochentag <code>day</code> ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?</p>
+<p>Zunächst grafisch:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> tip,<span class="dt">y =</span> day, <span class="dt">data=</span>tips)</code></pre></div>
+<p><img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Und als Lineares Modell:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>day, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.2</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ day, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.245 -0.993 -0.235  0.538  7.007 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   2.7347     0.3161    8.65  7.5e-16 ***</span>
+<span class="co">#&gt; daySat        0.2584     0.3489    0.74     0.46    </span>
+<span class="co">#&gt; daySun        0.5204     0.3534    1.47     0.14    </span>
+<span class="co">#&gt; dayThur       0.0367     0.3613    0.10     0.92    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.38 on 240 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0205, Adjusted R-squared:  0.00823 </span>
+<span class="co">#&gt; F-statistic: 1.67 on 3 and 240 DF,  p-value: 0.174</span></code></pre></div>
+<p>Die im Modell angegebenen Schätzwerte sind die Änderung der Trinkgeldprognose, wenn z. B. der Tag ein Samstag (<code>daySat</code>) im Vergleich zu einer Referenzkategorie. Dies ist in R das erste Element des Vektors der Faktorlevel. Welcher dies ist ist über den Befehl <code>levels()</code> zu erfahren</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(tips$day)
+<span class="co">#&gt; [1] &quot;Fri&quot;  &quot;Sat&quot;  &quot;Sun&quot;  &quot;Thur&quot;</span></code></pre></div>
+<p>Möchte man die Reihenfolge der Faktorstufen ändern, so kann man innerhalb von <code>factor()</code> die Option <code>levels=</code> direkt in der gewünschten Sortierung setzen, z.B. so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day &lt;-<span class="st"> </span><span class="kw">factor</span>(tips$day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,  <span class="st">&quot;Sun&quot;</span>))</code></pre></div>
+
+<div class="rmdexercises">
+<ol start="3" style="list-style-type: decimal">
+<li>Wie verändert sich die Rechnungshöhe im Durchschnitt, wenn die Essenszeit Dinner statt Lunch ist?</li>
+<li>Wie viel % der Variation der Rechnungshöhe können Sie durch die Essenszeit modellieren?</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2><span class="header-section-number">11.6</span> Multiple Regression</h2>
+<p>Aber wie wirken sich mehrere Einflussgrößen <em>zusammen</em> auf das Trinkgeld aus?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>total_bill +<span class="st"> </span>size +<span class="st"> </span>sex  +<span class="st"> </span>smoker +<span class="st"> </span>day +<span class="st"> </span>time, <span class="dt">data=</span>tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size + sex + smoker + day + time, </span>
+<span class="co">#&gt;     data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.848 -0.573 -0.103  0.476  4.108 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   0.8038     0.3527    2.28    0.024 *  </span>
+<span class="co">#&gt; total_bill    0.0945     0.0096    9.84   &lt;2e-16 ***</span>
+<span class="co">#&gt; size          0.1760     0.0895    1.97    0.051 .  </span>
+<span class="co">#&gt; sexMale      -0.0324     0.1416   -0.23    0.819    </span>
+<span class="co">#&gt; smokerYes    -0.0864     0.1466   -0.59    0.556    </span>
+<span class="co">#&gt; daySat       -0.1215     0.3097   -0.39    0.695    </span>
+<span class="co">#&gt; daySun       -0.0255     0.3213   -0.08    0.937    </span>
+<span class="co">#&gt; dayThur      -0.1623     0.3934   -0.41    0.680    </span>
+<span class="co">#&gt; timeLunch     0.0681     0.4446    0.15    0.878    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 235 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.47,   Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic: 26.1 on 8 and 235 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Interessant sind die negativen Vorzeichen vor den Schätzwerten für <code>sexMale</code> und <code>smokerYes</code> – anscheinend geben Männer und Raucher weniger Trinkgeld, wenn alle anderen Faktoren konstant bleiben. Bei einer rein univariaten Betrachtung wäre etwas anderes herausgekommen!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(tip ~<span class="st"> </span>sex, <span class="dt">data=</span>tips) %&gt;%<span class="st"> </span>summary
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ sex, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.090 -1.090 -0.090  0.667  6.910 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)    2.833      0.148   19.14   &lt;2e-16 ***</span>
+<span class="co">#&gt; sexMale        0.256      0.185    1.39     0.17    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.38 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0079, Adjusted R-squared:  0.0038 </span>
+<span class="co">#&gt; F-statistic: 1.93 on 1 and 242 DF,  p-value: 0.166</span>
+<span class="kw">lm</span>(tip ~<span class="st"> </span>smoker, <span class="dt">data=</span>tips)  %&gt;%<span class="st"> </span>summary
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ smoker, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.009 -0.994 -0.100  0.558  6.991 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   2.9919     0.1128   26.52   &lt;2e-16 ***</span>
+<span class="co">#&gt; smokerYes     0.0169     0.1828    0.09     0.93    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.39 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  3.51e-05,   Adjusted R-squared:  -0.0041 </span>
+<span class="co">#&gt; F-statistic: 0.00851 on 1 and 242 DF,  p-value: 0.927</span></code></pre></div>
+<p>Diese <em>Umkehrung</em> des modellierten Effektes liegt daran, dass es auch einen positiven Zusammenhang zur Rechnungshöhe gibt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(total_bill ~<span class="st"> </span>sex, <span class="dt">data=</span>tips) %&gt;%<span class="st"> </span>summary
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = total_bill ~ sex, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -14.99  -6.02  -1.94   3.99  30.07 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   18.057      0.946   19.08   &lt;2e-16 ***</span>
+<span class="co">#&gt; sexMale        2.687      1.180    2.28    0.024 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 8.83 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.021,  Adjusted R-squared:  0.0169 </span>
+<span class="co">#&gt; F-statistic: 5.19 on 1 and 242 DF,  p-value: 0.0236</span>
+<span class="kw">lm</span>(total_bill ~<span class="st"> </span>smoker, <span class="dt">data=</span>tips) %&gt;%<span class="st"> </span>summary
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = total_bill ~ smoker, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -17.69  -6.46  -1.89   4.58  30.05 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   19.188      0.723   26.53   &lt;2e-16 ***</span>
+<span class="co">#&gt; smokerYes      1.568      1.172    1.34     0.18    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 8.89 on 242 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.00735,    Adjusted R-squared:  0.00325 </span>
+<span class="co">#&gt; F-statistic: 1.79 on 1 and 242 DF,  p-value: 0.182</span></code></pre></div>
+<p>Im vollem Modell <code>LinMod.4</code> sind alle unabhängigen Variablen berücksichtigt, die Koeffizienten beziehen sich dann immer auf: gegeben, die anderen Variablen bleiben konstant, d.h. ceteris paribus.</p>
+<p>Vergleichen wir mal zwei Modelle:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod.5a &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st">  </span>sex, <span class="dt">data=</span>tips)
+<span class="kw">coef</span>(LinMod.5a) <span class="co"># Koeffizienten extrahieren</span>
+<span class="co">#&gt; (Intercept)     sexMale </span>
+<span class="co">#&gt;       2.833       0.256</span>
+LinMod.5b &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st">  </span>sex +<span class="st"> </span>total_bill, <span class="dt">data=</span>tips)
+<span class="kw">coef</span>(LinMod.5b) <span class="co"># Koeffizienten extrahieren</span>
+<span class="co">#&gt; (Intercept)     sexMale  total_bill </span>
+<span class="co">#&gt;      0.9333     -0.0266      0.1052</span></code></pre></div>
+<p>Ohne die Berücksichtigung der <strong>Kovariable/Störvariable</strong> Rechnungshöhe geben Male<br />
+ein um im Durchschnitt 0.26 <em>höheres</em> Trinkgeld, bei Kontrolle, d. h. gleicher Rechnungshöhe ein um 0.03 <em>niedrigeres</em> Trinkgeld als die Referenzklasse Female (<code>levels(tips$sex)[1]</code>).</p>
+</div>
+<div id="inferenz-in-der-linearen-regression" class="section level2">
+<h2><span class="header-section-number">11.7</span> Inferenz in der linearen Regression</h2>
+<p>Kehren wir noch einmal zur multiplen Regression (<code>LinMod.4</code>) zurück.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size + sex + smoker + day + time, </span>
+<span class="co">#&gt;     data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.848 -0.573 -0.103  0.476  4.108 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   0.8038     0.3527    2.28    0.024 *  </span>
+<span class="co">#&gt; total_bill    0.0945     0.0096    9.84   &lt;2e-16 ***</span>
+<span class="co">#&gt; size          0.1760     0.0895    1.97    0.051 .  </span>
+<span class="co">#&gt; sexMale      -0.0324     0.1416   -0.23    0.819    </span>
+<span class="co">#&gt; smokerYes    -0.0864     0.1466   -0.59    0.556    </span>
+<span class="co">#&gt; daySat       -0.1215     0.3097   -0.39    0.695    </span>
+<span class="co">#&gt; daySun       -0.0255     0.3213   -0.08    0.937    </span>
+<span class="co">#&gt; dayThur      -0.1623     0.3934   -0.41    0.680    </span>
+<span class="co">#&gt; timeLunch     0.0681     0.4446    0.15    0.878    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 235 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.47,   Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic: 26.1 on 8 and 235 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>In der 4. Spalte der, mit Zeilennamen versehenen Tabelle <code>Coefficients</code> stehen die p-Werte der Nullhypothese, die unabhängige Variable hat, gegeben alle anderen Variablen im Modell, keinen linearen Einfluss auf die abhängige Variable: <span class="math inline">\(H_0: \beta_i=0\)</span>.</p>
+<p>Zur schnelleren Übersicht finden sich dahinter “Sternchen” und “Punkte”, die die entsprechenden Signifikanzniveaus symbolisieren: <code>***</code> bedeutet eine Irrtumswahrscheinlichkeit, Wahrscheinlichkeit für Fehler 1. Art, von unter 0.001, d. h. unter 0,1%. <code>**</code> entsprechend 1%, <code>*</code> 5% und <code>.</code> 10%.</p>
+<p>Zum Signifikanzniveau von 10% sind hier also zwei Faktoren und der Achsenabschnitt (<code>(Intercept)</code>) signifikant – nicht notwendigerweise relevant: Rechnungshöhe <code>total_bill</code> sowie Anzahl Personen <code>size</code>. Beides wirkt sich linear positiv auf die Trinkgeldhöhe aus: Mit jedem Dollar Rechnungshöhe steigt im Mittelwert die Trinkgeldhöhe um 0.09 Dollar, mit jeder Person um 0.18 Dollar – gegeben alle anderen Faktoren bleiben konstant. Das Bestimmtheitsmaß R² (<code>Multiple R-squared:</code>) liegt bei 0.47, also 47% der Variation des Trinkgeldes wird im Modell erklärt.</p>
+<p>Außerdem wird getestet, ob alle Koeffizienten der unabhängigen Variablen gleich Null sind: <span class="math display">\[H_0: \beta_1=\beta_2=\cdots=\beta_k=0\]</span> Das Ergebnis des zugrunde-liegenden F-Tests (vgl. Varianzanalyse) wird in der letzten Zeile angegeben (<code>F-Statistic</code>). Hier wird <span class="math inline">\(H_0\)</span> also verworfen.</p>
+</div>
+<div id="vertiefungen-zum-regressionmodell" class="section level2">
+<h2><span class="header-section-number">11.8</span> Vertiefungen zum Regressionmodell</h2>
+<div id="modellwahl" class="section level3">
+<h3><span class="header-section-number">11.8.1</span> Modellwahl</h3>
+<p>Das Modell mit allen Variablen des Datensatzes, d. h., mit 6 unabhängigen (<code>LinMod.4</code>) erklärt 47.01% der Variation, das Modell <em>nur</em> mit der Rechnungshöhe als erklärende Variable (<code>LinMod.1</code>) schon 45.66%, der Erklärungszuwachs liegt also gerade einmal bei 1.35 Prozentpunkten. In der Statistik ist die Wahl des <em>richtigen</em> Modells eine der größten Herausforderungen, auch deshalb, weil das wahre Modell in der Regel nicht bekannt ist und es schwer ist, die richtige Balance zwischen Einfachheit und Komplexität zu finden. Aufgrund des Zufalls kann es immer passieren, dass das Modell sich zu sehr an die <em>zufälligen</em> Daten anpasst (Stichwort: Overfitting). Es gibt unzählige Modellwahlmethoden, und leider garantiert keine, dass immer das beste Modell gefunden wird. Eine Möglichkeit ist die sogenannte Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums (AIC)<a href="#fn54" class="footnoteRef" id="fnref54"><sup>54</sup></a>. Diese ist nicht nur recht weit verbreitet - und liefert unter bestimmten Annahmen das “richtige” Modell - sondern in R durch den Befehl <code>step()</code> einfach umsetzbar:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">step</span>(LinMod<span class="fl">.4</span>)
+<span class="co">#&gt; Start:  AIC=20.5</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker + day + time</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS   AIC</span>
+<span class="co">#&gt; - day         3       0.6 247  15.1</span>
+<span class="co">#&gt; - time        1       0.0 247  18.5</span>
+<span class="co">#&gt; - sex         1       0.1 247  18.6</span>
+<span class="co">#&gt; - smoker      1       0.4 247  18.9</span>
+<span class="co">#&gt; &lt;none&gt;                    247  20.5</span>
+<span class="co">#&gt; - size        1       4.1 251  22.5</span>
+<span class="co">#&gt; - total_bill  1     101.6 348 102.7</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=15.1</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker + time</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - time        1       0.0 247 13.1</span>
+<span class="co">#&gt; - sex         1       0.0 247 13.2</span>
+<span class="co">#&gt; - smoker      1       0.4 248 13.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 15.1</span>
+<span class="co">#&gt; - size        1       4.3 251 17.4</span>
+<span class="co">#&gt; - total_bill  1     101.7 349 97.2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=13.1</span>
+<span class="co">#&gt; tip ~ total_bill + size + sex + smoker</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - sex         1       0.0 247 11.2</span>
+<span class="co">#&gt; - smoker      1       0.4 248 11.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 13.1</span>
+<span class="co">#&gt; - size        1       4.3 251 15.4</span>
+<span class="co">#&gt; - total_bill  1     103.3 350 96.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=11.2</span>
+<span class="co">#&gt; tip ~ total_bill + size + smoker</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; - smoker      1       0.4 248  9.5</span>
+<span class="co">#&gt; &lt;none&gt;                    247 11.2</span>
+<span class="co">#&gt; - size        1       4.3 252 13.4</span>
+<span class="co">#&gt; - total_bill  1     104.3 351 95.0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Step:  AIC=9.53</span>
+<span class="co">#&gt; tip ~ total_bill + size</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;              Df Sum of Sq RSS  AIC</span>
+<span class="co">#&gt; &lt;none&gt;                    248  9.5</span>
+<span class="co">#&gt; - size        1       5.2 253 12.6</span>
+<span class="co">#&gt; - total_bill  1     106.3 354 94.7</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill + size, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill         size  </span>
+<span class="co">#&gt;      0.6689       0.0927       0.1926</span></code></pre></div>
+<p>In den letzten Zeilen der Ausgabe steht das beste Modell, das diese Methode (schrittweise, rückwärts) mit diesem Kriterium (AIC) bei diesen Daten findet (Punktprognose, d. h. ohne Residuum):</p>
+<p><code>tip =  0.66894 +  0.09271 * total_bill + 0.19260 * size</code></p>
+<p>Der Ausgabe können Sie auch entnehmen, welche Variablen in welcher Reihenfolge <em>entfernt</em> wurden: Zunächst <code>day</code>, dann <code>time</code>, danach <code>sex</code> und schließlich <code>smoker</code>. Hier sind also dieselben Variablen noch im Modell, die auch in <code>LinMod.4</code> signifikant zum Niveau 10% waren, eine Auswahl der dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist häufig so, aber nicht immer!</p>
+</div>
+<div id="interaktionen" class="section level3">
+<h3><span class="header-section-number">11.8.2</span> Interaktionen</h3>
+<p>Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der Zusammenhang je nachdem, ob geraucht wurde, d. h., vielleicht gibt es eine Interaktion (Wechselwirkung). Die kann in <code>lm</code> einfach durch ein <code>*</code> zwischen den unabhängigen Variablen modelliert werden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LinMod<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(tip ~<span class="st"> </span>smoker*total_bill, <span class="dt">data =</span> tips)
+<span class="kw">summary</span>(LinMod<span class="fl">.6</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ smoker * total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -2.679 -0.524 -0.120  0.475  4.900 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                      Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)           0.36007    0.20206    1.78  0.07601 .  </span>
+<span class="co">#&gt; smokerYes             1.20420    0.31226    3.86  0.00015 ***</span>
+<span class="co">#&gt; total_bill            0.13716    0.00968   14.17  &lt; 2e-16 ***</span>
+<span class="co">#&gt; smokerYes:total_bill -0.06757    0.01419   -4.76  3.3e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.979 on 240 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.506,  Adjusted R-squared:   0.5 </span>
+<span class="co">#&gt; F-statistic: 81.9 on 3 and 240 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>Der Schätzwert für die Interaktion steht bei <code>:</code>. Hier also: Wenn geraucht wurde, ist die Steigung im Durchschnitt um 6,8 Cent geringer. Aber wenn geraucht wurde, ist die Rechnung im Achsenabschnitt erstmal um 1,20$ höher (Effekt, ceteris paribus). Wer will, kann ausrechnen, ab welcher Rechnungshöhe Rauchertische im Mittelwert lukrativer sind…</p>
+<p>Das gleiche Bild (höhere Achsenabschnitt, geringere Steigung) ergibt sich übrigens bei getrennten Regressionen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(tip~total_bill, <span class="dt">data=</span>tips, <span class="dt">subset =</span> smoker==<span class="st">&quot;Yes&quot;</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips, subset = smoker == </span>
+<span class="co">#&gt;     &quot;Yes&quot;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill  </span>
+<span class="co">#&gt;      1.5643       0.0696</span>
+<span class="kw">lm</span>(tip~total_bill, <span class="dt">data=</span>tips, <span class="dt">subset =</span> smoker==<span class="st">&quot;No&quot;</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ total_bill, data = tips, subset = smoker == </span>
+<span class="co">#&gt;     &quot;No&quot;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)   total_bill  </span>
+<span class="co">#&gt;       0.360        0.137</span></code></pre></div>
+</div>
+<div id="weitere-modellierungsmoglichkeiten" class="section level3">
+<h3><span class="header-section-number">11.8.3</span> Weitere Modellierungsmöglichkeiten</h3>
+<p>Über das Formelinterface <code>y~x</code> können auch direkt z. B. Polynome modelliert werden. Hier eine quadratische Funktion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(tip~<span class="kw">I</span>(total_bill^<span class="dv">2</span>)+total_bill, <span class="dt">data=</span>tips))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = tip ~ I(total_bill^2) + total_bill, data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -3.200 -0.559 -0.098  0.484  3.776 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                  Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)      8.91e-01   3.47e-01    2.57  0.01078 *  </span>
+<span class="co">#&gt; I(total_bill^2) -5.71e-05   6.02e-04   -0.09  0.92457    </span>
+<span class="co">#&gt; total_bill       1.08e-01   3.08e-02    3.51  0.00054 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.02 on 241 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.457,  Adjusted R-squared:  0.452 </span>
+<span class="co">#&gt; F-statistic:  101 on 2 and 241 DF,  p-value: &lt;2e-16</span></code></pre></div>
+<p>D. h., die geschätzte Funktion ist eine “umgedrehte Parabel” (negatives Vorzeichen bei <code>I(total_bill^2)</code>), bzw. die Funktion ist konkav, die Steigung nimmt ab. Allerdings ist der Effekt nicht signifikant. <strong>Hinweis:</strong> Um zu “rechnen” und nicht beispielsweise Interaktion zu modellieren, geben Sie die Variablen in der Formel in der Funktion <code>I()</code> (<em>As Is</em>) ein.</p>
+</div>
+</div>
+<div id="overfitting-casestudy" class="section level2">
+<h2><span class="header-section-number">11.9</span> Fallstudie zu Overfitting</h2>
+<p>Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der <em>Trainingsstichprobe</em> schätzt mit einer Regression, bei der die Modellgüte in einer <em>Test-Stichprobe</em> überprüft wird.</p>
+<p>Zuerst führen wir dafür eine simple Regression aus und lassen uns <span class="math inline">\(R^2\)</span> ausgeben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/wo_men.csv&quot;</span>)
+
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(shoe_size ~<span class="st"> </span>height, <span class="dt">data =</span> df)
+<span class="kw">summary</span>(lm1)$r.squared
+<span class="co">#&gt; [1] 0.306</span></code></pre></div>
+<p>Im zweiten Schritt teilen wir die Stichprobe in eine Trainings- und eine Test-Stichprobe auf. Wir “trainineren” das Modell anhand der Daten aus der Trainings-Stichprobe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">train &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_frac</span>(.<span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)  <span class="co"># Stichprobe von 80%, ohne Zurücklegen</span>
+
+test &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(train)  <span class="co"># Alle Zeilen von &quot;df&quot;, die nicht in &quot;train&quot; vorkommen</span>
+
+lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(shoe_size ~<span class="st"> </span>height, <span class="dt">data =</span> train)</code></pre></div>
+<p>Dann testen wir (die Modellgüte) anhand der Test-Stichprobe. Also los, <code>lm2</code>, mach Deine Vorhersage:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2_predict &lt;-<span class="st"> </span><span class="kw">predict</span>(lm2, <span class="dt">newdata =</span> test)</code></pre></div>
+<p>Diese Syntax sagt:</p>
+
+<div class="rmdpseudocode">
+<p>Speichere unter dem Namen “lm2_predict” das Ergebnis folgender Berechnung:<br />
+Mache eine Vorhersage (“to predict”) anhand des Modells “lm2”,<br />
+wobei frische Daten (“newdata = test”) verwendet werden sollen.</p>
+</div>
+<p></p>
+<p>Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Trinkgeld-Wert speichert.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">caret::<span class="kw">postResample</span>(<span class="dt">pred =</span> lm2_predict, <span class="dt">obs =</span> test$shoe_size)
+<span class="co">#&gt;     RMSE Rsquared </span>
+<span class="co">#&gt;   10.540    0.634</span></code></pre></div>
+<p>Die Funktion <code>postResample</code> aus dem Paket <code>caret</code> liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!</p>
+</div>
+<div id="verweise-6" class="section level2">
+<h2><span class="header-section-number">11.10</span> Verweise</h2>
+<p>Dieses Kapitel basiert teilweise auf Übungen zum Buch <a href="https://www.openintro.org/stat/index.php?stat_book=isrs">OpenIntro</a> <span class="citation">(Diez, Barr, und Cetinkaya-Rundel <a href="#ref-introstats">2014</a>)</span> unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.</p>
+
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-uncertainty">
+<p>Briggs, William M. 2016. <em>Uncertainty: The Soul of Modeling, Probability &amp; Statistics</em>. Springer.</p>
+</div>
+<div id="ref-zumel2014practical">
+<p>Zumel, Nina, John Mount, und Jim Porzak. 2014. <em>Practical data science with R</em>. Manning.</p>
+</div>
+<div id="ref-bryant1995practical">
+<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
+</div>
+<div id="ref-introstats">
+<p>Diez, David M, Christopher D Barr, und Mine Cetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. CreateSpace Independent Publishing Platform.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="53">
+<li id="fn53"><p>Eine robuste Regression ist z. B. mit der Funktion <code>rlm()</code> aus dem Paket <code>MASS</code> möglich<a href="klassische-lineare-numerische-regression.html#fnref53">↩</a></p></li>
+<li id="fn54"><p>siehe z. B. Rob J Hyndman &amp; George Athanasopoulos, Forecasting: principles and practice <span class="citation">(Hyndman und Athanasopoulos <a href="#ref-hyndman2014forecasting">2014</a>)</span>, Kapitel 5.3: Selecting predictors, <a href="https://www.otexts.org/fpp/5/3" class="uri">https://www.otexts.org/fpp/5/3</a><a href="klassische-lineare-numerische-regression.html#fnref54">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="der-p-wert.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="klassifizierende-regression.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

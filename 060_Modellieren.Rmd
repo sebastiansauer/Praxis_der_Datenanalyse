@@ -59,7 +59,7 @@ require(gridExtra)
 ```
 
 ```{r echo = FALSE}
-knitr::include_graphics("images/Modellieren.pdf")
+knitr::include_graphics("images/modellieren/Modellieren.png")
 ```
 
 
@@ -82,7 +82,7 @@ Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sic
 
 
 ```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
-knitr::include_graphics("images/Modell.pdf")
+knitr::include_graphics("images/modellieren/Modell.png")
 ```
 
 
@@ -95,7 +95,7 @@ Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System
 Sprich: Die Relation im empirischen System findet sich im numerischen System wieder.
 
 ```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modollierens"}
-knitr::include_graphics("images/modellieren/Modellieren_formal_crop.pdf")
+knitr::include_graphics("images/modellieren/Modellieren_formal_crop.png")
 ```
 
 In gewisser Weise gibt es keine Modelle. Es gibt nur "Modelle von" etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
@@ -133,7 +133,7 @@ Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein 
 
 
 ```{r mod-beispiel, fig.cap = "Ein Beispiel für ein Pfadmodell", echo = FALSE}
-knitr::include_graphics("images/Modellieren_Bsp1.png")
+knitr::include_graphics("images/modellieren/Modellieren_Bsp1.png")
 ```
 
 
@@ -143,7 +143,7 @@ knitr::include_graphics("images/Modellieren_Bsp1.png")
 Ein etwas aufwändigeres Modell könnte so aussehen (Abb. \@ref(fig:plot-modell-bsp2):
 
 ```{r plot-modell-bsp2, echo = FALSE, fig.cap = "Ein etwas aufwändigeres Modell"}
-knitr::include_graphics("images/Modellieren_Bsp2.pdf")
+knitr::include_graphics("images/modellieren/Modellieren_Bsp2.png")
 ```
 
 
@@ -160,7 +160,7 @@ Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Ein
 Modelle, wie wir sie betrachten werden, postulieren eine quantifizierbaren Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
 ```{r fig-blackbox, echo = FALSE, fig.cap = "Modelle mit schwarzer Kiste"}
-knitr::include_graphics("images/Modell_Blackbox.pdf")
+knitr::include_graphics("images/modellieren/Modell_Blackbox.png")
 ```
 
 
@@ -205,7 +205,7 @@ Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Un
 
 ```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
 
-knitr::include_graphics("images/modellieren/ungeleitetes_modellieren_crop.pdf")
+knitr::include_graphics("images/modellieren/ungeleitetes_Modellieren_crop.png")
 
 ```
 
@@ -293,7 +293,7 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
 
 ```{r overfitting-schema, echo = FALSE}
-knitr::include_graphics("images/overfitting.pdf")
+knitr::include_graphics("images/modellieren/overfitting.png")
 ```
 
 

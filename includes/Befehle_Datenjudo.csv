@@ -1,0 +1,9 @@
+Paket und Funktion,Beschreibung
+dplyr::arrange     ,Sortiert Spalten
+dplyr::filter      ,Filtert Zeilen
+dplyr::select      ,Wählt Spalten
+dplyr::group_by    ,gruppiert einen Dataframe
+dplyr::n     ,zählt Zeilen
+dplyr::count       ,zählt Zeilen nach Untergruppen
+%>% (dplyr)        ,verkettet Befehle
+dplyr::mutate      ,erzeugt/berechnet Spalten

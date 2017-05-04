@@ -278,7 +278,12 @@ Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl al
 Das visualisieren wir wieder
 
 ```{r}
-qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
+qplot(x = factor(Pclass), 
+      y = prop, 
+      fill = factor(Survived), 
+      data = c5, 
+      geom = "col")
+
 ```
 
 Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.

@@ -41,7 +41,7 @@ Lernziele:
 
 
 ```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "20%", fig.align = "center"}
-knitr::include_graphics("images/Ronald_Fisher.jpg")
+knitr::include_graphics("images/inferenz/Ronald_Fisher.jpg")
 ```
 
 ## Der p-Wert sagt nicht das, was viele denken
@@ -51,7 +51,7 @@ Der p-Wert, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist d
 
 
 ```{r who-said, echo = FALSE, out.width = "35%", fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
-knitr::include_graphics("images/p_value_who_said.png")
+knitr::include_graphics("images/inferenz/p_value_who_said.png")
 ```
 
 
@@ -88,7 +88,7 @@ $$ P(M|T) \ne P(T|M) $$
 
 
 ```{r moslems-terroristen, echo = FALSE, fig.cap = "Moslem und Terrorist zu sein, ist nicht das gleiche."}
-knitr::include_graphics("images/moslems_terroristen.jpeg")
+knitr::include_graphics("images/inferenz/moslems_terroristen.jpeg")
 ```
 
 
@@ -99,11 +99,11 @@ Das Bild (Abb. \@ref(fig:moslems-terroristen)) zeigt den Anteil der Moslems an d
 
 Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertainty]; z.B. dass die "5%-Hürde" einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema "P-Hacking" argumentieren [@Head2015, @Wicherts2016]; andere statistische Verfahren können auch gehackt werden.
 
-Ein wichtiger Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße ist, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Damit verliert der p-Wert an Nützlichkeit (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
+Ein Haupt-Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Damit verliert der p-Wert an Nützlichkeit (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
 
 ```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
 
-knitr::include_graphics("images/einfluss_pwert_crop.pdf")
+knitr::include_graphics("images/inferenz/einfluss_pwert_crop.png")
 ```
 
 
@@ -117,7 +117,7 @@ Mit steigender Stichprobengröße sollte der Anteil an statistisch signifikanten
 
 ```{r simulate-pvalues, echo = FALSE, fig.cap = "Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)"}
 
-knitr::include_graphics("images/simulate_ps.pdf")
+knitr::include_graphics("images/inferenz/simulate_ps.png")
 
 ```
 
@@ -135,6 +135,10 @@ Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rent
 
 Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
 
+>    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwarhscheinlich richtig.
+
+Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+
 >    Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.
 
 Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
@@ -150,15 +154,17 @@ Der p-Wert basiert auf der Idee, dass man ein Experiment *unendlich* oft wiederh
 
 Ob es im Universum irgendetwas gibt, das unendlich ist, ist umstritten [@ruckerinfinity]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, kann auch kritisiert werden [@uncertainty].
 
+Der p-Wert ist eine Methode, die versucht "objektiv" einzuschätzen, wie sehr Daten gegen eine Hypothese sprechen. 
+
 
 
 ## Fazit
 
-Meine Meinung ist, dass der p-Wert ein problematisch ist (und ein Dinosaurier) und nicht oder weniger benutzt werden sollte (das ist eine normative Aussage). Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
+Der p-Wert ist ein Konzept mit Problemen (und ein Dinosaurier). Daher sollte er nicht oder weniger benutzt werden. Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger noch - was er nicht sagt.
 
 
 ```{r fig-dino, echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/meme_pwert_1iw22a_pvalue_dino.jpg")
+knitr::include_graphics("images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg")
 ```
 
 

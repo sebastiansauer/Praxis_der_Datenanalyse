@@ -46,7 +46,7 @@ Lernziele:
 
 
 ```{r fig-datenjudo, echo = FALSE, fig.cap = "Daten aufbereiten"}
-knitr::include_graphics("images/Datenjudo/Aufbereiten.pdf")
+knitr::include_graphics("images/Datenjudo/Aufbereiten.png")
 ```
 
 In diesem Kapitel benötigte Pakete: 
@@ -94,7 +94,7 @@ Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine
 
 
 ```{r bausteine, echo = FALSE, fig.cap = "Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine"}
-knitr::include_graphics("images/Datenjudo/Bausteine_dplyr_crop.pdf")
+knitr::include_graphics("images/Datenjudo/Bausteine_dplyr_crop.png")
 ```
 
 
@@ -104,7 +104,7 @@ Das *zweite Prinzip* von `dplyr` ist es, einen Dataframe von Operation zu Operat
 
 
 ```{r durchpfeifen-allgemein, echo = FALSE, fig.cap = "Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht"}
-knitr::include_graphics("images/Datenjudo/durchpfeifen_allgemein_crop.pdf")
+knitr::include_graphics("images/Datenjudo/durchpfeifen_allgemein_crop.png")
 ```
 
 
@@ -119,7 +119,7 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern; `filter`\index{dply
 Abb. \@ref(fig:fig-filter) zeigt ein Sinnbild für `filter`.
 
 ```{r fig-filter, echo = FALSE, fig.cap = "Zeilen filtern"}
-knitr::include_graphics("images/Datenjudo/filter.pdf")
+knitr::include_graphics("images/Datenjudo/filter.png")
 ```
 
 Merke:
@@ -161,7 +161,7 @@ Richtig oder Falsch!?
 1. `filter` ist eine Funktion aus dem Paket `dplyr`.
 1. `filter` erwartet als ersten Parameter das Filterkriterium.
 1. `filter` lässt nur ein Filterkriterium zu.
-1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")´.
+1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")`.
 
 
 
@@ -204,7 +204,7 @@ filter(profiles, !is.na(income) | !is.na(sex))
 Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
 
 ```{r fig-select, echo = FALSE, fig.cap = "Spalten auswählen"}
-knitr::include_graphics("images/Datenjudo/select.pdf")
+knitr::include_graphics("images/Datenjudo/select.png")
 ```
 
 
@@ -260,6 +260,7 @@ Richtig oder Falsch!?
 ```
 
 
+
 ### Zeilen sortieren mit `arrange`
 
 Man kann zwei Arten des Umgangs mit R unterscheiden: Zum einen der "interaktive Gebrauch" und zum anderen "richtiges Programmieren". Im interaktiven Gebrauch geht es uns darum, die Fragen zum aktuell vorliegenden Datensatz (schnell) zu beantworten. Es geht nicht darum, eine allgemeine Lösung zu entwickeln, die wir in die Welt verschicken können und die dort ein bestimmtes Problem löst, ohne dass der Entwickler (wir) dabei Hilfestellung geben muss. "Richtige" Software, wie ein R-Paket oder Microsoft Powerpoint, muss diese Erwartung erfüllen; "richtiges Programmieren" ist dazu vonnöten. Natürlich sind in diesem Fall die Ansprüche an die Syntax (der "Code", hört sich cooler an) viel höher. In dem Fall muss man alle Eventualitäten voraussehen und sicherstellen, dass das Programm auch beim merkwürdigsten Nutzer brav seinen Dienst tut. Wir haben hier, beim interaktiven Gebrauch, niedrigere Ansprüche bzw. andere Ziele. 
@@ -307,12 +308,12 @@ Merke:
 Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
 ```{r fig-arrange, echo = FALSE, fig.cap = "Spalten sortieren"}
-knitr::include_graphics("images/Datenjudo/arrange-crop.pdf")
+knitr::include_graphics("images/Datenjudo/arrange-crop.png")
 ```
 
 
 
-Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Ränge* widergibt:
+Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Elemente* widergibt:
 
 ```{r demo-top-n}
 
@@ -322,9 +323,9 @@ top_n(stats_test, 3, interest)
 
 Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
 
-Da sich hier mehrere Personen den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr.
+Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr "denkt" sich: "Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde". 
 
-#### Aufgaben^[F, F, F, F, R]
+#### Aufgaben^[F, F, F, F, F]
 
 ```{block2, exercises-arrange, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?
@@ -333,7 +334,7 @@ Richtig oder Falsch!?
 1. `arrange` sortiert im Standard absteigend.
 1. `arrange` lässt nur ein Sortierkriterium zu.
 1. `arrange` kann numerische Werte, aber nicht Zeichenketten sortieren.
-1. `top_n(5)` liefert die fünf kleinsten Ränge.
+1. `top_n(5)` liefert immer fünf Werte zurück.
 
 ```
 
@@ -344,7 +345,7 @@ Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittl
 >   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).
 
 ```{r fig-groupby, echo = FALSE, fig.cap = "Datensätze nach Subgruppen aufteilen"}
-knitr::include_graphics("images/Datenjudo/group_by.pdf")
+knitr::include_graphics("images/Datenjudo/group_by.png")
 ```
 
 In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. Variable) `Fach` in mehrere Gruppen geteilt (Fach A, Fach B...). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
@@ -365,7 +366,7 @@ Die Idee des "Gruppieren - Zusammenfassen - Kombinieren" ist flexibel; man kann 
 
 ```{r sac, echo = FALSE, fig.cap = "Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'"}
 
-knitr::include_graphics("images/Datenjudo/sac_crop.pdf")
+knitr::include_graphics("images/Datenjudo/sac_crop.png")
 
 ```
 
@@ -395,7 +396,7 @@ Merke:
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max` (vgl. Abb. \@ref(fig:fig-summarise). Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
 ```{r fig-summarise, echo = FALSE, fig.cap = "Spalten zu einer Zahl zusammenfassen"}
-knitr::include_graphics("images/Datenjudo/summarise.pdf")
+knitr::include_graphics("images/Datenjudo/summarise.png")
 ```
 
 
@@ -518,6 +519,37 @@ Merke:
 >    n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle. 
 
 
+#### Vertiefung zum Zählen von Zeilen: Relative Häufigkeiten
+
+Manchmal ist es praktisch, nicht zur die (absolute) Häufigkeiten von Zeilen zu zählen, sondern ihren Anteil nach (relative Häufigkeit). Klassisches Beispiel: Wieviel Prozent der Fälle sind Frauen, wie viele sind Männer?
+
+In `dplyr` kann man das so umsetzen:
+
+```{r}
+stats_test %>% 
+  count(interest) %>% 
+  mutate(prop_interest = n / sum(n))
+```
+
+`prop` steht hier für "Proportion", also Anteil. `sum(n)` liefert die Summe der Fälle zurück, also 306 in diesem Fall.
+
+Etwas komplexer ist es, wenn man zwei Gruppierungsvariablen hat und dann Anteile auszählen möchte:
+
+```{r}
+
+stats_test$bestanden <- stats_test$score > 25
+
+stats_test %>% 
+  group_by(interest, bestanden) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop_interest = n / sum(n)) 
+
+stats_test %>% 
+  count(interest, bestanden) %>% 
+  mutate(prop_interest = n / sum(n)) 
+```
+
+
 
 #### Aufgaben^[R, R, F, F]
 
@@ -549,7 +581,7 @@ Ah! Der Score `34` ist der häufigste!
 ## Die Pfeife
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
-```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578"}
+```{r cecie-une-pipe, echo = FALSE, fig.cap = "La trahison des images [Ceci n'est pas une pipe]"}
 knitr::include_graphics("images/Datenjudo/ma-150089-WEB.jpg")
 ```
 
@@ -558,7 +590,7 @@ knitr::include_graphics("images/Datenjudo/ma-150089-WEB.jpg")
 
 
 ```{r fig-durchpfeifen, echo = FALSE, out.width  = "80%", fig.cap = "Das 'Durchpeifen'"}
-knitr::include_graphics("images/Datenjudo/durchpfeifen.pdf")
+knitr::include_graphics("images/Datenjudo/durchpfeifen.png")
 ```
 
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
@@ -716,17 +748,16 @@ flights %>%
 
 ## Befehlsübersicht
 
+Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
 
-Paket::Funktion     Beschreibung
-----------------    -------------
-dplyr::arrange      Sortiert Spalten
-dplyr::filter       Filtert Zeilen
-dplyr::select       Wählt Spalten
-dplyr::group_by     gruppiert einen Dataframe
-dplyr::n            zählt Zeilen
-dplyr::count        zählt Zeilen nach Untergruppen
-%>% (dplyr)         verkettet Befehle
-dplyr::mutate       erzeugt/berechnet Spalten
+```{r befehle-datenjudo, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Datenjudo.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels Datenjudo")
+```
+
 
 
 ## Verweise
