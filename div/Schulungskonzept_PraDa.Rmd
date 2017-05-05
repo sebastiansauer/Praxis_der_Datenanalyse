@@ -1,0 +1,46 @@
+--- 
+subtitle: "Schulungskonzept für Dozierende - ENTWURF"
+title: "Modul 'Praxis der Datenanalyse' (PraDa)"
+author: "Modulleiter: Professor Dr. habil. Sebastian Sauer" 
+numbersections: TRUE 
+lang: de-De
+header-includes:
+   - \usepackage{csquotes}
+csl: apa.csl
+output: 
+  #tufte::tufte_handout
+  pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Der Master of Science *Wirtschaftspsychologie & Consulting* ist ein neuer Studiengang, der auch ein für die FOM weitgehend neues Statistik-Modul mit dem Titel "Praxis der Datenanalyse" (PraDa) enthält. Das Modul setzt sich mit modernen Verfahren der Datenanalyse auseinander; die Statistik-Software "R" spielt eine maßgebende Rolle im Modul. Um den Lehrenden den Einstieg in das Modul zu erleichtern, gibt es eine Schulungsreihe mit mehreren Bausteinen.
+
+
+# Zweitägige Schulung "PraDa-Hackathon"
+  - 30.-31. August in Nürnberg 
+  - Alle wesentlichen Inhalte des Moduls werden geschult.
+    
+# Telefoncoaching-Reihe 
+  - jeweils 60-90 Min., 11h, an Freitagen
+  - In diesen Telefoncoachings werden aktuell anfallende Fragen, parallel zum sich entwickelnden Unterricht, diskutiert. Bildschirmübertragung ist vorgesehen.
+  - 7 Termine: 8. Sept.; 22. Sept.; 6. Okt.; 27. Okt.: 17. Nov.; 8. Dez.; 12. Jan. 2018
+    
+# Ausführliches Skript 
+ - Ein ausführliches Skript in Buchform, viel detaillierter als normale Folien-Skripte, wird frühzeitig bereitgestellt.
+ - Eine Vorabversion kann Dozierenden sofort zur Verfügung gestellt werden.
+ - Sowohl eine Online-Version als auch eine PDF- und eine epub-Version sind geplant.
+     
+# Begleitlektüre
+ - Wickham, H., & Grolemund, G. (2016). *R for data science*. O'Reilly.
+ - Das Modul baut stark auf diesem Buch auf; allerdings geht das Buch noch deutlich tiefer.
+ 
+# Vorwissen
+ - Das Modul setzt Grundkenntnisse in Statistik und Datenanalyse mit R voraus, wie sie etwa im Modul "Datenerhebung und Statistik" der FOM Hochschule gelehrt werden.
+ 
+# Diskussionsforum mit Ticketsystem
+  - Es wird ein Diskussionsforum zum Skript inkl. Ticketsystem (etwa für Fehler im Skript) bereitgestellt. 
+    
