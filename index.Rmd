@@ -104,7 +104,7 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
  
 4. Abb. \@ref(fig:cecie-une-pipe), La trahison des images [Ceci n’est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578 
 
-** Lizenz**
+**Lizenz**
 
 Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
 
