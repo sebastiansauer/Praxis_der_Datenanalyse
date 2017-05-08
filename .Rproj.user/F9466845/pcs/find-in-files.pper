@@ -20,7 +20,7 @@
             "*.cpp"
         ],
         "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse",
-        "query" : "http://stackoverflow.com/questions/29084380/",
+        "query" : "*.pdf",
         "regex" : false
     }
 }

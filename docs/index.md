@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
-date: "04 May, 2017"
+date: "08 May, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an IFES"
@@ -122,7 +122,7 @@ Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; i
 
 Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib)):
 
-Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM, Nürnberg.
+Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg.
 
 
 

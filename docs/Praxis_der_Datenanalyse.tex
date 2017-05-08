@@ -138,7 +138,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{04 May, 2017}
+  \date{08 May, 2017}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -449,7 +449,7 @@ Bitte zitieren Sie das Skript so (Bib-File
 
 Sauer, S., Gehrke, M., Gansser, O., \& Lübke, K. (2017). \emph{Praxis
 der Datenanalyse}. Skript zum Modul im MSc.-Studiengang
-``Wirtschaftspsychologie \& Consulting'' an der FOM, Nürnberg.
+``Wirtschaftspsychologie \& Consulting'' an der FOM. FOM Nürnberg.
 
 Sebastian Sauer
 
@@ -3577,8 +3577,8 @@ die Anzahl der fehlenden Werte zurück.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"https://sebastiansauer.github.io/data/wo_men.csv"}\NormalTok{)}
-\KeywordTok{glimpse}\NormalTok{(wo_men)}
+\NormalTok{wo_men <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/wo_men.csv"}\NormalTok{)}
+\KeywordTok{summarise}\NormalTok{(wo_men)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3602,11 +3602,20 @@ Zeilen dadurch verloren gehen.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# Unsprünglich Anzahl an Fällen (Zeilen)}
 \KeywordTok{nrow}\NormalTok{(wo_men)}
 \CommentTok{#> [1] 101}
-\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\NormalTok{na.omit %>%}\StringTok{ }
-\StringTok{  }\NormalTok{nrow}
+
+\CommentTok{# Nach Umwandlung in neuen Dataframe}
+\NormalTok{wo_men %>%}
+\StringTok{   }\NormalTok{na.omit ->}\StringTok{ }\NormalTok{wo_men.na_omit}
+\KeywordTok{nrow}\NormalTok{(wo_men.na_omit)}
+\CommentTok{#> [1] 100}
+
+\CommentTok{# Nur die Anzahl der bereinigten Daten}
+\NormalTok{wo_men %>%}
+\StringTok{   }\NormalTok{na.omit %>%}
+\StringTok{   }\NormalTok{nrow}
 \CommentTok{#> [1] 100}
 \end{Highlighting}
 \end{Shaded}
@@ -3700,16 +3709,35 @@ Werte ausgeben lassen.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ausreiser identifizieren}\label{ausreiser-identifizieren}
+\subsection{Ausreißer identifizieren}\label{ausreier-identifizieren}
 
-Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber.
+Ähnlich zu Fehlern, steht man Ausreißer häufig skeptisch gegenüber.
 Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt
 werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur
 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu
 entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel,
-um Ausreiser zu finden.
+um Ausreiser zu finden (vgl. Abb. \ref{fig:fig-ausreisser}).
 
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{y =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{wo_men, }\DataTypeTok{main =} \StringTok{"ungefiltert"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\NormalTok{wo_men %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(height >}\StringTok{ }\DecValTok{120}\NormalTok{, height <}\StringTok{ }\DecValTok{210}\NormalTok{) %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{y =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{., }\DataTypeTok{main =} \StringTok{"gefiltert"}\NormalTok{)}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-ausreisser-1} 
+
+}
+
+\caption{Ausreißer identifizieren}\label{fig:fig-ausreisser}
+\end{figure}
 
 \subsection{Hochkorrelierte Variablen
 finden}\label{hochkorrelierte-variablen-finden}
@@ -3717,20 +3745,45 @@ finden}\label{hochkorrelierte-variablen-finden}
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden
 überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen
 sehr hoch korreliert (\textgreater{}.9, als grober (!) Richtwert), so
-bringt die zweite kaum Informationszuwachs zur ersten. Und kann
-ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
+bringt die zweite kaum Informationszuwachs zur ersten. Und kann z.B.
+ausgeschlossen werden.
+
+Nehmen wir dazu den Datensatz \texttt{extra} her.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(height, shoe_size) %>%}\StringTok{ }
+\NormalTok{extra <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/extra.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{extra %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(i01:i10) %>%}\StringTok{ }\CommentTok{# Wähle die Variablen von i01 bis i10 aus}
 \StringTok{  }\KeywordTok{correlate}\NormalTok{() ->}\StringTok{ }\NormalTok{km   }\CommentTok{# Korrelationsmatrix berechnen}
 \NormalTok{km  }
-\CommentTok{#> # A tibble: 2 × 3}
-\CommentTok{#>     rowname height shoe_size}
-\CommentTok{#>       <chr>  <dbl>     <dbl>}
-\CommentTok{#> 1    height     NA     0.553}
-\CommentTok{#> 2 shoe_size  0.553        NA}
+\CommentTok{#> # A tibble: 10 × 11}
+\CommentTok{#>    rowname    i01   i02r    i03    i04    i05  i06r   i07   i08    i09}
+\CommentTok{#>      <chr>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl> <dbl> <dbl> <dbl>  <dbl>}
+\CommentTok{#> 1      i01     NA 0.4895 0.0805 0.4528 0.4481 0.450 0.309 0.387 0.3795}
+\CommentTok{#> 2     i02r 0.4895     NA 0.0849 0.3603 0.3897 0.520 0.240 0.323 0.2730}
+\CommentTok{#> 3      i03 0.0805 0.0849     NA 0.0323 0.0492 0.155 0.156 0.101 0.0211}
+\CommentTok{#> 4      i04 0.4528 0.3603 0.0323     NA 0.6478 0.316 0.446 0.219 0.2472}
+\CommentTok{#> 5      i05 0.4481 0.3897 0.0492 0.6478     NA 0.348 0.395 0.287 0.2983}
+\CommentTok{#> 6     i06r 0.4504 0.5197 0.1554 0.3163 0.3482    NA 0.163 0.294 0.2937}
+\CommentTok{#> 7      i07 0.3090 0.2396 0.1557 0.4459 0.3949 0.163    NA 0.317 0.2803}
+\CommentTok{#> 8      i08 0.3873 0.3232 0.1006 0.2190 0.2875 0.294 0.317    NA 0.4095}
+\CommentTok{#> 9      i09 0.3795 0.2730 0.0211 0.2472 0.2983 0.294 0.280 0.409     NA}
+\CommentTok{#> 10     i10 0.1850 0.0789 0.0939 0.3520 0.2929 0.136 0.380 0.220 0.1552}
+\CommentTok{#> # ... with 1 more variables: i10 <dbl>}
+\end{Highlighting}
+\end{Shaded}
+
+In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten
+keine weiteren Schritte ein, abgesehen von einer Visualisierung.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 
 \NormalTok{km %>%}\StringTok{ }
 \StringTok{  }\KeywordTok{shave}\NormalTok{() %>%}\StringTok{ }\CommentTok{# Oberes Dreieck ist redundant, wird "abrasiert"}
@@ -3738,13 +3791,22 @@ ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-corrr-1} 
+
+}
+
+\caption{Ein Korrelationsplot}\label{fig:fig-corrr}
+\end{figure}
 
 Die Funktion \texttt{correlate} stammt aus dem Paket
 \texttt{corrr}\footnote{\url{https://github.com/drsimonj/corrr}},
 welches vorher installiert und geladen sein muss. Hier ist die
 Korrelation nicht zu groß, so dass wir keine weiteren Schritte
-unternehmen.
+unternehmen. Hätten wir eine sehr hohe Korrelation gefunden, so hätten
+wir eine der beiden beteiligten Variablen aus dem Datensatz löschen
+können.
 
 \subsection{z-Standardisieren}\label{z-standardisieren}
 
@@ -3801,14 +3863,29 @@ Spaltenname wird ein ``\_z" hinzugefügt. Natürlich hätten wir auch mit
 
 \subsection{Quasi-Konstante finden}\label{quasi-konstante-finden}
 
-Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung
-``Variable'' nicht wirklich. Haben wir z.B. nur Männer im Datensatz, so
-kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich
-sein. Besser die Variable Geschlecht dann zu entfernen. Auch hier sind
-Histogramme oder Boxplots von Nutzen zur Identifiktion von
-(Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung
-(numerische Variablen) oder die Anzahl unterschiedlicher Werte
-(qualitative Variablen) ausgeben lassen.
+Hier suchen wir nach Variablen (Spalten), die nur einen Wert oder
+zumindest nur sehr wenige verschiedene Werte aufweisen. Oder, ähnlich:
+Wenn 99.9\% der Fälle nur von einem Wert bestritten wird. In diesen
+Fällen kann man die Variable als ``Quasi-Konstante'' bezeichnen.
+Quasi-Konstanten sind für die Modellierung von keiner oder nur geringer
+Bedeutung; sie können in der Regel für weitere Analysen ausgeschlossen
+werden.
+
+Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für
+Unterschiede im Einkommen verantwortlich sein. Besser ist es, die
+Variable Geschlecht zu entfernen. Auch hier sind Histogramme oder
+Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ
+kann man sich auch pro die Streuung (numerische Variablen) oder die
+Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{IQR}\NormalTok{(extra$n_facebook_friends, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)  }\CommentTok{# keine Konstante}
+\CommentTok{#> [1] 288}
+\KeywordTok{n_distinct}\NormalTok{(extra$sex)  }\CommentTok{# es scheint 3 Geschlechter zu geben...}
+\CommentTok{#> [1] 3}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Auf Normalverteilung
 prüfen}\label{auf-normalverteilung-prufen}
@@ -3819,19 +3896,26 @@ Normalverteilung ist genau so häufig wie \emph{perfekte} Kreise in der
 Natur. Entsprechend werden Signifikanztests, die ja auf perfekte
 Normalverteilung prüfen, \emph{immer signifikant} sein, sofern die
 \emph{Stichprobe groß} genug ist. Daher ist meist zweckmäßiger, einen
-graphischen ``Test'' durchzuführen: ein Histogramm oder ein
+graphischen ``Test'' durchzuführen: ein Histogramm, ein QQ-Plot oder ein
 Dichte-Diagramm als ``glatt geschmiergelte'' Variante des Histogramms
-bieten sich an.
+bieten sich an (s. Abb. \ref{fig:fig-norm-check}).
 
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-13-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-norm-check-1} 
+
+}
+
+\caption{Visuelles Prüfen der Normalverteilung}\label{fig:fig-norm-check}
+\end{figure}
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die
 Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen
 Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass
 wir keine weiteren Maßnahmen einleiten.
 
-\subsection{\texorpdfstring{Werte umkodieren und
-``binnen''}{Werte umkodieren und binnen}}\label{werte-umkodieren-und-binnen}
+\subsection{\texorpdfstring{Werte umkodieren und partionieren
+(``binnen'')}{Werte umkodieren und partionieren (binnen)}}\label{werte-umkodieren-und-partionieren-binnen}
 
 \emph{Umkodieren}\index{Umkodieren} meint, die Werte zu ändern. Man
 sieht immer mal wieder, dass die Variable ``gender'' (Geschlecht) mit
@@ -3850,9 +3934,11 @@ zu verwenden (vgl. Abb. \ref{fig:umkodieren}).
 \caption{Sinnbild für Umkodieren}\label{fig:umkodieren}
 \end{figure}
 
-\emph{Binnen}\index{Binnen} meint, eine kontinuierliche Variablen in
-einige Bereiche (mindestens 2) zu zerschneiden. Ein Bild erläutert das
-am einfachsten (vgl. Abb. \ref{fig:cut-schere}).
+Partionieren\index\{Partionieren) oder \emph{``Binnen''}\index{Binnen}
+meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2)
+zu zerschneiden. Damit macht man aus einer kontinuierlichen Variablen
+eine diskrete. Ein Bild erläutert das am einfachsten (vgl. Abb.
+\ref{fig:cut-schere}).
 
 \begin{figure}
 
@@ -3863,8 +3949,8 @@ am einfachsten (vgl. Abb. \ref{fig:cut-schere}).
 \caption{Sinnbild zum 'Binnen'}\label{fig:cut-schere}
 \end{figure}
 
-\subsubsection{\texorpdfstring{Umkodieren und binnen mit
-\texttt{car::recode}}{Umkodieren und binnen mit car::recode}}\label{umkodieren-und-binnen-mit-carrecode}
+\subsubsection{\texorpdfstring{Umkodieren und partionieren mit
+\texttt{car::recode}}{Umkodieren und partionieren mit car::recode}}\label{umkodieren-und-partionieren-mit-carrecode}
 
 Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei
 kategoriellen Variablen kryptische Bezeichnungen in sprechendere
@@ -4288,7 +4374,7 @@ Etwas expliziter wäre es, \texttt{mutate} zu verwenden, um die Variable
 
 \BeginKnitrBlock{rmdcaution}
 Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen,
-sind nicht robust gegenüber Ausreisern: Schon wenige Extremwerte können
+sind nicht robust gegenüber Ausreißer: Schon wenige Extremwerte können
 diese Statistiken so verzerren, dass sie erheblich an Aussagekraft
 verlieren.
 
@@ -6864,13 +6950,13 @@ Lernziele:
 \section{Der p-Wert sagt nicht das, was viele
 denken}\label{der-p-wert-sagt-nicht-das-was-viele-denken}
 
-Der p-Wert, entwickelt von Sir Ronald Fisher (Abb.
+Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb.
 \ref{fig:sir-fisher}), ist die heilige Kuh der Forschung. Das ist nicht
 normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig)
 darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar
 ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht
-normativ gemeint). Kurz: Dem p-Wert wird viel Bedeutung zugemessen (vgl.
-Abb. \ref{fig:who-said}).
+normativ gemeint). Kurz: Dem p-Wert kommt viel Bedeutung zu bzw. ihm
+wird viel Bedeutung zugemessen (vgl. Abb. \ref{fig:who-said}).
 
 \begin{figure}
 
@@ -6887,20 +6973,21 @@ Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
 Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
 \end{quote}
 
-Je größer p, desto besser passen die Daten zur Nullhypothese.
+Mit anderen Worten: Je \emph{größer p}, desto \emph{besser} passen die
+Daten zur \emph{Nullhypothese}.
 
 Allerdings hat der p-Wert seine Probleme. Vor allem: Er wird
 missverstanden. Jetzt kann man sagen, dass es dem p-Wert (dem armen)
-nicht anzulasten, dass andere/ einige ihm missverstehen. Auf der anderen
+nicht anzulasten, dass andere/ einige ihn missverstehen. Auf der anderen
 Seite finde ich, dass sich Technologien dem Nutzer anpassen sollten
 (soweit als möglich) und nicht umgekehrt. Die (genaue) Definition des
-p-Werts ist aber auch so kompliziert, man kann sie leicht missverstehen:
+p-Werts ist kompliziert; man kann sie leicht missverstehen:
 
 \begin{quote}
-Der p-Wert gibt die Wahrscheinlichkeit P unserer Daten D an (und noch
-extremerer), unter der Annahme, dass die getestete Hypothese H wahr ist
-(und wenn wir den Versuch unendlich oft wiederholen würden, unter
-identischen Bedingungen und ansonsten zufällig). p = P(D\textbar{}H)
+Der p-Wert - P(D\textbar{}H) - gibt die Wahrscheinlichkeit P unserer
+Daten D an (und noch extremerer), unter der Annahme, dass die getestete
+Hypothese H wahr ist (und wenn wir den Versuch unendlich oft wiederholen
+würden, unter identischen Bedingungen und ansonsten zufällig).
 \end{quote}
 
 Viele Menschen - inkl. Professoren und Statistik-Dozenten - haben
@@ -6961,13 +7048,15 @@ denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden
 und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden.
 Ähnliches kann man zum Thema ``P-Hacking'' argumentieren (Head u.~a.
 \protect\hyperlink{ref-Head2015}{2015}, Wicherts u.~a.
-(\protect\hyperlink{ref-Wicherts2016}{2016})); andere statistische
-Verfahren können auch gehackt werden.
+(\protect\hyperlink{ref-Wicherts2016}{2016})): andere statistische
+Verfahren können auch gehackt werden. ``Hacken'' soll hier sagen, dass
+man - Kreativität und Wille vorausgesetzt - immer Wege finden kann, um
+einen Kennwert in die gewünschte Richtung zu manipulieren.
 
 Ein Haupt-Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion
 der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei
-großen Stichproben wird jede Hypothese signifikant. Das ist richtig.
-Damit verliert der p-Wert an Nützlichkeit (vgl. Abb.
+großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das
+schränkt die praktische Nützlichkeit ein (vgl. Abb.
 \ref{fig:einfluss-pwert}. Die Details der Simulation, die hinter Abb.
 \ref{fig:einfluss-pwert} sind etwas umfangreicher und hier nicht so
 wichtig, daher nicht angegeben\footnote{s. hier für Details:
@@ -6982,7 +7071,7 @@ wichtig, daher nicht angegeben\footnote{s. hier für Details:
 \caption{Zwei Haupteinflüsse auf den p-Wert}\label{fig:einfluss-pwert}
 \end{figure}
 
-Die Verteitigung argumentiert hier, dass das ``kein Bug, sondern ein
+Die Verteidigung argumentiert hier, dass das ``kein Bug, sondern ein
 Feature'' sei: Wenn man z.B. die Hypothese prüfe, dass der
 Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man
 findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch.
@@ -7086,11 +7175,30 @@ wie sehr Daten gegen eine Hypothese sprechen.
 
 \section{Fazit}\label{fazit}
 
-Der p-Wert ist ein Konzept mit Problemen (und ein Dinosaurier). Daher
-sollte er nicht oder weniger benutzt werden. Da der p-Wert aber immer
-noch der Platzhirsch auf vielen Forschungsauen ist, führt kein Weg um
-ihn herum. Er muss genau verstanden werden: Was er sagt und - wichtiger
-noch - was er nicht sagt.
+Der p-Wert ist eine häufig verwendete Methode, um datenbasiert zu
+entscheiden, ob man eine Hypothese annimmt oder nicht. Allerdings hat
+der p-Wert auch seine Probleme.
+
+\begin{quote}
+Der p-Wert sollte nicht als einziges Kriterium verwendet werden, um eine
+Hypothese bzw. ein Modell zu beurteilen.
+\end{quote}
+
+Da der p-Wert aber immer noch der Platzhirsch auf vielen Forschungsauen
+ist, führt kein Weg um ihn herum. Er muss genau verstanden werden: Was
+er sagt und - wichtiger noch - was er nicht sagt.
+
+Alternativen zum p-Wert sind
+
+\begin{itemize}
+\tightlist
+\item
+  Konfidenzintervalle
+\item
+  Effektstärkemaße und Maße der Modellgüte (z.B. Varianzaufklärung)
+\item
+  Vorhersagegenauigkeit.
+\end{itemize}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/inferenz/meme_pwert_1iw22a_pvalue_dino} \end{center}
 
@@ -10447,7 +10555,7 @@ SessionInfo}\label{versionshinweise-und-sessioninfo}
 \begin{itemize}
 \tightlist
 \item
-  Datum erstellt: 2017-05-04
+  Datum erstellt: 2017-05-08
 \item
   R Version: 3.3.2
 \item

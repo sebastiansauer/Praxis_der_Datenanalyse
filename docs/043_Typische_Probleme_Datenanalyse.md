@@ -36,8 +36,8 @@ Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für 
 
 
 ```r
-wo_men <- read.csv("https://sebastiansauer.github.io/data/wo_men.csv")
-glimpse(wo_men)
+wo_men <- read_csv("data/wo_men.csv")
+summarise(wo_men)
 ```
 
 
@@ -58,11 +58,20 @@ Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein,
 
 
 ```r
+# Unsprünglich Anzahl an Fällen (Zeilen)
 nrow(wo_men)
 #> [1] 101
-wo_men %>% 
-  na.omit %>% 
-  nrow
+
+# Nach Umwandlung in neuen Dataframe
+wo_men %>%
+   na.omit -> wo_men.na_omit
+nrow(wo_men.na_omit)
+#> [1] 100
+
+# Nur die Anzahl der bereinigten Daten
+wo_men %>%
+   na.omit %>%
+   nrow
 #> [1] 100
 ```
 
@@ -127,38 +136,83 @@ wo_men %>%
 ```
 
 
-### Ausreiser identifizieren
-Ähnlich zu Fehlern, steht man Ausreisern häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden.
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-9-1} \end{center}
-
-
-### Hochkorrelierte Variablen finden
-Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann ausgeschlossen werden. Oder man fasst ähnliche Variablen zusammen.
+### Ausreißer identifizieren
+Ähnlich zu Fehlern, steht man Ausreißer häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden (vgl. Abb. \@ref(fig:fig-ausreisser)).
 
 
 ```r
-wo_men %>% 
-  select(height, shoe_size) %>% 
+p1 <- qplot(x = shoe_size, y = height, data = wo_men, main = "ungefiltert")
+
+p2 <- wo_men %>% 
+  filter(height > 120, height < 210) %>% 
+  qplot(x = shoe_size, y = height, data = ., main = "gefiltert")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-ausreisser-1} 
+
+}
+
+\caption{Ausreißer identifizieren}(\#fig:fig-ausreisser)
+\end{figure}
+
+
+### Hochkorrelierte Variablen finden
+Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann z.B. ausgeschlossen werden. 
+
+Nehmen wir dazu den Datensatz `extra` her.
+
+
+```r
+extra <- read_csv("data/extra.csv")
+```
+
+
+
+```r
+extra %>% 
+  select(i01:i10) %>% # Wähle die Variablen von i01 bis i10 aus
   correlate() -> km   # Korrelationsmatrix berechnen
 km  
-#> # A tibble: 2 × 3
-#>     rowname height shoe_size
-#>       <chr>  <dbl>     <dbl>
-#> 1    height     NA     0.553
-#> 2 shoe_size  0.553        NA
+#> # A tibble: 10 × 11
+#>    rowname    i01   i02r    i03    i04    i05  i06r   i07   i08    i09
+#>      <chr>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl> <dbl> <dbl> <dbl>  <dbl>
+#> 1      i01     NA 0.4895 0.0805 0.4528 0.4481 0.450 0.309 0.387 0.3795
+#> 2     i02r 0.4895     NA 0.0849 0.3603 0.3897 0.520 0.240 0.323 0.2730
+#> 3      i03 0.0805 0.0849     NA 0.0323 0.0492 0.155 0.156 0.101 0.0211
+#> 4      i04 0.4528 0.3603 0.0323     NA 0.6478 0.316 0.446 0.219 0.2472
+#> 5      i05 0.4481 0.3897 0.0492 0.6478     NA 0.348 0.395 0.287 0.2983
+#> 6     i06r 0.4504 0.5197 0.1554 0.3163 0.3482    NA 0.163 0.294 0.2937
+#> 7      i07 0.3090 0.2396 0.1557 0.4459 0.3949 0.163    NA 0.317 0.2803
+#> 8      i08 0.3873 0.3232 0.1006 0.2190 0.2875 0.294 0.317    NA 0.4095
+#> 9      i09 0.3795 0.2730 0.0211 0.2472 0.2983 0.294 0.280 0.409     NA
+#> 10     i10 0.1850 0.0789 0.0939 0.3520 0.2929 0.136 0.380 0.220 0.1552
+#> # ... with 1 more variables: i10 <dbl>
+```
+
+In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten keine weiteren Schritte ein, abgesehen von einer Visualisierung.
+
+
+```r
 
 km %>% 
   shave() %>% # Oberes Dreieck ist redundant, wird "abrasiert"
   rplot()  # Korrelationsplot
 ```
 
+\begin{figure}
 
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-corrr-1} 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
+}
 
-Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen.
+\caption{Ein Korrelationsplot}(\#fig:fig-corrr)
+\end{figure}
+
+Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen. Hätten wir eine sehr hohe Korrelation gefunden, so hätten wir eine der beiden beteiligten Variablen aus dem Datensatz löschen können.
 
 
 ### z-Standardisieren
@@ -199,19 +253,36 @@ Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die S
 
 
 ### Quasi-Konstante finden
-Hat eine Variable nur einen Wert, so verdient sie die Ehrenbezeichnung "Variable" nicht wirklich. Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser die Variable Geschlecht dann zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen.
+Hier suchen wir nach Variablen (Spalten), die nur einen Wert oder zumindest nur sehr wenige verschiedene Werte aufweisen. Oder, ähnlich: Wenn 99.9% der Fälle nur von einem Wert bestritten wird. In diesen Fällen kann man die Variable als "Quasi-Konstante" bezeichnen. Quasi-Konstanten sind für die Modellierung von keiner oder nur geringer Bedeutung; sie können in der Regel für weitere Analysen ausgeschlossen werden.
+
+Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser ist es, die Variable Geschlecht zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
+
+
+```r
+IQR(extra$n_facebook_friends, na.rm = TRUE)  # keine Konstante
+#> [1] 288
+n_distinct(extra$sex)  # es scheint 3 Geschlechter zu geben...
+#> [1] 3
+```
+
 
 
 ### Auf Normalverteilung prüfen
-Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm oder ein   Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an.
+Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm, ein QQ-Plot oder ein Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an (s. Abb. \@ref(fig:fig-norm-check)).
 
+\begin{figure}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/unnamed-chunk-13-1} \end{center}
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-norm-check-1} 
+
+}
+
+\caption{Visuelles Prüfen der Normalverteilung}(\#fig:fig-norm-check)
+\end{figure}
 
 Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
 
 
-### Werte umkodieren und "binnen" 
+### Werte umkodieren und partionieren ("binnen") 
 
 *Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorpragmmiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
@@ -225,7 +296,7 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 \end{figure}
 
 
-*Binnen*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
+Partionieren\index{Partionieren) oder *"Binnen"*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Damit macht man aus einer kontinuierlichen Variablen eine diskrete. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
 
 \begin{figure}
 
@@ -238,7 +309,7 @@ Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgrö�
 
 
 
-#### Umkodieren und binnen mit `car::recode`
+#### Umkodieren und partionieren mit `car::recode`
 
 Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln. Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Schauen wir uns ein paar Beispiele zum Umkodieren an.
 
@@ -587,7 +658,7 @@ stats_test %>%
 ```
 
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreisern: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreißer: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
 
 Daher: besser robuste Statistiken verwenden. Der Median, der Modus und der IQR bieten sich an. 
 
