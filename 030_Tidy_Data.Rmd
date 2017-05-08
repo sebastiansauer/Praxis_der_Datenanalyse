@@ -175,7 +175,7 @@ knitr::include_graphics("images/tidy/tidy-1.png")
 Der Punkt "Jede Zeile eine Beobachtung, jede Spalte eine Variable" verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
 
 ```{r lang-breit, echo = FALSE, fig.cap = "Dieselben Daten - einmal breit, einmal lang"}
-knitr::include_graphics("images/tidy/breit_lang.pdf")
+knitr::include_graphics("images/tidy/breit_lang.png")
 ```
 
 
@@ -183,7 +183,7 @@ In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; 
 
 
 ```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform"}
-knitr::include_graphics("images/tidy/Normalform.pdf")
+knitr::include_graphics("images/tidy/Normalform.png")
 ```
 
 ## Vertiefung
