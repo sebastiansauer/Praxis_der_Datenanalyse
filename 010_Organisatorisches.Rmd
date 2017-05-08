@@ -47,7 +47,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:Themen)).
 
-
+Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 
 Table: (\#tab:Themen) Themen pro Termin.
@@ -61,13 +61,13 @@ Termin    Thema/ Kapitel
 2         Datenjudo
 3         Daten visualisieren
 4         Fallstudie
-5         Daten modellieren     
-          Der p-Wert
+5         Der p-Wert
+          Daten modellieren   
 6         Lineare Regression - metrisch
 7         Lineare Regression - kategorial
 8         Fallstudie
-9         Vertiefung: Textmining und Clusteranalyse
-10        Vertiefung: Baumbasierte Verfahren
+9         Vertiefung: Textmining oder Clusteranalyse
+10        Vertiefung: Baumbasierte Verfahren oder Dimensionsreduktion
 11        Wiederholung
 
           

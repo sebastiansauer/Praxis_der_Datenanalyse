@@ -59,7 +59,7 @@ In der Regel wird das Textmining als *gemischte* Methode verwendet: sowohl quali
 
 ## Einführung
 
-### Grundbegriffe
+
 Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:  
 
 - Ein *Corpus* bezeichnet die Menge der zu analyisierenden Dokumente; das könnten z.B. alle Reden der Bundeskanzlerin Angela Merkel sein oder alle Tweets von "\@realDonaldTrump".

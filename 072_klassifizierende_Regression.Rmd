@@ -222,7 +222,7 @@ tips <- read.csv("data/tips.csv")
 
 
 Zunächst ein Plot (Abb. \@ref(fig:jitter-tips)).
-```{r jitter-tips}
+```{r jitter-tips, fig.cap = ""}
 qplot(x = smoker, y = day, data = tips, geom = "jitter")
 ```
 

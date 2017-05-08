@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
-author: "Sebastian Sauer, Matthias Gehrke, Karsten Lübke, Oliver Gansser"
+author: "Sebastian Sauer und Oliver Gansser. Mit Beiträgen von Matthias Gehrke und Karsten Lübke"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 lang: de-De
 colorlinks: yes
@@ -89,8 +89,8 @@ Dieses Buch hat einige *Voraussetzungen*, was das Vorwissen der Leser angeht; fo
 - Skalenniveaus
 - Grundlagen von R
 
-**Bildnachweise**
 
+**Bildnachweise**
 
 Die Bildnachweise sind in folgenden Muster aufgebaut:
 Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufdatum.
@@ -100,7 +100,7 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
 
 2. Abb. \@ref(fig:vwmodell), Lothar Spurzem, VW 1303 von Wiking in 1:87; Größe des Modells: 47,5 mm, https://de.wikipedia.org/wiki/Modellautomobil#/media/File:Wiking-Modell_VW_1303_(um_1975).JPG, CC-BY-SA 2.0 de, 2017-03-20.
 
-3. Abschnitt "Icons" im Vorwort, "Monster-Smileys", LadyOfHats, Smileys, https://commons.wikimedia.org/wiki/User:LadyofHats#Smileys, Public Domain, 2017-01-20.
+3. "Icons" s. oben unter "Icons", "Monster-Smileys", LadyOfHats, Smileys, https://commons.wikimedia.org/wiki/User:LadyofHats#Smileys, Public Domain, 2017-01-20.
  
 4. Abb. \@ref(fig:cecie-une-pipe), La trahison des images [Ceci n’est pas une pipe], René Magritte, 1929, © C. Herscovici, Brussels / Artists Rights Society (ARS), New York, http://collections.lacma.org/node/239578 
 
@@ -114,6 +114,27 @@ knitr::include_graphics("images/licence.png")
 ```
 
 
+**Autoren**
+
+*Sebastian Sauer* schrieb den Hauptteil dieses Buchs. *Oliver Gansser* schrieb das Kapitel zur Dimensionsreduktion.
+*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
+
+
+**Danke**
+
+Die Mitglieder des ifes-Instituts gaben reichhaltig Rückmeldung; Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen angemahnt. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
+
+**Zitieren**
+
+Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praxis_der_Datenanalyse.bib)):
+
+Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg.
+
+
+Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (genau wie alle zitierten Textstellen).
+
+
+
 **Sonstiges**
 
 Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).
@@ -122,14 +143,10 @@ Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Fra
 
 
 
-Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis; im Text werden Pakete nicht zitiert.
 
 
 
 
-Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praixs_der_Datenanalyse.bib)):
-
-Sauer, S., Gehrke, M., Gansser, O., & Lübke, K. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg.
 
 
 
