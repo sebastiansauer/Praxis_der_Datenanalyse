@@ -1,14 +1,14 @@
 *.DS_Store
 .DS_Store
 .Rproj.user
-#.Rproj.user/**
+.Rproj.user/**
 .Rhistory
-#docs/**
+docs/**
 docs/
 div/
 archive/
 _bookdown_files
-#_bookdown_files/**
+_bookdown_files/**
 Praxis_der_Datenanalyse.log
 Praxis_der_Datenanalyse.ilg
 Praxis_der_Datenanalyse.lof
