@@ -144,9 +144,15 @@ Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Fra
 
 
 
+---
 
-
-
+Herausgeber: FOM Hochschule für Oekonomie & Management gemeinnützige GmbH
+ 
+Dieses Skript dient als Begleitmaterial zum Modul „Praxis der Datenanalyse“ des Masterstudiengangs „Wirtschaftspsychologie & Consulting“ der FOM Hochschule für Oekonomie & Management.
+ 
+FOM. Die Hochschule. Für Berufstätige.
+Die mit bundesweit über 42.000 Studierenden größte private Hochschule Deutschlands führt seit 1993 Studiengang für Berufstätige durch, die einen staatlich und international anerkannten Hochschulabschluss (Bachelor/Master) erlangen wollen.
+Weitere Informationen finden Sie unter <www.fom.de>
 
 
 
