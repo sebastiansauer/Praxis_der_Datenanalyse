@@ -21,7 +21,7 @@ rmd_files: [
 "076_Fallstudie_Affairs.Rmd",
 "082_Clusteranalyse.Rmd",
 "090_Textmining.Rmd",
-#"100_Anhang.Rmd",
+"100_Anhang.Rmd",
 "116_Probeklausur.Rmd",
 "120_Literatur.Rmd"
 ]
