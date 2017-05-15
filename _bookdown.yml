@@ -1,6 +1,6 @@
 book_filename: "Praxis_der_Datenanalyse"
 chapter_name: "Kapitel "
-# repo: https://github.com/sebastiansauer/Statistik_21
+# repo: https://github.com/sebastiansauer/Praxis_der_Datenanalyse
 output_dir: "docs"
 rmd_files: [
 "index.Rmd",
@@ -12,7 +12,7 @@ rmd_files: [
 "045_Fallstudie_dplyr.Rmd",
 "050_Daten_visualisieren.Rmd",
 "056_Fallstudie_Visualisierung.Rmd",
-"059_Modellieren_header.Rmd",
+#"059_Modellieren_header.Rmd",
 "060_Modellieren.Rmd",
 "061_Inferenzstatistik.Rmd",
 "071_Regression.Rmd",

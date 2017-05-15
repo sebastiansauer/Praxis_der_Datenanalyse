@@ -1,22 +1,4 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-width.cutoff=60
-```
 
 \pagenumbering{arabic}
 
@@ -26,16 +8,13 @@ width.cutoff=60
 
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
-```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
-Lernziele:
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
 - R und RStudio installieren können.
@@ -44,8 +23,7 @@ Lernziele:
 - Einige grundlegende R-Funktionalitäten verstehen.
 - Auf die Frage "Was ist Statistik?" eine Antwort geben können.
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das 
@@ -53,9 +31,14 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
-knitr::include_graphics("images/Rahmen/Prozess_Datenanalyse.png") 
-```
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/Prozess_Datenanalyse} 
+
+}
+
+\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
+\end{figure}
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -115,20 +98,14 @@ Die Oberfläche von R, die "Console", sieht so aus:
 
 <!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
 
-```{r eval = FALSE, echo = FALSE,  fig.width = 3} 
-# knitr::include_graphics("images/Rahmen/R.jpg") 
-knitr::include_graphics("images/Rahmen/R-Mac.png")
 
-```
 
 
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-```{r echo = FALSE} 
-knitr::include_graphics("images/Rahmen/RStudio-Screenshot.png")
 
-```
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -182,8 +159,7 @@ Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man
 
 
 
-```{block2, typ-fehler, type='rmdcaution', echo = TRUE} 
-
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
 OH NO:
 
 - install.packages(dplyr) 
@@ -197,8 +173,7 @@ OH NO:
 - Keine Internet-Verbindung 
 
 - library(dplyr)  # ohne vorher zu installieren
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -306,23 +281,22 @@ Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt
 `dplyr`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es 
 schon einmal, sofern noch nicht geschehen:
 
-```{r eval = FALSE} 
+
+```r
 install.packages("dplyr", dependencies = TRUE) 
 ```
 
 
 
 
-```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} 
-Beim Installieren von 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Beim Installieren von 
 R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. 
 Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen
 CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner
 Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, 
 ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. "mirrors"). 
 Suchen Sie sich einfach einen aus, der in der Nähe ist.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 Bei der Installation von Paketen mit `install.packages("name_des_pakets")` 
@@ -339,7 +313,8 @@ Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten*
 (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder 
 nutzen möchte:
 
-```{r eval = FALSE} 
+
+```r
 library(dplyr) 
 ```
 
@@ -347,16 +322,14 @@ Der Befehl bedeutet sinngemäß: "Hey R, geh in die Bücherei (library) und hole
 das Buch (package) dplyr!".
 
 
-```{block2, quotation_marks, type='rmdcaution', echo = TRUE} 
-Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
 lautet: wenn man Text anspricht. Im Beispiel oben "library(dplyr)" ist "dplyr" 
 hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten 
 *eigentlich* Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass
 es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die 
 Ausnahme einer Regel handelt. Sie können also auch schreiben: library("dplyr") 
 oder library('dplyr'); geht beides.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -371,13 +344,25 @@ haben Sie Ruhe.
 In diesem Buch verwenden wir die folgenden 
 R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein. 
 
-```{r source_packages, include = FALSE, message = FALSE, warning = FALSE} 
-source("includes/Pakete.R") 
-```
 
 
-```{r Paketliste} 
+
+
+```r
 Pakete 
+#>  [1] "arules"        "arulesViz"     "BaylorEdPsych" "broom"        
+#>  [5] "car"           "caret"         "cluster"       "compute.es"   
+#>  [9] "corrplot"      "corrr"         "downloader"    "dplyr"        
+#> [13] "GGally"        "ggdendro"      "ggplot2"       "gplots"       
+#> [17] "grid"          "gridExtra"     "ISLR"          "knitr"        
+#> [21] "lmtest"        "lsa"           "MASS"          "MBESS"        
+#> [25] "methods"       "modelr"        "mosaic"        "nFactors"     
+#> [29] "nycflights13"  "okcupiddata"   "pdftools"      "png"          
+#> [33] "psych"         "RColorBrewer"  "readr"         "reshape2"     
+#> [37] "rmarkdown"     "ROCR"          "rpart"         "rpart.plot"   
+#> [41] "scatterplot3d" "SDMTools"      "SnowballC"     "stringr"      
+#> [45] "tidyr"         "tidytext"      "tidyverse"     "titanic"      
+#> [49] "tm"            "wesanderson"   "wordcloud"
 ```
 
 
@@ -429,7 +414,8 @@ Mit dem Befehl `data(name_des_datensatzes, package = "name_des_paketes")`, kann
 man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des
 Paketes; dafür ist der Befehl `data` zuständig.
 
-```{r eval = FALSE} 
+
+```r
 library(okcupiddata) 
 data(profiles, package = "okcupiddata")
 ```
@@ -439,7 +425,8 @@ data(profiles, package = "okcupiddata")
 Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick...) 
 liegen.
 
-```{r example_load_data, eval = FALSE} 
+
+```r
 Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv") 
 ```
 
@@ -506,32 +493,39 @@ auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der
 Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. 
 `Enter`. 
 
-```{r} 
+
+```r
 4+2 
-``` 
+#> [1] 6
+```
 Das Ergebnis wird direkt angezeigt. Bei 
-```{r} 
+
+```r
 x <- 4+2 
-``` 
+```
 
 erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert 
 `4+2` zugewiesen. Wenn Sie jetzt 
-```{r eval=FALSE} 
+
+```r
 x 
-``` 
+```
 
 eingeben, wird das 
 Ergebnis 
-```{r echo=FALSE} 
-x
-``` 
+
+```
+#> [1] 6
+```
 
 angezeigt. Sie können jetzt auch mit `x` 
 weiterrechnen, z.B.: 
 
-```{r} 
+
+```r
 x/4 
-``` 
+#> [1] 1.5
+```
 
 Vielleicht fragen Sie sich was die `[1]` vor dem 
 Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es 
@@ -542,14 +536,16 @@ sich um das erste (und hier auch letzte) Element des Vektors handelt.
 
 Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):
 
-```{r hallo, eval = FALSE}
+
+```r
 y <- "Hallo R!"
 ```
 
 
 Man kann auch einer Variablen eine andere zuweisen:
 
-```{r eval = FALSE}
+
+```r
 y <- x
 ```
 
@@ -558,7 +554,8 @@ Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungsp
 
 Man kann auch einer Variablen *mehr als* einen Wert zuweisen:
 
-```{r}
+
+```r
 x <- c(1, 2, 3)
 ```
 
@@ -571,7 +568,8 @@ Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *me
 Um einen "Befehl" (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an
 und definieren sog. "Parameter" in einer runden Klammer, z.B. so:
 
-```{r}
+
+```r
 wo_men <- read.csv("data/wo_men.csv")
 ```
 
@@ -585,7 +583,8 @@ Die drei Punkte `...` sollen andeuten, dass evtl. weitere Parameter zu übergebe
 Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. 
 Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:
 
-```{r read-csv-example, eval = FALSE}
+
+```r
 #ok:
 wo_men <- read.csv(file = "data/wo_men.csv", header = TRUE, sep = ",")
 wo_men <- read.csv("data/wo_men.csv", TRUE, ",")
@@ -601,7 +600,8 @@ wo_men <- read.csv(TRUE, "data/wo_men.csv", ",")
 
 3. Führen Sie diese Syntax aus:
 
-```{r eval = FALSE}
+
+```r
 meine_coole_variable <- 10
 meine_coole_var1able 
 ```
@@ -610,7 +610,8 @@ Woher rührt der Fehler?
 
 4. Korrigieren Sie die Syntax:
 
-```{r eval = FALSE}
+
+```r
 install.packages(dplyer)
 ```
 
@@ -621,7 +622,8 @@ install.packages(dplyer)
 `Hallo R <- 1`
 
 
-```{r eval = FALSE}
+
+```r
 Hallo_R < - 1
 ```
 
@@ -703,13 +705,24 @@ Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gema
 
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 
-```{r befehle-rahmen, echo = FALSE}
+\begin{table}
 
-df <- readr::read_csv("includes/Rahmen.csv")
-
-knitr::kable(df, caption = "Befehle des Kapitels Rahmen")
-
-```
+\caption{(\#tab:befehle-rahmen)Befehle des Kapitels Rahmen}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Funktion & Beschreibung\\
+\hline
+install.packages("x") & Installiert Paket "x" (nicht: Paket "X")\\
+\hline
+library & lädt ein Paket\\
+\hline
+<- & Weist einer Variablen einen Wert zu\\
+\hline
+c & erstellt eine Spalte/ einen Vektor\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

@@ -1,23 +1,5 @@
 
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 
 
 
@@ -25,19 +7,18 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 # Vertiefung: Clusteranalyse
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 
 Benötigte Pakte:
 
-```{r}
+
+```r
 library(tidyverse)
 library(cluster)
 ```
@@ -53,34 +34,29 @@ Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*
 
 
 
-```{r cluster-intuition, echo = FALSE}
 
-
-set.seed(2014)
-centers <- data.frame(cluster=factor(1:3), size=c(100, 150, 50), x1=c(5, 0, -3), x2=c(-1, 1, -2))
-points <- centers %>% group_by(cluster) %>%
-    do(data.frame(x1=rnorm(.$size[1], .$x1[1]),
-                  x2=rnorm(.$size[1], .$x2[1])))
-
-library(ggplot2)
-p1 <- ggplot(points, aes(x1, x2)) + geom_point() +
-  xlab("Lernzeit") + ylab("Klasurpunkte")
-
-p2 <- ggplot(points, aes(x1, x2, color=cluster)) + geom_point() +
-  xlab("Lernzeit") + ylab("Klasurpunkte")
-```
 
 Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
 
-```{r cluster1, echo = FALSE, fig.cap = "Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?"}
-p1
-```
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster1-1} 
+
+}
+
+\caption{Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?}(\#fig:cluster1)
+\end{figure}
 
 Färben wir das Diagramm mal ein (Abb. \@ref(fig:cluster2)).
 
-```{r cluster2, echo = FALSE, fig.cap = "Ein Streudiagramm - mit drei Clustern"}
-p2
-```
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster2-1} 
+
+}
+
+\caption{Ein Streudiagramm - mit drei Clustern}(\#fig:cluster2)
+\end{figure}
 
 Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende "Cluster", "Gruppen" oder "Typen" von Studierenden zu geben:
 
@@ -96,35 +72,25 @@ Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder
 Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. \@ref(fig:cluster3)).
 
 
-```{r cluster3, echo = FALSE, fig.cap = "Unterschiedliche Anzahlen von Clustern im Vergleich"}
+\begin{figure}
 
-library(tidyr)
-library(broom)
+{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster3-1} 
 
-points.matrix <- cbind(x1 = points$x1, x2 = points$x2)
-kclust <- kmeans(points.matrix, 3)
-kclusts <- data.frame(k=1:9) %>% group_by(k) %>% do(kclust=kmeans(points.matrix, .$k))
+}
 
-clusters <- kclusts %>% group_by(k) %>% do(tidy(.$kclust[[1]]))
-assignments <- kclusts %>% group_by(k) %>% do(augment(.$kclust[[1]], points.matrix))
-clusterings <- kclusts %>% group_by(k) %>% do(glance(.$kclust[[1]]))
-
-p3 <- ggplot(assignments, aes(x1, x2)) + geom_point(aes(color=.cluster)) + facet_wrap(~ k)
-
-
-p4 <- p3 + geom_point(data=clusters, size=10, shape="x")
-p4
-```
+\caption{Unterschiedliche Anzahlen von Clustern im Vergleich}(\#fig:cluster3)
+\end{figure}
 
 Das "X" soll den "Mittelpunkt" des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch "Varianz innerhalb des Clusters" oder kurz "Varianz within" bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.
 
-```{r cluster4, echo = FALSE, fig.cap = "Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot."}
-ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept = 3, linetype = "dashed", color = "grey30") +
-  xlab("Anzahl der Cluster") +
-  ylab("Summe der Varianz within über alle Cluster") +
-  scale_x_continuous(breaks = 1:9)
+\begin{figure}
 
-```
+{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster4-1} 
+
+}
+
+\caption{Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.}(\#fig:cluster4)
+\end{figure}
 
 Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeihchnet. Fertig!
 
@@ -133,10 +99,14 @@ Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf ein
 
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
 
-```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene"}
+\begin{figure}
 
-knitr::include_graphics("images/cluster/distanz_crop.png")
-```
+{\centering \includegraphics[width=0.7\linewidth]{images/cluster/distanz_crop} 
+
+}
+
+\caption{Distanz zwischen zwei Punkten in der Ebene}(\#fig:distanz)
+\end{figure}
 
 
 Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung ähmm... geliebt:
@@ -147,10 +117,14 @@ In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\s
 
 Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch "Statistikliebe" erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).
 
-```{r pythagoras2, echo = FALSE, fig.cap = "Pythagoras in 3D"}
+\begin{figure}
 
-knitr::include_graphics("images/cluster/pythagoras2_crop.png")
-```
+{\centering \includegraphics[width=0.7\linewidth]{images/cluster/pythagoras2_crop} 
+
+}
+
+\caption{Pythagoras in 3D}(\#fig:pythagoras2)
+\end{figure}
 
 Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
 
@@ -169,10 +143,14 @@ Intuitiv gesprochen, "schalten wir mehrere Pythagoras-Sätze hintereinander".
 >   Der euklidische Abstand berechnet sich mit Pythagoras' Satz!
 
 
-```{r pythagoras, echo = FALSE, fig.cap = "Pythagoras in Reihe geschaltet"}
+\begin{figure}
 
-knitr::include_graphics("images/cluster/pythagoras_crop.png")
-```
+{\centering \includegraphics[width=0.7\linewidth]{images/cluster/pythagoras_crop} 
+
+}
+
+\caption{Pythagoras in Reihe geschaltet}(\#fig:pythagoras)
+\end{figure}
 
 Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.
 
@@ -181,7 +159,8 @@ Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist 
 
 Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: "Die Sendung mit der Maus", "Bugs Bunny", "Rambo Teil 1", "Vom Winde verweht" und "MacGyver".
 
-```{r}
+
+```r
 profs <- data_frame(
   film1 = c(9, 1, 8),
   film2 = c(8, 2, 7),
@@ -190,7 +169,6 @@ profs <- data_frame(
   film5 = c(7, 2, 6)
 )
 
-
 ```
 
 Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben eingen größeren "Abstand" in ihren Vorlieben? 
@@ -198,8 +176,12 @@ Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Profes
 Wir könnten einen "fünffachen Pythagoras" zu Rate ziehen. Praktischerweise gibt es aber eine R-Funktion, die uns die Rechnerei abnimmt:
 
 
-```{r}
+
+```r
 dist(profs)
+#>       1     2
+#> 2 13.23      
+#> 3  2.65 10.77
 ```
 
 Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwischen Prof 2 und 3 auch recht groß (10.8). Aber der Abstand zwischen Prof. 1 und 3 ist relativ klein! Endlich hätten wir diese Frage auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben an...
@@ -210,7 +192,8 @@ Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten*
 
 Sie können ihn von <https://goo.gl/eUm8PI> als `csv`-Datei herunterladen; oder, wenn sich die Datei im Unterordner `data/` (relativ zu ihrem Arbeitsverzeichnis) befindet:
 
-```{r read-data-segment}
+
+```r
 segment <- read.csv2("data/segment.csv")
 ```
 
@@ -219,8 +202,18 @@ Wir verwenden die Variante `read.csv2`, da es sich um eine "deutsche" CSV-Datei 
 
 
 Ein Überblick über die Daten verschafft uns die Funktion `glimpse`.
-```{r glimpse-segment}
+
+```r
 glimpse(segment)
+#> Observations: 300
+#> Variables: 7
+#> $ Alter          <dbl> 50.2, 40.7, 43.0, 40.3, 41.1, 40.2, 39.5, 35.7,...
+#> $ Geschlecht     <fctr> Mann, Mann, Frau, Mann, Frau, Mann, Frau, Mann...
+#> $ Einkommen      <dbl> 51356, 64411, 71615, 42728, 71641, 60325, 54746...
+#> $ Kinder         <int> 0, 3, 2, 1, 4, 2, 5, 1, 1, 0, 3, 4, 0, 2, 6, 0,...
+#> $ Eigenheim      <fctr> Nein, Nein, Ja, Nein, Nein, Ja, Nein, Nein, Ne...
+#> $ Mitgliedschaft <fctr> Nein, Nein, Nein, Nein, Nein, Nein, Ja, Ja, Ne...
+#> $ Segment        <fctr> Gemischte Vorstadt, Gemischte Vorstadt, Gemisc...
 ```
 
 
@@ -228,16 +221,34 @@ glimpse(segment)
 
 
 Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
-```{r dist-segment}
+
+```r
 dist(head(segment))
+#>         1       2       3       4       5
+#> 2 19941.8                                
+#> 3 30946.1 11004.3                        
+#> 4 13179.5 33121.3 44125.6                
+#> 5 30985.9 11044.0    39.9 44165.3        
+#> 6 13700.4  6241.5 17245.8 26879.9 17285.5
 ```
 
 Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
 
 Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.
 
-```{r}
+
+```r
 daisy(head(segment))
+#> Dissimilarities :
+#>       1     2     3     4     5
+#> 2 0.307                        
+#> 3 0.560 0.390                  
+#> 4 0.219 0.184 0.502            
+#> 5 0.516 0.220 0.242 0.404      
+#> 6 0.401 0.206 0.239 0.268 0.426
+#> 
+#> Metric :  mixed ;  Types = I, N, I, I, N, N, N 
+#> Number of objects : 6
 ```
 
 
@@ -257,7 +268,8 @@ Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung
 
 
 Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale, und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:
-```{r}
+
+```r
 segment.num <- segment %>%
   mutate(Frau = Geschlecht == "Frau") %>%
   mutate(Eigenheim = Eigenheim =="Ja") %>%
@@ -269,19 +281,54 @@ segment.num <- segment %>%
 
 Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion `kmeans()` erfolgt dies durch die Option `nstart=`. Hier mit `k=4` Clustern:
 
-```{r}
+
+```r
 set.seed(1896)
 
 seg.k <- kmeans(segment.num, centers = 4, nstart = 10)
 seg.k
+#> K-means clustering with 4 clusters of sizes 111, 26, 58, 105
+#> 
+#> Cluster means:
+#>   Alter Einkommen Kinder Eigenheim Mitgliedschaft  Frau
+#> 1  42.9     46049  1.649     0.505         0.1081 0.568
+#> 2  56.4     85973  0.385     0.538         0.0385 0.538
+#> 3  27.0     22608  1.224     0.276         0.2069 0.414
+#> 4  43.6     62600  1.505     0.457         0.1238 0.590
+#> 
+#> Clustering vector:
+#>   [1] 1 4 4 1 4 4 4 1 2 4 1 1 4 4 1 1 1 1 1 4 4 4 1 4 1 1 1 1 4 1 4 4 1 1 2
+#>  [36] 1 4 1 1 4 4 4 1 4 4 4 4 1 1 1 1 1 2 1 1 4 4 4 4 1 4 1 4 1 1 1 1 4 4 4
+#>  [71] 4 1 1 4 1 1 4 4 4 4 1 4 1 3 1 4 1 1 1 1 4 4 4 1 1 4 1 4 4 4 3 3 3 3 3
+#> [106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#> [141] 3 3 3 3 3 3 3 3 3 3 1 2 4 2 2 4 1 1 2 2 4 4 1 1 4 2 4 4 1 2 2 3 4 1 2
+#> [176] 2 4 2 3 4 4 4 1 1 1 1 1 1 4 3 1 4 4 4 4 1 1 1 2 4 4 1 2 4 4 1 4 2 1 2
+#> [211] 4 3 4 2 2 4 2 1 4 3 1 2 2 4 2 4 4 1 4 4 1 1 1 1 1 3 1 1 4 1 4 3 1 4 1
+#> [246] 4 1 4 1 4 4 4 4 1 1 1 4 4 1 1 1 1 1 1 4 1 1 1 1 1 2 4 4 1 4 1 1 1 1 2
+#> [281] 4 4 4 4 1 4 1 4 4 4 1 4 1 4 1 4 1 1 4 1
+#> 
+#> Within cluster sum of squares by cluster:
+#> [1] 3.18e+09 2.22e+09 1.69e+09 2.81e+09
+#>  (between_SS / total_SS =  90.6 %)
+#> 
+#> Available components:
+#> 
+#> [1] "cluster"      "centers"      "totss"        "withinss"    
+#> [5] "tot.withinss" "betweenss"    "size"         "iter"        
+#> [9] "ifault"
 ```
-Neben der Anzahl Beobachtungen im Cluster (z. B. `r seg.k$size[2]` in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster `r which.min(seg.k$centers[,"Alter"])` mit `r round(min(seg.k$centers[,"Alter"]))` am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit `r round(max(seg.k$centers[,"Eigenheim"]*100))` \% in Cluster `r which.max(seg.k$centers[,"Eigenheim"])` am höchsten.
+Neben der Anzahl Beobachtungen im Cluster (z. B. 26 in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster 3 mit 27 am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit 54 \% in Cluster 2 am höchsten.
 
 Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion `clusplot()` aus dem Paket `cluster` erhalten.
-```{r}
+
+```r
 clusplot(segment.num, seg.k$cluster, 
          color = TRUE, shade = TRUE, labels = 4)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
 Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?^[Das Paket `NbClust`, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) *NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set*, Journal of Statistical Software, 61(6), 1-36. [http://dx.doi.org/10.18637/jss.v061.i06](http://dx.doi.org/10.18637/jss.v061.i06), bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.]
 
 ***
