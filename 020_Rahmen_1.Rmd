@@ -20,9 +20,8 @@ width.cutoff=60
 
 \mainmatter
 
-%\pagenumbering{arabic}
 \setcounter{chapter}{0}
-\chapter{Grundlagen}
+\part{Grundlagen}
 
 # Rahmen
 
