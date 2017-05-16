@@ -28,8 +28,10 @@ biblio-style: apalike
 source("includes/libs.R")
 ```
 
+`r if (knitr:::is_latex_output()) '\\newpage\\setcounter{chapter}{0}\\chapter{Vorwort}'`
+`r if (!(knitr:::is_latex_output())) '# Vorwort {-}'`
 
-# Vorwort {-}
+
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
 knitr::include_graphics("images/FOM.jpg")
@@ -122,7 +124,7 @@ knitr::include_graphics("images/licence.png")
 
 **Danke**
 
-Die Mitglieder des ifes-Instituts gaben reichhaltig Rückmeldung; Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen angemahnt. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
+Die Mitglieder des ifes-Instituts gaben reichhaltig Rückmeldung; Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen ~~angemahnt~~ vorgenommen. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
 
 **Zitieren**
 

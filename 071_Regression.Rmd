@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 
 ```
 
+<<<<<<< HEAD
+=======
+\chapter{Geleitetes Modellieren}
+>>>>>>> book-parts-chapter
 
 # Klassische lineare (numerische) Regression
 

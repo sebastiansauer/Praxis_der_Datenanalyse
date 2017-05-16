@@ -18,8 +18,12 @@ knitr::opts_chunk$set(
 width.cutoff=60
 ```
 
-\pagenumbering{arabic}
+\mainmatter
 
+
+%\pagenumbering{arabic}
+\setcounter{chapter}{0}
+\chapter{Grundlagen}
 
 
 # Rahmen
