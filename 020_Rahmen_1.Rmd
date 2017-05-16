@@ -22,7 +22,7 @@ width.cutoff=60
 
 %\pagenumbering{arabic}
 \setcounter{chapter}{0}
-\chapter{GRUNDLAGEN}
+\chapter{Grundlagen}
 
 # Rahmen
 

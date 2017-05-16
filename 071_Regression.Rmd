@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ```
 
-\chapter{GELEITETES MODELLIEREN}
+\chapter{Geleitetes Modellieren}
 
 # Klassische lineare (numerische) Regression
 

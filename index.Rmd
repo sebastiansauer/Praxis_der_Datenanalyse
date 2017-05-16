@@ -28,7 +28,7 @@ biblio-style: apalike
 source("includes/libs.R")
 ```
 
-`r if (knitr:::is_latex_output()) '\\newpage\\setcounter{chapter}{-1}\\chapter{Vorwort}'`
+`r if (knitr:::is_latex_output()) '\\newpage\\setcounter{chapter}{0}\\chapter{Vorwort}'`
 `r if (!(knitr:::is_latex_output())) '# Vorwort {-}'`
 
 

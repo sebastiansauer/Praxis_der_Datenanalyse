@@ -112,7 +112,26 @@
   \thm@preskip=8pt plus 2pt minus 4pt
   \thm@postskip=\thm@preskip
 }
+
+
+%NM:
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+  \ifnum \c@secnumdepth >\m@ne
+    \if@mainmatter
+        \huge\scshape\bfseries\scshape \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+  \fi
+  \interlinepenalty\@M
+  \Huge \scshape\bfseries\scshape #1\par\nobreak
+  \vskip 40\p@
+}}
+
 \makeatother
+
 
 % NM: Zu einem frontmatter gehört auch ein mainmatter, appendix und backmatter! ;-) - Habe ich daher mal eingefügt!
 \frontmatter
