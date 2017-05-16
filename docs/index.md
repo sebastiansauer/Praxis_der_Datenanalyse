@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer und Oliver Gansser. Mit Beiträgen von Matthias Gehrke und Karsten Lübke"
-date: "15 May, 2017"
+date: "16 May, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an IFES"
@@ -26,8 +26,10 @@ biblio-style: apalike
 
 
 
+\newpage\setcounter{chapter}{0}\chapter{Vorwort}
 
-# Vorwort {-}
+
+
 
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
@@ -114,8 +116,7 @@ Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.
 
 
 **Danke**
-
-Die Mitglieder des ifes-Instituts gaben reichhaltig Rückmeldung; Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen angemahnt. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
+Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen ~~angemahnt~~ vorgenommen. Der Austausch mit den ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
 
 **Zitieren**
 
@@ -135,11 +136,14 @@ Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wieder
 Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.
 
 
-
+Sebastian Sauer
 
 ---
 
-Herausgeber: FOM Hochschule für Oekonomie & Management gemeinnützige GmbH
+
+
+
+**Herausgeber: FOM Hochschule für Oekonomie & Management gemeinnützige GmbH**
  
 Dieses Skript dient als Begleitmaterial zum Modul „Praxis der Datenanalyse“ des Masterstudiengangs „Wirtschaftspsychologie & Consulting“ der FOM Hochschule für Oekonomie & Management.
  
@@ -149,4 +153,3 @@ Weitere Informationen finden Sie unter <www.fom.de>
 
 
 
-Sebastian Sauer

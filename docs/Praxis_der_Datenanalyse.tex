@@ -139,7 +139,7 @@ und Karsten Lübke}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{15 May, 2017}
+  \date{16 May, 2017}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -176,9 +176,9 @@ und Karsten Lübke}
   }%
 \fi
 
-\renewcommand{\thesection}{\arabic{section}}  % ses
-
-
+% Hier müsste noch das Chapter mit rein! Sonst gibt es Das nicht in der Ausgabe!
+% Daher habe ich das auskommentiert! (NM)
+%\renewcommand{\thesection}{\arabic{section}}  % ses
 
 
 \makeatletter
@@ -255,8 +255,28 @@ und Karsten Lübke}
   \thm@preskip=8pt plus 2pt minus 4pt
   \thm@postskip=\thm@preskip
 }
+
+
+%NM:
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+  \ifnum \c@secnumdepth >\m@ne
+    \if@mainmatter
+        \huge\scshape\bfseries\scshape \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+  \fi
+  \interlinepenalty\@M
+  \Huge \scshape\bfseries\scshape #1\par\nobreak
+  \vskip 40\p@
+}}
+
 \makeatother
 
+
+% NM: Zu einem frontmatter gehört auch ein mainmatter, appendix und backmatter! ;-) - Habe ich daher mal eingefügt!
 \frontmatter
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
@@ -270,8 +290,9 @@ und Karsten Lübke}
 }
 \listoftables
 \listoffigures
-\chapter*{Vorwort}\label{vorwort}
+\newpage
 
+\setcounter{chapter}{0}\chapter{Vorwort}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -436,16 +457,15 @@ Lübke} schrieb den Großteil des Kapitels zur Regression und zur
 Clusteranalyse. \emph{Matthias Gehrke} schrieb den Großteil des Kapitels
 zur logistischen Regression.
 
-\textbf{Danke}
-
-Die Mitglieder des ifes-Instituts gaben reichhaltig Rückmeldung; Norman
-Markgraf hat umfangreich Fehler gejagt und Verbesserungen angemahnt.
-Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die
-Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses
-Projekt unterstützt. Die Abteilung Medienentwicklung der FOM hat bei
-Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele
-Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin.
-Ihnen allen: Vielen Dank!
+\textbf{Danke} Norman Markgraf hat umfangreich Fehler gejagt und
+Verbesserungen \sout{angemahnt} vorgenommen. Der Austausch mit den
+ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer
+Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie
+das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt.
+Die Abteilung Medienentwicklung der FOM hat bei Fragen rund um die
+Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen
+auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen
+Dank!
 
 \textbf{Zitieren}
 
@@ -473,10 +493,12 @@ als freie Software (frei wie in Bier und frei wie in Freiheit).
 Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet,
 welches Frauen und Männer in gleichen Maßen ansprechen soll.
 
+Sebastian Sauer
+
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Herausgeber: FOM Hochschule für Oekonomie \& Management gemeinnützige
-GmbH
+\textbf{Herausgeber: FOM Hochschule für Oekonomie \& Management
+gemeinnützige GmbH}
 
 Dieses Skript dient als Begleitmaterial zum Modul „Praxis der
 Datenanalyse`` des Masterstudiengangs „Wirtschaftspsychologie \&
@@ -489,15 +511,15 @@ international anerkannten Hochschulabschluss (Bachelor/Master) erlangen
 wollen. Weitere Informationen finden Sie unter
 \textless{}www.fom.de\textgreater{}
 
-Sebastian Sauer
+\newpage
 
-\chapter{Organisatorisches}\label{organisatorisches}
+\section{Organisatorisches}\label{organisatorisches}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
 \begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
-\section{Modulziele}\label{modulziele}
+\subsection{Modulziele}\label{modulziele}
 
 Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
@@ -520,7 +542,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
   Vorhersagemodellen beantworten.
 \end{itemize}
 
-\section{Themen pro Termin}\label{themen-pro-termin}
+\subsection{Themen pro Termin}\label{themen-pro-termin}
 
 Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11
 Termine (vgl. \ref{tab:Themen}).
@@ -624,7 +646,7 @@ Wiederholung\strut
 \bottomrule
 \end{longtable}
 
-\section{Vorerfahrung}\label{vorerfahrung}
+\subsection{Vorerfahrung}\label{vorerfahrung}
 
 Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
 
@@ -640,9 +662,9 @@ Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
   Grundlagen der Datenvisualisierung
 \end{itemize}
 
-\section{Prüfung}\label{prufung}
+\subsection{Prüfung}\label{prufung}
 
-\subsection{Prüfungshinweise}\label{prufungshinweise}
+\subsubsection{Prüfungshinweise}\label{prufungshinweise}
 
 \begin{itemize}
 \tightlist
@@ -679,7 +701,7 @@ Unterricht mit folgenden Ausnahmen:
   \emph{Anhang}.
 \end{itemize}
 
-\subsection{Klausur}\label{klausur}
+\subsubsection{Klausur}\label{klausur}
 
 \begin{itemize}
 \item
@@ -720,7 +742,7 @@ Unterricht mit folgenden Ausnahmen:
   Die Musterlösungen zu offenen Fragen sind elektronisch hinterlegt.
 \end{itemize}
 
-\subsection{Datenanalyse}\label{datenanalyse}
+\subsubsection{Datenanalyse}\label{datenanalyse}
 
 \begin{itemize}
 \item
@@ -763,7 +785,7 @@ Unterricht mit folgenden Ausnahmen:
   Verfahren an.
 \end{itemize}
 
-\subsection{Gliederungsvorschlag zur
+\subsubsection{Gliederungsvorschlag zur
 Datenanalyse}\label{gliederungsvorschlag-zur-datenanalyse}
 
 \begin{enumerate}
@@ -881,7 +903,7 @@ Datenanalyse}\label{gliederungsvorschlag-zur-datenanalyse}
   \end{enumerate}
 \end{enumerate}
 
-\section{Literatur}\label{literatur}
+\subsection{Literatur}\label{literatur}
 
 Zum Bestehen der Prüfung ist keine weitere Literatur fomal notwendig;
 allerdings ist es hilfreich, den Stoff aus unterschiedlichen
@@ -889,9 +911,11 @@ Blickwinkeln aufzuarbeiten. Dazu ist am ehesten das Buch von Wickham und
 Grolemund (Wickham und Grolemund \protect\hyperlink{ref-r4ds}{2016})
 hilreich, obwohl es deutlich tiefer geht als dieses Skript.
 
-\pagenumbering{arabic}
+\mainmatter
 
-\chapter{Rahmen}\label{rahmen}
+\%\pagenumbering{arabic} \setcounter{chapter}{0} \chapter{Grundlagen}
+
+\section{Rahmen}\label{rahmen}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -956,7 +980,7 @@ sondern ist in einem \emph{Rahmen} eingebettet. Dieser beinhaltet
 praktische Aspekte - wie Software, Datensätze - und grundsätzliche
 Überlegungen - wie Ziele und Grundannahmen.
 
-\section{Software installieren}\label{software-installieren}
+\subsection{Software installieren}\label{software-installieren}
 
 Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog.
 ``Entwicklungsumgebung'' RStudio einiges an komfortabler Funktionalität
@@ -974,7 +998,7 @@ Innovationen in R passieren in den Paketen. Und es gibt viele davon; als
 ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach
 dieser Quelle: \url{https://cran.r-project.org/web/packages/}.
 
-\subsection{R und RStudio
+\subsubsection{R und RStudio
 installieren}\label{r-und-rstudio-installieren}
 
 \includegraphics[width=0.20000\textwidth]{images/Rahmen/Rlogo.png}
@@ -1020,7 +1044,7 @@ anderen Reiter im Fenster rechts unten durch.
 Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der
 Shortcut für die Shortcuts ist \texttt{Shift-Alt-K}.
 
-\subsection{Hilfe! R tut nicht so wie ich das
+\subsubsection{Hilfe! R tut nicht so wie ich das
 will}\label{hilfe-r-tut-nicht-so-wie-ich-das-will}
 
 \begin{quote}
@@ -1109,7 +1133,7 @@ laufen, probieren Sie dieses:
   Pakete zu installieren.
 \end{itemize}
 
-\subsection{Hier werden Sie geholfen}\label{hier-werden-sie-geholfen}
+\subsubsection{Hier werden Sie geholfen}\label{hier-werden-sie-geholfen}
 
 Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete
 auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet.
@@ -1138,7 +1162,7 @@ Hier eine Auswahl:
   \url{http://stackoverflow.com}.
 \end{itemize}
 
-\subsection{Die Denk- und Gefühlswelt von
+\subsubsection{Die Denk- und Gefühlswelt von
 R}\label{die-denk--und-gefuhlswelt-von-r}
 
 \begin{itemize}
@@ -1150,7 +1174,7 @@ R}\label{die-denk--und-gefuhlswelt-von-r}
   Verwirrungen (bei R und beim Nutzer) führen kann.
 \end{itemize}
 
-\subsubsection{R-Skript-Dateien}\label{r-skript-dateien}
+\paragraph{R-Skript-Dateien}\label{r-skript-dateien}
 
 \begin{itemize}
 \item
@@ -1169,7 +1193,7 @@ R}\label{die-denk--und-gefuhlswelt-von-r}
   praktische Funktionen wie den ``Run-Button''.
 \end{itemize}
 
-\subsubsection{Stolpersteine beim Errisch
+\paragraph{Stolpersteine beim Errisch
 lernen}\label{stolpersteine-beim-errisch-lernen}
 
 \begin{quote}
@@ -1186,7 +1210,7 @@ R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich
 eine spirituelle Prüfung in Geduld und Hartnäckigkeit\ldots{} Tolle
 Gelegenheit, sich in diesen Tugenden zu trainieren :-)
 
-\subsection{Pakete installieren}\label{pakete-installieren}
+\subsubsection{Pakete installieren}\label{pakete-installieren}
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist,
 heißt \texttt{dplyr}. Wir werden viel mit diesem Paket arbeiten. Bitte
@@ -1248,7 +1272,7 @@ Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten
 installieren Sie alle Pakete, die wir in diesem Buch benötigen auf
 einmal, dann haben Sie Ruhe.
 
-\subsection{R-Pakete für dieses Buch}\label{r-pakete-fur-dieses-buch}
+\subsubsection{R-Pakete für dieses Buch}\label{r-pakete-fur-dieses-buch}
 
 In diesem Buch verwenden wir die folgenden R-Pakete; diese müssen
 installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte,
@@ -1273,7 +1297,7 @@ um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Datensätze}\label{daten}
+\subsubsection{Datensätze}\label{daten}
 
 \begin{itemize}
 \tightlist
@@ -1349,7 +1373,7 @@ Wir verwenden zwei Methoden, um Datensätze in R zu laden.
 Wir werden mit beiden Methoden arbeiten und ``on the job'' Details
 besprechen.
 
-\subsection{Aufgaben}\label{aufgaben}
+\subsubsection{Aufgaben}\label{aufgaben}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1361,9 +1385,9 @@ besprechen.
   vielleicht von Nutzen sein.
 \end{enumerate}
 
-\section{ERRRstkontakt}\label{errrstkontakt}
+\subsection{ERRRstkontakt}\label{errrstkontakt}
 
-\subsection{Hinweise}\label{hinweise}
+\subsubsection{Hinweise}\label{hinweise}
 
 Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
 
@@ -1411,7 +1435,7 @@ lm1
 Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen
 des Objekts ein (und schicken den Befehl ab).
 
-\subsection{R als Taschenrechner}\label{r-als-taschenrechner}
+\subsubsection{R als Taschenrechner}\label{r-als-taschenrechner}
 
 Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen.
 Geben Sie zum Üben die Befehle in der R Konsole hinter der
@@ -1462,7 +1486,7 @@ bedeutet. R arbeitet vektororientiert, und die \texttt{{[}1{]}} zeigt
 an, dass es sich um das erste (und hier auch letzte) Element des Vektors
 handelt.
 
-\subsection{Text und Variablen
+\subsubsection{Text und Variablen
 zuweisen}\label{text-und-variablen-zuweisen}
 
 Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):
@@ -1500,7 +1524,7 @@ Variablen \emph{mehr als} einen Wert zuweisen, muss man die Werte erst
 in einen Vektor ``zusammen binden''; das geht mit dem Befehl \texttt{c}
 (vom engl. ``\emph{\textbf{c}ombine}'').
 
-\subsection{Funktionen aufrufen}\label{funktionen-aufrufen}
+\subsubsection{Funktionen aufrufen}\label{funktionen-aufrufen}
 
 Um einen ``Befehl'' (präziser: eine Funktion) aufzurufen, geben wir
 ihren Namen an und definieren sog. ``Parameter'' in einer runden
@@ -1536,7 +1560,7 @@ Standard-Reihenfolge, die eine Funktion vorgibt halten:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Aufgaben}\label{aufgaben-1}
+\subsubsection{Aufgaben}\label{aufgaben-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1579,7 +1603,7 @@ Woher rührt der Fehler?
 \end{Highlighting}
 \end{Shaded}
 
-\section{Was ist Statistik? Wozu ist sie
+\subsection{Was ist Statistik? Wozu ist sie
 gut?}\label{was-ist-statistik-wozu-ist-sie-gut}
 
 Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema
@@ -1706,7 +1730,7 @@ Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt
 man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich
 sein können, man dies aber nicht berücksichtigt.
 
-\section{Befehlsübersicht}\label{befehlsubersicht}
+\subsection{Befehlsübersicht}\label{befehlsubersicht}
 
 Tabelle \ref{tab:befehle-rahmen} stellt die Befehle dieses Kapitels dar.
 
@@ -1732,7 +1756,7 @@ c & erstellt eine Spalte/ einen Vektor\\
 Diese Befehle ``wohnen'' alle im Standard-R; es ist für diese Befehle
 nicht nötig, zusätzliche Pakete zu installieren/ laden.
 
-\section{Verweise}\label{verweise}
+\subsection{Verweise}\label{verweise}
 
 \begin{itemize}
 \item
@@ -1753,7 +1777,7 @@ nicht nötig, zusätzliche Pakete zu installieren/ laden.
   glücklich oder zumindest fündig werden.
 \end{itemize}
 
-\chapter{Daten einlesen}\label{daten-einlesen}
+\section{Daten einlesen}\label{daten-einlesen}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -1789,7 +1813,7 @@ vernünftiger Form in R hinein?''.
 \caption{Daten sauber einlesen}\label{fig:step-Einlesen}
 \end{figure}
 
-\section{Daten in R importieren}\label{daten-in-r-importieren}
+\subsection{Daten in R importieren}\label{daten-in-r-importieren}
 
 In R kann man ohne Weiteres verschiedene, gebräuchliche (Excel oder CSV)
 oder weniger gebräuchliche (Feather\footnote{\url{https://cran.r-project.org/web/packages/feather/index.html}})
@@ -1802,7 +1826,8 @@ schnellen Klick auf \texttt{Import\ Dataset} im Reiter
   die entsprechende Syntax wird in der Konsole ausgegeben, so dass man
   sie sich anschauen und weiterverwenden kann}.
 
-\subsection{Excel-Dateien importieren}\label{excel-dateien-importieren}
+\subsubsection{Excel-Dateien
+importieren}\label{excel-dateien-importieren}
 
 Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die
 RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks
@@ -1831,7 +1856,7 @@ Daten (CSV, Excel,\ldots{}) können Sie \emph{nicht} öffnen über
 Skript-Dateien vorbehalten.
 \EndKnitrBlock{rmdcaution}
 
-\subsection{CSV-Dateien importieren}\label{csv-dateien-importieren}
+\subsubsection{CSV-Dateien importieren}\label{csv-dateien-importieren}
 
 Die gebräuchlichste Form von Daten für statistische Analysen ist
 wahrscheinlich das CSV-Format. Das ist ein einfaches Format, basierend
@@ -1871,7 +1896,7 @@ Lesen wir diese Daten jetzt ein:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Vorsicht bei nicht-amerikanisch kodierten
+\paragraph{Vorsicht bei nicht-amerikanisch kodierten
 Textdateien}\label{vorsicht-bei-nicht-amerikanisch-kodierten-textdateien}
 
 Der Befehl \texttt{read.csv} liest also eine CSV-Datei, was uns jetzt
@@ -1910,7 +1935,7 @@ Textdatei vorab mit einem Texteditor zu öffnen.
 \caption{Trennzeichen einer CSV-Datei in RStudio einstellen}\label{fig:rstudio-delimiter}
 \end{figure}
 
-\subsubsection{Vertiefung: Einlesen mit
+\paragraph{Vertiefung: Einlesen mit
 Prüfung}\label{vertiefung-einlesen-mit-prufung}
 
 \begin{verbatim}
@@ -1929,7 +1954,7 @@ auf Errisch ``nicht''). Falls die Datei nicht im Ordner existiert, laden
 wir sie mit \texttt{read.csv} herunter und direkt ins R hinein.
 Andernfalls (\texttt{else}) lesen wir sie direkt ins R hinein.
 
-\subsection{Das Arbeitsverzeichnis}\label{das-arbeitsverzeichnis}
+\subsubsection{Das Arbeitsverzeichnis}\label{das-arbeitsverzeichnis}
 
 \BeginKnitrBlock{rmdcaution}
 Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die
@@ -1956,7 +1981,7 @@ z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
 R geht dann davon aus, dass sich die Datei \texttt{daten\_deutsch.csv}
 im Arbeitsverzeichnis befindet.
 
-\section{Normalform einer Tabelle}\label{normalform-einer-tabelle}
+\subsection{Normalform einer Tabelle}\label{normalform-einer-tabelle}
 
 Tabellen in R werden als \texttt{data\ frames} (``Dataframe'' auf
 Denglisch; moderner: als \texttt{tibble}, Tibble kurz für ``Table-df'')
@@ -2028,9 +2053,9 @@ linke nicht.
 \caption{Illustration eines Datensatzes in Normalform}\label{fig:fig-Normalform}
 \end{figure}
 
-\section{Vertiefung}\label{vertiefung}
+\subsection{Vertiefung}\label{vertiefung}
 
-\subsection{Tabelle in Normalform
+\subsubsection{Tabelle in Normalform
 bringen}\label{tabelle-in-normalform-bringen}
 
 Eine der ersten Aktionen einer Datenanalyse sollte also die
@@ -2070,7 +2095,7 @@ Ein Beispiel dazu:
   Namen \texttt{year} geschrieben.
 \end{itemize}
 
-\subsection{Textkodierung}\label{textkodierung}
+\subsubsection{Textkodierung}\label{textkodierung}
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht
 man\ldots{} Text und sonst nichts, also keine Formatierung etc. Eine
@@ -2096,7 +2121,7 @@ einer Textdatei festlegen.
 Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
 \end{quote}
 
-\subsection{Daten exportieren}\label{daten-exportieren}
+\subsubsection{Daten exportieren}\label{daten-exportieren}
 
 Wie bekommt man seine Daten wieder aus R raus (``ich will zu Excel
 zurück!'')?
@@ -2111,7 +2136,7 @@ write.csv(name_der_tabelle, "Dateiname.csv")
 Mit \texttt{help(write.csv)} bekommt man mehr Hinweise dazu. Beachten
 Sie, dass immer in das aktuelle Arbeitsverzeichnis geschrieben wird.
 
-\section{Befehlsübersicht}\label{befehlsubersicht-1}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-1}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -2126,8 +2151,8 @@ tidyr::separate & ``Zieht'' Spalten auseinander.\tabularnewline
 \bottomrule
 \end{longtable}
 
-\section[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, R, F, R, R, R,
-  F, F}}{Aufgaben}}\label{aufgaben-2}
+\subsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, R, F, R, R,
+  R, F, F}}{Aufgaben}}\label{aufgaben-2}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -2157,7 +2182,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Verweise}\label{verweise-1}
+\subsection{Verweise}\label{verweise-1}
 
 \begin{itemize}
 \tightlist
@@ -2166,7 +2191,7 @@ Richtig oder Falsch!?
   Thema (Wickham und Grolemund \protect\hyperlink{ref-r4ds}{2016}).
 \end{itemize}
 
-\chapter{Datenjudo}\label{datenjudo}
+\section{Datenjudo}\label{datenjudo}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -2255,7 +2280,7 @@ Geschichte) nicht dahinter. Und, wenn man den Trick kennt, ganz einfach.
 Aber wie so oft ist es nicht leicht, den Trick zu finden. Sorgfältiges
 Datenjudo hat hier den Schlüssel zum Erfolg gebracht.
 
-\section{Typische Probleme}\label{typische-probleme}
+\subsection{Typische Probleme}\label{typische-probleme}
 
 Bevor man seine Statistik-Trickkiste so richtig schön aufmachen kann,
 muss man die Daten häufig erst noch in Form bringen. Das ist nicht
@@ -2285,7 +2310,7 @@ Typische Probleme, die immer wieder auftreten, sind:
   der pro Person die Anzahl der richtig beantworteten Fragen steht.
 \end{itemize}
 
-\section{\texorpdfstring{Daten aufbereiten mit
+\subsection{\texorpdfstring{Daten aufbereiten mit
 \texttt{dplyr}}{Daten aufbereiten mit dplyr}}\label{daten-aufbereiten-mit-dplyr}
 
 Willkommen in der Welt von \texttt{dyplr}! \texttt{dplyr} hat seinen
@@ -2293,7 +2318,7 @@ Namen, weil es sich ausschließlich um \emph{D}ataframes bemüht; es
 erwartet einen Dataframe als Eingabe und gibt einen Dataframe zurück
 (zumindest bei den meisten Befehlen).
 
-\subsection{\texorpdfstring{Die zwei Prinzipien von
+\subsubsection{\texorpdfstring{Die zwei Prinzipien von
 \texttt{dplyr}}{Die zwei Prinzipien von dplyr}}\label{die-zwei-prinzipien-von-dplyr}
 
 Es gibt viele Möglichkeiten, Daten mit R aufzubereiten;
@@ -2356,10 +2381,10 @@ Dataframe aus.
 Werfen wir einen Blick auf ein paar typische Bausteine von
 \texttt{dplyr}.
 
-\section{\texorpdfstring{Zentrale Bausteine von
+\subsection{\texorpdfstring{Zentrale Bausteine von
 \texttt{dplyr}}{Zentrale Bausteine von dplyr}}\label{zentrale-bausteine-von-dplyr}
 
-\subsection{\texorpdfstring{Zeilen filtern mit
+\subsubsection{\texorpdfstring{Zeilen filtern mit
 \texttt{filter}}{Zeilen filtern mit filter}}\label{zeilen-filtern-mit-filter}
 
 Häufig will man bestimmte Zeilen aus einer Tabelle filtern;
@@ -2422,7 +2447,7 @@ Fehlern. Im Zweifel den Namen des richtigen Pakets ergänzen, und zwar
 zum Beispiel so: \texttt{dplyr::filter(...)}.
 \EndKnitrBlock{rmdcaution}
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, R, F, F, R}}{Aufgaben}}\label{aufgaben-3}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, R, F, F, R}}{Aufgaben}}\label{aufgaben-3}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -2445,8 +2470,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\subsubsection{\texorpdfstring{Vertiefung: Fortgeschrittene Beispiele
-für
+\paragraph{\texorpdfstring{Vertiefung: Fortgeschrittene Beispiele für
 \texttt{filter}}{Vertiefung: Fortgeschrittene Beispiele für filter}}\label{vertiefung-fortgeschrittene-beispiele-fur-filter}
 
 Einige fortgeschrittene Beispiele für \texttt{filter}:
@@ -2492,7 +2516,7 @@ besorgt sind? Sagen wir bei \texttt{income} und bei \texttt{sex}:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{\texorpdfstring{Spalten wählen mit
+\subsubsection{\texorpdfstring{Spalten wählen mit
 \texttt{select}}{Spalten wählen mit select}}\label{spalten-wahlen-mit-select}
 
 Das Gegenstück zu \texttt{filter} ist
@@ -2547,7 +2571,7 @@ Tatsächlich ist der Befehl \texttt{select} sehr flexibel; es gibt viele
 Möglichkeiten, Spalten auszuwählen. Im \texttt{dplyr}-Cheatsheet findet
 sich ein guter Überblick dazu.
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, F, R, R, F}}{Aufgaben}}\label{aufgaben-4}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, F, R, R, F}}{Aufgaben}}\label{aufgaben-4}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -2571,7 +2595,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\subsection{\texorpdfstring{Zeilen sortieren mit
+\subsubsection{\texorpdfstring{Zeilen sortieren mit
 \texttt{arrange}}{Zeilen sortieren mit arrange}}\label{zeilen-sortieren-mit-arrange}
 
 Man kann zwei Arten des Umgangs mit R unterscheiden: Zum einen der
@@ -2716,7 +2740,7 @@ Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da
 ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert
 habe, falls ich sonst zu wenig Objekte zurückliefern würde''.
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, F, F, F, F}}{Aufgaben}}\label{aufgaben-5}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{F, F, F, F, F}}{Aufgaben}}\label{aufgaben-5}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -2738,7 +2762,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\subsection{\texorpdfstring{Datensatz gruppieren mit
+\subsubsection{\texorpdfstring{Datensatz gruppieren mit
 \texttt{group\_by}}{Datensatz gruppieren mit group\_by}}\label{datensatz-gruppieren-mit-group_by}
 
 Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist
@@ -2830,7 +2854,7 @@ Abb. \ref{fig:sac}).
 \caption{Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'}\label{fig:sac}
 \end{figure}
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, F, R, R}}{Aufgaben}}\label{aufgaben-6}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, F, R, R}}{Aufgaben}}\label{aufgaben-6}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -2857,7 +2881,7 @@ Mit group\_by teilt man einen Datensatz in Gruppen ein, entsprechend der
 Werte einer mehrerer Spalten.
 \end{quote}
 
-\subsection{\texorpdfstring{Eine Spalte zusammenfassen mit
+\subsubsection{\texorpdfstring{Eine Spalte zusammenfassen mit
 \texttt{summarise}}{Eine Spalte zusammenfassen mit summarise}}\label{eine-spalte-zusammenfassen-mit-summarise}
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von
@@ -2965,7 +2989,7 @@ Mit summarise kann man eine Spalte eines Dataframes zu einem Wert
 zusammenfassen.
 \end{quote}
 
-\subsubsection{\texorpdfstring{Deskriptive Statistik mit
+\paragraph{\texorpdfstring{Deskriptive Statistik mit
 \texttt{summarise}}{Deskriptive Statistik mit summarise}}\label{deskriptive-statistik-mit-summarise}
 
 \begin{quote}
@@ -3035,7 +3059,7 @@ zurückbekommt, mit dem man weiterarbeiten kann. Außerdem lassen
 \texttt{mean} etc. keine Gruppierungsoperationen zu; über
 \texttt{group\_by} kann man dies aber bei \texttt{dplyr} erreichen.
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, R, R, R, R}}{Aufgaben}}\label{aufgaben-7}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, R, R, R, R}}{Aufgaben}}\label{aufgaben-7}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -3086,7 +3110,7 @@ Lösung:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{\texorpdfstring{Zeilen zählen mit \texttt{n} und
+\subsubsection{\texorpdfstring{Zeilen zählen mit \texttt{n} und
 \texttt{count}}{Zeilen zählen mit n und count}}\label{zeilen-zahlen-mit-n-und-count}
 
 Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum
@@ -3185,7 +3209,7 @@ Merke:
 n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle.
 \end{quote}
 
-\subsubsection{Vertiefung zum Zählen von Zeilen: Relative
+\paragraph{Vertiefung zum Zählen von Zeilen: Relative
 Häufigkeiten}\label{vertiefung-zum-zahlen-von-zeilen-relative-haufigkeiten}
 
 Manchmal ist es praktisch, nicht zur die (absolute) Häufigkeiten von
@@ -3276,7 +3300,7 @@ Anteile auszählen möchte:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, R, F, F}}{Aufgaben}}\label{aufgaben-8}
+\paragraph[Aufgaben]{\texorpdfstring{Aufgaben\footnote{R, R, F, F}}{Aufgaben}}\label{aufgaben-8}
 
 \BeginKnitrBlock{rmdexercises}
 Richtig oder Falsch!?
@@ -3320,7 +3344,7 @@ Richtig oder Falsch!?
 
 Ah! Der Score \texttt{34} ist der häufigste!
 
-\section{Die Pfeife}\label{die-pfeife}
+\subsection{Die Pfeife}\label{die-pfeife}
 
 Die zweite Idee zentrale Idee von \texttt{dplyr} kann man salopp als
 ``Durchpfeifen''\index{Pfeife} oder die ``Idee der
@@ -3428,7 +3452,7 @@ Funktionen erfüllen dieses Kriterium aber nicht; in dem Fall liefert
 \texttt{dplyr} eine Fehlermeldung.
 \EndKnitrBlock{rmdcaution}
 
-\subsection{\texorpdfstring{Spalten berechnen mit
+\subsubsection{\texorpdfstring{Spalten berechnen mit
 \texttt{mutate}}{Spalten berechnen mit mutate}}\label{spalten-berechnen-mit-mutate}
 
 Wenn man die Pfeife benutzt, ist der Befehl
@@ -3497,7 +3521,7 @@ Abb. \ref{fig:fig-mutate} zeigt Sinnbild für \texttt{mutate}:
 \caption{Sinnbild für mutate}\label{fig:fig-mutate}
 \end{figure}
 
-\subsection{Aufgaben}\label{aufgaben-9}
+\subsubsection{Aufgaben}\label{aufgaben-9}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3587,7 +3611,7 @@ Lösung:
     \texttt{arr\_delay}}
 \end{itemize}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-2}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-2}
 
 Tabelle \ref{tab:befehle-datenjudo} fasst die R-Funktionen dieses
 Kapitels zusammen.
@@ -3619,7 +3643,7 @@ dplyr::mutate & erzeugt/berechnet Spalten\\
 \end{tabular}
 \end{table}
 
-\section{Verweise}\label{verweise-2}
+\subsection{Verweise}\label{verweise-2}
 
 \begin{itemize}
 \item
@@ -3637,7 +3661,7 @@ dplyr::mutate & erzeugt/berechnet Spalten\\
   Thema (Wickham und Grolemund \protect\hyperlink{ref-r4ds}{2016}).
 \end{itemize}
 
-\chapter{Praxisprobleme der
+\section{Praxisprobleme der
 Datenaufbereitung}\label{praxisprobleme-der-datenaufbereitung}
 
 \BeginKnitrBlock{rmdcaution}
@@ -3670,9 +3694,10 @@ Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar
 typische Aufgabenstellungen an, die im Rahmen der Datenaufbereitung
 häufig anfallen.
 
-\section{Datenaufbereitung}\label{datenaufbereitung}
+\subsection{Datenaufbereitung}\label{datenaufbereitung}
 
-\subsection{Auf fehlende Werte prüfen}\label{auf-fehlende-werte-prufen}
+\subsubsection{Auf fehlende Werte
+prüfen}\label{auf-fehlende-werte-prufen}
 
 Das geht recht einfach mit \texttt{summarise(mein\_dataframe)}. Der
 Befehl liefert für jede Spalte des Dataframe \texttt{mein\_dataframe}
@@ -3695,7 +3720,7 @@ die Anzahl der fehlenden Werte zurück.
 #> $ shoe_size <dbl> 40, 39, 39, 40, 46, 37, 38, 39, 38, 41, 39, 44, 38, ...
 \end{verbatim}
 
-\subsection{Fälle mit fehlenden Werte
+\subsubsection{Fälle mit fehlenden Werte
 löschen}\label{falle-mit-fehlenden-werte-loschen}
 
 Weist eine Variable (Spalte) ``wenig'' fehlende Werte auf, so kann es
@@ -3760,7 +3785,7 @@ Spalte UND DANN\ldots{}\\
 filtere die nicht-kompletten Fälle
 \EndKnitrBlock{rmdpseudocode}
 
-\subsection{Fehlende Werte ggf.
+\subsubsection{Fehlende Werte ggf.
 ersetzen}\label{fehlende-werte-ggf.-ersetzen}
 
 Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften
@@ -3786,7 +3811,7 @@ den Mittelwert der Spalte ersetzt\footnote{Hier findet sich eine
   ausführlichere Darstellung:
   \url{https://sebastiansauer.github.io/checklist_data_cleansing/index.html}}.
 
-\subsection{Nach Fehlern suchen}\label{nach-fehlern-suchen}
+\subsubsection{Nach Fehlern suchen}\label{nach-fehlern-suchen}
 
 Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte
 darauf prüfen; so könnte man sich ein Histogramm ausgeben lassen pro
@@ -3812,7 +3837,7 @@ Werte ausgeben lassen.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Ausreißer identifizieren}\label{ausreier-identifizieren}
+\subsubsection{Ausreißer identifizieren}\label{ausreier-identifizieren}
 
 Ähnlich zu Fehlern, steht man Ausreißer häufig skeptisch gegenüber.
 Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt
@@ -3842,7 +3867,7 @@ um Ausreiser zu finden (vgl. Abb. \ref{fig:fig-ausreisser}).
 \caption{Ausreißer identifizieren}\label{fig:fig-ausreisser}
 \end{figure}
 
-\subsection{Hochkorrelierte Variablen
+\subsubsection{Hochkorrelierte Variablen
 finden}\label{hochkorrelierte-variablen-finden}
 
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden
@@ -3911,7 +3936,7 @@ unternehmen. Hätten wir eine sehr hohe Korrelation gefunden, so hätten
 wir eine der beiden beteiligten Variablen aus dem Datensatz löschen
 können.
 
-\subsection{z-Standardisieren}\label{z-standardisieren}
+\subsubsection{z-Standardisieren}\label{z-standardisieren}
 
 Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen
 zur vereinheitlichen. Die z-Standardisierung ist ein übliches Vorgehen.
@@ -3964,7 +3989,7 @@ Spalte wird berechnet als z-Transformierung der alten Spalte; zum
 Spaltenname wird ein ``\_z" hinzugefügt. Natürlich hätten wir auch mit
 \texttt{select} ``händisch'' die relevanten Spalten auswählen können.
 
-\subsection{Quasi-Konstante finden}\label{quasi-konstante-finden}
+\subsubsection{Quasi-Konstante finden}\label{quasi-konstante-finden}
 
 Hier suchen wir nach Variablen (Spalten), die nur einen Wert oder
 zumindest nur sehr wenige verschiedene Werte aufweisen. Oder, ähnlich:
@@ -3990,7 +4015,7 @@ Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Auf Normalverteilung
+\subsubsection{Auf Normalverteilung
 prüfen}\label{auf-normalverteilung-prufen}
 
 Einige statistische Verfahren gehen von normalverteilten Variablen aus,
@@ -4017,7 +4042,7 @@ Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen
 Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass
 wir keine weiteren Maßnahmen einleiten.
 
-\subsection{\texorpdfstring{Werte umkodieren und partionieren
+\subsubsection{\texorpdfstring{Werte umkodieren und partionieren
 (``binnen'')}{Werte umkodieren und partionieren (binnen)}}\label{werte-umkodieren-und-partionieren-binnen}
 
 \emph{Umkodieren}\index{Umkodieren} meint, die Werte zu ändern. Man
@@ -4052,7 +4077,7 @@ eine diskrete. Ein Bild erläutert das am einfachsten (vgl. Abb.
 \caption{Sinnbild zum 'Binnen'}\label{fig:cut-schere}
 \end{figure}
 
-\subsubsection{\texorpdfstring{Umkodieren und partionieren mit
+\paragraph{\texorpdfstring{Umkodieren und partionieren mit
 \texttt{car::recode}}{Umkodieren und partionieren mit car::recode}}\label{umkodieren-und-partionieren-mit-carrecode}
 
 Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei
@@ -4153,7 +4178,7 @@ umzukodieren bzw. zu binnen: \texttt{dplyr::recode}\footnote{\url{https://blog.r
 Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so
 dass wir an dieser Stelle bei \texttt{car::recode} bleiben.
 
-\subsubsection{Einfaches Umkodieren mit einer
+\paragraph{Einfaches Umkodieren mit einer
 Logik-Prüfung}\label{einfaches-umkodieren-mit-einer-logik-prufung}
 
 Nehmen wir an, wir möchten die Anzahl der Punkte in einer
@@ -4207,7 +4232,7 @@ Natürlich könnte man auch hier ``Durchpfeifen'':
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{\texorpdfstring{Binnen mit
+\paragraph{\texorpdfstring{Binnen mit
 \texttt{cut}}{Binnen mit cut}}\label{binnen-mit-cut}
 
 Numerische Werte in Klassen zu gruppieren (``to bin'', denglisch:
@@ -4230,7 +4255,7 @@ Eine numerische Variable \ldots{}
   in beliebige Klassen gruppieren
 \end{enumerate}
 
-\paragraph{Gleichgroße Intervalle}\label{gleichgroe-intervalle}
+\subparagraph{Gleichgroße Intervalle}\label{gleichgroe-intervalle}
 
 Nehmen wir an, wir möchten die numerische Variable ``Körpergröße'' in
 drei Gruppen einteilen: ``klein'', ``mittel'' und ``groß''. Der Range
@@ -4257,7 +4282,7 @@ wird \texttt{ggplot2} automatisch auch geladen{]}.
 \texttt{cut\_interval} liefert eine Variabel vom Typ \texttt{factor}
 zurück.
 
-\paragraph{Gleiche Gruppengrößen}\label{gleiche-gruppengroen}
+\subparagraph{Gleiche Gruppengrößen}\label{gleiche-gruppengroen}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4275,7 +4300,7 @@ Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das
 einer Aufteilung am Median (Median-Split).
 \end{quote}
 
-\paragraph{In beliebige Klassen
+\subparagraph{In beliebige Klassen
 gruppieren}\label{in-beliebige-klassen-gruppieren}
 
 \begin{Shaded}
@@ -4304,13 +4329,13 @@ herangezogen. Anschaulich gesprochen ist \texttt{cut} ein Messer, das
 ein Seil (die kontinuierliche Variable) mit einem oder mehreren
 Schnitten zerschneidet (vgl. Abb. \ref{fig:cut-schere}).
 
-\section{Deskriptive Statistiken
+\subsection{Deskriptive Statistiken
 berechnen}\label{deskriptive-statistiken-berechnen}
 
-\subsection{Mittelwerte pro Zeile
+\subsubsection{Mittelwerte pro Zeile
 berechnen}\label{mittelwerte-pro-zeile-berechnen}
 
-\subsubsection{\texorpdfstring{\texttt{rowMeans}}{rowMeans}}\label{rowmeans}
+\paragraph{\texorpdfstring{\texttt{rowMeans}}{rowMeans}}\label{rowmeans}
 
 Um Umfragedaten auszuwerten, will man häufig einen Mittelwert \emph{pro
 Zeile} berechnen. Normalerweise fasst man eine \emph{Spalte} zu einer
@@ -4340,7 +4365,7 @@ wir als Zwischenschritt einen ``schmäleren'' Datensatz,
 \texttt{extra\_items}. Im Anschluss berechnen wir mit \texttt{rowMeans}
 die Mittelwerte pro Zeile (engl. ``row'').
 
-\subsubsection{\texorpdfstring{Vertiefung:
+\paragraph{\texorpdfstring{Vertiefung:
 \texttt{dplyr}}{Vertiefung: dplyr}}\label{vertiefung-dplyr}
 
 Alternativ können wir Mittelwerte mit dplyr berechnen:
@@ -4395,7 +4420,7 @@ fehlenden Werten gibt \texttt{mean} sonst \texttt{NA} zurück).
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Mittelwerte pro Spalte
+\subsubsection{Mittelwerte pro Spalte
 berechnen}\label{mittelwerte-pro-spalte-berechnen}
 
 Eine Möglichkeit ist der Befehl \texttt{summary} aus \texttt{dplyr}.
@@ -4486,7 +4511,7 @@ Daher: besser robuste Statistiken verwenden. Der Median, der Modus und
 der IQR bieten sich an.
 \EndKnitrBlock{rmdcaution}
 
-\subsection{Korrelationstabellen
+\subsubsection{Korrelationstabellen
 berechnen}\label{korrelationstabellen-berechnen}
 
 Korrelationen bzw. Korrelationstabellen lassen sich mit dem
@@ -4564,7 +4589,7 @@ obere Dreieck ab (da Korrelationstabellen ja symmetrisch sind):
 
 \begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/rplot-demo-1} \end{center}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-3}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-3}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -4604,7 +4629,7 @@ ab\tabularnewline
 \bottomrule
 \end{longtable}
 
-\chapter{Fallstudie zum Datenjudo}\label{fallstudie-zum-datenjudo}
+\section{Fallstudie zum Datenjudo}\label{fallstudie-zum-datenjudo}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -4678,7 +4703,7 @@ Dataframe.
 
 Der Befehl \texttt{data} lädt Daten aus einem zuvor gestarteten Paket.
 
-\section{Achtung, Fallstudie}\label{achtung-fallstudie}
+\subsection{Achtung, Fallstudie}\label{achtung-fallstudie}
 
 Sie sind der/die Assistent\_in des Chefs der New Yorker Flughäfen. Ihr
 Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen
@@ -4885,7 +4910,7 @@ durchschnittliche Verspätung pro Fluggesellschaft.
 Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben
 zuwenden\ldots{}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-4}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-4}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -4899,7 +4924,7 @@ dplyr::row\_number & Gibt die Zeilennummern zurück.\tabularnewline
 \bottomrule
 \end{longtable}
 
-\section{Verweise}\label{verweise-3}
+\subsection{Verweise}\label{verweise-3}
 
 \begin{itemize}
 \item
@@ -4912,7 +4937,7 @@ dplyr::row\_number & Gibt die Zeilennummern zurück.\tabularnewline
   oder hier\footnote{\url{http://genomicsclass.github.io/book/pages/dplyr_tutorial.html}}.
 \end{itemize}
 
-\chapter{Daten visualisieren}\label{daten-visualisieren}
+\section{Daten visualisieren}\label{daten-visualisieren}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -4948,7 +4973,7 @@ In diesem Kapitel werden folgende Pakete benötigt::
 Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets
 \texttt{ggplot2}.
 
-\section{Ein Bild sagt mehr als 1000
+\subsection{Ein Bild sagt mehr als 1000
 Worte}\label{ein-bild-sagt-mehr-als-1000-worte}
 
 Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur
@@ -4984,7 +5009,7 @@ aber mächtig ist und gut zum Prinzip des Durchpfeifens passt:
   ``plot'' steht für ``to plot'', also ein Diagramm erstellen
   (``plotten''); vgl. \url{https://en.wikipedia.org/wiki/Ggplot2}}.
 
-\section{Die Anatomie eines
+\subsection{Die Anatomie eines
 Diagramms}\label{die-anatomie-eines-diagramms}
 
 \texttt{ggplot2} unterscheidet folgende Bestandteile (``Anatomie'')
@@ -5018,7 +5043,7 @@ jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet
 nicht explizieren). Mit \emph{Geom} ist das eigentlich Art von ``Bild''
 gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \ref{geome}).
 
-\section{\texorpdfstring{Einstieg in \texttt{ggplot2} -
+\subsection{\texorpdfstring{Einstieg in \texttt{ggplot2} -
 \texttt{qplot}}{Einstieg in ggplot2 - qplot}}\label{einstieg-in-ggplot2---qplot}
 
 Los geht's! Laden wir zuerst den Datensatz \texttt{nycflights::flights}.
@@ -5096,14 +5121,14 @@ zugewiesen werden soll, z.B. \texttt{month}; analog mit Y-Achse. Mit
 als ``geom'' ist die Art des statistischen ``\emph{geom}etrischen
 Objects'' gemeint, also Punkte, Linien, Boxplots, Balken\ldots{}
 
-\section{Häufige Arten von
+\subsection{Häufige Arten von
 Diagrammen}\label{haufige-arten-von-diagrammen}
 
 Unter den vielen Arten von Diagrammen und vielen Arten, diese zu
 klassifizieren greifen wir uns ein paar häufige Diagramme heraus und
 schauen uns diese der Reihe nach an.
 
-\subsection{Eine kontinuierliche
+\subsubsection{Eine kontinuierliche
 Variable}\label{eine-kontinuierliche-variable}
 
 Schauen wir uns die Verteilung der Schuhgrößen von Studierenden an.
@@ -5231,7 +5256,7 @@ von \texttt{sex} werden der Füllfarbe der Histogramme zugeordnet.
 Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können;
 die Syntax wäre dann: \texttt{color\ =\ sex}.
 
-\subsection{Zwei kontinuierliche
+\subsubsection{Zwei kontinuierliche
 Variablen}\label{zwei-kontinuierliche-variablen}
 
 Ein Streudiagramm ist die klassische Art, zwei metrische Variablen
@@ -5360,7 +5385,7 @@ eines für Frauen und eines für Männer:
 Man beachte die Tilde \texttt{\textasciitilde{}}, die vor die
 ``Gruppierungsvariable'' \texttt{sex} zu setzen ist.
 
-\subsubsection{Vertiefung zu Facetten}\label{vertiefung-zu-facetten}
+\paragraph{Vertiefung zu Facetten}\label{vertiefung-zu-facetten}
 
 Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar
 alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont
@@ -5388,7 +5413,7 @@ Der ``ggplot-Trick'' ist, zuerst die Punkte \emph{ohne}
 Gruppierungsinformation (hier: \texttt{sex}) zu plotten. Danach plotten
 wir die nach Gruppenzugehörigkeit gefärbten Punkte.
 
-\subsection{Eine diskrete Variable}\label{eine-diskrete-variable}
+\subsubsection{Eine diskrete Variable}\label{eine-diskrete-variable}
 
 Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der
 Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind
@@ -5516,7 +5541,7 @@ Je unterschiedlicher die ``Füllhöhe'', desto stärker sind die Variablen
 Zusammenhang).
 \end{quote}
 
-\subsection{Zwei diskrete Variablen}\label{zwei-diskrete-variablen}
+\subsubsection{Zwei diskrete Variablen}\label{zwei-diskrete-variablen}
 
 Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich
 Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort
@@ -5555,7 +5580,7 @@ Was sofort ins Auge sticht, ist dass ``soziales Trinken'', nennen wir es
 mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten
 scheinen die Zusammenhäng nicht sehr stark zu sein.
 
-\subsection{Zusammenfassungen zeigen}\label{zusammenfassungen-zeigen}
+\subsubsection{Zusammenfassungen zeigen}\label{zusammenfassungen-zeigen}
 
 Manchmal möchten wir \emph{nicht} die Rohwerte einer Variablen
 darstellen, sondern z.B. die Mittelwerte pro Gruppe. Mittelwerte sind
@@ -5605,7 +5630,7 @@ wird das noch überschaubar bleiben.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
-\section{\texorpdfstring{Die Gefühlswelt von
+\subsection{\texorpdfstring{Die Gefühlswelt von
 \texttt{ggplot2}}{Die Gefühlswelt von ggplot2}}\label{die-gefuhlswelt-von-ggplot2}
 
 \begin{itemize}
@@ -5673,7 +5698,7 @@ wird das noch überschaubar bleiben.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Aufgaben}\label{aufgaben-10}
+\subsection{Aufgaben}\label{aufgaben-10}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5703,7 +5728,7 @@ wird das noch überschaubar bleiben.
   darstellt als auch die einzelnen Werte darstellt!
 \end{enumerate}
 
-\section{Lösungen}\label{losungen}
+\subsection{Lösungen}\label{losungen}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5777,7 +5802,7 @@ stecken (\texttt{wo\_men3}). Dann werden die Rohdaten
 Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine
 Fehlermeldung.
 
-\section[Richtig oder Falsch]{\texorpdfstring{Richtig oder
+\subsection[Richtig oder Falsch]{\texorpdfstring{Richtig oder
 Falsch\footnote{R, R, F, F, R}}{Richtig oder Falsch}}\label{richtig-oder-falsch}
 
 \BeginKnitrBlock{rmdexercises}
@@ -5806,7 +5831,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-5}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-5}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -5820,7 +5845,7 @@ um\tabularnewline
 \bottomrule
 \end{longtable}
 
-\section{Vertiefung: Geome bei ggplot2}\label{geome}
+\subsection{Vertiefung: Geome bei ggplot2}\label{geome}
 
 Einen guten Überblick über Geome bietet das Cheatsheet von
 ggplot2\footnote{\url{https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf}}.
@@ -5878,7 +5903,7 @@ Geome dargestellt.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
-\section{Verweise}\label{verweise-4}
+\subsection{Verweise}\label{verweise-4}
 
 \begin{itemize}
 \item
@@ -5907,7 +5932,7 @@ Geome dargestellt.
   \url{http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html}.
 \end{itemize}
 
-\chapter{Fallstudie zur
+\section{Fallstudie zur
 Visualisierung}\label{fallstudie-zur-visualisierung}
 
 \BeginKnitrBlock{rmdcaution}
@@ -5942,7 +5967,7 @@ Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen
 in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch
 wiederzugeben. Das ist der Gegenstand dieser Fallstudie.
 
-\section{Daten einlesen}\label{daten-einlesen-1}
+\subsection{Daten einlesen}\label{daten-einlesen-1}
 
 Hier laden wir einen Datensatz von einer Online-Umfrage:
 
@@ -6001,7 +6026,7 @@ eingesehen werden. Schauen wir uns die Daten mal an:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Daten umstellen}\label{daten-umstellen}
+\subsection{Daten umstellen}\label{daten-umstellen}
 
 Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die
 Items stehen (1,2,\ldots{},n) und auf der Y-Achse die Anzahl der Kreuze
@@ -6056,7 +6081,7 @@ Variable zur Gruppierung\ldots{}
 
 Damit haben wir es schon! Jetzt wird gemalt.
 
-\section{Diagramme für Anteile}\label{diagramme-fur-anteile}
+\subsection{Diagramme für Anteile}\label{diagramme-fur-anteile}
 
 Wir nutzen \texttt{ggplot2}, wie gesagt, und davon die Funktion
 \texttt{qplot} (q wie quick, nehme ich an.).
@@ -6122,7 +6147,7 @@ Und dann noch mal plotten:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
-\section{Um 90° drehen}\label{um-90-drehen}
+\subsection{Um 90° drehen}\label{um-90-drehen}
 
 Dazu nehmen wir \texttt{+\ coord\_flip()}, also ``flippe das
 Koordinatensystem''.
@@ -6138,7 +6163,7 @@ Koordinatensystem''.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
-\section{Text-Labels für die Items}\label{text-labels-fur-die-items}
+\subsection{Text-Labels für die Items}\label{text-labels-fur-die-items}
 
 Wir definieren die Texte (``Labels'') für die Items:
 
@@ -6194,7 +6219,7 @@ Und wieder plotten:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-\section{Diagramm mit Häufigkeiten}\label{diagramm-mit-haufigkeiten}
+\subsection{Diagramm mit Häufigkeiten}\label{diagramm-mit-haufigkeiten}
 
 Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile.
 Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung
@@ -6215,7 +6240,7 @@ stapeln''
 
 \begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
-\section{Farbschema}\label{farbschema}
+\subsection{Farbschema}\label{farbschema}
 
 Ja, die Wünsche hören nicht auf\ldots{} Also, noch ein anderes
 Farbschema:
@@ -6233,11 +6258,13 @@ Farbschema:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
+\chapter{Modellieren}
+
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
 \begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
-\chapter{Grundlagen des Modellierens}\label{mod1}
+\section{Grundlagen des Modellierens}\label{mod1}
 
 \BeginKnitrBlock{rmdcaution}
 Lernziele:
@@ -6272,7 +6299,7 @@ In diesem Kapitel benötigen wir diese Pakete:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{images/modellieren/Modellieren} \end{center}
 
-\section{Was ist ein Modell? Was ist Modellieren?}\label{Modellieren}
+\subsection{Was ist ein Modell? Was ist Modellieren?}\label{Modellieren}
 
 In diesem Kapitel geht es um \emph{Modelle} und \emph{Modellieren}; aber
 was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem
@@ -6384,7 +6411,7 @@ zwischen den Elementen von Z)\footnote{Diese Sichtweise des Modellierens
   Zinnes (\protect\hyperlink{ref-suppes1962basic}{1962}) zurück; vgl.
   Gigerenzer (\protect\hyperlink{ref-gigerenzer1980}{1980})}.
 
-\section{Ein Besipiel zum Modellieren in der
+\subsection{Ein Besipiel zum Modellieren in der
 Datenanalyse}\label{ein-besipiel-zum-modellieren-in-der-datenanalyse}
 
 Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu
@@ -6500,7 +6527,7 @@ beachten, dass er \emph{doppelt} verwendet wird. Neben der gerade
 genannten Bedeutung steht er auch für ein häufig verwendetes Modell -
 eigentlich das prototypische Modell - für quantitative Kriterien.
 
-\section{Taxonomie der Ziele des Modellierens}\label{Ziele}
+\subsection{Taxonomie der Ziele des Modellierens}\label{Ziele}
 
 Modelle kann man auf vielerlei Arten gliedern; für unsere Zwecke ist
 folgende Taxonomie der Ziele von Modellieren nützlich.
@@ -6608,7 +6635,7 @@ Fall von \emph{Lernen ohne Anleitung}\index{Lernen ohne Anleitung} oder
 \emph{ungeleitetes Modellieren} (engl. \emph{unsupervised
 learning}\index{unsupervised learning}).
 
-\section{Die vier Schritte des statistischen
+\subsection{Die vier Schritte des statistischen
 Modellierens}\label{die-vier-schritte-des-statistischen-modellierens}
 
 Modellieren ist in der Datenanalyse bzw. in der Statistik eine zentrale
@@ -6636,7 +6663,7 @@ folgenden Schritte aus:
   ist der Vorhersagefehler?
 \end{enumerate}
 
-\section{Einfache vs.~komplexe Modelle: Unter-
+\subsection{Einfache vs.~komplexe Modelle: Unter-
 vs.~Überanpassung}\label{einfache-vs.komplexe-modelle-unter--vs.uberanpassung}
 
 Je komplexer ein Modell, desto besser passt sie meistens auf den
@@ -6706,7 +6733,7 @@ steigt der Fehler im Test-Datensatz wieder!
 
 \begin{center}\includegraphics[width=0.7\linewidth]{images/modellieren/overfitting} \end{center}
 
-\section{Bias-Varianz-Abwägung}\label{bias-varianz-abwagung}
+\subsection{Bias-Varianz-Abwägung}\label{bias-varianz-abwagung}
 
 Einfache Modelle bilden (oft) verfehlen oft wesentliche Aspekte des
 Gegenstandsbereich; die Wirklichkeit ist häufig zu komplex für einfache
@@ -6755,7 +6782,7 @@ Der Plot auf der rechten Seiten hingegen ist sehr einfach und robust.
 Änderungen in den Daten werden vergleichsweise wenig Einfluss auf das
 Modell (die beiden roten Linien) haben.
 
-\section{Training-
+\subsection{Training-
 vs.~Test-Stichprobe}\label{training--vs.test-stichprobe}
 
 Wie wir gerade gesehen haben, kann man \emph{immer} ein Modell finden,
@@ -6802,7 +6829,7 @@ deutlich von den ersten abweichen? Dann würde unser Vertrauen in die die
 Modellgüte sinken. Wir bräuchten also noch ein Verfahren, welches
 \emph{Variabilität} in der Modellgüte widerspiegelt.
 
-\section{Wann welches Modell?}\label{wann-welches-modell}
+\subsection{Wann welches Modell?}\label{wann-welches-modell}
 
 Tja, mit dieser Frage lässt sich ein Gutteil des Kopfzerbrechens in
 diesem Metier erfassen. Die einfache Antwort lautet: Es gibt kein
@@ -6823,7 +6850,7 @@ Stichprobe} ein best mögliches Modell geben. Dazu einige Eckpfeiler:
   Modell in der aktuellen Situation geeigneter ist.
 \end{itemize}
 
-\section{Modellgüte}\label{modellgute}
+\subsection{Modellgüte}\label{modellgute}
 
 Wie ``gut'' ist mein Modell? Modelle bewerten bzw. vergleichend bewerten
 ist einer der wichtigsten Aufgaben beim Modellieren. Die Frage der
@@ -6874,7 +6901,7 @@ Regressionsmodell. Reduktionsmodelle müssen wiederum anders beurteilt
 werden. In den entsprechenden Kapiteln werden diese Unterschiede
 präzisiert.
 
-\section{Auswahl von Prädiktoren}\label{auswahl-von-pradiktoren}
+\subsection{Auswahl von Prädiktoren}\label{auswahl-von-pradiktoren}
 
 Wie oben diskutiert, stellen wir ein (geleitetes) Modell gerne als ein
 Pfaddiagramm des Typs \(X \rightarrow Y\) dar (wobei X ein Vektor sein
@@ -6912,7 +6939,7 @@ datengetrieben oder auf gut Glück.
 In späteren Kapiteln betrachten wir Wege, um Prädiktoren für bestimmte
 Modelle auszuwählen.
 
-\section{Aufgaben}\label{aufgaben-11}
+\subsection{Aufgaben}\label{aufgaben-11}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6997,7 +7024,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-6}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-6}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -7011,7 +7038,7 @@ vorkommen\tabularnewline
 \bottomrule
 \end{longtable}
 
-\section{Verweise}\label{verweise-5}
+\subsection{Verweise}\label{verweise-5}
 
 \begin{itemize}
 \item
@@ -7023,7 +7050,7 @@ vorkommen\tabularnewline
   \url{https://bookdown.org/chesterismay/rbasics/}.
 \end{itemize}
 
-\chapter{Der p-Wert}\label{der-p-wert}
+\section{Der p-Wert}\label{der-p-wert}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -7050,7 +7077,7 @@ Lernziele:
 \caption{Der größte Statistiker des 20. Jahrhunderts (p < .05)}\label{fig:sir-fisher}
 \end{figure}
 
-\section{Der p-Wert sagt nicht das, was viele
+\subsection{Der p-Wert sagt nicht das, was viele
 denken}\label{der-p-wert-sagt-nicht-das-was-viele-denken}
 
 Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb.
@@ -7104,7 +7131,7 @@ Also:
 
 \[ P(D|H) \ne P(H|D) \]
 
-\subsection{Von Moslems und
+\subsubsection{Von Moslems und
 Terroristen}\label{von-moslems-und-terroristen}
 
 Formeln haben die merkwürdige Angewohnheit vor dem inneren Auge zu
@@ -7139,7 +7166,7 @@ ist}. Das ist falsch. Der p-Wert ist die \emph{Wahrscheinlichkeit,
 Moslem zu sein, wenn man Terrorist ist}. Ein großer
 Unterschied\footnote{die Größe der Anteile sind frei erfunden}.
 
-\section{Der p-Wert ist eine Funktion der
+\subsection{Der p-Wert ist eine Funktion der
 Stichprobengröße}\label{der-p-wert-ist-eine-funktion-der-stichprobengroe}
 
 Der p-Wert ist für weitere Dinge kritisiert worden (Wagenmakers
@@ -7182,8 +7209,8 @@ Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht
 nach ist die Antwort zwar richtig, geht aber an den Anforderungen der
 Praxis vorbei.
 
-\subsection{Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss auf
-den
+\subsubsection{Vertiefung: Praktisches Beispiel zum Stichprobeneinfluss
+auf den
 p-Wert}\label{vertiefung-praktisches-beispiel-zum-stichprobeneinfluss-auf-den-p-wert}
 
 Betrachten wir ein praktisches Beispiel des Einfluss der
@@ -7215,7 +7242,7 @@ nicht signifikant. ``Groß'' bzw. ``klein'' heißt hier ``groß/klein
 genug''.
 \end{quote}
 
-\section{Mythen zum p-Wert}\label{mythen-zum-p-wert}
+\subsection{Mythen zum p-Wert}\label{mythen-zum-p-wert}
 
 Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren
 in Rente gehen, heißt es. Jedenfalls halten sich eine Reihe von Mythen
@@ -7261,7 +7288,8 @@ Wehe einer Studie. Wichtiger wäre zu prüfen, wie ``gut'' das Modell ist
 - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das
 Modell?
 
-\section{Zur Philosophie des p-Werts}\label{zur-philosophie-des-p-werts}
+\subsection{Zur Philosophie des
+p-Werts}\label{zur-philosophie-des-p-werts}
 
 Der p-Wert basiert auf der Idee, dass man ein Experiment
 \emph{unendlich} oft wiederholen könnte; und das unter \emph{zufälligen}
@@ -7276,7 +7304,7 @@ Vergleichbarkeit hergestellt werden kann, kann auch kritisiert werden
 Der p-Wert ist eine Methode, die versucht ``objektiv'' einzuschätzen,
 wie sehr Daten gegen eine Hypothese sprechen.
 
-\section{Fazit}\label{fazit}
+\subsection{Fazit}\label{fazit}
 
 Der p-Wert ist eine häufig verwendete Methode, um datenbasiert zu
 entscheiden, ob man eine Hypothese annimmt oder nicht. Allerdings hat
@@ -7305,7 +7333,9 @@ Alternativen zum p-Wert sind
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/inferenz/meme_pwert_1iw22a_pvalue_dino} \end{center}
 
-\chapter{Klassische lineare (numerische)
+\chapter{Geleitetes Modellieren}
+
+\section{Klassische lineare (numerische)
 Regression}\label{klassische-lineare-numerische-regression}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
@@ -7343,7 +7373,7 @@ Für dieses Kapitel benötigen Sie folgende Pakete:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Die Idee der klassischen
+\subsection{Die Idee der klassischen
 Regression}\label{die-idee-der-klassischen-regression}
 
 Regression\index{Regression} ist eine bestimmte Art der
@@ -7472,7 +7502,7 @@ lm(kriterium ~ praediktor, data = meine_datentabelle) %>%
   lm
 \end{verbatim}
 
-\section{Vorhersagegüte}\label{vorhersagegute}
+\subsection{Vorhersagegüte}\label{vorhersagegute}
 
 Der einfache Grundsatz lautet: Je geringer die Vorhersagefehler, desto
 besser; Abb. \ref{fig:resids-plot} zeigt ein Regressionsmodell mit wenig
@@ -7534,7 +7564,7 @@ durchschnittliche Schuhgröße des deutschen Mannes. Auf dieser Basis kann
 man dann quantifizieren, ob und wieviel besser man als dieses
 Referenzkriterium ist.
 
-\subsection{Mittlere Quadratfehler}\label{mittlere-quadratfehler}
+\subsubsection{Mittlere Quadratfehler}\label{mittlere-quadratfehler}
 
 Eine der häufigsten Gütekennzahlen ist der \emph{mittlere quadrierte
 Fehler} (engl. ``mean squared error'', MSE), wobei Fehler wieder als
@@ -7559,7 +7589,7 @@ RMSE <- sqrt(mean((df$pred - df$obs)^2))
 Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also
 z.B. Schuhgrößen-Nummern.
 
-\subsection{\texorpdfstring{R-Quadrat
+\subsubsection{\texorpdfstring{R-Quadrat
 (\(R^2\))}{R-Quadrat (R\^{}2)}}\label{r-quadrat-r2}
 
 \(R^2\), auch \emph{Bestimmtheitsmaß}\index{Bestimmtheitsmaß} oder
@@ -7597,7 +7627,7 @@ Hier steht \texttt{obs} für beobachtete Werte und \texttt{pred} für die
 vorhergesagten Werte (beides numerische Vektoren). Dieser Befehl gibt
 sowohl RMSE als auch \(R^2\) wieder.
 
-\subsection{Likelihood and Friends}\label{likelihood-and-friends}
+\subsubsection{Likelihood and Friends}\label{likelihood-and-friends}
 
 Der \emph{Likelihood} \(L\) beantwortet folgende Frage:
 
@@ -7640,7 +7670,7 @@ Regel ist die Größe der Abstände zwischen beobachteten und
 vorhergesagten Werten das, was uns interessiert.
 \EndKnitrBlock{rmdcaution}
 
-\section{Beispiel für eine
+\subsection{Beispiel für eine
 Regression}\label{beispiel-fur-eine-regression}
 
 Wir werden weiter den Datensatz \emph{tips} analysieren (Bryant und
@@ -7756,7 +7786,7 @@ Berechnen wir noch die Vorversagegüte des Modells.
 Das Bestimmtheitsmaß \(R^2\) ist mit 0.46 ``ok'': 46-\% der Variation
 des Trinkgeldes wird im Modell ``erklärt''.
 
-\section{Überprüfung der Annahmen der linearen
+\subsection{Überprüfung der Annahmen der linearen
 Regression}\label{uberprufung-der-annahmen-der-linearen-regression}
 
 Aber wie sieht es mit den Annahmen aus?
@@ -7866,7 +7896,7 @@ Standardfehlers, also des p-Wertes des
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Regression mit kategorialen
+\subsection{Regression mit kategorialen
 Prädiktoren}\label{regression-mit-kategorialen-pradiktoren}
 
 Der Wochentag \texttt{day} ist eine kategoriale Variable. Wie sieht eine
@@ -7948,7 +7978,7 @@ der gewünschten Sortierung setzen, z.B. so:
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Multiple Regression}\label{multiple-regression}
+\subsection{Multiple Regression}\label{multiple-regression}
 
 Aber wie wirken sich mehrere Einflussgrößen \emph{zusammen} auf das
 Trinkgeld aus?
@@ -8106,7 +8136,7 @@ ein um im Durchschnitt 0.26 \emph{höheres} Trinkgeld, bei Kontrolle, d.
 h. gleicher Rechnungshöhe ein um 0.03 \emph{niedrigeres} Trinkgeld als
 die Referenzklasse Female (\texttt{levels(tips\$sex){[}1{]}}).
 
-\section{Inferenz in der linearen
+\subsection{Inferenz in der linearen
 Regression}\label{inferenz-in-der-linearen-regression}
 
 Kehren wir noch einmal zur multiplen Regression (\texttt{LinMod.4})
@@ -8171,10 +8201,10 @@ des zugrunde-liegenden F-Tests (vgl. Varianzanalyse) wird in der letzten
 Zeile angegeben (\texttt{F-Statistic}). Hier wird \(H_0\) also
 verworfen.
 
-\section{Vertiefungen zum
+\subsection{Vertiefungen zum
 Regressionmodell}\label{vertiefungen-zum-regressionmodell}
 
-\subsection{Modellwahl}\label{modellwahl}
+\subsubsection{Modellwahl}\label{modellwahl}
 
 Das Modell mit allen Variablen des Datensatzes, d. h., mit 6
 unabhängigen (\texttt{LinMod.4}) erklärt 47.01\% der Variation, das
@@ -8274,7 +8304,7 @@ sind also dieselben Variablen noch im Modell, die auch in
 dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist
 häufig so, aber nicht immer!
 
-\subsection{Interaktionen}\label{interaktionen}
+\subsubsection{Interaktionen}\label{interaktionen}
 
 Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe
 und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der
@@ -8342,7 +8372,7 @@ sich übrigens bei getrennten Regressionen:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Weitere
+\subsubsection{Weitere
 Modellierungsmöglichkeiten}\label{weitere-modellierungsmoglichkeiten}
 
 Über das Formelinterface \texttt{y\textasciitilde{}x} können auch direkt
@@ -8380,7 +8410,7 @@ nicht signifikant. \textbf{Hinweis:} Um zu ``rechnen'' und nicht
 beispielsweise Interaktion zu modellieren, geben Sie die Variablen in
 der Formel in der Funktion \texttt{I()} (\emph{As Is}) ein.
 
-\section{Fallstudie zu Overfitting}\label{overfitting-casestudy}
+\subsection{Fallstudie zu Overfitting}\label{overfitting-casestudy}
 
 Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte
 anhand der \emph{Trainingsstichprobe} schätzt mit einer Regression, bei
@@ -8449,7 +8479,7 @@ uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte
 im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein
 typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
 
-\section{Verweise}\label{verweise-6}
+\subsection{Verweise}\label{verweise-6}
 
 Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{https://www.openintro.org/stat/index.php?stat_book=isrs}{OpenIntro}
@@ -8458,7 +8488,7 @@ Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{http://creativecommons.org/licenses/by-sa/3.0}{Creative Commons
 Attribution-ShareAlike 3.0 Unported}.
 
-\chapter{Klassifizierende Regression}\label{klassifizierende-regression}
+\section{Klassifizierende Regression}\label{klassifizierende-regression}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -8488,7 +8518,7 @@ Für dieses Kapitel benötigen Sie folgende Pakete:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Vorbereitung}\label{vorbereitung}
+\subsection{Vorbereitung}\label{vorbereitung}
 
 Hier werden wir den Datensatz \emph{Aktienkauf} der Universität Zürich
 (\href{http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html}{Universität
@@ -8518,7 +8548,7 @@ Importieren Sie zunächst die Daten.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Problemstellung}\label{problemstellung}
+\subsection{Problemstellung}\label{problemstellung}
 
 Können wir anhand der Risikobereitschaft abschätzen, ob die
 Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst
@@ -8618,7 +8648,7 @@ Graph der logistischen Funktion ähnelt einem langgestreckten S
 \caption{Die logistische Regression beschreibt eine 's-förmige' Kurve}\label{fig:logist-curve}
 \end{figure}
 
-\section{Die Idee der logistischen
+\subsection{Die Idee der logistischen
 Regression}\label{die-idee-der-logistischen-regression}
 
 Die logistische Regression ist eine Anwendung des allgemeinen linearen
@@ -8701,7 +8731,7 @@ noch die Linkfunktion und ergibt sich somit zu:
 Die p-Werte der Koeffizienten können in der Spalte
 \texttt{Pr(\textgreater{}\textbar{}z\textbar{})} abgelesen werden.
 
-\section{Welche Unterschiede zur linearen Regression gibt es in der
+\subsection{Welche Unterschiede zur linearen Regression gibt es in der
 Ausgabe?}\label{welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe}
 
 Es gibt kein \(R^2\) im Sinne einer erklärten Streuung der \(y\)-Werte,
@@ -8715,10 +8745,10 @@ Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als
 Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test
 durchgeführt werden -- kommt später.)
 
-\section{Interpretation der
+\subsection{Interpretation der
 Koeffizienten}\label{interpretation-der-koeffizienten}
 
-\subsection{\texorpdfstring{y-Achsenabschnitt (\texttt{Intercept})
+\subsubsection{\texorpdfstring{y-Achsenabschnitt (\texttt{Intercept})
 \(\beta_0\)}{y-Achsenabschnitt (Intercept) \textbackslash{}beta\_0}}\label{y-achsenabschnitt-intercept-beta_0}
 
 Für \(\beta_0>0\) gilt, dass selbst wenn alle anderen unabhängigen
@@ -8726,7 +8756,7 @@ Variablen \(0\) sind, es eine Wahrscheinlichkeit von mehr als 50\% gibt,
 dass das modellierte Ereignis eintritt. Für \(\beta_0<0\) gilt
 entsprechend das Umgekehrte.
 
-\subsection{\texorpdfstring{Steigung \(\beta_i\) mit
+\subsubsection{\texorpdfstring{Steigung \(\beta_i\) mit
 \(i=1,2,...,K\)}{Steigung \textbackslash{}beta\_i mit i=1,2,...,K}}\label{steigung-beta_i-mit-i12...k}
 
 Für \(\beta_i>0\) gilt, dass mit zunehmenden \(x_i\) die
@@ -8746,7 +8776,7 @@ diesen Faktor, wenn sich \(x_i\) um eine Einheit erhöht.
 modellierten Ereignisses in den beobachteten Daten sehr klein (\(<5\%\))
 oder sehr groß ist (\(>95\%\)).
 
-\subsection{Aufgabe}\label{aufgabe}
+\subsubsection{Aufgabe}\label{aufgabe}
 
 Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich
 die \texttt{Risikobereitschaft} um 1 erhöht (Funktion \texttt{exp()}).
@@ -8793,7 +8823,7 @@ Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten
 Änderung ab. Der Anteil der Datensätze mit
 \texttt{Risikobereitschaft}\(=1\) liegt allerdings auch bei 0.26.
 
-\section{Kategoriale Variablen}\label{kategoriale-variablen}
+\subsection{Kategoriale Variablen}\label{kategoriale-variablen}
 
 Wie schon in der linearen Regression können auch in der logistschen
 Regression kategoriale Variablen als unabhängige Variablen genutzt
@@ -8900,7 +8930,7 @@ wieder so ausgeben lassen:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Multiple logistische
+\subsection{Multiple logistische
 Regression}\label{multiple-logistische-regression}
 
 Wir kehren wieder zurück zu dem Datensatz \emph{Aktienkauf}. Können wir
@@ -8951,7 +8981,7 @@ hingegen senkt die Wahrscheinlichkeit.
 Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86
 auf 687.01 gesunken ist.
 
-\section{Modell- bzw.
+\subsection{Modell- bzw.
 Klassifikationsgüte}\label{modell--bzw.-klassifikationsgute}
 
 Logistische Regressionsmodelle werden häufig zur
@@ -9036,9 +9066,9 @@ Akzeptable Werte liegen bei \(0.7\) und größer, gute Werte sind es ab
 \(0.8\).\footnote{Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed.
   (2013), S. 164}
 
-\section{Vertiefung}\label{vertiefung-1}
+\subsection{Vertiefung}\label{vertiefung-1}
 
-\subsection{Modellschätzung}\label{modellschatzung}
+\subsubsection{Modellschätzung}\label{modellschatzung}
 
 Das Modell wird nicht wie bei der lineare Regression über die Methode
 der kleinsten Quadrate (OLS) geschätzt, sondern über die \emph{Maximum
@@ -9055,7 +9085,7 @@ logarithmierte Likelihood. Die Nulldevianz (\texttt{Null\ deviance}) ist
 die Devianz eines Nullmodells, d. h., alle \(\beta\) außer der
 Konstanten sind 0.
 
-\subsection{Likelihood Quotienten
+\subsubsection{Likelihood Quotienten
 Test}\label{likelihood-quotienten-test}
 
 Der Likelihood Quotienten Test (\emph{Likelihood Ratio Test, LR-Test})
@@ -9109,7 +9139,7 @@ signifikant war.
 Ja, die Modelle \texttt{glm1} (mit einer erklärenden Variable) und
 \texttt{glm2} unterscheiden sich signifikant voneinander.
 
-\subsection{\texorpdfstring{Pseudo-\(R^2\)}{Pseudo-R\^{}2}}\label{pseudo-r2}
+\subsubsection{\texorpdfstring{Pseudo-\(R^2\)}{Pseudo-R\^{}2}}\label{pseudo-r2}
 
 Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe
 abzuleiten, die dem \(R^2\) der linearen Regression entspricht.
@@ -9153,7 +9183,7 @@ schlecht zu bezeichnen. \textbf{Hinweis:} Die Funktion
 die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind.
 Für weitere Erläuterungen sei auf die Literatur verwiesen.
 
-\section{Übung: Rot- oder Weißwein?}\label{ubung-rot--oder-weiwein}
+\subsection{Übung: Rot- oder Weißwein?}\label{ubung-rot--oder-weiwein}
 
 Der Datensatz untersucht den Zusammenhang zwischen der Qualität und
 physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen
@@ -9174,7 +9204,7 @@ Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine
 zusätzliche Variable \texttt{color} aufgenommen wird (Rot = 0, Weiß =
 1).
 
-\section{Verweise}\label{verweise-7}
+\subsection{Verweise}\label{verweise-7}
 
 Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{https://www.openintro.org/stat/index.php?stat_book=isrs}{OpenIntro}
@@ -9183,10 +9213,10 @@ Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{http://creativecommons.org/licenses/by-sa/3.0}{Creative Commons
 Attribution-ShareAlike 3.0 Unported}.
 
-\chapter{Fallstudien zum geleiteten
+\section{Fallstudien zum geleiteten
 Modellieren}\label{fallstudien-zum-geleiteten-modellieren}
 
-\section{Überleben auf der Titanic}\label{uberleben-auf-der-titanic}
+\subsection{Überleben auf der Titanic}\label{uberleben-auf-der-titanic}
 
 In dieser YACSDA (Yet-another-case-study-on-data-analysis) geht es um
 die beispielhafte Analyse nominaler Daten anhand des ``klassischen''
@@ -9195,7 +9225,7 @@ lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch
 formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in
 der derPassagiers reist, ab?
 
-\subsection{Daten und Pakete laden}\label{daten-und-pakete-laden}
+\subsubsection{Daten und Pakete laden}\label{daten-und-pakete-laden}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9219,7 +9249,7 @@ identisch sein mit dem oder den Datensätzen des Pakets (z.B.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Erster Blick}\label{erster-blick}
+\subsubsection{Erster Blick}\label{erster-blick}
 
 Werfen wir einen ersten Blick in die Daten:
 
@@ -9244,7 +9274,7 @@ Werfen wir einen ersten Blick in die Daten:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Welche Variablen sind
+\subsubsection{Welche Variablen sind
 interessant?}\label{welche-variablen-sind-interessant}
 
 Von 12 Variablen des Datensatzes interessieren uns offenbar
@@ -9260,7 +9290,7 @@ Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit
 Text-Werten zu benennen (wie ``survived'' vs. ``drowned'' etc.). Wir
 kommen später auf diesen Punkt zurück.
 
-\subsection{Univariate Häufigkeiten}\label{univariate-haufigkeiten}
+\subsubsection{Univariate Häufigkeiten}\label{univariate-haufigkeiten}
 
 Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir
 fest: Wir untersuchen zwei nominale Variablen. Sprich: wir werden
@@ -9328,7 +9358,7 @@ sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ
 Man beachte, dass der Befehl \texttt{count} stehts eine Tabelle
 (data.frame bzw. \texttt{tibble}) verlangt und zurückliefert.
 
-\subsection{Bivariate Häufigkeiten}\label{bivariate-haufigkeiten}
+\subsubsection{Bivariate Häufigkeiten}\label{bivariate-haufigkeiten}
 
 OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von
 \texttt{Survived} (dasselbe gilt für \texttt{Pclass}). Eigentlich
@@ -9416,7 +9446,7 @@ Viel besser. Jetzt noch ein bisschen Schnickschnack:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{075_Fallstudie_Titanic_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
-\subsection{Signifikanztest}\label{signifikanztest}
+\subsubsection{Signifikanztest}\label{signifikanztest}
 
 Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch
 gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und
@@ -9443,7 +9473,7 @@ Der p-Wert ist kleiner als 5\%, daher entscheiden wir uns, entsprechend
 der üblichen Gepflogenheit, gegen die H0 und für die H1: ``Es gibt einen
 Zusammenhang von Überlebensrate und Passagierklasse''.
 
-\subsection{Effektstärke}\label{effektstarke}
+\subsubsection{Effektstärke}\label{effektstarke}
 
 Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie
 sehr die Variablen zusammenhängen. Für Häufigkeitsanalysen mit
@@ -9551,7 +9581,8 @@ Dann berechnen wir die Effektstärke (OR) mit dem Paket
 Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch
 wie in der 3. Klasse. Es scheint: Money buys you live\ldots{}
 
-\subsection{Logististische Regression}\label{logististische-regression}
+\subsubsection{Logististische
+Regression}\label{logististische-regression}
 
 Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression.
 Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich
@@ -9662,7 +9693,8 @@ berechne den Anteil an Überlebenden bzw. Nicht-Überlebenden\\
 für jede der beiden Passagierklassen. FERTIG.
 \EndKnitrBlock{rmdpseudocode}
 
-\subsection{Effektstärken visualieren}\label{effektstarken-visualieren}
+\subsubsection{Effektstärken
+visualieren}\label{effektstarken-visualieren}
 
 Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal
 graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe
@@ -9764,7 +9796,7 @@ Eine alternative Darstellung ist diese:
 Hier werden die vier ``Fliesen'' gleich groß dargestellt; die Fallzahl
 wird durch die Füllfarbe besorgt.
 
-\subsection{Fazit}\label{fazit-1}
+\subsubsection{Fazit}\label{fazit-1}
 
 In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr
 weit; \texttt{dplyr} und \texttt{ggplot2} zählen (zu Recht) zu den am
@@ -9777,7 +9809,7 @@ und verstehen bzw. ``veranschaulichen'' sind zentrale Punkte, die häufig
 viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind
 Häufigkeitsauswertungen ideal.
 
-\section{Außereheliche Affären}\label{auereheliche-affaren}
+\subsection{Außereheliche Affären}\label{auereheliche-affaren}
 
 Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig?
 Diese Frage soll anhand des Datensates \texttt{Affair} untersucht
@@ -9825,7 +9857,7 @@ Schauen wir mal, ob es funktioniert hat (``Datenmatrix betrachten''):
 
 Ok scheint zu passen. Was jetzt?
 
-\subsection{Zentrale Statistiken}\label{zentrale-statistiken}
+\subsubsection{Zentrale Statistiken}\label{zentrale-statistiken}
 
 Geben Sie zentrale deskriptive Statistiken an für Affärenhäufigkeit und
 Ehezufriedenheit!
@@ -9883,7 +9915,7 @@ aber jedes Mal, wenn Sie R starten, auch starten muss (mit
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Visualisieren}\label{visualisieren}
+\subsubsection{Visualisieren}\label{visualisieren}
 
 Visualisieren Sie zentrale Variablen!
 
@@ -9904,7 +9936,7 @@ R-Commander oder z.B. mit folgenden Befehlen:
 Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung
 sehr zufrieden zu sein.
 
-\subsection{Wer ist zufriedener mit der Partnerschaft: Personen mit
+\subsubsection{Wer ist zufriedener mit der Partnerschaft: Personen mit
 Kindern oder
 ohne?}\label{wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne}
 
@@ -9928,7 +9960,7 @@ Nehmen wir dazu mal ein paar \texttt{dplyr}-Befehle:
 Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass
 wir das geklärt haben.
 
-\subsection{Wie viele fehlende Werte gibt
+\subsubsection{Wie viele fehlende Werte gibt
 es?}\label{wie-viele-fehlende-werte-gibt-es}
 
 Was machen wir am besten damit?
@@ -9961,7 +9993,7 @@ Sheet} für \texttt{dplyr}.
 
 Ah, gut, keine fehlenden Werte. Das macht uns das Leben leichter.
 
-\subsection{Wer ist glücklicher: Männer oder
+\subsubsection{Wer ist glücklicher: Männer oder
 Frauen?}\label{wer-ist-glucklicher-manner-oder-frauen}
 
 \begin{Shaded}
@@ -10035,7 +10067,7 @@ Unterschiede zu Tage gefördert hat.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Effektstärken}\label{effektstarken}
+\subsubsection{Effektstärken}\label{effektstarken}
 
 Berichten Sie eine relevante Effektstärke!
 
@@ -10072,7 +10104,7 @@ Gruppe wissen:
 
 Die Effektstärke beträgt etwa 0.3.
 
-\subsection{Korrelationen}\label{korrelationen}
+\subsubsection{Korrelationen}\label{korrelationen}
 
 Berechnen und visualisieren Sie zentrale Korrelationen!
 
@@ -10109,7 +10141,7 @@ Berechnen und visualisieren Sie zentrale Korrelationen!
 
 \begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
-\subsection{Ehejahre und Affären}\label{ehejahre-und-affaren}
+\subsubsection{Ehejahre und Affären}\label{ehejahre-und-affaren}
 
 Wie groß ist der Einfluss (das Einflussgewicht) der Ehejahre bzw.
 Ehezufriedenheit auf die Anzahl der Affären?
@@ -10167,7 +10199,7 @@ Also: \texttt{yearsmarried} und \texttt{rating} sind beide statistisch
 signifikante Prädiktoren für die Häufigkeit von Affären. Das adjustierte
 \(R^2\) ist allerdings in beiden Fällen nicht so groß.
 
-\subsection{Ehezufriedenheit als
+\subsubsection{Ehezufriedenheit als
 Prädiktor}\label{ehezufriedenheit-als-pradiktor}
 
 Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von
@@ -10229,7 +10261,7 @@ Wir sehen, dass beim 1. Regressionsmodell das R\^{}2 0.03 war; beim 2.
 Modell 0.08 und beim 3. Modell liegt R\^{}2 bei 0.09. Die Differenz
 zwischen Modell 1 und 3 liegt bei (gerundet) 0.06; wenig.
 
-\subsection{Weitere Prädiktoren der
+\subsubsection{Weitere Prädiktoren der
 Affärenhäufigkeit}\label{weitere-pradiktoren-der-affarenhaufigkeit}
 
 Welche Prädiktoren würden Sie noch in die Regressionsanalyse aufnehmen?
@@ -10329,7 +10361,7 @@ Insgesamt bleibt die erklärte Varian in sehr bescheidenem Rahmen: 0.39.
 Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im
 Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
 
-\subsection{Unterschied zwischen den
+\subsubsection{Unterschied zwischen den
 Geschlechtern}\label{unterschied-zwischen-den-geschlechtern}
 
 Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß
@@ -10393,7 +10425,7 @@ Schätzwert für d \texttt{smd} liegt sehr nahe bei Null. Das stärkt
 unsere Entscheidung, von einer Gleichheit der Populationen (Männer
 vs.~Frauen) auszugehen.
 
-\subsection{Kinderlose Ehe vs.~Ehen mit
+\subsubsection{Kinderlose Ehe vs.~Ehen mit
 Kindern}\label{kinderlose-ehe-vs.ehen-mit-kindern}
 
 Rechnen Sie die Regressionsanalyse getrennt für kinderlose Ehe und Ehen
@@ -10475,7 +10507,7 @@ Alternativ könnte man es in R z.B. so machen:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Halodries}\label{halodries}
+\subsubsection{Halodries}\label{halodries}
 
 Rechnen Sie die Regression nur für ``Halodries''; d.h. für Menschen mit
 Seitensprüngen. Dafür müssen Sie alle Menschen ohne Affären aus den
@@ -10510,7 +10542,7 @@ Probieren wir den Befehl \texttt{filter} dazu nochmal aus:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{logistische Regression}\label{logistische-regression}
+\subsubsection{logistische Regression}\label{logistische-regression}
 
 Berechnen Sie für eine logistische Regression mit ``Affäre ja vs.~nein''
 als Kriterium, wie stark der Einfluss von Geschlecht, Kinderstatus,
@@ -10605,7 +10637,7 @@ yearsmarried & 0.022 & 0.021 & 1.040 & 0.299\\
 \hline
 \end{tabular}
 
-\subsection{Zum Abschluss}\label{zum-abschluss}
+\subsubsection{Zum Abschluss}\label{zum-abschluss}
 
 Visualisieren wir mal was!
 
@@ -10636,7 +10668,7 @@ Ok, wie wäre es damit:
 
 Puh. Geschafft!
 
-\section{Befehlsübersicht}\label{befehlsubersicht-7}
+\subsection{Befehlsübersicht}\label{befehlsubersicht-7}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -10668,13 +10700,13 @@ befindet\tabularnewline
 \bottomrule
 \end{longtable}
 
-\subsection{Versionshinweise und
+\subsubsection{Versionshinweise und
 SessionInfo}\label{versionshinweise-und-sessioninfo}
 
 \begin{itemize}
 \tightlist
 \item
-  Datum erstellt: 2017-05-15
+  Datum erstellt: 2017-05-16
 \item
   R Version: 3.3.2
 \item
@@ -10714,7 +10746,9 @@ SessionInfo}\label{versionshinweise-und-sessioninfo}
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{Vertiefung: Clusteranalyse}\label{vertiefung-clusteranalyse}
+\chapter{Ungeleitetes Modellieren}
+
+\section{Vertiefung: Clusteranalyse}\label{vertiefung-clusteranalyse}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -10729,7 +10763,7 @@ Benötigte Pakte:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Einführung}\label{einfuhrung}
+\subsection{Einführung}\label{einfuhrung}
 
 Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h.
 \emph{Cluster}) zu finden, die innerhalb der Cluster möglichst homogen,
@@ -10743,7 +10777,7 @@ dass sie nicht nur für metrische Daten sondern auch für gemischte
 Variablentypen verwendet werden können. Wir werden uns hier auf den
 euklischen Abstand konzentrieren.
 
-\section{Intuitive Darstellung der
+\subsection{Intuitive Darstellung der
 Clusteranalayse}\label{intuitive-darstellung-der-clusteranalayse}
 
 Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden;
@@ -10830,7 +10864,7 @@ eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der
 Cluster nur noch wenig verringern. Diese Art von Diagramm wird als
 ``Screeplot'' bezeihchnet. Fertig!
 
-\section{Euklidische Distanz}\label{euklidische-distanz}
+\subsection{Euklidische Distanz}\label{euklidische-distanz}
 
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel.
 Anna und Berta sind zwei Studentinnen, die eine Statistikklausur
@@ -10961,7 +10995,7 @@ zwischen Prof.~1 und 3 ist relativ klein! Endlich hätten wir diese Frage
 auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben
 an\ldots{}
 
-\section{Daten}\label{daten}
+\subsection{Daten}\label{daten}
 
 Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen
 \emph{simulierten} Datensatz aus \emph{Chapman \& Feit (2015): R for
@@ -11000,7 +11034,8 @@ Ein Überblick über die Daten verschafft uns die Funktion
 \end{Highlighting}
 \end{Shaded}
 
-\section{Distanzmaße mit R berechnen}\label{distanzmae-mit-r-berechnen}
+\subsection{Distanzmaße mit R
+berechnen}\label{distanzmae-mit-r-berechnen}
 
 Auf Basis der drei metrischen Merkmale (d. h. \texttt{Alter},
 \texttt{Einkommen} und \texttt{Kinder}) ergeben sich für die ersten
@@ -11047,7 +11082,7 @@ Skalenniveaus aufweisen.
 \end{Highlighting}
 \end{Shaded}
 
-\section{k-Means Clusteranalyse}\label{k-means-clusteranalyse}
+\subsection{k-Means Clusteranalyse}\label{k-means-clusteranalyse}
 
 Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von
 Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means
@@ -11178,7 +11213,7 @@ h., mit \texttt{centers=3} die Analyse wiederholt werden?\footnote{Das
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\section{Übung: B3 Datensatz}\label{ubung-b3-datensatz}
+\subsection{Übung: B3 Datensatz}\label{ubung-b3-datensatz}
 
 Der B3 Datensatz \emph{Heilemann, U. and Münch, H.J. (1996): West German
 Business Cycles 1963-1994: A Multivariate Discriminant Analysis.
@@ -11199,7 +11234,7 @@ Er kann von \url{https://goo.gl/0YCEHf} heruntergeladen werden.
   unterscheiden sich die gefundenen Segmente?
 \end{enumerate}
 
-\section{Literatur}\label{literatur-1}
+\subsection{Literatur}\label{literatur-1}
 
 \begin{itemize}
 \tightlist
@@ -11211,7 +11246,7 @@ Er kann von \url{https://goo.gl/0YCEHf} heruntergeladen werden.
   Einführung durch angewandte Statistik}. Kapitel 12
 \end{itemize}
 
-\section{Verweise}\label{verweise-8}
+\subsection{Verweise}\label{verweise-8}
 
 \begin{itemize}
 \item
@@ -11234,7 +11269,7 @@ Er kann von \url{https://goo.gl/0YCEHf} heruntergeladen werden.
   \url{https://betterexplained.com/articles/measure-any-distance-with-the-pythagorean-theorem/}.
 \end{itemize}
 
-\chapter{Vertiefung: Textmining}\label{vertiefung-textmining}
+\section{Vertiefung: Textmining}\label{vertiefung-textmining}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -11283,7 +11318,7 @@ der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es
 auch als qualitative Forschung mit moderner Technik bezeichnen - mit den
 skizzierten Einschränkungen wohlgemerkt.
 
-\section{Einführung}\label{einfuhrung-1}
+\subsection{Einführung}\label{einfuhrung-1}
 
 Die computergestützte Analyse von Texten speiste (und speist) sich
 reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden
@@ -11303,9 +11338,9 @@ Verwendung:
   \protect\hyperlink{ref-Silge2016}{2016}).
 \end{itemize}
 
-\section{Grundlegende Analyse}\label{grundlegende-analyse}
+\subsection{Grundlegende Analyse}\label{grundlegende-analyse}
 
-\subsection{Tidy Text Dataframes}\label{tidy-text-dataframes}
+\subsubsection{Tidy Text Dataframes}\label{tidy-text-dataframes}
 
 Basteln wir uns einen \emph{tidy text} Dataframe. Wir gehen dabei von
 einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer
@@ -11400,7 +11435,7 @@ filtere die Spalte ``wort'', so dass nur noch Kleinbuchstaben übrig
 bleiben. FERTIG.
 \EndKnitrBlock{rmdpseudocode}
 
-\subsection{Text-Daten einlesen}\label{text-daten-einlesen}
+\subsubsection{Text-Daten einlesen}\label{text-daten-einlesen}
 
 Nun lesen wir Text-Daten ein; das können beliebige Daten sein\footnote{Ggf.
   benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu
@@ -11455,7 +11490,7 @@ Stopwörter entfernen wir wieder wie gehabt.
 
 Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
 
-\subsection{Worthäufigkeiten
+\subsubsection{Worthäufigkeiten
 auszählen}\label{worthaufigkeiten-auszahlen}
 
 \begin{Shaded}
@@ -11583,7 +11618,7 @@ den Datensatz meint, wie er im letzten Schritt definiert war. Mit
 \texttt{.\$token} wählen wir also die Variable \texttt{token} aus
 \texttt{afd\_raw} aus.
 
-\subsection{Visualisierung}\label{visualisierung}
+\subsubsection{Visualisierung}\label{visualisierung}
 
 Zum Abschluss noch eine Visualisierung mit einer ``Wordcloud'' dazu.
 
@@ -11636,7 +11671,7 @@ die Abbildung um 90°, d.h. die Achsen sind vertauscht.
 \texttt{grid.arrange} packt beide Plots in eine Abbildung, welche 2
 Spalten (\texttt{ncol}) hat.
 
-\section{Verweise}\label{verweise-9}
+\subsection{Verweise}\label{verweise-9}
 
 \begin{itemize}
 \tightlist
@@ -11646,7 +11681,10 @@ Spalten (\texttt{ncol}) hat.
   Quelle vertieftem Wissens zum Textmining mit R.
 \end{itemize}
 
-\chapter{Probeklausur}\label{probeklausur}
+\appendix
+\renewcommand{\subsection}{\section} \renewcommand{\section}{\chapter}
+
+\section{Probeklausur}\label{probeklausur}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -11655,7 +11693,7 @@ Spalten (\texttt{ncol}) hat.
 Aussagen sind entweder als ``richtig'' oder als ``falsch'' zu
 beantworten. Offene Fragen verlangen einen ``Text'' als Antwort.
 
-\section{Fragen}\label{fragen}
+\subsection{Fragen}\label{fragen}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -11782,7 +11820,7 @@ Kurve dar.
   mit dem Satz des Pythagoras berechnen.
 \end{enumerate}
 
-\section{Lösungen}\label{losungen-1}
+\subsection{Lösungen}\label{losungen-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -11881,7 +11919,7 @@ Kurve dar.
   Richtig
 \end{enumerate}
 
-\chapter{Literaturverzeichnis}\label{literaturverzeichnis}
+\section{Literaturverzeichnis}\label{literaturverzeichnis}
 
 \hypertarget{refs}{}
 \hypertarget{ref-rmarkdown}{}

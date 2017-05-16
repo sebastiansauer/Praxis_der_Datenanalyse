@@ -12,7 +12,7 @@ rmd_files: [
 "045_Fallstudie_dplyr.Rmd",
 "050_Daten_visualisieren.Rmd",
 "056_Fallstudie_Visualisierung.Rmd",
-#"059_Modellieren_header.Rmd",
+"059_Modellieren_header.Rmd",
 "060_Modellieren.Rmd",
 "061_Inferenzstatistik.Rmd",
 "071_Regression.Rmd",

@@ -1,0 +1,416 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+```
+
+
+
+# Dimensionsreduktion
+
+Datensätze in den Sozialwissenschaften haben oft viele Variablen - oder auch Dimensionen Es ist vorteilhaft, diese auf eine kleinere Anzahl von Variablen (oder Dimensionen) zu reduzieren: Zusammenhänge zwischen Konstrukten können so klarer identifiziert werden.
+
+In diese Übung betrachten wir zwei gängige Methoden, um die Komplexität von multivarianten, metrischen Daten zu reduzieren, indem wir die Anzahl der Dimensionen in den Daten reduzieren. 
+
+* Die *Hauptkomponentenanalyse (PCA)* versucht, unkorrelierte Linearkombinationen zu finden, die die maximale Varianz in den Daten erfassen. Die Blickrichtung ist von den Daten zu den Komponenten.
+
+* Die *Exploratorische Faktorenanalyse (EFA)* versucht die Varianz auf Basis einer kleinen Anzahl von Dimensionen zu modellieren, während sie gleichzeitig versucht, die Dimensionen in Bezug auf die ursprünglichen Variablen interpretierbar zu machen. Es wird davon ausgegangen, dass die Daten einem Faktoren Modell entsprechen. Die Blickrichtung ist von den Faktoren zu den Daten.
+
+
+## Einführung
+
+### Gründe für die Notwendigkeit der Datenreduktion
+
+* Im technischen Sinne der Dimensionsreduktion können wir statt Variablen-Sets die Faktorwerte verwenden.
+* Wir können Unsicherheit verringern. Wenn wir glauben, dass ein Konstrukt nicht eindeutig messbar ist, dann kann mit einem Variablen-Set die unsicherheit reduziert werden. 
+* Wir könnten den Aufwand bei der Datenerfassung vereinfachen, indem wir uns auf Variablen konzentrieren, von denen bekannt ist, dass sie einen hohen Beitrag zum interressierenden Faktor leisten. Wenn wir feststellen, dass einige Variablen für einen Faktor nicht wichtig sind, können wir sie aus dem Datensatz eliminieren.
+
+### Benötigte Pakete
+
+Pakete, die für die Datenanalyse benötigt werden, müssen vorher einmalig in R installiert werden.
+
+```{r}
+# install.packages("corrplot")
+# install.packages("gplots")
+# install.packages("scatterplot3d")
+
+```
+
+
+```{r}
+library("corrplot")
+library("gplots")
+library("scatterplot3d")
+library("tidyverse")
+```
+
+
+### Daten einlesen
+
+Wir untersuchen die Dimensionalität mittels eines simulierten Datensatzes der typisch für die Wahrnehmung von Umfragen ist. Die Daten spiegeln Verbraucherbewertungen von Marken in Bezug auf Adjektive wieder, die in Umfragen in folgender Form abgefragt werden:
+
+Auf einer Skala von 1 bis 10 (wobei 1 am wenigsten und 10 am meisten zutrifft)
+
+wie...[ADJECTIV]... ist ...[Marke A]...?
+
+Wir verwenden einen *simulierten* Datensatz aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Die Daten umfassen simulierte Bewertungen von 10 Marken ("a" bis "j") mit 9 Adjektiven (“performance”, “leader”, “latest”, “fun” usw.) für n = 100 simulierte Befragte. 
+
+Das Einlesen der Daten erfolgt direkt über das Internet.
+```{r}
+brand.ratings <- read.csv("http://goo.gl/IQl8nc")
+```
+
+Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung
+```{r}
+str(brand.ratings)
+head(brand.ratings)
+summary(brand.ratings)
+```
+
+Jeder der 100 simulierten Befragten beurteilt 10 Marken, das ergibt insgesamt 1000 Beobachtungen (Zeilen) im Datensatz.
+
+Wir sehen in der `summary ()`, dass die Bereiche der Bewertungen für jedes Adjektiv 1-10 sind. In `str()` sehen wir, dass die Bewertungen als numerisch einghelesen wurden, während die Markennamen als Faktoren eingelesen wurden. Die Daten sind somit richtig formatiert.
+
+### Neuskalierung der Daten 
+
+In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird üblicherweise als **Standardisierung**, **Normierung**, oder **Z Scoring/ Transformation** bezeichnet. Als Ergebnis ist der Mittelwert aller Variablen über alle Beobachtungen dann 0. Da wir hier gleiche Skalenstufen haben ist ein Skalieren nicht unbedingt notwendig, wir führen es aber trotzdem durch. 
+
+Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `brand.sc` zu und scalieren anschließend die Daten. Wir skalieren in unserem Datensatz nur die ersten 9 Variablen, weil die 10. Variable der Faktor für die Markenamen ist. 
+
+```{r}
+brand.sc <- brand.ratings
+
+brand.ratings %>% 
+  mutate_each(funs(scale), -brand) -> brand.sc
+
+summary(brand.sc)
+
+```
+
+Die Daten wurden offenbar richtig skaliert, da Mittelwert aller Variablen über alle Beobachtungen 0 ist. 
+
+### Zusammenhänge in den Daten
+
+Wir verwenden den Befehl `corrplot()` für die Erstinspektion von bivariaten Beziehungen zwischen den Variablen. Das Argument `order = "hclust"` ordnet die Zeilen und Spalten entsprechend der Ähnlichkeit der Variablen in einer hierarchischen Cluster-Lösung der Variablen (mehr dazu im Teil Clusteranalyse) neu an.
+
+
+```{r}
+brand.sc %>% 
+  dplyr::select(-brand) %>% 
+  cor() %>% 
+  corrplot()
+```
+
+Die Visualisierung der Korelation der Adjektive scheint drei allgemeine Cluster zu zeigen:
+
+* fun/latest/trendy
+* rebuy/bargain/value 
+* perform/leader/serious
+
+
+### Aggregation der durchschnittlichen Bewertungen nach Marke
+
+Um die Frage "Was ist die durchschnittliche (mittlere) Bewertung der Marke auf jedem Adjektiv?" zu benatworten, können wir den Befel `aggregate()` verwenden. Dieser berechnet den Mittelwert jeder Variable nach Marke.
+
+```{r}
+brand.mean <- aggregate(.~ brand, data=brand.sc, mean)
+
+# brand.mean <- 
+#   brand.sc %>% 
+#   group_by(brand) %>% 
+#   summarise_all(funs(mean))
+
+```
+
+<!-- Zusätzlich setzten wir die Markennamen als Fallbezeichnung in der Datenmatrix ein.  -->
+
+```{r }
+brand.mean
+
+rownames(brand.mean) <- brand.mean[, 1] # Markenname als Fallbezeichnung setzen
+brand.mean <- brand.mean[, -1]          # Variablenname brand entfernen
+brand.mean
+
+```
+
+
+### Visualisierung der aggregierten Markenbewertungen
+
+Eine **Heatmap** ist eine nützliche Darstellungsmöglichkeit, um solche Ergebnisse zu visualisierung und zu analysieren, da sie Datenpunkte durch die Intensitäten ihrer Werte färbt. Hierzu laden wir das Paket `gplot`.
+
+```{r fig.width = 10, out.width = "100%"}
+library(gplots)
+heatmap.2(as.matrix(brand.mean))
+```
+
+`heatmap.2()` sortiert die Spalten und Zeilen, um Ähnlichkeiten und Muster in den Daten hervorzuheben. Eine zusätzliche Analysehilfe ist das Spalten- und Zeilendendrogramm. Hier werden Beobachtungen die nahe beineinanderliegen in einem Baum abgebildet. (Näheres hierzu bei der Clusteranalyse.)
+
+Auch hier sehen wir wieder die gleiche Zuordnung der Adjektive nach 
+
+* fun/latest/trendy
+* rebuy/bargain/value 
+* perform/leader/serious
+
+Zusätzlich können die Marken nach Ähnlichkeit bezüglich bestimmer Adjektive zugeordnet werden:
+
+* f und g
+* b und c
+* i, h und d 
+* a und j
+
+
+## Hauptkomponentenanalyse (PCA)
+
+Die PCA berechnet ein Variablenset (Komponenten) in Form von linearen Gleichungen, die die die lineare Beziehungen in den Daten erfassen. Die erste Komponente erfasst so viel Streuung (Varianz) wie möglich von allen Variablen als eine einzige lineare Funktion. Die zweite Komponente erfasst unkorreliert zur ersten Komponente so viel Streuung wie möglich, die nach der ersten Komponente verbleibt. Das geht so lange weiter, bis es so viele Komponenten gibt wie Variablen. 
+
+### Bestimmung der Anzahl der Hauptkomponenten
+
+Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Brand-Rating-Daten. Wir finden die Komponenten mit prcomp(), wobei wir wieder nur die Bewertungsspalten 1-9 auswählen:
+
+```{r}
+brand.pc <- prcomp(brand.sc[, 1:9])
+summary(brand.pc)
+
+```
+
+```{r}
+# Berchnung der Gesamtvarianz
+Gesamtvarianz<-1.726^2+1.4479^2+ 1.0389^2+ 0.8528^2+ 0.79846^2+ 
+  0.73133^2+ 0.62458^2 +0.55861^2 +0.49310^2
+
+# Varianzanteil der ersten Hauptkomponente
+
+1.726^2/Gesamtvarianz
+```
+
+
+### Scree-Plot
+
+Der Standard-Plot `plot()` für die PCA ist ein **Scree-Plot**, Dieser zeigt uns die Varianzen der Hauptkomponenten und die aufeinanderfolgende Varianzen, die von jeder Komponente berücksichtigt wird. Wir plotten ein Liniendiagramm mit dem Argument `typ = "l"` (l für Linie):
+
+```{r}
+plot(brand.pc, type="l")
+
+```
+
+
+Wir sehen anahnd des Scree-Plots, dass bei den Brand-Rating-Daten der Anteil der Streuung nach der dritten Komponente nicht mehr wesentlich abnimmt. 
+
+### Elbow-Kriterium
+
+Nach diesem Kriterium werden alle Hauptkomponenten berücksichtigt, die links von der Knickstelle im Scree-Plot liegen. Gibt es mehrere Knicks, dann wählt man jene Hauptkomponenten, die links vom rechtesten Knick liegen. Gibt es keinen Knick, dann hilft der Scree-Plot nicht weiter. Bei den Brand-Rating-Daten tritt der Ellbogen, je nach Interpretation, entweder bei drei oder vier Komponenten auf. Dies deutet darauf hin, dass die ersten zwei oder drei Komponenten die meiste Streuung in den Markendaten erklären.
+
+
+### Biplot
+
+Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein Biplot. Dies ist ein zweidimensionales Diagramm von Datenpunkten in Bezug auf die ersten beiden PCA-Komponenten, die mit einer Projektion der Variablen auf die Komponenten überlagert sind.
+
+Dazu verwenden wir `biplot()`:
+
+```{r}
+biplot(brand.pc)
+```
+
+Die Adjektiv-Gruppierungen auf den Variablen sind als rote Ladungspfeile sichbar. ZUsätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist durch die große Anzahl an Beobachtung recht unübersichtlich. 
+
+Deshalb führen wir die PCA mit den aggregierten Daten durch:
+
+```{r}
+brand.mean
+brand.mu.pc<- prcomp(brand.mean, scale=TRUE)
+summary(brand.mu.pc)
+```
+
+Dem Befehl `prcomp()` wurde `Skalierung = TRUE` hinzugefügt, um die Daten neu zu skalieren. Obwohl die Rohdaten bereits skaliert waren, haben die aggregierten Daten eine etwas andere Skala als die standardisierten Rohdaten. Die Ergebnisse zeigen, dass die ersten beiden Komponenten für 84% der erklärbaren Streuung bei den aggregierten Daten verantwortlich sind. 
+
+### Wahrnehmungsraum
+
+Wenn ein Biplot Marken in einem Zweidimensionalen Raum abbildet, dann nennt man diesen Raum **zweidimensionaler Wahrnehmungsraum**.
+
+```{r}
+biplot(brand.mu.pc)
+```
+
+Der Biplot der PCA-Lösung für die Mittelwerte gibt einen interpretierbaren Wahrnehmungsraum, der zeigt, wo die Marken in Bezug auf die ersten beiden Hauptkomponenten liegen. Die variablen auf den beiden Komponenten sind mit der PCA auf den gesamten Datensatz konsistent. Wir sehen zunächst vier Bereiche (Positionen) mit gut differenzierten Adjektiven und Marken.
+
+
+## Exploratorische Faktorenanalyse (EFA)
+
+EFA ist eine Methode, um die Beziehung von Konstrukten (Konzepten), d. h. Faktoren, zu Variablen zu beurteilen. Dabei werden die Faktoren als **latente Variablen** betrachtet, die nicht direkt beobachtet werden können. Stattdessen werden sie empirisch durch mehrere Variablen beobachtet, von denen jede ein Indikator der zugrundeliegenden Faktoren ist. Diese beobachteten Werte werden als **manifeste Variablen** bezeichnet und umfassen Indikatoren. Die EFA versucht den Grad zu bestimmen, in dem Faktoren die beobachtete Streuung der manifesten Variablen berücksichtigen.
+
+Das Ergebnis der EFA ist ähnlich zur PCA: eine Matrix von Faktoren (ähnlich zu den PCA-Komponenten) und ihre Beziehung zu den ursprünglichen Variablen (Ladung der Faktoren auf die Variablen). Im Gegensatz zur PCA versucht die EFA, Lösungen zu finden, die in den **manifesten Variablen maximal interpretierbar** sind. Im allgemeinen versucht sie, Lösungen zu finden, bei denen eine kleine Anzahl von Ladungen für jeden Faktor sehr hoch ist, während andere Ladungen für diesen Faktor gering sind. Wenn dies möglich ist, kann dieser Faktor mit diesem Variablen-Set interpretiert werden. Innerhalb einer PCA kann die Interpretierbarkeit über eine **Rotation** (z. B. `varimax()`) erhöht werden.
+
+
+### Finden einer EFA Lösung
+
+Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu verwenden wir zwei gebräuchliche Methoden:
+
+#### Das Elbow-Kriterium
+
+Den Skreeplot haben wir bereits bei der PCA durchgeführt. Ein Knick konnten wir bei der dritte oder vierten Hauptkomponente feststellen. Somit zeigt der Skreeplot eine 2 oder 3 Faktorenlösung an. 
+
+Durch das Paket `nFactors` bekommen wir eine formalisierte Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()`
+
+```{r}
+library(nFactors)
+nScree(brand.sc[, 1:9])
+
+```
+
+`nScree` gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden drei Faktoren vorschlagen.
+
+#### Das Eigenwert-Kriterium
+
+Der Eigenwert ist eine Metrik für den Anteil der erklärten Varianz. Die Anzahl Eigenwerte können wir über den Befehl `eigen()` ausgeben. 
+
+```{r}
+eigen(cor(brand.sc[, 1:9]))
+```
+
+Der Eigenwert eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Lauf dem Eigenwert-Kriterium sollen nur Faktoren mit einem Eigenwert größer 1 extrahiert werden. Dies sind bei den Brand-Rating Daten drei Faktoren, da drei Eigenwerte größer 1 sind. 
+
+Dies kann auch grafisch mit dem `VSS.Scree` geplotet werden. 
+
+```{r}
+VSS.scree(brand.sc[, 1:9])
+```
+
+
+__Schätzung der EFA__
+
+Eine EFA wir geschätzt mit dem Befehl `factanal(x,factors=k)`, wobei k die Anzahl Faktoren angibt.
+
+```{r}
+brand.fa<-factanal(brand.sc[, 1:9], factors=3)
+brand.fa
+```
+
+Eine Übersichtlichere Ausgabe bekommen wir mit dem `print`Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit `digits=2`, alle Ladungen kleiner als 0,5 ausblenden mit `cutoff=.5` und die Ladungen so sortieren, dass die Ladungen die auf einen Faktor laden untereinander stehen mit `sort=TRUE`.
+```{r}
+print(brand.fa, digits=2, cutoff=.5, sort=TRUE)
+```
+
+
+Standardmäßig wird bei der `factanal` eine Varimax-Rotation durchgeführt. Diese verwendet, dass es keine Korrelationen zwischen den Faktoren gibt. Sollen Korrelationen zwischen den Faktoren zugelassen werden, empfielt sich die Oblimin-Rotation mit dem Argument `rotation="oblimin"` aus dem Paket `GPArotation`.
+
+### Heatmap mit Ladungen
+
+In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt `brand.fa` sind diese als  `$loadings` vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von `$loadings` visualisieren:
+
+```{r out.width = "100%", fig.width = 10}
+heatmap.2(brand.fa$loadings)
+```
+
+
+Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 3 Faktoren, die grob interpretierbar sind als **value**, **leader** und **latest**. 
+
+
+### Berechnung der Faktor-Scores
+
+Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Faktorwerte für jede Beobachtung schätzen. Die gängige Extraktionsmethodi ist Bartlett-Methode.
+
+```{r}
+
+brand.fa.ob <- factanal(brand.sc[, 1:9], factors=3, scores="Bartlett")
+brand.scores <- data.frame(brand.fa.ob$scores)
+head(brand.scores)
+```
+
+
+Wir können dann die Faktor-Scores verwenden, um die Positionen der Marken auf den Faktoren zu bestimmen. 
+
+```{r}
+brand.scores$brand <- brand.sc$brand # Zuweisung der Markennamen zur Scores-Matrix
+brand.fa.mean <- aggregate(. ~ brand, data=brand.scores, mean) # Aggregation Marken
+rownames(brand.fa.mean) <- brand.fa.mean[, 1] # Fallbezeichnung mit Markennamen setzen
+brand.fa.mean <- brand.fa.mean[, -1] # Erste Spalte löschen
+names(brand.fa.mean) <- c("Leader", "Value", "Latest") # Spaltennamen neu zuweisen
+brand.fa.mean
+
+```
+
+
+Mittels Heatmap kann dann sehr schnell analysiert werden, welche Marke auf welcher Dimension gute oder schlechte Ausprägungen hat. 
+
+```{r out.width = "100%", fig.width = 10}
+heatmap.2(as.matrix(brand.fa.mean))
+```
+
+Drei Dimensionen lassen sich in einem dreidimensionalen Raum darstellen:
+```{r}
+library(scatterplot3d)
+attach(brand.fa.mean) # Datensatz zum Suchpfad hinzufügen
+scatterplot3d(Leader~Value+Latest, pch=row.names(brand.fa.mean))
+detach(brand.fa.mean) # Datensatz vom Suchpfad entfernen
+```
+
+
+## Interne Konsistenz von Skalen
+
+Das einfachste Maß für die **interne Konsistenz** ist die **Split-Half-Reliabilität**. Die Items werden in zwei Hälften unterteilt, und die resultierenden Scores sollten in ihren Kenngrößen ähnlich sein. Hohe Korrelationen zwischen den Hälften deuten auf eine hohe interne Konsistenz hin. Das Problem ist, dass die Ergebnisse davon abhängen, wie die Items aufgeteilt werden. Ein üblicher Ansatz zur Lösung dieses Problems besteht darin, den Koeffizienten **Alpha (Cronbachs Alpha)** zu verwenden.
+
+Der **Koeffizient Alpha** ist der Mittelwert aller möglichen Split-Half-Koeffizienten, die sich aus verschiedenen Arten der Aufteilung der Items ergeben. Dieser Koeffizient variiert von 0 bis 1. Formal ist es ein korrigierter durschnittlicher Korrelationskoeffizient.
+
+Faustreglen für die Bewertung von Cronbachs Alpha:
+
+Alpha      |   Bedeutung    
+-----------|--------------
+größer 0,9 |   excellent     
+größer 0,8 |   gut     
+größer 0,7 |   akzeptabel     
+größer 0,6 |   fragwürdig     
+größer 0,5 |   schlecht     
+
+
+Wir Bewertungen nun die interne Konsistent der Itmes für die Konstrukte `Leader`, `Value` und `Latest`.
+```{r}
+
+alpha(brand.sc[, c("leader","serious","perform")], check.keys=TRUE)
+alpha(brand.sc[, c("value", "bargain", "rebuy")], check.keys=TRUE)
+alpha(brand.sc[, c("latest","trendy","fun")], check.keys=TRUE)
+
+```
+
+Bis auf `Latest` sind alle Konstrukte bezüglich ihrer internen Konsistenz akzeptabel. Bei dem Konstrukt `Latest` können wir durch Elimination von `fun` das Cronbachs Alpha von einem fragwürdigen Wert auf einen akteptablen Wert von 0,77 erhöhen. 
+
+Das Argument `check.keys=TRUE` gibt uns eine Warung aus, sollte die Ladung eines oder mehrerer Items negativ sein. Dies ist hier nicht der Fall, somit müssen auch keine Items recodiert werden. 
+
+***
+
+### Übung
+
+Führen Sie eine Dimensionsreduktion mit den nichtskalierten Original-Daten durch. Berechenn Sie zur Interpretaion keine Faktor-Scores, sondern berechnen Sie stattdessen den Mittelwert der Variablen, die hoch (mindestens 0,5) auf einen Faktor laden. Für die Berechnung verwenden Sie
+
+```{r eval = FALSE}
+Datensatz$Neue_Variable <- apply(Datensatz[,c("Variable1", 
+                                              "Variable2", "etc..")], 
+                                 1, mean,na.rm=TRUE)   
+
+```
+
+
+
+
+### Literatur
+
+- Chris Chapman, Elea McDonnell Feit (2015): *R for Marketing Research and Analytics*, Kapitel 8.1-8.3
+- Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani (2013): *An Introduction to Statistical Learning -- with Applications in R*, [http://www-bcf.usc.edu/~gareth/ISL/](http://www-bcf.usc.edu/~gareth/ISL/), Kapitel 10.2, 10.4
+- Reinhold Hatzinger, Kurt Hornik, Herbert Nagel (2011): *R -- Einführung durch angewandte Statistik*. Kapitel 11
+- Maike Luhmann (2015): R für Einsteiger, Kapitel 19
+
+***
+Diese Übung orientiert sich am Beispiel aus Kapitel 8 aus Chapman und Feit (2015) und steht unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). Der Code steht unter der [Apache Lizenz 2.0](http://www.apache.org/licenses/LICENSE-2.0)
