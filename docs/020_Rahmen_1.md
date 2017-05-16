@@ -1,7 +1,11 @@
 
 
-\pagenumbering{arabic}
+\mainmatter
 
+
+%\pagenumbering{arabic}
+\setcounter{chapter}{0}
+\chapter{Grundlagen}
 
 
 # Rahmen

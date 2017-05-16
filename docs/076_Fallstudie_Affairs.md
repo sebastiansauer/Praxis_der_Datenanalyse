@@ -815,7 +815,7 @@ dplyr::ntile           Teilt einen Wertebereich in $n$ gleich große Teile auf
 
 
 ### Versionshinweise und SessionInfo
-* Datum erstellt: 2017-05-15
+* Datum erstellt: 2017-05-16
 * R Version: 3.3.2
 * `dplyr` Version: 0.5.0
 

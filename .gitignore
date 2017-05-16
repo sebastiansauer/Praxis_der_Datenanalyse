@@ -3,10 +3,10 @@
 .Rproj.user
 .Rproj.user/**
 .Rhistory
-#docs/**
+docs/**
 docs/
-#div/
-#archive/
+div/
+archive/
 _bookdown_files
 _bookdown_files/**
 Praxis_der_Datenanalyse.log
