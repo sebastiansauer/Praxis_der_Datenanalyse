@@ -28,8 +28,10 @@ biblio-style: apalike
 source("includes/libs.R")
 ```
 
+`r if (knitr:::is_latex_output()) '\\newpage\\setcounter{chapter}{-1}\\chapter{Vorwort}'`
+`r if (!(knitr:::is_latex_output())) '# Vorwort {-}'`
 
-# Vorwort {-}
+
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
 knitr::include_graphics("images/FOM.jpg")
