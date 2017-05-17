@@ -559,25 +559,15 @@ stats_test %>%
 
 ## Befehlsübersicht
 
+Tabelle \@ref(tab:befehle-praxisprobleme) stellt die Befehle dieses Kapitels dar. 
 
-Paket::Funktion        Beschreibung
------------------      -------------
-na.omit                Löscht Zeilen, die fehlende Werte enthalten
-nrow                   Liefert die Anzahl der Zeilen des Dataframes zurück  
-complete.cases         Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück
-car::recode            Kodiert Werte um
-cut                    Schneidet eine kontinuierliche Variable in Wertebereiche
-rowMeans               Berechnet Zeilen-Mittelwerte
-dplyr::rowwise         Gruppiert nach Zeilen
-ggplot2::cut_number    Schneidet eine kontinuierliche Variable in *n* gleich große Bereiche
-ggplot2::cut_interval  Schneidet eine kontinuierliche Variable in Intervalle der Größe *k*
-head                   Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.  
-scale                  z-skaliert eine Variable
-dplyr::select_if       Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist
-dplyr::glimpse         Gibt einen Überblick über einen Dataframe
-dplyr::mutate_if       definiert eine Spalte, wenn eine Kriterium erfüllt ist
-:                      Definiert einen Bereich von ... bis ...
-corrr:correlate        Berechnet Korrelationtabelle, liefert einen Dataframe zurück
-cor                    Berechnet Korrelationtabelle
-rplot                  Plottet Korrelationsmatrix von `correlate`
-shave                  "Rasiert" redundantes Dreick in Korrelationsmatrix ab
+
+
+```{r befehle-praxisprobleme, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Praxisprobleme.csv")
+
+knitr::kable(df, caption = "Befehle des Kapitels 'Praxisprobleme'")
+
+```
+

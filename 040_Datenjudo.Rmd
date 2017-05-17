@@ -755,7 +755,7 @@ Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusa
 df <- readr::read_csv("includes/Befehle_Datenjudo.csv")
 
 knitr::kable(df,
-             caption = "Befehle des Kapitels Datenjudo")
+             caption = "Befehle des Kapitels 'Datenjudo'")
 ```
 
 

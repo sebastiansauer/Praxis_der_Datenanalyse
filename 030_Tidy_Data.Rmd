@@ -231,12 +231,16 @@ Mit `help(write.csv)` bekommt man mehr Hinweise dazu. Beachten Sie, dass immer i
 
 ## Befehlsübersicht
 
-Paket::Funktion      Beschreibung
------------------    -------------
-read.csv             Liest eine CSV-Datei ein.
-write.csv            Schreibt einen Dateframe in eine CSV-Datei.
-tidyr::gather        Macht aus einem "breiten" Dataframe einen "langen".
-tidyr::separate      "Zieht" Spalten auseinander.  
+Tabelle \@ref(tab:befehle-tidy) stellt die Befehle dieses Kapitels dar. 
+
+
+```{r befehle-tidy, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_tidy.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Daten einlesen'")
+```
 
 
 
