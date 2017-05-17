@@ -135,6 +135,10 @@ Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MS
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (genau wie alle zitierten Textstellen).
 
 
+**Kontakt**
+
+Wenn Sie einen Fehler oder Verbesserungshinweise berichten möchten, können Sie unter <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues> einen "Issue" einreichen (Button "New Issue"). Alternativ können Sie Sebastian Sauer und die anderen Autoren über den Online Campus der FOM kontaktieren (eine Nachricht schreiben). Sebastian Sauer können Sie via Twitter folgen (<https://twitter.com/sauer_sebastian>) oder seinen Blog lesen (<https://sebastiansauer.github.io>).
+
 
 **Sonstiges**
 
