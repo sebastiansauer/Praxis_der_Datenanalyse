@@ -3,8 +3,8 @@
 .Rproj.user
 .Rproj.user/**
 .Rhistory
-docs/**
-docs/
+#docs/**
+#docs/
 div/
 archive/
 _bookdown_files
