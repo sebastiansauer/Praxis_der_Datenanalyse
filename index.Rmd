@@ -8,7 +8,7 @@ colorlinks: yes
 thanks: "Danke an IFES"
 cover-image: images/div/cover.jpg
 bibliography:
-- Praxis_der_Datenanalyse.bib
+- bib.bib
 - libs.bib
 description: "Eine Einführung in moderne Statistik für Praktiker"
 documentclass: book
@@ -127,10 +127,13 @@ Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen ~~angemahnt~~ v
 
 **Zitieren**
 
-Bitte zitieren Sie das Skript so (Bib-File [hier](https://sebastiansauer.github.io/download/Praxis_der_Datenanalyse.bib)):
+Bitte zitieren Sie das Skript so:
 
-Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg.
+Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
+![DOI](https://zenodo.org/badge/81811975.svg)](https://zenodo.org/badge/latestdoi/81811975)
+
+Ein Bib-File finden Sie hier: <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (genau wie alle zitierten Textstellen).
 
@@ -156,7 +159,7 @@ Sebastian Sauer
 
 **Herausgeber: FOM Hochschule für Oekonomie & Management gemeinnützige GmbH**
  
-Dieses Skript dient als Begleitmaterial zum Modul „Praxis der Datenanalyse“ des Masterstudiengangs „Wirtschaftspsychologie & Consulting“ der FOM Hochschule für Oekonomie & Management.
+Dieses Skript dient als Begleitmaterial zum Modul "Praxis der Datenanalyse"" des Masterstudiengangs "Wirtschaftspsychologie & Consulting" der FOM Hochschule für Oekonomie & Management.
  
 FOM. Die Hochschule. Für Berufstätige.
 Die mit bundesweit über 42.000 Studierenden größte private Hochschule Deutschlands führt seit 1993 Studiengang für Berufstätige durch, die einen staatlich und international anerkannten Hochschulabschluss (Bachelor/Master) erlangen wollen.
