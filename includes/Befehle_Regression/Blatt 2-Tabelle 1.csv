@@ -1,0 +1,5 @@
+,
+read.csv            ,Liest eine CSV-Datei ein.
+write.csv           ,Schreibt einen Dateframe in eine CSV-Datei.
+tidyr::gather       ,"Macht aus einem ""breiten"" Dataframe einen ""langen""."
+tidyr::separate     ,"""Zieht"" Spalten auseinander.  "

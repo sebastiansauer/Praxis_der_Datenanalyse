@@ -43,9 +43,10 @@ Lernziele:
 
 Für dieses Kapitel benötigen Sie folgende Pakete:
 ```{r libs-logist-regr}
-library(SDMTools)
-library(ROCR)
-library(tidyverse)
+library(SDMTools)  # Güte von Klassifikationsmodellen
+library(ROCR)  # Visualisierung der Güte 
+library(tidyverse)  # Datenjudo
+library(BaylorEdPsych)  # Pseudo-R-Quadrat
 ```
 
 
@@ -396,6 +397,23 @@ Sie können in unter <https://goo.gl/Dkd7nK> herunterladen. Die Originaldaten fi
 Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren[^338]. 
 
 **Zusatzaufgabe:** Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable `color` aufgenommen wird (Rot = 0, Weiß = 1).
+
+
+## Befehlsübersicht
+
+
+Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels dar. 
+
+
+```{r befehle-logist-regression, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_logist_Regression.csv")
+
+knitr::kable(df, caption = "Befehle des Kapitels 'Logistische Regression'")
+
+```
+
+
 
 
 ## Verweise

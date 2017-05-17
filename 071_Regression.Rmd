@@ -579,10 +579,28 @@ caret::postResample(pred = lm2_predict, obs = test$shoe_size)
 Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
 
 
+## Befehlsübersicht
+
+Tabelle \@ref(tab:befehle-regression) stellt die Befehle dieses Kapitels dar. 
+
+
+```{r befehle-regression, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Regression.csv")
+
+knitr::kable(df, caption = "Befehle des Kapitels 'Regression'")
+
+```
+
+
+
+
 
 ## Verweise
 
 Dieses Kapitel basiert teilweise auf Übungen zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) [@introstats] unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
+
+
 
 
 
