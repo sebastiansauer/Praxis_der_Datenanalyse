@@ -56,7 +56,7 @@ Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die
 - Gesichtserkennung
 
 
-Sie werden in diesem Kurs einige praktische Aspekte der modernen Datenanalyse lernen. Ziel ist es, Sie - in Grundzügen - mit der Art und Weise vertraut zu machen, wie angewandte Statistik bei führenden Organisationen und Praktikern verwendet wird^[Statistiker, die dabei als Vorbild Pate standen sind: Roger D. Peng: http://www.biostat.jhsph.edu/~rpeng/, Hadley Wickham: http://hadley.nz, Jennifer Bryan: <https://github.com/jennybc>).
+Sie werden in diesem Kurs einige praktische Aspekte der modernen Datenanalyse lernen. Ziel ist es, Sie - in Grundzügen - mit der Art und Weise vertraut zu machen, wie angewandte Statistik bei führenden Organisationen und Praktikern verwendet wird^[Statistiker, die dabei als Vorbild Pate standen sind: Roger D. Peng: <http://www.biostat.jhsph.edu/~rpeng/>, Hadley Wickham: <http://hadley.nz>, Jennifer Bryan: <https://github.com/jennybc>].
 
 
 Es ist ein Grundlagenkurs; das didaktische Konzept beruht auf einem induktiven, intuitiven Lehr-Lern-Ansatz. Formeln und mathematische Hintergründe such man meist vergebens (tja).
@@ -131,7 +131,9 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-![DOI](https://zenodo.org/badge/81811975.svg)](https://zenodo.org/badge/latestdoi/81811975)
+![DOI](https://zenodo.org/badge/81811975.svg)]
+
+Mehr Infos dazu hier: <https://zenodo.org/badge/latestdoi/81811975>
 
 Ein Bib-File finden Sie hier: <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
 
@@ -159,7 +161,7 @@ Sebastian Sauer
 
 **Herausgeber: FOM Hochschule für Oekonomie & Management gemeinnützige GmbH**
  
-Dieses Skript dient als Begleitmaterial zum Modul "Praxis der Datenanalyse"" des Masterstudiengangs "Wirtschaftspsychologie & Consulting" der FOM Hochschule für Oekonomie & Management.
+Dieses Skript dient als Begleitmaterial zum Modul "Praxis der Datenanalyse" des Masterstudiengangs "Wirtschaftspsychologie & Consulting" der FOM Hochschule für Oekonomie & Management.
  
 FOM. Die Hochschule. Für Berufstätige.
 Die mit bundesweit über 42.000 Studierenden größte private Hochschule Deutschlands führt seit 1993 Studiengang für Berufstätige durch, die einen staatlich und international anerkannten Hochschulabschluss (Bachelor/Master) erlangen wollen.

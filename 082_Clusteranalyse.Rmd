@@ -298,12 +298,20 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 2. Führen Sie eine k-Means Clusteranalyse mit 4 Clustern durch. Worin unterscheiden sich die gefundenen Segmente?
 
 
-## Literatur
 
-- Chris Chapman, Elea McDonnell Feit (2015): *R for Marketing Research and Analytics*, Kapitel 11.3
-- Reinhold Hatzinger, Kurt Hornik, Herbert Nagel (2011): *R -- Einführung durch angewandte Statistik*. Kapitel 12
+## Befehlsübersicht
 
 
+
+Tabelle \@ref(tab:befehle-cluster) fasst die R-Funktionen dieses Kapitels zusammen.
+
+```{r befehle-fallstudien, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Cluster.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Clusteranalyse'")
+```
 
 
 

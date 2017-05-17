@@ -417,39 +417,22 @@ Puh. Geschafft!
 ## Befehlsübersicht
 
 
-Funktion               Beschreibung
------------------      -------------
-data                   Lädt Daten aus einem Datensatz
-chisq.test             Rechnet einen $\chi^2$-Test
-compute.es::chies      Liefert Effektstärkemaße für einen $\chi^2$-Test
-glm                    Rechnet eine generalisiertes lineares Modell (logistische Regression)
-exp                    Delogarithmiert einen Ausdruck
-coef                   Liefert die Koeffizienten von einem Objekt des Typs `lm` oder `glm` zurück.  
-predict                Macht eine Vorhersage für ein Objekt des Typs `lm` oder `glm`
-psych::describe        Liefert eine Reihe zentraler Statistiken
-is.na                  Zeigt an, ob ein Vektor fehlende Werte beinhaltet
-dplyr::summarise_each  Führt `summarise` für jede Spalte aus
-t.test                 Rechnet einen t-Test
-MBESS:ci.smd           Berechnet Cohens d
-dplyr::ntile           Teilt einen Wertebereich in $n$ gleich große Teile auf
-.                      und gibt für jeden Fall an, in welchem Teil er sich befindet
-  
 
-  
+Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zusammen.
 
+```{r befehle-fallstudien, echo = FALSE}
 
+df <- readr::read_csv("includes/Befehle_fallstudien.csv")
 
-
-### Versionshinweise und SessionInfo
-* Datum erstellt: `r Sys.Date()`
-* R Version: `r getRversion()`
-* `dplyr` Version: `r packageVersion("dplyr")`
-
-
-
-```{r}
-sessionInfo()
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Fallstudien'")
 ```
+
+
+
+
+
+
 
 
 
