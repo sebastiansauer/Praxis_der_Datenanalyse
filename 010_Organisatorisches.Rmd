@@ -226,7 +226,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
         
 ## Literatur
 
-Zum Bestehen der Prüfung ist keine weitere Literatur fomal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. 
+Zum Bestehen der Prüfung ist keine weitere Literatur formal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. 
 Dazu ist am ehesten das Buch von Wickham und Grolemund [@r4ds] hilreich, 
 obwohl es deutlich tiefer geht als dieses Skript. 
 
