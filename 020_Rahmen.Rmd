@@ -18,6 +18,11 @@ knitr::opts_chunk$set(
 width.cutoff=60
 ```
 
+
+
+
+
+
 \mainmatter
 
 
@@ -371,7 +376,7 @@ haben Sie Ruhe.
 
 ### R-Pakete für dieses Buch 
 
-In diesem Buch verwenden wir die folgenden 
+In diesem Skript verwenden wir die folgenden 
 R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein. 
 
 ```{r source_packages, include = FALSE, message = FALSE, warning = FALSE} 
@@ -379,38 +384,17 @@ source("includes/Pakete.R")
 ```
 
 
-```{r Paketliste} 
-Pakete 
+```{r Paketliste, echo = FALSE} 
+packages[-1]
 ```
 
+Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.
+```{r install-packages, eval = FALSE}
+load("includes/Pakete_fuer_PraDa.Rda")
+install.packages(packages)
+```
 
-<!-- ### Vertiefung: Mehrere Pakete auf einmal installieren/starten -->
-<!-- Anstelle alle einzeln zu laden (`library` verdaut nur ein Paket auf einmal),  -->
-<!-- können wir mit etwas R-Judo alle auf einen Haps laden: -->
-
-<!-- ```{r eval = FALSE}  -->
-<!-- lapply(Pakete, require, character.only = TRUE)  -->
-<!-- ``` -->
-
-
-<!-- ```{r load_packages, include = FALSE}  -->
-<!-- lapply(Pakete, require, character.only = TRUE)  -->
-<!-- ``` -->
-
-
-<!-- ``` {r include = FALSE, echo = FALSE, eval = FALSE}  -->
-<!-- knitr::write_bib(Pakete, file = "libs.bib")  -->
-<!-- ``` -->
-
-<!-- Der Befehl heißt auf Deutsch: "Wende auf jedes Element von `Pakete` den Befehl  -->
-<!-- `library` an"^[http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once]. -->
-
-<!-- Hin und wieder ist es sinnvoll, die Pakete auf den neuesten Stand zu bringen;  -->
-<!-- das geht mit `update.packages()` . -->
-
-
-
-
+Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.
 
 ### Datensätze { #daten }
 

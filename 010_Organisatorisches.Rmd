@@ -49,45 +49,35 @@ Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vg
 Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 
-Table: (\#tab:Themen) Themen pro Termin.
 
------------------------------------------------
- Termin  Thema / Kapitel               
--------- --------------------------------------
-   1     Organisatorisches             
 
-         Einführung    
+Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
 
-         Rahmen    
+```{r termin-themen, echo = FALSE}
 
-         Daten einlesen                      
+df <- readr::read_csv("includes/Termin_Themen.csv")
 
-   2     Datenjudo                     
+knitr::kable(df, caption = "Zuordnung von Themen zu Terminen")
 
-   3     Daten visualisieren           
+```
 
-   4     Fallstudie                    
 
-   5     Der p-Wert   
-   
-         Daten modellieren
+```{r fig-themen, echo = FALSE, include = FALSE}
 
-   6     Lineare Regression - metrisch 
+# Bild erzeugen von der Tabelle, da einfacher zu handeln in Powerpoint
 
-   7     Lineare Regression - kategorial                    
+library(gridExtra)
+library(grid)
+pdf("images/Orga/Themen_Termin.pdf", height=11, width=8.5)
 
-   8     Fallstudie                    
 
-   9     Vertiefung: *Textmining* 
-         oder 
-         *Clusteranalyse*              
+grid.table(df, rows = NULL)
+dev.off()
 
-   10    Vertiefung: *Baumbasierte Verfahren* 
-         oder               
-         *Dimensionsreduktion*         
 
-   11    Wiederholung                  
-------------------------------------------------
+
+```
+
 
           
 ## Vorerfahrung

@@ -2,9 +2,9 @@
 # (w) in 2017 by Norman Markgraf
 packages <- c()
 #  010_Organisatorisches.Rmd
-packages <- c(packages,  "" )
-#  025_Explorieren.Rmd
-packages <- c(packages,  "" )
+packages <- c(packages,  "gridExtra", "grid" )
+#  020_Rahmen.Rmd
+packages <- c(packages,  "dplyr", "name_des_pakets", "dplyr", "dplyr", "okcupiddata" )
 #  030_Tidy_Data.Rmd
 packages <- c(packages,  "" )
 #  040_Datenjudo.Rmd
@@ -23,12 +23,10 @@ packages <- c(packages,  "" )
 packages <- c(packages,  "tidyverse", "grid", "png" )
 #  061_Inferenzstatistik.Rmd
 packages <- c(packages,  "" )
-#  062_Inferenz_Grundlagen.Rmd
-packages <- c(packages,  "mosaic" )
 #  071_Regression.Rmd
 packages <- c(packages,  "caret", "tidyverse", "gridExtra", "modelr" )
 #  072_klassifizierende_Regression.Rmd
-packages <- c(packages,  "SDMTools", "ROCR", "tidyverse", "ROCR", "lmtest", "BaylorEdPsych" )
+packages <- c(packages,  "SDMTools", "ROCR", "tidyverse", "BaylorEdPsych", "ROCR", "lmtest", "BaylorEdPsych" )
 #  075_Fallstudie_Titanic.Rmd
 packages <- c(packages,  "tidyverse", "ggplot2" )
 #  076_Fallstudie_Affairs.Rmd
@@ -44,3 +42,10 @@ packages <- c(packages,  "" )
 #  120_Literatur.Rmd
 packages <- c(packages,  "" )
 packages <- sort(unique(packages)[-1])
+
+
+#remove dummy names from package list:
+packages <- packages[packages != "name_des_pakets"]
+
+dput(packages, file = "Pakete_fuer_PraDa.txt")
+save(packages, file = "Pakete_fuer_PraDa.Rda")

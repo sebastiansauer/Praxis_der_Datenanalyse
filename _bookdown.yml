@@ -5,7 +5,7 @@ output_dir: "docs"
 rmd_files: [
 "index.Rmd",
 "010_Organisatorisches.Rmd",
-"020_Rahmen_1.Rmd",
+"020_Rahmen.Rmd",
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
 "043_Typische_Probleme_Datenanalyse.Rmd",

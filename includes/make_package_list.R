@@ -25,6 +25,7 @@ output <- c(output, "# Diese Datei wird automatisch erzeugt! Bitte nicht von Han
 output <- c(output, "# (w) in 2017 by Norman Markgraf")
 output <- c(output,"packages <- c()")
 
+
 for(file in na.omit(files)) {
   srctext <- read_lines(file.path(file))
   libs <- na.omit(str_match(srctext, libstring))[,2]
@@ -36,4 +37,4 @@ output <- c(output,"packages <- sort(unique(packages)[-1])")
 
 write(output, file=my_packages_list, sep="\n")
 
-#print(output)
+print(output)
