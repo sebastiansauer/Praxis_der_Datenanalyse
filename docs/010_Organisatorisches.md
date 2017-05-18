@@ -1,11 +1,13 @@
 
 
-
+\newpage
 # Organisatorisches
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 ## Modulziele
@@ -23,50 +25,59 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 ## Themen pro Termin
 
-Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:Themen)).
+Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:termin-themen)).
 
 Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 
-Table: (\#tab:Themen) Themen pro Termin.
 
------------------------------------------------
- Termin  Thema / Kapitel               
--------- --------------------------------------
-   1     Organisatorisches             
 
-         Einführung    
+Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
 
-         Rahmen    
+\begin{table}
 
-         Daten einlesen                      
+\caption{(\#tab:termin-themen)Zuordnung von Themen zu Terminen}
+\centering
+\begin{tabular}[t]{r|l}
+\hline
+Termin & Thema / Kapitel\\
+\hline
+1 & Organisatorisches\\
+\hline
+1 & Einführung\\
+\hline
+1 & Rahmen\\
+\hline
+1 & Daten einlesen\\
+\hline
+2 & Datenjudo\\
+\hline
+3 & Daten visualisieren\\
+\hline
+4 & Fallstudie\\
+\hline
+5 & Der p-Wert\\
+\hline
+5 & Daten modellieren\\
+\hline
+6 & Lineare Regression - metrisch\\
+\hline
+7 & Lineare Regression - kategorial\\
+\hline
+8 & Fallstudie\\
+\hline
+9 & Vertiefung 1: Textmining oder Clusteranalyse\\
+\hline
+10 & Vertiefung 2: Baumbasierte Verfahren oder Dimensionsreduktion\\
+\hline
+11 & Wiederholung\\
+\hline
+\end{tabular}
+\end{table}
 
-   2     Datenjudo                     
 
-   3     Daten visualisieren           
 
-   4     Fallstudie                    
 
-   5     Der p-Wert   
-   
-         Daten modellieren
-
-   6     Lineare Regression - metrisch 
-
-   7     Lineare Regression - kategorial                    
-
-   8     Fallstudie                    
-
-   9     Vertiefung: *Textmining* 
-         oder 
-         *Clusteranalyse*              
-
-   10    Vertiefung: *Baumbasierte Verfahren* 
-         oder               
-         *Dimensionsreduktion*         
-
-   11    Wiederholung                  
-------------------------------------------------
 
           
 ## Vorerfahrung
@@ -205,7 +216,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
         
 ## Literatur
 
-Zum Bestehen der Prüfung ist keine weitere Literatur fomal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. 
+Zum Bestehen der Prüfung ist keine weitere Literatur formal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. 
 Dazu ist am ehesten das Buch von Wickham und Grolemund [@r4ds] hilreich, 
 obwohl es deutlich tiefer geht als dieses Skript. 
 

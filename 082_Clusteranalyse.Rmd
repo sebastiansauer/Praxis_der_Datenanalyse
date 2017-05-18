@@ -305,7 +305,7 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 
 Tabelle \@ref(tab:befehle-cluster) fasst die R-Funktionen dieses Kapitels zusammen.
 
-```{r befehle-fallstudien, echo = FALSE}
+```{r befehle-cluster, echo = FALSE}
 
 df <- readr::read_csv("includes/Befehle_Cluster.csv")
 

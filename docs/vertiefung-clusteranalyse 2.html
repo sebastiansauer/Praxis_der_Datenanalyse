@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="organisatorisches.html">
-<link rel="next" href="daten-einlesen.html">
+<link rel="prev" href="fallstudien-zum-geleiteten-modellieren.html">
+<link rel="next" href="vertiefung-textmining.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -374,313 +374,225 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rahmen" class="section level1">
-<h1><span class="header-section-number">Kapitel 2</span> Rahmen</h1>
+<div id="vertiefung-clusteranalyse" class="section level1">
+<h1><span class="header-section-number">Kapitel 14</span> Vertiefung: Clusteranalyse</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
-
-<div class="rmdcaution">
-<p>Lernziele:</p>
-<ul>
-<li>Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.</li>
-<li>R und RStudio installieren können.</li>
-<li>Einige häufige technische Probleme zu lösen wissen.</li>
-<li>R-Pakete installieren können.</li>
-<li>Einige grundlegende R-Funktionalitäten verstehen.</li>
-<li>Auf die Frage “Was ist Statistik?” eine Antwort geben können.</li>
-</ul>
+<p>Benötigte Pakte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(cluster)</code></pre></div>
+<div id="einfuhrung" class="section level2">
+<h2><span class="header-section-number">14.1</span> Einführung</h2>
+<p>Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. <em>Cluster</em>) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie “Manhatten” oder “Gower” sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklischen Abstand konzentrieren.</p>
 </div>
-<p></p>
-<p>In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das “Drumherum” oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voilà (Abb. <a href="rahmen.html#fig:fig-prozess">2.1</a>):</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-prozess"></span>
-<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<div id="intuitive-darstellung-der-clusteranalayse" class="section level2">
+<h2><span class="header-section-number">14.2</span> Intuitive Darstellung der Clusteranalayse</h2>
+<p>Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; “simuliert”, sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster1">14.1</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster1"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster1-1.png" alt="Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?" width="70%" />
 <p class="caption">
-Abbildung 2.1: Der Prozess der Datenanalyse
+Abbildung 14.1: Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?
 </p>
 </div>
-<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em> (hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
-<p>Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem <em>Rahmen</em> eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen.</p>
-<div id="software-installieren" class="section level2">
-<h2><span class="header-section-number">2.1</span> Software installieren</h2>
-<p>Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. “Entwicklungsumgebung” RStudio einiges an komfortabler Funktionalität bescheren. Eine Reihe von R-Paketen (“Packages”; d.h. Erweiterungen) werden wir auch nutzen. R ist eine recht alte Sprache; viele Neuerungen finden in Paketen Niederschlag, da der “harte Kern” von R lieber nicht so stark geändert wird. Stellen Sie sich vor: Seit 29 Jahren nutzen Sie eine Befehl, der Ihnen einen Mittelwert ausrechnet, sagen wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am “R-Kern” nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.</p>
-<div id="r-und-rstudio-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> R und RStudio installieren</h3>
-<p><img src="images/Rahmen/Rlogo.png" style="width:20.0%" /> <img src="images/Rahmen/rstudiologo.png" style="width:20.0%" /></p>
-<p>Sie können R unter <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>; laden Sie die “Desktop-Version” für Ihr Betriebssystem herunter.</p>
-<p>Die Oberfläche von R, die “Console”, sieht so aus:</p>
-<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
-<p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
-<p><img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Das <em>Skript-Fenster</em> ähnelt einem normalem Text-Editor; praktischerweise finden Sie aber einen Button “run”, der die aktuelle Zeile oder die Auswahl “abschickt”, d.h. in die Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster öffnen möchten, so können Sie das Icon <img src="images/Rahmen/new_script.png" alt="new_script" /> klicken (Alternativ: Ctrl-Shift-N oder File &gt; New File &gt; R Script).</p>
-<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit R. Wird ein Befehl (synonym: <em>Funktion</em>) hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
-<p>Im Fenster <em>Umgebung</em> (engl. “environment”) zeigt R, welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht in der Umgebung angezeigt wird, existiert nicht für R.</p>
-<p>Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster rechts unten durch.</p>
-<p>Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist <code>Shift-Alt-K</code>.</p>
+<p>Färben wir das Diagramm mal ein (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster2">14.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster2"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster2-1.png" alt="Ein Streudiagramm - mit drei Clustern" width="70%" />
+<p class="caption">
+Abbildung 14.2: Ein Streudiagramm - mit drei Clustern
+</p>
 </div>
-<div id="hilfe-r-tut-nicht-so-wie-ich-das-will" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Hilfe! R tut nicht so wie ich das will</h3>
+<p>Nach dieser “Färbung”, d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende “Cluster”, “Gruppen” oder “Typen” von Studierenden zu geben:</p>
+<ul>
+<li><p>“Blaue Gruppe”: Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausr. Tja.</p></li>
+<li><p>“Rote Gruppe”: Fälle dieser Gruppe lernen viel; der Erfolg ist recht durchwachsen.</p></li>
+<li><p>“Grüne Gruppe”: Fälle dieser Gruppe lernen mittel viel und erreichen einen vergleichsweise großen Erfolg in der Klausur.</p></li>
+</ul>
+<p>Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder weniger Gruppen unterteilen können. Die Clusteranalyse gibt keine definitive Anzahl an Gruppen vor; vielmehr gilt es, aus theoretischen und statistischen Überlegungen heraus die richtige Anzahl auszuwählen (dazu gleich noch mehr).</p>
+<p>Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. <a href="vertiefung-clusteranalyse.html#fig:cluster3">14.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster3"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster3-1.png" alt="Unterschiedliche Anzahlen von Clustern im Vergleich" width="70%" />
+<p class="caption">
+Abbildung 14.3: Unterschiedliche Anzahlen von Clustern im Vergleich
+</p>
+</div>
+<p>Das “X” soll den “Mittelpunkt” des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch “Varianz innerhalb des Clusters” oder kurz “Varianz within” bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.</p>
+<div class="figure" style="text-align: center"><span id="fig:cluster4"></span>
+<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot." width="70%" />
+<p class="caption">
+Abbildung 14.4: Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.
+</p>
+</div>
+<p>Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal “sprunghaft” weniger wird - just an jedem Knick bei x=3; dieser “Knick” wird auch “Ellbogen” genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als “Screeplot” bezeihchnet. Fertig!</p>
+</div>
+<div id="euklidische-distanz" class="section level2">
+<h2><span class="header-section-number">14.3</span> Euklidische Distanz</h2>
+<p>Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur <del>geschrieben haben</del>schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der “Abstand” zwischen Anna und Berta (vgl. Abb. <a href="vertiefung-clusteranalyse.html#fig:distanz">14.5</a>)?</p>
+<div class="figure" style="text-align: center"><span id="fig:distanz"></span>
+<img src="images/cluster/distanz_crop.png" alt="Distanz zwischen zwei Punkten in der Ebene" width="70%" />
+<p class="caption">
+Abbildung 14.5: Distanz zwischen zwei Punkten in der Ebene
+</p>
+</div>
+<p>Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der <em>Satz des Pythagoras</em> (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung ähmm… geliebt:</p>
+<p><span class="math display">\[c^2 = a^2 + b^2\]</span></p>
+<p>In unserem Beispiel heißt das <span class="math inline">\(c^2 = 3^2+4^2 = 25\)</span>. Folglich ist <span class="math inline">\(\sqrt{c^2}=\sqrt{25}=5\)</span>. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art von “Abstand” nennt man den <em>euklidischen Abstand</em>.</p>
+<p>Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch “Statistikliebe” erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).</p>
+<div class="figure" style="text-align: center"><span id="fig:pythagoras2"></span>
+<img src="images/cluster/pythagoras2_crop.png" alt="Pythagoras in 3D" width="70%" />
+<p class="caption">
+Abbildung 14.6: Pythagoras in 3D
+</p>
+</div>
+<p>Sie können sich Punkt <span class="math inline">\(A\)</span> als Ecke eines Zimmers vorstellen; Punkt <span class="math inline">\(B\)</span> schwebt dann in der Luft, in einiger Entfernung zu <span class="math inline">\(A\)</span>.</p>
+<p>Wieder suchen wir den Abstand zwischen den Punkten <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span>. Wenn wir die Länge <span class="math inline">\(e\)</span> wüssten, dann hätten wir die Lösung; <span class="math inline">\(e\)</span> ist der Abstand zwischen <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span>. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: <span class="math inline">\(c^2+d^2=e^2\)</span>. Wenn wir also <span class="math inline">\(c\)</span> und <span class="math inline">\(d\)</span> wüssten, so könnten wir <span class="math inline">\(e\)</span> berechnen… <span class="math inline">\(c\)</span> haben wir ja gerade berechnet (5) und <span class="math inline">\(d\)</span> ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also</p>
+<p><span class="math display">\[e^2 = c^2 + d^2\]</span> <span class="math display">\[e^2 = 5^2 + 2^2\]</span> <span class="math display">\[e^2 = 25 + 4\]</span></p>
+<p><span class="math display">\[e = \sqrt{29} \approx 5.4\]</span></p>
+<p>Ah! Der Unterschied zwischen den beiden Studentinnen beträgt also ~5.4!</p>
+<p>Intuitiv gesprochen, “schalten wir mehrere Pythagoras-Sätze hintereinander”.</p>
 <blockquote>
-<p>Manntje, Manntje, Timpe Te,<br />
-Buttje, Buttje inne See,<br />
-myne Fru de Ilsebill<br />
-will nich so, as ik wol will.</p>
+<p>Der euklidische Abstand berechnet sich mit Pythagoras’ Satz!</p>
 </blockquote>
-<p><em>Gebrüder Grimm, Märchen vom Fischer und seiner Frau<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></em></p>
-<p>Ihr R startet nicht oder nicht richtig? Die drei wichtigsten Heilmittel sind:</p>
+<div class="figure" style="text-align: center"><span id="fig:pythagoras"></span>
+<img src="images/cluster/pythagoras_crop.png" alt="Pythagoras in Reihe geschaltet" width="70%" />
+<p class="caption">
+Abbildung 14.7: Pythagoras in Reihe geschaltet
+</p>
+</div>
+<p>Das geht nicht nur für “zwei Dreiecke hintereinander”, sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.</p>
+<blockquote>
+<p>Um den Abstand zweier Objekte mit <em>k</em> Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann <span class="math inline">\(e^2 = a^2 + b^2 + d^2\)</span>. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.</p>
+</blockquote>
+<p>Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: “Die Sendung mit der Maus”, “Bugs Bunny”, “Rambo Teil 1”, “Vom Winde verweht” und “MacGyver”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">profs &lt;-<span class="st"> </span><span class="kw">data_frame</span>(
+  <span class="dt">film1 =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">8</span>),
+  <span class="dt">film2 =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">7</span>),
+  <span class="dt">film3 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>),
+  <span class="dt">film4 =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>),
+  <span class="dt">film5 =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>)
+)</code></pre></div>
+<p>Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben eingen größeren “Abstand” in ihren Vorlieben?</p>
+<p>Wir könnten einen “fünffachen Pythagoras” zu Rate ziehen. Praktischerweise gibt es aber eine R-Funktion, die uns die Rechnerei abnimmt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dist</span>(profs)
+<span class="co">#&gt;       1     2</span>
+<span class="co">#&gt; 2 13.23      </span>
+<span class="co">#&gt; 3  2.65 10.77</span></code></pre></div>
+<p>Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwischen Prof 2 und 3 auch recht groß (10.8). Aber der Abstand zwischen Prof. 1 und 3 ist relativ klein! Endlich hätten wir diese Frage auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben an…</p>
+</div>
+<div id="daten" class="section level2">
+<h2><span class="header-section-number">14.4</span> Daten</h2>
+<p>Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen <em>simulierten</em> Datensatz aus <em>Chapman &amp; Feit (2015): R for Marketing Research and Analytics. Springer</em> analysieren (<a href="http://r-marketing.r-forge.r-project.org" class="uri">http://r-marketing.r-forge.r-project.org</a>). Näheres dazu siehe Kapitel 5 dort.</p>
+<p>Sie können ihn von <a href="https://goo.gl/eUm8PI" class="uri">https://goo.gl/eUm8PI</a> als <code>csv</code>-Datei herunterladen; oder, wenn sich die Datei im Unterordner <code>data/</code> (relativ zu ihrem Arbeitsverzeichnis) befindet:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segment &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/segment.csv&quot;</span>)</code></pre></div>
+<p>Wir verwenden die Variante <code>read.csv2</code>, da es sich um eine “deutsche” CSV-Datei handelt.</p>
+<p>Ein Überblick über die Daten verschafft uns die Funktion <code>glimpse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(segment)
+<span class="co">#&gt; Observations: 300</span>
+<span class="co">#&gt; Variables: 7</span>
+<span class="co">#&gt; $ Alter          &lt;dbl&gt; 50.2, 40.7, 43.0, 40.3, 41.1, 40.2, 39.5, 35.7,...</span>
+<span class="co">#&gt; $ Geschlecht     &lt;fctr&gt; Mann, Mann, Frau, Mann, Frau, Mann, Frau, Mann...</span>
+<span class="co">#&gt; $ Einkommen      &lt;dbl&gt; 51356, 64411, 71615, 42728, 71641, 60325, 54746...</span>
+<span class="co">#&gt; $ Kinder         &lt;int&gt; 0, 3, 2, 1, 4, 2, 5, 1, 1, 0, 3, 4, 0, 2, 6, 0,...</span>
+<span class="co">#&gt; $ Eigenheim      &lt;fctr&gt; Nein, Nein, Ja, Nein, Nein, Ja, Nein, Nein, Ne...</span>
+<span class="co">#&gt; $ Mitgliedschaft &lt;fctr&gt; Nein, Nein, Nein, Nein, Nein, Nein, Ja, Ja, Ne...</span>
+<span class="co">#&gt; $ Segment        &lt;fctr&gt; Gemischte Vorstadt, Gemischte Vorstadt, Gemisc...</span></code></pre></div>
+</div>
+<div id="distanzmae-mit-r-berechnen" class="section level2">
+<h2><span class="header-section-number">14.5</span> Distanzmaße mit R berechnen</h2>
+<p>Auf Basis der drei metrischen Merkmale (d. h. <code>Alter</code>, <code>Einkommen</code> und <code>Kinder</code>) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dist</span>(<span class="kw">head</span>(segment))
+<span class="co">#&gt;         1       2       3       4       5</span>
+<span class="co">#&gt; 2 19941.8                                </span>
+<span class="co">#&gt; 3 30946.1 11004.3                        </span>
+<span class="co">#&gt; 4 13179.5 33121.3 44125.6                </span>
+<span class="co">#&gt; 5 30985.9 11044.0    39.9 44165.3        </span>
+<span class="co">#&gt; 6 13700.4  6241.5 17245.8 26879.9 17285.5</span></code></pre></div>
+<p>Sie können erkennen, dass die Beobachtungen <code>5</code> und <code>3</code> den kleinsten Abstand haben, während <code>5</code> und <code>4</code> den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (<code>Einkommen</code> streut stärker als <code>Kinder</code>). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über <code>scale()</code>).</p>
+<p>Mit der Funktion <code>daisy()</code> aus dem Paket <code>cluster</code> kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">daisy</span>(<span class="kw">head</span>(segment))
+<span class="co">#&gt; Dissimilarities :</span>
+<span class="co">#&gt;       1     2     3     4     5</span>
+<span class="co">#&gt; 2 0.307                        </span>
+<span class="co">#&gt; 3 0.560 0.390                  </span>
+<span class="co">#&gt; 4 0.219 0.184 0.502            </span>
+<span class="co">#&gt; 5 0.516 0.220 0.242 0.404      </span>
+<span class="co">#&gt; 6 0.401 0.206 0.239 0.268 0.426</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Metric :  mixed ;  Types = I, N, I, I, N, N, N </span>
+<span class="co">#&gt; Number of objects : 6</span></code></pre></div>
+</div>
+<div id="k-means-clusteranalyse" class="section level2">
+<h2><span class="header-section-number">14.6</span> k-Means Clusteranalyse</h2>
+<p>Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt – dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird.</p>
+<p>Der Ablauf des Verfahrens ist wie folgt:</p>
 <ol style="list-style-type: decimal">
-<li>Schließen Sie die Augen für eine Minute. Denken Sie an etwas Schönes und was Rs Problem sein könnte.</li>
-<li>Schalten Sie den Rechner aus und probieren Sie es morgen noch einmal.</li>
-<li>Googeln.</li>
+<li>Zufällige Beobachtungen als Clusterzentrum</li>
+<li>Zuordnung der Beobachtungen zum nächsten Clusterzentrum (Ähnlichkeit, z. B. über die euklidische Distanz)</li>
+<li>Neuberechnung der Clusterzentren als Mittelwert der dem Cluster zugeordneten Beobachtungen</li>
 </ol>
-<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man <em>Fehler</em> wie diese macht:</p>
+<p>Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung der Zuordnung mehr ergibt – oder eine maximale Anzahl an Iterationen erreicht wurde.</p>
+<p><em>Hinweis:</em> Die (robuste) Funktion <code>pam()</code> aus dem Paket <code>cluster</code> kann auch mit allgemeinen Distanzen umgehen. Außerdem für gemischte Variablentypen gut geeignet: Das Paket <a href="https://cran.r-project.org/web/packages/clustMixType/index.html"><code>clustMixType</code></a>.</p>
+<p>Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale, und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segment.num &lt;-<span class="st"> </span>segment %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Frau =</span> Geschlecht ==<span class="st"> &quot;Frau&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Eigenheim =</span> Eigenheim ==<span class="st">&quot;Ja&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Mitgliedschaft =</span> Mitgliedschaft ==<span class="st"> &quot;Ja&quot;</span>) %&gt;%
+<span class="st">  </span>dplyr::<span class="kw">select</span>(-Geschlecht, -Segment)</code></pre></div>
+<p>Über die Funktion <code>mutate()</code> werden Variablen im Datensatz erzeugt oder verändert. Über <code>select()</code> werden einzene Variablen ausgewählt. Die “Pfeife” <code>%&gt;%</code> übergeben das Ergebnis der vorherigen Funktion an die folgende.</p>
+<p>Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion <code>kmeans()</code> erfolgt dies durch die Option <code>nstart=</code>. Hier mit <code>k=4</code> Clustern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1896</span>)
 
-<div class="rmdcaution">
-<p>OH NO:</p>
-<ul>
-<li><p>install.packages(dplyr)</p></li>
-<li><p>install.packages(“dliar”)</p></li>
-<li><p>install.packages(“derpyler”)</p></li>
-<li><p>install.packages(“dplyr”) # dependencies vergessen</p></li>
-<li><p>Keine Internet-Verbindung</p></li>
-<li>library(dplyr) # ohne vorher zu installieren</li>
-</ul>
+seg.k &lt;-<span class="st"> </span><span class="kw">kmeans</span>(segment.num, <span class="dt">centers =</span> <span class="dv">4</span>, <span class="dt">nstart =</span> <span class="dv">10</span>)
+seg.k
+<span class="co">#&gt; K-means clustering with 4 clusters of sizes 111, 26, 58, 105</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Cluster means:</span>
+<span class="co">#&gt;   Alter Einkommen Kinder Eigenheim Mitgliedschaft  Frau</span>
+<span class="co">#&gt; 1  42.9     46049  1.649     0.505         0.1081 0.568</span>
+<span class="co">#&gt; 2  56.4     85973  0.385     0.538         0.0385 0.538</span>
+<span class="co">#&gt; 3  27.0     22608  1.224     0.276         0.2069 0.414</span>
+<span class="co">#&gt; 4  43.6     62600  1.505     0.457         0.1238 0.590</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Clustering vector:</span>
+<span class="co">#&gt;   [1] 1 4 4 1 4 4 4 1 2 4 1 1 4 4 1 1 1 1 1 4 4 4 1 4 1 1 1 1 4 1 4 4 1 1 2</span>
+<span class="co">#&gt;  [36] 1 4 1 1 4 4 4 1 4 4 4 4 1 1 1 1 1 2 1 1 4 4 4 4 1 4 1 4 1 1 1 1 4 4 4</span>
+<span class="co">#&gt;  [71] 4 1 1 4 1 1 4 4 4 4 1 4 1 3 1 4 1 1 1 1 4 4 4 1 1 4 1 4 4 4 3 3 3 3 3</span>
+<span class="co">#&gt; [106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span>
+<span class="co">#&gt; [141] 3 3 3 3 3 3 3 3 3 3 1 2 4 2 2 4 1 1 2 2 4 4 1 1 4 2 4 4 1 2 2 3 4 1 2</span>
+<span class="co">#&gt; [176] 2 4 2 3 4 4 4 1 1 1 1 1 1 4 3 1 4 4 4 4 1 1 1 2 4 4 1 2 4 4 1 4 2 1 2</span>
+<span class="co">#&gt; [211] 4 3 4 2 2 4 2 1 4 3 1 2 2 4 2 4 4 1 4 4 1 1 1 1 1 3 1 1 4 1 4 3 1 4 1</span>
+<span class="co">#&gt; [246] 4 1 4 1 4 4 4 4 1 1 1 4 4 1 1 1 1 1 1 4 1 1 1 1 1 2 4 4 1 4 1 1 1 1 2</span>
+<span class="co">#&gt; [281] 4 4 4 4 1 4 1 4 4 4 1 4 1 4 1 4 1 1 4 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Within cluster sum of squares by cluster:</span>
+<span class="co">#&gt; [1] 3.18e+09 2.22e+09 1.69e+09 2.81e+09</span>
+<span class="co">#&gt;  (between_SS / total_SS =  90.6 %)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Available components:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    </span>
+<span class="co">#&gt; [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        </span>
+<span class="co">#&gt; [9] &quot;ifault&quot;</span></code></pre></div>
+<p>Neben der Anzahl Beobachtungen im Cluster (z. B. 26 in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster 3 mit 27 am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit 54 % in Cluster 2 am höchsten.</p>
+<p>Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion <code>clusplot()</code> aus dem Paket <code>cluster</code> erhalten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clusplot</span>(segment.num, seg.k$cluster, 
+         <span class="dt">color =</span> <span class="ot">TRUE</span>, <span class="dt">shade =</span> <span class="ot">TRUE</span>, <span class="dt">labels =</span> <span class="dv">4</span>)</code></pre></div>
+<p><img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /> Wie schon im deskriptiven Ergebnis: Die Cluster <code>1</code> und <code>4</code> unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit <code>centers=3</code> die Analyse wiederholt werden?<a href="#fn62" class="footnoteRef" id="fnref62"><sup>62</sup></a></p>
+<hr />
 </div>
-<p></p>
-<p>Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, probieren Sie dieses:</p>
-<ul>
-<li><p>Sehen Sie eine Fehlermeldung, die von einem fehlenden Paket spricht (z.B. “Package ‘Rcpp’ not available”) oder davon spricht, dass ein Paket nicht installiert werden konnte (z.B. “Package ‘Rcpp’ could not be installed” oder “es gibt kein Paket namens ‘Rcpp’” oder “unable to move temporary installation XXX to YYY”), dann tun Sie folgendes:</p></li>
-<li>Schließen Sie R und starten Sie es neu.</li>
-<li>Installieren Sie das oder die angesprochenen Pakete mit <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code> oder mit dem entsprechenden Klick in RStudio.</li>
-<li><p>Starten Sie das entsprechende Paket mit <code>library(name_des_pakets)</code>.</p></li>
-<li><p>Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder RCommander) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die Pakete (“packages”) installieren, die Sie für bestimmte R-Funktionen benötigen. Daher schließen Sie R bzw. RStudio und suchen Sie das Icon von R oder wenn Sie RStudio verwenden von RStudio. Rechtsklicken Sie das Icon und wählen Sie “als Administrator ausführen”. Damit geben Sie dem Programm Schreibrechte. Jetzt können Sie etwaige fehlende Pakete installieren.</p></li>
-<li><p>Ein weiterer Grund, warum R bzw. RStudio die Schreibrechte verwehrt werden könnten (und damit die Installation von Paketen), ist ein Virenscanner. Der Virenscanner sagt, nicht ganz zu Unrecht: “Moment, einfach hier Software zu installieren, das geht nicht, zu gefährlich”. Grundsätzlich gut, in diesem Fall unnötig. Schließen Sie R/RStudio und schalten Sie dann den Virenscanner <em>komplett</em> (!) aus. Öffnen Sie dann R/RStudio wieder und versuchen Sie fehlende Pakete zu installieren.</p></li>
-</ul>
-</div>
-<div id="hier-werden-sie-geholfen" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Hier werden Sie geholfen</h3>
-<p>Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:</p>
-<ul>
-<li><p>Zu diesen Paketen gibt es gute “Spickzettel” (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf <em>Help &gt; Cheatsheets &gt; …</em> oder gehen Sie auf <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>.</p></li>
-<li><p>In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie hier finden: <em>Tools &gt; Keyboard Shortcuts Help</em>.</p></li>
-<li><p>Für jeden Befehl (d.i. Funktion) können Sie mit <code>?</code> Hilfe erhalten; probieren Sie z.B. <code>?mean</code>.</p></li>
-<li><p>Im Internet finden sich zuhauf Tutorials.</p></li>
-<li><p>Der Reiter “Help” bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.</p></li>
-<li><p>Die bekannteste Seite, um Fragen rund um R zu diskutieren ist <a href="http://stackoverflow.com" class="uri">http://stackoverflow.com</a>.</p></li>
-</ul>
-</div>
-<div id="die-denk--und-gefuhlswelt-von-r" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> Die Denk- und Gefühlswelt von R</h3>
-<ul>
-<li>Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn Sie RStudio gestartet haben, <em>nicht</em> noch extra R. Damit hätten Sie sonst zwei Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.</li>
-</ul>
-<div id="r-skript-dateien" class="section level4">
-<h4><span class="header-section-number">2.1.4.1</span> R-Skript-Dateien</h4>
-<ul>
-<li><p>Ein neues <em>R-Skript</em> im RStudio können Sie z.B. öffnen mit <code>File-New File-R Script</code>. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen…</p></li>
-<li><p>R-Skripte können Sie speichern (unter <code>File-Save</code>) und öffnen.</p></li>
-<li><p>R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. Nur statt der Endung <code>.txt</code>, sind R-Skripte stolzer Träger der Endung <code>.R</code>. Es bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung “.R”, damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar praktische Funktionen wie den “Run-Button”.</p></li>
-</ul>
-</div>
-<div id="stolpersteine-beim-errisch-lernen" class="section level4">
-<h4><span class="header-section-number">2.1.4.2</span> Stolpersteine beim Errisch lernen</h4>
-<blockquote>
-<p>I Errr, therefore I am…</p>
-</blockquote>
-<p>Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto Problem… Updaten Sie Ihre Packages regelmäßig z.B. mit <code>update.packages()</code> oder dem Button “Update” bei RStudio (Reiter <code>Packages</code>).</p>
-<p>R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine spirituelle Prüfung in Geduld und Hartnäckigkeit… Tolle Gelegenheit, sich in diesen Tugenden zu trainieren :-)</p>
-</div>
-</div>
-<div id="pakete-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.5</span> Pakete installieren</h3>
-<p>Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt <code>dplyr</code>. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>) </code></pre></div>
-
-<div class="rmdcaution">
-<p>Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen “Mirror” Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art “App-Store”, mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. “mirrors”). Suchen Sie sich einfach einen aus, der in der Nähe ist.</p>
-</div>
-<p></p>
-<p>Bei der Installation von Paketen mit <code>install.packages(&quot;name_des_pakets&quot;)</code> sollte stets der Parameter <code>dependencies = TRUE</code> angefügt werden. Also <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code>. Hintergrund ist: Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht installiert sind (gut möglich), dann werden diese sog. “dependencies” gleich mitinstalliert (wenn Sie <code>dependencies = TRUE</code> setzen).</p>
-<p>Sie müssen online sein, um Packages zu installieren.</p>
-<p>Nicht vergessen: Installieren muss man eine Software <em>nur einmal</em>; <em>starten</em> (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder nutzen möchte:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) </code></pre></div>
-<p>Der Befehl bedeutet sinngemäß: “Hey R, geh in die Bücherei (library) und hole das Buch (package) dplyr!”.</p>
-
-<div class="rmdcaution">
-<p>Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben “library(dplyr)” ist “dplyr” hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten <em>eigentlich</em> Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library(“dplyr”) oder library(‘dplyr’); geht beides.</p>
-</div>
-<p></p>
-<p>Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.</p>
-</div>
-<div id="r-pakete-fur-dieses-buch" class="section level3">
-<h3><span class="header-section-number">2.1.6</span> R-Pakete für dieses Buch</h3>
-<p>In diesem Skript verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.</p>
-<pre><code>#&gt;  [1] &quot;BaylorEdPsych&quot; &quot;broom&quot;         &quot;car&quot;           &quot;caret&quot;        
-#&gt;  [5] &quot;cluster&quot;       &quot;corrplot&quot;      &quot;corrr&quot;         &quot;downloader&quot;   
-#&gt;  [9] &quot;dplyr&quot;         &quot;GGally&quot;        &quot;ggplot2&quot;       &quot;grid&quot;         
-#&gt; [13] &quot;knitr&quot;         &quot;lmtest&quot;        &quot;lsa&quot;           &quot;MBESS&quot;        
-#&gt; [17] &quot;modelr&quot;        &quot;nycflights13&quot;  &quot;okcupiddata&quot;   &quot;pdftools&quot;     
-#&gt; [21] &quot;png&quot;           &quot;psych&quot;         &quot;ROCR&quot;          &quot;SDMTools&quot;     
-#&gt; [25] &quot;SnowballC&quot;     &quot;stringr&quot;       &quot;tidyr&quot;         &quot;tidytext&quot;     
-#&gt; [29] &quot;tidyverse&quot;     &quot;wordcloud&quot;</code></pre>
-<p>Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;includes/Pakete_fuer_PraDa.Rda&quot;</span>)
-<span class="kw">install.packages</span>(packages)</code></pre></div>
-<p>Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.</p>
-</div>
-<div id="daten" class="section level3">
-<h3><span class="header-section-number">2.1.7</span> Datensätze</h3>
-<ul>
-<li>Datensatz <code>profiles</code> aus dem R-Paket {okcupiddata} <span class="citation">(Kim und Escobedo-Land <a href="#ref-kim2015okcupid">2015</a>)</span>; es handelt sich um Daten von einer Online-Singlebörse</li>
-<li>Datensatz <code>Wage</code> aus dem R-Paket {ISLR} <span class="citation">(James, Witten, Hastie, und Tibshirani <a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span>; es handelt sich um Gehaltsdaten von US-amerikanischen Männern</li>
-<li>Datensatz <code>inf_test_short</code>, hier herunterzuladen: <a href="https://osf.io/sjhu" class="uri">https://osf.io/sjhu</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017">2017</a><a href="#ref-Sauer_2017">a</a>)</span>; es handelt sich um Ergebnisse einer Statistikklausur</li>
-<li>Datensatz <code>flights</code> aus dem R-Paket {nycflights13} <span class="citation">(RITA <a href="#ref-nycflights13">2013</a>)</span>; es handelt sich um Abflüge von den New Yorker Flughäfen</li>
-<li>Datensatz ’wo_men`, hier herunterzuladen: <a href="https://osf.io/ja9dw" class="uri">https://osf.io/ja9dw</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017a">2017</a><a href="#ref-Sauer_2017a">b</a>)</span>; es handelt sich um Körper- und Schuhgröße von Studierenden</li>
-<li>Datensatz <code>tips</code> aus dem R-Paket {reshape2} <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>; es handelt sich um Trinkgelder in einem Restaurant</li>
-<li>Datensatz <code>extra</code>, hier herunterzuladen: <a href="https://osf.io/4kgzh" class="uri">https://osf.io/4kgzh</a> <span class="citation">(Sauer <a href="#ref-Sauer_2016">2016</a>)</span>; es handelt sich die Ergebnisse einer Umfrage zu Extraversion</li>
-</ul>
-<p>Wir verwenden zwei Methoden, um Datensätze in R zu laden.</p>
-<ul>
-<li>Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket <code>okcupiddata</code>. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl <code>data(name_des_datensatzes, package = &quot;name_des_paketes&quot;)</code>, kann man dann die Daten laden. Das Laden eines Pakets lädt noch <em>nicht</em> die Daten des Paketes; dafür ist der Befehl <code>data</code> zuständig.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(okcupiddata) 
-<span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)</code></pre></div>
-<ul>
-<li>Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick…) liegen.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>) </code></pre></div>
-<p>Wir werden mit beiden Methoden arbeiten und “on the job” Details besprechen.</p>
-</div>
-<div id="aufgaben" class="section level3">
-<h3><span class="header-section-number">2.1.8</span> Aufgaben</h3>
+<div id="ubung-b3-datensatz" class="section level2">
+<h2><span class="header-section-number">14.7</span> Übung: B3 Datensatz</h2>
+<p>Der B3 Datensatz <em>Heilemann, U. and Münch, H.J. (1996): West German Business Cycles 1963-1994: A Multivariate Discriminant Analysis. CIRET–Conference in Singapore, CIRET–Studien 50.</em> enthält Quartalsweise Konjunkturdaten aus (West-)Deutschland.</p>
+<p>Er kann von <a href="https://goo.gl/0YCEHf" class="uri">https://goo.gl/0YCEHf</a> heruntergeladen werden.</p>
 <ol style="list-style-type: decimal">
-<li><p>Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.</p></li>
-<li><p>Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.</p></li>
+<li>Wenn die Konjunkturphase <code>PHASEN</code> nicht berücksichtigt wird, wie viele Cluster könnte es geben? Ändert sich das Ergebnis, wenn die Variablen standardisiert werden?</li>
+<li>Führen Sie eine k-Means Clusteranalyse mit 4 Clustern durch. Worin unterscheiden sich die gefundenen Segmente?</li>
 </ol>
 </div>
-</div>
-<div id="errrstkontakt" class="section level2">
-<h2><span class="header-section-number">2.2</span> ERRRstkontakt</h2>
-<!-- Es fehlen noch: -->
-<!-- - Hinweise zu R-Datentypen -->
-<div id="hinweise" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Hinweise</h3>
-<p>Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:</p>
-<ul>
-<li>R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. <code>Oma</code> und <code>oma</code> sind zwei verschiedene Dinge für R!</li>
-<li>R verwendet den Punkt <code>.</code> als Dezimaltrennzeichen.</li>
-<li>Fehlende Werte werden in R durch <code>NA</code> kodiert.</li>
-<li>Kommentare werden mit dem Rautezeichen <code>#</code> eingeleitet; der Rest der Zeile von von R dann ignoriert.</li>
-<li>Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen <code>?</code>.</li>
-<li>Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst installiert werden.</li>
-<li><em>Variablennamen</em> (synonym: <em>Objekte</em>) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche <code>-</code> und Minuszeichen <code>-</code> enthalten sein. Leerzeichen sind nicht erlaubt.</li>
-<li>Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.</li>
-</ul>
-<pre><code># so nicht:
-var
-x
-dummy
-objekt
-dieser_name_ist_etwas_lang_vielleicht
-
-# gut:
-tips_mw
-lm1</code></pre>
-<p>Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).</p>
-</div>
-<div id="r-als-taschenrechner" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> R als Taschenrechner</h3>
-<p>Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung <code>&gt;</code> ein und beenden Sie die Eingabe mit <code>Return</code> bzw. <code>Enter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4+2</span> 
-<span class="co">#&gt; [1] 6</span></code></pre></div>
-<p>Das Ergebnis wird direkt angezeigt. Bei</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4+2</span> </code></pre></div>
-<p>erscheint zunächst kein Ergebnis. Über <code>&lt;-</code> wird der Variable <code>x</code> der Wert <code>4+2</code> zugewiesen. Wenn Sie jetzt</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x </code></pre></div>
-<p>eingeben, wird das Ergebnis</p>
-<pre><code>#&gt; [1] 6</code></pre>
-<p>angezeigt. Sie können jetzt auch mit <code>x</code> weiterrechnen, z.B.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x/<span class="dv">4</span> 
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
-<p>Vielleicht fragen Sie sich was die <code>[1]</code> vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die <code>[1]</code> zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt.</p>
-</div>
-<div id="text-und-variablen-zuweisen" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Text und Variablen zuweisen</h3>
-<p>Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> &quot;Hallo R!&quot;</span></code></pre></div>
-<p>Man kann auch einer Variablen eine andere zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>x</code></pre></div>
-<p>Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil <code>&lt;-</code> macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.</p>
-<p>Man kann auch einer Variablen <em>mehr als</em> einen Wert zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<p>Dieser Befehl erzeugt eine “Spalte” (einen Vektor). Will man einer Variablen <em>mehr als</em> einen Wert zuweisen, muss man die Werte erst in einen Vektor “zusammen binden”; das geht mit dem Befehl <code>c</code> (vom engl. “<em><strong>c</strong>ombine</em>”).</p>
-</div>
-<div id="funktionen-aufrufen" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Funktionen aufrufen</h3>
-<p>Um einen “Befehl” (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. “Parameter” in einer runden Klammer, z.B. so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Allgemein gesprochen:</p>
-<pre><code>funktionsname(parametername1 = wert1, parametername2 = wert2, ...)</code></pre>
-<p>Die drei Punkte <code>...</code> sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ok:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="ot">TRUE</span>, <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>)
-
-
-<span class="co"># ohno:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">TRUE</span>, <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="st">&quot;,&quot;</span>)</code></pre></div>
-</div>
-<div id="aufgaben-1" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Aufgaben</h3>
-<ol start="3" style="list-style-type: decimal">
-<li>Führen Sie diese Syntax aus:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meine_coole_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-meine_coole_var1able </code></pre></div>
-<p>Woher rührt der Fehler?</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Korrigieren Sie die Syntax:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(dplyer)</code></pre></div>
-<p><code>y &lt;- Hallo R!</code></p>
-<p><code>Hallo R &lt;- 1</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hallo_R &lt;<span class="st"> </span>-<span class="st"> </span><span class="dv">1</span></code></pre></div>
-</div>
-</div>
-<div id="was-ist-statistik-wozu-ist-sie-gut" class="section level2">
-<h2><span class="header-section-number">2.3</span> Was ist Statistik? Wozu ist sie gut?</h2>
-<p>Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?</p>
-<p>Was ist Statistik? <em>Eine</em> Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle <span class="citation">(<em>The Oxford Dictionary of Statistical Terms</em> <a href="#ref-oxford">2006</a>; Romeijn <a href="#ref-sep-statistics">2016</a>)</span>. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in die zwei Gebiete <em>deskriptive</em> und <em>inferierende</em> Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. “Stichproben-”)Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung (Stochastik) eine große Rolle.</p>
-<p>Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant zusammenzufassen. Aufgabe der Inferenzstatistik ist es, zu prüfen, ob Daten einer Stichprobe auf eine Grundgesamtheit verallgemeinert werden können.</p>
-<p>Dabei lässt sich der Begriff “Statistik” als Überbegriff von “Datenanalyse” verstehen, wenn diese Sicht auch nicht von allen geteilt wird <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. In diesem Buch steht die Aufbereitung, Analyse, Interpretation und Kommunikation von Daten im Vordergrund. Liegt der Schwerpunkt dieser Aktivitäten bei computerintensiven Methoden, so wird auch von <em>Data Science</em> gesprochen, wobei der Begriff nicht einheitlich verwendet wird <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>; Hardin u. a. <a href="#ref-hardin2015data">2015</a>)</span></p>
-<p><em>Daten</em> kann man definieren als <em>Informationen, die in einem Kontext stehen</em> <span class="citation">(Moore <a href="#ref-moore1990uncertainty">1990</a>)</span>, wobei eine numerische Konnotation mitschwingt.</p>
-<p><em>Modellieren</em> kann man als <em>zentrale Aufgabe von Statistik</em> begreifen <span class="citation">(Cobb <a href="#ref-cobb2007introductory">2007</a>; Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. Einfach gesprochen, bedeutet Modellieren in diesem Sinne, ein mathematisches Narrativ (“Geschichte”) zu finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. Kap. <a href="mod1.html#mod1">9</a>.</p>
-<p>Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>:</p>
-<pre><code>Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
-Prämisse 2: Die Daten weisen das Muster D auf.
-
----
-
-Konklusion: Daher muss das Modell M wahr sein.</code></pre>
-<p>Die Konklusion ist <em>nicht</em> zwangsläufig richtig. Es ist falsch zu sagen, dass dieses Argumentationsmuster - Abduktion <span class="citation">(Peirce <a href="#ref-peirce1955abduction">1955</a>)</span> genannt - wahre, sichere Schlüsse (Konklusionen) liefert. Die Konklusion <em>kann, muss aber nicht</em>, zutreffen.</p>
-<p>Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dunklen Ecke, ein Mann, der sich als Statistik-Professor vorstellt und Sie zu einem Glücksspiel einlädt. Sofort sagen Sie zu. Der Statistiker will 10 Mal eine Münze werfen, er setzt auf Zahl (versteht sich). Wenn er gewinnt, bekommt er 10€ von Ihnen; gewinnen Sie, bekommen Sie 11€ von ihm. Hört sich gut an, oder? Nun wirft er die Münze zehn Mal. Was passiert? Er gewinnt 10 Mal, natürlich (so will es die Geschichte). Sollten wir glauben, dass er ein Betrüger ist?</p>
-<p>Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D “passen” also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist.</p>
-<p>Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen <em>wenn</em> beginnt. Also davon <em>ausgeht</em>, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu?</p>
-<blockquote>
-<p>Wie gut passen die Daten D zum Modell M?</p>
-</blockquote>
-<p>Das ist die Frage, die hier tatsächlich gestellt bzw. beantwortet wird.</p>
-<p>Natürlich ist es keineswegs sicher, <em>dass</em> das Modell gilt. Darüber macht die Abduktion auch keine Aussage. Es könnte also sein, dass ein anderes Modell zutrifft: Der Professor könnte ein Heiliger sein, der uns auf etwas merkwürdige Art versucht, Geld zuzuschanzen… Oder er hat einfach Glück gehabt.</p>
-<blockquote>
-<p>Statistische Modelle beantworten i.d.R. nicht, wie wahrsheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.</p>
-</blockquote>
-<p>Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze “einschießt” auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt.</p>
-</div>
-<div id="befehlsubersicht" class="section level2">
-<h2><span class="header-section-number">2.4</span> Befehlsübersicht</h2>
-<p>Tabelle <a href="rahmen.html#tab:befehle-rahmen">2.1</a> stellt die Befehle dieses Kapitels dar.</p>
+<div id="befehlsubersicht-10" class="section level2">
+<h2><span class="header-section-number">14.8</span> Befehlsübersicht</h2>
+<p>Tabelle <a href="#tab:befehle-cluster"><strong>??</strong></a> fasst die R-Funktionen dieses Kapitels zusammen.</p>
 <table>
-<caption><span id="tab:befehle-rahmen">Tabelle 2.1: </span>Befehle des Kapitels ‘Rahmen’</caption>
+<caption><span id="tab:befehle-fallstudien">Tabelle 13.1: </span>Befehle des Kapitels ‘Clusteranalyse’</caption>
 <thead>
 <tr class="header">
 <th align="left">Paket::Funktion</th>
@@ -689,89 +601,52 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">install.packages(“x”)</td>
-<td align="left">Installiert Paket “x” (nicht: Paket “X”)</td>
+<td align="left">dist</td>
+<td align="left">Berechnet den euklidischen Abstand zwischen Vektoren</td>
 </tr>
 <tr class="even">
-<td align="left">library</td>
-<td align="left">lädt ein Paket</td>
+<td align="left">dplyr::glimpse</td>
+<td align="left">Stellt einen Dataframe im Überblick dar</td>
 </tr>
 <tr class="odd">
-<td align="left">&lt;-</td>
-<td align="left">Weist einer Variablen einen Wert zu</td>
+<td align="left">cluster::daisy</td>
+<td align="left">Berechnet verschiedene Abstandsmaße</td>
 </tr>
 <tr class="even">
-<td align="left">c</td>
-<td align="left">erstellt eine Spalte/ einen Vektor</td>
+<td align="left">set.seed</td>
+<td align="left">Zufallsgenerator auf bestimmte Zahlen festlegen</td>
+</tr>
+<tr class="odd">
+<td align="left">cluster::clusplot</td>
+<td align="left">Visualisiert eine Clusteranalyse</td>
 </tr>
 </tbody>
 </table>
-<p>Diese Befehle “wohnen” alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.</p>
 </div>
-<div id="verweise" class="section level2">
-<h2><span class="header-section-number">2.5</span> Verweise</h2>
+<div id="verweise-8" class="section level2">
+<h2><span class="header-section-number">14.9</span> Verweise</h2>
 <ul>
-<li><p>Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: <a href="https://bookdown.org/chesterismay/rbasics/" class="uri">https://bookdown.org/chesterismay/rbasics/</a>.</p></li>
-<li><p>Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: <a href="https://bookdown.org/rdpeng/artofdatascience/" class="uri">https://bookdown.org/rdpeng/artofdatascience/</a></p></li>
-<li><p>Wickam und Grolemund <span class="citation">(<a href="#ref-r4ds">2016</a>)</span> geben einen hervorragenden Überblick in das Thema dieses Buches; ihr Buch ist sehr zu empfehlen.</p></li>
-<li><p>Wer einen stärker an der Statistik orientierten Zugang sucht, aber “mathematisch sanft” behandelt werden möchte, wird bei James et al. <span class="citation">(<a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span> glücklich oder zumindest fündig werden.</p></li>
+<li><p>Diese Übung orientiert sich am Beispiel aus Kapitel 11.3 aus <span class="citation">Chapman und Feit (<a href="#ref-Chapman2015">2015</a>)</span> und steht unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>. Der Code steht unter der <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Lizenz 2.0</a></p></li>
+<li><p>Der erste Teil dieser Übung basiert auf diesem Skript: <a href="https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html" class="uri">https://cran.r-project.org/web/packages/broom/vignettes/kmeans.html</a></p></li>
+<li><p>Eine weiterführende, aber gut verständliche Einführung findet sich bei <span class="citation">James, Witten, Hastie, und Tibshirani (<a href="#ref-james2013introduction">2013</a><a href="#ref-james2013introduction">c</a>)</span>.</p></li>
+<li><p>Die Intuition zum euklidischen Abstand mit Pythagoras’ Satz kann hier im Detail nachgelesen werden: <a href="https://betterexplained.com/articles/measure-any-distance-with-the-pythagorean-theorem/" class="uri">https://betterexplained.com/articles/measure-any-distance-with-the-pythagorean-theorem/</a>.</p></li>
 </ul>
 
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
 <div id="refs" class="references">
-<div id="ref-r4ds">
-<p>Wickham, Hadley, und Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media.</p>
+<div id="ref-Chapman2015">
+<p>Chapman, Chris, und Elea McDonnell Feit. 2015. <em>R for Marketing Research and Analytics</em>. Springer International Publishing. doi:<a href="https://doi.org/10.1007/978-3-319-14436-8">10.1007/978-3-319-14436-8</a>.</p>
 </div>
-<div id="ref-kim2015okcupid">
-<p>Kim, Albert Y, und Adriana Escobedo-Land. 2015. „OkCupid Data for Introductory Statistics and Data Science Courses“. <em>Journal of Statistics Education</em> 23 (2). Citeseer: n2.</p>
-</div>
-<div id="ref-introstatlearning">
-<p>James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2013b. <em>An introduction to statistical learning</em>. Bd. 6. Springer.</p>
-</div>
-<div id="ref-Sauer_2017">
-<p>Sauer, Sebastian. 2017a. „Dataset ‚predictors of performance in stats test‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/SJHUY">10.17605/OSF.IO/SJHUY</a>.</p>
-</div>
-<div id="ref-nycflights13">
-<p>RITA, Bureau of transportation statistics. 2013. „nycflights13“. <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236" class="uri">http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236</a>.</p>
-</div>
-<div id="ref-Sauer_2017a">
-<p>Sauer, Sebastian. 2017b. „Dataset ‚Height and shoe size‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/JA9DW">10.17605/OSF.IO/JA9DW</a>.</p>
-</div>
-<div id="ref-bryant1995practical">
-<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
-</div>
-<div id="ref-Sauer_2016">
-<p>Sauer, Sebastian. 2016. „Extraversion Dataset“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/4KGZH">10.17605/OSF.IO/4KGZH</a>.</p>
-</div>
-<div id="ref-oxford">
-<p><em>The Oxford Dictionary of Statistical Terms</em>. 2006. Oxford University Press.</p>
-</div>
-<div id="ref-sep-statistics">
-<p>Romeijn, Jan-Willem. 2016. „Philosophy of Statistics“. In <em>The Stanford Encyclopedia of Philosophy</em>, herausgegeben von Edward N. Zalta, Winter 2016. <a href="http://plato.stanford.edu/archives/win2016/entries/statistics/" class="uri">http://plato.stanford.edu/archives/win2016/entries/statistics/</a>.</p>
-</div>
-<div id="ref-grolemund2014cognitive">
-<p>Grolemund, Garrett, und Hadley Wickham. 2014. „A cognitive interpretation of data analysis“. <em>International Statistical Review</em> 82 (2). Wiley Online Library: 184–204.</p>
-</div>
-<div id="ref-hardin2015data">
-<p>Hardin, Johanna, Roger Hoerl, Nicholas J Horton, Deborah Nolan, Ben Baumer, Olaf Hall-Holt, Paul Murrell, u. a. 2015. „Data science in statistics curricula: Preparing students to ‚Think with Data‘“. <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 343–53.</p>
-</div>
-<div id="ref-moore1990uncertainty">
-<p>Moore, David S. 1990. „Uncertainty“. <em>On the shoulders of giants: New approaches to numeracy</em>. ERIC, 95–137.</p>
-</div>
-<div id="ref-cobb2007introductory">
-<p>Cobb, George W. 2007. „The introductory statistics course: a Ptolemaic curriculum?“ <em>Technology Innovations in Statistics Education</em> 1 (1).</p>
-</div>
-<div id="ref-peirce1955abduction">
-<p>Peirce, Charles S. 1955. „Abduction and induction“. <em>Philosophical writings of Peirce</em> 11. New York.</p>
+<div id="ref-james2013introduction">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2013c. <em>An introduction to statistical learning</em>. Bd. 6. Springer.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p><a href="https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau" class="uri">https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau</a><a href="rahmen.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Sind z.B. die Prüfungsergebnisse von Schülern unabhängig voneinander? Möglicherweise haben sie von einem “Superschüler” abgeschrieben. Wenn der Superschüler viel weiß, dann zeigen die Abschreiber auch gute Leistung.<a href="rahmen.html#fnref4">↩</a></p></li>
+<ol start="62">
+<li id="fn62"><p>Das Paket <code>NbClust</code>, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) <em>NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set</em>, Journal of Statistical Software, 61(6), 1-36. <a href="http://dx.doi.org/10.18637/jss.v061.i06" class="uri">http://dx.doi.org/10.18637/jss.v061.i06</a>, bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.<a href="vertiefung-clusteranalyse.html#fnref62">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -779,8 +654,8 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
           </div>
         </div>
       </div>
-<a href="organisatorisches.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="daten-einlesen.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="fallstudien-zum-geleiteten-modellieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vertiefung-textmining.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

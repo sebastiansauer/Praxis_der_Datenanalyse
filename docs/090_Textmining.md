@@ -7,9 +7,11 @@
 # Vertiefung: Textmining
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 
@@ -73,12 +75,19 @@ text_df <- data_frame(Zeile = 1:4,
 ```
 
 
- Zeile  text                                     
-------  -----------------------------------------
-     1  Wir haben die Frauen zu Bett gebracht,   
-     2  als die Männer in Frankreich standen.    
-     3  Wir hatten uns das viel schöner gedacht. 
-     4  Wir waren nur Konfirmanden.              
+\begin{tabular}{r|l}
+\hline
+Zeile & text\\
+\hline
+1 & Wir haben die Frauen zu Bett gebracht,\\
+\hline
+2 & als die Männer in Frankreich standen.\\
+\hline
+3 & Wir hatten uns das viel schöner gedacht.\\
+\hline
+4 & Wir waren nur Konfirmanden.\\
+\hline
+\end{tabular}
 
 Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
 
@@ -212,18 +221,31 @@ afd_df %>%
 
 
 
-token            n
-------------  ----
-deutschland    190
-afd            171
-programm        80
-wollen          67
-bürger          57
-euro            55
-dafür           53
-eu              53
-deutsche        47
-deutschen       47
+\begin{tabular}{l|r}
+\hline
+token & n\\
+\hline
+deutschland & 190\\
+\hline
+afd & 171\\
+\hline
+programm & 80\\
+\hline
+wollen & 67\\
+\hline
+bürger & 57\\
+\hline
+euro & 55\\
+\hline
+dafür & 53\\
+\hline
+eu & 53\\
+\hline
+deutsche & 47\\
+\hline
+deutschen & 47\\
+\hline
+\end{tabular}
 
 Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder "trunkieren".
 
@@ -239,19 +261,31 @@ afd_count %>%
 ```
 
 
-
-token_stem       n
-------------  ----
-deutschland    219
-afd            171
-deutsch        119
-polit           88
-staat           85
-programm        81
-europa          80
-woll            67
-burg            66
-soll            63
+\begin{tabular}{l|r}
+\hline
+token\_stem & n\\
+\hline
+deutschland & 219\\
+\hline
+afd & 171\\
+\hline
+deutsch & 119\\
+\hline
+polit & 88\\
+\hline
+staat & 85\\
+\hline
+programm & 81\\
+\hline
+europa & 80\\
+\hline
+woll & 67\\
+\hline
+burg & 66\\
+\hline
+soll & 63\\
+\hline
+\end{tabular}
 
 Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch). Denken Sie daran, dass `.` bei `dplyr` nur den Datensatz meint, wie er im letzten Schritt definiert war. Mit `.$token` wählen wir also die Variable `token` aus `afd_raw` aus.
 
@@ -267,7 +301,9 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
 ```
 
-<img src="090_Textmining_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
 ].
@@ -301,7 +337,9 @@ library(gridExtra)
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-<img src="090_Textmining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
@@ -314,19 +352,32 @@ Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktier
 
 Tabelle \@ref(tab:befehle-text) fasst die R-Funktionen dieses Kapitels zusammen.
 
+\begin{table}
 
-Table: (\#tab:befehle-text)Befehle des Kapitels 'Textmining'
-
-Paket::Befehl             Beschreibung                                                                  
-------------------------  ------------------------------------------------------------------------------
-tidytext::unnest_tokens   Jedes Token (Wort) einer Spalte bekommt eine eigene Zeile in einem Dataframe  
-stringr::str_detect       Sucht nach einem String (Text)                                                
-downloader:: download     lädt eine Datei aus dem Internet herunter                                     
-dplyr::rename             Benennt Spalten um                                                            
-anti_join                 Führt Dataframes zusammen, so dass nicht matchende Einträge übernommen werden 
-wordcloud::wordcloud      Erstellt eine Wordcloud                                                       
-ggplot2::labs             Fügt Titel oder andere Hinweise einem ggplot2-Objekt hinzu                    
-ggplot2::coord_flip       Dreht die Achsen um 90 Grad                                                   
+\caption{(\#tab:befehle-text)Befehle des Kapitels 'Textmining'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Befehl & Beschreibung\\
+\hline
+tidytext::unnest\_tokens & Jedes Token (Wort) einer Spalte bekommt eine eigene Zeile in einem Dataframe\\
+\hline
+stringr::str\_detect & Sucht nach einem String (Text)\\
+\hline
+downloader:: download & lädt eine Datei aus dem Internet herunter\\
+\hline
+dplyr::rename & Benennt Spalten um\\
+\hline
+anti\_join & Führt Dataframes zusammen, so dass nicht matchende Einträge übernommen werden\\
+\hline
+wordcloud::wordcloud & Erstellt eine Wordcloud\\
+\hline
+ggplot2::labs & Fügt Titel oder andere Hinweise einem ggplot2-Objekt hinzu\\
+\hline
+ggplot2::coord\_flip & Dreht die Achsen um 90 Grad\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ## Verweise

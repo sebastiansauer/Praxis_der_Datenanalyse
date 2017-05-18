@@ -44,7 +44,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 ## Themen pro Termin
 
-Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:Themen)).
+Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. \@ref(tab:termin-themen)).
 
 Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 

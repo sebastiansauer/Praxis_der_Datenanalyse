@@ -132,7 +132,10 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-![DOI](https://zenodo.org/badge/81811975.svg)]
+`r if (!(knitr:::is_latex_output())) '![DOI](https://zenodo.org/badge/81811975.svg)]'`
+
+
+
 
 Mehr Infos dazu hier: <https://zenodo.org/badge/latestdoi/81811975>
 
@@ -153,7 +156,7 @@ Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wieder
 Informationen zu den verwendeten Paketen etc. (`sessionInfo()`) finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html>.
 
 
-** Sonstiges**
+**Sonstiges**
 
 Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.
 

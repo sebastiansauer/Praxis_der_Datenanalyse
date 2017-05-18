@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="organisatorisches.html">
-<link rel="next" href="daten-einlesen.html">
+<link rel="prev" href="fallstudie-zum-datenjudo.html">
+<link rel="next" href="fallstudie-zur-visualisierung.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -374,313 +374,381 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rahmen" class="section level1">
-<h1><span class="header-section-number">Kapitel 2</span> Rahmen</h1>
+<div id="daten-visualisieren" class="section level1">
+<h1><span class="header-section-number">Kapitel 7</span> Daten visualisieren</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
 
 <div class="rmdcaution">
 <p>Lernziele:</p>
 <ul>
-<li>Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.</li>
-<li>R und RStudio installieren können.</li>
-<li>Einige häufige technische Probleme zu lösen wissen.</li>
-<li>R-Pakete installieren können.</li>
-<li>Einige grundlegende R-Funktionalitäten verstehen.</li>
-<li>Auf die Frage “Was ist Statistik?” eine Antwort geben können.</li>
+<li>An einem Beispiel erläutern können, warum/ wann ein Bild mehr sagt, als 1000 Worte.</li>
+<li>Häufige Arten von Diagrammen erstellen können.</li>
+<li>Diagramme bestimmten Zwecken zuordnen können.</li>
 </ul>
 </div>
 <p></p>
-<p>In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das “Drumherum” oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voilà (Abb. <a href="rahmen.html#fig:fig-prozess">2.1</a>):</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-prozess"></span>
-<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<p>In diesem Kapitel werden folgende Pakete benötigt::</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  <span class="co"># Zum Plotten</span>
+<span class="co"># library(car)  # Umkodieren</span>
+<span class="co"># library(knitr)  # HTML-Tabellen</span></code></pre></div>
+<p><img src="images/visualisieren/Visualisieren.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets <code>ggplot2</code>.</p>
+<div id="ein-bild-sagt-mehr-als-1000-worte" class="section level2">
+<h2><span class="header-section-number">7.1</span> Ein Bild sagt mehr als 1000 Worte</h2>
+<p>Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe<a href="#fn35" class="footnoteRef" id="fnref35"><sup>35</sup></a> an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-anscombe"></span>
+<img src="images/visualisieren/anscombe.png" alt="Das Anscombe-Quartett" width="70%" />
 <p class="caption">
-Abbildung 2.1: Der Prozess der Datenanalyse
+Abbildung 7.1: Das Anscombe-Quartett
 </p>
 </div>
-<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em> (hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
-<p>Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem <em>Rahmen</em> eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen.</p>
-<div id="software-installieren" class="section level2">
-<h2><span class="header-section-number">2.1</span> Software installieren</h2>
-<p>Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. “Entwicklungsumgebung” RStudio einiges an komfortabler Funktionalität bescheren. Eine Reihe von R-Paketen (“Packages”; d.h. Erweiterungen) werden wir auch nutzen. R ist eine recht alte Sprache; viele Neuerungen finden in Paketen Niederschlag, da der “harte Kern” von R lieber nicht so stark geändert wird. Stellen Sie sich vor: Seit 29 Jahren nutzen Sie eine Befehl, der Ihnen einen Mittelwert ausrechnet, sagen wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am “R-Kern” nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.</p>
-<div id="r-und-rstudio-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> R und RStudio installieren</h3>
-<p><img src="images/Rahmen/Rlogo.png" style="width:20.0%" /> <img src="images/Rahmen/rstudiologo.png" style="width:20.0%" /></p>
-<p>Sie können R unter <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>; laden Sie die “Desktop-Version” für Ihr Betriebssystem herunter.</p>
-<p>Die Oberfläche von R, die “Console”, sieht so aus:</p>
-<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
-<p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
-<p><img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Das <em>Skript-Fenster</em> ähnelt einem normalem Text-Editor; praktischerweise finden Sie aber einen Button “run”, der die aktuelle Zeile oder die Auswahl “abschickt”, d.h. in die Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster öffnen möchten, so können Sie das Icon <img src="images/Rahmen/new_script.png" alt="new_script" /> klicken (Alternativ: Ctrl-Shift-N oder File &gt; New File &gt; R Script).</p>
-<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit R. Wird ein Befehl (synonym: <em>Funktion</em>) hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
-<p>Im Fenster <em>Umgebung</em> (engl. “environment”) zeigt R, welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht in der Umgebung angezeigt wird, existiert nicht für R.</p>
-<p>Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster rechts unten durch.</p>
-<p>Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist <code>Shift-Alt-K</code>.</p>
+<p>Offenbar “passieren” in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns… Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden “Natur”) passiert.</p>
+<p>Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: <code>ggplot2</code><a href="#fn36" class="footnoteRef" id="fnref36"><sup>36</sup></a>.</p>
 </div>
-<div id="hilfe-r-tut-nicht-so-wie-ich-das-will" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Hilfe! R tut nicht so wie ich das will</h3>
+<div id="die-anatomie-eines-diagramms" class="section level2">
+<h2><span class="header-section-number">7.2</span> Die Anatomie eines Diagramms</h2>
+<p><code>ggplot2</code> unterscheidet folgende Bestandteile (“Anatomie”) eines Diagramms (vgl. Abb. <a href="daten-visualisieren.html#fig:fig-anatomie">7.2</a>):</p>
+<ul>
+<li>Daten</li>
+<li>Abbildende Aspekte (Achsen, Farben, …)</li>
+<li>Geome (statistische Bilder wie Punkte, Linien, Boxplots, …)</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:fig-anatomie"></span>
+<img src="images/visualisieren/anatomie_diagramm_crop.jpg" alt="Anatomie eines Diagramms" width="70%" />
+<p class="caption">
+Abbildung 7.2: Anatomie eines Diagramms
+</p>
+</div>
+<p>Bei <em>Daten</em> muss ein Dataframe angegeben werden. Zu den <em>abbildenden Aspekte</em> (in <code>ggplot2</code> als “aesthetics” bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet <code>ggplot2</code> für uns, wenn wir es nicht explizieren). Mit <em>Geom</em> ist das eigentlich Art von “Bild” gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt <a href="daten-visualisieren.html#geome">7.10</a>).</p>
+</div>
+<div id="einstieg-in-ggplot2---qplot" class="section level2">
+<h2><span class="header-section-number">7.3</span> Einstieg in <code>ggplot2</code> - <code>qplot</code></h2>
+<p>Los geht’s! Laden wir zuerst den Datensatz <code>nycflights::flights</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(flights, <span class="dt">package =</span> <span class="st">&quot;nycflights13&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> carrier, <span class="dt">y =</span> arr_delay, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> flights)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-flights"></span>
+<img src="050_Daten_visualisieren_files/figure-html/fig-flights-1.png" alt="Mittlere Verspätung nach Flugggesellschaft" width="70%" />
+<p class="caption">
+Abbildung 7.3: Mittlere Verspätung nach Flugggesellschaft
+</p>
+</div>
+<p>Schauen wir uns den Befehl <code>qplot</code> etwas näher an. Wie ist er aufgebaut?</p>
+
+<div class="rmdpseudocode">
+<p><code>qplot</code>: Erstelle schnell (q wie quick in <code>qplot</code>) mal einen Plot (engl. “plot”: Diagramm).<br />
+<code>x</code>: Der X-Achse soll die Variable “carrier” zugeordnet werden.<br />
+<code>y</code>: Der Y-Achse soll die Variable “arr_dely” zugeorndet werden.<br />
+<code>geom</code>: (“geometriches Objekt”) Gemalt werden soll ein Boxplot, nicht etwa Punkte, Linien oder sonstiges.<br />
+<code>data</code>: Als Datensatz bitte <code>flights</code> verwenden.</p>
+</div>
+<p></p>
+<p>Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint mir nicht unplausibel (Schneesturm im Winter, Flugzeug verschwunden…). Vor dem Hintergrund der Extremwerte erscheinen die mittleren Verspätungen (Mediane) in den Boxplots als ähnlich. Vielleicht ist der Unterschied zwischen den Monaten ausgeprägter?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> arr_delay, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> flights)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Kaum ein Unterschied ersichtlich; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von <code>qplot</code> näher an. “q” in <code>qplot</code> steht für “quick”. Tatsächlich hat <code>qplot</code> einen großen Bruder, <code>ggplot</code><a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a>, der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit <code>qplot</code> an.</p>
+<p>Diese Syntax des letzten Beispiels ist recht einfach, nämlich:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span> (<span class="dt">x =</span> X_Achse, <span class="dt">y =</span> Y_Achse, <span class="dt">data =</span> mein_dataframe, <span class="dt">geom =</span> <span class="st">&quot;ein_geom&quot;</span>)</code></pre></div>
+<p>Wir definieren mit <code>x</code>, welche Variable der X-Achse des Diagramms zugewiesen werden soll, z.B. <code>month</code>; analog mit Y-Achse. Mit <code>data</code> sagen wir, in welchem Dataframe die Spalten “wohnen” und als “geom” ist die Art des statistischen “<em>geom</em>etrischen Objects” gemeint, also Punkte, Linien, Boxplots, Balken…</p>
+</div>
+<div id="haufige-arten-von-diagrammen" class="section level2">
+<h2><span class="header-section-number">7.4</span> Häufige Arten von Diagrammen</h2>
+<p>Unter den vielen Arten von Diagrammen und vielen Arten, diese zu klassifizieren greifen wir uns ein paar häufige Diagramme heraus und schauen uns diese der Reihe nach an.</p>
+<div id="eine-kontinuierliche-variable" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Eine kontinuierliche Variable</h3>
+<p>Schauen wir uns die Verteilung der Schuhgrößen von Studierenden an.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)
+
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt <code>ggplot2</code> automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># qplot(x = shoe_size, data = wo_men)  wie oben</span>
+
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter <em>ohne</em>.</p>
+<p>Vielleicht wäre es noch schön, beide Geome zu kombinieren in einem Diagramm. Das ist etwas komplizierter; wir müssen zum großen Bruder <code>ggplot</code> umsteigen, da <code>qplot</code> nicht diese Funktionen anbietet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> wo_men) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> shoe_size) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">alpha =</span> .<span class="dv">7</span>) +
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Zuerst haben wir mit dem Parameter <code>data</code> den Dataframe benannt. <code>aes</code> definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das <code>+</code>-Zeichen trennt die einzelnen Bestandteile des <code>ggplot</code>-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: <code>geom_histogram</code>. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. <code>ggplot</code> berechnet selbständig die Dichte und nennt diese Variable <code>..density..</code>; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine “normale” Variable aus dem eigenen Datenframe handelt, sondern um eine “interne” Variable von <code>ggplot</code> - die wir aber nichtsdestotrotz verwenden können. <code>alpha</code> bestimmt die “Durchsichtigkeit” eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm <em>über</em> das Histogramm.</p>
+<p>Wünsche sind ein Fass ohne Boden… Wäre es nicht schön, ein Diagramm für Männer und eines für Frauen zu haben, um die Verteilungen vergleichen zu können?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">color =</span> sex)
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">fill =</span> sex, 
+      <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(shoe_size &lt;=<span class="st"> </span><span class="dv">47</span>) -&gt;<span class="st"> </span>wo_men2
+
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men2,      
+      <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">fill =</span> sex, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Besser. Man kann das Durchpfeifen auch bis zu <code>qplot</code> weiterführen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(shoe_size &lt;=<span class="st"> </span><span class="dv">47</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> ., <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, 
+        <span class="dt">fill =</span> sex, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den <em>ersten</em> Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von <code>qplot</code> zeigt, dass der erste Parameter nicht <code>data</code> ist, sondern <code>x</code>. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt <code>.</code> können wir sagen “nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde”.</p>
+<p>Mit <code>fill = sex</code> sagen wir <code>qplot</code>, dass er für Männer und Frauen jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns <code>ggplot2</code> im Standard voraussucht). Mit anderen Worten: Die Werte von <code>sex</code> werden der Füllfarbe der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: <code>color = sex</code>.</p>
+</div>
+<div id="zwei-kontinuierliche-variablen" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Zwei kontinuierliche Variablen</h3>
+<p>Ein Streudiagramm ist die klassische Art, zwei metrische Variablen darzustellen. Das ist mit <code>qplot</code> einfach:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> wo_men)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt <code>ggplot2</code> automatisch ein Streudiagramm - d.h. Punkte als Geom (<code>geom = &quot;point&quot;</code>). Wir sollten aber noch die Extremwerte herausnehmen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der Trend ist deutlich erkennbar: Je größer die Person, desto länger die Füß´. Zeichnen wir noch eine Trendgerade ein.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">data =</span> .) +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Synonym könnten wir auch schreiben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p>Da <code>ggplot</code> als <em>ersten</em> Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. <em>Innerhalb</em> eines <code>ggplot</code>-Aufrufs werden die einzelne Teile durch ein Pluszeichen <code>+</code> voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit <code>aes</code> (“aes” wie “aesthetics”, also das “Sichtbare” eines Diagramms, die Achsen etc., werden definiert). Ein “Smooth-Geom” ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, <code>lm</code>).</p>
+<p>Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken (“overplotting”). Ein Abhilfe ist es, die Punkte nur “schwach” zu färben. Dazu stellt man die “Füllstärke” der Punkte über <code>alpha</code> ein: <code>geom_point(alpha = 1/100)</code>. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn <code>ggplot</code> viele (&gt;100.000) Punkte malen soll.</p>
+<p>Bei noch größeren Datenmengen bietet sich an, den Scatterplot als “Schachbrett” aufzufassen, und das Raster einzufärben, je nach Anzahl der Punkte pro Schachfeld; zwei Geome dafür sind <code>geom_hex()</code> und <code>geom_bin2d()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(flights, <span class="dt">package =</span> <span class="st">&quot;nycflights13&quot;</span>)
+<span class="kw">nrow</span>(flights)  <span class="co"># groß!</span>
+<span class="co">#&gt; [1] 336776</span>
+
+<span class="kw">ggplot</span>(flights) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> distance, <span class="dt">y =</span> air_time) +
+<span class="st">  </span><span class="kw">geom_hex</span>()</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/flights_hexbin-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) -&gt;<span class="st"> </span>wo_men2
+
+wo_men2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">color =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/fig-aes-color-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Mit <code>color = sex</code> sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von <code>sex</code> eingefärbt werden sollen. Die genaue Farbwahl übernimmt <code>ggplot2</code> für uns.</p>
+<p>Alternativ kann man auch zwei “Teil-Bildchen” (“facets”) erstellen, eines für Frauen und eines für Männer:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">facets =</span> <span class="st">&quot;~sex&quot;</span>, <span class="dt">color =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Man beachte die Tilde <code>~</code>, die vor die “Gruppierungsvariable” <code>sex</code> zu setzen ist.</p>
+<div id="vertiefung-zu-facetten" class="section level4">
+<h4><span class="header-section-number">7.4.2.1</span> Vertiefung zu Facetten</h4>
+<p>Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">select</span>(-sex) -&gt;<span class="st"> </span>wo_men4
+
+wo_men4 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(ggplot2::<span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>) +
+<span class="st">  </span><span class="co"># facet_wrap(~sex) +</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> wo_men2, ggplot2::<span class="kw">aes</span>(<span class="dt">color =</span> sex))
+  </code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/wo-men-facetten-bsp-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der “ggplot-Trick” ist, zuerst die Punkte <em>ohne</em> Gruppierungsinformation (hier: <code>sex</code>) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.</p>
+</div>
+</div>
+<div id="eine-diskrete-variable" class="section level3">
+<h3><span class="header-section-number">7.4.3</span> Eine diskrete Variable</h3>
+<p>Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind in dem Datensatz?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">data =</span> wo_men)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt <code>qplot</code> automatisch ein Balkendiagramm als Geom.</p>
+<p>Entfernen wir vorher noch die fehlenden Werte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">na.omit</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie “Größe gruppiert” erstellen mit zwei Werten: “klein” und “groß”. Nennen wir sie <code>groesse_gruppe</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men$groesse_gruppe &lt;-<span class="st"> </span>car::<span class="kw">recode</span>(wo_men$height,
+                                     <span class="st">&quot;lo:175 = &#39;klein&#39;; else = &#39;gross&#39;&quot;</span>)
+
+wo_men %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(height &gt;<span class="st"> </span><span class="dv">150</span>, height &lt;<span class="st"> </span><span class="dv">210</span>, shoe_size &lt;<span class="st"> </span><span class="dv">55</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>na.omit -&gt;<span class="st"> </span>wo_men2
+  
+<span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">fill =</span> groesse_gruppe, <span class="dt">data =</span> wo_men2)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In Worten sagt der <code>recode</code>-Befehl hier in etwa: “Kodiere <code>wo_men$height</code> um, und zwar vom kleinsten (<code>lo</code>) Wert bis 170 soll den Wert <code>klein</code> bekommen, ansonsten bekommt eine Größe den Wert <code>gross</code>”.</p>
+<p>Hier haben wir <code>qplot</code> gesagt, dass der die Balken entsprechend der Häufigkeit von <code>groesse_gruppe</code> füllen soll. Und bei den Frauen sind bei dieser Variablen die Werte <code>klein</code> häufig; bei den Männern hingegen die Werte <code>gross</code>.</p>
+<p>Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit <code>qplot</code> (so) nicht; wir schwenken auf <code>ggplot</code> um<a href="#fn38" class="footnoteRef" id="fnref38"><sup>38</sup></a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">fill =</span> groesse_gruppe) +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Schauen wir uns die Struktur des Befehls <code>ggplot</code> näher an.</p>
+
+<div class="rmdpseudocode">
+<p><code>wo_men2</code>: Hey R, nimm den Datensatz <code>wo_men2</code> UND DANN…<br />
+<code>ggpplot()</code> : Hey R, male ein Diagramm von Typ ggplot (mit dem Datensatz aus dem vorherigen Pfeifen-Schritt, d.h. aus der vorherigen Zeile, also <code>wo_men2</code>)!<br />
+<code>+</code>: Das Pluszeichen grenzt die Teile eines ggplot-Befehls voneinander ab.<br />
+<code>aes</code>: von “aethetics”, also welche Variablen des Datensatzes den sichtbaren Aspekten (v.a. Achsen, Farben) zugeordnet werden.<br />
+<code>x</code>: Der X-Achse (Achtung, <code>x</code> wird klein geschrieben hier) wird die Variable <code>sex</code> zugeordnet.<br />
+<code>y</code>: gibt es nicht??? Wenn in einem ggplot-Diagramm <em>keine</em> Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).<br />
+<code>fill</code> Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von <code>groesse_gruppe</code> darin widerspiegelt.</p>
+<p><code>geom_XYZ</code>: Als “Geom” soll ein Balken (“bar”) gezeichnet werden. Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit <code>geom_bar</code>, <code>geom_boxplot</code>, geom_point` etc. gewählt.</p>
+<p><code>position = fill</code>: <code>position_fill</code> will sagen, dass die Balken alls eine Höhe von 100% (1) haben. Die Balken zeigen also nur die Anteile der Werte der <code>fill</code>-Variablen.</p>
+</div>
+<p></p>
+<p>Die einzige Änderung in den Parametern ist <code>position = &quot;fill&quot;</code>. Dieser Parameter weist <code>ggplot</code> an, die Positionierung der Balken auf die Darstellung von Anteilen auszulegen. Damit haben alle Balken die gleiche Höhe, nämlich 100% (1). Aber die “Füllung” der Balken schwankt je nach der Häufigkeit der Werte von <code>groesse_gruppe</code> pro Balken (d.h. pro Wert von <code>sex</code>).</p>
+<p>Wir sehen, dass die Anteile von großen bzw. kleinen Menschen bei den beiden Gruppen (Frauen vs. Männer) <em>unterschiedlich hoch</em> ist. Dies spricht für einen <em>Zusammenhang</em> der beiden Variablen; man sagt, die Variablen sind <em>abhängig</em> (im statistischen Sinne).</p>
 <blockquote>
-<p>Manntje, Manntje, Timpe Te,<br />
-Buttje, Buttje inne See,<br />
-myne Fru de Ilsebill<br />
-will nich so, as ik wol will.</p>
+<p>Je unterschiedlicher die “Füllhöhe”, desto stärker sind die Variablen (X-Achse vs. Füllfarbe) voneinander abhängig (bzw. desto stärker der Zusammenhang).</p>
 </blockquote>
-<p><em>Gebrüder Grimm, Märchen vom Fischer und seiner Frau<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></em></p>
-<p>Ihr R startet nicht oder nicht richtig? Die drei wichtigsten Heilmittel sind:</p>
+</div>
+<div id="zwei-diskrete-variablen" class="section level3">
+<h3><span class="header-section-number">7.4.4</span> Zwei diskrete Variablen</h3>
+<p>Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse. Bleiben wir bei letztem Beispiel.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)
+
+profiles %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">count</span>(drinks, body_type) %&gt;%<span class="st"> </span>
+<span class="st">  </span>ggplot +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> drinks, <span class="dt">y =</span> body_type, <span class="dt">fill =</span> n) +
+<span class="st">  </span><span class="kw">geom_tile</span>() +
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Was haben wir gemacht? Also:</p>
+
+<div class="rmdpseudocode">
+<p>Nehme den Datensatz “profiles” UND DANN<br />
+Zähle die Kombinationen von “drinks” und “body_type” UND DANN<br />
+Erstelle ein ggplot-Plot UND DANN<br />
+Weise der X-Achse “drinks” zu, der Y-Achse “body_type” und der Füllfarbe “n” UND DANN<br />
+Male Fliesen UND DANN<br />
+Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.</p>
+</div>
+<p></p>
+<p>Was sofort ins Auge sticht, ist dass “soziales Trinken”, nennen wir es mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.</p>
+</div>
+<div id="zusammenfassungen-zeigen" class="section level3">
+<h3><span class="header-section-number">7.4.5</span> Zusammenfassungen zeigen</h3>
+<p>Manchmal möchten wir <em>nicht</em> die Rohwerte einer Variablen darstellen, sondern z.B. die Mittelwerte pro Gruppe. Mittelwerte sind eine bestimmte <em>Zusammenfassung</em> einer Spalte; also fassen wir zuerst die Körpergröße zum Mittelwert zusammen - gruppiert nach Geschlecht.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(sex) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Groesse_MW =</span> <span class="kw">mean</span>(height)) -&gt;<span class="st"> </span>wo_men3
+
+wo_men3
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;      sex Groesse_MW</span>
+<span class="co">#&gt;   &lt;fctr&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    man        183</span>
+<span class="co">#&gt; 2  woman        167</span></code></pre></div>
+<p>Diese Tabelle schieben wir jetzt in <code>ggplot2</code>; natürlich hätten wir das gleich in einem Rutsch durchpfeifen können.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men3 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> Groesse_MW, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach <code>Groesse_Gruppe</code> ausweisen, wird das noch überschaubar bleiben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, groesse_gruppe) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Groesse_MW =</span> <span class="kw">mean</span>(height)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> sex, <span class="dt">color =</span> <span class="kw">factor</span>(groesse_gruppe), <span class="dt">y =</span> Groesse_MW, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="die-gefuhlswelt-von-ggplot2" class="section level2">
+<h2><span class="header-section-number">7.5</span> Die Gefühlswelt von <code>ggplot2</code></h2>
+<ul>
+<li>Geben Sie eine <em>diskrete X-Achs</em>e an und *keine Y-AchseÜ, so greift qplot im Standard auf das Geom <code>bar</code> zurück (Balkendiagramm), falls Sie kein Geom angeben:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">data =</span> tips)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;bar)</span></code></pre></div>
+<ul>
+<li>Geben Sie eine <em>kontinuierliche X-Achse</em> an und <em>keine Y-Achse</em>, so greift qplot im Standard auf das Geom <code>histogram</code> zurück (Histogramm).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">data =</span> tips)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>)</code></pre></div>
+<ul>
+<li>Geben Sie eine <em>kontinuierliche X-Achse</em> an und eine <em>kontinuierliche Y-Achse</em> an, so greift qplot im Standard auf das Geom <code>point</code> zurück (Streudiagramm).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip, <span class="dt">data =</span> tips)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> total_bill, <span class="dt">y=</span>  tip, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</code></pre></div>
+<ul>
+<li>Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Variable diskret sein:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#oh no: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)
+
+<span class="co">#oh yes: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(rating), <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)
+
+<span class="co">#oh yes: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> gender, <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)</code></pre></div>
+</div>
+<div id="aufgaben-10" class="section level2">
+<h2><span class="header-section-number">7.6</span> Aufgaben</h2>
 <ol style="list-style-type: decimal">
-<li>Schließen Sie die Augen für eine Minute. Denken Sie an etwas Schönes und was Rs Problem sein könnte.</li>
-<li>Schalten Sie den Rechner aus und probieren Sie es morgen noch einmal.</li>
-<li>Googeln.</li>
-</ol>
-<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man <em>Fehler</em> wie diese macht:</p>
-
-<div class="rmdcaution">
-<p>OH NO:</p>
-<ul>
-<li><p>install.packages(dplyr)</p></li>
-<li><p>install.packages(“dliar”)</p></li>
-<li><p>install.packages(“derpyler”)</p></li>
-<li><p>install.packages(“dplyr”) # dependencies vergessen</p></li>
-<li><p>Keine Internet-Verbindung</p></li>
-<li>library(dplyr) # ohne vorher zu installieren</li>
-</ul>
-</div>
-<p></p>
-<p>Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, probieren Sie dieses:</p>
-<ul>
-<li><p>Sehen Sie eine Fehlermeldung, die von einem fehlenden Paket spricht (z.B. “Package ‘Rcpp’ not available”) oder davon spricht, dass ein Paket nicht installiert werden konnte (z.B. “Package ‘Rcpp’ could not be installed” oder “es gibt kein Paket namens ‘Rcpp’” oder “unable to move temporary installation XXX to YYY”), dann tun Sie folgendes:</p></li>
-<li>Schließen Sie R und starten Sie es neu.</li>
-<li>Installieren Sie das oder die angesprochenen Pakete mit <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code> oder mit dem entsprechenden Klick in RStudio.</li>
-<li><p>Starten Sie das entsprechende Paket mit <code>library(name_des_pakets)</code>.</p></li>
-<li><p>Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder RCommander) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die Pakete (“packages”) installieren, die Sie für bestimmte R-Funktionen benötigen. Daher schließen Sie R bzw. RStudio und suchen Sie das Icon von R oder wenn Sie RStudio verwenden von RStudio. Rechtsklicken Sie das Icon und wählen Sie “als Administrator ausführen”. Damit geben Sie dem Programm Schreibrechte. Jetzt können Sie etwaige fehlende Pakete installieren.</p></li>
-<li><p>Ein weiterer Grund, warum R bzw. RStudio die Schreibrechte verwehrt werden könnten (und damit die Installation von Paketen), ist ein Virenscanner. Der Virenscanner sagt, nicht ganz zu Unrecht: “Moment, einfach hier Software zu installieren, das geht nicht, zu gefährlich”. Grundsätzlich gut, in diesem Fall unnötig. Schließen Sie R/RStudio und schalten Sie dann den Virenscanner <em>komplett</em> (!) aus. Öffnen Sie dann R/RStudio wieder und versuchen Sie fehlende Pakete zu installieren.</p></li>
-</ul>
-</div>
-<div id="hier-werden-sie-geholfen" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Hier werden Sie geholfen</h3>
-<p>Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:</p>
-<ul>
-<li><p>Zu diesen Paketen gibt es gute “Spickzettel” (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf <em>Help &gt; Cheatsheets &gt; …</em> oder gehen Sie auf <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>.</p></li>
-<li><p>In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie hier finden: <em>Tools &gt; Keyboard Shortcuts Help</em>.</p></li>
-<li><p>Für jeden Befehl (d.i. Funktion) können Sie mit <code>?</code> Hilfe erhalten; probieren Sie z.B. <code>?mean</code>.</p></li>
-<li><p>Im Internet finden sich zuhauf Tutorials.</p></li>
-<li><p>Der Reiter “Help” bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.</p></li>
-<li><p>Die bekannteste Seite, um Fragen rund um R zu diskutieren ist <a href="http://stackoverflow.com" class="uri">http://stackoverflow.com</a>.</p></li>
-</ul>
-</div>
-<div id="die-denk--und-gefuhlswelt-von-r" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> Die Denk- und Gefühlswelt von R</h3>
-<ul>
-<li>Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn Sie RStudio gestartet haben, <em>nicht</em> noch extra R. Damit hätten Sie sonst zwei Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.</li>
-</ul>
-<div id="r-skript-dateien" class="section level4">
-<h4><span class="header-section-number">2.1.4.1</span> R-Skript-Dateien</h4>
-<ul>
-<li><p>Ein neues <em>R-Skript</em> im RStudio können Sie z.B. öffnen mit <code>File-New File-R Script</code>. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen…</p></li>
-<li><p>R-Skripte können Sie speichern (unter <code>File-Save</code>) und öffnen.</p></li>
-<li><p>R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. Nur statt der Endung <code>.txt</code>, sind R-Skripte stolzer Träger der Endung <code>.R</code>. Es bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung “.R”, damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar praktische Funktionen wie den “Run-Button”.</p></li>
-</ul>
-</div>
-<div id="stolpersteine-beim-errisch-lernen" class="section level4">
-<h4><span class="header-section-number">2.1.4.2</span> Stolpersteine beim Errisch lernen</h4>
-<blockquote>
-<p>I Errr, therefore I am…</p>
-</blockquote>
-<p>Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto Problem… Updaten Sie Ihre Packages regelmäßig z.B. mit <code>update.packages()</code> oder dem Button “Update” bei RStudio (Reiter <code>Packages</code>).</p>
-<p>R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine spirituelle Prüfung in Geduld und Hartnäckigkeit… Tolle Gelegenheit, sich in diesen Tugenden zu trainieren :-)</p>
-</div>
-</div>
-<div id="pakete-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.5</span> Pakete installieren</h3>
-<p>Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt <code>dplyr</code>. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>) </code></pre></div>
-
-<div class="rmdcaution">
-<p>Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen “Mirror” Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art “App-Store”, mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. “mirrors”). Suchen Sie sich einfach einen aus, der in der Nähe ist.</p>
-</div>
-<p></p>
-<p>Bei der Installation von Paketen mit <code>install.packages(&quot;name_des_pakets&quot;)</code> sollte stets der Parameter <code>dependencies = TRUE</code> angefügt werden. Also <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code>. Hintergrund ist: Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht installiert sind (gut möglich), dann werden diese sog. “dependencies” gleich mitinstalliert (wenn Sie <code>dependencies = TRUE</code> setzen).</p>
-<p>Sie müssen online sein, um Packages zu installieren.</p>
-<p>Nicht vergessen: Installieren muss man eine Software <em>nur einmal</em>; <em>starten</em> (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder nutzen möchte:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) </code></pre></div>
-<p>Der Befehl bedeutet sinngemäß: “Hey R, geh in die Bücherei (library) und hole das Buch (package) dplyr!”.</p>
-
-<div class="rmdcaution">
-<p>Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben “library(dplyr)” ist “dplyr” hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten <em>eigentlich</em> Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library(“dplyr”) oder library(‘dplyr’); geht beides.</p>
-</div>
-<p></p>
-<p>Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.</p>
-</div>
-<div id="r-pakete-fur-dieses-buch" class="section level3">
-<h3><span class="header-section-number">2.1.6</span> R-Pakete für dieses Buch</h3>
-<p>In diesem Skript verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.</p>
-<pre><code>#&gt;  [1] &quot;BaylorEdPsych&quot; &quot;broom&quot;         &quot;car&quot;           &quot;caret&quot;        
-#&gt;  [5] &quot;cluster&quot;       &quot;corrplot&quot;      &quot;corrr&quot;         &quot;downloader&quot;   
-#&gt;  [9] &quot;dplyr&quot;         &quot;GGally&quot;        &quot;ggplot2&quot;       &quot;grid&quot;         
-#&gt; [13] &quot;knitr&quot;         &quot;lmtest&quot;        &quot;lsa&quot;           &quot;MBESS&quot;        
-#&gt; [17] &quot;modelr&quot;        &quot;nycflights13&quot;  &quot;okcupiddata&quot;   &quot;pdftools&quot;     
-#&gt; [21] &quot;png&quot;           &quot;psych&quot;         &quot;ROCR&quot;          &quot;SDMTools&quot;     
-#&gt; [25] &quot;SnowballC&quot;     &quot;stringr&quot;       &quot;tidyr&quot;         &quot;tidytext&quot;     
-#&gt; [29] &quot;tidyverse&quot;     &quot;wordcloud&quot;</code></pre>
-<p>Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;includes/Pakete_fuer_PraDa.Rda&quot;</span>)
-<span class="kw">install.packages</span>(packages)</code></pre></div>
-<p>Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.</p>
-</div>
-<div id="daten" class="section level3">
-<h3><span class="header-section-number">2.1.7</span> Datensätze</h3>
-<ul>
-<li>Datensatz <code>profiles</code> aus dem R-Paket {okcupiddata} <span class="citation">(Kim und Escobedo-Land <a href="#ref-kim2015okcupid">2015</a>)</span>; es handelt sich um Daten von einer Online-Singlebörse</li>
-<li>Datensatz <code>Wage</code> aus dem R-Paket {ISLR} <span class="citation">(James, Witten, Hastie, und Tibshirani <a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span>; es handelt sich um Gehaltsdaten von US-amerikanischen Männern</li>
-<li>Datensatz <code>inf_test_short</code>, hier herunterzuladen: <a href="https://osf.io/sjhu" class="uri">https://osf.io/sjhu</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017">2017</a><a href="#ref-Sauer_2017">a</a>)</span>; es handelt sich um Ergebnisse einer Statistikklausur</li>
-<li>Datensatz <code>flights</code> aus dem R-Paket {nycflights13} <span class="citation">(RITA <a href="#ref-nycflights13">2013</a>)</span>; es handelt sich um Abflüge von den New Yorker Flughäfen</li>
-<li>Datensatz ’wo_men`, hier herunterzuladen: <a href="https://osf.io/ja9dw" class="uri">https://osf.io/ja9dw</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017a">2017</a><a href="#ref-Sauer_2017a">b</a>)</span>; es handelt sich um Körper- und Schuhgröße von Studierenden</li>
-<li>Datensatz <code>tips</code> aus dem R-Paket {reshape2} <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>; es handelt sich um Trinkgelder in einem Restaurant</li>
-<li>Datensatz <code>extra</code>, hier herunterzuladen: <a href="https://osf.io/4kgzh" class="uri">https://osf.io/4kgzh</a> <span class="citation">(Sauer <a href="#ref-Sauer_2016">2016</a>)</span>; es handelt sich die Ergebnisse einer Umfrage zu Extraversion</li>
-</ul>
-<p>Wir verwenden zwei Methoden, um Datensätze in R zu laden.</p>
-<ul>
-<li>Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket <code>okcupiddata</code>. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl <code>data(name_des_datensatzes, package = &quot;name_des_paketes&quot;)</code>, kann man dann die Daten laden. Das Laden eines Pakets lädt noch <em>nicht</em> die Daten des Paketes; dafür ist der Befehl <code>data</code> zuständig.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(okcupiddata) 
-<span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)</code></pre></div>
-<ul>
-<li>Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick…) liegen.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>) </code></pre></div>
-<p>Wir werden mit beiden Methoden arbeiten und “on the job” Details besprechen.</p>
-</div>
-<div id="aufgaben" class="section level3">
-<h3><span class="header-section-number">2.1.8</span> Aufgaben</h3>
-<ol style="list-style-type: decimal">
-<li><p>Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.</p></li>
-<li><p>Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.</p></li>
+<li><p>Erzählen Sie einer vertrauenswürdigen Person jeweils eine “Geschichte”, die das Zustandekommen der vier Plots von Anscombe (Abb. <a href="daten-visualisieren.html#fig:fig-anscombe">7.1</a>) erklärt!</p></li>
+<li><p>Abb. <a href="daten-visualisieren.html#fig:fig-flights">7.3</a> stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als “Geom” wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?</p></li>
+<li><p>Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht <code>carrier</code> sondern <code>origin</code>.</p></li>
+<li><p>Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?</p></li>
+<li><p>Erstellen Sie ein sehr grobes und ein sehr feines Histogramm für die Schuhgröße!</p></li>
+<li><p>Vertiefung: Erstellen Sie ein Diagramm, das sowohl eine Zusammenfassung (Mittelwert) der Körpergrößen nach Geschlecht darstellt als auch die einzelnen Werte darstellt!</p></li>
 </ol>
 </div>
-</div>
-<div id="errrstkontakt" class="section level2">
-<h2><span class="header-section-number">2.2</span> ERRRstkontakt</h2>
-<!-- Es fehlen noch: -->
-<!-- - Hinweise zu R-Datentypen -->
-<div id="hinweise" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Hinweise</h3>
-<p>Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:</p>
-<ul>
-<li>R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. <code>Oma</code> und <code>oma</code> sind zwei verschiedene Dinge für R!</li>
-<li>R verwendet den Punkt <code>.</code> als Dezimaltrennzeichen.</li>
-<li>Fehlende Werte werden in R durch <code>NA</code> kodiert.</li>
-<li>Kommentare werden mit dem Rautezeichen <code>#</code> eingeleitet; der Rest der Zeile von von R dann ignoriert.</li>
-<li>Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen <code>?</code>.</li>
-<li>Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst installiert werden.</li>
-<li><em>Variablennamen</em> (synonym: <em>Objekte</em>) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche <code>-</code> und Minuszeichen <code>-</code> enthalten sein. Leerzeichen sind nicht erlaubt.</li>
-<li>Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.</li>
-</ul>
-<pre><code># so nicht:
-var
-x
-dummy
-objekt
-dieser_name_ist_etwas_lang_vielleicht
-
-# gut:
-tips_mw
-lm1</code></pre>
-<p>Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).</p>
-</div>
-<div id="r-als-taschenrechner" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> R als Taschenrechner</h3>
-<p>Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung <code>&gt;</code> ein und beenden Sie die Eingabe mit <code>Return</code> bzw. <code>Enter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4+2</span> 
-<span class="co">#&gt; [1] 6</span></code></pre></div>
-<p>Das Ergebnis wird direkt angezeigt. Bei</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4+2</span> </code></pre></div>
-<p>erscheint zunächst kein Ergebnis. Über <code>&lt;-</code> wird der Variable <code>x</code> der Wert <code>4+2</code> zugewiesen. Wenn Sie jetzt</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x </code></pre></div>
-<p>eingeben, wird das Ergebnis</p>
-<pre><code>#&gt; [1] 6</code></pre>
-<p>angezeigt. Sie können jetzt auch mit <code>x</code> weiterrechnen, z.B.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x/<span class="dv">4</span> 
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
-<p>Vielleicht fragen Sie sich was die <code>[1]</code> vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die <code>[1]</code> zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt.</p>
-</div>
-<div id="text-und-variablen-zuweisen" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Text und Variablen zuweisen</h3>
-<p>Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> &quot;Hallo R!&quot;</span></code></pre></div>
-<p>Man kann auch einer Variablen eine andere zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>x</code></pre></div>
-<p>Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil <code>&lt;-</code> macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.</p>
-<p>Man kann auch einer Variablen <em>mehr als</em> einen Wert zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<p>Dieser Befehl erzeugt eine “Spalte” (einen Vektor). Will man einer Variablen <em>mehr als</em> einen Wert zuweisen, muss man die Werte erst in einen Vektor “zusammen binden”; das geht mit dem Befehl <code>c</code> (vom engl. “<em><strong>c</strong>ombine</em>”).</p>
-</div>
-<div id="funktionen-aufrufen" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Funktionen aufrufen</h3>
-<p>Um einen “Befehl” (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. “Parameter” in einer runden Klammer, z.B. so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Allgemein gesprochen:</p>
-<pre><code>funktionsname(parametername1 = wert1, parametername2 = wert2, ...)</code></pre>
-<p>Die drei Punkte <code>...</code> sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ok:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="ot">TRUE</span>, <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>)
-
-
-<span class="co"># ohno:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">TRUE</span>, <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="st">&quot;,&quot;</span>)</code></pre></div>
-</div>
-<div id="aufgaben-1" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Aufgaben</h3>
+<div id="losungen" class="section level2">
+<h2><span class="header-section-number">7.7</span> Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li><p>:-)</p></li>
+<li><p>:</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> arr_delay, <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">data =</span> flights, <span class="dt">facets =</span> <span class="st">&quot;~origin&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit <code>geom_jitter</code> anstelle von <code>geom_point</code>erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Führen Sie diese Syntax aus:</li>
+<li>:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meine_coole_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-meine_coole_var1able </code></pre></div>
-<p>Woher rührt der Fehler?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">bins =</span> <span class="dv">10</span>)
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">bins =</span> <span class="dv">50</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
-<li>Korrigieren Sie die Syntax:</li>
+<li>:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(dplyer)</code></pre></div>
-<p><code>y &lt;- Hallo R!</code></p>
-<p><code>Hallo R &lt;- 1</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hallo_R &lt;<span class="st"> </span>-<span class="st"> </span><span class="dv">1</span></code></pre></div>
-</div>
-</div>
-<div id="was-ist-statistik-wozu-ist-sie-gut" class="section level2">
-<h2><span class="header-section-number">2.3</span> Was ist Statistik? Wozu ist sie gut?</h2>
-<p>Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?</p>
-<p>Was ist Statistik? <em>Eine</em> Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle <span class="citation">(<em>The Oxford Dictionary of Statistical Terms</em> <a href="#ref-oxford">2006</a>; Romeijn <a href="#ref-sep-statistics">2016</a>)</span>. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in die zwei Gebiete <em>deskriptive</em> und <em>inferierende</em> Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. “Stichproben-”)Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung (Stochastik) eine große Rolle.</p>
-<p>Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant zusammenzufassen. Aufgabe der Inferenzstatistik ist es, zu prüfen, ob Daten einer Stichprobe auf eine Grundgesamtheit verallgemeinert werden können.</p>
-<p>Dabei lässt sich der Begriff “Statistik” als Überbegriff von “Datenanalyse” verstehen, wenn diese Sicht auch nicht von allen geteilt wird <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. In diesem Buch steht die Aufbereitung, Analyse, Interpretation und Kommunikation von Daten im Vordergrund. Liegt der Schwerpunkt dieser Aktivitäten bei computerintensiven Methoden, so wird auch von <em>Data Science</em> gesprochen, wobei der Begriff nicht einheitlich verwendet wird <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>; Hardin u. a. <a href="#ref-hardin2015data">2015</a>)</span></p>
-<p><em>Daten</em> kann man definieren als <em>Informationen, die in einem Kontext stehen</em> <span class="citation">(Moore <a href="#ref-moore1990uncertainty">1990</a>)</span>, wobei eine numerische Konnotation mitschwingt.</p>
-<p><em>Modellieren</em> kann man als <em>zentrale Aufgabe von Statistik</em> begreifen <span class="citation">(Cobb <a href="#ref-cobb2007introductory">2007</a>; Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. Einfach gesprochen, bedeutet Modellieren in diesem Sinne, ein mathematisches Narrativ (“Geschichte”) zu finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. Kap. <a href="mod1.html#mod1">9</a>.</p>
-<p>Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>:</p>
-<pre><code>Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
-Prämisse 2: Die Daten weisen das Muster D auf.
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(sex) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">height =</span> <span class="kw">mean</span>(height)) -&gt;<span class="st"> </span>wo_men3
 
----
 
-Konklusion: Daher muss das Modell M wahr sein.</code></pre>
-<p>Die Konklusion ist <em>nicht</em> zwangsläufig richtig. Es ist falsch zu sagen, dass dieses Argumentationsmuster - Abduktion <span class="citation">(Peirce <a href="#ref-peirce1955abduction">1955</a>)</span> genannt - wahre, sichere Schlüsse (Konklusionen) liefert. Die Konklusion <em>kann, muss aber nicht</em>, zutreffen.</p>
-<p>Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dunklen Ecke, ein Mann, der sich als Statistik-Professor vorstellt und Sie zu einem Glücksspiel einlädt. Sofort sagen Sie zu. Der Statistiker will 10 Mal eine Münze werfen, er setzt auf Zahl (versteht sich). Wenn er gewinnt, bekommt er 10€ von Ihnen; gewinnen Sie, bekommen Sie 11€ von ihm. Hört sich gut an, oder? Nun wirft er die Münze zehn Mal. Was passiert? Er gewinnt 10 Mal, natürlich (so will es die Geschichte). Sollten wir glauben, dass er ein Betrüger ist?</p>
-<p>Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D “passen” also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist.</p>
-<p>Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen <em>wenn</em> beginnt. Also davon <em>ausgeht</em>, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu?</p>
-<blockquote>
-<p>Wie gut passen die Daten D zum Modell M?</p>
-</blockquote>
-<p>Das ist die Frage, die hier tatsächlich gestellt bzw. beantwortet wird.</p>
-<p>Natürlich ist es keineswegs sicher, <em>dass</em> das Modell gilt. Darüber macht die Abduktion auch keine Aussage. Es könnte also sein, dass ein anderes Modell zutrifft: Der Professor könnte ein Heiliger sein, der uns auf etwas merkwürdige Art versucht, Geld zuzuschanzen… Oder er hat einfach Glück gehabt.</p>
-<blockquote>
-<p>Statistische Modelle beantworten i.d.R. nicht, wie wahrsheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.</p>
-</blockquote>
-<p>Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze “einschießt” auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt.</p>
+wo_men3 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> height) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">8</span>) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> wo_men2, <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der “Trick” ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (<code>wo_men3</code>). Dann werden die Rohdaten (<code>wo_men2</code>) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.</p>
 </div>
-<div id="befehlsubersicht" class="section level2">
-<h2><span class="header-section-number">2.4</span> Befehlsübersicht</h2>
-<p>Tabelle <a href="rahmen.html#tab:befehle-rahmen">2.1</a> stellt die Befehle dieses Kapitels dar.</p>
+<div id="richtig-oder-falsch" class="section level2">
+<h2><span class="header-section-number">7.8</span> Richtig oder Falsch<a href="#fn39" class="footnoteRef" id="fnref39"><sup>39</sup></a></h2>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li><p>Diese Geome gehören zum (Standard-) ggplot2: bar, histogram, point, density, jitter, boxplot.</p></li>
+<li><p><code>qplot</code> ist eine Funktion im Paket <code>ggplot2</code>.</p></li>
+<li><p>Mi <code>aes</code> definiert man, wie “ästethisch” das Diagramm sein soll (z.B. grauer Hintergrund vs. weißer Hintergrund, Farbe der Achsen etc.).</p></li>
+<li><p>Diese Geome gehören zum (Standard-) ggplot2: smooth, line, boxwhisker, mosaicplot.</p></li>
+<li><p>Möchte man ein Diagramm erstellen, welches auf der X-Achse <code>total_bill</code>, auf der Y-Achse <code>tip</code> darstellt, als Geom Punkte verwendet und die Daten aus der Tabelle <code>tips</code> bezieht, so ist folgende Syntax korrekt: `qplot(x = total, bill, y = tip, geom = “point”, data = tips)</p></li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="befehlsubersicht-5" class="section level2">
+<h2><span class="header-section-number">7.9</span> Befehlsübersicht</h2>
 <table>
-<caption><span id="tab:befehle-rahmen">Tabelle 2.1: </span>Befehle des Kapitels ‘Rahmen’</caption>
 <thead>
 <tr class="header">
 <th align="left">Paket::Funktion</th>
@@ -689,89 +757,81 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">install.packages(“x”)</td>
-<td align="left">Installiert Paket “x” (nicht: Paket “X”)</td>
+<td align="left">ggplot2::qplot</td>
+<td align="left">Malt schnell mal einen Plot</td>
 </tr>
 <tr class="even">
-<td align="left">library</td>
-<td align="left">lädt ein Paket</td>
+<td align="left">ggplot2::ggplot</td>
+<td align="left">Malt einen Plot</td>
 </tr>
 <tr class="odd">
-<td align="left">&lt;-</td>
-<td align="left">Weist einer Variablen einen Wert zu</td>
-</tr>
-<tr class="even">
-<td align="left">c</td>
-<td align="left">erstellt eine Spalte/ einen Vektor</td>
+<td align="left">factor</td>
+<td align="left">Wandelt einen Vektor in den Typ <code>factor</code> um</td>
 </tr>
 </tbody>
 </table>
-<p>Diese Befehle “wohnen” alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.</p>
 </div>
-<div id="verweise" class="section level2">
-<h2><span class="header-section-number">2.5</span> Verweise</h2>
+<div id="geome" class="section level2">
+<h2><span class="header-section-number">7.10</span> Vertiefung: Geome bei ggplot2</h2>
+<p>Einen guten Überblick über Geome bietet das Cheatsheet von ggplot2<a href="#fn40" class="footnoteRef" id="fnref40"><sup>40</sup></a>.</p>
+<p>Verschiedenen Taxonomien von statistischen “Bildchen” sind denkbar; eine einfache ist die folgende; es wird nur ein Teil der verfügbaren Geome dargestellt.</p>
+<ol style="list-style-type: decimal">
+<li>Eine kontinuerliche Variable</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Zwei kontinuierliche Variablen</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Eine diskrete Variable (X-Achse)</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">ggplot</span>(tips) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> day) +
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="verweise-4" class="section level2">
+<h2><span class="header-section-number">7.11</span> Verweise</h2>
 <ul>
-<li><p>Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: <a href="https://bookdown.org/chesterismay/rbasics/" class="uri">https://bookdown.org/chesterismay/rbasics/</a>.</p></li>
-<li><p>Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: <a href="https://bookdown.org/rdpeng/artofdatascience/" class="uri">https://bookdown.org/rdpeng/artofdatascience/</a></p></li>
-<li><p>Wickam und Grolemund <span class="citation">(<a href="#ref-r4ds">2016</a>)</span> geben einen hervorragenden Überblick in das Thema dieses Buches; ihr Buch ist sehr zu empfehlen.</p></li>
-<li><p>Wer einen stärker an der Statistik orientierten Zugang sucht, aber “mathematisch sanft” behandelt werden möchte, wird bei James et al. <span class="citation">(<a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span> glücklich oder zumindest fündig werden.</p></li>
+<li><p>Einen Befehlsüberblick zu <code>ggplot2</code> findet sich hier: <a href="http://ggplot2.tidyverse.org/reference/" class="uri">http://ggplot2.tidyverse.org/reference/</a>.</p></li>
+<li><p>Edward Tufte gilt als Grand Seigneur der Datenvisualisierung; er hat mehrere lesenswerte Bücher zu dem Thema geschrieben <span class="citation">(Tufte <a href="#ref-1930824130">2001</a>; Tufte <a href="#ref-1930824165">2006</a>; Tufte <a href="#ref-1930824149">1990</a>)</span>.</p></li>
+<li><p>William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren <span class="citation">(Cleveland <a href="#ref-Cleveland">1993</a>)</span>.</p></li>
+<li><p>Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: <a href="https://bookdown.org/Rmadillo/likert/" class="uri">https://bookdown.org/Rmadillo/likert/</a>.</p></li>
+<li><p>Es finden sich viele Tutorials online zu <code>ggplot2</code>; ein deutschsprachiger Tutorial findet sich hier: <a href="http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html" class="uri">http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html</a>.</p></li>
 </ul>
 
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
 <div id="refs" class="references">
-<div id="ref-r4ds">
-<p>Wickham, Hadley, und Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media.</p>
+<div id="ref-1930824130">
+<p>Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. Graphics Press.</p>
 </div>
-<div id="ref-kim2015okcupid">
-<p>Kim, Albert Y, und Adriana Escobedo-Land. 2015. „OkCupid Data for Introductory Statistics and Data Science Courses“. <em>Journal of Statistics Education</em> 23 (2). Citeseer: n2.</p>
+<div id="ref-1930824165">
+<p>Tufte, Edward R. 2006. <em>Beautiful Evidence</em>. Graphics Press.</p>
 </div>
-<div id="ref-introstatlearning">
-<p>James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2013b. <em>An introduction to statistical learning</em>. Bd. 6. Springer.</p>
+<div id="ref-1930824149">
+<p>Tufte, Edward R. 1990. <em>Envisioning Information</em>. Graphics Press.</p>
 </div>
-<div id="ref-Sauer_2017">
-<p>Sauer, Sebastian. 2017a. „Dataset ‚predictors of performance in stats test‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/SJHUY">10.17605/OSF.IO/SJHUY</a>.</p>
-</div>
-<div id="ref-nycflights13">
-<p>RITA, Bureau of transportation statistics. 2013. „nycflights13“. <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236" class="uri">http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236</a>.</p>
-</div>
-<div id="ref-Sauer_2017a">
-<p>Sauer, Sebastian. 2017b. „Dataset ‚Height and shoe size‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/JA9DW">10.17605/OSF.IO/JA9DW</a>.</p>
-</div>
-<div id="ref-bryant1995practical">
-<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
-</div>
-<div id="ref-Sauer_2016">
-<p>Sauer, Sebastian. 2016. „Extraversion Dataset“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/4KGZH">10.17605/OSF.IO/4KGZH</a>.</p>
-</div>
-<div id="ref-oxford">
-<p><em>The Oxford Dictionary of Statistical Terms</em>. 2006. Oxford University Press.</p>
-</div>
-<div id="ref-sep-statistics">
-<p>Romeijn, Jan-Willem. 2016. „Philosophy of Statistics“. In <em>The Stanford Encyclopedia of Philosophy</em>, herausgegeben von Edward N. Zalta, Winter 2016. <a href="http://plato.stanford.edu/archives/win2016/entries/statistics/" class="uri">http://plato.stanford.edu/archives/win2016/entries/statistics/</a>.</p>
-</div>
-<div id="ref-grolemund2014cognitive">
-<p>Grolemund, Garrett, und Hadley Wickham. 2014. „A cognitive interpretation of data analysis“. <em>International Statistical Review</em> 82 (2). Wiley Online Library: 184–204.</p>
-</div>
-<div id="ref-hardin2015data">
-<p>Hardin, Johanna, Roger Hoerl, Nicholas J Horton, Deborah Nolan, Ben Baumer, Olaf Hall-Holt, Paul Murrell, u. a. 2015. „Data science in statistics curricula: Preparing students to ‚Think with Data‘“. <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 343–53.</p>
-</div>
-<div id="ref-moore1990uncertainty">
-<p>Moore, David S. 1990. „Uncertainty“. <em>On the shoulders of giants: New approaches to numeracy</em>. ERIC, 95–137.</p>
-</div>
-<div id="ref-cobb2007introductory">
-<p>Cobb, George W. 2007. „The introductory statistics course: a Ptolemaic curriculum?“ <em>Technology Innovations in Statistics Education</em> 1 (1).</p>
-</div>
-<div id="ref-peirce1955abduction">
-<p>Peirce, Charles S. 1955. „Abduction and induction“. <em>Philosophical writings of Peirce</em> 11. New York.</p>
+<div id="ref-Cleveland">
+<p>Cleveland, William S. 1993. <em>Visualizing Data</em>. Hobart Press.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p><a href="https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau" class="uri">https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau</a><a href="rahmen.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Sind z.B. die Prüfungsergebnisse von Schülern unabhängig voneinander? Möglicherweise haben sie von einem “Superschüler” abgeschrieben. Wenn der Superschüler viel weiß, dann zeigen die Abschreiber auch gute Leistung.<a href="rahmen.html#fnref4">↩</a></p></li>
+<ol start="35">
+<li id="fn35"><p><a href="https://de.wikipedia.org/wiki/Anscombe-Quartett" class="uri">https://de.wikipedia.org/wiki/Anscombe-Quartett</a><a href="daten-visualisieren.html#fnref35">↩</a></p></li>
+<li id="fn36"><p>“gg” steht für “grammer of graphics” nach einem Buch von Wilkinson<span class="citation">(<a href="#ref-wilkinson2006grammar">2006</a>)</span>; “plot” steht für “to plot”, also ein Diagramm erstellen (“plotten”); vgl. <a href="https://en.wikipedia.org/wiki/Ggplot2" class="uri">https://en.wikipedia.org/wiki/Ggplot2</a><a href="daten-visualisieren.html#fnref36">↩</a></p></li>
+<li id="fn37"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-visualisieren.html#fnref37">↩</a></p></li>
+<li id="fn38"><p>Cleveland fände diese Idee nicht so gut.<a href="daten-visualisieren.html#fnref38">↩</a></p></li>
+<li id="fn39"><p>R, R, F, F, R<a href="daten-visualisieren.html#fnref39">↩</a></p></li>
+<li id="fn40"><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a><a href="daten-visualisieren.html#fnref40">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -779,8 +839,8 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
           </div>
         </div>
       </div>
-<a href="organisatorisches.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="daten-einlesen.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="fallstudie-zum-datenjudo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fallstudie-zur-visualisierung.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="organisatorisches.html">
-<link rel="next" href="daten-einlesen.html">
+<link rel="prev" href="klassische-lineare-numerische-regression.html">
+<link rel="next" href="fallstudien-zum-geleiteten-modellieren.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -374,313 +374,385 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rahmen" class="section level1">
-<h1><span class="header-section-number">Kapitel 2</span> Rahmen</h1>
+<div id="klassifizierende-regression" class="section level1">
+<h1><span class="header-section-number">Kapitel 12</span> Klassifizierende Regression</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
 
 <div class="rmdcaution">
 <p>Lernziele:</p>
 <ul>
-<li>Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.</li>
-<li>R und RStudio installieren können.</li>
-<li>Einige häufige technische Probleme zu lösen wissen.</li>
-<li>R-Pakete installieren können.</li>
-<li>Einige grundlegende R-Funktionalitäten verstehen.</li>
-<li>Auf die Frage “Was ist Statistik?” eine Antwort geben können.</li>
+<li>Die Idee der logistischen Regression verstehen.</li>
+<li>Die Koeffizienten der logistischen Regression interpretieren können.</li>
+<li>Vertiefungen wie Modellgüte kennen.</li>
 </ul>
 </div>
 <p></p>
-<p>In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das “Drumherum” oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voilà (Abb. <a href="rahmen.html#fig:fig-prozess">2.1</a>):</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-prozess"></span>
-<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<p>Für dieses Kapitel benötigen Sie folgende Pakete:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SDMTools)  <span class="co"># Güte von Klassifikationsmodellen</span>
+<span class="kw">library</span>(ROCR)  <span class="co"># Visualisierung der Güte </span>
+<span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo</span>
+<span class="kw">library</span>(BaylorEdPsych)  <span class="co"># Pseudo-R-Quadrat</span></code></pre></div>
+<div id="vorbereitung" class="section level2">
+<h2><span class="header-section-number">12.1</span> Vorbereitung</h2>
+<p>Hier werden wir den Datensatz <em>Aktienkauf</em> der Universität Zürich (<a href="http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html">Universität Zürich, Methodenberatung</a>) analysieren. Es handelt es sich um eine finanzpsychologische Fragestellung. Es wurde untersucht, welche Variablen mit der Wahrscheinlichkeit, dass jemand Aktien erwirbt, zusammenhängen. Insgesamt wurden 700 Personen befragt. Folgende Daten wurden erhoben:</p>
+<ul>
+<li>Aktienkauf (0 = nein, 1 = ja)</li>
+<li>Jahreseinkommen (in Tausend CHF),</li>
+<li>Risikobereitschaft (Skala von 0 bis 25)</li>
+<li>Interesse an der aktuellen Marktlage (Skala von 0 bis 45).</li>
+</ul>
+<p>Importieren Sie zunächst die Daten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aktien &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/Aktien.csv&quot;</span>)</code></pre></div>
+</div>
+<div id="problemstellung" class="section level2">
+<h2><span class="header-section-number">12.2</span> Problemstellung</h2>
+<p>Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. <a href="klassifizierende-regression.html#fig:fig-logist-regr1">12.1</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Aktienkauf, <span class="dt">x =</span> Risikobereitschaft), <span class="dt">data =</span> Aktien) +<span class="st"> </span><span class="kw">geom_point</span>()
+p1</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr1"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
 <p class="caption">
-Abbildung 2.1: Der Prozess der Datenanalyse
+Abbildung 12.1: Streudiagramm von Risikobereitschaft und Aktienkauf
 </p>
 </div>
-<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em> (hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
-<p>Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem <em>Rahmen</em> eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen.</p>
-<div id="software-installieren" class="section level2">
-<h2><span class="header-section-number">2.1</span> Software installieren</h2>
-<p>Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. “Entwicklungsumgebung” RStudio einiges an komfortabler Funktionalität bescheren. Eine Reihe von R-Paketen (“Packages”; d.h. Erweiterungen) werden wir auch nutzen. R ist eine recht alte Sprache; viele Neuerungen finden in Paketen Niederschlag, da der “harte Kern” von R lieber nicht so stark geändert wird. Stellen Sie sich vor: Seit 29 Jahren nutzen Sie eine Befehl, der Ihnen einen Mittelwert ausrechnet, sagen wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am “R-Kern” nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.</p>
-<div id="r-und-rstudio-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> R und RStudio installieren</h3>
-<p><img src="images/Rahmen/Rlogo.png" style="width:20.0%" /> <img src="images/Rahmen/rstudiologo.png" style="width:20.0%" /></p>
-<p>Sie können R unter <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>; laden Sie die “Desktop-Version” für Ihr Betriebssystem herunter.</p>
-<p>Die Oberfläche von R, die “Console”, sieht so aus:</p>
-<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
-<p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
-<p><img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Das <em>Skript-Fenster</em> ähnelt einem normalem Text-Editor; praktischerweise finden Sie aber einen Button “run”, der die aktuelle Zeile oder die Auswahl “abschickt”, d.h. in die Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster öffnen möchten, so können Sie das Icon <img src="images/Rahmen/new_script.png" alt="new_script" /> klicken (Alternativ: Ctrl-Shift-N oder File &gt; New File &gt; R Script).</p>
-<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit R. Wird ein Befehl (synonym: <em>Funktion</em>) hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
-<p>Im Fenster <em>Umgebung</em> (engl. “environment”) zeigt R, welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht in der Umgebung angezeigt wird, existiert nicht für R.</p>
-<p>Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster rechts unten durch.</p>
-<p>Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist <code>Shift-Alt-K</code>.</p>
+<p>Berechnen wir dann eine normale Regression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">data =</span> Aktien)
+<span class="kw">summary</span>(lm1)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = Aktienkauf ~ Risikobereitschaft, data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
+<span class="co">#&gt; -0.684 -0.243 -0.204  0.348  0.814 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)         0.18246    0.02001    9.12  &lt; 2e-16 ***</span>
+<span class="co">#&gt; Risikobereitschaft  0.05083    0.00762    6.67  5.2e-11 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.427 on 698 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.0599, Adjusted R-squared:  0.0586 </span>
+<span class="co">#&gt; F-statistic: 44.5 on 1 and 698 DF,  p-value: 5.25e-11</span></code></pre></div>
+<p>Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+
+p1 +<span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> .<span class="dv">18</span>, <span class="dt">slope =</span> .<span class="dv">05</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr2"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
+<p class="caption">
+Abbildung 12.2: Regressionsgerade für Aktien-Modell
+</p>
 </div>
-<div id="hilfe-r-tut-nicht-so-wie-ich-das-will" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Hilfe! R tut nicht so wie ich das will</h3>
+<p>Der Schätzer für die Steigung für <code>Risikobereitschaft</code> ist signifikant. Das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.</p>
+<p>Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?</p>
+<p>Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 “umbiegt” (die sogenannte <em>Linkfunktion</em>). Eine häufig dafür verwendete Funktion ist die <em>logistische Funktion</em>. Im einfachsten Fall:</p>
+<p><span class="math display">\[p(y=1)=\frac{e^x}{1+e^x}\]</span></p>
+<p>Exemplarisch können wir die logistische Funktion für einen Bereich von <span class="math inline">\(\eta=-10\)</span> bis <span class="math inline">\(+10\)</span> darstellen (vgl. <a href="klassifizierende-regression.html#fig:logist-curve">12.3</a>). Der Graph der logistischen Funktion ähnelt einem langgestreckten S (“Ogive” genannt).</p>
+<div class="figure" style="text-align: center"><span id="fig:logist-curve"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">
+Abbildung 12.3: Die logistische Regression beschreibt eine ‘s-förmige’ Kurve
+</p>
+</div>
+</div>
+<div id="die-idee-der-logistischen-regression" class="section level2">
+<h2><span class="header-section-number">12.3</span> Die Idee der logistischen Regression</h2>
+<p>Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (<em>general linear model, GLM</em>). Die Modellgleichung lautet: <span class="math display">\[p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i\]</span></p>
 <blockquote>
-<p>Manntje, Manntje, Timpe Te,<br />
-Buttje, Buttje inne See,<br />
-myne Fru de Ilsebill<br />
-will nich so, as ik wol will.</p>
+<p><span class="math inline">\(L\)</span> ist die Linkfunktion, in unserer Anwendung die logistische Funktion.<br />
+<span class="math inline">\(x_{ik}\)</span> sind die beobachten Werte der unabhängigen Variablen <span class="math inline">\(X_k\)</span>.<br />
+<span class="math inline">\(k\)</span> sind die unabhängigen Variablen <span class="math inline">\(1\)</span> bis <span class="math inline">\(K\)</span>.</p>
 </blockquote>
-<p><em>Gebrüder Grimm, Märchen vom Fischer und seiner Frau<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></em></p>
-<p>Ihr R startet nicht oder nicht richtig? Die drei wichtigsten Heilmittel sind:</p>
-<ol style="list-style-type: decimal">
-<li>Schließen Sie die Augen für eine Minute. Denken Sie an etwas Schönes und was Rs Problem sein könnte.</li>
-<li>Schalten Sie den Rechner aus und probieren Sie es morgen noch einmal.</li>
-<li>Googeln.</li>
-</ol>
-<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man <em>Fehler</em> wie diese macht:</p>
-
-<div class="rmdcaution">
-<p>OH NO:</p>
-<ul>
-<li><p>install.packages(dplyr)</p></li>
-<li><p>install.packages(“dliar”)</p></li>
-<li><p>install.packages(“derpyler”)</p></li>
-<li><p>install.packages(“dplyr”) # dependencies vergessen</p></li>
-<li><p>Keine Internet-Verbindung</p></li>
-<li>library(dplyr) # ohne vorher zu installieren</li>
-</ul>
+<p>Die Funktion <code>glm</code> führt die logistische Regression durch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
+            <span class="dt">data =</span> Aktien)</code></pre></div>
+<p>Wir schauen uns zunächst den Plot an (Abb. <a href="klassifizierende-regression.html#fig:aktien-plot">12.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:aktien-plot"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
+<p class="caption">
+Abbildung 12.4: Modelldiagramm für den Aktien-Datensatz
+</p>
 </div>
-<p></p>
-<p>Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, probieren Sie dieses:</p>
-<ul>
-<li><p>Sehen Sie eine Fehlermeldung, die von einem fehlenden Paket spricht (z.B. “Package ‘Rcpp’ not available”) oder davon spricht, dass ein Paket nicht installiert werden konnte (z.B. “Package ‘Rcpp’ could not be installed” oder “es gibt kein Paket namens ‘Rcpp’” oder “unable to move temporary installation XXX to YYY”), dann tun Sie folgendes:</p></li>
-<li>Schließen Sie R und starten Sie es neu.</li>
-<li>Installieren Sie das oder die angesprochenen Pakete mit <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code> oder mit dem entsprechenden Klick in RStudio.</li>
-<li><p>Starten Sie das entsprechende Paket mit <code>library(name_des_pakets)</code>.</p></li>
-<li><p>Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder RCommander) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die Pakete (“packages”) installieren, die Sie für bestimmte R-Funktionen benötigen. Daher schließen Sie R bzw. RStudio und suchen Sie das Icon von R oder wenn Sie RStudio verwenden von RStudio. Rechtsklicken Sie das Icon und wählen Sie “als Administrator ausführen”. Damit geben Sie dem Programm Schreibrechte. Jetzt können Sie etwaige fehlende Pakete installieren.</p></li>
-<li><p>Ein weiterer Grund, warum R bzw. RStudio die Schreibrechte verwehrt werden könnten (und damit die Installation von Paketen), ist ein Virenscanner. Der Virenscanner sagt, nicht ganz zu Unrecht: “Moment, einfach hier Software zu installieren, das geht nicht, zu gefährlich”. Grundsätzlich gut, in diesem Fall unnötig. Schließen Sie R/RStudio und schalten Sie dann den Virenscanner <em>komplett</em> (!) aus. Öffnen Sie dann R/RStudio wieder und versuchen Sie fehlende Pakete zu installieren.</p></li>
-</ul>
-</div>
-<div id="hier-werden-sie-geholfen" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Hier werden Sie geholfen</h3>
-<p>Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:</p>
-<ul>
-<li><p>Zu diesen Paketen gibt es gute “Spickzettel” (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf <em>Help &gt; Cheatsheets &gt; …</em> oder gehen Sie auf <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>.</p></li>
-<li><p>In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie hier finden: <em>Tools &gt; Keyboard Shortcuts Help</em>.</p></li>
-<li><p>Für jeden Befehl (d.i. Funktion) können Sie mit <code>?</code> Hilfe erhalten; probieren Sie z.B. <code>?mean</code>.</p></li>
-<li><p>Im Internet finden sich zuhauf Tutorials.</p></li>
-<li><p>Der Reiter “Help” bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.</p></li>
-<li><p>Die bekannteste Seite, um Fragen rund um R zu diskutieren ist <a href="http://stackoverflow.com" class="uri">http://stackoverflow.com</a>.</p></li>
-</ul>
-</div>
-<div id="die-denk--und-gefuhlswelt-von-r" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> Die Denk- und Gefühlswelt von R</h3>
-<ul>
-<li>Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn Sie RStudio gestartet haben, <em>nicht</em> noch extra R. Damit hätten Sie sonst zwei Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.</li>
-</ul>
-<div id="r-skript-dateien" class="section level4">
-<h4><span class="header-section-number">2.1.4.1</span> R-Skript-Dateien</h4>
-<ul>
-<li><p>Ein neues <em>R-Skript</em> im RStudio können Sie z.B. öffnen mit <code>File-New File-R Script</code>. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen…</p></li>
-<li><p>R-Skripte können Sie speichern (unter <code>File-Save</code>) und öffnen.</p></li>
-<li><p>R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. Nur statt der Endung <code>.txt</code>, sind R-Skripte stolzer Träger der Endung <code>.R</code>. Es bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung “.R”, damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar praktische Funktionen wie den “Run-Button”.</p></li>
-</ul>
-</div>
-<div id="stolpersteine-beim-errisch-lernen" class="section level4">
-<h4><span class="header-section-number">2.1.4.2</span> Stolpersteine beim Errisch lernen</h4>
 <blockquote>
-<p>I Errr, therefore I am…</p>
+<p>Es werden ein Streudiagramm der beobachten Werte sowie die <em>Regressionslinie</em> ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.</p>
 </blockquote>
-<p>Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto Problem… Updaten Sie Ihre Packages regelmäßig z.B. mit <code>update.packages()</code> oder dem Button “Update” bei RStudio (Reiter <code>Packages</code>).</p>
-<p>R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine spirituelle Prüfung in Geduld und Hartnäckigkeit… Tolle Gelegenheit, sich in diesen Tugenden zu trainieren :-)</p>
+<p>Die Zusammenfassung des Modells zeigt folgendes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(glm1)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft, family = binomial(&quot;logit&quot;), </span>
+<span class="co">#&gt;     data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -1.653  -0.738  -0.677   0.825   1.823  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)         -1.4689     0.1184   -12.4  &lt; 2e-16 ***</span>
+<span class="co">#&gt; Risikobereitschaft   0.2573     0.0468     5.5  3.8e-08 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 765.86  on 698  degrees of freedom</span>
+<span class="co">#&gt; AIC: 769.9</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
+<p>Der Achsenabschnitt (<code>intercept</code>) des logits <span class="math inline">\(\eta\)</span> wird mit -1.47 geschätzt, die Steigung in Richtung <code>Risikobereitschaft</code> mit 0.26. Die (Punkt-)Prognose für die Wahrscheinlickeit eines Aktienkaufs <span class="math inline">\(p(y=1)\)</span> benötigt anders als in der linearen Regression noch die Linkfunktion und ergibt sich somit zu: <span class="math display">\[p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(-1.47 + 0.26 \cdot \texttt{Risikobereitschaft})}}\]</span></p>
+<p>Die p-Werte der Koeffizienten können in der Spalte <code>Pr(&gt;|z|)</code> abgelesen werden.</p>
 </div>
+<div id="welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe" class="section level2">
+<h2><span class="header-section-number">12.4</span> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</h2>
+<p>Es gibt kein <span class="math inline">\(R^2\)</span> im Sinne einer erklärten Streuung der <span class="math inline">\(y\)</span>-Werte, da die beobachteten <span class="math inline">\(y\)</span>-Werte nur <span class="math inline">\(0\)</span> oder <span class="math inline">\(1\)</span> annehmen können. Das Gütemaß bei der logistischen Regression ist das <em>Akaike Information Criterion</em> (<em>AIC</em>). Hier gilt allerdings: je <strong>kleiner</strong>, desto <strong>besser</strong>. (Anmerkung: es kann ein Pseudo-<span class="math inline">\(R^2\)</span> berechnet werden – kommt später.)</p>
+<p>Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden – kommt später.)</p>
 </div>
-<div id="pakete-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.5</span> Pakete installieren</h3>
-<p>Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt <code>dplyr</code>. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>) </code></pre></div>
+<div id="interpretation-der-koeffizienten" class="section level2">
+<h2><span class="header-section-number">12.5</span> Interpretation der Koeffizienten</h2>
+<div id="y-achsenabschnitt-intercept-beta_0" class="section level3">
+<h3><span class="header-section-number">12.5.1</span> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></h3>
+<p>Für <span class="math inline">\(\beta_0&gt;0\)</span> gilt, dass selbst wenn alle anderen unabhängigen Variablen <span class="math inline">\(0\)</span> sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für <span class="math inline">\(\beta_0&lt;0\)</span> gilt entsprechend das Umgekehrte.</p>
+</div>
+<div id="steigung-beta_i-mit-i12...k" class="section level3">
+<h3><span class="header-section-number">12.5.2</span> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></h3>
+<p>Für <span class="math inline">\(\beta_i&gt;0\)</span> gilt, dass mit zunehmenden <span class="math inline">\(x_i\)</span> die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei <span class="math inline">\(\beta_i&lt;0\)</span> nimmt die Wahrscheinlichkeit entsprechend ab.</p>
+<p>Eine Abschätzung der Änderung der Wahrscheinlichkeit (<em>relatives Risiko</em>, <em>relative risk</em> <span class="math inline">\(RR\)</span>) kann über das Chancenverhältnis (<em>Odds Ratio</em> <span class="math inline">\(OR\)</span>) gemacht werden.<a href="#fn56" class="footnoteRef" id="fnref56"><sup>56</sup></a> Es ergibt sich vereinfacht <span class="math inline">\(e^{\beta_i}\)</span>. Die Wahrscheinlichkeit ändert sich näherungsweise um diesen Faktor, wenn sich <span class="math inline">\(x_i\)</span> um eine Einheit erhöht. <strong>Hinweis:</strong> <span class="math inline">\(RR\approx OR\)</span> gilt nur, wenn der Anteil des modellierten Ereignisses in den beobachteten Daten sehr klein (<span class="math inline">\(&lt;5\%\)</span>) oder sehr groß ist (<span class="math inline">\(&gt;95\%\)</span>).</p>
+</div>
+<div id="aufgabe" class="section level3">
+<h3><span class="header-section-number">12.5.3</span> Aufgabe</h3>
+<p>Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die <code>Risikobereitschaft</code> um 1 erhöht (Funktion <code>exp()</code>). Vergleichen Sie das Ergebnis mit der Punktprognose für <code>Risikobereitschaft</code><span class="math inline">\(=7\)</span> im Vergleich zu <code>Risikobereitschaft</code><span class="math inline">\(=8\)</span>.</p>
+<p>Lösung:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aus Koeffizient abgeschätzt</span>
+<span class="kw">exp</span>(<span class="kw">coef</span>(glm1)[<span class="dv">2</span>])
+<span class="co">#&gt; Risikobereitschaft </span>
+<span class="co">#&gt;               1.29</span></code></pre></div>
+<p>In Worten: “Mit jedem Punkt mehr Risikobereitschaft steigen die Chancen (das OR) für Aktienkauf um 1.293”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># mit dem vollständigen Modell berechnet</span>
+<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">1</span>), 
+        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.229</span>
 
-<div class="rmdcaution">
-<p>Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen “Mirror” Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art “App-Store”, mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. “mirrors”). Suchen Sie sich einfach einen aus, der in der Nähe ist.</p>
+<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">8</span>), 
+        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.643</span></code></pre></div>
+<p>Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für <span class="math inline">\(y=1\)</span>, d.h. für das Ereignis “Aktienkauf”, 0.23. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei 0.64.</p>
+<p>Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit <code>Risikobereitschaft</code><span class="math inline">\(=1\)</span> liegt allerdings auch bei 0.26.</p>
 </div>
-<p></p>
-<p>Bei der Installation von Paketen mit <code>install.packages(&quot;name_des_pakets&quot;)</code> sollte stets der Parameter <code>dependencies = TRUE</code> angefügt werden. Also <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code>. Hintergrund ist: Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht installiert sind (gut möglich), dann werden diese sog. “dependencies” gleich mitinstalliert (wenn Sie <code>dependencies = TRUE</code> setzen).</p>
-<p>Sie müssen online sein, um Packages zu installieren.</p>
-<p>Nicht vergessen: Installieren muss man eine Software <em>nur einmal</em>; <em>starten</em> (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder nutzen möchte:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) </code></pre></div>
-<p>Der Befehl bedeutet sinngemäß: “Hey R, geh in die Bücherei (library) und hole das Buch (package) dplyr!”.</p>
+</div>
+<div id="kategoriale-variablen" class="section level2">
+<h2><span class="header-section-number">12.6</span> Kategoriale Variablen</h2>
+<p>Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz <code>tips</code> und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (<code>smoker == yes</code>), in Abhängigkeit vom Wochentag ändert.</p>
+<p>Laden Sie dazu zunächst den Trinkgeld-Datensatz.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/tips.csv&quot;</span>)</code></pre></div>
+<p>Zunächst ein Plot (Abb. <a href="klassifizierende-regression.html#fig:jitter-tips">12.5</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">y =</span> day, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:jitter-tips"></span>
+<img src="072_klassifizierende_Regression_files/figure-html/jitter-tips-1.png" alt="Verwackeltes Streudiagramm ('Jitter')" width="70%" />
+<p class="caption">
+Abbildung 12.5: Verwackeltes Streudiagramm (‘Jitter’)
+</p>
+</div>
+<p>Die relativen Häufigkeiten zeigt folgende Tabelle:</p>
+<p>Probieren wir die logistische Regression aus:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glmtips &lt;-<span class="st"> </span><span class="kw">glm</span>(smoker ~<span class="st"> </span>day, 
+               <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
+               <span class="dt">data =</span> tips)
+<span class="kw">summary</span>(glmtips)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = smoker ~ day, family = binomial(&quot;logit&quot;), data = tips)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -1.765  -0.801  -0.758   1.207   1.665  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)    1.322      0.563    2.35  0.01883 *  </span>
+<span class="co">#&gt; daySat        -1.391      0.602   -2.31  0.02093 *  </span>
+<span class="co">#&gt; daySun        -2.420      0.622   -3.89    1e-04 ***</span>
+<span class="co">#&gt; dayThur       -2.295      0.631   -3.64  0.00027 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 324.34  on 243  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 298.37  on 240  degrees of freedom</span>
+<span class="co">#&gt; AIC: 306.4</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
+<p>Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier: Freitag) interpretieren. Die Wahrscheinlichkeit ist an einem Samstag niedriger, der Wert für <code>daySat</code> ist negativ. Eine Abschätzung erhalten wir wieder mit <span class="math inline">\(e^{\beta_i}\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(glmtips)[<span class="dv">2</span>])
+<span class="co">#&gt; daySat </span>
+<span class="co">#&gt;  0.249</span></code></pre></div>
+<p>Daher ist das Chancenverhältnis (<em>Odds Ratio</em>), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor 0.25 niedriger als am Freitag<a href="#fn57" class="footnoteRef" id="fnref57"><sup>57</sup></a>:</p>
+<p><span class="math display">\[{OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
+{\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
+=\frac{\frac{0.483}{0.517}}
+{\frac{0.79}{0.21}}
+\approx 0.249}\]</span></p>
+<p>Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder so ausgeben lassen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glmtips, <span class="kw">list</span>(<span class="dt">day =</span> <span class="st">&quot;Sat&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<span class="co">#&gt;     1 </span>
+<span class="co">#&gt; 0.483</span></code></pre></div>
+</div>
+<div id="multiple-logistische-regression" class="section level2">
+<h2><span class="header-section-number">12.7</span> Multiple logistische Regression</h2>
+<p>Wir kehren wieder zurück zu dem Datensatz <em>Aktienkauf</em>. Können wir unser Model <code>glm1</code> mit nur einer erklärenden Variable verbessern, indem weitere unabhängige Variablen hinzugefügt werden?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm2 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft +<span class="st"> </span>Einkommen +<span class="st"> </span>Interesse, 
+            <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), 
+            <span class="dt">data =</span> Aktien)
 
-<div class="rmdcaution">
-<p>Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben “library(dplyr)” ist “dplyr” hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten <em>eigentlich</em> Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library(“dplyr”) oder library(‘dplyr’); geht beides.</p>
+<span class="kw">summary</span>(glm2)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, </span>
+<span class="co">#&gt;     family = binomial(&quot;logit&quot;), data = Aktien)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
+<span class="co">#&gt; -2.130  -0.715  -0.539   0.518   3.214  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept)        -1.66791    0.27903   -5.98  2.3e-09 ***</span>
+<span class="co">#&gt; Risikobereitschaft  0.34781    0.08822    3.94  8.1e-05 ***</span>
+<span class="co">#&gt; Einkommen          -0.02157    0.00564   -3.83  0.00013 ***</span>
+<span class="co">#&gt; Interesse           0.08520    0.01775    4.80  1.6e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 679.01  on 696  degrees of freedom</span>
+<span class="co">#&gt; AIC: 687</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
+<p>Alle Schätzer sind signifkant zum 0.1 %-Niveau (<code>***</code> in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.</p>
+<p>Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86 auf 687.01 gesunken ist.</p>
 </div>
-<p></p>
-<p>Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.</p>
+<div id="modell--bzw.-klassifikationsgute" class="section level2">
+<h2><span class="header-section-number">12.8</span> Modell- bzw. Klassifikationsgüte</h2>
+<p>Logistische Regressionsmodelle werden häufig zur <em>Klassifikation</em> verwendet, z.B. ob der Kredit für einen Neukunden ein “guter” Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.</p>
+<p>Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (<em>cutpoint</em>), häufig <span class="math inline">\(0.5\)</span>, einer geschätzten <span class="math inline">\(1\)</span> zugeordnet, unterhalb des Schwellenwertes einer <span class="math inline">\(0\)</span>. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (<em>confusion matrix</em>) mit den beobachteten Häufigkeiten verglichen.</p>
+<p>Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (<em>True Positive Rate, TPR</em>), also der Anteil der mit <span class="math inline">\(1\)</span> geschätzten an allen mit <span class="math inline">\(1\)</span> beobachten Werten, und die Spezifität (<em>True Negative Rate</em>) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.</p>
+<p>Sie können die Konfusionsmatrix mit dem Paket <code>confusion.matrix()</code> aus dem Paket <code>SDMTools</code>. Ein Parameter ist <code>cutpoint</code>, der standardmäßig auf <span class="math inline">\(0.5\)</span> steht.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+(cm &lt;-<span class="st"> </span><span class="kw">confusion.matrix</span>(Aktien$Aktienkauf, glm1$fitted.values)) 
+<span class="co">#&gt;     obs</span>
+<span class="co">#&gt; pred   0   1</span>
+<span class="co">#&gt;    0 509 163</span>
+<span class="co">#&gt;    1   8  20</span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;confusion.matrix&quot;</span>
+<span class="kw">sensitivity</span>(cm)
+<span class="co">#&gt; [1] 0.109</span>
+<span class="kw">specificity</span>(cm)
+<span class="co">#&gt; [1] 0.985</span></code></pre></div>
+<p>Wenn die Anteile der <span class="math inline">\(1\)</span> in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten <span class="math inline">\(p(y=1)\)</span> alle unter <span class="math inline">\(0.5\)</span> liegen. Das würde zu einer Sensitität von <span class="math inline">\(0\)</span> und einer Spezifiät von <span class="math inline">\(1\)</span> führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die <em>ROC</em>-Kurve (<em>Return Operating Characteristic</em>) und den daraus abgeleiteten <em>AUC</em>-Wert (<em>Area Under Curve</em>).</p>
+<p>Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen <span class="math inline">\(1-\)</span>Spezifität (welche Werte sind als <span class="math inline">\(1\)</span> modelliert worden unter den beobachten <span class="math inline">\(0\)</span>, <em>False Positive Rate, FPR</em>). Um diese Werte auszugeben, benötigen Sie das Paket <code>ROCR</code> und die Funktion <code>performance()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggf. install.packages(&quot;ROCR&quot;)</span>
+<span class="kw">library</span>(ROCR)
+<span class="co"># Ein für die Auswertung notwendiges prediction Objekt anlegen</span>
+pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(glm1$fitted.values, Aktien$Aktienkauf)
+<span class="co"># ROC Kurve</span>
+perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<span class="st">&quot;tpr&quot;</span>,<span class="st">&quot;fpr&quot;</span>)
+<span class="kw">plot</span>(perf)
+<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)
+<span class="co"># Area under curve (ROC-Wert)</span>
+<span class="kw">performance</span>(pred,<span class="st">&quot;auc&quot;</span>)@y.values
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 0.636</span></code></pre></div>
+<p><img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>AUC liegt zwischen <span class="math inline">\(0.5\)</span>, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und <span class="math inline">\(1\)</span>. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei <span class="math inline">\(0.7\)</span> und größer, gute Werte sind es ab <span class="math inline">\(0.8\)</span>.<a href="#fn58" class="footnoteRef" id="fnref58"><sup>58</sup></a></p>
 </div>
-<div id="r-pakete-fur-dieses-buch" class="section level3">
-<h3><span class="header-section-number">2.1.6</span> R-Pakete für dieses Buch</h3>
-<p>In diesem Skript verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.</p>
-<pre><code>#&gt;  [1] &quot;BaylorEdPsych&quot; &quot;broom&quot;         &quot;car&quot;           &quot;caret&quot;        
-#&gt;  [5] &quot;cluster&quot;       &quot;corrplot&quot;      &quot;corrr&quot;         &quot;downloader&quot;   
-#&gt;  [9] &quot;dplyr&quot;         &quot;GGally&quot;        &quot;ggplot2&quot;       &quot;grid&quot;         
-#&gt; [13] &quot;knitr&quot;         &quot;lmtest&quot;        &quot;lsa&quot;           &quot;MBESS&quot;        
-#&gt; [17] &quot;modelr&quot;        &quot;nycflights13&quot;  &quot;okcupiddata&quot;   &quot;pdftools&quot;     
-#&gt; [21] &quot;png&quot;           &quot;psych&quot;         &quot;ROCR&quot;          &quot;SDMTools&quot;     
-#&gt; [25] &quot;SnowballC&quot;     &quot;stringr&quot;       &quot;tidyr&quot;         &quot;tidytext&quot;     
-#&gt; [29] &quot;tidyverse&quot;     &quot;wordcloud&quot;</code></pre>
-<p>Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;includes/Pakete_fuer_PraDa.Rda&quot;</span>)
-<span class="kw">install.packages</span>(packages)</code></pre></div>
-<p>Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.</p>
+<div id="vertiefung-1" class="section level2">
+<h2><span class="header-section-number">12.9</span> Vertiefung</h2>
+<div id="modellschatzung" class="section level3">
+<h3><span class="header-section-number">12.9.1</span> Modellschätzung</h3>
+<p>Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die <em>Maximum Likelihood</em> Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (<em>Maximum Likelihood</em>) werden.</p>
+<p>Das ist ein iteratives Verfahren (OLS erfolgt rein analytisch), daher wird in der letzten Zeile der Ausgabe auch die Anzahl der Iterationen (<code>Fisher Scoring Iterations</code>) ausgegeben.</p>
+<p>Die Devianz des Modells (<code>Residual deviance</code>) ist <span class="math inline">\(-2\)</span> mal die logarithmierte Likelihood. Die Nulldevianz (<code>Null deviance</code>) ist die Devianz eines Nullmodells, d. h., alle <span class="math inline">\(\beta\)</span> außer der Konstanten sind 0.</p>
 </div>
-<div id="daten" class="section level3">
-<h3><span class="header-section-number">2.1.7</span> Datensätze</h3>
-<ul>
-<li>Datensatz <code>profiles</code> aus dem R-Paket {okcupiddata} <span class="citation">(Kim und Escobedo-Land <a href="#ref-kim2015okcupid">2015</a>)</span>; es handelt sich um Daten von einer Online-Singlebörse</li>
-<li>Datensatz <code>Wage</code> aus dem R-Paket {ISLR} <span class="citation">(James, Witten, Hastie, und Tibshirani <a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span>; es handelt sich um Gehaltsdaten von US-amerikanischen Männern</li>
-<li>Datensatz <code>inf_test_short</code>, hier herunterzuladen: <a href="https://osf.io/sjhu" class="uri">https://osf.io/sjhu</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017">2017</a><a href="#ref-Sauer_2017">a</a>)</span>; es handelt sich um Ergebnisse einer Statistikklausur</li>
-<li>Datensatz <code>flights</code> aus dem R-Paket {nycflights13} <span class="citation">(RITA <a href="#ref-nycflights13">2013</a>)</span>; es handelt sich um Abflüge von den New Yorker Flughäfen</li>
-<li>Datensatz ’wo_men`, hier herunterzuladen: <a href="https://osf.io/ja9dw" class="uri">https://osf.io/ja9dw</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017a">2017</a><a href="#ref-Sauer_2017a">b</a>)</span>; es handelt sich um Körper- und Schuhgröße von Studierenden</li>
-<li>Datensatz <code>tips</code> aus dem R-Paket {reshape2} <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>; es handelt sich um Trinkgelder in einem Restaurant</li>
-<li>Datensatz <code>extra</code>, hier herunterzuladen: <a href="https://osf.io/4kgzh" class="uri">https://osf.io/4kgzh</a> <span class="citation">(Sauer <a href="#ref-Sauer_2016">2016</a>)</span>; es handelt sich die Ergebnisse einer Umfrage zu Extraversion</li>
-</ul>
-<p>Wir verwenden zwei Methoden, um Datensätze in R zu laden.</p>
-<ul>
-<li>Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket <code>okcupiddata</code>. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl <code>data(name_des_datensatzes, package = &quot;name_des_paketes&quot;)</code>, kann man dann die Daten laden. Das Laden eines Pakets lädt noch <em>nicht</em> die Daten des Paketes; dafür ist der Befehl <code>data</code> zuständig.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(okcupiddata) 
-<span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)</code></pre></div>
-<ul>
-<li>Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick…) liegen.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>) </code></pre></div>
-<p>Wir werden mit beiden Methoden arbeiten und “on the job” Details besprechen.</p>
+<div id="likelihood-quotienten-test" class="section level3">
+<h3><span class="header-section-number">12.9.2</span> Likelihood Quotienten Test</h3>
+<p>Der Likelihood Quotienten Test (<em>Likelihood Ratio Test, LR-Test</em>) vergleicht die Likelihood <span class="math inline">\(L_0\)</span> des Nullmodels mit der Likelihood <span class="math inline">\(L_{\beta}\)</span> des geschätzten Modells. Die Prüfgröße des LR-Tests ergibt sich aus: <span class="math display">\[{T=-2\cdot ln\left( \frac{L_0}{L_{\beta}}\right)}\]</span> <span class="math inline">\(T\)</span> ist näherungsweise <span class="math inline">\(\chi ^2\)</span>-verteilt mit <span class="math inline">\(k\)</span> Freiheitsgraden.</p>
+<p>In R können Sie den Test mit <code>lrtest()</code> aufrufen. Sie benötigen dazu das Paket <code>lmtest</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lmtest)
+<span class="kw">lrtest</span>(glm2)
+<span class="co">#&gt; Likelihood ratio test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
+<span class="co">#&gt; Model 2: Aktienkauf ~ 1</span>
+<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
+<span class="co">#&gt; 1   4   -340                        </span>
+<span class="co">#&gt; 2   1   -402 -3   125     &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
+<p>Das Modell <code>glm2</code> ist als Ganzes signifikant, der p-Wert ist sehr klein.</p>
+<p>Den Likelihood Quotienten Test können Sie auch verwenden, um zwei Modelle miteinander zu vergleichen, z. B., wenn Sie eine weitere Variable hinzugenommen haben und wissen wollen, ob die Verbesserung auch signifikant war.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lrtest</span>(glm1, glm2)
+<span class="co">#&gt; Likelihood ratio test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft</span>
+<span class="co">#&gt; Model 2: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
+<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
+<span class="co">#&gt; 1   2   -383                        </span>
+<span class="co">#&gt; 2   4   -340  2  86.9     &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
+<p>Ja, die Modelle <code>glm1</code> (mit einer erklärenden Variable) und <code>glm2</code> unterscheiden sich signifikant voneinander.</p>
 </div>
-<div id="aufgaben" class="section level3">
-<h3><span class="header-section-number">2.1.8</span> Aufgaben</h3>
-<ol style="list-style-type: decimal">
-<li><p>Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.</p></li>
-<li><p>Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.</p></li>
-</ol>
-</div>
-</div>
-<div id="errrstkontakt" class="section level2">
-<h2><span class="header-section-number">2.2</span> ERRRstkontakt</h2>
-<!-- Es fehlen noch: -->
-<!-- - Hinweise zu R-Datentypen -->
-<div id="hinweise" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Hinweise</h3>
-<p>Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:</p>
-<ul>
-<li>R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. <code>Oma</code> und <code>oma</code> sind zwei verschiedene Dinge für R!</li>
-<li>R verwendet den Punkt <code>.</code> als Dezimaltrennzeichen.</li>
-<li>Fehlende Werte werden in R durch <code>NA</code> kodiert.</li>
-<li>Kommentare werden mit dem Rautezeichen <code>#</code> eingeleitet; der Rest der Zeile von von R dann ignoriert.</li>
-<li>Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen <code>?</code>.</li>
-<li>Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst installiert werden.</li>
-<li><em>Variablennamen</em> (synonym: <em>Objekte</em>) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche <code>-</code> und Minuszeichen <code>-</code> enthalten sein. Leerzeichen sind nicht erlaubt.</li>
-<li>Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.</li>
-</ul>
-<pre><code># so nicht:
-var
-x
-dummy
-objekt
-dieser_name_ist_etwas_lang_vielleicht
-
-# gut:
-tips_mw
-lm1</code></pre>
-<p>Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).</p>
-</div>
-<div id="r-als-taschenrechner" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> R als Taschenrechner</h3>
-<p>Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung <code>&gt;</code> ein und beenden Sie die Eingabe mit <code>Return</code> bzw. <code>Enter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4+2</span> 
-<span class="co">#&gt; [1] 6</span></code></pre></div>
-<p>Das Ergebnis wird direkt angezeigt. Bei</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4+2</span> </code></pre></div>
-<p>erscheint zunächst kein Ergebnis. Über <code>&lt;-</code> wird der Variable <code>x</code> der Wert <code>4+2</code> zugewiesen. Wenn Sie jetzt</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x </code></pre></div>
-<p>eingeben, wird das Ergebnis</p>
-<pre><code>#&gt; [1] 6</code></pre>
-<p>angezeigt. Sie können jetzt auch mit <code>x</code> weiterrechnen, z.B.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x/<span class="dv">4</span> 
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
-<p>Vielleicht fragen Sie sich was die <code>[1]</code> vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die <code>[1]</code> zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt.</p>
-</div>
-<div id="text-und-variablen-zuweisen" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Text und Variablen zuweisen</h3>
-<p>Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> &quot;Hallo R!&quot;</span></code></pre></div>
-<p>Man kann auch einer Variablen eine andere zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>x</code></pre></div>
-<p>Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil <code>&lt;-</code> macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.</p>
-<p>Man kann auch einer Variablen <em>mehr als</em> einen Wert zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<p>Dieser Befehl erzeugt eine “Spalte” (einen Vektor). Will man einer Variablen <em>mehr als</em> einen Wert zuweisen, muss man die Werte erst in einen Vektor “zusammen binden”; das geht mit dem Befehl <code>c</code> (vom engl. “<em><strong>c</strong>ombine</em>”).</p>
-</div>
-<div id="funktionen-aufrufen" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Funktionen aufrufen</h3>
-<p>Um einen “Befehl” (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. “Parameter” in einer runden Klammer, z.B. so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Allgemein gesprochen:</p>
-<pre><code>funktionsname(parametername1 = wert1, parametername2 = wert2, ...)</code></pre>
-<p>Die drei Punkte <code>...</code> sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ok:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="ot">TRUE</span>, <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>)
-
-
-<span class="co"># ohno:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">TRUE</span>, <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="st">&quot;,&quot;</span>)</code></pre></div>
-</div>
-<div id="aufgaben-1" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Aufgaben</h3>
-<ol start="3" style="list-style-type: decimal">
-<li>Führen Sie diese Syntax aus:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meine_coole_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-meine_coole_var1able </code></pre></div>
-<p>Woher rührt der Fehler?</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Korrigieren Sie die Syntax:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(dplyer)</code></pre></div>
-<p><code>y &lt;- Hallo R!</code></p>
-<p><code>Hallo R &lt;- 1</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hallo_R &lt;<span class="st"> </span>-<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div id="pseudo-r2" class="section level3">
+<h3><span class="header-section-number">12.9.3</span> Pseudo-<span class="math inline">\(R^2\)</span></h3>
+<p>Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem <span class="math inline">\(R^2\)</span> der linearen Regression entspricht. Exemplarisch sei hier McFaddens <span class="math inline">\(R^2\)</span> gezeigt: <span class="math display">\[{R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}\]</span> Wie bei bei dem <span class="math inline">\(R^2\)</span> der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen <span class="math inline">\(R^2\)</span> der beiden Modelle <code>glm1</code> und <code>glm2</code>? Sie können es direkt berechnen oder das Paket <code>BaylorEdPsych</code> verwenden.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># direkte Berechnung</span>
+<span class="dv">1</span> -<span class="st"> </span>glm1$deviance/glm1$null.deviance
+<span class="co">#&gt; [1] 0.0479</span>
+<span class="dv">1</span> -<span class="st"> </span>glm2$deviance/glm2$null.deviance
+<span class="co">#&gt; [1] 0.156</span>
+<span class="co"># ggf. install.packages(&quot;BaylorEdPsych&quot;)</span>
+<span class="kw">library</span>(BaylorEdPsych)
+<span class="kw">PseudoR2</span>(glm1)
+<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
+<span class="co">#&gt;           0.0479           0.0404           0.0535           0.0783 </span>
+<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
+<span class="co">#&gt;           0.0826           0.0584           0.7557           0.0656 </span>
+<span class="co">#&gt;              AIC    Corrected.AIC </span>
+<span class="co">#&gt;         769.8624         769.8796</span>
+<span class="kw">PseudoR2</span>(glm2)
+<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
+<span class="co">#&gt;           0.1558           0.1434           0.1640           0.2400 </span>
+<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
+<span class="co">#&gt;           0.2828           0.1845           0.7614           0.0874 </span>
+<span class="co">#&gt;              AIC    Corrected.AIC </span>
+<span class="co">#&gt;         687.0068         687.0644</span></code></pre></div>
+<p>Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. <strong>Hinweis:</strong> Die Funktion <code>PseudoR2(model)</code> zeigt verschiedene Pseudo-<span class="math inline">\(R^2\)</span> Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.</p>
 </div>
 </div>
-<div id="was-ist-statistik-wozu-ist-sie-gut" class="section level2">
-<h2><span class="header-section-number">2.3</span> Was ist Statistik? Wozu ist sie gut?</h2>
-<p>Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?</p>
-<p>Was ist Statistik? <em>Eine</em> Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle <span class="citation">(<em>The Oxford Dictionary of Statistical Terms</em> <a href="#ref-oxford">2006</a>; Romeijn <a href="#ref-sep-statistics">2016</a>)</span>. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in die zwei Gebiete <em>deskriptive</em> und <em>inferierende</em> Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. “Stichproben-”)Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung (Stochastik) eine große Rolle.</p>
-<p>Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant zusammenzufassen. Aufgabe der Inferenzstatistik ist es, zu prüfen, ob Daten einer Stichprobe auf eine Grundgesamtheit verallgemeinert werden können.</p>
-<p>Dabei lässt sich der Begriff “Statistik” als Überbegriff von “Datenanalyse” verstehen, wenn diese Sicht auch nicht von allen geteilt wird <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. In diesem Buch steht die Aufbereitung, Analyse, Interpretation und Kommunikation von Daten im Vordergrund. Liegt der Schwerpunkt dieser Aktivitäten bei computerintensiven Methoden, so wird auch von <em>Data Science</em> gesprochen, wobei der Begriff nicht einheitlich verwendet wird <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>; Hardin u. a. <a href="#ref-hardin2015data">2015</a>)</span></p>
-<p><em>Daten</em> kann man definieren als <em>Informationen, die in einem Kontext stehen</em> <span class="citation">(Moore <a href="#ref-moore1990uncertainty">1990</a>)</span>, wobei eine numerische Konnotation mitschwingt.</p>
-<p><em>Modellieren</em> kann man als <em>zentrale Aufgabe von Statistik</em> begreifen <span class="citation">(Cobb <a href="#ref-cobb2007introductory">2007</a>; Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. Einfach gesprochen, bedeutet Modellieren in diesem Sinne, ein mathematisches Narrativ (“Geschichte”) zu finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. Kap. <a href="mod1.html#mod1">9</a>.</p>
-<p>Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>:</p>
-<pre><code>Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
-Prämisse 2: Die Daten weisen das Muster D auf.
-
----
-
-Konklusion: Daher muss das Modell M wahr sein.</code></pre>
-<p>Die Konklusion ist <em>nicht</em> zwangsläufig richtig. Es ist falsch zu sagen, dass dieses Argumentationsmuster - Abduktion <span class="citation">(Peirce <a href="#ref-peirce1955abduction">1955</a>)</span> genannt - wahre, sichere Schlüsse (Konklusionen) liefert. Die Konklusion <em>kann, muss aber nicht</em>, zutreffen.</p>
-<p>Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dunklen Ecke, ein Mann, der sich als Statistik-Professor vorstellt und Sie zu einem Glücksspiel einlädt. Sofort sagen Sie zu. Der Statistiker will 10 Mal eine Münze werfen, er setzt auf Zahl (versteht sich). Wenn er gewinnt, bekommt er 10€ von Ihnen; gewinnen Sie, bekommen Sie 11€ von ihm. Hört sich gut an, oder? Nun wirft er die Münze zehn Mal. Was passiert? Er gewinnt 10 Mal, natürlich (so will es die Geschichte). Sollten wir glauben, dass er ein Betrüger ist?</p>
-<p>Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D “passen” also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist.</p>
-<p>Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen <em>wenn</em> beginnt. Also davon <em>ausgeht</em>, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu?</p>
-<blockquote>
-<p>Wie gut passen die Daten D zum Modell M?</p>
-</blockquote>
-<p>Das ist die Frage, die hier tatsächlich gestellt bzw. beantwortet wird.</p>
-<p>Natürlich ist es keineswegs sicher, <em>dass</em> das Modell gilt. Darüber macht die Abduktion auch keine Aussage. Es könnte also sein, dass ein anderes Modell zutrifft: Der Professor könnte ein Heiliger sein, der uns auf etwas merkwürdige Art versucht, Geld zuzuschanzen… Oder er hat einfach Glück gehabt.</p>
-<blockquote>
-<p>Statistische Modelle beantworten i.d.R. nicht, wie wahrsheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.</p>
-</blockquote>
-<p>Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze “einschießt” auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt.</p>
+<div id="ubung-rot--oder-weiwein" class="section level2">
+<h2><span class="header-section-number">12.10</span> Übung: Rot- oder Weißwein?</h2>
+<p>Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen <span class="citation">(Cortez u. a. <a href="#ref-cortez2009modeling">2009</a>)</span>.</p>
+<p>Sie können in unter <a href="https://goo.gl/Dkd7nK" class="uri">https://goo.gl/Dkd7nK</a> herunterladen. Die Originaldaten finden Sie im UCI Machine Learning Repository<a href="#fn59" class="footnoteRef" id="fnref59"><sup>59</sup></a>.</p>
+<p>Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren<a href="#fn60" class="footnoteRef" id="fnref60"><sup>60</sup></a>.</p>
+<p><strong>Zusatzaufgabe:</strong> Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable <code>color</code> aufgenommen wird (Rot = 0, Weiß = 1).</p>
 </div>
-<div id="befehlsubersicht" class="section level2">
-<h2><span class="header-section-number">2.4</span> Befehlsübersicht</h2>
-<p>Tabelle <a href="rahmen.html#tab:befehle-rahmen">2.1</a> stellt die Befehle dieses Kapitels dar.</p>
+<div id="befehlsubersicht-8" class="section level2">
+<h2><span class="header-section-number">12.11</span> Befehlsübersicht</h2>
+<p>Tabelle <a href="klassifizierende-regression.html#tab:befehle-logist-regression">12.1</a> stellt die Befehle dieses Kapitels dar.</p>
 <table>
-<caption><span id="tab:befehle-rahmen">Tabelle 2.1: </span>Befehle des Kapitels ‘Rahmen’</caption>
+<caption><span id="tab:befehle-logist-regression">Tabelle 12.1: </span>Befehle des Kapitels ‘Logistische Regression’</caption>
 <thead>
 <tr class="header">
 <th align="left">Paket::Funktion</th>
@@ -689,89 +761,67 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">install.packages(“x”)</td>
-<td align="left">Installiert Paket “x” (nicht: Paket “X”)</td>
+<td align="left">ggplot2::geom_abline</td>
+<td align="left">Fügt das Geom “abline” (normale Gerade) zu einem ggplot2-Plot hinzu</td>
 </tr>
 <tr class="even">
-<td align="left">library</td>
-<td align="left">lädt ein Paket</td>
+<td align="left">glm</td>
+<td align="left">Berechnet ein “generalisiertes lineares Modell”, z.B. eine logistische Regression</td>
 </tr>
 <tr class="odd">
-<td align="left">&lt;-</td>
-<td align="left">Weist einer Variablen einen Wert zu</td>
+<td align="left">exp</td>
+<td align="left">Berechnet die e-Funktion für den angegeben Ausdruck (synonym: “delogarithmiert” den Ausdruck)</td>
 </tr>
 <tr class="even">
-<td align="left">c</td>
-<td align="left">erstellt eine Spalte/ einen Vektor</td>
+<td align="left">SDMTools::confusion.matrix</td>
+<td align="left">Berechnet eine Konfusionsmatrix</td>
+</tr>
+<tr class="odd">
+<td align="left">SDMTools::sensitivity</td>
+<td align="left">Berechnet die Sensitivität eines Klassifikationsmodells</td>
+</tr>
+<tr class="even">
+<td align="left">SDMTools::specificity</td>
+<td align="left">Berechnet die Spezifität eines Klassifikationsmodells</td>
+</tr>
+<tr class="odd">
+<td align="left">ROCR::performance</td>
+<td align="left">Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen</td>
+</tr>
+<tr class="even">
+<td align="left">lmtest::lrtest</td>
+<td align="left">Berechnet den Likelihood-Ratio-Test</td>
+</tr>
+<tr class="odd">
+<td align="left">BaylorEdPsych::PseudoR2</td>
+<td align="left">Berechnet Pseudo-R-Quadrat-Werte</td>
 </tr>
 </tbody>
 </table>
-<p>Diese Befehle “wohnen” alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.</p>
 </div>
-<div id="verweise" class="section level2">
-<h2><span class="header-section-number">2.5</span> Verweise</h2>
-<ul>
-<li><p>Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: <a href="https://bookdown.org/chesterismay/rbasics/" class="uri">https://bookdown.org/chesterismay/rbasics/</a>.</p></li>
-<li><p>Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: <a href="https://bookdown.org/rdpeng/artofdatascience/" class="uri">https://bookdown.org/rdpeng/artofdatascience/</a></p></li>
-<li><p>Wickam und Grolemund <span class="citation">(<a href="#ref-r4ds">2016</a>)</span> geben einen hervorragenden Überblick in das Thema dieses Buches; ihr Buch ist sehr zu empfehlen.</p></li>
-<li><p>Wer einen stärker an der Statistik orientierten Zugang sucht, aber “mathematisch sanft” behandelt werden möchte, wird bei James et al. <span class="citation">(<a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span> glücklich oder zumindest fündig werden.</p></li>
-</ul>
+<div id="verweise-7" class="section level2">
+<h2><span class="header-section-number">12.12</span> Verweise</h2>
+<p>Dieses Kapitel basiert teilweise auf Übungen zum Buch <a href="https://www.openintro.org/stat/index.php?stat_book=isrs">OpenIntro</a> <span class="citation">(Diez, Barr, und Cetinkaya-Rundel <a href="#ref-introstats">2014</a>)</span> unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.</p>
 
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
 <div id="refs" class="references">
-<div id="ref-r4ds">
-<p>Wickham, Hadley, und Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media.</p>
+<div id="ref-cortez2009modeling">
+<p>Cortez, Paulo, António Cerdeira, Fernando Almeida, Telmo Matos, und José Reis. 2009. „Modeling wine preferences by data mining from physicochemical properties“. <em>Decision Support Systems</em> 47 (4). Elsevier: 547–53.</p>
 </div>
-<div id="ref-kim2015okcupid">
-<p>Kim, Albert Y, und Adriana Escobedo-Land. 2015. „OkCupid Data for Introductory Statistics and Data Science Courses“. <em>Journal of Statistics Education</em> 23 (2). Citeseer: n2.</p>
-</div>
-<div id="ref-introstatlearning">
-<p>James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2013b. <em>An introduction to statistical learning</em>. Bd. 6. Springer.</p>
-</div>
-<div id="ref-Sauer_2017">
-<p>Sauer, Sebastian. 2017a. „Dataset ‚predictors of performance in stats test‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/SJHUY">10.17605/OSF.IO/SJHUY</a>.</p>
-</div>
-<div id="ref-nycflights13">
-<p>RITA, Bureau of transportation statistics. 2013. „nycflights13“. <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236" class="uri">http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236</a>.</p>
-</div>
-<div id="ref-Sauer_2017a">
-<p>Sauer, Sebastian. 2017b. „Dataset ‚Height and shoe size‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/JA9DW">10.17605/OSF.IO/JA9DW</a>.</p>
-</div>
-<div id="ref-bryant1995practical">
-<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
-</div>
-<div id="ref-Sauer_2016">
-<p>Sauer, Sebastian. 2016. „Extraversion Dataset“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/4KGZH">10.17605/OSF.IO/4KGZH</a>.</p>
-</div>
-<div id="ref-oxford">
-<p><em>The Oxford Dictionary of Statistical Terms</em>. 2006. Oxford University Press.</p>
-</div>
-<div id="ref-sep-statistics">
-<p>Romeijn, Jan-Willem. 2016. „Philosophy of Statistics“. In <em>The Stanford Encyclopedia of Philosophy</em>, herausgegeben von Edward N. Zalta, Winter 2016. <a href="http://plato.stanford.edu/archives/win2016/entries/statistics/" class="uri">http://plato.stanford.edu/archives/win2016/entries/statistics/</a>.</p>
-</div>
-<div id="ref-grolemund2014cognitive">
-<p>Grolemund, Garrett, und Hadley Wickham. 2014. „A cognitive interpretation of data analysis“. <em>International Statistical Review</em> 82 (2). Wiley Online Library: 184–204.</p>
-</div>
-<div id="ref-hardin2015data">
-<p>Hardin, Johanna, Roger Hoerl, Nicholas J Horton, Deborah Nolan, Ben Baumer, Olaf Hall-Holt, Paul Murrell, u. a. 2015. „Data science in statistics curricula: Preparing students to ‚Think with Data‘“. <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 343–53.</p>
-</div>
-<div id="ref-moore1990uncertainty">
-<p>Moore, David S. 1990. „Uncertainty“. <em>On the shoulders of giants: New approaches to numeracy</em>. ERIC, 95–137.</p>
-</div>
-<div id="ref-cobb2007introductory">
-<p>Cobb, George W. 2007. „The introductory statistics course: a Ptolemaic curriculum?“ <em>Technology Innovations in Statistics Education</em> 1 (1).</p>
-</div>
-<div id="ref-peirce1955abduction">
-<p>Peirce, Charles S. 1955. „Abduction and induction“. <em>Philosophical writings of Peirce</em> 11. New York.</p>
+<div id="ref-introstats">
+<p>Diez, David M, Christopher D Barr, und Mine Cetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. CreateSpace Independent Publishing Platform.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p><a href="https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau" class="uri">https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau</a><a href="rahmen.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Sind z.B. die Prüfungsergebnisse von Schülern unabhängig voneinander? Möglicherweise haben sie von einem “Superschüler” abgeschrieben. Wenn der Superschüler viel weiß, dann zeigen die Abschreiber auch gute Leistung.<a href="rahmen.html#fnref4">↩</a></p></li>
+<ol start="56">
+<li id="fn56"><p>Wahrscheinlichkeit vs. Chance: Die Wahrscheinlichkeit bei einem fairen Würfel, eine 6 zu würfeln, ist <span class="math inline">\(1/6\)</span>. Die Chance (<em>Odd</em>), eine 6 zu würfeln, ist die Wahrscheinlichkeit dividiert durch die Gegenwahrscheinlichkeit, also <span class="math inline">\(\frac{1/6}{5/6}=1/5\)</span>.<a href="klassifizierende-regression.html#fnref56">↩</a></p></li>
+<li id="fn57"><p>Am Freitag liegen die Chancen (das OR) für einen Raucher bei 3.75. Das OR für Samstag ist das Produkt dieser beiden OR. Um das OR zu einer Wahrscheinlichkeit umzurechnen kann man, möchte vom “von Hand” arbeiten, diese Formel verwenden: <span class="math inline">\(p = OR / (OR + 1)\)</span>.<a href="klassifizierende-regression.html#fnref57">↩</a></p></li>
+<li id="fn58"><p>Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164<a href="klassifizierende-regression.html#fnref58">↩</a></p></li>
+<li id="fn59"><p><a href="http://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">http://archive.ics.uci.edu/ml/datasets/Wine+Quality</a><a href="klassifizierende-regression.html#fnref59">↩</a></p></li>
+<li id="fn60"><p>Anregungen zu dieser Übung stammen von INTW Statistics: <a href="https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html" class="uri">https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html</a><a href="klassifizierende-regression.html#fnref60">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -779,8 +829,8 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
           </div>
         </div>
       </div>
-<a href="organisatorisches.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="daten-einlesen.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="klassische-lineare-numerische-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fallstudien-zum-geleiteten-modellieren.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

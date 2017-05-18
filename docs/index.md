@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer und Oliver Gansser. Mit Beiträgen von Matthias Gehrke und Karsten Lübke"
-date: "17 May, 2017"
+date: "18 May, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an IFES"
@@ -26,19 +26,22 @@ biblio-style: apalike
 
 
 
-
-# Vorwort {-}
-
+\newpage\setcounter{chapter}{0}\chapter{Vorwort}
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+
+
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
-<img src="images/vorwort/Forschung_frueher_heute.jpg" width="4108" />
+![](images/vorwort/Forschung_frueher_heute.pdf)<!-- --> 
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
 
@@ -103,7 +106,8 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
 Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
 
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 **Autoren**
@@ -121,11 +125,14 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-![DOI](https://zenodo.org/badge/81811975.svg)]
+
+
+
+
 
 Mehr Infos dazu hier: <https://zenodo.org/badge/latestdoi/81811975>
 
-Ein Bib-File finden Sie hier: <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
+Ein Bib-File finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (genau wie alle zitierten Textstellen).
 
@@ -135,9 +142,14 @@ Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (g
 Wenn Sie einen Fehler oder Verbesserungshinweise berichten möchten, können Sie unter <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues> einen "Issue" einreichen (Button "New Issue"). Alternativ können Sie Sebastian Sauer und die anderen Autoren über den Online Campus der FOM kontaktieren (eine Nachricht schreiben). Sebastian Sauer können Sie via Twitter folgen (<https://twitter.com/sauer_sebastian>) oder seinen Blog lesen (<https://sebastiansauer.github.io>).
 
 
-**Sonstiges**
+**Technische Details**
 
 Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).
+
+Informationen zu den verwendeten Paketen etc. (`sessionInfo()`) finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html>.
+
+
+** Sonstiges**
 
 Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.
 

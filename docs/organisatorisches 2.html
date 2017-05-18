@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="organisatorisches.html">
-<link rel="next" href="daten-einlesen.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="rahmen.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -374,349 +374,223 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rahmen" class="section level1">
-<h1><span class="header-section-number">Kapitel 2</span> Rahmen</h1>
+<div id="organisatorisches" class="section level1">
+<h1><span class="header-section-number">Kapitel 1</span> Organisatorisches</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
-
-<div class="rmdcaution">
-<p>Lernziele:</p>
+<div id="modulziele" class="section level2">
+<h2><span class="header-section-number">1.1</span> Modulziele</h2>
+<p>Die Studierenden können nach erfolgreichem Abschluss des Moduls:</p>
 <ul>
-<li>Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.</li>
-<li>R und RStudio installieren können.</li>
-<li>Einige häufige technische Probleme zu lösen wissen.</li>
-<li>R-Pakete installieren können.</li>
-<li>Einige grundlegende R-Funktionalitäten verstehen.</li>
-<li>Auf die Frage “Was ist Statistik?” eine Antwort geben können.</li>
+<li>den Ablauf eines Projekts aus der Datenanalyse in wesentlichen Schritten nachvollziehen,</li>
+<li>Daten aufbereiten und ansprechend visualisieren,</li>
+<li>Inferenzstatistik anwenden und kritisch hinterfragen,</li>
+<li>klassische Vorhersagemethoden (Regression) anwenden,</li>
+<li>moderne Methoden der angewandten Datenanalyse anwenden (z.B. Textmining),</li>
+<li>betriebswirtschaftliche Fragestellungen mittels datengetriebener Vorhersagemodellen beantworten.</li>
 </ul>
 </div>
-<p></p>
-<p>In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das “Drumherum” oder der Kontext der eigentlichen Datenanalyse gemeint. Dazu gehören einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel brauchen wir einen Überblick über das Thema. Voilà (Abb. <a href="rahmen.html#fig:fig-prozess">2.1</a>):</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-prozess"></span>
-<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
-<p class="caption">
-Abbildung 2.1: Der Prozess der Datenanalyse
-</p>
-</div>
-<p>Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span>. Zuerst muss man die Daten <em>einlesen</em>, die Daten also in R (oder einer anderen Software) verfügbar machen (laden). Fügen wir hinzu: In <em>schöner Form</em> verfügbar machen; man nennt dies auch <em>tidy data</em> (hört sich cooler an). Sobald die Daten in geeigneter Form in R geladen sind, folgt das <em>Aufbereiten</em>. Das beinhaltet Zusammenfassen, Umformen oder Anreichern je nach Bedarf. Ein nächster wesentlicher Schritt ist das <em>Visualisieren</em> der Daten. Ein Bild sagt bekanntlich mehr als viele Worte. Schließlich folgt das <em>Modellieren</em> oder das Hypothesen prüfen: Man überlegt sich, wie sich die Daten erklären lassen könnten. Zu beachten ist, dass diese drei Schritte - Aufbereiten, Visualisieren, Modellieren - keine starre Abfolge sind, sondern eher ein munteres Hin-und-Her-Springen, ein aufbauendes Abwechseln. Der letzte Schritt ist das <em>Kommunizieren</em> der Ergebnisse der Analyse - nicht der Daten. Niemand ist an Zahlenwüsten interessiert; es gilt, spannende Einblicke zu vermitteln.</p>
-<p>Der Prozess der Datenanalyse vollzieht sich nicht im luftleeren Raum, sondern ist in einem <em>Rahmen</em> eingebettet. Dieser beinhaltet praktische Aspekte - wie Software, Datensätze - und grundsätzliche Überlegungen - wie Ziele und Grundannahmen.</p>
-<div id="software-installieren" class="section level2">
-<h2><span class="header-section-number">2.1</span> Software installieren</h2>
-<p>Als Haupt-Analysewerkzeug nutzen wir R; daneben wird uns die sog. “Entwicklungsumgebung” RStudio einiges an komfortabler Funktionalität bescheren. Eine Reihe von R-Paketen (“Packages”; d.h. Erweiterungen) werden wir auch nutzen. R ist eine recht alte Sprache; viele Neuerungen finden in Paketen Niederschlag, da der “harte Kern” von R lieber nicht so stark geändert wird. Stellen Sie sich vor: Seit 29 Jahren nutzen Sie eine Befehl, der Ihnen einen Mittelwert ausrechnet, sagen wir die mittlere Anzahl von Tassen Kaffee am Tag. Und auf einmal wird der Mittelwert anders berechnet?! Eine Welt stürzt ein! Naja, vielleicht nicht ganz so tragisch in dem Beispiel, aber grundsätzlich sind Änderungen in viel benutzen Befehlen potenziell problematisch. Das ist wohl ein Grund, warum sich am “R-Kern” nicht so viel ändert. Die Innovationen in R passieren in den Paketen. Und es gibt viele davon; als ich diese Zeilen schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.</p>
-<div id="r-und-rstudio-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> R und RStudio installieren</h3>
-<p><img src="images/Rahmen/Rlogo.png" style="width:20.0%" /> <img src="images/Rahmen/rstudiologo.png" style="width:20.0%" /></p>
-<p>Sie können R unter <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a> herunterladen und installieren (für Windows, Mac oder Linux). RStudio finden Sie auf der gleichnamigen Homepage: <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>; laden Sie die “Desktop-Version” für Ihr Betriebssystem herunter.</p>
-<p>Die Oberfläche von R, die “Console”, sieht so aus:</p>
-<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
-<p>Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so aus:</p>
-<p><img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Das <em>Skript-Fenster</em> ähnelt einem normalem Text-Editor; praktischerweise finden Sie aber einen Button “run”, der die aktuelle Zeile oder die Auswahl “abschickt”, d.h. in die Konsole gibt, wo die Syntax ausgeführt wird. Wenn Sie ein Skript-Fenster öffnen möchten, so können Sie das Icon <img src="images/Rahmen/new_script.png" alt="new_script" /> klicken (Alternativ: Ctrl-Shift-N oder File &gt; New File &gt; R Script).</p>
-<p>Aus dem Fenster der <em>Konsole</em> spricht R zu uns bzw. wir mit R. Wird ein Befehl (synonym: <em>Funktion</em>) hier eingegeben, so führt R ihn aus. Es ist aber viel praktischer, Befehle in das Skript-Fenster einzugeben, als in die Konsole. Behalten Sie dieses Fenster im Blick, wenn Sie Antwort von R erwarten.</p>
-<p>Im Fenster <em>Umgebung</em> (engl. “environment”) zeigt R, welche Variablen (Objekte) vorhanden sind. Stellen Sie sich die Umgebung wie einen Karpfenteich vor, in dem die Datensätze und andere Objekte herumschwimmen. Was nicht in der Umgebung angezeigt wird, existiert nicht für R.</p>
-<p>Im Fenster rechts unten werden mehrere Informationen bereit gestellt, z.B. werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im Fenster rechts unten durch.</p>
-<p>Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist <code>Shift-Alt-K</code>.</p>
-</div>
-<div id="hilfe-r-tut-nicht-so-wie-ich-das-will" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Hilfe! R tut nicht so wie ich das will</h3>
-<blockquote>
-<p>Manntje, Manntje, Timpe Te,<br />
-Buttje, Buttje inne See,<br />
-myne Fru de Ilsebill<br />
-will nich so, as ik wol will.</p>
-</blockquote>
-<p><em>Gebrüder Grimm, Märchen vom Fischer und seiner Frau<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></em></p>
-<p>Ihr R startet nicht oder nicht richtig? Die drei wichtigsten Heilmittel sind:</p>
-<ol style="list-style-type: decimal">
-<li>Schließen Sie die Augen für eine Minute. Denken Sie an etwas Schönes und was Rs Problem sein könnte.</li>
-<li>Schalten Sie den Rechner aus und probieren Sie es morgen noch einmal.</li>
-<li>Googeln.</li>
-</ol>
-<p>Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man <em>Fehler</em> wie diese macht:</p>
-
-<div class="rmdcaution">
-<p>OH NO:</p>
-<ul>
-<li><p>install.packages(dplyr)</p></li>
-<li><p>install.packages(“dliar”)</p></li>
-<li><p>install.packages(“derpyler”)</p></li>
-<li><p>install.packages(“dplyr”) # dependencies vergessen</p></li>
-<li><p>Keine Internet-Verbindung</p></li>
-<li>library(dplyr) # ohne vorher zu installieren</li>
-</ul>
-</div>
-<p></p>
-<p>Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, probieren Sie dieses:</p>
-<ul>
-<li><p>Sehen Sie eine Fehlermeldung, die von einem fehlenden Paket spricht (z.B. “Package ‘Rcpp’ not available”) oder davon spricht, dass ein Paket nicht installiert werden konnte (z.B. “Package ‘Rcpp’ could not be installed” oder “es gibt kein Paket namens ‘Rcpp’” oder “unable to move temporary installation XXX to YYY”), dann tun Sie folgendes:</p></li>
-<li>Schließen Sie R und starten Sie es neu.</li>
-<li>Installieren Sie das oder die angesprochenen Pakete mit <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code> oder mit dem entsprechenden Klick in RStudio.</li>
-<li><p>Starten Sie das entsprechende Paket mit <code>library(name_des_pakets)</code>.</p></li>
-<li><p>Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder RCommander) eingeschränkt zu sein. Ohne Schreibrechte kann R aber nicht die Pakete (“packages”) installieren, die Sie für bestimmte R-Funktionen benötigen. Daher schließen Sie R bzw. RStudio und suchen Sie das Icon von R oder wenn Sie RStudio verwenden von RStudio. Rechtsklicken Sie das Icon und wählen Sie “als Administrator ausführen”. Damit geben Sie dem Programm Schreibrechte. Jetzt können Sie etwaige fehlende Pakete installieren.</p></li>
-<li><p>Ein weiterer Grund, warum R bzw. RStudio die Schreibrechte verwehrt werden könnten (und damit die Installation von Paketen), ist ein Virenscanner. Der Virenscanner sagt, nicht ganz zu Unrecht: “Moment, einfach hier Software zu installieren, das geht nicht, zu gefährlich”. Grundsätzlich gut, in diesem Fall unnötig. Schließen Sie R/RStudio und schalten Sie dann den Virenscanner <em>komplett</em> (!) aus. Öffnen Sie dann R/RStudio wieder und versuchen Sie fehlende Pakete zu installieren.</p></li>
-</ul>
-</div>
-<div id="hier-werden-sie-geholfen" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Hier werden Sie geholfen</h3>
-<p>Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:</p>
-<ul>
-<li><p>Zu diesen Paketen gibt es gute “Spickzettel” (cheatsheets): ggplot2, RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf <em>Help &gt; Cheatsheets &gt; …</em> oder gehen Sie auf <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>.</p></li>
-<li><p>In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie hier finden: <em>Tools &gt; Keyboard Shortcuts Help</em>.</p></li>
-<li><p>Für jeden Befehl (d.i. Funktion) können Sie mit <code>?</code> Hilfe erhalten; probieren Sie z.B. <code>?mean</code>.</p></li>
-<li><p>Im Internet finden sich zuhauf Tutorials.</p></li>
-<li><p>Der Reiter “Help” bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.</p></li>
-<li><p>Die bekannteste Seite, um Fragen rund um R zu diskutieren ist <a href="http://stackoverflow.com" class="uri">http://stackoverflow.com</a>.</p></li>
-</ul>
-</div>
-<div id="die-denk--und-gefuhlswelt-von-r" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> Die Denk- und Gefühlswelt von R</h3>
-<ul>
-<li>Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn Sie RStudio gestartet haben, <em>nicht</em> noch extra R. Damit hätten Sie sonst zwei Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.</li>
-</ul>
-<div id="r-skript-dateien" class="section level4">
-<h4><span class="header-section-number">2.1.4.1</span> R-Skript-Dateien</h4>
-<ul>
-<li><p>Ein neues <em>R-Skript</em> im RStudio können Sie z.B. öffnen mit <code>File-New File-R Script</code>. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen…</p></li>
-<li><p>R-Skripte können Sie speichern (unter <code>File-Save</code>) und öffnen.</p></li>
-<li><p>R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. Nur statt der Endung <code>.txt</code>, sind R-Skripte stolzer Träger der Endung <code>.R</code>. Es bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung “.R”, damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar praktische Funktionen wie den “Run-Button”.</p></li>
-</ul>
-</div>
-<div id="stolpersteine-beim-errisch-lernen" class="section level4">
-<h4><span class="header-section-number">2.1.4.2</span> Stolpersteine beim Errisch lernen</h4>
-<blockquote>
-<p>I Errr, therefore I am…</p>
-</blockquote>
-<p>Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto Problem… Updaten Sie Ihre Packages regelmäßig z.B. mit <code>update.packages()</code> oder dem Button “Update” bei RStudio (Reiter <code>Packages</code>).</p>
-<p>R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine spirituelle Prüfung in Geduld und Hartnäckigkeit… Tolle Gelegenheit, sich in diesen Tugenden zu trainieren :-)</p>
-</div>
-</div>
-<div id="pakete-installieren" class="section level3">
-<h3><span class="header-section-number">2.1.5</span> Pakete installieren</h3>
-<p>Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt <code>dplyr</code>. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es schon einmal, sofern noch nicht geschehen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>) </code></pre></div>
-
-<div class="rmdcaution">
-<p>Beim Installieren von R-Paketen könnten Sie gefragt werden, welchen “Mirror” Sie verwenden möchten. Das hat folgenden Hintergrund: R-Pakete sind in einer Art “App-Store”, mit Namen CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. “mirrors”). Suchen Sie sich einfach einen aus, der in der Nähe ist.</p>
-</div>
-<p></p>
-<p>Bei der Installation von Paketen mit <code>install.packages(&quot;name_des_pakets&quot;)</code> sollte stets der Parameter <code>dependencies = TRUE</code> angefügt werden. Also <code>install.packages(&quot;name_des_pakets&quot;, dependencies = TRUE)</code>. Hintergrund ist: Falls das zu installierende Paket seinerseits Pakete benötigt, die noch nicht installiert sind (gut möglich), dann werden diese sog. “dependencies” gleich mitinstalliert (wenn Sie <code>dependencies = TRUE</code> setzen).</p>
-<p>Sie müssen online sein, um Packages zu installieren.</p>
-<p>Nicht vergessen: Installieren muss man eine Software <em>nur einmal</em>; <em>starten</em> (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder nutzen möchte:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) </code></pre></div>
-<p>Der Befehl bedeutet sinngemäß: “Hey R, geh in die Bücherei (library) und hole das Buch (package) dplyr!”.</p>
-
-<div class="rmdcaution">
-<p>Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel lautet: wenn man Text anspricht. Im Beispiel oben “library(dplyr)” ist “dplyr” hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten <em>eigentlich</em> Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die Ausnahme einer Regel handelt. Sie können also auch schreiben: library(“dplyr”) oder library(‘dplyr’); geht beides.</p>
-</div>
-<p></p>
-<p>Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann haben Sie Ruhe.</p>
-</div>
-<div id="r-pakete-fur-dieses-buch" class="section level3">
-<h3><span class="header-section-number">2.1.6</span> R-Pakete für dieses Buch</h3>
-<p>In diesem Skript verwenden wir die folgenden R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein.</p>
-<pre><code>#&gt;  [1] &quot;BaylorEdPsych&quot; &quot;broom&quot;         &quot;car&quot;           &quot;caret&quot;        
-#&gt;  [5] &quot;cluster&quot;       &quot;corrplot&quot;      &quot;corrr&quot;         &quot;downloader&quot;   
-#&gt;  [9] &quot;dplyr&quot;         &quot;GGally&quot;        &quot;ggplot2&quot;       &quot;grid&quot;         
-#&gt; [13] &quot;knitr&quot;         &quot;lmtest&quot;        &quot;lsa&quot;           &quot;MBESS&quot;        
-#&gt; [17] &quot;modelr&quot;        &quot;nycflights13&quot;  &quot;okcupiddata&quot;   &quot;pdftools&quot;     
-#&gt; [21] &quot;png&quot;           &quot;psych&quot;         &quot;ROCR&quot;          &quot;SDMTools&quot;     
-#&gt; [25] &quot;SnowballC&quot;     &quot;stringr&quot;       &quot;tidyr&quot;         &quot;tidytext&quot;     
-#&gt; [29] &quot;tidyverse&quot;     &quot;wordcloud&quot;</code></pre>
-<p>Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;includes/Pakete_fuer_PraDa.Rda&quot;</span>)
-<span class="kw">install.packages</span>(packages)</code></pre></div>
-<p>Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.</p>
-</div>
-<div id="daten" class="section level3">
-<h3><span class="header-section-number">2.1.7</span> Datensätze</h3>
-<ul>
-<li>Datensatz <code>profiles</code> aus dem R-Paket {okcupiddata} <span class="citation">(Kim und Escobedo-Land <a href="#ref-kim2015okcupid">2015</a>)</span>; es handelt sich um Daten von einer Online-Singlebörse</li>
-<li>Datensatz <code>Wage</code> aus dem R-Paket {ISLR} <span class="citation">(James, Witten, Hastie, und Tibshirani <a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span>; es handelt sich um Gehaltsdaten von US-amerikanischen Männern</li>
-<li>Datensatz <code>inf_test_short</code>, hier herunterzuladen: <a href="https://osf.io/sjhu" class="uri">https://osf.io/sjhu</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017">2017</a><a href="#ref-Sauer_2017">a</a>)</span>; es handelt sich um Ergebnisse einer Statistikklausur</li>
-<li>Datensatz <code>flights</code> aus dem R-Paket {nycflights13} <span class="citation">(RITA <a href="#ref-nycflights13">2013</a>)</span>; es handelt sich um Abflüge von den New Yorker Flughäfen</li>
-<li>Datensatz ’wo_men`, hier herunterzuladen: <a href="https://osf.io/ja9dw" class="uri">https://osf.io/ja9dw</a> <span class="citation">(Sauer <a href="#ref-Sauer_2017a">2017</a><a href="#ref-Sauer_2017a">b</a>)</span>; es handelt sich um Körper- und Schuhgröße von Studierenden</li>
-<li>Datensatz <code>tips</code> aus dem R-Paket {reshape2} <span class="citation">(Bryant und Smith <a href="#ref-bryant1995practical">1995</a>)</span>; es handelt sich um Trinkgelder in einem Restaurant</li>
-<li>Datensatz <code>extra</code>, hier herunterzuladen: <a href="https://osf.io/4kgzh" class="uri">https://osf.io/4kgzh</a> <span class="citation">(Sauer <a href="#ref-Sauer_2016">2016</a>)</span>; es handelt sich die Ergebnisse einer Umfrage zu Extraversion</li>
-</ul>
-<p>Wir verwenden zwei Methoden, um Datensätze in R zu laden.</p>
-<ul>
-<li>Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket <code>okcupiddata</code>. Dazu muss das entsprechende Paket installiert und geladen sein. Mit dem Befehl <code>data(name_des_datensatzes, package = &quot;name_des_paketes&quot;)</code>, kann man dann die Daten laden. Das Laden eines Pakets lädt noch <em>nicht</em> die Daten des Paketes; dafür ist der Befehl <code>data</code> zuständig.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(okcupiddata) 
-<span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)</code></pre></div>
-<ul>
-<li>Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick…) liegen.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Daten &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://sebastiansauer.github.io/data/tips.csv&quot;</span>) </code></pre></div>
-<p>Wir werden mit beiden Methoden arbeiten und “on the job” Details besprechen.</p>
-</div>
-<div id="aufgaben" class="section level3">
-<h3><span class="header-section-number">2.1.8</span> Aufgaben</h3>
-<ol style="list-style-type: decimal">
-<li><p>Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.</p></li>
-<li><p>Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.</p></li>
-</ol>
-</div>
-</div>
-<div id="errrstkontakt" class="section level2">
-<h2><span class="header-section-number">2.2</span> ERRRstkontakt</h2>
-<!-- Es fehlen noch: -->
-<!-- - Hinweise zu R-Datentypen -->
-<div id="hinweise" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Hinweise</h3>
-<p>Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:</p>
-<ul>
-<li>R unterscheidet zwischen Groß- und Kleinbuchstaben, d.h. <code>Oma</code> und <code>oma</code> sind zwei verschiedene Dinge für R!</li>
-<li>R verwendet den Punkt <code>.</code> als Dezimaltrennzeichen.</li>
-<li>Fehlende Werte werden in R durch <code>NA</code> kodiert.</li>
-<li>Kommentare werden mit dem Rautezeichen <code>#</code> eingeleitet; der Rest der Zeile von von R dann ignoriert.</li>
-<li>Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen <code>?</code>.</li>
-<li>Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese müssen ggf. zunächst installiert werden.</li>
-<li><em>Variablennamen</em> (synonym: <em>Objekte</em>) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche <code>-</code> und Minuszeichen <code>-</code> enthalten sein. Leerzeichen sind nicht erlaubt.</li>
-<li>Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.</li>
-</ul>
-<pre><code># so nicht:
-var
-x
-dummy
-objekt
-dieser_name_ist_etwas_lang_vielleicht
-
-# gut:
-tips_mw
-lm1</code></pre>
-<p>Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).</p>
-</div>
-<div id="r-als-taschenrechner" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> R als Taschenrechner</h3>
-<p>Auch wenn Statistik nicht Mathe ist, so kann man mit R auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der Eingabeaufforderung <code>&gt;</code> ein und beenden Sie die Eingabe mit <code>Return</code> bzw. <code>Enter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4+2</span> 
-<span class="co">#&gt; [1] 6</span></code></pre></div>
-<p>Das Ergebnis wird direkt angezeigt. Bei</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4+2</span> </code></pre></div>
-<p>erscheint zunächst kein Ergebnis. Über <code>&lt;-</code> wird der Variable <code>x</code> der Wert <code>4+2</code> zugewiesen. Wenn Sie jetzt</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x </code></pre></div>
-<p>eingeben, wird das Ergebnis</p>
-<pre><code>#&gt; [1] 6</code></pre>
-<p>angezeigt. Sie können jetzt auch mit <code>x</code> weiterrechnen, z.B.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x/<span class="dv">4</span> 
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
-<p>Vielleicht fragen Sie sich was die <code>[1]</code> vor dem Ergebnis bedeutet. R arbeitet vektororientiert, und die <code>[1]</code> zeigt an, dass es sich um das erste (und hier auch letzte) Element des Vektors handelt.</p>
-</div>
-<div id="text-und-variablen-zuweisen" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Text und Variablen zuweisen</h3>
-<p>Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> &quot;Hallo R!&quot;</span></code></pre></div>
-<p>Man kann auch einer Variablen eine andere zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>x</code></pre></div>
-<p>Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungspfeil <code>&lt;-</code> macht die Richtung der Zuweisung ganz klar. Zwar ist in R das Gleichheitszeichen synonym zum Zuweisungspfeil erlaubt, aber der Zuweisungspfeil macht die Sache glasklar und sollte daher bevorzugt werden.</p>
-<p>Man kann auch einer Variablen <em>mehr als</em> einen Wert zuweisen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<p>Dieser Befehl erzeugt eine “Spalte” (einen Vektor). Will man einer Variablen <em>mehr als</em> einen Wert zuweisen, muss man die Werte erst in einen Vektor “zusammen binden”; das geht mit dem Befehl <code>c</code> (vom engl. “<em><strong>c</strong>ombine</em>”).</p>
-</div>
-<div id="funktionen-aufrufen" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Funktionen aufrufen</h3>
-<p>Um einen “Befehl” (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. “Parameter” in einer runden Klammer, z.B. so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>)</code></pre></div>
-<p>Allgemein gesprochen:</p>
-<pre><code>funktionsname(parametername1 = wert1, parametername2 = wert2, ...)</code></pre>
-<p>Die drei Punkte <code>...</code> sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ok:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="ot">TRUE</span>, <span class="st">&quot;,&quot;</span>)
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;data/wo_men.csv&quot;</span>)
-
-
-<span class="co"># ohno:</span>
-wo_men &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="ot">TRUE</span>, <span class="st">&quot;data/wo_men.csv&quot;</span>, <span class="st">&quot;,&quot;</span>)</code></pre></div>
-</div>
-<div id="aufgaben-1" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Aufgaben</h3>
-<ol start="3" style="list-style-type: decimal">
-<li>Führen Sie diese Syntax aus:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meine_coole_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-meine_coole_var1able </code></pre></div>
-<p>Woher rührt der Fehler?</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Korrigieren Sie die Syntax:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(dplyer)</code></pre></div>
-<p><code>y &lt;- Hallo R!</code></p>
-<p><code>Hallo R &lt;- 1</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hallo_R &lt;<span class="st"> </span>-<span class="st"> </span><span class="dv">1</span></code></pre></div>
-</div>
-</div>
-<div id="was-ist-statistik-wozu-ist-sie-gut" class="section level2">
-<h2><span class="header-section-number">2.3</span> Was ist Statistik? Wozu ist sie gut?</h2>
-<p>Zwei Fragen bieten sich sich am Anfang der Beschäftigung mit jedem Thema an: Was ist die Essenz des Themas? Warum ist das Thema (oder die Beschäftigung damit) wichtig?</p>
-<p>Was ist Statistik? <em>Eine</em> Antwort dazu ist, dass Statistik die Wissenschaft von Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle <span class="citation">(<em>The Oxford Dictionary of Statistical Terms</em> <a href="#ref-oxford">2006</a>; Romeijn <a href="#ref-sep-statistics">2016</a>)</span>. Damit hätten wir auch den Unterschied zur schnöden Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in die zwei Gebiete <em>deskriptive</em> und <em>inferierende</em> Statistik eingeteilt. Erstere fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. Letztere verallgemeinert von den vorliegenden (sog. “Stichproben-”)Daten auf eine zugrunde liegende Grundmenge (Population). Dabei spielt die Wahrscheinlichkeitsrechnung (Stochastik) eine große Rolle.</p>
-<p>Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant zusammenzufassen. Aufgabe der Inferenzstatistik ist es, zu prüfen, ob Daten einer Stichprobe auf eine Grundgesamtheit verallgemeinert werden können.</p>
-<p>Dabei lässt sich der Begriff “Statistik” als Überbegriff von “Datenanalyse” verstehen, wenn diese Sicht auch nicht von allen geteilt wird <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. In diesem Buch steht die Aufbereitung, Analyse, Interpretation und Kommunikation von Daten im Vordergrund. Liegt der Schwerpunkt dieser Aktivitäten bei computerintensiven Methoden, so wird auch von <em>Data Science</em> gesprochen, wobei der Begriff nicht einheitlich verwendet wird <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>; Hardin u. a. <a href="#ref-hardin2015data">2015</a>)</span></p>
-<p><em>Daten</em> kann man definieren als <em>Informationen, die in einem Kontext stehen</em> <span class="citation">(Moore <a href="#ref-moore1990uncertainty">1990</a>)</span>, wobei eine numerische Konnotation mitschwingt.</p>
-<p><em>Modellieren</em> kann man als <em>zentrale Aufgabe von Statistik</em> begreifen <span class="citation">(Cobb <a href="#ref-cobb2007introductory">2007</a>; Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>. Einfach gesprochen, bedeutet Modellieren in diesem Sinne, ein mathematisches Narrativ (“Geschichte”) zu finden, welches als Erklärung für gewisse Muster in den Daten fungiert; vgl. Kap. <a href="mod1.html#mod1">9</a>.</p>
-<p>Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab <span class="citation">(Grolemund und Wickham <a href="#ref-grolemund2014cognitive">2014</a>)</span>:</p>
-<pre><code>Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
-Prämisse 2: Die Daten weisen das Muster D auf.
-
----
-
-Konklusion: Daher muss das Modell M wahr sein.</code></pre>
-<p>Die Konklusion ist <em>nicht</em> zwangsläufig richtig. Es ist falsch zu sagen, dass dieses Argumentationsmuster - Abduktion <span class="citation">(Peirce <a href="#ref-peirce1955abduction">1955</a>)</span> genannt - wahre, sichere Schlüsse (Konklusionen) liefert. Die Konklusion <em>kann, muss aber nicht</em>, zutreffen.</p>
-<p>Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dunklen Ecke, ein Mann, der sich als Statistik-Professor vorstellt und Sie zu einem Glücksspiel einlädt. Sofort sagen Sie zu. Der Statistiker will 10 Mal eine Münze werfen, er setzt auf Zahl (versteht sich). Wenn er gewinnt, bekommt er 10€ von Ihnen; gewinnen Sie, bekommen Sie 11€ von ihm. Hört sich gut an, oder? Nun wirft er die Münze zehn Mal. Was passiert? Er gewinnt 10 Mal, natürlich (so will es die Geschichte). Sollten wir glauben, dass er ein Betrüger ist?</p>
-<p>Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D “passen” also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist.</p>
-<p>Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen <em>wenn</em> beginnt. Also davon <em>ausgeht</em>, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu?</p>
-<blockquote>
-<p>Wie gut passen die Daten D zum Modell M?</p>
-</blockquote>
-<p>Das ist die Frage, die hier tatsächlich gestellt bzw. beantwortet wird.</p>
-<p>Natürlich ist es keineswegs sicher, <em>dass</em> das Modell gilt. Darüber macht die Abduktion auch keine Aussage. Es könnte also sein, dass ein anderes Modell zutrifft: Der Professor könnte ein Heiliger sein, der uns auf etwas merkwürdige Art versucht, Geld zuzuschanzen… Oder er hat einfach Glück gehabt.</p>
-<blockquote>
-<p>Statistische Modelle beantworten i.d.R. nicht, wie wahrsheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.</p>
-</blockquote>
-<p>Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze “einschießt” auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt.</p>
-</div>
-<div id="befehlsubersicht" class="section level2">
-<h2><span class="header-section-number">2.4</span> Befehlsübersicht</h2>
-<p>Tabelle <a href="rahmen.html#tab:befehle-rahmen">2.1</a> stellt die Befehle dieses Kapitels dar.</p>
+<div id="themen-pro-termin" class="section level2">
+<h2><span class="header-section-number">1.2</span> Themen pro Termin</h2>
+<p>Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vgl. <a href="#tab:Themen"><strong>??</strong></a>).</p>
+<p>Folgende Abfolge von Themen sind pro Termin vorgeschlagen:</p>
+<p>Tabelle <a href="organisatorisches.html#tab:termin-themen">1.1</a> ordnet die Themen des Moduls den Therminen (1-11) zu.</p>
 <table>
-<caption><span id="tab:befehle-rahmen">Tabelle 2.1: </span>Befehle des Kapitels ‘Rahmen’</caption>
+<caption><span id="tab:termin-themen">Tabelle 1.1: </span>Zuordnung von Themen zu Terminen</caption>
 <thead>
 <tr class="header">
-<th align="left">Paket::Funktion</th>
-<th align="left">Beschreibung</th>
+<th align="right">Termin</th>
+<th align="left">Thema / Kapitel</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">install.packages(“x”)</td>
-<td align="left">Installiert Paket “x” (nicht: Paket “X”)</td>
+<td align="right">1</td>
+<td align="left">Organisatorisches</td>
 </tr>
 <tr class="even">
-<td align="left">library</td>
-<td align="left">lädt ein Paket</td>
+<td align="right">1</td>
+<td align="left">Einführung</td>
 </tr>
 <tr class="odd">
-<td align="left">&lt;-</td>
-<td align="left">Weist einer Variablen einen Wert zu</td>
+<td align="right">1</td>
+<td align="left">Rahmen</td>
 </tr>
 <tr class="even">
-<td align="left">c</td>
-<td align="left">erstellt eine Spalte/ einen Vektor</td>
+<td align="right">1</td>
+<td align="left">Daten einlesen</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">Datenjudo</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">Daten visualisieren</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">Fallstudie</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">Der p-Wert</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Daten modellieren</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Lineare Regression - metrisch</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Lineare Regression - kategorial</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Fallstudie</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Vertiefung 1: Textmining oder Clusteranalyse</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Vertiefung 2: Baumbasierte Verfahren oder Dimensionsreduktion</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="left">Wiederholung</td>
 </tr>
 </tbody>
 </table>
-<p>Diese Befehle “wohnen” alle im Standard-R; es ist für diese Befehle nicht nötig, zusätzliche Pakete zu installieren/ laden.</p>
 </div>
-<div id="verweise" class="section level2">
-<h2><span class="header-section-number">2.5</span> Verweise</h2>
+<div id="vorerfahrung" class="section level2">
+<h2><span class="header-section-number">1.3</span> Vorerfahrung</h2>
+<p>Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:</p>
 <ul>
-<li><p>Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Datenanalyse hilfreich sind: <a href="https://bookdown.org/chesterismay/rbasics/" class="uri">https://bookdown.org/chesterismay/rbasics/</a>.</p></li>
-<li><p>Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: <a href="https://bookdown.org/rdpeng/artofdatascience/" class="uri">https://bookdown.org/rdpeng/artofdatascience/</a></p></li>
-<li><p>Wickam und Grolemund <span class="citation">(<a href="#ref-r4ds">2016</a>)</span> geben einen hervorragenden Überblick in das Thema dieses Buches; ihr Buch ist sehr zu empfehlen.</p></li>
-<li><p>Wer einen stärker an der Statistik orientierten Zugang sucht, aber “mathematisch sanft” behandelt werden möchte, wird bei James et al. <span class="citation">(<a href="#ref-introstatlearning">2013</a><a href="#ref-introstatlearning">b</a>)</span> glücklich oder zumindest fündig werden.</p></li>
+<li>Deskriptive Statistik</li>
+<li>Inferenzstatistik</li>
+<li>Grundlagen R</li>
+<li>Grundlagen der Datenvisualisierung</li>
 </ul>
+</div>
+<div id="prufung" class="section level2">
+<h2><span class="header-section-number">1.4</span> Prüfung</h2>
+<div id="prufungshinweise" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> Prüfungshinweise</h3>
+<ul>
+<li>Die Prüfung besteht aus zwei Teilen
+<ul>
+<li>einer Klausur (50% der Teilnote)</li>
+<li>einer Datenanalyse (50% der Teilnote).</li>
+</ul></li>
+</ul>
+<p><em>Prüfungsrelevant</em> ist der gesamte Stoff aus dem Skript und dem Unterricht mit folgenden Ausnahmen:</p>
+<ul>
+<li>Inhalte/Abschnitte, die als “nicht klausurrelevant” gekennzeichnet sind,</li>
+<li>Inhalte/Abschnitte, die als “Vertiefung” gekennzeichnet sind,</li>
+<li>Fallstudien (nur für Klausuren nicht prüfungslevant),</li>
+<li>die Inhalte von Links,</li>
+<li>die Inhalte von Fußnoten,</li>
+<li>die Kpaitel <em>Vorwort</em>, <em>Organisatorisches</em> und <em>Anhang</em>.</li>
+</ul>
+</div>
+<div id="klausur" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> Klausur</h3>
+<ul>
+<li><p>Die Klausur besteht fast oder komplett aus Multiple-Choice (MC-)-Aufgaben mit mehreren Antwortoptionen; zumeist ist eine Antwort aus vieren auszuwählen.</p></li>
+<li><p>Die (maximale) Anzahl der richtigen Aussagen ist pro Aufgabe angegeben. Werden mehr Aussagen als “richtig” angekreuzt als angegeben, so wird die Aufgabe mit 0 Punkten beurteilt. Ansonsten werden Teilpunkte für jede Aufgabe vergeben.</p></li>
+<li><p>Jede Aussage gilt ceteris paribus (unter sonst gleichen Umständen). Aussagen der Art “A ist B” (z.B. “Menschen sind sterblich”) sind <em>nur</em> dann als richtig auszuwählen, wenn die Aussage <em>immer</em> richtig ist.</p></li>
+<li><p>Im Zweifel ist eine Aussage auf den Stoff, so wie im Unterricht behandelt, zu beziehen. Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn die vorgeschlagene Antwort ab der 1. Dezimale von der wahren Antwort abweicht (einigermaßen genaue Aussagen werden als richtig akzeptiert). Bei Fragen zu R-Syntax spielen Aspekte wie Enter-Taste o.ä. bei der Beantwortung der Frage keine Rolle; diese Aspekte dürfen zu ignorieren.</p></li>
+<li><p>Jede Aussage einer MC-Aufgabe ist entweder richtig oder falsch (aber nicht beides oder keines).</p></li>
+<li><p>Die MC-Aufgaben sind nur mit Kreuzen zu beantworten; Text wird bei der Korrektur nicht berücksichtigt.</p></li>
+<li><p>Bei Nachholklausuren gelten die selben Inhalte (inkl. Schwerpunkte) wie bei der Standard-Klausur, sofern nicht anderweitig angegeben.</p></li>
+<li><p>I.d.R. sind nur Klausurpapier und ein nicht-programmierbarer Taschenrechner als Hilfsmittel zulässig.</p></li>
+<li><p>Die Musterlösungen zu offenen Fragen sind elektronisch hinterlegt.</p></li>
+</ul>
+</div>
+<div id="datenanalyse" class="section level3">
+<h3><span class="header-section-number">1.4.3</span> Datenanalyse</h3>
+<ul>
+<li><p>Wenden Sie die passenden, im Modul eingeführten statistischen Verfahren an.</p></li>
+<li><p>Werten Sie die Daten mit R aus; R-Syntax soll verwendet und im Hauptteil dokumentiert werden.</p></li>
+<li><p>In der Wahl des Datensatzes sind Sie frei, mit folgender Ausnahme: Im Unterricht besprochene Datensätze dürfen nicht als Prüfungsleistung eingereicht werden (vgl. Abschnitt <a href="rahmen.html#daten">2.1.7</a>).</p></li>
+<li><p>Der (Original-)Name des Datensatzes (sowie ggf. Link) ist bei der Anmeldung anzugeben.</p></li>
+<li><p>Gruppenarbeiten sind nicht zulässig.</p></li>
+<li><p>Hat sich jemand schon für einen Datensatz angemeldet, so darf dieser Datensatz nicht mehr gewählt werden (“first come, first serve”).</p></li>
+<li><p>Fundorte für Datensätze sind z.B. <a href="http://www.stat.ufl.edu/~winner/datasets.html">hier</a>, <a href="http://archive.ics.uci.edu/ml/datasets.html">hier</a> und <a href="http://vincentarelbundock.github.io/Rdatasets/datasets.html">hier</a>; im Internet finden sich viele Datensätze<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</p></li>
+<li><p>Schreiben Sie Ihre Ergebnisse in einer Ausarbeitung zusammen; der Umfang der Ausarbeitung umfasst ca. <em>1000-1500 Wörter</em> (nur Hauptteil; d.h. exklusive Deckblatt, Verzeichnisse, Anhang etc.).</p></li>
+<li><p>Untersuchen Sie 2-3 Hypothesen.</p></li>
+<li><p>Denken Sie daran, Name, Matrikelnummer, Modulname etc. anzugeben (Deckblatt). Bei der Gestaltung des Layout entscheiden Sie selbständig bitte nach Zweckmäßigkeit (und Ästhetik).</p></li>
+<li><p>Fügen Sie keine Erklärungen oder Definitionen von statistischen Verfahren an.</p></li>
+</ul>
+</div>
+<div id="gliederungsvorschlag-zur-datenanalyse" class="section level3">
+<h3><span class="header-section-number">1.4.4</span> Gliederungsvorschlag zur Datenanalyse</h3>
+<ol style="list-style-type: decimal">
+<li><p>Datensatz</p>
+<ol style="list-style-type: decimal">
+<li>Beschreibung
+<ul>
+<li>Name</li>
+<li>Hintergrund (Themengebiet, Theorien, Relevanz), ca. 100 Wörter</li>
+<li>Dimension (Zeilen*Spalten)</li>
+<li>Zitation (wenn vorhanden)</li>
+<li>sonstige Hinweise (z.B. Datenqualität, Entstehung des Datensatzes)</li>
+</ul></li>
+<li><p>Variablendeskription (nur für Variablen der Hypothese)</p>
+<ul>
+<li>Skalenniveaus</li>
+<li>Kontinuität (nur bei metrischen Variablen)</li>
+<li>R-Datentyp</li>
+<li>Anzahl Fälle und fehlende Werte</li>
+<li>Erläuterung der Variablen</li>
+</ul></li>
+</ol></li>
+<li><p>Deduktive Analyse</p>
+<ol style="list-style-type: decimal">
+<li><p>Hypothese(n) Beschreiben Sie die Vermutung(en), die Sie prüfen möchten, möglichst exakt.</p></li>
+<li>Deskriptive Statistiken
+<ul>
+<li>Berichten Sie deskriptive Statistiken für alle Variablen der Hypothesen.</li>
+<li>Berichten Sie aber nur univariate Statistiken sowie Subgruppenanalysen dazu.</li>
+<li>Berichten Sie ggf. Effektstärken.</li>
+</ul></li>
+<li>Diagramme
+<ul>
+<li>Visualisieren Sie Ihre Hypothese(n) bzw. die Daten dazu, gerne aus mehreren Blickwinkeln.</li>
+</ul></li>
+<li><p>Signifikanztest</p></li>
+</ol></li>
+<li><p>Explorative Analyse</p></li>
+</ol>
+<ul>
+<li>Eörtern Sie interessante Einblicke, die über Ihre vorab getroffenen Hypothesen hinausgehen.</li>
+<li>Diagramme können hier eine zentrale Rolle spielen.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Diskussion</p>
+<ol style="list-style-type: decimal">
+<li><p>Zentrale Ergebnisse Fassen Sie das zentrale Ergebnisse zusammen.</p></li>
+<li><p>Interpretation Interpretieren Sie die Ergebnisse: Was bedeuten die Zahlen/Fakten, die die Rechnungen ergeben haben?</p></li>
+<li>Grenzen der Analyse
+<ul>
+<li>Schildern Sie etwaige Schwachpunkte oder Einschränkungen der Analyse.</li>
+<li>Geben Sie Anregungen für weiterführende Analysen dieses Datensatzes.</li>
+</ul></li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div id="literatur" class="section level2">
+<h2><span class="header-section-number">1.5</span> Literatur</h2>
+<p>Zum Bestehen der Prüfung ist keine weitere Literatur formal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. Dazu ist am ehesten das Buch von Wickham und Grolemund <span class="citation">(Wickham und Grolemund <a href="#ref-r4ds">2016</a>)</span> hilreich, obwohl es deutlich tiefer geht als dieses Skript.</p>
 
+<p></p>
+<p> </p>
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
@@ -724,54 +598,11 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
 <div id="ref-r4ds">
 <p>Wickham, Hadley, und Garrett Grolemund. 2016. <em>R for Data Science: Visualize, Model, Transform, Tidy, and Import Data</em>. O’Reilly Media.</p>
 </div>
-<div id="ref-kim2015okcupid">
-<p>Kim, Albert Y, und Adriana Escobedo-Land. 2015. „OkCupid Data for Introductory Statistics and Data Science Courses“. <em>Journal of Statistics Education</em> 23 (2). Citeseer: n2.</p>
-</div>
-<div id="ref-introstatlearning">
-<p>James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2013b. <em>An introduction to statistical learning</em>. Bd. 6. Springer.</p>
-</div>
-<div id="ref-Sauer_2017">
-<p>Sauer, Sebastian. 2017a. „Dataset ‚predictors of performance in stats test‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/SJHUY">10.17605/OSF.IO/SJHUY</a>.</p>
-</div>
-<div id="ref-nycflights13">
-<p>RITA, Bureau of transportation statistics. 2013. „nycflights13“. <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236" class="uri">http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236</a>.</p>
-</div>
-<div id="ref-Sauer_2017a">
-<p>Sauer, Sebastian. 2017b. „Dataset ‚Height and shoe size‘“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/JA9DW">10.17605/OSF.IO/JA9DW</a>.</p>
-</div>
-<div id="ref-bryant1995practical">
-<p>Bryant, PG, und MA Smith. 1995. „Practical Data Analysis: Case Studies in Business Statistics, Homewood, IL: Richard D“. Irwin Publishing.</p>
-</div>
-<div id="ref-Sauer_2016">
-<p>Sauer, Sebastian. 2016. „Extraversion Dataset“. Open Science Framework. doi:<a href="https://doi.org/10.17605/OSF.IO/4KGZH">10.17605/OSF.IO/4KGZH</a>.</p>
-</div>
-<div id="ref-oxford">
-<p><em>The Oxford Dictionary of Statistical Terms</em>. 2006. Oxford University Press.</p>
-</div>
-<div id="ref-sep-statistics">
-<p>Romeijn, Jan-Willem. 2016. „Philosophy of Statistics“. In <em>The Stanford Encyclopedia of Philosophy</em>, herausgegeben von Edward N. Zalta, Winter 2016. <a href="http://plato.stanford.edu/archives/win2016/entries/statistics/" class="uri">http://plato.stanford.edu/archives/win2016/entries/statistics/</a>.</p>
-</div>
-<div id="ref-grolemund2014cognitive">
-<p>Grolemund, Garrett, und Hadley Wickham. 2014. „A cognitive interpretation of data analysis“. <em>International Statistical Review</em> 82 (2). Wiley Online Library: 184–204.</p>
-</div>
-<div id="ref-hardin2015data">
-<p>Hardin, Johanna, Roger Hoerl, Nicholas J Horton, Deborah Nolan, Ben Baumer, Olaf Hall-Holt, Paul Murrell, u. a. 2015. „Data science in statistics curricula: Preparing students to ‚Think with Data‘“. <em>The American Statistician</em> 69 (4). Taylor &amp; Francis: 343–53.</p>
-</div>
-<div id="ref-moore1990uncertainty">
-<p>Moore, David S. 1990. „Uncertainty“. <em>On the shoulders of giants: New approaches to numeracy</em>. ERIC, 95–137.</p>
-</div>
-<div id="ref-cobb2007introductory">
-<p>Cobb, George W. 2007. „The introductory statistics course: a Ptolemaic curriculum?“ <em>Technology Innovations in Statistics Education</em> 1 (1).</p>
-</div>
-<div id="ref-peirce1955abduction">
-<p>Peirce, Charles S. 1955. „Abduction and induction“. <em>Philosophical writings of Peirce</em> 11. New York.</p>
-</div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p><a href="https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau" class="uri">https://de.wikipedia.org/wiki/Vom_Fischer_und_seiner_Frau</a><a href="rahmen.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Sind z.B. die Prüfungsergebnisse von Schülern unabhängig voneinander? Möglicherweise haben sie von einem “Superschüler” abgeschrieben. Wenn der Superschüler viel weiß, dann zeigen die Abschreiber auch gute Leistung.<a href="rahmen.html#fnref4">↩</a></p></li>
+<ol start="2">
+<li id="fn2"><p>Googeln Sie mal nach “open datasets” o.ä.<a href="organisatorisches.html#fnref2">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -779,8 +610,8 @@ Konklusion: Daher muss das Modell M wahr sein.</code></pre>
           </div>
         </div>
       </div>
-<a href="organisatorisches.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="daten-einlesen.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rahmen.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
