@@ -135,7 +135,7 @@ Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MS
 
 Mehr Infos dazu hier: <https://zenodo.org/badge/latestdoi/81811975>
 
-Ein Bib-File finden Sie hier: <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
+Ein Bib-File finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
 
 Alle verwendeten Datensätze und R-Pakete finden sich im Literaturverzeichnis (genau wie alle zitierten Textstellen).
 
