@@ -94,7 +94,7 @@ Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System
 
 Sprich: Die Relation im empirischen System findet sich im numerischen System wieder.
 
-```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modollierens"}
+```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modellierens"}
 knitr::include_graphics("images/modellieren/Modellieren_formal_crop.png")
 ```
 
