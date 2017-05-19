@@ -1,0 +1,121 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+```
+
+
+
+# Fallstudie 'movies' {case-movies}
+
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+```{block2, ziele-nycflights13, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Grundlegende Funktionen von `dplyr` andwenden können.
+- Das Konzept der Pfeife in einem echten Datensatz anwenden können.
+- Auch mit relativ großen Daten sicher hantieren können.
+
+```
+
+
+
+Der Datensatz `movies` enthält Bewertungen von Filmen, zusammen mit einigen zusätzlichen Informationen wie Genre, Erscheinungsjahr und Budgethöhe. Wir nutzen diesen Datensatz um uns einige Übung mit Aufbereiten und Zusammenfassen von Daten zu verschaffen.
+
+
+Für dieses Kapitel werden folgende Pakete benötigt:
+
+```{r}
+library(tidyverse)  # Datenjudo und Visualisierung
+library(corrr)
+```
+
+
+Zunächst laden wir die Daten und werfen einen Blick in den Datensatz:
+
+```{r}
+movies <- read.csv("data/movies.csv")
+glimpse(movies)
+```
+
+Hier findet man einige Erklärungen zu diesem Datensatz: <http://had.co.nz/data/movies/>.
+
+## Wie viele Filme gibt es pro Genre?
+
+Normalerweise würde man für diese Frage eine Spalte wie "Genre" nehmen und die verschiedenen Werte dieser Spalte auszählen. Das geht sehr bequem mit `dplyr::count`. Hier gibt es allerdings so eine Spalte nicht. Wir müssen uns anders behelfen.
+```{r}
+movies %>% 
+  select(Action:Short) %>% 
+  summarise_all(funs(sum))
+```
+
+Auf Deutsch heißt diese Syntax
+
+
+
+```{block2, movies-syntax, type='rmdpseudocode', echo = TRUE}
+Nimm die Tabelle "movies" UND DANN  
+nimm alle Spalten von "Action" bis "Short" UND DANN  
+fasse alle Spalten (die wir genommen haben) zusammen und zwar...
+mit der oder den Funktionen "Summe" (sum).  
+
+```
+
+
+## Welches Genre ist am häufigsten?
+
+Bzw. in welchem Genre wurden am meisten Filme gedreht (in unserem Datensatz)?
+
+```{r}
+movies %>% 
+  select(Action:Short) %>% 
+  summarise_all(funs(sum)) %>% 
+  gather() %>% 
+  arrange()
+```
+
+Der Befehl `gather` baut einen Datafraem von "breit" nach "lang" um (vgl. Kapitel \@ref(normalform)). Ah, ~~Schmunzetten~~ Dramen sind also am häufigsten. Welcome to Hollywood.
+
+# Zusammenhang zwischen Budget und Beurteilung
+
+Werden teuerere Filme (also Filme mit mehr Budget) besser beurteilt im Schnitt? Das würde man erwarten, denn zum Spaß werden die Investoren wohl nicht ihr Geld raus. Schauen wir es uns an.
+
+```{r}
+movies %>% 
+  select(budget, rating, votes) %>% 
+  correlate 
+```
+
+Wir haben gerade die drei Spalten `budget`, `rating` und `votes` ausgewählt, dann in der nächsten Zeile die fehlenden Werte eliminiert und schließlich die Korrelation zwischen allen Paaren gebildet. Interessanterweise gibt es keine Korrelation zwischen dem Budget und dem Rating! Teuere Filme sind also mitnichten besser bewertet. Allerdings haben Filme mit mehr Budget eine größere Anzahl an Bewertungen, sind also offenbar bekannter. Vielleicht gehen dann auch entsprechend mehr Leute im Kino - auch wenn diese Filme nicht besser sind. Teuerere Filme sind also bekannter, wenn auch nicht besser (beurteilt); so könnte man die Daten lesen.
+
+# Wurden die Filme im Lauf der Jahre teurer und/oder "besser"?
+
+```{r}
+movies %>% 
+  select(year, rating, budget) %>% 
+  correlate
+```
+
+Offenbar wurden die Filme im Lauf der Zeit nicht besser beurteilt; wohl wurden sie aber teurer.

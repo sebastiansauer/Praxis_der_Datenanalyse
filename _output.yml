@@ -22,7 +22,7 @@ bookdown::gitbook:
   css: style.css
   fig_crop: TRUE
   config:
-    download: yes
+    download: no
     search: yes
     sharing:
       facebook: yes
@@ -33,7 +33,7 @@ bookdown::gitbook:
       vk: no
       all: ['facebook', 'google', 'twitter', 'weibo', 'instapaper']
     toc:
-      collapse: none
+      collapse: yes
       scroll_highlight: yes
       before: |
         <li><img src="https://sebastiansauer.github.io/images/FOM.jpg"

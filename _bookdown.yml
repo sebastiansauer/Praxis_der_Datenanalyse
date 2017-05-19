@@ -9,7 +9,7 @@ rmd_files: [
 "030_Tidy_Data.Rmd",
 "040_Datenjudo.Rmd",
 "043_Typische_Probleme_Datenanalyse.Rmd",
-"045_Fallstudie_dplyr.Rmd",
+"046_Fallstudie_movies.Rmd",
 "050_Daten_visualisieren.Rmd",
 "056_Fallstudie_Visualisierung.Rmd",
 "059_Modellieren_header.Rmd",

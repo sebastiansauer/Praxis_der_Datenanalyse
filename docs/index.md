@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer und Oliver Gansser. Mit Beiträgen von Matthias Gehrke und Karsten Lübke"
-date: "18 May, 2017"
+date: "19 May, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an IFES"
@@ -149,7 +149,7 @@ Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wieder
 Informationen zu den verwendeten Paketen etc. (`sessionInfo()`) finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html>.
 
 
-** Sonstiges**
+**Sonstiges**
 
 Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.
 

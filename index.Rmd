@@ -132,7 +132,7 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-`r if (!(knitr:::is_latex_output())) '![DOI](https://zenodo.org/badge/81811975.svg)]'`
+`r if (!(knitr:::is_latex_output())) '![DOI](https://zenodo.org/badge/81811975.svg)'`
 
 
 

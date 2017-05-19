@@ -1,6 +1,0 @@
-c("", "BaylorEdPsych", "broom", "car", "caret", "cluster", "corrplot", 
-"corrr", "downloader", "dplyr", "GGally", "ggplot2", "grid", 
-"knitr", "lmtest", "lsa", "MBESS", "modelr", "nycflights13", 
-"okcupiddata", "pdftools", "png", "psych", "ROCR", "SDMTools", 
-"SnowballC", "stringr", "tidyr", "tidytext", "tidyverse", "wordcloud"
-)
