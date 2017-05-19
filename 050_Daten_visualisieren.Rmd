@@ -42,11 +42,9 @@ Lernziele:
 ```
 
 
-In diesem Kapitel werden folgende Pakete benötigt::
+In diesem Kapitel werden folgende Pakete benötigt:
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
-# library(car)  # Umkodieren
-# library(knitr)  # HTML-Tabellen
 
 ```
 
@@ -92,19 +90,15 @@ Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (i
 
 ## Einstieg in `ggplot2` - `qplot`
 
-Los geht's! Laden wir zuerst den Datensatz `nycflights::flights`.
+Los geht's! Laden wir zuerst den Datensatz `movies`.
 
 ```{r}
-data(flights, package = "nycflights13")
-```
-
-```{r include = FALSE, eval = FALSE}
-source("includes/Pakete.R")
+movies <- read.csv("data/movies.csv")
 ```
 
 
-```{r fig-flights, message = FALSE, fig.cap = "Mittlere Verspätung nach Flugggesellschaft"}
-qplot(x = carrier, y = arr_delay, geom = "boxplot", data = flights)
+```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
+qplot(x = year, y = budget, geom = "point", data = movies)
 ```
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
@@ -112,22 +106,40 @@ Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 
 ```{block2, qplot-syntax, type='rmdpseudocode', echo = TRUE}
 `qplot`: Erstelle schnell (q wie quick in `qplot`) mal einen Plot (engl. "plot": Diagramm).    
-`x`: Der X-Achse soll die Variable "carrier" zugeordnet werden.    
-`y`: Der Y-Achse soll die Variable "arr_dely" zugeorndet werden.  
-`geom`: ("geometriches Objekt") Gemalt werden soll ein Boxplot, nicht etwa Punkte, Linien oder sonstiges.   
-`data`: Als Datensatz bitte `flights` verwenden.  
+`x`: Der X-Achse soll die Variable "year" zugeordnet werden.    
+`y`: Der Y-Achse soll die Variable "budget" zugeorndet werden.  
+`geom`: ("geometriches Objekt") Gemalt werden sollen Punkte und zwar pro Beobachtung (hier: Film) ein Punkt; nicht etwa Linien oder Boxplots.
+`data`: Als Datensatz bitte `movies` verwenden.  
 
 ```
 
 
 
-Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das erscheint mir nicht unplausibel (Schneesturm im Winter, Flugzeug verschwunden...). Vor dem Hintergrund der Extremwerte erscheinen die mittleren Verspätungen (Mediane) in den Boxplots als ähnlich. Vielleicht ist der Unterschied zwischen den Monaten ausgeprägter?
+Offenbar geht die Schwere in den Budgets auseinander; außerdem scheint das Budget größer zu werden. Genau kann man es aber schlecht erkennen in diesem Diagramm. Besser ist es vielleicht die Daten pro Jahr zusammenzufassen in einem Geom und dann diese Geome zu vergleichen:
 
 ```{r}
-qplot(x = factor(month), y = arr_delay, geom = "boxplot", data = flights)
+qplot(x = factor(year), y = budget, geom = "boxplot", data = movies)
 ```
 
-Kaum ein Unterschied ersichtlich; das spricht gegen die Schneesturm-Idee als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
+Übrigens: `factor(year)` wird benötigt, um aus `year` eine nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen auf der X-Achse zeichnet `qplot` mehrere Boxplots nebeneinander.
+
+Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser wäre es, Jahrzehnte dazustellen:
+
+```{r}
+movies$Jahrzehnt <- (movies$year / 10) %>% trunc
+```
+
+Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer "abhacken": "1978" wird zu "178". Das erreichen wir in dem wir die Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen lassen (trunkieren, `trunc`). 
+
+Ok, auf ein Neues:
+
+```{r}
+qplot(x = factor(Jahrzehnt), y = budget, geom = "boxplot", data = movies)
+```
+
+Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauchen.
+
+Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
 
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
@@ -147,16 +159,12 @@ Unter den vielen Arten von Diagrammen und vielen Arten, diese zu klassifizieren 
 Schauen wir uns die Verteilung der Schuhgrößen von Studierenden an.
 
 ```{r}
-wo_men <- read.csv("data/wo_men.csv")
-
 qplot(x = shoe_size, data = wo_men)
 ```
 
 Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:
 
 ```{r}
-# qplot(x = shoe_size, data = wo_men)  wie oben
-
 qplot(x = shoe_size, data = wo_men, geom = "density")
 
 ```
@@ -187,7 +195,7 @@ Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf d
 ```{r}
 
 wo_men %>% 
-  filter(shoe_size <= 47) -> wo_men2
+  filter(height > 150, height < 210) -> wo_men2
 
 qplot(x = shoe_size, data = wo_men2,      
       geom = "density", fill = sex, alpha = I(.7))
@@ -253,11 +261,10 @@ Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken (
 Bei noch größeren Datenmengen bietet sich an, den Scatterplot als "Schachbrett" aufzufassen, und das Raster einzufärben, je nach Anzahl der Punkte pro Schachfeld; zwei Geome dafür sind `geom_hex()` und `geom_bin2d()`.
 
 ```{r flights_hexbin}
-data(flights, package = "nycflights13")
-nrow(flights)  # groß!
+nrow(movies)  # groß, ein bisschen wenigstens
 
-ggplot(flights) +
-  aes(x = distance, y = air_time) +
+ggplot(movies) +
+  aes(x = year, y = budget) +
   geom_hex()
 ```
 
@@ -341,7 +348,7 @@ In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, un
 
 Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Werte `klein` häufig; bei den Männern hingegen die Werte `gross`.
 
-Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um^[Cleveland fände diese Idee nicht so gut.].
+Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um.
 
 ```{r}
 wo_men2 %>% 
@@ -443,31 +450,27 @@ wo_men2 %>%
 
 ## Die Gefühlswelt von `ggplot2`
 
-- Geben Sie eine *diskrete X-Achs*e an und *keine Y-AchseÜ, so greift qplot im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie kein Geom angeben:
+- Geben Sie eine *diskrete X-Achs*e an und *keine Y-Achse*, so greift qplot im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie kein Geom angeben:
 
 ```{r eval = FALSE}
-qplot(x = smoker, data = tips)  # identisch zu
-qplot(x = smoker, data = tips, geom = "bar)
+qplot(x = sex, data = wo_men)  # identisch zu
+qplot(x = sex, data = wo_men, geom = "bar")
 
 ```
 
 - Geben Sie eine *kontinuierliche X-Achse* an und *keine Y-Achse*, so greift qplot im Standard auf das Geom `histogram` zurück (Histogramm).
 
-```{r echo = FALSE}
-data(tips, package = "reshape")
-```
-
 
 ```{r eval = FALSE}
-qplot(x = smoker, data = tips)  # identisch zu
-qplot(x = smoker, data = tips, geom = "histogram")
+qplot(x = height, data = wo_men)  # identisch zu
+qplot(x = height, data = profiles, geom = "histogram")
 ```
 
 - Geben Sie eine *kontinuierliche X-Achse* an und eine *kontinuierliche Y-Achse* an, so greift qplot im Standard auf das Geom `point` zurück (Streudiagramm).
 
 ```{r eval = FALSE}
-qplot(x = total_bill, y = tip, data = tips)  # identisch zu
-qplot(x = total_bill, y=  tip, data = tips, geom = "point")
+qplot(x = height, y = shoe_size, data = wo_men2)  # identisch zu
+qplot(x = height, y=  shoe_size, data = wo_men2i, geom = "point")
 ```
 
 - Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Variable diskret sein:
@@ -580,14 +583,14 @@ Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfach
 
 ```{r echo = FALSE}
 p1 <- 
-  ggplot(tips) +
-  aes(x = total_bill) +
+  ggplot(wo_men2) +
+  aes(x = height) +
   geom_histogram() +
   labs(title = "geom_histogram")
 
 p2 <-
-  ggplot(tips) +
-  aes(x = total_bill) +
+  ggplot(wo_men2) +
+  aes(x = height) +
   geom_density() +
   labs(title = "geom_density")
 
@@ -602,20 +605,20 @@ grid.arrange(p1, p2, ncol = 2)
 ```{r echo = FALSE}
 
 p1 <- 
-  ggplot(tips) +
-  aes(x = total_bill, y = tip) +
+  ggplot(wo_men2) +
+  aes(x = height, y = shoe_size) +
   geom_point() +
   labs(title = "geom_point")
 
 p2 <- 
-  ggplot(tips) +
-  aes(x = total_bill, y = tip) +
+  ggplot(wo_men2) +
+  aes(x = height, y = shoe_size) +
   geom_point() +
   labs(title = "geom_jitter -\nverwackelt")
 
 p3 <- 
-  ggplot(tips) +
-  aes(x = total_bill, y = tip) +
+  ggplot(wo_men2) +
+  aes(x = height, y = shoe_size) +
   geom_smooth() +
   labs(title = "geom_smooth")
 
@@ -626,8 +629,8 @@ grid.arrange(p1, p2, p3, ncol = 3)
 
 ```{r}
 
-ggplot(tips) +
-  aes(x = day) +
+ggplot(wo_men2) +
+  aes(x = sex) +
   geom_bar()
 ```
 
@@ -636,14 +639,14 @@ ggplot(tips) +
 
 ```{r echo = FALSE}
 p1 <- 
-ggplot(tips) +
-  aes(x = sex, y = tip) +
+ggplot(wo_men2) +
+  aes(x = sex, y = height) +
   geom_boxplot() +
   labs(title = "geom_boxplot")
 
 p2 <- 
-ggplot(tips) +
-  aes(x = sex, y = tip) +
+ggplot(wo_men2) +
+  aes(x = sex, y = height) +
   geom_violin() +
   labs(title = "geom_violin")
 

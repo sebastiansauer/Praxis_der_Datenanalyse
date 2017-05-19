@@ -282,47 +282,43 @@ Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. 
 
 
 ## Beispiel für eine Regression
-Wir werden weiter den Datensatz *tips* analysieren [@bryant1995practical].
-
-Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
-```{r load-data}
-tips <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
-```
+Wir werden weiter den Datensatz `stats_test` analysieren.
 
 
 
-Wie hängen Trinkgeldhöhe `tip` und Rechnungshöhe `total_bill` zusammen? Kann die Höhe des Trinkgeldes als *lineare* Funktion der Rechnungshöhe linear modelliert werden? 
-$$tip_i=\beta_0+\beta_1\cdot total\_bill_i+\epsilon_i$$
+Wie hängen Interesse am Fach `interest` und Punkte in der Klausur `score` zusammen? Kann die Anzahl der Punkt als *lineare* Funktion des Interesse  modelliert werden? 
+$$score_i=\beta_0+\beta_1\cdot interest_i+\epsilon_i$$
 
 Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.
 ```{r}
-qplot(y = tip, x = total_bill, data = tips)
+qplot(y = score, x = study_time, data = stats_test, geom = "jitter")
+cor(stats_test$study_time, stats_test$score, use = "complete.obs")
 ```
 
-Es scheint einen positiven Zusammenhang zu geben. Modellieren wir das Kriterium `tip` (inhaltliche Entscheidung!) als lineare Funktion des Prädiktors `total_bill`:
+Es gibt einen positiven Zusammenhang zwischen Vorbereitungszeit und Klausurerfolg (Gott lob). Modellieren wir das Kriterium `score` (inhaltliche Entscheidung!) als lineare Funktion des Prädiktors `study_time`:
 
 ```{r}
-LinMod.1 <- lm(tip ~ total_bill, data=tips)
+LinMod.1 <- lm(score ~ study_time, data = stats_test)
 summary(LinMod.1)
 ```
 
 
-Der Achsenabschnitt (`intercept`) wird mit `r round(coef(LinMod.1)[1],2)` geschätzt, die Steigung in Richtung `total_bill` mit `r round(coef(LinMod.1)[2],2)`: steigt `total_bill` um einen Dollar, steigt im *Durchschnitt* `tip` um `r round(coef(LinMod.1)[2], 2)`. 
+Der Achsenabschnitt (`intercept`) wird mit `r round(coef(LinMod.1)[1],2)` geschätzt, die Steigung in Richtung `total_bill` mit `r round(coef(LinMod.1)[2],2)`: steigt `study_time` um einen Punkt, steigt im *Durchschnitt* `score` um `r round(coef(LinMod.1)[2], 2)`. 
 
-Die (Punkt-)Prognose für `tip` lautet also
+Die (Punkt-)Prognose für `score` lautet also
 
-`tip` = `r round(coef(LinMod.1)[1],2)` + `r round(coef(LinMod.1)[2],2)` * `total_bill`
+`score` = `r round(coef(LinMod.1)[1],2)` + `r round(coef(LinMod.1)[2],2)` * `study_time`
 
 Die Koeffizienten (Steigung und Achsenabschnitt) werden dabei so geschätzt, dass $\sum \epsilon_i^2$ minimiert wird. Dies wird auch als  *Kleinste Quadrate* (*Ordinary Least Squares*, *OLS*) Kriterium bezeichnet^[Eine robuste Regression ist z. B. mit der Funktion `rlm()` aus dem Paket `MASS` möglich].
 
 
-Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann einfacher berechnet werden mit
+Die (Punkt-)Prognose für den Klausurerfolg ohne jegliche Vorbereitung (`study_time = 1`) kann bestimmt werden mit:
 
 ```{r}
-predict(LinMod.1, data.frame(total_bill = 30))
+predict(LinMod.1, data.frame(study_time = 1))
 ```
 
-also ca. 4$.
+also gerade noch bestanden; die Klausur ist eindeutig zu leicht...
 
 Berechnen wir noch die Vorversagegüte des Modells.
 
@@ -331,7 +327,7 @@ summary(LinMod.1)
 ```
 
 
-Das Bestimmtheitsmaß $R^2$ ist mit `r round(summary(LinMod.1)$r.squared,2)` "ok": `r round(summary(LinMod.1)$r.squared*100)`-\% der Variation des Trinkgeldes wird im Modell "erklärt".
+Das Bestimmtheitsmaß $R^2$ ist mit `r round(summary(LinMod.1)$r.squared,2)` "ok": `r round(summary(LinMod.1)$r.squared*100)`-\% der Variation des Klausurerfolgs wird im Modell "erklärt".
 
 
 ## Überprüfung der Annahmen der linearen Regression
@@ -344,7 +340,7 @@ Aber wie sieht es mit den Annahmen aus?
 Hier scheint es zu passen:
 
 ```{r}
-tips %>% 
+stats_test %>% 
   add_residuals(LinMod.1) %>% 
   ggplot +
   aes(x = resid) +
@@ -354,7 +350,7 @@ tips %>%
 Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
 
 ```{r}
-tips %>% 
+stats_test %>% 
   add_predictions(LinMod.1) %>% 
   ggplot +
   aes(x = pred) +
@@ -366,8 +362,8 @@ tips %>%
 
 Die angepassten (geschätzten) Werte kann man über den Befehl `add_predictions()` aus dem Paket `modelr` bekommen. Die Fehlerwerte entsprechend mit dem Befehl `add_residuals`.  Hypothesentests, d. h., $H_0:\beta_1=0$. 
 
-```{r tips-preds-resid, fig.cap = "Vorhergesagte Werte vs. Residualwerte im Datensatz tips"}
-tips %>% 
+```{r preds-resid, fig.cap = "Vorhergesagte Werte vs. Residualwerte"}
+stats_test %>% 
   add_predictions(LinMod.1) %>% 
   add_residuals(LinMod.1) %>% 
   ggplot() +
@@ -377,50 +373,45 @@ tips %>%
 ```
 
 
-Die Annahme der konstanten Varianz scheint verletzt zu sein (vgl. Abb. \@ref(fig:tips-preds-resid)): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot 
-`qplot(x = tip, y = total_bill, data=tips)` erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des
+Die Annahme der konstanten Varianz scheint verletzt zu sein (vgl. Abb. \@ref(fig:preds-resid)): bei mitleren Werten von `pred` ist die Streuung am größten. Dieses Phänomen ließ sich schon aus dem ursprünglichen Streudiagramm 
+ erahnen. Das ist auch inhaltlich plausibel. Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des
 
-- *Extreme Ausreißer*: Wie am Streudiagramm erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.
 
 
 
 
 
 ```{block2, tips-uebung, type='rmdexercises', echo = TRUE}
-1.  Um wie viel Dollar steigt im Durchschnitt das Trinkgeld, wenn eine Person mehr am Tisch sitzt?
+1.  Um wie viel Punkte steigt im Durchschnitt der Klausurerfolg, wenn sich die study_time um einen Punkt erhöht?
 
-2.  Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?
+2.  Wie sieht es mit dem Einfluss von interst aus?
 
 ```
 
 
 
 ## Regression mit kategorialen Prädiktoren
-Der Wochentag `day` ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?
+Bilden wir zunächst eine kategoriale Variable - viel Lernzeit oder wenig. Diese Variable nutzen wir dann als Prädiktor.
+
+```{r}
+stats_test$viel_gelernt <- stats_test$study_time > 3
+```
+
 
 Zunächst grafisch:
 ```{r}
-qplot(x = tip,y = day, data=tips)
+qplot(x = viel_gelernt,y = score, data=na.omit(stats_test), geom = "jitter")
 ```
+
+
 
 Und als Lineares Modell:
 ```{r}
-LinMod.2 <- lm(tip ~ day, data=tips)
+LinMod.2 <- lm(score ~ viel_gelernt, data = stats_test)
 summary(LinMod.2)
 ```
 
-Die im Modell angegebenen Schätzwerte sind die Änderung der Trinkgeldprognose, wenn z. B. der Tag ein Samstag (`daySat`) im Vergleich zu einer Referenzkategorie. Dies ist in R das erste Element des Vektors der Faktorlevel. Welcher dies ist ist über den Befehl `levels()` zu erfahren
-```{r}
-levels(tips$day)
-```
-
-
-Möchte man die Reihenfolge der Faktorstufen ändern, so kann man innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung setzen, z.B. so:
-
-```{r, eval=FALSE}
-day <- factor(tips$day, levels=c("Thur", "Fri", "Sat",  "Sun"))
-```
-
+Die im Modell angegebenen Schätzwerte sind die Änderung der Prognose für den Klausurerfolg, wenn viel gelernt wurde (`viel_gelernt == TRUE`) im Vergleich zu `viel_gelernt == FALSE`. 
 
 
 
@@ -434,24 +425,28 @@ day <- factor(tips$day, levels=c("Thur", "Fri", "Sat",  "Sun"))
 
 
 ## Multiple Regression
-Aber wie wirken sich mehrere Einflussgrößen *zusammen* auf das Trinkgeld aus?
+Aber wie wirken sich mehrere Einflussgrößen *zusammen* auf den Klausurerfolg aus?
 ```{r}
-LinMod.4 <- lm(tip ~ total_bill + size + sex  + smoker + day + time, data=tips)
+LinMod.4 <- lm(score ~ interest + study_time + self_eval,
+               data = stats_test)
+
 summary(LinMod.4)
 ```
-Interessant sind die negativen Vorzeichen vor den Schätzwerten für `sexMale` und `smokerYes` -- anscheinend geben Männer und Raucher weniger Trinkgeld, wenn alle anderen Faktoren konstant bleiben. Bei einer rein univariaten Betrachtung wäre etwas anderes herausgekommen!
+
+Vergleichen Sie mal den Einfluss von `interest` bei einer einfachen (bivariaten) Regression:
 
 ```{r}
-lm(tip ~ sex, data=tips) %>% summary
-lm(tip ~ smoker, data=tips)  %>% summary
-```
-Diese *Umkehrung* des modellierten Effektes liegt daran, dass es auch einen positiven Zusammenhang zur Rechnungshöhe gibt:
-```{r}
-lm(total_bill ~ sex, data=tips) %>% summary
-lm(total_bill ~ smoker, data=tips) %>% summary
+lm(score ~ interest, data = stats_test) %>% summary
 ```
 
-Im vollem Modell `LinMod.4` sind alle unabhängigen Variablen berücksichtigt, die Koeffizienten beziehen sich dann immer auf: gegeben, die anderen Variablen bleiben konstant, d.h. ceteris paribus.
+Interessant ist, dass `interest` bei multivariater Betrachtung (also wenn mehrerer Prädiktoren in der Analyse sind) *nicht* mehr signifikant ist! Sogar das Vorzeichen von `interest` hat sich gedreht! Das ist ein wichtiges Ergebnis:
+
+>   Multivariate Analysen decken Zusammenhänge auf, die bei einer einfacheren, bivariaten Analyse verdeckt geblieben wären. Multivariate Analysen sind daher besser als bivariate Analysen. Ziehen Sie multivariate Analysen bivariaten vor.
+
+Allerdings sollten die Prädiktoren theoretisch begründet sein und anhand neuer Daten überprüft werden.  
+
+
+Im "vollem" Modell `LinMod.4` sind alle unabhängigen Variablen berücksichtigt, die Koeffizienten beziehen sich dann immer auf: gegeben, die anderen Variablen bleiben konstant, d.h. ceteris paribus.
 
 Vergleichen wir mal zwei Modelle:
 ```{r}

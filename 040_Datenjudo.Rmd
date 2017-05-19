@@ -49,7 +49,7 @@ Lernziele:
 knitr::include_graphics("images/Datenjudo/Aufbereiten.png")
 ```
 
-In diesem Kapitel benötigte Pakete: 
+In diesem Kapitel werden folgende Pakete benötigt: 
 ```{r}
 library(tidyverse)  # Datenjudo
 library(stringr)   # Texte bearbeiten
@@ -67,7 +67,7 @@ Ist das Aufbereiten von Daten auch nicht statistisch anspruchsvoll, so ist es tr
 ## Typische Probleme
 Bevor man seine Statistik-Trickkiste so richtig schön aufmachen kann, muss man die Daten häufig erst noch in Form bringen. Das ist nicht schwierig in dem Sinne, dass es um komplizierte Mathe ginge. Allerdings braucht es mitunter recht viel Zeit und ein paar (oder viele) handwerkliche Tricks sind hilfreich. Hier soll das folgende Kapitel helfen.
 
-<!-- Mit "Datenjudo" (ein Fachbegriff aus der östlichen Zahlentheorie) ist gemeint, die Daten so "umzuformen", "aufzubereiten", oder "reinigen" , dass sie passend für statistische Analysen sind.  -->
+
 
 Typische Probleme, die immer wieder auftreten, sind:
 
@@ -199,6 +199,8 @@ Aber was ist, wenn wir nur bei bestimmten Spalten wegen fehlender Werte besorgt 
 filter(profiles, !is.na(income) | !is.na(sex))
 ```
 
+Der horizontale Strich `|` steht bei R für logisches 'oder'.
+
 ### Spalten wählen mit `select`
 
 Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
@@ -223,15 +225,13 @@ Dieser Datensatz beinhaltet Daten zu einer Statistikklausur.
 Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unterordner mit dem Namen `data` befinden, welcher sich im Arbeitsverzeichnis befindet^[der angegebene Pfad ist also *relativ*  zum aktuellen Verzeichnis.].
 
 
-```{r read-test-inf-short, echo = FALSE}
-if (!file.exists("./data/test_inf_short.csv")) {
-  stats_test <- read.csv("https://sebastiansauer.github.io/data/test_inf_short.csv") 
-} else {
-  stats_test <- read.csv("data/test_inf_short.csv")
-}
+```{r read-test-inf-short}
+
+stats_test <- read_csv("data/test_inf_short.csv")
+
 ```
 
-<!-- Hier haben wir erst geprüft, ob die Datei `test_inf_short.csv` existiert; falls nein, laden wir sie herunter. Andernfalls lesen wir sie aus dem lokalen Verzeichnis. -->
+
 
 ```{r eval = FALSE}
 select(stats_test, score)  # Spalte `score` auswählen
@@ -292,18 +292,11 @@ Standardmäßig sortiert `arrange` *aufsteigend*  (weil kleine Zahlen im Zahlens
 
 Gibt man *zwei oder mehr* Spalten an, so werden pro Wert von `Spalte1` die Werte von `Spalte2` sortiert etc; man betrachte den Output des Beispiels oben dazu.
 
-<!-- Aber was heißt dieses komisch Symbol:  `%>%`? Diese sogenannte "Pfeife" lässt sich mit "und dann" ins Deutsce übersetzen. Also: -->
-
-<!-- ``` -->
-<!-- sortiere(diese_Tabelle, nach_dieser_Spalte) UND DANN zeig_die_ersten_Zeilen -->
-<!-- ``` -->
-
-<!-- Der Befehl `head` zeigt dier ersten paar Zeilen eines Dataframes [^5]. -->
 
 
 Merke:
 
->    Die Funktion arrange sortiert die Zeilen eines Datafames.
+>    Die Funktion `arrange` sortiert die Zeilen eines Datafames.
 
 Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
