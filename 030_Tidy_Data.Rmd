@@ -181,7 +181,7 @@ knitr::include_graphics("images/tidy/Normalform.png")
 ```
 
 
-## Tabelle in Normalform bringen {normalform}
+## Tabelle in Normalform bringen {#normalform}
 
 Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von *Breit- auf Langformat* (und wieder zurück) geschoben werden kann.
 

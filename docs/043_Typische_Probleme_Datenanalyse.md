@@ -15,7 +15,8 @@
 </div>\EndKnitrBlock{rmdcaution}
 
 
-Laden wir zuerst die benögtigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
+Laden wir zuerst die benötigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
+
 
 ```r
 library(tidyverse)
@@ -35,21 +36,11 @@ Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitu
 Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
 
+
 ```r
-wo_men <- read_csv("data/wo_men.csv")
-summarise(wo_men)
-```
-
-
-
-```
-#> Observations: 101
-#> Variables: 5
-#> $ X         <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
-#> $ time      <fctr> 04.10.2016 17:58:51, 04.10.2016 17:58:59, 04.10.201...
-#> $ sex       <fctr> woman, woman, woman, woman, man, woman, woman, woma...
-#> $ height    <dbl> 160, 171, 174, 176, 195, 157, 160, 178, 168, 171, 16...
-#> $ shoe_size <dbl> 40, 39, 39, 40, 46, 37, 38, 39, 38, 41, 39, 44, 38, ...
+stats_test <- read.csv("data/test_inf_short.csv")
+summarise(stats_test)
+#> data frame with 0 columns and 0 rows
 ```
 
 
@@ -59,20 +50,20 @@ Weist eine Variable (Spalte) "wenig" fehlende Werte auf, so kann es schlau sein,
 
 ```r
 # Unsprünglich Anzahl an Fällen (Zeilen)
-nrow(wo_men)
-#> [1] 101
+nrow(stats_test)
+#> [1] 306
 
 # Nach Umwandlung in neuen Dataframe
-wo_men %>%
-   na.omit -> wo_men.na_omit
-nrow(wo_men.na_omit)
-#> [1] 100
+stats_test %>%
+   na.omit -> stats_test_na_omit
+nrow(stats_test_na_omit)
+#> [1] 238
 
 # Nur die Anzahl der bereinigten Daten
-wo_men %>%
+stats_test %>%
    na.omit %>%
    nrow
-#> [1] 100
+#> [1] 238
 ```
 
 
@@ -82,22 +73,88 @@ wo_men %>%
 
 
 
-Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
+Hier verlieren wir 68 Zeilen, das verschmerzen wir.
+Welche Zeilen verlieren wir eigentlich?
 
 ```r
-wo_men %>% 
-  rownames_to_column %>%  # Zeilennummer werden eine eigene Spalte
-  filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
-#>   rowname  X                time sex height shoe_size
-#> 1      86 86 11.10.2016 12:44:06         NA        NA
+stats_test %>% 
+   filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
+#>    row_number           date_time study_time self_eval interest score
+#> 1           6 06.01.2017 14:21:18         NA        NA       NA    39
+#> 2           7 06.01.2017 14:25:49         NA        NA       NA    40
+#> 3          15 09.01.2017 15:23:15         NA        NA       NA    30
+#> 4          19 10.01.2017 17:16:48         NA        NA       NA    22
+#> 5          42 13.01.2017 14:08:08         NA        NA       NA    38
+#> 6          49 14.01.2017 07:02:39         NA        NA       NA    39
+#> 7          67 15.01.2017 13:30:48         NA        NA       NA    24
+#> 8          74 15.01.2017 16:12:54         NA        NA       NA    30
+#> 9          83 16.01.2017 10:16:52         NA        NA       NA    40
+#> 10         89 16.01.2017 21:18:05         NA        NA       NA    34
+#> 11         91 17.01.2017 15:19:36         NA        NA       NA    29
+#> 12         99 18.01.2017 09:04:30         NA        NA       NA    37
+#> 13        104 18.01.2017 13:42:20         NA        NA       NA    39
+#> 14        106 18.01.2017 15:52:04         NA        NA       NA    38
+#> 15        111 18.01.2017 19:24:49         NA        NA       NA    37
+#> 16        117 19.01.2017 08:06:05         NA        NA       NA    37
+#> 17        118 19.01.2017 08:54:43         NA        NA       NA    33
+#> 18        119 19.01.2017 09:05:01         NA        NA       NA    40
+#> 19        124 19.01.2017 12:51:10         NA        NA       NA    32
+#> 20        125 19.01.2017 13:03:26         NA        NA       NA    30
+#> 21        132 19.01.2017 18:22:32         NA        NA       NA    40
+#> 22        133 19.01.2017 18:22:38         NA        NA       NA    38
+#> 23        139 19.01.2017 18:35:56         NA        NA       NA    31
+#> 24        141 19.01.2017 18:44:32         NA        NA       NA    34
+#> 25        150 20.01.2017 09:53:47         NA        NA       NA    32
+#> 26        155 20.01.2017 15:33:55         NA        NA       NA    39
+#> 27        157 20.01.2017 17:34:48         NA        NA       NA    31
+#> 28        158 20.01.2017 17:53:16         NA        NA       NA    36
+#> 29        159 20.01.2017 17:57:26         NA        NA       NA    34
+#> 30        160 20.01.2017 17:59:19         NA        NA       NA    34
+#> 31        162 20.01.2017 18:00:53         NA        NA       NA    35
+#> 32        163 20.01.2017 18:04:21         NA        NA       NA    36
+#> 33        180 21.01.2017 08:04:17         NA        NA       NA    39
+#> 34        183 21.01.2017 12:20:37         NA        NA       NA    31
+#> 35        187 21.01.2017 16:27:32         NA        NA       NA    26
+#> 36        191 22.01.2017 11:31:27         NA        NA       NA    36
+#> 37        195 22.01.2017 13:24:51         NA        NA       NA    23
+#> 38        202 22.01.2017 17:13:02         NA        NA       NA    36
+#> 39        206 22.01.2017 18:42:49         NA        NA       NA    20
+#> 40        207 22.01.2017 18:56:56         NA        NA       NA    28
+#> 41        211 22.01.2017 20:28:43         NA        NA       NA    38
+#> 42        213 22.01.2017 21:47:06         NA        NA       NA    29
+#> 43        225 23.01.2017 13:24:22         NA        NA       NA    39
+#> 44        226 23.01.2017 14:17:10         NA        NA       NA    36
+#> 45        235 23.01.2017 18:26:20         NA        NA       NA    20
+#> 46        238 23.01.2017 19:53:10         NA        NA       NA    27
+#> 47        242 24.01.2017 14:09:33         NA        NA       NA    28
+#> 48        245 24.01.2017 14:56:24         NA        NA       NA    28
+#> 49        246 24.01.2017 15:09:44         NA        NA       NA    24
+#> 50        247 24.01.2017 15:37:27         NA        NA       NA    28
+#> 51        249 24.01.2017 17:19:54         NA        NA       NA    40
+#> 52        253 25.01.2017 09:32:55         NA        NA       NA    39
+#> 53        255 25.01.2017 10:05:00         NA        NA       NA    29
+#> 54        265 25.01.2017 13:14:00         NA        NA       NA    30
+#> 55        270 25.01.2017 16:35:41         NA        NA       NA    28
+#> 56        271 25.01.2017 16:53:17         NA        NA       NA    34
+#> 57        272 25.01.2017 17:03:21         NA        NA       NA    36
+#> 58        274 25.01.2017 17:38:36         NA        NA       NA    37
+#> 59        275 25.01.2017 18:06:36         NA        NA       NA    34
+#> 60        283 26.01.2017 10:39:44         NA        NA       NA    23
+#> 61        285 26.01.2017 10:54:41         NA        NA       NA    34
+#> 62        286 26.01.2017 11:19:10         NA        NA       NA    38
+#> 63        288 26.01.2017 13:36:14         NA        NA       NA    28
+#> 64        289 26.01.2017 14:19:14         NA        NA       NA    31
+#> 65        290 26.01.2017 14:34:23         NA        NA       NA    36
+#> 66        291 26.01.2017 14:55:17         NA        NA       NA    39
+#> 67        293 26.01.2017 15:17:47         NA        NA       NA    36
+#> 68        294 26.01.2017 15:51:56         NA        NA       NA    34
 ```
 
 Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
 
 In Pseudo-Syntax liest es sich so:
 
-\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz `wo_men` UND DANN...  
-Mache aus den Zeilennamen (hier identisch zu Zeilennummer) eine eigene Spalte UND DANN...  
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz `stats_test` UND DANN...  
 filtere die nicht-kompletten Fälle 
 </div>\EndKnitrBlock{rmdpseudocode}
 
@@ -107,12 +164,14 @@ Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten
 
 
 ```r
-wo_men$height <- replace(wo_men$height, is.na(wo_men$height),
-                         mean(wo_men$height, na.rm = TRUE))
-  
+stats_test$interest <- replace(stats_test$interest, is.na(stats_test$interest),
+                         mean(stats_test$interest, na.rm = TRUE))
+
+sum(is.na(stats_test$interest))
+#> [1] 0
 ```
 
-`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `wo_men$height` alle Werte, für die `is.na(wo_men$height)` wahr ist. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
+`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `stats_test$interest` alle Werte, für die `is.na(stats_test$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
 
 
 
@@ -121,44 +180,37 @@ Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prü
 
 
 ```r
-wo_men %>% 
-  count(shoe_size) %>% 
-  head  # nur die ersten paar Zeilen
-#> # A tibble: 6 x 2
-#>   shoe_size     n
-#>       <dbl> <int>
-#> 1      35.0     1
-#> 2      36.0     6
-#> 3      36.5     1
-#> 4      37.0    14
-#> 5      38.0    26
-#> 6      39.0    18
+stats_test %>% 
+  count(interest) 
+#> # A tibble: 7 x 2
+#>   interest     n
+#>      <dbl> <int>
+#> 1     1.00    30
+#> 2     2.00    47
+#> 3     3.00    66
+#> 4     3.21    68
+#> 5     4.00    41
+#> 6     5.00    45
+#> 7     6.00     9
 ```
 
+Da in der Umfrage nur ganze Zahlen von 1 bis 5 abgefragt wurden, ist die `3.21...` auf den ersten Blick suspekt. In diesem Fall ist aber alles ok, da wir diesen Wert selber erzeugt haben.
 
 ### Ausreißer identifizieren
-Ähnlich zu Fehlern, steht man Ausreißer häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreiser zu finden (vgl. Abb. \@ref(fig:fig-ausreisser)).
+
+Ähnlich zu Fehlern, steht man Ausreißer häufig skeptisch gegenüber. Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel, um Ausreißer zu finden (vgl. Abb. \@ref(fig:fig-ausreisser)).
 
 
 ```r
-p1 <- qplot(x = shoe_size, y = height, data = wo_men, main = "ungefiltert")
-
-p2 <- wo_men %>% 
-  filter(height > 120, height < 210) %>% 
-  qplot(x = shoe_size, y = height, data = ., main = "gefiltert")
-
-grid.arrange(p1, p2, ncol = 2)
+qplot(x = score, data = stats_test, binwidth = 1)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-ausreisser-1.png" alt="Ausreißer identifizieren" width="70%" />
+<p class="caption">(\#fig:fig-ausreisser)Ausreißer identifizieren</p>
+</div>
 
-{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-ausreisser-1} 
-
-}
-
-\caption{Ausreißer identifizieren}(\#fig:fig-ausreisser)
-\end{figure}
-
+Mit `binwidth = 1` sagen wir, dass jeder Balken (bin) eine Breite (width) von 1 haben soll.
 
 ### Hochkorrelierte Variablen finden
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann z.B. ausgeschlossen werden. 
@@ -167,7 +219,7 @@ Nehmen wir dazu den Datensatz `extra` her.
 
 
 ```r
-extra <- read_csv("data/extra.csv")
+extra <- read.csv("data/extra.csv")
 ```
 
 
@@ -203,14 +255,10 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-corrr-1} 
-
-}
-
-\caption{Ein Korrelationsplot}(\#fig:fig-corrr)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-corrr-1.png" alt="Ein Korrelationsplot" width="70%" />
+<p class="caption">(\#fig:fig-corrr)Ein Korrelationsplot</p>
+</div>
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen. Hätten wir eine sehr hohe Korrelation gefunden, so hätten wir eine der beiden beteiligten Variablen aus dem Datensatz löschen können.
 
@@ -220,33 +268,103 @@ Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur ve
 
 
 ```r
-wo_men %>% 
+extra %>% 
   select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
   scale() %>%  # z-standardisieren
   head()  # nur die ersten paar Zeilen abdrucken
-#>          X height shoe_size
-#> [1,] -1.71 -0.132    0.0405
-#> [2,] -1.67  0.146   -0.1395
-#> [3,] -1.64  0.221   -0.1395
-#> [4,] -1.60  0.272    0.0405
-#> [5,] -1.57  0.751    1.1204
-#> [6,] -1.54 -0.208   -0.4994
+#>          X    i01  i02r     i03   i04     i05    i06r     i07     i08  i09
+#> [1,] -1.73 -0.499 -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826 -0.5
+#> [2,] -1.72 -1.964 -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867 -0.5
+#> [3,] -1.71 -0.499  1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826 -0.5
+#> [4,] -1.71 -0.499 -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867 -0.5
+#> [5,] -1.70  0.966 -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826 -0.5
+#> [6,] -1.69 -0.499 -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867 -0.5
+#>         i10 n_facebook_friends n_hangover    age extra_single_item
+#> [1,] -1.388            -0.4111     -0.434 -0.306             1.350
+#> [2,] -1.388            -0.9094     -0.487  1.621             0.183
+#> [3,] -1.388            -0.5322     -0.487 -0.131             1.350
+#> [4,] -0.273            -0.5841      0.305  2.322             0.183
+#> [5,]  1.956            -0.9301     -0.487  0.570             1.350
+#> [6,]  0.841             0.0249     -0.434  1.271             1.350
+#>      time_conversation n_party extra_description prop_na_per_row
+#> [1,]           -0.0468  0.0961                NA           0.519
+#> [2,]           -0.0468 -0.6174                NA           0.519
+#> [3,]           -0.0468 -0.7126                NA           0.519
+#> [4,]           -0.0468  0.3340                NA           0.519
+#> [5,]           -0.0468 -0.6650                NA           0.519
+#> [6,]           -0.0468 -0.6650                NA           0.519
+#>      extra_mean extra_median client_freq
+#> [1,]    -0.0175       -0.024          NA
+#> [2,]    -1.7517       -1.740          NA
+#> [3,]    -0.6678       -0.024          NA
+#> [4,]    -0.0175       -0.024          NA
+#> [5,]     0.6328        0.834          NA
+#> [6,]    -0.2343       -0.024          NA
 ```
 
 Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
 
 
 ```r
-wo_men %>% 
+extra %>% 
   mutate_if(is.numeric, funs("z" = scale)) %>% 
   head
-#>   X                time   sex height shoe_size   X_z height_z shoe_size_z
-#> 1 1 04.10.2016 17:58:51 woman    160        40 -1.71   -0.132      0.0405
-#> 2 2 04.10.2016 17:58:59 woman    171        39 -1.67    0.146     -0.1395
-#> 3 3 04.10.2016 18:00:15 woman    174        39 -1.64    0.221     -0.1395
-#> 4 4 04.10.2016 18:01:17 woman    176        40 -1.60    0.272      0.0405
-#> 5 5 04.10.2016 18:01:22   man    195        46 -1.57    0.751      1.1204
-#> 6 6 04.10.2016 18:01:53 woman    157        37 -1.54   -0.208     -0.4994
+#>   X           timestamp code i01 i02r i03 i04 i05 i06r i07 i08 i09 i10
+#> 1 1 11.03.2015 19:17:48  HSC   3    3   3   3   4    4   3   2   3   1
+#> 2 2 11.03.2015 19:18:05  ERB   2    2   1   2   3    2   2   3   3   1
+#> 3 3 11.03.2015 19:18:09  ADP   3    4   1   4   4    1   3   2   3   1
+#> 4 4 11.03.2015 19:18:19  KHB   3    3   2   4   3    3   3   3   3   2
+#> 5 5 11.03.2015 19:18:19  PTG   4    3   1   4   4    3   4   2   3   4
+#> 6 6 11.03.2015 19:18:23  ABL   3    2   1   4   2    3   4   3   3   3
+#>   n_facebook_friends n_hangover age  sex extra_single_item
+#> 1                250          1  24 Frau                 4
+#> 2                106          0  35 Frau                 3
+#> 3                215          0  25 Frau                 4
+#> 4                200         15  39 Frau                 3
+#> 5                100          0  29 Frau                 4
+#> 6                376          1  33 Mann                 4
+#>   time_conversation presentation n_party clients extra_vignette
+#> 1                10         nein      20                       
+#> 2                15         nein       5                       
+#> 3                15         nein       3                       
+#> 4                 5         nein      25                       
+#> 5                 5         nein       4                       
+#> 6                20           ja       4                       
+#>   extra_description prop_na_per_row extra_mean extra_median client_freq
+#> 1                NA          0.0435        2.9          3.0          NA
+#> 2                NA          0.0435        2.1          2.0          NA
+#> 3                NA          0.0435        2.6          3.0          NA
+#> 4                NA          0.0435        2.9          3.0          NA
+#> 5                NA          0.0435        3.2          3.5          NA
+#> 6                NA          0.0435        2.8          3.0          NA
+#>     X_z  i01_z i02r_z   i03_z i04_z   i05_z  i06r_z   i07_z   i08_z i09_z
+#> 1 -1.73 -0.499  -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826  -0.5
+#> 2 -1.72 -1.964  -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867  -0.5
+#> 3 -1.71 -0.499   1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826  -0.5
+#> 4 -1.71 -0.499  -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867  -0.5
+#> 5 -1.70  0.966  -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826  -0.5
+#> 6 -1.69 -0.499  -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867  -0.5
+#>    i10_z n_facebook_friends_z n_hangover_z  age_z extra_single_item_z
+#> 1 -1.388              -0.4111       -0.434 -0.306               1.350
+#> 2 -1.388              -0.9094       -0.487  1.621               0.183
+#> 3 -1.388              -0.5322       -0.487 -0.131               1.350
+#> 4 -0.273              -0.5841        0.305  2.322               0.183
+#> 5  1.956              -0.9301       -0.487  0.570               1.350
+#> 6  0.841               0.0249       -0.434  1.271               1.350
+#>   time_conversation_z n_party_z extra_description_z prop_na_per_row_z
+#> 1             -0.0468    0.0961                  NA             0.519
+#> 2             -0.0468   -0.6174                  NA             0.519
+#> 3             -0.0468   -0.7126                  NA             0.519
+#> 4             -0.0468    0.3340                  NA             0.519
+#> 5             -0.0468   -0.6650                  NA             0.519
+#> 6             -0.0468   -0.6650                  NA             0.519
+#>   extra_mean_z extra_median_z client_freq_z
+#> 1      -0.0175         -0.024            NA
+#> 2      -1.7517         -1.740            NA
+#> 3      -0.6678         -0.024            NA
+#> 4      -0.0175         -0.024            NA
+#> 5       0.6328          0.834            NA
+#> 6      -0.2343         -0.024            NA
 ```
 
 Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
@@ -255,7 +373,7 @@ Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die S
 ### Quasi-Konstante finden
 Hier suchen wir nach Variablen (Spalten), die nur einen Wert oder zumindest nur sehr wenige verschiedene Werte aufweisen. Oder, ähnlich: Wenn 99.9% der Fälle nur von einem Wert bestritten wird. In diesen Fällen kann man die Variable als "Quasi-Konstante" bezeichnen. Quasi-Konstanten sind für die Modellierung von keiner oder nur geringer Bedeutung; sie können in der Regel für weitere Analysen ausgeschlossen werden.
 
-Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser ist es, die Variable Geschlecht zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
+Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für Unterschiede im Einkommen verantwortlich sein. Besser ist es, die Variable Geschlecht zu entfernen. Auch hier sind Histogramme oder Boxplots von Nutzen zur Identifikation von (Quasi-)Konstanten. Alternativ kann man sich auch pro die Streuung (numerische Variablen) oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
 
 
 ```r
@@ -268,44 +386,32 @@ n_distinct(extra$sex)  # es scheint 3 Geschlechter zu geben...
 
 
 ### Auf Normalverteilung prüfen
-Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm, ein QQ-Plot oder ein Dichte-Diagramm als "glatt geschmiergelte" Variante des Histogramms bieten sich an (s. Abb. \@ref(fig:fig-norm-check)).
+Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm, ein QQ-Plot oder ein Dichte-Diagramm als "glatt geschmirgelte" Variante des Histogramms bieten sich an (s. Abb. \@ref(fig:fig-norm-check)).
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-norm-check-1.png" alt="Visuelles Prüfen der Normalverteilung" width="70%" />
+<p class="caption">(\#fig:fig-norm-check)Visuelles Prüfen der Normalverteilung</p>
+</div>
 
-{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-norm-check-1} 
-
-}
-
-\caption{Visuelles Prüfen der Normalverteilung}(\#fig:fig-norm-check)
-\end{figure}
-
-Während die Körpergröße sehr deutlich normalverteilt ist, ist die Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass wir keine weiteren Maßnahmen einleiten.
+Während die der mittlere Extraversionswert recht gut normalverteilt ist, ist die Anzahl der Facebookfreunde ordentlich (rechts-)schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen; ein Thema, auf das wir hier nicht weiter eingehen.
 
 
 ### Werte umkodieren und partionieren ("binnen") 
 
-*Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorpragmmiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
+*Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorprogrammiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/umkodieren_crop} 
-
-}
-
-\caption{Sinnbild für Umkodieren}(\#fig:umkodieren)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/typ_prob/umkodieren_crop.png" alt="Sinnbild für Umkodieren" width="70%" />
+<p class="caption">(\#fig:umkodieren)Sinnbild für Umkodieren</p>
+</div>
 
 
 Partionieren\index{Partionieren) oder *"Binnen"*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Damit macht man aus einer kontinuierlichen Variablen eine diskrete. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/cut_schere_crop} 
-
-}
-
-\caption{Sinnbild zum 'Binnen'}(\#fig:cut-schere)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/typ_prob/cut_schere_crop.png" alt="Sinnbild zum 'Binnen'" width="70%" />
+<p class="caption">(\#fig:cut-schere)Sinnbild zum 'Binnen'</p>
+</div>
 
 
 
@@ -339,7 +445,7 @@ head(stats_test$study_time_2)
 Der Befehle `recode` ist praktisch; mit `:` kann man "von bis" ansprechen (das ginge mit `c()` übrigens auch); `else` für "ansonsten" ist möglich und mit `as.factor.result` kann man entweder einen Faktor oder eine Text-Variable zurückgeliefert bekommen. Der ganze "Wechselterm" steht in Anführungsstrichen (`"`). Einzelne Teile des Wechselterms sind mit einem Strichpunkt (`;`) voneinander getrennt.
 
 
-Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
+Das klassische Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
 
 
 ```r
@@ -391,7 +497,7 @@ stats_test$Ergebnis <- car::recode(stats_test$score,
 ```
 
 
-Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
+Natürlich gibt es auch eine Pfeifen kompatible Version, um Variablen umzukodieren bzw. zu binnen: `dplyr::recode`^[https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/]. Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so dass wir an dieser Stelle bei `car::recode` bleiben.
 
 
 #### Einfaches Umkodieren mit einer Logik-Prüfung
@@ -444,41 +550,41 @@ Es lassen sich drei typische Anwendungsformen unterscheiden:
 
 Eine numerische Variable ...
 
-1. in *k* gleich große Klassen grupieren (gleichgroße Intervalle)
+1. in *k* gleich große Klassen gruppieren (gleichgroße Intervalle)
 2. so in Klassen gruppieren, dass in jeder Klasse *n* Beobachtungen sind (gleiche Gruppengrößen)
 3. in beliebige Klassen gruppieren
 
 
 ##### Gleichgroße Intervalle
 
-Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen [^d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
+Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Intervall) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen^[d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
 
 
 ```r
-wo_men <- read_csv("data/wo_men.csv")
+stats_test <- read.csv("data/test_inf_short.csv")
 
-wo_men %>% 
-  filter(height > 150, height < 220) -> wo_men2
 
-temp <- cut_interval(x = wo_men2$height, n = 3)
+temp <- cut_interval(x = stats_test$score, n = 3)
 
 levels(temp)
-#> [1] "[155,172]" "(172,189]" "(189,206]"
+#> [1] "[17,24.7]"   "(24.7,32.3]" "(32.3,40]"
 ```
 
-`cut_interval` liefert eine Variabel vom Typ `factor` zurück. 
+`cut_interval` liefert eine Variable vom Typ `factor` zurück. Hier haben wir das Punktespektrum in drei gleich große Bereiche unterteilt (d.h. mit jeweils gleichem Punkte-Range). 
 
 
 ##### Gleiche Gruppengrößen
 
 
 ```r
-temp <- cut_number(wo_men2$height, n = 2)
+temp <- cut_number(stats_test$score, n = 2)
 str(temp)
-#>  Factor w/ 2 levels "[155,169]","(169,206]": 1 2 2 2 2 1 1 2 1 2 ...
+#>  Factor w/ 2 levels "[17,31]","(31,40]": 1 1 2 1 2 2 2 1 1 2 ...
+median(stats_test$score)
+#> [1] 31
 ```
 
-Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen.
+Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) gleich viel Observationen einteilen. Hier haben wir `score` am Median geteilt.
 
 >   Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das einer Aufteilung am Median (Median-Split).
 
@@ -487,22 +593,22 @@ Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) g
 
 
 ```r
-wo_men$groesse_gruppe <- cut(wo_men$height, 
-                             breaks = c(-Inf, 100, 150, 170, 200, 230, Inf))
+stats_test$punkte_gruppe <- cut(stats_test$score, 
+                             breaks = c(-Inf, 25, 29, 33, 37, 40),
+                             labels = c("5", "4", "3", "2", "1"))
 
-count(wo_men, groesse_gruppe)
-#> # A tibble: 6 x 2
-#>   groesse_gruppe     n
-#>           <fctr> <int>
-#> 1     (-Inf,100]     4
-#> 2      (150,170]    55
-#> 3      (170,200]    38
-#> 4      (200,230]     2
-#> 5     (230, Inf]     1
-#> 6             NA     1
+count(stats_test, punkte_gruppe)
+#> # A tibble: 5 x 2
+#>   punkte_gruppe     n
+#>          <fctr> <int>
+#> 1             5    56
+#> 2             4    68
+#> 3             3    63
+#> 4             2    64
+#> 5             1    55
 ```
 
-`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert in der Stichprobe wird nicht automatisch als unterste Intervallgrenze herangezogen. Anschaulich gesprochen ist `cut` ein Messer, das ein Seil (die kontinuierliche Variable) mit einem oder mehreren Schnitten zerschneidet (vgl. Abb. \@ref(fig:cut-schere)).
+`cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert in der Stichprobe wird nicht automatisch als unterste Intervallgrenze herangezogen. Anschaulich gesprochen ist `cut` ein Messer, das ein Seil (die kontinuierliche Variable) mit einem oder mehreren Schnitten zerschneidet (vgl. Abb. \@ref(fig:cut-schere)). Wenn wir 6 Schnitte (`breaks`) tun, haben wir 5 Teile, wie Abb. \@ref(fig:cut-schere) zeigt. Darum müssen wir auch nur 5 (6-1) `labels` für die Teile vergeben.
 
 
 
@@ -530,63 +636,11 @@ extra$extra_mw <- rowMeans(extra_items)
 Da der Datensatz über 28 Spalten verfügt, wir aber nur 10 Spalten heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden wir als Zwischenschritt einen "schmäleren" Datensatz, `extra_items`. Im Anschluss berechnen wir mit `rowMeans` die Mittelwerte pro Zeile (engl. "row").
 
 
-#### Vertiefung: `dplyr`
-
-Alternativ können wir Mittelwerte mit dplyr berechnen:
-
-
-
-```r
-extra_items %>% 
-  na.omit %>% 
-  rowwise() %>% 
-  mutate(mean_row = mean(i01:i10)) %>% 
-  select(mean_row) %>% 
-  head # nur die ersten paar Zeilen von `mean_row` zeigen
-#> # A tibble: 6 x 1
-#>   mean_row
-#>      <dbl>
-#> 1      2.0
-#> 2      1.5
-#> 3      2.0
-#> 4      2.5
-#> 5      4.0
-#> 6      3.0
-```
-
-`na.omit` wirft alle Zeilen raus, in denen fehlende Werte vorkommen. Das ist nötig, damit `mean` ein Ergebnis ausgibt (bei fehlenden Werten gibt `mean` sonst `NA` zurück).
-
-`rowwise` gruppiert den Datensatz nach Zeilen (`row_number()`), ist also synonym zu:
-
-
-```r
-extra_items %>% 
-  na.omit %>% 
-  group_by(row_number()) %>% 
-  mutate(mean_row = mean(i01:i10)) %>% 
-  select(mean_row) %>% 
-  head # nur die ersten paar Zeilen von `mean_row` zeigen
-#> Source: local data frame [6 x 2]
-#> Groups: row_number() [6]
-#> 
-#> # A tibble: 6 x 2
-#>   `row_number()` mean_row
-#>            <int>    <dbl>
-#> 1              1      2.0
-#> 2              2      1.5
-#> 3              3      2.0
-#> 4              4      2.5
-#> 5              5      4.0
-#> 6              6      3.0
-```
-
 
 ### Mittelwerte pro Spalte berechnen
 
 
 Eine Möglichkeit ist der Befehl `summary` aus `dplyr`.
-
-
 
 
 
@@ -662,7 +716,6 @@ stats_test %>%
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreißer: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
 
 Daher: besser robuste Statistiken verwenden. Der Median, der Modus und der IQR bieten sich an. 
-
 </div>\EndKnitrBlock{rmdcaution}
 
 
@@ -672,7 +725,6 @@ Korrelationen bzw. Korrelationstabellen lassen sich mit dem R-Standardbefehl `co
 
 
 ```r
-stats_test <- read.csv("data/test_inf_short.csv")
 
 stats_test %>% 
   select(study_time,interest,score) %>% 
@@ -705,8 +757,6 @@ Alternativ zu `cor` kann man auch `corrr:correlate` verwenden:
 
 
 ```r
-stats_test <- read.csv("data/test_inf_short.csv")
-
 
 stats_test %>% 
   select(study_time:score) %>% 
@@ -721,7 +771,7 @@ stats_test %>%
 ```
 
 
-`correlate` hat den Vorteil, dass es bei fehlenden Werten einen Wert ausgibt; die Korrelation wird paarweise mit den verfügbaren (nicht-fehlenden) Werten berechnet. Außerdme wird eine Dataframe (genauer: tibble) zurückgeliefert, was häufig praktischer ist zur Weiterverarbeitung. Wir könnten jetzt die resultierende Korrelationstabelle plotten, vorher "rasieren" wir noch das redundaten obere Dreieck ab (da Korrelationstabellen ja symmetrisch sind):
+`correlate` hat den Vorteil, dass es bei fehlenden Werten einen Wert ausgibt; die Korrelation wird paarweise mit den verfügbaren (nicht-fehlenden) Werten berechnet. Außerdem wird eine Dataframe (genauer: tibble) zurückgeliefert, was häufig praktischer ist zur Weiterverarbeitung. Wir könnten jetzt die resultierende Korrelationstabelle plotten, vorher "rasieren" wir noch das redundanten obere Dreieck ab (da Korrelationstabellen ja symmetrisch sind):
 
 
 
@@ -733,9 +783,7 @@ stats_test %>%
   rplot
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/rplot-demo-1} \end{center}
+<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/rplot-demo-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Befehlsübersicht
@@ -744,52 +792,28 @@ Tabelle \@ref(tab:befehle-praxisprobleme) stellt die Befehle dieses Kapitels dar
 
 
 
-\begin{table}
 
-\caption{(\#tab:befehle-praxisprobleme)Befehle des Kapitels 'Praxisprobleme'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-na.omit & Löscht Zeilen, die fehlende Werte enthalten\\
-\hline
-nrow & Liefert die Anzahl der Zeilen des Dataframes zurück\\
-\hline
-complete.cases & Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück\\
-\hline
-car::recode & Kodiert Werte um\\
-\hline
-cut & Schneidet eine kontinuierliche Variable in Wertebereiche\\
-\hline
-rowMeans & Berechnet Zeilen-Mittelwerte\\
-\hline
-dplyr::rowwise & Gruppiert nach Zeilen\\
-\hline
-ggplot2::cut\_number & Schneidet eine kontinuierliche Variable in n gleich große Bereiche\\
-\hline
-ggplot2::cut\_interval & Schneidet eine kontinuierliche Variable in Intervalle der Größe k\\
-\hline
-head & Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.\\
-\hline
-scale & z-skaliert eine Variable\\
-\hline
-dplyr::select\_if & Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist\\
-\hline
-dplyr::glimpse & Gibt einen Überblick über einen Dataframe\\
-\hline
-dplyr::mutate\_if & definiert eine Spalte, wenn eine Kriterium erfüllt ist\\
-\hline
-: & Definiert einen Bereich von … bis …\\
-\hline
-corrr::correlate & Berechnet Korrelationtabelle, liefert einen Dataframe zurück\\
-\hline
-cor & Berechnet Korrelationtabelle\\
-\hline
-corrr::rplot & Plottet Korrelationsmatrix von correlate\\
-\hline
-corrr::shave & “Rasiert” redundantes Dreick in Korrelationsmatrix ab\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-praxisprobleme)Befehle des Kapitels 'Praxisprobleme'
+
+Paket::Funktion         Beschreibung                                                       
+----------------------  -------------------------------------------------------------------
+na.omit                 Löscht Zeilen, die fehlende Werte enthalten                        
+nrow                    Liefert die Anzahl der Zeilen des Dataframes zurück                
+complete.cases          Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück       
+car::recode             Kodiert Werte um                                                   
+cut                     Schneidet eine kontinuierliche Variable in Wertebereiche           
+rowMeans                Berechnet Zeilen-Mittelwerte                                       
+dplyr::rowwise          Gruppiert nach Zeilen                                              
+ggplot2::cut_number     Schneidet eine kontinuierliche Variable in n gleich große Bereiche 
+ggplot2::cut_interval   Schneidet eine kontinuierliche Variable in Intervalle der Größe k  
+head                    Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.     
+scale                   z-skaliert eine Variable                                           
+dplyr::select_if        Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist              
+dplyr::glimpse          Gibt einen Überblick über einen Dataframe                          
+dplyr::mutate_if        definiert eine Spalte, wenn eine Kriterium erfüllt ist             
+:                       Definiert einen Bereich von … bis …                                
+corrr::correlate        Berechnet Korrelationtabelle, liefert einen Dataframe zurück       
+cor                     Berechnet Korrelationtabelle                                       
+corrr::rplot            Plottet Korrelationsmatrix von correlate                           
+corrr::shave            “Rasiert” redundantes Dreick in Korrelationsmatrix ab              
 

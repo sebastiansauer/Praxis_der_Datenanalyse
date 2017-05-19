@@ -22,28 +22,22 @@ bookdown::gitbook:
   css: style.css
   fig_crop: TRUE
   config:
-    download: no
+    download: null
     search: yes
     sharing:
       facebook: yes
       twitter: yes
-      google: no
+      google: yes
       weibo: no
       instapper: no
       vk: no
       all: ['facebook', 'google', 'twitter', 'weibo', 'instapaper']
     toc:
-      collapse: yes
+      collapse: subsection
       scroll_highlight: yes
       before: |
         <li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
         title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
-  cover-image: images/cover.jpg
-  favicon: images/favicon/favicon.ico
-  #split_by: section
 
 bookdown::epub_book: default
-
-bookdown::html_book:
-    theme: united
 

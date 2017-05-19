@@ -457,15 +457,16 @@ Lübke} schrieb den Großteil des Kapitels zur Regression und zur
 Clusteranalyse. \emph{Matthias Gehrke} schrieb den Großteil des Kapitels
 zur logistischen Regression.
 
-\textbf{Danke} Norman Markgraf hat umfangreich Fehler gejagt und
-Verbesserungen \sout{angemahnt} vorgenommen. Der Austausch mit den
-ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer
-Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie
-das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt.
-Die Abteilung Medienentwicklung der FOM hat bei Fragen rund um die
-Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen
-auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen
-Dank!
+\textbf{Danke}
+
+Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen
+\sout{angemahnt} vorgenommen. Der Austausch mit den ifes-Mitgliedern
+hielt die Flamme am Köcheln. Eine Reihe weiterer Kollegen standen mit
+Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für
+Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung
+Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung
+geholfen. Last but not least: Viele Studierenden wiesen auf
+Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
 
 \textbf{Zitieren}
 
@@ -1775,6 +1776,14 @@ Lernziele:
 \end{itemize}
 \EndKnitrBlock{rmdcaution}
 
+In diesem Kapitel werden folgende Pakete benötigt:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)  }\CommentTok{# Daten einlesen}
+\end{Highlighting}
+\end{Shaded}
+
 Dieses Kapitel beantwortet eine Frage: ``Wie kriege ich Daten in
 vernünftiger Form in R hinein?''.
 
@@ -1826,7 +1835,7 @@ praktisches Vorgehen ist.
 \BeginKnitrBlock{rmdcaution}
 Daten (CSV, Excel,\ldots{}) können Sie \emph{nicht} öffnen über
 \texttt{File\ \textgreater{}\ Open\ File\ ...}. Dieser Weg ist
-Skript-Dateien vorbehalten.
+Skript-Dateien und R-Daten-Objekten vorbehalten.
 \EndKnitrBlock{rmdcaution}
 
 \subsection{CSV-Dateien importieren}\label{csv-dateien-importieren}
@@ -1837,25 +1846,27 @@ auf einer Textdatei. Schauen Sie sich mal diesen Auszug aus einer
 CSV-Datei an.
 
 \begin{verbatim}
-"ID","time","sex","height","shoe_size"
-"1","04.10.2016 17:58:51",NA,160.1,40
-"2","04.10.2016 17:58:59","woman",171.2,39
-"3","04.10.2016 18:00:15","woman",174.2,39
-"4","04.10.2016 18:01:17","woman",176.4,40
-"5","04.10.2016 18:01:22","man",195.2,46
+row_number,date_time,study_time,self_eval,interest,score
+1,05.01.2017 13:57:01,5,8,5,29
+2,05.01.2017 21:07:56,3,7,3,29
+3,05.01.2017 23:33:47,5,10,6,40
+4,06.01.2017 09:58:05,2,3,2,18
+5,06.01.2017 14:13:08,4,8,6,34
+6,06.01.2017 14:21:18,NA,NA,NA,39
 \end{verbatim}
 
 Erkennen Sie das Muster? Die erste Zeile gibt die ``Spaltenköpfe''
-wieder, also die Namen der Variablen. Hier sind es 5 Spalten; die vierte
-heißt ``shoe\_size''. Die Spalten sind offenbar durch Komma \texttt{,}
-voneinander getrennt. Dezimalstellen sind in amerikanischer Manier mit
-einem Punkt \texttt{.} dargestellt. Die Daten sind ``rechteckig''; alle
-Spalten haben gleich viele Zeilen und umgekehrt alle Spalten gleich
-viele Zeilen. Man kann sich diese Tabelle gut als Excel-Tabelle mit
-Zellen vorstellen, in denen z.B. ``ID'' (Zelle oben links) oder ``46''
-(Zelle unten rechts) steht.
+wieder, also die Namen der Variablen. Hier sind es 6 Spalten; die fünft
+heißt ``score'' und gibt die Punkte eines Studierenden in einer
+Statistikklausur wieder. Die Spalten sind offenbar durch Komma
+\texttt{,} voneinander getrennt. Dezimalstellen sind in amerikanischer
+Manier mit einem Punkt \texttt{.} dargestellt. Die Daten sind
+``rechteckig''; alle Spalten haben gleich viele Zeilen und umgekehrt
+alle Spalten gleich viele Zeilen. Man kann sich diese Tabelle gut als
+Excel-Tabelle mit Zellen vorstellen, in denen z.B. ``row\_number''
+(Zelle oben links) oder ``39'' (Zelle unten rechts) steht.
 
-An einer Stelle steht \texttt{NA}. Das ist Errisch für ``fehlender
+An einigen Stelle steht \texttt{NA}. Das ist Errisch für ``fehlender
 Wert''. Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass
 ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle
 möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen
@@ -1865,7 +1876,7 @@ Lesen wir diese Daten jetzt ein:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{daten <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/wo_men.csv"}\NormalTok{)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1907,25 +1918,6 @@ Textdatei vorab mit einem Texteditor zu öffnen.
 
 \caption{Trennzeichen einer CSV-Datei in RStudio einstellen}\label{fig:rstudio-delimiter}
 \end{figure}
-
-\subsubsection{Vertiefung: Einlesen mit
-Prüfung}\label{vertiefung-einlesen-mit-prufung}
-
-\begin{verbatim}
-#>   X                time   sex height shoe_size
-#> 1 1 04.10.2016 17:58:51 woman    160        40
-#> 2 2 04.10.2016 17:58:59 woman    171        39
-#> 3 3 04.10.2016 18:00:15 woman    174        39
-#> 4 4 04.10.2016 18:01:17 woman    176        40
-#> 5 5 04.10.2016 18:01:22   man    195        46
-#> 6 6 04.10.2016 18:01:53 woman    157        37
-\end{verbatim}
-
-Wir haben zuerst geprüft, ob die Datei (\texttt{wo\_men.csv}) im
-entsprechenden Ordner existiert oder nicht (das \texttt{!}-Zeichen heißt
-auf Errisch ``nicht''). Falls die Datei nicht im Ordner existiert, laden
-wir sie mit \texttt{read.csv} herunter und direkt ins R hinein.
-Andernfalls (\texttt{else}) lesen wir sie direkt ins R hinein.
 
 \subsection{Das Arbeitsverzeichnis}\label{das-arbeitsverzeichnis}
 
@@ -1998,8 +1990,9 @@ Dataframes (Wickham und Grolemund \protect\hyperlink{ref-r4ds}{2016}):
 \caption{Schematische Darstellung eines Dataframes in Normalform}\label{fig:tidy1}
 \end{figure}
 
-Der Punkt ``Jede Zeile eine Beobachtung, jede Spalte eine Variable''
-verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
+Der Punkt \emph{Jede Zeile eine Beobachtung, jede Spalte eine Variable,
+jede Zelle ein Wert} verdient besondere Beachtung. Betrachten Sie dieses
+Beispiel:
 
 \begin{figure}
 
@@ -2026,49 +2019,71 @@ linke nicht.
 \caption{Illustration eines Datensatzes in Normalform}\label{fig:fig-Normalform}
 \end{figure}
 
-\section{Vertiefung}\label{vertiefung}
-
-\subsection{Tabelle in Normalform
-bringen}\label{tabelle-in-normalform-bringen}
+\section{Tabelle in Normalform bringen}\label{normalform}
 
 Eine der ersten Aktionen einer Datenanalyse sollte also die
 ``Normalisierung'' Ihrer Tabelle sein. In R bietet sich dazu das Paket
-\texttt{tidyr} an, mit dem die Tabelle von Breit- auf Langformat (und
-wieder zurück) geschoben werden kann.
+\texttt{tidyr} an, mit dem die Tabelle von \emph{Breit- auf Langformat}
+(und wieder zurück) geschoben werden kann.
 
-Ein Beispiel dazu:
+Abb. \ref{fig:gather-spread} zeigt ein Beispiel dazu.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{meindf <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"http://stanford.edu/~ejdemyr/r-tutorials/data/unicef-u5mr.csv"}\NormalTok{)}
+\begin{figure}
 
-\NormalTok{df_lang <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(meindf, year, u5mr, U5MR}\FloatTok{.1950}\NormalTok{:U5MR}\FloatTok{.2015}\NormalTok{)}
+{\centering \includegraphics[width=0.7\linewidth]{images/tidy/gather_spread} 
 
-\NormalTok{df_lang <-}\StringTok{ }\KeywordTok{separate}\NormalTok{(df_lang, year, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"U5MR"}\NormalTok{, }\StringTok{"year"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"."}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+}
 
-\begin{itemize}
-\tightlist
-\item
-  Die erste Zeile liest die Daten aus einer CSV-Datei ein;
-  praktischerweise direkt von einer Webseite.\\
-\item
-  Die zweite Zeile \texttt{gather} formt die Daten \emph{von breit nach
-  lang} um. Die neuen Spalten, nach der Umformung heißen dann
-  \texttt{year} und \texttt{u5mr} (Sterblichkeit bei Kindern unter fünf
-  Jahren). In die Umformung werden die Spalten \texttt{U5MR\ 1950} bis
-  \texttt{U5MR\ 2015} einbezogen.
-\item
-  Die dritte Zeile \texttt{separate} \emph{entzerrt} die Werte der
-  Spalte \texttt{year}; hier stehen die ehemaligen Spaltenköpfe. Man
-  nennt sie auch \texttt{key} Spalte daher. Steht in einer Zelle von
-  \texttt{year} bspw. \texttt{U5MR\ 1950}, so wird \texttt{U5MR} in eine
-  Spalte mit Namen \texttt{U5MR} und \texttt{1950} in eine Spalte mit
-  Namen \texttt{year} geschrieben.
-\end{itemize}
+\caption{Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form}\label{fig:gather-spread}
+\end{figure}
 
-\subsection{Textkodierung}\label{textkodierung}
+Warum ist es wichtig, von der ``breiten'' (links in Abb.
+\ref{fig:gather-spread}) zur ``langen'' oder ``Normalform'' (rechts in
+Abb. \ref{fig:gather-spread}) zu wechseln. Ganz einfach: viele Befehle
+(allgemeiner: Tätigkeiten) verlangen die Normalform; hin und wieder sind
+aber die Tabellen von ihrem Schöpfer in breiter Form geschaffen worden.
+Zum Beispiel erwartet \texttt{ggplot2} - und viele andere
+Diagrammbefehle - dass man \emph{einer} Achse \emph{eine} Spalte
+(Variable) zuweist, z.B. die Variable ``Umsatz'' auf die Y-Achse. Der
+X-Achse könnten wir dann z.B. die Variable ``Quartal'' packen (s. Abb.
+\ref{fig:bsp-abb}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/tidy/bsp_diagramm-crop} 
+
+}
+
+\caption{Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle}\label{fig:bsp-abb}
+\end{figure}
+
+Um von der breiten Form zur langen Form zu kommen, kann man den Befehl
+\texttt{tidyr::gather} nehmen. Von der langen Form zur breiten From gibt
+es \texttt{tidyr::spread}. Also etwa:
+
+\begin{verbatim}
+df_lang <- gather(df_breit, key = "Quartal", value = "Umsatz")
+
+df_breit <- spread(df_lang, Quartal, Umsatz)
+\end{verbatim}
+
+Dabei baut \texttt{gather} den Dataframe so um, dass nur zwei Spalten
+übrig bleiben (s. Abb. \ref{fig:gather-spread}). Eine Spalte nur
+\emph{Spaltennamen} (``Q1'', ``Q2'', \ldots{}) enthält; diese Spalte
+nennt \texttt{gather} im Standard \texttt{key}. Die zweite Spalte
+enthält die Werte (z.B. Umsätze), die vormals über mehrere Spalten
+verstreut waren. Diese Spalte heißt per Default \texttt{value}. Im
+Beispiel oben macht die Spalte \texttt{ID} bei dem Spiel ``Aus vielen
+Spalten werden zwei'' nicht mit. Möchte man eine Spalte aussparen, so
+schreibt man das bei \texttt{gather} so:
+
+\begin{verbatim}
+df_lang <- gather(df_breit, key = "Quartal", value = "Umsatz", -ID)
+\end{verbatim}
+
+In Kapitel \ref{case-movies} werden wir dazu ein Fallstudie einüben.
+
+\section{Textkodierung}\label{textkodierung}
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht
 man\ldots{} Text und sonst nichts, also keine Formatierung etc. Eine
@@ -2215,7 +2230,7 @@ Lernziele:
 \caption{Daten aufbereiten}\label{fig:fig-datenjudo}
 \end{figure}
 
-In diesem Kapitel benötigte Pakete:
+In diesem Kapitel werden folgende Pakete benötigt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2506,6 +2521,9 @@ besorgt sind? Sagen wir bei \texttt{income} und bei \texttt{sex}:
 \end{Highlighting}
 \end{Shaded}
 
+Der horizontale Strich \texttt{\textbar{}} steht bei R für logisches
+`oder'.
+
 \subsection{\texorpdfstring{Spalten wählen mit
 \texttt{select}}{Spalten wählen mit select}}\label{spalten-wahlen-mit-select}
 
@@ -2545,6 +2563,13 @@ Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in
 einem Unterordner mit dem Namen \texttt{data} befinden, welcher sich im
 Arbeitsverzeichnis befindet\footnote{der angegebene Pfad ist also
   \emph{relativ} zum aktuellen Verzeichnis.}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{stats_test <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2666,7 +2691,7 @@ betrachte den Output des Beispiels oben dazu.
 Merke:
 
 \begin{quote}
-Die Funktion arrange sortiert die Zeilen eines Datafames.
+Die Funktion \texttt{arrange} sortiert die Zeilen eines Datafames.
 \end{quote}
 
 Ein Sinnbild zur Verdeutlichung (s. Abb. \ref{fig:fig-arrange}):
@@ -3666,7 +3691,7 @@ Lernziele:
 \end{itemize}
 \EndKnitrBlock{rmdcaution}
 
-Laden wir zuerst die benögtigten Pakete; v.a. ist das \texttt{dplyr} and
+Laden wir zuerst die benötigten Pakete; v.a. ist das \texttt{dplyr} and
 friends. Das geht mit dem Paket \texttt{tidyverse}.
 
 \begin{Shaded}
@@ -3694,20 +3719,11 @@ die Anzahl der fehlenden Werte zurück.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/wo_men.csv"}\NormalTok{)}
-\KeywordTok{summarise}\NormalTok{(wo_men)}
+\NormalTok{stats_test <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
+\KeywordTok{summarise}\NormalTok{(stats_test)}
+\CommentTok{#> data frame with 0 columns and 0 rows}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-#> Observations: 101
-#> Variables: 5
-#> $ X         <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
-#> $ time      <fctr> 04.10.2016 17:58:51, 04.10.2016 17:58:59, 04.10.201...
-#> $ sex       <fctr> woman, woman, woman, woman, man, woman, woman, woma...
-#> $ height    <dbl> 160, 171, 174, 176, 195, 157, 160, 178, 168, 171, 16...
-#> $ shoe_size <dbl> 40, 39, 39, 40, 46, 37, 38, 39, 38, 41, 39, 44, 38, ...
-\end{verbatim}
 
 \subsection{Fälle mit fehlenden Werte
 löschen}\label{falle-mit-fehlenden-werte-loschen}
@@ -3720,20 +3736,20 @@ Zeilen dadurch verloren gehen.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Unsprünglich Anzahl an Fällen (Zeilen)}
-\KeywordTok{nrow}\NormalTok{(wo_men)}
-\CommentTok{#> [1] 101}
+\KeywordTok{nrow}\NormalTok{(stats_test)}
+\CommentTok{#> [1] 306}
 
 \CommentTok{# Nach Umwandlung in neuen Dataframe}
-\NormalTok{wo_men %>%}
-\StringTok{   }\NormalTok{na.omit ->}\StringTok{ }\NormalTok{wo_men.na_omit}
-\KeywordTok{nrow}\NormalTok{(wo_men.na_omit)}
-\CommentTok{#> [1] 100}
+\NormalTok{stats_test %>%}
+\StringTok{   }\NormalTok{na.omit ->}\StringTok{ }\NormalTok{stats_test_na_omit}
+\KeywordTok{nrow}\NormalTok{(stats_test_na_omit)}
+\CommentTok{#> [1] 238}
 
 \CommentTok{# Nur die Anzahl der bereinigten Daten}
-\NormalTok{wo_men %>%}
+\NormalTok{stats_test %>%}
 \StringTok{   }\NormalTok{na.omit %>%}
 \StringTok{   }\NormalTok{nrow}
-\CommentTok{#> [1] 100}
+\CommentTok{#> [1] 238}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3745,15 +3761,82 @@ eigentlich \texttt{nrow()} heißen müsste. Sie dürfen die Klammern
 natürlich schreiben, aber sie müssen nicht.
 \EndKnitrBlock{rmdcaution}
 
-Hier verlieren wir nur 1 Zeile, das verschmerzen wir. Welche eigentlich?
+Hier verlieren wir 68 Zeilen, das verschmerzen wir. Welche Zeilen
+verlieren wir eigentlich?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\NormalTok{rownames_to_column %>%}\StringTok{  }\CommentTok{# Zeilennummer werden eine eigene Spalte}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(!}\KeywordTok{complete.cases}\NormalTok{(.))  }\CommentTok{# Nur die nicht-kompletten Fälle filtern}
-\CommentTok{#>   rowname  X                time sex height shoe_size}
-\CommentTok{#> 1      86 86 11.10.2016 12:44:06         NA        NA}
+\NormalTok{stats_test %>%}\StringTok{ }
+\StringTok{   }\KeywordTok{filter}\NormalTok{(!}\KeywordTok{complete.cases}\NormalTok{(.))  }\CommentTok{# Nur die nicht-kompletten Fälle filtern}
+\CommentTok{#>    row_number           date_time study_time self_eval interest score}
+\CommentTok{#> 1           6 06.01.2017 14:21:18         NA        NA       NA    39}
+\CommentTok{#> 2           7 06.01.2017 14:25:49         NA        NA       NA    40}
+\CommentTok{#> 3          15 09.01.2017 15:23:15         NA        NA       NA    30}
+\CommentTok{#> 4          19 10.01.2017 17:16:48         NA        NA       NA    22}
+\CommentTok{#> 5          42 13.01.2017 14:08:08         NA        NA       NA    38}
+\CommentTok{#> 6          49 14.01.2017 07:02:39         NA        NA       NA    39}
+\CommentTok{#> 7          67 15.01.2017 13:30:48         NA        NA       NA    24}
+\CommentTok{#> 8          74 15.01.2017 16:12:54         NA        NA       NA    30}
+\CommentTok{#> 9          83 16.01.2017 10:16:52         NA        NA       NA    40}
+\CommentTok{#> 10         89 16.01.2017 21:18:05         NA        NA       NA    34}
+\CommentTok{#> 11         91 17.01.2017 15:19:36         NA        NA       NA    29}
+\CommentTok{#> 12         99 18.01.2017 09:04:30         NA        NA       NA    37}
+\CommentTok{#> 13        104 18.01.2017 13:42:20         NA        NA       NA    39}
+\CommentTok{#> 14        106 18.01.2017 15:52:04         NA        NA       NA    38}
+\CommentTok{#> 15        111 18.01.2017 19:24:49         NA        NA       NA    37}
+\CommentTok{#> 16        117 19.01.2017 08:06:05         NA        NA       NA    37}
+\CommentTok{#> 17        118 19.01.2017 08:54:43         NA        NA       NA    33}
+\CommentTok{#> 18        119 19.01.2017 09:05:01         NA        NA       NA    40}
+\CommentTok{#> 19        124 19.01.2017 12:51:10         NA        NA       NA    32}
+\CommentTok{#> 20        125 19.01.2017 13:03:26         NA        NA       NA    30}
+\CommentTok{#> 21        132 19.01.2017 18:22:32         NA        NA       NA    40}
+\CommentTok{#> 22        133 19.01.2017 18:22:38         NA        NA       NA    38}
+\CommentTok{#> 23        139 19.01.2017 18:35:56         NA        NA       NA    31}
+\CommentTok{#> 24        141 19.01.2017 18:44:32         NA        NA       NA    34}
+\CommentTok{#> 25        150 20.01.2017 09:53:47         NA        NA       NA    32}
+\CommentTok{#> 26        155 20.01.2017 15:33:55         NA        NA       NA    39}
+\CommentTok{#> 27        157 20.01.2017 17:34:48         NA        NA       NA    31}
+\CommentTok{#> 28        158 20.01.2017 17:53:16         NA        NA       NA    36}
+\CommentTok{#> 29        159 20.01.2017 17:57:26         NA        NA       NA    34}
+\CommentTok{#> 30        160 20.01.2017 17:59:19         NA        NA       NA    34}
+\CommentTok{#> 31        162 20.01.2017 18:00:53         NA        NA       NA    35}
+\CommentTok{#> 32        163 20.01.2017 18:04:21         NA        NA       NA    36}
+\CommentTok{#> 33        180 21.01.2017 08:04:17         NA        NA       NA    39}
+\CommentTok{#> 34        183 21.01.2017 12:20:37         NA        NA       NA    31}
+\CommentTok{#> 35        187 21.01.2017 16:27:32         NA        NA       NA    26}
+\CommentTok{#> 36        191 22.01.2017 11:31:27         NA        NA       NA    36}
+\CommentTok{#> 37        195 22.01.2017 13:24:51         NA        NA       NA    23}
+\CommentTok{#> 38        202 22.01.2017 17:13:02         NA        NA       NA    36}
+\CommentTok{#> 39        206 22.01.2017 18:42:49         NA        NA       NA    20}
+\CommentTok{#> 40        207 22.01.2017 18:56:56         NA        NA       NA    28}
+\CommentTok{#> 41        211 22.01.2017 20:28:43         NA        NA       NA    38}
+\CommentTok{#> 42        213 22.01.2017 21:47:06         NA        NA       NA    29}
+\CommentTok{#> 43        225 23.01.2017 13:24:22         NA        NA       NA    39}
+\CommentTok{#> 44        226 23.01.2017 14:17:10         NA        NA       NA    36}
+\CommentTok{#> 45        235 23.01.2017 18:26:20         NA        NA       NA    20}
+\CommentTok{#> 46        238 23.01.2017 19:53:10         NA        NA       NA    27}
+\CommentTok{#> 47        242 24.01.2017 14:09:33         NA        NA       NA    28}
+\CommentTok{#> 48        245 24.01.2017 14:56:24         NA        NA       NA    28}
+\CommentTok{#> 49        246 24.01.2017 15:09:44         NA        NA       NA    24}
+\CommentTok{#> 50        247 24.01.2017 15:37:27         NA        NA       NA    28}
+\CommentTok{#> 51        249 24.01.2017 17:19:54         NA        NA       NA    40}
+\CommentTok{#> 52        253 25.01.2017 09:32:55         NA        NA       NA    39}
+\CommentTok{#> 53        255 25.01.2017 10:05:00         NA        NA       NA    29}
+\CommentTok{#> 54        265 25.01.2017 13:14:00         NA        NA       NA    30}
+\CommentTok{#> 55        270 25.01.2017 16:35:41         NA        NA       NA    28}
+\CommentTok{#> 56        271 25.01.2017 16:53:17         NA        NA       NA    34}
+\CommentTok{#> 57        272 25.01.2017 17:03:21         NA        NA       NA    36}
+\CommentTok{#> 58        274 25.01.2017 17:38:36         NA        NA       NA    37}
+\CommentTok{#> 59        275 25.01.2017 18:06:36         NA        NA       NA    34}
+\CommentTok{#> 60        283 26.01.2017 10:39:44         NA        NA       NA    23}
+\CommentTok{#> 61        285 26.01.2017 10:54:41         NA        NA       NA    34}
+\CommentTok{#> 62        286 26.01.2017 11:19:10         NA        NA       NA    38}
+\CommentTok{#> 63        288 26.01.2017 13:36:14         NA        NA       NA    28}
+\CommentTok{#> 64        289 26.01.2017 14:19:14         NA        NA       NA    31}
+\CommentTok{#> 65        290 26.01.2017 14:34:23         NA        NA       NA    36}
+\CommentTok{#> 66        291 26.01.2017 14:55:17         NA        NA       NA    39}
+\CommentTok{#> 67        293 26.01.2017 15:17:47         NA        NA       NA    36}
+\CommentTok{#> 68        294 26.01.2017 15:51:56         NA        NA       NA    34}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3768,9 +3851,7 @@ neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen
 In Pseudo-Syntax liest es sich so:
 
 \BeginKnitrBlock{rmdpseudocode}
-Nehme den Datensatz \texttt{wo\_men} UND DANN\ldots{}\\
-Mache aus den Zeilennamen (hier identisch zu Zeilennummer) eine eigene
-Spalte UND DANN\ldots{}\\
+Nehme den Datensatz \texttt{stats\_test} UND DANN\ldots{}\\
 filtere die nicht-kompletten Fälle
 \EndKnitrBlock{rmdpseudocode}
 
@@ -3787,16 +3868,19 @@ repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men$height <-}\StringTok{ }\KeywordTok{replace}\NormalTok{(wo_men$height, }\KeywordTok{is.na}\NormalTok{(wo_men$height),}
-                         \KeywordTok{mean}\NormalTok{(wo_men$height, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
-  
+\NormalTok{stats_test$interest <-}\StringTok{ }\KeywordTok{replace}\NormalTok{(stats_test$interest, }\KeywordTok{is.na}\NormalTok{(stats_test$interest),}
+                         \KeywordTok{mean}\NormalTok{(stats_test$interest, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(stats_test$interest))}
+\CommentTok{#> [1] 0}
 \end{Highlighting}
 \end{Shaded}
 
 \texttt{replace}\footnote{aus dem ``Standard-R'', d.h. Paket ``base''.}
-ersetzt Werte aus dem Vektor \texttt{wo\_men\$height} alle Werte, für
-die \texttt{is.na(wo\_men\$height)} wahr ist. Diese Werte werden durch
-den Mittelwert der Spalte ersetzt\footnote{Hier findet sich eine
+ersetzt Werte aus dem Vektor \texttt{stats\_test\$interest} alle Werte,
+für die \texttt{is.na(stats\_test\$interest)} wahr ist, bei Zeilen mit
+fehlenden Werten in dieser Spalte also. Diese Werte werden durch den
+Mittelwert der Spalte ersetzt\footnote{Hier findet sich eine
   ausführlichere Darstellung:
   \url{https://sebastiansauer.github.io/checklist_data_cleansing/index.html}}.
 
@@ -3811,20 +3895,24 @@ Werte ausgeben lassen.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(shoe_size) %>%}\StringTok{ }
-\StringTok{  }\NormalTok{head  }\CommentTok{# nur die ersten paar Zeilen}
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   shoe_size     n}
-\CommentTok{#>       <dbl> <int>}
-\CommentTok{#> 1      35.0     1}
-\CommentTok{#> 2      36.0     6}
-\CommentTok{#> 3      36.5     1}
-\CommentTok{#> 4      37.0    14}
-\CommentTok{#> 5      38.0    26}
-\CommentTok{#> 6      39.0    18}
+\NormalTok{stats_test %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(interest) }
+\CommentTok{#> # A tibble: 7 x 2}
+\CommentTok{#>   interest     n}
+\CommentTok{#>      <dbl> <int>}
+\CommentTok{#> 1     1.00    30}
+\CommentTok{#> 2     2.00    47}
+\CommentTok{#> 3     3.00    66}
+\CommentTok{#> 4     3.21    68}
+\CommentTok{#> 5     4.00    41}
+\CommentTok{#> 6     5.00    45}
+\CommentTok{#> 7     6.00     9}
 \end{Highlighting}
 \end{Shaded}
+
+Da in der Umfrage nur ganze Zahlen von 1 bis 5 abgefragt wurden, ist die
+\texttt{3.21...} auf den ersten Blick suspekt. In diesem Fall ist aber
+alles ok, da wir diesen Wert selber erzeugt haben.
 
 \subsection{Ausreißer identifizieren}\label{ausreier-identifizieren}
 
@@ -3833,17 +3921,11 @@ Allerdings kann man nicht pauschal sagen, das Extremwerte entfernt
 werden sollen: Vielleicht war jemand in der Stichprobe wirklich nur
 1.20m groß? Hier gilt es, begründet und nachvollziehbar im Einzelfall zu
 entscheiden. Histogramme und Boxplots sind wieder ein geeignetes Mittel,
-um Ausreiser zu finden (vgl. Abb. \ref{fig:fig-ausreisser}).
+um Ausreißer zu finden (vgl. Abb. \ref{fig:fig-ausreisser}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{y =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{wo_men, }\DataTypeTok{main =} \StringTok{"ungefiltert"}\NormalTok{)}
-
-\NormalTok{p2 <-}\StringTok{ }\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(height >}\StringTok{ }\DecValTok{120}\NormalTok{, height <}\StringTok{ }\DecValTok{210}\NormalTok{) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{y =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{., }\DataTypeTok{main =} \StringTok{"gefiltert"}\NormalTok{)}
-
-\KeywordTok{grid.arrange}\NormalTok{(p1, p2, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{score, }\DataTypeTok{data =} \NormalTok{stats_test, }\DataTypeTok{binwidth =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3855,6 +3937,9 @@ um Ausreiser zu finden (vgl. Abb. \ref{fig:fig-ausreisser}).
 
 \caption{Ausreißer identifizieren}\label{fig:fig-ausreisser}
 \end{figure}
+
+Mit \texttt{binwidth\ =\ 1} sagen wir, dass jeder Balken (bin) eine
+Breite (width) von 1 haben soll.
 
 \subsection{Hochkorrelierte Variablen
 finden}\label{hochkorrelierte-variablen-finden}
@@ -3869,7 +3954,7 @@ Nehmen wir dazu den Datensatz \texttt{extra} her.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{extra <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/extra.csv"}\NormalTok{)}
+\NormalTok{extra <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/extra.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3939,17 +4024,38 @@ Rohwerten.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men %>%}\StringTok{ }
+\NormalTok{extra %>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select_if}\NormalTok{(is.numeric) %>%}\StringTok{  }\CommentTok{# Spalte nur auswählen, wenn numerisch}
 \StringTok{  }\KeywordTok{scale}\NormalTok{() %>%}\StringTok{  }\CommentTok{# z-standardisieren}
 \StringTok{  }\KeywordTok{head}\NormalTok{()  }\CommentTok{# nur die ersten paar Zeilen abdrucken}
-\CommentTok{#>          X height shoe_size}
-\CommentTok{#> [1,] -1.71 -0.132    0.0405}
-\CommentTok{#> [2,] -1.67  0.146   -0.1395}
-\CommentTok{#> [3,] -1.64  0.221   -0.1395}
-\CommentTok{#> [4,] -1.60  0.272    0.0405}
-\CommentTok{#> [5,] -1.57  0.751    1.1204}
-\CommentTok{#> [6,] -1.54 -0.208   -0.4994}
+\CommentTok{#>          X    i01  i02r     i03   i04     i05    i06r     i07     i08  i09}
+\CommentTok{#> [1,] -1.73 -0.499 -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826 -0.5}
+\CommentTok{#> [2,] -1.72 -1.964 -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867 -0.5}
+\CommentTok{#> [3,] -1.71 -0.499  1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826 -0.5}
+\CommentTok{#> [4,] -1.71 -0.499 -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867 -0.5}
+\CommentTok{#> [5,] -1.70  0.966 -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826 -0.5}
+\CommentTok{#> [6,] -1.69 -0.499 -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867 -0.5}
+\CommentTok{#>         i10 n_facebook_friends n_hangover    age extra_single_item}
+\CommentTok{#> [1,] -1.388            -0.4111     -0.434 -0.306             1.350}
+\CommentTok{#> [2,] -1.388            -0.9094     -0.487  1.621             0.183}
+\CommentTok{#> [3,] -1.388            -0.5322     -0.487 -0.131             1.350}
+\CommentTok{#> [4,] -0.273            -0.5841      0.305  2.322             0.183}
+\CommentTok{#> [5,]  1.956            -0.9301     -0.487  0.570             1.350}
+\CommentTok{#> [6,]  0.841             0.0249     -0.434  1.271             1.350}
+\CommentTok{#>      time_conversation n_party extra_description prop_na_per_row}
+\CommentTok{#> [1,]           -0.0468  0.0961                NA           0.519}
+\CommentTok{#> [2,]           -0.0468 -0.6174                NA           0.519}
+\CommentTok{#> [3,]           -0.0468 -0.7126                NA           0.519}
+\CommentTok{#> [4,]           -0.0468  0.3340                NA           0.519}
+\CommentTok{#> [5,]           -0.0468 -0.6650                NA           0.519}
+\CommentTok{#> [6,]           -0.0468 -0.6650                NA           0.519}
+\CommentTok{#>      extra_mean extra_median client_freq}
+\CommentTok{#> [1,]    -0.0175       -0.024          NA}
+\CommentTok{#> [2,]    -1.7517       -1.740          NA}
+\CommentTok{#> [3,]    -0.6678       -0.024          NA}
+\CommentTok{#> [4,]    -0.0175       -0.024          NA}
+\CommentTok{#> [5,]     0.6328        0.834          NA}
+\CommentTok{#> [6,]    -0.2343       -0.024          NA}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3959,16 +4065,65 @@ zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men %>%}\StringTok{ }
+\NormalTok{extra %>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate_if}\NormalTok{(is.numeric, }\KeywordTok{funs}\NormalTok{(}\StringTok{"z"} \NormalTok{=}\StringTok{ }\NormalTok{scale)) %>%}\StringTok{ }
 \StringTok{  }\NormalTok{head}
-\CommentTok{#>   X                time   sex height shoe_size   X_z height_z shoe_size_z}
-\CommentTok{#> 1 1 04.10.2016 17:58:51 woman    160        40 -1.71   -0.132      0.0405}
-\CommentTok{#> 2 2 04.10.2016 17:58:59 woman    171        39 -1.67    0.146     -0.1395}
-\CommentTok{#> 3 3 04.10.2016 18:00:15 woman    174        39 -1.64    0.221     -0.1395}
-\CommentTok{#> 4 4 04.10.2016 18:01:17 woman    176        40 -1.60    0.272      0.0405}
-\CommentTok{#> 5 5 04.10.2016 18:01:22   man    195        46 -1.57    0.751      1.1204}
-\CommentTok{#> 6 6 04.10.2016 18:01:53 woman    157        37 -1.54   -0.208     -0.4994}
+\CommentTok{#>   X           timestamp code i01 i02r i03 i04 i05 i06r i07 i08 i09 i10}
+\CommentTok{#> 1 1 11.03.2015 19:17:48  HSC   3    3   3   3   4    4   3   2   3   1}
+\CommentTok{#> 2 2 11.03.2015 19:18:05  ERB   2    2   1   2   3    2   2   3   3   1}
+\CommentTok{#> 3 3 11.03.2015 19:18:09  ADP   3    4   1   4   4    1   3   2   3   1}
+\CommentTok{#> 4 4 11.03.2015 19:18:19  KHB   3    3   2   4   3    3   3   3   3   2}
+\CommentTok{#> 5 5 11.03.2015 19:18:19  PTG   4    3   1   4   4    3   4   2   3   4}
+\CommentTok{#> 6 6 11.03.2015 19:18:23  ABL   3    2   1   4   2    3   4   3   3   3}
+\CommentTok{#>   n_facebook_friends n_hangover age  sex extra_single_item}
+\CommentTok{#> 1                250          1  24 Frau                 4}
+\CommentTok{#> 2                106          0  35 Frau                 3}
+\CommentTok{#> 3                215          0  25 Frau                 4}
+\CommentTok{#> 4                200         15  39 Frau                 3}
+\CommentTok{#> 5                100          0  29 Frau                 4}
+\CommentTok{#> 6                376          1  33 Mann                 4}
+\CommentTok{#>   time_conversation presentation n_party clients extra_vignette}
+\CommentTok{#> 1                10         nein      20                       }
+\CommentTok{#> 2                15         nein       5                       }
+\CommentTok{#> 3                15         nein       3                       }
+\CommentTok{#> 4                 5         nein      25                       }
+\CommentTok{#> 5                 5         nein       4                       }
+\CommentTok{#> 6                20           ja       4                       }
+\CommentTok{#>   extra_description prop_na_per_row extra_mean extra_median client_freq}
+\CommentTok{#> 1                NA          0.0435        2.9          3.0          NA}
+\CommentTok{#> 2                NA          0.0435        2.1          2.0          NA}
+\CommentTok{#> 3                NA          0.0435        2.6          3.0          NA}
+\CommentTok{#> 4                NA          0.0435        2.9          3.0          NA}
+\CommentTok{#> 5                NA          0.0435        3.2          3.5          NA}
+\CommentTok{#> 6                NA          0.0435        2.8          3.0          NA}
+\CommentTok{#>     X_z  i01_z i02r_z   i03_z i04_z   i05_z  i06r_z   i07_z   i08_z i09_z}
+\CommentTok{#> 1 -1.73 -0.499  -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826  -0.5}
+\CommentTok{#> 2 -1.72 -1.964  -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867  -0.5}
+\CommentTok{#> 3 -1.71 -0.499   1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826  -0.5}
+\CommentTok{#> 4 -1.71 -0.499  -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867  -0.5}
+\CommentTok{#> 5 -1.70  0.966  -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826  -0.5}
+\CommentTok{#> 6 -1.69 -0.499  -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867  -0.5}
+\CommentTok{#>    i10_z n_facebook_friends_z n_hangover_z  age_z extra_single_item_z}
+\CommentTok{#> 1 -1.388              -0.4111       -0.434 -0.306               1.350}
+\CommentTok{#> 2 -1.388              -0.9094       -0.487  1.621               0.183}
+\CommentTok{#> 3 -1.388              -0.5322       -0.487 -0.131               1.350}
+\CommentTok{#> 4 -0.273              -0.5841        0.305  2.322               0.183}
+\CommentTok{#> 5  1.956              -0.9301       -0.487  0.570               1.350}
+\CommentTok{#> 6  0.841               0.0249       -0.434  1.271               1.350}
+\CommentTok{#>   time_conversation_z n_party_z extra_description_z prop_na_per_row_z}
+\CommentTok{#> 1             -0.0468    0.0961                  NA             0.519}
+\CommentTok{#> 2             -0.0468   -0.6174                  NA             0.519}
+\CommentTok{#> 3             -0.0468   -0.7126                  NA             0.519}
+\CommentTok{#> 4             -0.0468    0.3340                  NA             0.519}
+\CommentTok{#> 5             -0.0468   -0.6650                  NA             0.519}
+\CommentTok{#> 6             -0.0468   -0.6650                  NA             0.519}
+\CommentTok{#>   extra_mean_z extra_median_z client_freq_z}
+\CommentTok{#> 1      -0.0175         -0.024            NA}
+\CommentTok{#> 2      -1.7517         -1.740            NA}
+\CommentTok{#> 3      -0.6678         -0.024            NA}
+\CommentTok{#> 4      -0.0175         -0.024            NA}
+\CommentTok{#> 5       0.6328          0.834            NA}
+\CommentTok{#> 6      -0.2343         -0.024            NA}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3991,9 +4146,10 @@ werden.
 Haben wir z.B. nur Männer im Datensatz, so kann das Geschlecht nicht für
 Unterschiede im Einkommen verantwortlich sein. Besser ist es, die
 Variable Geschlecht zu entfernen. Auch hier sind Histogramme oder
-Boxplots von Nutzen zur Identifiktion von (Quasi-)Konstanten. Alternativ
-kann man sich auch pro die Streuung (numerische Variablen) oder die
-Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben lassen:
+Boxplots von Nutzen zur Identifikation von (Quasi-)Konstanten.
+Alternativ kann man sich auch pro die Streuung (numerische Variablen)
+oder die Anzahl unterschiedlicher Werte (qualitative Variablen) ausgeben
+lassen:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4014,7 +4170,7 @@ Natur. Entsprechend werden Signifikanztests, die ja auf perfekte
 Normalverteilung prüfen, \emph{immer signifikant} sein, sofern die
 \emph{Stichprobe groß} genug ist. Daher ist meist zweckmäßiger, einen
 graphischen ``Test'' durchzuführen: ein Histogramm, ein QQ-Plot oder ein
-Dichte-Diagramm als ``glatt geschmiergelte'' Variante des Histogramms
+Dichte-Diagramm als ``glatt geschmirgelte'' Variante des Histogramms
 bieten sich an (s. Abb. \ref{fig:fig-norm-check}).
 
 \begin{figure}
@@ -4026,10 +4182,10 @@ bieten sich an (s. Abb. \ref{fig:fig-norm-check}).
 \caption{Visuelles Prüfen der Normalverteilung}\label{fig:fig-norm-check}
 \end{figure}
 
-Während die Körpergröße sehr deutlich normalverteilt ist, ist die
-Schuhgröße recht schief. Bei schiefen Verteilung können Transformationen
-Abhilfe schaffen. Hier erscheint die Schiefe noch erträglich, so dass
-wir keine weiteren Maßnahmen einleiten.
+Während die der mittlere Extraversionswert recht gut normalverteilt ist,
+ist die Anzahl der Facebookfreunde ordentlich (rechts-)schief. Bei
+schiefen Verteilung können Transformationen Abhilfe schaffen; ein Thema,
+auf das wir hier nicht weiter eingehen.
 
 \subsection{\texorpdfstring{Werte umkodieren und partionieren
 (``binnen'')}{Werte umkodieren und partionieren (binnen)}}\label{werte-umkodieren-und-partionieren-binnen}
@@ -4037,8 +4193,8 @@ wir keine weiteren Maßnahmen einleiten.
 \emph{Umkodieren}\index{Umkodieren} meint, die Werte zu ändern. Man
 sieht immer mal wieder, dass die Variable ``gender'' (Geschlecht) mit
 \texttt{1} und \texttt{2} kodiert ist. Verwechslungen sind da
-vorpragmmiert (``Ich bin mir echt ziemlich sicher, dass ich 1 für Männer
-kodiert habe, wahrscheinlich\ldots{}''). Besser wäre es, die
+vorprogrammiert (``Ich bin mir echt ziemlich sicher, dass ich 1 für
+Männer kodiert habe, wahrscheinlich\ldots{}''). Besser wäre es, die
 Ausprägungen \texttt{male} und \texttt{female} (``Mann'', ``Frau'') o.ä.
 zu verwenden (vgl. Abb. \ref{fig:umkodieren}).
 
@@ -4106,8 +4262,8 @@ Text-Variable zurückgeliefert bekommen. Der ganze ``Wechselterm'' steht
 in Anführungsstrichen (\texttt{"}). Einzelne Teile des Wechselterms sind
 mit einem Strichpunkt (\texttt{;}) voneinander getrennt.
 
-Das klassiche Umkodieren von Items aus Fragebögen kann man so anstellen;
-sagen wir \texttt{interest} soll umkodiert werden:
+Das klassische Umkodieren von Items aus Fragebögen kann man so
+anstellen; sagen wir \texttt{interest} soll umkodiert werden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4162,7 +4318,7 @@ Variablen in Bereiche aufteilen kann (``binnen''):
 \end{Highlighting}
 \end{Shaded}
 
-Natürlich gibt es auch eine Pfeifen komptatible Version, um Variablen
+Natürlich gibt es auch eine Pfeifen kompatible Version, um Variablen
 umzukodieren bzw. zu binnen: \texttt{dplyr::recode}\footnote{\url{https://blog.rstudio.org/2016/06/27/dplyr-0-5-0/}}.
 Die Syntax ist allerdings etwas weniger komfortabel (da strenger), so
 dass wir an dieser Stelle bei \texttt{car::recode} bleiben.
@@ -4236,7 +4392,7 @@ Eine numerische Variable \ldots{}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  in \emph{k} gleich große Klassen grupieren (gleichgroße Intervalle)
+  in \emph{k} gleich große Klassen gruppieren (gleichgroße Intervalle)
 \item
   so in Klassen gruppieren, dass in jeder Klasse \emph{n} Beobachtungen
   sind (gleiche Gruppengrößen)
@@ -4249,40 +4405,42 @@ Eine numerische Variable \ldots{}
 Nehmen wir an, wir möchten die numerische Variable ``Körpergröße'' in
 drei Gruppen einteilen: ``klein'', ``mittel'' und ``groß''. Der Range
 von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden,
-d.h. der Range (Interval) der drei Gruppen soll gleich groß sein. Dazu
-kann man \texttt{cut\_interval} aus \texttt{ggplot2} nehmen {[}\^{}d.h.
-\texttt{ggplot2} muss geladen sein; wenn man \texttt{tidyverse} lädt,
-wird \texttt{ggplot2} automatisch auch geladen{]}.
+d.h. der Range (Intervall) der drei Gruppen soll gleich groß sein. Dazu
+kann man \texttt{cut\_interval} aus \texttt{ggplot2} nehmen\footnote{d.h.
+  \texttt{ggplot2} muss geladen sein; wenn man \texttt{tidyverse} lädt,
+  wird \texttt{ggplot2} automatisch auch geladen}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/wo_men.csv"}\NormalTok{)}
+\NormalTok{stats_test <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
 
-\NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(height >}\StringTok{ }\DecValTok{150}\NormalTok{, height <}\StringTok{ }\DecValTok{220}\NormalTok{) ->}\StringTok{ }\NormalTok{wo_men2}
 
-\NormalTok{temp <-}\StringTok{ }\KeywordTok{cut_interval}\NormalTok{(}\DataTypeTok{x =} \NormalTok{wo_men2$height, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{)}
+\NormalTok{temp <-}\StringTok{ }\KeywordTok{cut_interval}\NormalTok{(}\DataTypeTok{x =} \NormalTok{stats_test$score, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{)}
 
 \KeywordTok{levels}\NormalTok{(temp)}
-\CommentTok{#> [1] "[155,172]" "(172,189]" "(189,206]"}
+\CommentTok{#> [1] "[17,24.7]"   "(24.7,32.3]" "(32.3,40]"}
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{cut\_interval} liefert eine Variabel vom Typ \texttt{factor}
-zurück.
+\texttt{cut\_interval} liefert eine Variable vom Typ \texttt{factor}
+zurück. Hier haben wir das Punktespektrum in drei gleich große Bereiche
+unterteilt (d.h. mit jeweils gleichem Punkte-Range).
 
 \paragraph{Gleiche Gruppengrößen}\label{gleiche-gruppengroen}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{temp <-}\StringTok{ }\KeywordTok{cut_number}\NormalTok{(wo_men2$height, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\NormalTok{temp <-}\StringTok{ }\KeywordTok{cut_number}\NormalTok{(stats_test$score, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
 \KeywordTok{str}\NormalTok{(temp)}
-\CommentTok{#>  Factor w/ 2 levels "[155,169]","(169,206]": 1 2 2 2 2 1 1 2 1 2 ...}
+\CommentTok{#>  Factor w/ 2 levels "[17,31]","(31,40]": 1 1 2 1 2 2 2 1 1 2 ...}
+\KeywordTok{median}\NormalTok{(stats_test$score)}
+\CommentTok{#> [1] 31}
 \end{Highlighting}
 \end{Shaded}
 
 Mit \texttt{cut\_number} (aus ggplot2) kann man einen Vektor in
-\texttt{n} Gruppen mit (etwa) gleich viel Observationen einteilen.
+\texttt{n} Gruppen mit (etwa) gleich viel Observationen einteilen. Hier
+haben wir \texttt{score} am Median geteilt.
 
 \begin{quote}
 Teilt man einen Vektor in zwei gleich große Gruppen, so entspricht das
@@ -4294,19 +4452,19 @@ gruppieren}\label{in-beliebige-klassen-gruppieren}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wo_men$groesse_gruppe <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(wo_men$height, }
-                             \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(-}\OtherTok{Inf}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{170}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{230}\NormalTok{, }\OtherTok{Inf}\NormalTok{))}
+\NormalTok{stats_test$punkte_gruppe <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(stats_test$score, }
+                             \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(-}\OtherTok{Inf}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{40}\NormalTok{),}
+                             \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"5"}\NormalTok{, }\StringTok{"4"}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"2"}\NormalTok{, }\StringTok{"1"}\NormalTok{))}
 
-\KeywordTok{count}\NormalTok{(wo_men, groesse_gruppe)}
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   groesse_gruppe     n}
-\CommentTok{#>           <fctr> <int>}
-\CommentTok{#> 1     (-Inf,100]     4}
-\CommentTok{#> 2      (150,170]    55}
-\CommentTok{#> 3      (170,200]    38}
-\CommentTok{#> 4      (200,230]     2}
-\CommentTok{#> 5     (230, Inf]     1}
-\CommentTok{#> 6             NA     1}
+\KeywordTok{count}\NormalTok{(stats_test, punkte_gruppe)}
+\CommentTok{#> # A tibble: 5 x 2}
+\CommentTok{#>   punkte_gruppe     n}
+\CommentTok{#>          <fctr> <int>}
+\CommentTok{#> 1             5    56}
+\CommentTok{#> 2             4    68}
+\CommentTok{#> 3             3    63}
+\CommentTok{#> 4             2    64}
+\CommentTok{#> 5             1    55}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4316,7 +4474,10 @@ man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert in
 der Stichprobe wird nicht automatisch als unterste Intervallgrenze
 herangezogen. Anschaulich gesprochen ist \texttt{cut} ein Messer, das
 ein Seil (die kontinuierliche Variable) mit einem oder mehreren
-Schnitten zerschneidet (vgl. Abb. \ref{fig:cut-schere}).
+Schnitten zerschneidet (vgl. Abb. \ref{fig:cut-schere}). Wenn wir 6
+Schnitte (\texttt{breaks}) tun, haben wir 5 Teile, wie Abb.
+\ref{fig:cut-schere} zeigt. Darum müssen wir auch nur 5 (6-1)
+\texttt{labels} für die Teile vergeben.
 
 \section{Deskriptive Statistiken
 berechnen}\label{deskriptive-statistiken-berechnen}
@@ -4353,61 +4514,6 @@ heranziehen möchten, um Zeilen auf eine Zahl zusammenzufassen, bilden
 wir als Zwischenschritt einen ``schmäleren'' Datensatz,
 \texttt{extra\_items}. Im Anschluss berechnen wir mit \texttt{rowMeans}
 die Mittelwerte pro Zeile (engl. ``row'').
-
-\subsubsection{\texorpdfstring{Vertiefung:
-\texttt{dplyr}}{Vertiefung: dplyr}}\label{vertiefung-dplyr}
-
-Alternativ können wir Mittelwerte mit dplyr berechnen:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{extra_items %>%}\StringTok{ }
-\StringTok{  }\NormalTok{na.omit %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{rowwise}\NormalTok{() %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_row =} \KeywordTok{mean}\NormalTok{(i01:i10)) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(mean_row) %>%}\StringTok{ }
-\StringTok{  }\NormalTok{head }\CommentTok{# nur die ersten paar Zeilen von `mean_row` zeigen}
-\CommentTok{#> # A tibble: 6 x 1}
-\CommentTok{#>   mean_row}
-\CommentTok{#>      <dbl>}
-\CommentTok{#> 1      2.0}
-\CommentTok{#> 2      1.5}
-\CommentTok{#> 3      2.0}
-\CommentTok{#> 4      2.5}
-\CommentTok{#> 5      4.0}
-\CommentTok{#> 6      3.0}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{na.omit} wirft alle Zeilen raus, in denen fehlende Werte
-vorkommen. Das ist nötig, damit \texttt{mean} ein Ergebnis ausgibt (bei
-fehlenden Werten gibt \texttt{mean} sonst \texttt{NA} zurück).
-
-\texttt{rowwise} gruppiert den Datensatz nach Zeilen
-(\texttt{row\_number()}), ist also synonym zu:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{extra_items %>%}\StringTok{ }
-\StringTok{  }\NormalTok{na.omit %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(}\KeywordTok{row_number}\NormalTok{()) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_row =} \KeywordTok{mean}\NormalTok{(i01:i10)) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(mean_row) %>%}\StringTok{ }
-\StringTok{  }\NormalTok{head }\CommentTok{# nur die ersten paar Zeilen von `mean_row` zeigen}
-\CommentTok{#> Source: local data frame [6 x 2]}
-\CommentTok{#> Groups: row_number() [6]}
-\CommentTok{#> }
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   `row_number()` mean_row}
-\CommentTok{#>            <int>    <dbl>}
-\CommentTok{#> 1              1      2.0}
-\CommentTok{#> 2              2      1.5}
-\CommentTok{#> 3              3      2.0}
-\CommentTok{#> 4              4      2.5}
-\CommentTok{#> 5              5      4.0}
-\CommentTok{#> 6              6      3.0}
-\end{Highlighting}
-\end{Shaded}
 
 \subsection{Mittelwerte pro Spalte
 berechnen}\label{mittelwerte-pro-spalte-berechnen}
@@ -4508,7 +4614,6 @@ R-Standardbefehl \texttt{cor} berechnen:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{stats_test <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
 
 \NormalTok{stats_test %>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select}\NormalTok{(study_time,interest,score) %>%}\StringTok{ }
@@ -4542,8 +4647,6 @@ verwenden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{stats_test <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/test_inf_short.csv"}\NormalTok{)}
-
 
 \NormalTok{stats_test %>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select}\NormalTok{(study_time:score) %>%}\StringTok{ }
@@ -4560,11 +4663,12 @@ verwenden:
 
 \texttt{correlate} hat den Vorteil, dass es bei fehlenden Werten einen
 Wert ausgibt; die Korrelation wird paarweise mit den verfügbaren
-(nicht-fehlenden) Werten berechnet. Außerdme wird eine Dataframe
+(nicht-fehlenden) Werten berechnet. Außerdem wird eine Dataframe
 (genauer: tibble) zurückgeliefert, was häufig praktischer ist zur
 Weiterverarbeitung. Wir könnten jetzt die resultierende
-Korrelationstabelle plotten, vorher ``rasieren'' wir noch das redundaten
-obere Dreieck ab (da Korrelationstabellen ja symmetrisch sind):
+Korrelationstabelle plotten, vorher ``rasieren'' wir noch das
+redundanten obere Dreieck ab (da Korrelationstabellen ja symmetrisch
+sind):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4632,7 +4736,8 @@ corrr::shave & “Rasiert” redundantes Dreick in Korrelationsmatrix ab\\
 \end{tabular}
 \end{table}
 
-\chapter{Fallstudie zum Datenjudo}\label{fallstudie-zum-datenjudo}
+\chapter{\texorpdfstring{Fallstudie
+`movies'}{Fallstudie movies}}\label{case-movies}
 
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
@@ -4652,293 +4757,165 @@ Lernziele:
 \end{itemize}
 \EndKnitrBlock{rmdcaution}
 
-Schauen wir uns einige Beispiele der Datenaufbereitung mittels
-\texttt{dplyr} anhand einer Fallstudie an. Wir verwenden hier den
-Datensatz \texttt{flights} aus dem Package \texttt{nycflights13}. Der
-Datensatz ist recht groß (\textasciitilde{}300.000 Zeilen und 19
-Spalten); wenn man ihn als Excel importiert, kann eine alte Möhre von
-Computer schon in die Knie gehen. Beim Import als CSV habe ich noch nie
-von Problemen gehört; beim Import via Package ebenfalls nicht. Werfen
-wir einen ersten Blick in die Daten:
+Der Datensatz \texttt{movies} enthält Bewertungen von Filmen, zusammen
+mit einigen zusätzlichen Informationen wie Genre, Erscheinungsjahr und
+Budgethöhe. Wir nutzen diesen Datensatz um uns einige Übung mit
+Aufbereiten und Zusammenfassen von Daten zu verschaffen.
 
-Laden wir zuerst \texttt{dplyr} and friends. Das geht mit dem Paket
-\texttt{tidyverse}, welches diese Pakete lädt:
+Für dieses Kapitel werden folgende Pakete benötigt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)  }\CommentTok{# Datenjudo}
-\KeywordTok{library}\NormalTok{(nycflights13)  }\CommentTok{# für die Daten}
+\KeywordTok{library}\NormalTok{(tidyverse)  }\CommentTok{# Datenjudo und Visualisierung}
+\KeywordTok{library}\NormalTok{(corrr)}
 \end{Highlighting}
 \end{Shaded}
 
-Dann laden wir die Daten aus dem Paket \texttt{nycflights13} mit
-\texttt{data} und werfen eine Blick hinein (``to glimpse'') mit
-\texttt{glimpse}; \texttt{glimpse} zeigt uns einen Überblick über den
-Dataframe.
+Zunächst laden wir die Daten und werfen einen Blick in den Datensatz:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(flights)}
-\KeywordTok{glimpse}\NormalTok{(flights)}
-\CommentTok{#> Observations: 336,776}
-\CommentTok{#> Variables: 19}
-\CommentTok{#> $ year           <int> 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013,...}
-\CommentTok{#> $ month          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...}
-\CommentTok{#> $ day            <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...}
-\CommentTok{#> $ dep_time       <int> 517, 533, 542, 544, 554, 554, 555, 557, 557, 55...}
-\CommentTok{#> $ sched_dep_time <int> 515, 529, 540, 545, 600, 558, 600, 600, 600, 60...}
-\CommentTok{#> $ dep_delay      <dbl> 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2...}
-\CommentTok{#> $ arr_time       <int> 830, 850, 923, 1004, 812, 740, 913, 709, 838, 7...}
-\CommentTok{#> $ sched_arr_time <int> 819, 830, 850, 1022, 837, 728, 854, 723, 846, 7...}
-\CommentTok{#> $ arr_delay      <dbl> 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -...}
-\CommentTok{#> $ carrier        <chr> "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV",...}
-\CommentTok{#> $ flight         <int> 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79...}
-\CommentTok{#> $ tailnum        <chr> "N14228", "N24211", "N619AA", "N804JB", "N668DN...}
-\CommentTok{#> $ origin         <chr> "EWR", "LGA", "JFK", "JFK", "LGA", "EWR", "EWR"...}
-\CommentTok{#> $ dest           <chr> "IAH", "IAH", "MIA", "BQN", "ATL", "ORD", "FLL"...}
-\CommentTok{#> $ air_time       <dbl> 227, 227, 160, 183, 116, 150, 158, 53, 140, 138...}
-\CommentTok{#> $ distance       <dbl> 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 94...}
-\CommentTok{#> $ hour           <dbl> 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5,...}
-\CommentTok{#> $ minute         <dbl> 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, ...}
-\CommentTok{#> $ time_hour      <dttm> 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...}
+\NormalTok{movies <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/movies.csv"}\NormalTok{)}
+\KeywordTok{glimpse}\NormalTok{(movies)}
+\CommentTok{#> Observations: 58,788}
+\CommentTok{#> Variables: 24}
+\CommentTok{#> $ title       <fctr> $, $1000 a Touchdown, $21 a Day Once a Month, $40...}
+\CommentTok{#> $ year        <int> 1971, 1939, 1941, 1996, 1975, 2000, 2002, 2002, 19...}
+\CommentTok{#> $ length      <int> 121, 71, 7, 70, 71, 91, 93, 25, 97, 61, 99, 96, 10...}
+\CommentTok{#> $ budget      <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...}
+\CommentTok{#> $ rating      <dbl> 6.4, 6.0, 8.2, 8.2, 3.4, 4.3, 5.3, 6.7, 6.6, 6.0, ...}
+\CommentTok{#> $ votes       <int> 348, 20, 5, 6, 17, 45, 200, 24, 18, 51, 23, 53, 44...}
+\CommentTok{#> $ r1          <dbl> 4.5, 0.0, 0.0, 14.5, 24.5, 4.5, 4.5, 4.5, 4.5, 4.5...}
+\CommentTok{#> $ r2          <dbl> 4.5, 14.5, 0.0, 0.0, 4.5, 4.5, 0.0, 4.5, 4.5, 0.0,...}
+\CommentTok{#> $ r3          <dbl> 4.5, 4.5, 0.0, 0.0, 0.0, 4.5, 4.5, 4.5, 4.5, 4.5, ...}
+\CommentTok{#> $ r4          <dbl> 4.5, 24.5, 0.0, 0.0, 14.5, 14.5, 4.5, 4.5, 0.0, 4....}
+\CommentTok{#> $ r5          <dbl> 14.5, 14.5, 0.0, 0.0, 14.5, 14.5, 24.5, 4.5, 0.0, ...}
+\CommentTok{#> $ r6          <dbl> 24.5, 14.5, 24.5, 0.0, 4.5, 14.5, 24.5, 14.5, 0.0,...}
+\CommentTok{#> $ r7          <dbl> 24.5, 14.5, 0.0, 0.0, 0.0, 4.5, 14.5, 14.5, 34.5, ...}
+\CommentTok{#> $ r8          <dbl> 14.5, 4.5, 44.5, 0.0, 0.0, 4.5, 4.5, 14.5, 14.5, 4...}
+\CommentTok{#> $ r9          <dbl> 4.5, 4.5, 24.5, 34.5, 0.0, 14.5, 4.5, 4.5, 4.5, 4....}
+\CommentTok{#> $ r10         <dbl> 4.5, 14.5, 24.5, 45.5, 24.5, 14.5, 14.5, 14.5, 24....}
+\CommentTok{#> $ mpaa        <fctr> , , , , , , R, , , , , , , , PG-13, PG-13, , , , ...}
+\CommentTok{#> $ Action      <int> 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,...}
+\CommentTok{#> $ Animation   <int> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...}
+\CommentTok{#> $ Comedy      <int> 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0,...}
+\CommentTok{#> $ Drama       <int> 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1,...}
+\CommentTok{#> $ Documentary <int> 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,...}
+\CommentTok{#> $ Romance     <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...}
+\CommentTok{#> $ Short       <int> 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0,...}
 \end{Highlighting}
 \end{Shaded}
 
-Der Befehl \texttt{data} lädt Daten aus einem zuvor gestarteten Paket.
+Hier findet man einige Erklärungen zu diesem Datensatz:
+\url{http://had.co.nz/data/movies/}.
 
-\section{Achtung, Fallstudie}\label{achtung-fallstudie}
+\section{Wie viele Filme gibt es pro
+Genre?}\label{wie-viele-filme-gibt-es-pro-genre}
 
-Sie sind der/die Assistent\_in des Chefs der New Yorker Flughäfen. Ihr
-Chef kommt gut gelaunt ins Büro und sagt, dass er diesen Schnarchnasen
-einheizen wolle und sagt, sie sollen ihm mal schnell die Flüge mit der
-größten Verspätung raussuchen. Nix schickes, aber zacki-zacki\ldots{}
+Normalerweise würde man für diese Frage eine Spalte wie ``Genre'' nehmen
+und die verschiedenen Werte dieser Spalte auszählen. Das geht sehr
+bequem mit \texttt{dplyr::count}. Hier gibt es allerdings so eine Spalte
+nicht. Wir müssen uns anders behelfen.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(arr_delay)}
-\CommentTok{#> # A tibble: 336,776 x 19}
-\CommentTok{#>     year month   day dep_time sched_dep_time dep_delay arr_time}
-\CommentTok{#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>}
-\CommentTok{#>  1  2013     5     7     1715           1729       -14     1944}
-\CommentTok{#>  2  2013     5    20      719            735       -16      951}
-\CommentTok{#>  3  2013     5     2     1947           1949        -2     2209}
-\CommentTok{#>  4  2013     5     6     1826           1830        -4     2045}
-\CommentTok{#>  5  2013     5     4     1816           1820        -4     2017}
-\CommentTok{#>  6  2013     5     2     1926           1929        -3     2157}
-\CommentTok{#>  7  2013     5     6     1753           1755        -2     2004}
-\CommentTok{#>  8  2013     5     7     2054           2055        -1     2317}
-\CommentTok{#>  9  2013     5    13      657            700        -3      908}
-\CommentTok{#> 10  2013     1     4     1026           1030        -4     1305}
-\CommentTok{#> # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,}
-\CommentTok{#> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,}
-\CommentTok{#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,}
-\CommentTok{#> #   minute <dbl>, time_hour <dttm>}
+\NormalTok{movies %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Action:Short) %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\KeywordTok{funs}\NormalTok{(sum))}
+\CommentTok{#>   Action Animation Comedy Drama Documentary Romance Short}
+\CommentTok{#> 1   4688      3690  17271 21811        3472    4744  9458}
 \end{Highlighting}
 \end{Shaded}
 
-Hm, übersichtlicher wäre es wahrscheinlich, wenn wir weniger Spalten
-anschauen müssten. Am besten neben der Verspätung nur die Information,
-die wir zur Identifizierung der Schuldigen\ldots{} will sagen der
-gesuchten Flüge benötigen
+Auf Deutsch heißt diese Syntax
+
+\BeginKnitrBlock{rmdpseudocode}
+Nimm die Tabelle ``movies'' UND DANN\\
+nimm alle Spalten von ``Action'' bis ``Short'' UND DANN\\
+fasse alle Spalten (die wir genommen haben) zusammen und zwar\ldots{}
+mit der oder den Funktionen ``Summe'' (sum).
+\EndKnitrBlock{rmdpseudocode}
+
+\section{Welches Genre ist am
+häufigsten?}\label{welches-genre-ist-am-haufigsten}
+
+Bzw. in welchem Genre wurden am meisten Filme gedreht (in unserem
+Datensatz)?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(arr_delay) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)}
-\CommentTok{#> # A tibble: 336,776 x 8}
-\CommentTok{#>    arr_delay carrier month   day dep_time tailnum flight  dest}
-\CommentTok{#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>}
-\CommentTok{#>  1       -86      VX     5     7     1715  N843VA    193   SFO}
-\CommentTok{#>  2       -79      VX     5    20      719  N840VA     11   SFO}
-\CommentTok{#>  3       -75      UA     5     2     1947  N851UA    612   LAX}
-\CommentTok{#>  4       -75      AA     5     6     1826  N3KCAA    269   SEA}
-\CommentTok{#>  5       -74      AS     5     4     1816  N551AS      7   SEA}
-\CommentTok{#>  6       -73      UA     5     2     1926  N24212   1628   SFO}
-\CommentTok{#>  7       -71      DL     5     6     1753  N3760C   1394   PDX}
-\CommentTok{#>  8       -71      UA     5     7     2054  N806UA    622   SFO}
-\CommentTok{#>  9       -71      B6     5    13      657  N805JB    671   LAX}
-\CommentTok{#> 10       -70      VX     1     4     1026  N855VA     23   SFO}
-\CommentTok{#> # ... with 336,766 more rows}
+\NormalTok{movies %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Action:Short) %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\KeywordTok{funs}\NormalTok{(sum)) %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{gather}\NormalTok{() %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{()}
+\CommentTok{#>           key value}
+\CommentTok{#> 1      Action  4688}
+\CommentTok{#> 2   Animation  3690}
+\CommentTok{#> 3      Comedy 17271}
+\CommentTok{#> 4       Drama 21811}
+\CommentTok{#> 5 Documentary  3472}
+\CommentTok{#> 6     Romance  4744}
+\CommentTok{#> 7       Short  9458}
 \end{Highlighting}
 \end{Shaded}
 
-Da Zahlen in ihrer natürlichen Form von klein nach groß sortiert sind,
-sortiert \texttt{arrange} in ebendieser Richtung. Wir können das
-umdrehen mit einem Minuszeichen vor der zu sortierenden Spalte:
+Der Befehl \texttt{gather} baut einen Datafraem von ``breit'' nach
+``lang'' um (vgl. Kapitel \ref{normalform}). Ah, \sout{Schmunzetten}
+Dramen sind also am häufigsten. Welcome to Hollywood.
+
+\section{Zusammenhang zwischen Budget und
+Beurteilung}\label{zusammenhang-zwischen-budget-und-beurteilung}
+
+Werden teuerere Filme (also Filme mit mehr Budget) besser beurteilt im
+Schnitt? Das würde man erwarten, denn zum Spaß werden die Investoren
+wohl nicht ihr Geld raus. Schauen wir es uns an.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(-arr_delay) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest)}
-\CommentTok{#> # A tibble: 336,776 x 8}
-\CommentTok{#>    arr_delay carrier month   day dep_time tailnum flight  dest}
-\CommentTok{#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>}
-\CommentTok{#>  1      1272      HA     1     9      641  N384HA     51   HNL}
-\CommentTok{#>  2      1127      MQ     6    15     1432  N504MQ   3535   CMH}
-\CommentTok{#>  3      1109      MQ     1    10     1121  N517MQ   3695   ORD}
-\CommentTok{#>  4      1007      AA     9    20     1139  N338AA    177   SFO}
-\CommentTok{#>  5       989      MQ     7    22      845  N665MQ   3075   CVG}
-\CommentTok{#>  6       931      DL     4    10     1100  N959DL   2391   TPA}
-\CommentTok{#>  7       915      DL     3    17     2321  N927DA   2119   MSP}
-\CommentTok{#>  8       895      DL     7    22     2257  N6716C   2047   ATL}
-\CommentTok{#>  9       878      AA    12     5      756  N5DMAA    172   MIA}
-\CommentTok{#> 10       875      MQ     5     3     1133  N523MQ   3744   ORD}
-\CommentTok{#> # ... with 336,766 more rows}
+\NormalTok{movies %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(budget, rating, votes) %>%}\StringTok{ }
+\StringTok{  }\NormalTok{correlate }
+\CommentTok{#> # A tibble: 3 x 4}
+\CommentTok{#>   rowname  budget  rating votes}
+\CommentTok{#>     <chr>   <dbl>   <dbl> <dbl>}
+\CommentTok{#> 1  budget      NA -0.0142 0.441}
+\CommentTok{#> 2  rating -0.0142      NA 0.104}
+\CommentTok{#> 3   votes  0.4413  0.1037    NA}
 \end{Highlighting}
 \end{Shaded}
 
-Oh halt, wir wollen keine Tabelle mit 300.000 Zeilen (der Chef ist kein
-Freund von Details). Also begrenzen wir die Ausgabe auf die ersten 10
-Plätze.
+Wir haben gerade die drei Spalten \texttt{budget}, \texttt{rating} und
+\texttt{votes} ausgewählt, dann in der nächsten Zeile die fehlenden
+Werte eliminiert und schließlich die Korrelation zwischen allen Paaren
+gebildet. Interessanterweise gibt es keine Korrelation zwischen dem
+Budget und dem Rating! Teuere Filme sind also mitnichten besser
+bewertet. Allerdings haben Filme mit mehr Budget eine größere Anzahl an
+Bewertungen, sind also offenbar bekannter. Vielleicht gehen dann auch
+entsprechend mehr Leute im Kino - auch wenn diese Filme nicht besser
+sind. Teuerere Filme sind also bekannter, wenn auch nicht besser
+(beurteilt); so könnte man die Daten lesen.
+
+\section{\texorpdfstring{Wurden die Filme im Lauf der Jahre teurer
+und/oder
+``besser''?}{Wurden die Filme im Lauf der Jahre teurer und/oder besser?}}\label{wurden-die-filme-im-lauf-der-jahre-teurer-undoder-besser}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(-arr_delay) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() <}\StringTok{ }\DecValTok{11}\NormalTok{) }
-\CommentTok{#> # A tibble: 10 x 8}
-\CommentTok{#>    arr_delay carrier month   day dep_time tailnum flight  dest}
-\CommentTok{#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>}
-\CommentTok{#>  1      1272      HA     1     9      641  N384HA     51   HNL}
-\CommentTok{#>  2      1127      MQ     6    15     1432  N504MQ   3535   CMH}
-\CommentTok{#>  3      1109      MQ     1    10     1121  N517MQ   3695   ORD}
-\CommentTok{#>  4      1007      AA     9    20     1139  N338AA    177   SFO}
-\CommentTok{#>  5       989      MQ     7    22      845  N665MQ   3075   CVG}
-\CommentTok{#>  6       931      DL     4    10     1100  N959DL   2391   TPA}
-\CommentTok{#>  7       915      DL     3    17     2321  N927DA   2119   MSP}
-\CommentTok{#>  8       895      DL     7    22     2257  N6716C   2047   ATL}
-\CommentTok{#>  9       878      AA    12     5      756  N5DMAA    172   MIA}
-\CommentTok{#> 10       875      MQ     5     3     1133  N523MQ   3744   ORD}
+\NormalTok{movies %>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(year, rating, budget) %>%}\StringTok{ }
+\StringTok{  }\NormalTok{correlate}
+\CommentTok{#> # A tibble: 3 x 4}
+\CommentTok{#>   rowname    year  rating  budget}
+\CommentTok{#>     <chr>   <dbl>   <dbl>   <dbl>}
+\CommentTok{#> 1    year      NA -0.0699  0.2907}
+\CommentTok{#> 2  rating -0.0699      NA -0.0142}
+\CommentTok{#> 3  budget  0.2907 -0.0142      NA}
 \end{Highlighting}
 \end{Shaded}
 
-``Geht doch'', war die Antwort des Chefs, als sie die Tabelle rübergeben
-(er mag auch keine Emails). ``Ach ja'', raunt der Chef, als Sie das
-Zimmer verlassen wollen, ``hatte ich erwähnt, dass ich die gleiche
-Auswertung für jeden Carrier brauche? Reicht bis in einer halben
-Stunde''.
-
-Wir gruppieren also den Datensatz nach der Fluggesellschaft
-(\texttt{carrier}) und filtern dann die ersten 3 Zeilen (damit die
-Tabelle für den Chef nicht zu groß wird). Wie jeder
-\texttt{dplyr}-Befehl wird die vorherige Gruppierung berücksichtigt und
-daher die Top-3-Zeilen \emph{pro Gruppe}, d.h. pro Fluggesellschaft,
-ausgegeben.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(-arr_delay) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(carrier) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() <}\StringTok{ }\DecValTok{4}\NormalTok{) }
-\CommentTok{#> Source: local data frame [48 x 8]}
-\CommentTok{#> Groups: carrier [16]}
-\CommentTok{#> }
-\CommentTok{#> # A tibble: 48 x 8}
-\CommentTok{#>    arr_delay carrier month   day dep_time tailnum flight  dest}
-\CommentTok{#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>}
-\CommentTok{#>  1      1272      HA     1     9      641  N384HA     51   HNL}
-\CommentTok{#>  2      1127      MQ     6    15     1432  N504MQ   3535   CMH}
-\CommentTok{#>  3      1109      MQ     1    10     1121  N517MQ   3695   ORD}
-\CommentTok{#>  4      1007      AA     9    20     1139  N338AA    177   SFO}
-\CommentTok{#>  5       989      MQ     7    22      845  N665MQ   3075   CVG}
-\CommentTok{#>  6       931      DL     4    10     1100  N959DL   2391   TPA}
-\CommentTok{#>  7       915      DL     3    17     2321  N927DA   2119   MSP}
-\CommentTok{#>  8       895      DL     7    22     2257  N6716C   2047   ATL}
-\CommentTok{#>  9       878      AA    12     5      756  N5DMAA    172   MIA}
-\CommentTok{#> 10       852      AA     5    19      713  N3HEAA    257   LAS}
-\CommentTok{#> # ... with 38 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-Vielleicht gefällt dem Chef diese Darstellung (sortiert nach
-\texttt{carrier}) besser:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(-arr_delay) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(carrier) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() <}\StringTok{ }\DecValTok{4}\NormalTok{) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(carrier)}
-\CommentTok{#> Source: local data frame [48 x 8]}
-\CommentTok{#> Groups: carrier [16]}
-\CommentTok{#> }
-\CommentTok{#> # A tibble: 48 x 8}
-\CommentTok{#>    arr_delay carrier month   day dep_time tailnum flight  dest}
-\CommentTok{#>        <dbl>   <chr> <int> <int>    <int>   <chr>  <int> <chr>}
-\CommentTok{#>  1       744      9E     2    16      757  N8940E   3798   CLT}
-\CommentTok{#>  2       458      9E     7    24     1525  N927XJ   3538   MSP}
-\CommentTok{#>  3       421      9E     7    10     2054  N937XJ   3325   DFW}
-\CommentTok{#>  4      1007      AA     9    20     1139  N338AA    177   SFO}
-\CommentTok{#>  5       878      AA    12     5      756  N5DMAA    172   MIA}
-\CommentTok{#>  6       852      AA     5    19      713  N3HEAA    257   LAS}
-\CommentTok{#>  7       198      AS     3     8     1012  N587AS     11   SEA}
-\CommentTok{#>  8       196      AS     1    20     2157  N305AS      7   SEA}
-\CommentTok{#>  9       188      AS     5    23     2205  N516AS      7   SEA}
-\CommentTok{#> 10       497      B6     1    16     1622  N661JB    517   MCO}
-\CommentTok{#> # ... with 38 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-Da Sie den Chef gut kennen, berechnen Sie gleich noch die
-durchschnittliche Verspätung pro Fluggesellschaft.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(arr_delay, carrier, month, day, dep_time, tailnum, flight, dest) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(carrier) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{delay_mean =} \KeywordTok{mean}\NormalTok{(arr_delay, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(-delay_mean) %>%}\StringTok{ }
-\StringTok{  }\NormalTok{head}
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   carrier delay_mean}
-\CommentTok{#>     <chr>      <dbl>}
-\CommentTok{#> 1      F9       21.9}
-\CommentTok{#> 2      FL       20.1}
-\CommentTok{#> 3      EV       15.8}
-\CommentTok{#> 4      YV       15.6}
-\CommentTok{#> 5      OO       11.9}
-\CommentTok{#> 6      MQ       10.8}
-\end{Highlighting}
-\end{Shaded}
-
-Der Chef ist zufrieden. Sie können sich wieder wichtigeren Aufgaben
-zuwenden\ldots{}
-
-\section{Befehlsübersicht}\label{befehlsubersicht-4}
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-Funktion & Beschreibung\tabularnewline
-\midrule
-\endhead
-data & Lädt Daten aus einem Paket.\tabularnewline
-dplyr::glimpse & Zeigt einen Überblick über einen
-Datensatz\tabularnewline
-dplyr::row\_number & Gibt die Zeilennummern zurück.\tabularnewline
-\bottomrule
-\end{longtable}
-
-\section{Verweise}\label{verweise-3}
-
-\begin{itemize}
-\item
-  Eine ausführlichere Version einer ``YACSDA''\footnote{yet another case
-    study on data analysis} findet sich hier\footnote{\url{https://sebastiansauer.github.io/Fallstudie_Flights/}}
-  oder hier\footnote{\url{https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html}}.
-\item
-  Es finden sich online viele ähnliche Datenanalysen zu \texttt{dplyr},
-  z.B. hier\footnote{\url{http://stat545.com/block009_dplyr-intro.html}}
-  oder hier\footnote{\url{http://genomicsclass.github.io/book/pages/dplyr_tutorial.html}}.
-\end{itemize}
+Offenbar wurden die Filme im Lauf der Zeit nicht besser beurteilt; wohl
+wurden sie aber teurer.
 
 \chapter{Daten visualisieren}\label{daten-visualisieren}
 
@@ -4961,13 +4938,11 @@ Lernziele:
 \end{itemize}
 \EndKnitrBlock{rmdcaution}
 
-In diesem Kapitel werden folgende Pakete benötigt::
+In diesem Kapitel werden folgende Pakete benötigt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(tidyverse)  }\CommentTok{# Zum Plotten}
-\CommentTok{# library(car)  # Umkodieren}
-\CommentTok{# library(knitr)  # HTML-Tabellen}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5049,27 +5024,27 @@ gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \ref{geome}).
 \section{\texorpdfstring{Einstieg in \texttt{ggplot2} -
 \texttt{qplot}}{Einstieg in ggplot2 - qplot}}\label{einstieg-in-ggplot2---qplot}
 
-Los geht's! Laden wir zuerst den Datensatz \texttt{nycflights::flights}.
+Los geht's! Laden wir zuerst den Datensatz \texttt{movies}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(flights, }\DataTypeTok{package =} \StringTok{"nycflights13"}\NormalTok{)}
+\NormalTok{movies <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/movies.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{carrier, }\DataTypeTok{y =} \NormalTok{arr_delay, }\DataTypeTok{geom =} \StringTok{"boxplot"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{flights)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{year, }\DataTypeTok{y =} \NormalTok{budget, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{movies)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-flights-1} 
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-movies-1} 
 
 }
 
-\caption{Mittlere Verspätung nach Flugggesellschaft}\label{fig:fig-flights}
+\caption{Mittleres Budget pro Jahr}\label{fig:fig-movies}
 \end{figure}
 
 Schauen wir uns den Befehl \texttt{qplot} etwas näher an. Wie ist er
@@ -5078,37 +5053,73 @@ aufgebaut?
 \BeginKnitrBlock{rmdpseudocode}
 \texttt{qplot}: Erstelle schnell (q wie quick in \texttt{qplot}) mal
 einen Plot (engl. ``plot'': Diagramm).\\
-\texttt{x}: Der X-Achse soll die Variable ``carrier'' zugeordnet
+\texttt{x}: Der X-Achse soll die Variable ``year'' zugeordnet werden.\\
+\texttt{y}: Der Y-Achse soll die Variable ``budget'' zugeorndet
 werden.\\
-\texttt{y}: Der Y-Achse soll die Variable ``arr\_dely'' zugeorndet
-werden.\\
-\texttt{geom}: (``geometriches Objekt'') Gemalt werden soll ein Boxplot,
-nicht etwa Punkte, Linien oder sonstiges.\\
-\texttt{data}: Als Datensatz bitte \texttt{flights} verwenden.
+\texttt{geom}: (``geometriches Objekt'') Gemalt werden sollen Punkte und
+zwar pro Beobachtung (hier: Film) ein Punkt; nicht etwa Linien oder
+Boxplots. \texttt{data}: Als Datensatz bitte \texttt{movies} verwenden.
 \EndKnitrBlock{rmdpseudocode}
 
-Offenbar gibt es viele Extremwerte, was die Verspätung betrifft. Das
-erscheint mir nicht unplausibel (Schneesturm im Winter, Flugzeug
-verschwunden\ldots{}). Vor dem Hintergrund der Extremwerte erscheinen
-die mittleren Verspätungen (Mediane) in den Boxplots als ähnlich.
-Vielleicht ist der Unterschied zwischen den Monaten ausgeprägter?
+Offenbar geht die Schwere in den Budgets auseinander; außerdem scheint
+das Budget größer zu werden. Genau kann man es aber schlecht erkennen in
+diesem Diagramm. Besser ist es vielleicht die Daten pro Jahr
+zusammenzufassen in einem Geom und dann diese Geome zu vergleichen:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(month), }\DataTypeTok{y =} \NormalTok{arr_delay, }\DataTypeTok{geom =} \StringTok{"boxplot"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{flights)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(year), }\DataTypeTok{y =} \NormalTok{budget, }\DataTypeTok{geom =} \StringTok{"boxplot"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{movies)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
-Kaum ein Unterschied ersichtlich; das spricht gegen die Schneesturm-Idee
-als Grund für Verspätung. Aber schauen wir uns zuerst die Syntax von
-\texttt{qplot} näher an. ``q'' in \texttt{qplot} steht für ``quick''.
-Tatsächlich hat \texttt{qplot} einen großen Bruder,
-\texttt{ggplot}\footnote{Achtung: Nicht \texttt{qqplot}, nicht
-  \texttt{ggplot2}, nicht \texttt{gplot}\ldots{}}, der deutlich mehr
-Funktionen aufweist - und daher auch die umfangreichere (=komplexere)
-Syntax. Fangen wir mit \texttt{qplot} an.
+Übrigens: \texttt{factor(year)} wird benötigt, um aus \texttt{year} eine
+nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen
+auf der X-Achse zeichnet \texttt{qplot} mehrere Boxplots nebeneinander.
+
+Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser
+wäre es, Jahrzehnte dazustellen:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies$Jahrzehnt <-}\StringTok{ }\NormalTok{(movies$year /}\StringTok{ }\DecValTok{10}\NormalTok{) %>%}\StringTok{ }\NormalTok{trunc}
+\end{Highlighting}
+\end{Shaded}
+
+Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer
+``abhacken'': ``1978'' wird zu ``178''. Das erreichen wir in dem wir die
+Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen
+lassen (trunkieren, \texttt{trunc}).
+
+Ok, auf ein Neues (Abb. \ref{fig:fig-movies-jahrzehnt}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(Jahrzehnt), }\DataTypeTok{y =} \NormalTok{budget, }\DataTypeTok{geom =} \StringTok{"boxplot"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{movies)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-movies-jahrzehnt-1} 
+
+}
+
+\caption{Film-Budgets über die die Jahrzehnte}\label{fig:fig-movies-jahrzehnt}
+\end{figure}
+
+Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer
+Datenreihe; das ist aber vielleicht nur ein Zufallsrauchen.
+
+Aber schauen wir uns zuerst die Syntax von \texttt{qplot} näher an.
+``q'' in \texttt{qplot} steht für ``quick''. Tatsächlich hat
+\texttt{qplot} einen großen Bruder, \texttt{ggplot}\footnote{Achtung:
+  Nicht \texttt{qqplot}, nicht \texttt{ggplot2}, nicht
+  \texttt{gplot}\ldots{}}, der deutlich mehr Funktionen aufweist - und
+daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit
+\texttt{qplot} an.
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
 
@@ -5154,8 +5165,6 @@ Alternativ wäre ein Dichtediagramm hier von Interesse:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# qplot(x = shoe_size, data = wo_men)  wie oben}
-
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{data =} \NormalTok{wo_men, }\DataTypeTok{geom =} \StringTok{"density"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5218,7 +5227,7 @@ Blick auf das Gros der Werte nicht zu verstellen:
 \begin{Highlighting}[]
 
 \NormalTok{wo_men %>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(shoe_size <=}\StringTok{ }\DecValTok{47}\NormalTok{) ->}\StringTok{ }\NormalTok{wo_men2}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(height >}\StringTok{ }\DecValTok{150}\NormalTok{, height <}\StringTok{ }\DecValTok{210}\NormalTok{) ->}\StringTok{ }\NormalTok{wo_men2}
 
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{shoe_size, }\DataTypeTok{data =} \NormalTok{wo_men2,      }
       \DataTypeTok{geom =} \StringTok{"density"}\NormalTok{, }\DataTypeTok{fill =} \NormalTok{sex, }\DataTypeTok{alpha =} \KeywordTok{I}\NormalTok{(.}\DecValTok{7}\NormalTok{))}
@@ -5341,12 +5350,11 @@ und \texttt{geom\_bin2d()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(flights, }\DataTypeTok{package =} \StringTok{"nycflights13"}\NormalTok{)}
-\KeywordTok{nrow}\NormalTok{(flights)  }\CommentTok{# groß!}
-\CommentTok{#> [1] 336776}
+\KeywordTok{nrow}\NormalTok{(movies)  }\CommentTok{# groß, ein bisschen wenigstens}
+\CommentTok{#> [1] 58788}
 
-\KeywordTok{ggplot}\NormalTok{(flights) +}
-\StringTok{  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{distance, }\DataTypeTok{y =} \NormalTok{air_time) +}
+\KeywordTok{ggplot}\NormalTok{(movies) +}
+\StringTok{  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{year, }\DataTypeTok{y =} \NormalTok{budget) +}
 \StringTok{  }\KeywordTok{geom_hex}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -5477,8 +5485,7 @@ Frauen sind bei dieser Variablen die Werte \texttt{klein} häufig; bei
 den Männern hingegen die Werte \texttt{gross}.
 
 Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht
-mit \texttt{qplot} (so) nicht; wir schwenken auf \texttt{ggplot}
-um\footnote{Cleveland fände diese Idee nicht so gut.}.
+mit \texttt{qplot} (so) nicht; wir schwenken auf \texttt{ggplot} um.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5639,15 +5646,15 @@ wird das noch überschaubar bleiben.
 \begin{itemize}
 \tightlist
 \item
-  Geben Sie eine \emph{diskrete X-Achs}e an und *keine Y-AchseÜ, so
+  Geben Sie eine \emph{diskrete X-Achs}e an und \emph{keine Y-Achse}, so
   greift qplot im Standard auf das Geom \texttt{bar} zurück
   (Balkendiagramm), falls Sie kein Geom angeben:
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{smoker, }\DataTypeTok{data =} \NormalTok{tips)  }\CommentTok{# identisch zu}
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{smoker, }\DataTypeTok{data =} \NormalTok{tips, }\DataTypeTok{geom =} \StringTok{"bar)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{sex, }\DataTypeTok{data =} \NormalTok{wo_men)  }\CommentTok{# identisch zu}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{sex, }\DataTypeTok{data =} \NormalTok{wo_men, }\DataTypeTok{geom =} \StringTok{"bar"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5661,8 +5668,8 @@ wird das noch überschaubar bleiben.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{smoker, }\DataTypeTok{data =} \NormalTok{tips)  }\CommentTok{# identisch zu}
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{smoker, }\DataTypeTok{data =} \NormalTok{tips, }\DataTypeTok{geom =} \StringTok{"histogram"}\NormalTok{)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{wo_men)  }\CommentTok{# identisch zu}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{height, }\DataTypeTok{data =} \NormalTok{profiles, }\DataTypeTok{geom =} \StringTok{"histogram"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5676,8 +5683,8 @@ wird das noch überschaubar bleiben.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{total_bill, }\DataTypeTok{y =} \NormalTok{tip, }\DataTypeTok{data =} \NormalTok{tips)  }\CommentTok{# identisch zu}
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{total_bill, }\DataTypeTok{y=}  \NormalTok{tip, }\DataTypeTok{data =} \NormalTok{tips, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{height, }\DataTypeTok{y =} \NormalTok{shoe_size, }\DataTypeTok{data =} \NormalTok{wo_men2)  }\CommentTok{# identisch zu}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{height, }\DataTypeTok{y=}  \NormalTok{shoe_size, }\DataTypeTok{data =} \NormalTok{wo_men2i, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5710,10 +5717,9 @@ wird das noch überschaubar bleiben.
   ``Geschichte'', die das Zustandekommen der vier Plots von Anscombe
   (Abb. \ref{fig:fig-anscombe}) erklärt!
 \item
-  Abb. \ref{fig:fig-flights} stellt die mittlere Verspätung
-  verschiedener Fluggesellschaften dar; als ``Geom'' wird ein Boxplot
-  verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären
-  sie?
+  Abb. \ref{fig:fig-movies-jahrzehnt} stellt das mittlerer Budget von
+  Filmem dar; als ``Geom'' wird ein Boxplot verwendet. Andere Geome
+  wären auch möglich - aber wie sinnvoll wären sie?
 \item
   Erstellen Sie ein Diagramm, welches Histogramme der Verspätung
   verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß
@@ -5743,19 +5749,27 @@ wird das noch überschaubar bleiben.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{arr_delay, }\DataTypeTok{geom =} \StringTok{"histogram"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{flights, }\DataTypeTok{facets =} \StringTok{"~origin"}\NormalTok{)}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{budget, }\DataTypeTok{geom =} \StringTok{"histogram"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{movies, }\DataTypeTok{facets =} \NormalTok{~}\KeywordTok{factor}\NormalTok{(Jahrzehnt))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{figure}
 
-Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu
-präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge
-viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen.
-Einen optisch schönenen Effekt könnte man mit \texttt{geom\_jitter}
-anstelle von \texttt{geom\_point}erreichen. Auch die Reihenfolge der
-beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und
-Farbe der Geome noch zu feilen.
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/movies-histogram-1} 
+
+}
+
+\caption{Film-Budgets mit Histogrammen}\label{fig:movies-histogram}
+\end{figure}
+
+Der Boxplot ist besser geeignet als das Histogramm, um mehrere
+Verteilungen vergleichend zu präsentieren (vgl. Abb.
+\ref{fig:movies-histogram}). Durch die gleiche Ausrichtung der Boxplots
+ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu
+den Histogrammen. Einen optisch schönenen Effekt könnte man mit
+\texttt{geom\_jitter} anstelle von \texttt{geom\_point}erreichen. Auch
+die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch
+an Form, Größe und Farbe der Geome noch zu feilen.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5772,7 +5786,7 @@ Farbe der Geome noch zu feilen.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-33-1} \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-33-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-31-1} \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-31-2} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5797,7 +5811,7 @@ Farbe der Geome noch zu feilen.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 Der ``Trick'' ist hier, erst die zusammengefassten Daten in ein Geom zu
 stecken (\texttt{wo\_men3}). Dann werden die Rohdaten
@@ -5834,19 +5848,27 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-5}
+\section{Befehlsübersicht}\label{befehlsubersicht-4}
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-Paket::Funktion & Beschreibung\tabularnewline
-\midrule
-\endhead
-ggplot2::qplot & Malt schnell mal einen Plot\tabularnewline
-ggplot2::ggplot & Malt einen Plot\tabularnewline
-factor & Wandelt einen Vektor in den Typ \texttt{factor}
-um\tabularnewline
-\bottomrule
-\end{longtable}
+Tabelle \ref{tab:befehle-vis} fasst die R-Funktionen dieses Kapitels
+zusammen.
+
+\begin{table}
+
+\caption{\label{tab:befehle-vis}Befehle des Kapitels 'Daten visualisieren'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & Beschreibung\\
+\hline
+ggplot2::qplot & Malt schnell mal einen Plot\\
+\hline
+ggplot2::ggplot & Malt einen Plot\\
+\hline
+factor & Wandelt einen Vektor in den Typ factor um\\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Vertiefung: Geome bei ggplot2}\label{geome}
 
@@ -5864,7 +5886,7 @@ Geome dargestellt.
   Eine kontinuerliche Variable
 \end{enumerate}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5874,7 +5896,7 @@ Geome dargestellt.
   Zwei kontinuierliche Variablen
 \end{enumerate}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5887,13 +5909,13 @@ Geome dargestellt.
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\KeywordTok{ggplot}\NormalTok{(tips) +}
-\StringTok{  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{day) +}
+\KeywordTok{ggplot}\NormalTok{(wo_men2) +}
+\StringTok{  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{sex) +}
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-37-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5904,9 +5926,9 @@ Geome dargestellt.
   Y-Achse
 \end{enumerate}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-38-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
-\section{Verweise}\label{verweise-4}
+\section{Verweise}\label{verweise-3}
 
 \begin{itemize}
 \item
@@ -5976,7 +5998,7 @@ Hier laden wir einen Datensatz von einer Online-Umfrage:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"https://osf.io/meyhp/?action=download"}\NormalTok{)}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/extra.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7027,7 +7049,7 @@ Richtig oder Falsch!?
 \end{enumerate}
 \EndKnitrBlock{rmdexercises}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-6}
+\section{Befehlsübersicht}\label{befehlsubersicht-5}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -7041,7 +7063,7 @@ vorkommen\tabularnewline
 \bottomrule
 \end{longtable}
 
-\section{Verweise}\label{verweise-5}
+\section{Verweise}\label{verweise-4}
 
 \begin{itemize}
 \item
@@ -8481,7 +8503,7 @@ uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte
 im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein
 typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
 
-\section{Befehlsübersicht}\label{befehlsubersicht-7}
+\section{Befehlsübersicht}\label{befehlsubersicht-6}
 
 Tabelle \ref{tab:befehle-regression} stellt die Befehle dieses Kapitels
 dar.
@@ -8521,7 +8543,7 @@ anti\_join & Fügt nicht-matchende Zeilen eines Datensatzes zu einem anderen Dat
 \end{tabular}
 \end{table}
 
-\section{Verweise}\label{verweise-6}
+\section{Verweise}\label{verweise-5}
 
 Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{https://www.openintro.org/stat/index.php?stat_book=isrs}{OpenIntro}
@@ -9110,7 +9132,7 @@ Akzeptable Werte liegen bei \(0.7\) und größer, gute Werte sind es ab
 \(0.8\).\footnote{Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed.
   (2013), S. 164}
 
-\section{Vertiefung}\label{vertiefung-1}
+\section{Vertiefung}\label{vertiefung}
 
 \subsection{Modellschätzung}\label{modellschatzung}
 
@@ -9248,7 +9270,7 @@ Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine
 zusätzliche Variable \texttt{color} aufgenommen wird (Rot = 0, Weiß =
 1).
 
-\section{Befehlsübersicht}\label{befehlsubersicht-8}
+\section{Befehlsübersicht}\label{befehlsubersicht-7}
 
 Tabelle \ref{tab:befehle-logist-regression} stellt die Befehle dieses
 Kapitels dar.
@@ -9282,7 +9304,7 @@ BaylorEdPsych::PseudoR2 & Berechnet Pseudo-R-Quadrat-Werte\\
 \end{tabular}
 \end{table}
 
-\section{Verweise}\label{verweise-7}
+\section{Verweise}\label{verweise-6}
 
 Dieses Kapitel basiert teilweise auf Übungen zum Buch
 \href{https://www.openintro.org/stat/index.php?stat_book=isrs}{OpenIntro}
@@ -10744,7 +10766,7 @@ Ok, wie wäre es damit:
 
 Puh. Geschafft!
 
-\section{Befehlsübersicht}\label{befehlsubersicht-9}
+\section{Befehlsübersicht}\label{befehlsubersicht-8}
 
 Tabelle \ref{tab:befehle-fallstudien} fasst die R-Funktionen dieses
 Kapitels zusammen.
@@ -11275,7 +11297,7 @@ Er kann von \url{https://goo.gl/0YCEHf} heruntergeladen werden.
   unterscheiden sich die gefundenen Segmente?
 \end{enumerate}
 
-\section{Befehlsübersicht}\label{befehlsubersicht-10}
+\section{Befehlsübersicht}\label{befehlsubersicht-9}
 
 Tabelle \ref{tab:befehle-cluster} fasst die R-Funktionen dieses Kapitels
 zusammen.
@@ -11301,7 +11323,7 @@ cluster::clusplot & Visualisiert eine Clusteranalyse\\
 \end{tabular}
 \end{table}
 
-\section{Verweise}\label{verweise-8}
+\section{Verweise}\label{verweise-7}
 
 \begin{itemize}
 \item
@@ -11726,7 +11748,7 @@ die Abbildung um 90°, d.h. die Achsen sind vertauscht.
 \texttt{grid.arrange} packt beide Plots in eine Abbildung, welche 2
 Spalten (\texttt{ncol}) hat.
 
-\section{Befehlsübersicht}\label{befehlsubersicht-11}
+\section{Befehlsübersicht}\label{befehlsubersicht-10}
 
 Tabelle \ref{tab:befehle-text} fasst die R-Funktionen dieses Kapitels
 zusammen.
@@ -11758,7 +11780,7 @@ ggplot2::coord\_flip & Dreht die Achsen um 90 Grad\\
 \end{tabular}
 \end{table}
 
-\section{Verweise}\label{verweise-9}
+\section{Verweise}\label{verweise-8}
 
 \begin{itemize}
 \tightlist

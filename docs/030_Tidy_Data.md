@@ -5,11 +5,9 @@
 # Daten einlesen
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
@@ -21,16 +19,20 @@
 
 </div>\EndKnitrBlock{rmdcaution}
 
+
+In diesem Kapitel werden folgende Pakete benötigt: 
+
+```r
+library(readr)  # Daten einlesen
+```
+
+
 Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/Einlesen} 
-
-}
-
-\caption{Daten sauber einlesen}(\#fig:step-Einlesen)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Einlesen.png" alt="Daten sauber einlesen" width="70%" />
+<p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
+</div>
 
 
 ## Daten in R importieren
@@ -46,14 +48,10 @@ anschauen und weiterverwenden kann].
 
 Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen^[im Hintergrund wird das Paket `readxl` verwendet]:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/tidy/import_RStudio} 
-
-}
-
-\caption{Daten einlesen (importieren) mit RStudio}(\#fig:data-import-RStudio)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p class="caption">(\#fig:data-import-RStudio)Daten einlesen (importieren) mit RStudio</p>
+</div>
 
 
 
@@ -61,7 +59,7 @@ Es ist für bestimmte Zwecke sinnvoll, nicht zu klicken, sondern die Syntax einz
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
-Daten (CSV, Excel,...)  können Sie *nicht* öffnen über `File > Open File ...`. Dieser Weg ist Skript-Dateien vorbehalten. 
+Daten (CSV, Excel,...)  können Sie *nicht* öffnen über `File > Open File ...`. Dieser Weg ist Skript-Dateien und R-Daten-Objekten vorbehalten. 
 </div>\EndKnitrBlock{rmdcaution}
 
 
@@ -70,24 +68,26 @@ Daten (CSV, Excel,...)  können Sie *nicht* öffnen über `File > Open File ...`
 Die gebräuchlichste Form von Daten für statistische Analysen ist wahrscheinlich das CSV-Format. Das ist ein einfaches Format, basierend auf einer Textdatei. Schauen Sie sich mal diesen Auszug aus einer CSV-Datei an.
 
 ```
-"ID","time","sex","height","shoe_size"
-"1","04.10.2016 17:58:51",NA,160.1,40
-"2","04.10.2016 17:58:59","woman",171.2,39
-"3","04.10.2016 18:00:15","woman",174.2,39
-"4","04.10.2016 18:01:17","woman",176.4,40
-"5","04.10.2016 18:01:22","man",195.2,46
+row_number,date_time,study_time,self_eval,interest,score
+1,05.01.2017 13:57:01,5,8,5,29
+2,05.01.2017 21:07:56,3,7,3,29
+3,05.01.2017 23:33:47,5,10,6,40
+4,06.01.2017 09:58:05,2,3,2,18
+5,06.01.2017 14:13:08,4,8,6,34
+6,06.01.2017 14:21:18,NA,NA,NA,39
 ```
 
-Erkennen Sie das Muster? Die erste Zeile gibt die "Spaltenköpfe" wieder, also die Namen der Variablen. Hier sind es 5 Spalten; die vierte heißt "shoe_size". Die Spalten sind offenbar durch Komma `,` voneinander getrennt. Dezimalstellen sind in amerikanischer Manier mit einem Punkt `.` dargestellt. Die Daten sind "rechteckig"; alle Spalten haben gleich viele Zeilen und umgekehrt alle Spalten gleich viele Zeilen. Man kann sich diese Tabelle gut als Excel-Tabelle mit Zellen vorstellen, in denen z.B. "ID" (Zelle oben links) oder "46" (Zelle unten rechts) steht.
 
-An einer Stelle steht `NA`. Das ist Errisch für "fehlender Wert". Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen anderen ab; führt nur zu Verwirrung.
+Erkennen Sie das Muster? Die erste Zeile gibt die "Spaltenköpfe" wieder, also die Namen der Variablen. Hier sind es 6 Spalten; die fünft heißt "score" und gibt die Punkte eines Studierenden in einer Statistikklausur wieder. Die Spalten sind offenbar durch Komma `,` voneinander getrennt. Dezimalstellen sind in amerikanischer Manier mit einem Punkt `.` dargestellt. Die Daten sind "rechteckig"; alle Spalten haben gleich viele Zeilen und umgekehrt alle Spalten gleich viele Zeilen. Man kann sich diese Tabelle gut als Excel-Tabelle mit Zellen vorstellen, in denen z.B. "row_number" (Zelle oben links) oder "39" (Zelle unten rechts) steht.
+
+An einigen Stelle steht `NA`. Das ist Errisch für "fehlender Wert". Häufig wird die Zelle auch leer gelassen, um auszudrücken, dass ein Wert hier fehlt (hört sich nicht ganz doof an). Aber man findet alle möglichen Ideen, um fehlende Werte darzustellen. Ich rate von allen anderen ab; führt nur zu Verwirrung.
 
 Lesen wir diese Daten jetzt ein:
 
 
 
 ```r
-daten <- read.csv("data/wo_men.csv")
+df <- read.csv("data/test_inf_short.csv")
 ```
 
 #### Vorsicht bei nicht-amerikanisch kodierten Textdateien
@@ -104,31 +104,10 @@ Dabei steht `sep` (separator) für das Trennzeichen zwischen den Spalten und `de
 
 Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Import Dataset" (für CSV-Dateien) gibt es den Auswahlpunkt "Delimiter" (Trennzeichen). Dort kann man das Komma durch einen Strichkpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/delimiter} 
-
-}
-
-\caption{Trennzeichen einer CSV-Datei in RStudio einstellen}(\#fig:rstudio-delimiter)
-\end{figure}
-
-
-
-#### Vertiefung: Einlesen mit Prüfung
-
-
-```
-#>   X                time   sex height shoe_size
-#> 1 1 04.10.2016 17:58:51 woman    160        40
-#> 2 2 04.10.2016 17:58:59 woman    171        39
-#> 3 3 04.10.2016 18:00:15 woman    174        39
-#> 4 4 04.10.2016 18:01:17 woman    176        40
-#> 5 5 04.10.2016 18:01:22   man    195        46
-#> 6 6 04.10.2016 18:01:53 woman    157        37
-```
-
-Wir haben zuerst geprüft, ob die Datei (`wo_men.csv`) im entsprechenden Ordner existiert oder nicht (das `!`-Zeichen heißt auf Errisch "nicht"). Falls die Datei nicht im Ordner existiert, laden wir sie mit `read.csv` herunter und direkt ins R hinein. Andernfalls (`else`) lesen wir sie direkt ins R hinein.
+<div class="figure" style="text-align: center">
+<img src="images/tidy/delimiter.png" alt="Trennzeichen einer CSV-Datei in RStudio einstellen" width="70%" />
+<p class="caption">(\#fig:rstudio-delimiter)Trennzeichen einer CSV-Datei in RStudio einstellen</p>
+</div>
 
 
 
@@ -164,64 +143,70 @@ Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als
 
 Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/tidy-1} 
-
-}
-
-\caption{Schematische Darstellung eines Dataframes in Normalform}(\#fig:tidy1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
+<p class="caption">(\#fig:tidy1)Schematische Darstellung eines Dataframes in Normalform</p>
+</div>
 
 
 
-Der Punkt "Jede Zeile eine Beobachtung, jede Spalte eine Variable" verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
+Der Punkt *Jede Zeile eine Beobachtung, jede Spalte eine Variable, jede Zelle ein Wert* verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/breit_lang} 
-
-}
-
-\caption{Dieselben Daten - einmal breit, einmal lang}(\#fig:lang-breit)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/breit_lang.png" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
+<p class="caption">(\#fig:lang-breit)Dieselben Daten - einmal breit, einmal lang</p>
+</div>
 
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/Normalform} 
-
-}
-
-\caption{Illustration eines Datensatzes in Normalform}(\#fig:fig-Normalform)
-\end{figure}
-
-## Vertiefung
-
-### Tabelle in Normalform bringen
-
-Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von Breit- auf Langformat (und wieder zurück) geschoben werden kann.
-
-Ein Beispiel dazu:
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Normalform.png" alt="Illustration eines Datensatzes in Normalform" width="70%" />
+<p class="caption">(\#fig:fig-Normalform)Illustration eines Datensatzes in Normalform</p>
+</div>
 
 
-```r
-meindf <- read.csv("http://stanford.edu/~ejdemyr/r-tutorials/data/unicef-u5mr.csv")
+## Tabelle in Normalform bringen {#normalform}
 
-df_lang <- gather(meindf, year, u5mr, U5MR.1950:U5MR.2015)
+Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihrer Tabelle sein. In R bietet sich dazu das Paket `tidyr` an, mit dem die Tabelle von *Breit- auf Langformat* (und wieder zurück) geschoben werden kann.
 
-df_lang <- separate(df_lang, year, into = c("U5MR", "year"), sep = ".")
+
+Abb. \@ref(fig:gather-spread) zeigt ein Beispiel dazu.
+
+
+<div class="figure" style="text-align: center">
+<img src="images/tidy/gather_spread.png" alt="Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form" width="70%" />
+<p class="caption">(\#fig:gather-spread)Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form</p>
+</div>
+
+
+Warum ist es wichtig, von der "breiten" (links in Abb. \@ref(fig:gather-spread)) zur "langen" oder "Normalform" (rechts in Abb. \@ref(fig:gather-spread)) zu wechseln. Ganz einfach: viele Befehle (allgemeiner: Tätigkeiten) verlangen die Normalform; hin und wieder sind aber die Tabellen von ihrem Schöpfer in breiter Form geschaffen worden. Zum Beispiel erwartet `ggplot2` - und viele andere Diagrammbefehle - dass man *einer* Achse *eine* Spalte (Variable)  zuweist, z.B. die Variable "Umsatz" auf die Y-Achse. Der X-Achse könnten wir dann z.B. die Variable "Quartal" packen (s. Abb. \@ref(fig:bsp-abb)).
+
+<div class="figure" style="text-align: center">
+<img src="images/tidy/bsp_diagramm-crop.pdf" alt="Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle" width="70%" />
+<p class="caption">(\#fig:bsp-abb)Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle</p>
+</div>
+
+
+Um von der breiten Form zur langen Form zu kommen, kann man den Befehl `tidyr::gather` nehmen. Von der langen Form zur breiten From gibt es `tidyr::spread`. Also etwa:
+
+```
+df_lang <- gather(df_breit, key = "Quartal", value = "Umsatz")
+
+df_breit <- spread(df_lang, Quartal, Umsatz)
 ```
 
-- Die erste Zeile liest die Daten aus einer CSV-Datei ein; praktischerweise direkt von einer Webseite.   
-- Die zweite Zeile `gather` formt die Daten *von breit nach lang* um. Die neuen Spalten, nach der Umformung heißen dann `year` und `u5mr` (Sterblichkeit bei Kindern unter fünf Jahren). In die Umformung werden die Spalten `U5MR 1950` bis `U5MR 2015` einbezogen.
-- Die dritte Zeile `separate` *entzerrt* die Werte der Spalte `year`; hier stehen die ehemaligen Spaltenköpfe. Man nennt sie auch `key` Spalte daher. Steht in einer Zelle von `year` bspw. `U5MR 1950`, so wird `U5MR` in eine Spalte mit Namen `U5MR` und `1950` in eine Spalte mit Namen `year` geschrieben.
+Dabei baut `gather` den Dataframe so um, dass nur zwei Spalten übrig bleiben (s. Abb. \@ref(fig:gather-spread)). Eine Spalte  nur *Spaltennamen* ("Q1", "Q2", ...) enthält; diese Spalte nennt `gather` im Standard `key`. Die zweite Spalte enthält die Werte (z.B. Umsätze), die vormals über mehrere Spalten verstreut waren. Diese Spalte heißt per Default `value`. Im Beispiel oben macht die Spalte `ID` bei dem Spiel "Aus vielen Spalten werden zwei" nicht mit. Möchte man eine Spalte aussparen, so schreibt man das bei `gather` so:
+
+```
+df_lang <- gather(df_breit, key = "Quartal", value = "Umsatz", -ID)
+```
+
+In Kapitel \@ref(case-movies) werden wir dazu ein Fallstudie einüben.
 
 
-### Textkodierung
+## Textkodierung
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht man... Text und sonst nichts, also keine Formatierung etc. Eine Textdatei besteht aus Text und sonst nichts (daher der Name...). Auch eine R-Skript-Datei (`Coole_Syntax.R`) ist eine Textdatei.
 Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Ein bestimmtes Zeichen wie "A" bekommt einen bestimmten Code wie "41". Mit etwas Glück weiß der Computer jetzt, dass er das Zeichen "41" auf den Bildschirm ausgeben soll. Es stellt sich jetzt die Frage, welche Code-Tabelle der Computer nutzt? Welchem Code wird "A" (bzw. ein beliebiges Zeichen) zugeordnet? Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
@@ -257,24 +242,16 @@ Tabelle \@ref(tab:befehle-tidy) stellt die Befehle dieses Kapitels dar.
 #> )
 ```
 
-\begin{table}
 
-\caption{(\#tab:befehle-tidy)Befehle des Kapitels 'Daten einlesen'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-read.csv & Liest eine CSV-Datei ein.\\
-\hline
-write.csv & Schreibt einen Dateframe in eine CSV-Datei.\\
-\hline
-tidyr::gather & Macht aus einem "breiten" Dataframe einen "langen".\\
-\hline
-tidyr::separate & "Zieht" Spalten auseinander.\\
-\hline
-\end{tabular}
-\end{table}
+
+Table: (\#tab:befehle-tidy)Befehle des Kapitels 'Daten einlesen'
+
+Paket::Funktion   Beschreibung                                        
+----------------  ----------------------------------------------------
+read.csv          Liest eine CSV-Datei ein.                           
+write.csv         Schreibt einen Dateframe in eine CSV-Datei.         
+tidyr::gather     Macht aus einem "breiten" Dataframe einen "langen". 
+tidyr::separate   "Zieht" Spalten auseinander.                        
 
 
 

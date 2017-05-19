@@ -346,7 +346,7 @@ Eine numerische Variable ...
 Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Intervall) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen^[d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
 
 ```{r}
-stats_test <- read_csv("data/stats_test.csv")
+stats_test <- read.csv("data/test_inf_short.csv")
 
 
 temp <- cut_interval(x = stats_test$score, n = 3)

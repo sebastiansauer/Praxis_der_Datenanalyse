@@ -131,9 +131,10 @@ movies$Jahrzehnt <- (movies$year / 10) %>% trunc
 
 Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer "abhacken": "1978" wird zu "178". Das erreichen wir in dem wir die Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen lassen (trunkieren, `trunc`). 
 
-Ok, auf ein Neues:
+Ok, auf ein Neues (Abb. \@ref(fig:fig-movies-jahrzehnt)):
 
-```{r}
+```{r fig-movies-jahrzehnt, fig.cap = "Film-Budgets über die die Jahrzehnte"}
+
 qplot(x = factor(Jahrzehnt), y = budget, geom = "boxplot", data = movies)
 ```
 
@@ -159,6 +160,8 @@ Unter den vielen Arten von Diagrammen und vielen Arten, diese zu klassifizieren 
 Schauen wir uns die Verteilung der Schuhgrößen von Studierenden an.
 
 ```{r}
+wo_men <- read.csv("data/wo_men.csv")
+
 qplot(x = shoe_size, data = wo_men)
 ```
 
@@ -492,7 +495,7 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 
 1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
 
-1. Abb. \@ref(fig:fig-flights) stellt die mittlere Verspätung verschiedener Fluggesellschaften dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+1. Abb. \@ref(fig:fig-movies-jahrzehnt) stellt das mittlerer Budget von Filmem dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
 1. Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 
@@ -512,11 +515,11 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 
 2. :
 
-```{r}
-qplot(x = arr_delay, geom = "histogram", data = flights, facets = "~origin")
+```{r movies-histogram, fig.cap = "Film-Budgets mit Histogrammen"}
+qplot(x = budget, geom = "histogram", data = movies, facets = ~factor(Jahrzehnt))
 ```
 
-Der Boxplot ist besser geeignet, um mehrere Verteilungen vergleichend zu präsentieren. Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
+Der Boxplot ist besser geeignet als das Histogramm, um mehrere Verteilungen vergleichend zu präsentieren (vgl. Abb. \@ref(fig:movies-histogram)). Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
 
 3. :
@@ -565,12 +568,16 @@ Richtig oder Falsch!?
 
 ## Befehlsübersicht
 
+Tabelle \@ref(tab:befehle-vis) fasst die R-Funktionen dieses Kapitels zusammen.
 
-Paket::Funktion        Beschreibung
------------------      -------------
-ggplot2::qplot         Malt schnell mal einen Plot
-ggplot2::ggplot        Malt einen Plot
-factor                 Wandelt einen Vektor in den Typ `factor` um
+```{r befehle-vis, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Vis.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Daten visualisieren'")
+```
+
 
 
 ## Vertiefung: Geome bei ggplot2 {#geome}

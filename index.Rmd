@@ -6,7 +6,9 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an IFES"
-cover-image: images/div/cover.jpg
+cover-image: "images/div/cover.jpg"
+favicon: "images/favicon/favicon.ico"
+#url: "https\://sebastiansauer.github.io/Praxis_der_Datenanalyse/"
 bibliography:
 - bib.bib
 - libs.bib
