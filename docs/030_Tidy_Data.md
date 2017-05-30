@@ -5,11 +5,9 @@
 # Daten einlesen
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
@@ -31,14 +29,10 @@ library(readr)  # Daten einlesen
 
 Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/Einlesen} 
-
-}
-
-\caption{Daten sauber einlesen}(\#fig:step-Einlesen)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Einlesen.png" alt="Daten sauber einlesen" width="70%" />
+<p class="caption">(\#fig:step-Einlesen)Daten sauber einlesen</p>
+</div>
 
 
 ## Daten in R importieren
@@ -54,14 +48,10 @@ anschauen und weiterverwenden kann].
 
 Am einfachsten ist es, eine Excel-Datei (.xls oder .xlsx) über die RStudio-Oberfläche zu importieren; das ist mit ein paar Klicks geschehen^[im Hintergrund wird das Paket `readxl` verwendet]:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/tidy/import_RStudio} 
-
-}
-
-\caption{Daten einlesen (importieren) mit RStudio}(\#fig:data-import-RStudio)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/import_RStudio.png" alt="Daten einlesen (importieren) mit RStudio" width="50%" />
+<p class="caption">(\#fig:data-import-RStudio)Daten einlesen (importieren) mit RStudio</p>
+</div>
 
 
 
@@ -114,14 +104,10 @@ Dabei steht `sep` (separator) für das Trennzeichen zwischen den Spalten und `de
 
 Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Import Dataset" (für CSV-Dateien) gibt es den Auswahlpunkt "Delimiter" (Trennzeichen). Dort kann man das Komma durch einen Strichkpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/delimiter} 
-
-}
-
-\caption{Trennzeichen einer CSV-Datei in RStudio einstellen}(\#fig:rstudio-delimiter)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/delimiter.png" alt="Trennzeichen einer CSV-Datei in RStudio einstellen" width="70%" />
+<p class="caption">(\#fig:rstudio-delimiter)Trennzeichen einer CSV-Datei in RStudio einstellen</p>
+</div>
 
 
 
@@ -157,40 +143,28 @@ Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als
 
 Abbildung \@ref(fig:tidy1) visualisiert die Bestimmungsstücke eines Dataframes [@r4ds]: 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/tidy-1} 
-
-}
-
-\caption{Schematische Darstellung eines Dataframes in Normalform}(\#fig:tidy1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/tidy-1.png" alt="Schematische Darstellung eines Dataframes in Normalform" width="70%" />
+<p class="caption">(\#fig:tidy1)Schematische Darstellung eines Dataframes in Normalform</p>
+</div>
 
 
 
 Der Punkt *Jede Zeile eine Beobachtung, jede Spalte eine Variable, jede Zelle ein Wert* verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/breit_lang} 
-
-}
-
-\caption{Dieselben Daten - einmal breit, einmal lang}(\#fig:lang-breit)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/breit_lang.png" alt="Dieselben Daten - einmal breit, einmal lang" width="70%" />
+<p class="caption">(\#fig:lang-breit)Dieselben Daten - einmal breit, einmal lang</p>
+</div>
 
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/Normalform} 
-
-}
-
-\caption{Illustration eines Datensatzes in Normalform}(\#fig:fig-Normalform)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Normalform.png" alt="Illustration eines Datensatzes in Normalform" width="70%" />
+<p class="caption">(\#fig:fig-Normalform)Illustration eines Datensatzes in Normalform</p>
+</div>
 
 
 ## Tabelle in Normalform bringen {#normalform}
@@ -201,26 +175,18 @@ Eine der ersten Aktionen einer Datenanalyse sollte also die "Normalisierung" Ihr
 Abb. \@ref(fig:gather-spread) zeigt ein Beispiel dazu.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/gather_spread} 
-
-}
-
-\caption{Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form}(\#fig:gather-spread)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/gather_spread.png" alt="Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form" width="70%" />
+<p class="caption">(\#fig:gather-spread)Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form</p>
+</div>
 
 
 Warum ist es wichtig, von der "breiten" (links in Abb. \@ref(fig:gather-spread)) zur "langen" oder "Normalform" (rechts in Abb. \@ref(fig:gather-spread)) zu wechseln. Ganz einfach: viele Befehle (allgemeiner: Tätigkeiten) verlangen die Normalform; hin und wieder sind aber die Tabellen von ihrem Schöpfer in breiter Form geschaffen worden. Zum Beispiel erwartet `ggplot2` - und viele andere Diagrammbefehle - dass man *einer* Achse *eine* Spalte (Variable)  zuweist, z.B. die Variable "Umsatz" auf die Y-Achse. Der X-Achse könnten wir dann z.B. die Variable "Quartal" packen (s. Abb. \@ref(fig:bsp-abb)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/bsp_diagramm-crop} 
-
-}
-
-\caption{Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle}(\#fig:bsp-abb)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/bsp_diagramm-crop.pdf" alt="Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle" width="70%" />
+<p class="caption">(\#fig:bsp-abb)Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle</p>
+</div>
 
 
 Um von der breiten Form zur langen Form zu kommen, kann man den Befehl `tidyr::gather` nehmen. Von der langen Form zur breiten From gibt es `tidyr::spread`. Also etwa:
@@ -276,24 +242,16 @@ Tabelle \@ref(tab:befehle-tidy) stellt die Befehle dieses Kapitels dar.
 #> )
 ```
 
-\begin{table}
 
-\caption{(\#tab:befehle-tidy)Befehle des Kapitels 'Daten einlesen'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-read.csv & Liest eine CSV-Datei ein.\\
-\hline
-write.csv & Schreibt einen Dateframe in eine CSV-Datei.\\
-\hline
-tidyr::gather & Macht aus einem "breiten" Dataframe einen "langen".\\
-\hline
-tidyr::separate & "Zieht" Spalten auseinander.\\
-\hline
-\end{tabular}
-\end{table}
+
+Table: (\#tab:befehle-tidy)Befehle des Kapitels 'Daten einlesen'
+
+Paket::Funktion   Beschreibung                                        
+----------------  ----------------------------------------------------
+read.csv          Liest eine CSV-Datei ein.                           
+write.csv         Schreibt einen Dateframe in eine CSV-Datei.         
+tidyr::gather     Macht aus einem "breiten" Dataframe einen "langen". 
+tidyr::separate   "Zieht" Spalten auseinander.                        
 
 
 

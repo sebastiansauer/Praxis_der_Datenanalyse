@@ -576,27 +576,33 @@ stats_test &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span 
 <span class="kw">arrange</span>(stats_test, score) <span class="co"># liefert die *schlechtesten* Noten zuerst zurück</span>
 <span class="kw">arrange</span>(stats_test, -score) <span class="co"># liefert die *besten* Noten zuerst zurück</span>
 <span class="kw">arrange</span>(stats_test, interest, score)</code></pre></div>
-<pre><code>#&gt;     X                 V_1 study_time self_eval interest score
-#&gt; 1 234 23.01.2017 18:13:15          3         1        1    17
-#&gt; 2   4 06.01.2017 09:58:05          2         3        2    18
-#&gt; 3 131 19.01.2017 18:03:45          2         3        4    18
-#&gt; 4 142 19.01.2017 19:02:12          3         4        1    18
-#&gt; 5  35 12.01.2017 19:04:43          1         2        3    19
-#&gt; 6  71 15.01.2017 15:03:29          3         3        3    20
-#&gt;    X                 V_1 study_time self_eval interest score
-#&gt; 1  3 05.01.2017 23:33:47          5        10        6    40
-#&gt; 2  7 06.01.2017 14:25:49         NA        NA       NA    40
-#&gt; 3 29 12.01.2017 09:48:16          4        10        3    40
-#&gt; 4 41 13.01.2017 12:07:29          4        10        3    40
-#&gt; 5 58 14.01.2017 15:43:01          3         8        2    40
-#&gt; 6 83 16.01.2017 10:16:52         NA        NA       NA    40
-#&gt;     X                 V_1 study_time self_eval interest score
-#&gt; 1 234 23.01.2017 18:13:15          3         1        1    17
-#&gt; 2 142 19.01.2017 19:02:12          3         4        1    18
-#&gt; 3 221 23.01.2017 11:40:30          1         1        1    23
-#&gt; 4 230 23.01.2017 16:27:49          1         1        1    23
-#&gt; 5  92 17.01.2017 17:18:55          1         1        1    24
-#&gt; 6 107 18.01.2017 16:01:36          3         2        1    24</code></pre>
+<pre><code>#&gt; # A tibble: 6 x 6
+#&gt;   row_number           date_time study_time self_eval interest score
+#&gt;        &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;
+#&gt; 1        234 23.01.2017 18:13:15          3         1        1    17
+#&gt; 2          4 06.01.2017 09:58:05          2         3        2    18
+#&gt; 3        131 19.01.2017 18:03:45          2         3        4    18
+#&gt; 4        142 19.01.2017 19:02:12          3         4        1    18
+#&gt; 5         35 12.01.2017 19:04:43          1         2        3    19
+#&gt; 6         71 15.01.2017 15:03:29          3         3        3    20
+#&gt; # A tibble: 6 x 6
+#&gt;   row_number           date_time study_time self_eval interest score
+#&gt;        &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;
+#&gt; 1          3 05.01.2017 23:33:47          5        10        6    40
+#&gt; 2          7 06.01.2017 14:25:49         NA        NA       NA    40
+#&gt; 3         29 12.01.2017 09:48:16          4        10        3    40
+#&gt; 4         41 13.01.2017 12:07:29          4        10        3    40
+#&gt; 5         58 14.01.2017 15:43:01          3         8        2    40
+#&gt; 6         83 16.01.2017 10:16:52         NA        NA       NA    40
+#&gt; # A tibble: 6 x 6
+#&gt;   row_number           date_time study_time self_eval interest score
+#&gt;        &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;
+#&gt; 1        234 23.01.2017 18:13:15          3         1        1    17
+#&gt; 2        142 19.01.2017 19:02:12          3         4        1    18
+#&gt; 3        221 23.01.2017 11:40:30          1         1        1    23
+#&gt; 4        230 23.01.2017 16:27:49          1         1        1    23
+#&gt; 5         92 17.01.2017 17:18:55          1         1        1    24
+#&gt; 6        107 18.01.2017 16:01:36          3         2        1    24</code></pre>
 <p>Einige Anmerkungen. Die generelle Syntax lautet <code>arrange(df, Spalte1, ...)</code>, wobei <code>df</code> den Dataframe bezeichnet und <code>Spalte1</code> die erste zu sortierende Spalte; die Punkte <code>...</code> geben an, dass man weitere Parameter übergeben kann. Man kann sowohl numerische Spalten als auch Textspalten sortieren. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.</p>
 <p>Standardmäßig sortiert <code>arrange</code> <em>aufsteigend</em> (weil kleine Zahlen im Zahlenstrahl vor den großen Zahlen kommen). Möchte man diese Reihenfolge umdrehen (große Werte zuert, d.h. <em>absteigend</em>), so kann man ein Minuszeichen vor den Namen der Spalte setzen.</p>
 <p>Gibt man <em>zwei oder mehr</em> Spalten an, so werden pro Wert von <code>Spalte1</code> die Werte von <code>Spalte2</code> sortiert etc; man betrachte den Output des Beispiels oben dazu.</p>
@@ -614,36 +620,40 @@ Abbildung 4.6: Spalten sortieren
 <p>Ein ähnliches Ergebnis erhält mit man <code>top_n()</code>, welches die <code>n</code> <em>größten Elemente</em> widergibt:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">top_n</span>(stats_test, <span class="dv">3</span>)
-<span class="co">#&gt;      X                 V_1 study_time self_eval interest score</span>
-<span class="co">#&gt; 1    3 05.01.2017 23:33:47          5        10        6    40</span>
-<span class="co">#&gt; 2    7 06.01.2017 14:25:49         NA        NA       NA    40</span>
-<span class="co">#&gt; 3   29 12.01.2017 09:48:16          4        10        3    40</span>
-<span class="co">#&gt; 4   41 13.01.2017 12:07:29          4        10        3    40</span>
-<span class="co">#&gt; 5   58 14.01.2017 15:43:01          3         8        2    40</span>
-<span class="co">#&gt; 6   83 16.01.2017 10:16:52         NA        NA       NA    40</span>
-<span class="co">#&gt; 7  116 18.01.2017 23:07:32          4         8        5    40</span>
-<span class="co">#&gt; 8  119 19.01.2017 09:05:01         NA        NA       NA    40</span>
-<span class="co">#&gt; 9  132 19.01.2017 18:22:32         NA        NA       NA    40</span>
-<span class="co">#&gt; 10 175 20.01.2017 23:03:36          5        10        5    40</span>
-<span class="co">#&gt; 11 179 21.01.2017 07:40:05          5         9        1    40</span>
-<span class="co">#&gt; 12 185 21.01.2017 15:01:26          4        10        5    40</span>
-<span class="co">#&gt; 13 196 22.01.2017 13:38:56          4        10        5    40</span>
-<span class="co">#&gt; 14 197 22.01.2017 14:55:17          4        10        5    40</span>
-<span class="co">#&gt; 15 248 24.01.2017 16:29:45          2        10        2    40</span>
-<span class="co">#&gt; 16 249 24.01.2017 17:19:54         NA        NA       NA    40</span>
-<span class="co">#&gt; 17 257 25.01.2017 10:44:34          2         9        3    40</span>
-<span class="co">#&gt; 18 306 27.01.2017 11:29:48          4         9        3    40</span>
+<span class="co">#&gt; # A tibble: 18 x 6</span>
+<span class="co">#&gt;    row_number           date_time study_time self_eval interest score</span>
+<span class="co">#&gt;         &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1          3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt;  2          7 06.01.2017 14:25:49         NA        NA       NA    40</span>
+<span class="co">#&gt;  3         29 12.01.2017 09:48:16          4        10        3    40</span>
+<span class="co">#&gt;  4         41 13.01.2017 12:07:29          4        10        3    40</span>
+<span class="co">#&gt;  5         58 14.01.2017 15:43:01          3         8        2    40</span>
+<span class="co">#&gt;  6         83 16.01.2017 10:16:52         NA        NA       NA    40</span>
+<span class="co">#&gt;  7        116 18.01.2017 23:07:32          4         8        5    40</span>
+<span class="co">#&gt;  8        119 19.01.2017 09:05:01         NA        NA       NA    40</span>
+<span class="co">#&gt;  9        132 19.01.2017 18:22:32         NA        NA       NA    40</span>
+<span class="co">#&gt; 10        175 20.01.2017 23:03:36          5        10        5    40</span>
+<span class="co">#&gt; 11        179 21.01.2017 07:40:05          5         9        1    40</span>
+<span class="co">#&gt; 12        185 21.01.2017 15:01:26          4        10        5    40</span>
+<span class="co">#&gt; 13        196 22.01.2017 13:38:56          4        10        5    40</span>
+<span class="co">#&gt; 14        197 22.01.2017 14:55:17          4        10        5    40</span>
+<span class="co">#&gt; 15        248 24.01.2017 16:29:45          2        10        2    40</span>
+<span class="co">#&gt; 16        249 24.01.2017 17:19:54         NA        NA       NA    40</span>
+<span class="co">#&gt; 17        257 25.01.2017 10:44:34          2         9        3    40</span>
+<span class="co">#&gt; 18        306 27.01.2017 11:29:48          4         9        3    40</span>
 <span class="kw">top_n</span>(stats_test, <span class="dv">3</span>, interest)
-<span class="co">#&gt;     X                 V_1 study_time self_eval interest score</span>
-<span class="co">#&gt; 1   3 05.01.2017 23:33:47          5        10        6    40</span>
-<span class="co">#&gt; 2   5 06.01.2017 14:13:08          4         8        6    34</span>
-<span class="co">#&gt; 3  43 13.01.2017 14:14:16          4         8        6    36</span>
-<span class="co">#&gt; 4  65 15.01.2017 12:41:27          3         6        6    22</span>
-<span class="co">#&gt; 5 110 18.01.2017 18:53:02          5         8        6    37</span>
-<span class="co">#&gt; 6 136 19.01.2017 18:22:57          3         1        6    39</span>
-<span class="co">#&gt; 7 172 20.01.2017 20:42:46          5        10        6    34</span>
-<span class="co">#&gt; 8 214 22.01.2017 21:57:36          2         6        6    31</span>
-<span class="co">#&gt; 9 301 27.01.2017 08:17:59          4         8        6    33</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 9 x 6</span>
+<span class="co">#&gt;   row_number           date_time study_time self_eval interest score</span>
+<span class="co">#&gt;        &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1          3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt; 2          5 06.01.2017 14:13:08          4         8        6    34</span>
+<span class="co">#&gt; 3         43 13.01.2017 14:14:16          4         8        6    36</span>
+<span class="co">#&gt; 4         65 15.01.2017 12:41:27          3         6        6    22</span>
+<span class="co">#&gt; 5        110 18.01.2017 18:53:02          5         8        6    37</span>
+<span class="co">#&gt; 6        136 19.01.2017 18:22:57          3         1        6    39</span>
+<span class="co">#&gt; 7        172 20.01.2017 20:42:46          5        10        6    34</span>
+<span class="co">#&gt; 8        214 22.01.2017 21:57:36          2         6        6    31</span>
+<span class="co">#&gt; 9        301 27.01.2017 08:17:59          4         8        6    33</span></code></pre></div>
 <p>Gibt man <em>keine</em> Spalte an, so bezieht sich <code>top_n</code> auf die letzte Spalte im Datensatz.</p>
 <p>Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir <em>nicht</em> 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr “denkt” sich: “Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde”.</p>
 <div id="aufgaben-5" class="section level4">
@@ -681,18 +691,18 @@ test_gruppiert
 <span class="co">#&gt; Groups: interest [7]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; # A tibble: 306 x 6</span>
-<span class="co">#&gt;        X                 V_1 study_time self_eval interest score</span>
-<span class="co">#&gt;    &lt;int&gt;              &lt;fctr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1     1 05.01.2017 13:57:01          5         8        5    29</span>
-<span class="co">#&gt;  2     2 05.01.2017 21:07:56          3         7        3    29</span>
-<span class="co">#&gt;  3     3 05.01.2017 23:33:47          5        10        6    40</span>
-<span class="co">#&gt;  4     4 06.01.2017 09:58:05          2         3        2    18</span>
-<span class="co">#&gt;  5     5 06.01.2017 14:13:08          4         8        6    34</span>
-<span class="co">#&gt;  6     6 06.01.2017 14:21:18         NA        NA       NA    39</span>
-<span class="co">#&gt;  7     7 06.01.2017 14:25:49         NA        NA       NA    40</span>
-<span class="co">#&gt;  8     8 06.01.2017 17:24:53          2         5        3    24</span>
-<span class="co">#&gt;  9     9 07.01.2017 10:11:17          2         3        5    25</span>
-<span class="co">#&gt; 10    10 07.01.2017 18:10:05          4         5        5    33</span>
+<span class="co">#&gt;    row_number           date_time study_time self_eval interest score</span>
+<span class="co">#&gt;         &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1          1 05.01.2017 13:57:01          5         8        5    29</span>
+<span class="co">#&gt;  2          2 05.01.2017 21:07:56          3         7        3    29</span>
+<span class="co">#&gt;  3          3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt;  4          4 06.01.2017 09:58:05          2         3        2    18</span>
+<span class="co">#&gt;  5          5 06.01.2017 14:13:08          4         8        6    34</span>
+<span class="co">#&gt;  6          6 06.01.2017 14:21:18         NA        NA       NA    39</span>
+<span class="co">#&gt;  7          7 06.01.2017 14:25:49         NA        NA       NA    40</span>
+<span class="co">#&gt;  8          8 06.01.2017 17:24:53          2         5        3    24</span>
+<span class="co">#&gt;  9          9 07.01.2017 10:11:17          2         3        5    25</span>
+<span class="co">#&gt; 10         10 07.01.2017 18:10:05          4         5        5    33</span>
 <span class="co">#&gt; # ... with 296 more rows</span></code></pre></div>
 <p>Schaut man sich nun den Datensatz an, sieht man erstmal wenig Effekt der Gruppierung. R teilt uns lediglich mit <code>Groups: interest [7]</code>, dass es 7 Gruppen gibt, aber es gibt keine extra Spalte oder sonstige Anzeichen der Gruppierung. Aber keine Sorge, wenn wir gleich einen Mittelwert ausrechnen, bekommen wir den Mittelwert pro Gruppe!</p>
 <p>Ein paar Hinweise: <code>Source: local data frame [306 x 6]</code> will sagen, dass die Ausgabe sich auf einen <code>tibble</code> bezieht<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>, also eine bestimmte Art von Dataframe. <code>Groups: interest [7]</code> zeigt, dass der Tibble in 7 Gruppen - entsprechend der Werte von <code>interest</code> aufgeteilt ist.</p>
@@ -733,8 +743,10 @@ Abbildung 4.9: Spalten zu einer Zahl zusammenfassen
 </p>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">mean</span>(score))
-<span class="co">#&gt;   mean(score)</span>
-<span class="co">#&gt; 1        31.1</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt;   `mean(score)`</span>
+<span class="co">#&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1          31.1</span></code></pre></div>
 <p>Man könnte diesen Befehl so ins Deutsche übersetzen: <code>Fasse aus Tabelle stats_test die Spalte score anhand des Mittelwerts zusammen</code>. Nicht vergessen, wenn die Spalte <code>score</code> fehlende Werte hat, wird der Befehl <code>mean</code> standardmäßig dies mit <code>NA</code> quittieren. Ergänzt man den Parameter <code>nr.rm = TRUE</code>, so ignoriert R fehlende Werte und der Befehl <code>mean</code> liefert ein Ergebnis zurück.</p>
 <p>Jetzt können wir auch die Gruppierung nutzen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_gruppiert &lt;-<span class="st"> </span><span class="kw">group_by</span>(stats_test, interest)
@@ -779,11 +791,15 @@ Abbildung 4.9: Spalten zu einer Zahl zusammenfassen
 <p><em>Streuungsmaße</em> geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der <em>mittlere Absolutabstand</em> (MAA; MAD),<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> die <em>Standardabweichung</em> (sd; <code>sd</code>), die <em>Varianz</em> (Var; <code>var</code>) und der <em>Interquartilsabstand</em> (IQR; <code>IQR</code>). Da nur der IQR <em>nicht</em> auf dem Mittelwert basiert, ist er am robustesten. Beliebige Quantile bekommt man mit dem R-Befehl <code>quantile</code>.</p>
 <p>Der Befehl <code>summarise</code> eignet sich, um deskriptive Statistiken auszurechnen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">mean</span>(score))
-<span class="co">#&gt;   mean(score)</span>
-<span class="co">#&gt; 1        31.1</span>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt;   `mean(score)`</span>
+<span class="co">#&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1          31.1</span>
 <span class="kw">summarise</span>(stats_test, <span class="kw">sd</span>(score))
-<span class="co">#&gt;   sd(score)</span>
-<span class="co">#&gt; 1      5.74</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt;   `sd(score)`</span>
+<span class="co">#&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        5.74</span></code></pre></div>
 <p>Natürlich könnte man auch einfacher schreiben:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(stats_test$score)
 <span class="co">#&gt; [1] 31.1</span>
@@ -822,8 +838,10 @@ mad
 <h3><span class="header-section-number">4.3.6</span> Zeilen zählen mit <code>n</code> und <code>count</code></h3>
 <p>Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a> <code>nrow</code> versteht der <code>dyplr</code>-Befehl <code>n</code> auch Gruppierungen. <code>n</code> darf nur innerhalb von <code>summarise</code> oder ähnlichen <code>dplyr</code>-Befehlen verwendet werden.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(stats_test, <span class="kw">n</span>())
-<span class="co">#&gt;   n()</span>
-<span class="co">#&gt; 1 306</span>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt;   `n()`</span>
+<span class="co">#&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1   306</span>
 <span class="kw">summarise</span>(test_gruppiert, <span class="kw">n</span>())
 <span class="co">#&gt; # A tibble: 7 x 2</span>
 <span class="co">#&gt;   interest `n()`</span>
@@ -1050,13 +1068,16 @@ bilde eine neue Spalte mit dem Namen <code>neue_spalte</code>, die sich berechne
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bestanden =</span> score &gt;<span class="st"> </span><span class="dv">25</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">head</span>()
-<span class="co">#&gt;   X                 V_1 study_time self_eval interest score bestanden</span>
-<span class="co">#&gt; 1 1 05.01.2017 13:57:01          5         8        5    29      TRUE</span>
-<span class="co">#&gt; 2 2 05.01.2017 21:07:56          3         7        3    29      TRUE</span>
-<span class="co">#&gt; 3 3 05.01.2017 23:33:47          5        10        6    40      TRUE</span>
-<span class="co">#&gt; 4 4 06.01.2017 09:58:05          2         3        2    18     FALSE</span>
-<span class="co">#&gt; 5 5 06.01.2017 14:13:08          4         8        6    34      TRUE</span>
-<span class="co">#&gt; 6 6 06.01.2017 14:21:18         NA        NA       NA    39      TRUE</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 6 x 7</span>
+<span class="co">#&gt;   row_number           date_time study_time self_eval interest score</span>
+<span class="co">#&gt;        &lt;int&gt;               &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1          1 05.01.2017 13:57:01          5         8        5    29</span>
+<span class="co">#&gt; 2          2 05.01.2017 21:07:56          3         7        3    29</span>
+<span class="co">#&gt; 3          3 05.01.2017 23:33:47          5        10        6    40</span>
+<span class="co">#&gt; 4          4 06.01.2017 09:58:05          2         3        2    18</span>
+<span class="co">#&gt; 5          5 06.01.2017 14:13:08          4         8        6    34</span>
+<span class="co">#&gt; 6          6 06.01.2017 14:21:18         NA        NA       NA    39</span>
+<span class="co">#&gt; # ... with 1 more variables: bestanden &lt;lgl&gt;</span></code></pre></div>
 <p>Diese Syntax erzeugt eine neue Spalte innerhalb von <code>stats_test</code>; diese Spalte prüft pro Persion, ob <code>score</code> &gt; 25 ist. Falls ja (TRUE), dann ist <code>bestanden</code> TRUE, ansonsten ist <code>bestanden</code> FALSE (Pech). <code>head</code> zeigt die ersten 6 Zeilen des resultierenden Dataframes an.</p>
 <p>Abb. <a href="datenjudo.html#fig:fig-mutate">4.12</a> zeigt Sinnbild für <code>mutate</code>:</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-mutate"></span>
@@ -1243,7 +1264,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Praxis_der_Datenanalyse.pdf", "Praxis_der_Datenanalyse.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true

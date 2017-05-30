@@ -9,11 +9,9 @@
 # Klassische lineare (numerische) Regression
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -55,14 +53,10 @@ stats_test %>%
               color = "red")
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/bsp-regression-1} 
-
-}
-
-\caption{Beispiel für eine Regression}(\#fig:bsp-regression)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/bsp-regression-1.png" alt="Beispiel für eine Regression" width="70%" />
+<p class="caption">(\#fig:bsp-regression)Beispiel für eine Regression</p>
+</div>
 
 Schauen wir uns die Syntax genauer an.
 
@@ -79,14 +73,10 @@ und zeichne danach eine Gerade ("abline" in rot).
 
 Eine Regression zeigt anhand einer Regressionsgeraden einen "Trend" in den Daten an (s. weitere Beispiele in Abb. \@ref(fig:bsp-regression2)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/bsp-regression2-1} 
-
-}
-
-\caption{Zwei weitere Beispiele für Regressionen}(\#fig:bsp-regression2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/bsp-regression2-1.png" alt="Zwei weitere Beispiele für Regressionen" width="70%" />
+<p class="caption">(\#fig:bsp-regression2)Zwei weitere Beispiele für Regressionen</p>
+</div>
 
 
 Eine Regression lädt förmlich dazu ein, Vorhersagen zu treffen: Hat man erstmal eine Gerade, so kann man für jeden X-Wert ("Prädiktor") eine Vorhersage für den Y-Wert ("Kriterium") treffen. Anhand des Diagramms kann man also für jede Person (d.h. jeden Wert innerhalb des Wertebereichs von `study_time` oder einem anderen Prädiktor) einen Wert für `score` vorhersagen. Wie gut die Vorhersage ist, steht erstmal auf einen anderen Blatt.
@@ -146,14 +136,10 @@ lm(kriterium ~ praediktor, data = meine_datentabelle) %>%
 
 Der einfache Grundsatz lautet: Je geringer die Vorhersagefehler, desto besser; Abb. \@ref(fig:resids-plot) zeigt ein Regressionsmodell mit wenig Vorhersagefehler (links) und ein Regressionsmodell mit viel Vorhersagefehler (rechts).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/resids-plot-1} 
-
-}
-
-\caption{Geringer (links) vs. hoher (rechts) Vorhersagefehler}(\#fig:resids-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/resids-plot-1.png" alt="Geringer (links) vs. hoher (rechts) Vorhersagefehler" width="70%" />
+<p class="caption">(\#fig:resids-plot)Geringer (links) vs. hoher (rechts) Vorhersagefehler</p>
+</div>
 
 
 In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte damit:
@@ -255,9 +241,7 @@ Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.
 qplot(y = tip, x = total_bill, data = tips)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="071_Regression_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 Es scheint einen positiven Zusammenhang zu geben. Modellieren wir das Kriterium `tip` (inhaltliche Entscheidung!) als lineare Funktion des Prädiktors `total_bill`:
 
@@ -353,9 +337,7 @@ tips %>%
   geom_histogram()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="071_Regression_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
 
@@ -368,9 +350,7 @@ tips %>%
   geom_histogram()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-10-1} \end{center}
+<img src="071_Regression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 - *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Bei jedem X-Wert sollte die Varianz der Y-Werte (etwa) gleich sein.
@@ -387,14 +367,10 @@ tips %>%
   geom_point()
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/tips-preds-resid-1} 
-
-}
-
-\caption{Vorhergesagte Werte vs. Residualwerte im Datensatz tips}(\#fig:tips-preds-resid)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/tips-preds-resid-1.png" alt="Vorhergesagte Werte vs. Residualwerte im Datensatz tips" width="70%" />
+<p class="caption">(\#fig:tips-preds-resid)Vorhergesagte Werte vs. Residualwerte im Datensatz tips</p>
+</div>
 
 
 Die Annahme der konstanten Varianz scheint verletzt zu sein (vgl. Abb. \@ref(fig:tips-preds-resid)): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot 
@@ -422,9 +398,7 @@ Zunächst grafisch:
 qplot(x = tip,y = day, data=tips)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
+<img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 Und als Lineares Modell:
 
@@ -885,40 +859,23 @@ Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekenn
 Tabelle \@ref(tab:befehle-regression) stellt die Befehle dieses Kapitels dar. 
 
 
-\begin{table}
 
-\caption{(\#tab:befehle-regression)Befehle des Kapitels 'Regression'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-lm & Berechnet eine Regression ("lm" steht für "lineares Modell")\\
-\hline
-sqrt & Zieht die Quadratwurzel\\
-\hline
-caret::postResample & Berechnet Gütekriterien für das Testsample\\
-\hline
-summary & Fasst zentrale Informationen zu einem Objekt zusammen\\
-\hline
-modelr::add\_residuals & Fügt eine Spalte mit den Residuen zu einem Dataframe hinzu\\
-\hline
-modelr::add\_predictions & Fügt eine Spalte mit den vorhergesagten Werten zu einem Dataframe hinzu\\
-\hline
-levels & Zeigt oder ändert die Stufen eines Faktors\\
-\hline
-factor & Erstellt einen Faktor (nominalskalierte Variable)\\
-\hline
-coef & Zeigt die Koeffizienten eines Objekts z.B. vom typ "lm" an.\\
-\hline
-step & Führt iene Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums für ein Regressionsmodell durch\\
-\hline
-sample\_frac & Sampelt einen Prozentsatz aus einem Datensatz\\
-\hline
-anti\_join & Fügt nicht-matchende Zeilen eines Datensatzes zu einem anderen Datensatz hinzu\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-regression)Befehle des Kapitels 'Regression'
+
+Paket::Funktion           Beschreibung                                                                                                           
+------------------------  -----------------------------------------------------------------------------------------------------------------------
+lm                        Berechnet eine Regression ("lm" steht für "lineares Modell")                                                           
+sqrt                      Zieht die Quadratwurzel                                                                                                
+caret::postResample       Berechnet Gütekriterien für das Testsample                                                                             
+summary                   Fasst zentrale Informationen zu einem Objekt zusammen                                                                  
+modelr::add_residuals     Fügt eine Spalte mit den Residuen zu einem Dataframe hinzu                                                             
+modelr::add_predictions   Fügt eine Spalte mit den vorhergesagten Werten zu einem Dataframe hinzu                                                
+levels                    Zeigt oder ändert die Stufen eines Faktors                                                                             
+factor                    Erstellt einen Faktor (nominalskalierte Variable)                                                                      
+coef                      Zeigt die Koeffizienten eines Objekts z.B. vom typ "lm" an.                                                            
+step                      Führt iene Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums für ein Regressionsmodell durch 
+sample_frac               Sampelt einen Prozentsatz aus einem Datensatz                                                                          
+anti_join                 Fügt nicht-matchende Zeilen eines Datensatzes zu einem anderen Datensatz hinzu                                         
 
 
 

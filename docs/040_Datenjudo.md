@@ -5,11 +5,9 @@
 # Datenjudo
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -24,14 +22,10 @@
 </div>\EndKnitrBlock{rmdcaution}
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Aufbereiten} 
-
-}
-
-\caption{Daten aufbereiten}(\#fig:fig-datenjudo)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/Aufbereiten.png" alt="Daten aufbereiten" width="70%" />
+<p class="caption">(\#fig:fig-datenjudo)Daten aufbereiten</p>
+</div>
 
 In diesem Kapitel werden folgende Pakete benötigt: 
 
@@ -78,14 +72,10 @@ Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r
 Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine* geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed...), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, was ich will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Wir schauen wir uns diese Bausteine gleich näher an.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Bausteine_dplyr_crop} 
-
-}
-
-\caption{Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine}(\#fig:bausteine)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/Bausteine_dplyr_crop.png" alt="Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine" width="70%" />
+<p class="caption">(\#fig:bausteine)Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine</p>
+</div>
 
 
 
@@ -93,14 +83,10 @@ Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine
 Das *zweite Prinzip* von `dplyr` ist es, einen Dataframe von Operation zu Operation *durchzureichen.* `dplyr` arbeitet also *nur* mit Dataframes. Jeder Arbeitsschritt bei `dplyr` erwartet einen Dataframe als Eingabe und gibt im Gegenzug wieder einen Dataframe aus.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/durchpfeifen_allgemein_crop} 
-
-}
-
-\caption{Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht}(\#fig:durchpfeifen-allgemein)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/durchpfeifen_allgemein_crop.png" alt="Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht" width="70%" />
+<p class="caption">(\#fig:durchpfeifen-allgemein)Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht</p>
+</div>
 
 
 Werfen wir einen Blick auf ein paar typische Bausteine von `dplyr`.
@@ -113,14 +99,10 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern; `filter`\index{dply
 
 Abb. \@ref(fig:fig-filter) zeigt ein Sinnbild für `filter`.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/filter} 
-
-}
-
-\caption{Zeilen filtern}(\#fig:fig-filter)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/filter.png" alt="Zeilen filtern" width="70%" />
+<p class="caption">(\#fig:fig-filter)Zeilen filtern</p>
+</div>
 
 Merke:
 
@@ -207,14 +189,10 @@ Der horizontale Strich `|` steht bei R für logisches 'oder'.
 
 Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/select} 
-
-}
-
-\caption{Spalten auswählen}(\#fig:fig-select)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/select.png" alt="Spalten auswählen" width="70%" />
+<p class="caption">(\#fig:fig-select)Spalten auswählen</p>
+</div>
 
 
 Merke:
@@ -288,27 +266,33 @@ arrange(stats_test, interest, score)
 
 
 ```
-#>     X                 V_1 study_time self_eval interest score
-#> 1 234 23.01.2017 18:13:15          3         1        1    17
-#> 2   4 06.01.2017 09:58:05          2         3        2    18
-#> 3 131 19.01.2017 18:03:45          2         3        4    18
-#> 4 142 19.01.2017 19:02:12          3         4        1    18
-#> 5  35 12.01.2017 19:04:43          1         2        3    19
-#> 6  71 15.01.2017 15:03:29          3         3        3    20
-#>    X                 V_1 study_time self_eval interest score
-#> 1  3 05.01.2017 23:33:47          5        10        6    40
-#> 2  7 06.01.2017 14:25:49         NA        NA       NA    40
-#> 3 29 12.01.2017 09:48:16          4        10        3    40
-#> 4 41 13.01.2017 12:07:29          4        10        3    40
-#> 5 58 14.01.2017 15:43:01          3         8        2    40
-#> 6 83 16.01.2017 10:16:52         NA        NA       NA    40
-#>     X                 V_1 study_time self_eval interest score
-#> 1 234 23.01.2017 18:13:15          3         1        1    17
-#> 2 142 19.01.2017 19:02:12          3         4        1    18
-#> 3 221 23.01.2017 11:40:30          1         1        1    23
-#> 4 230 23.01.2017 16:27:49          1         1        1    23
-#> 5  92 17.01.2017 17:18:55          1         1        1    24
-#> 6 107 18.01.2017 16:01:36          3         2        1    24
+#> # A tibble: 6 x 6
+#>   row_number           date_time study_time self_eval interest score
+#>        <int>               <chr>      <int>     <int>    <int> <int>
+#> 1        234 23.01.2017 18:13:15          3         1        1    17
+#> 2          4 06.01.2017 09:58:05          2         3        2    18
+#> 3        131 19.01.2017 18:03:45          2         3        4    18
+#> 4        142 19.01.2017 19:02:12          3         4        1    18
+#> 5         35 12.01.2017 19:04:43          1         2        3    19
+#> 6         71 15.01.2017 15:03:29          3         3        3    20
+#> # A tibble: 6 x 6
+#>   row_number           date_time study_time self_eval interest score
+#>        <int>               <chr>      <int>     <int>    <int> <int>
+#> 1          3 05.01.2017 23:33:47          5        10        6    40
+#> 2          7 06.01.2017 14:25:49         NA        NA       NA    40
+#> 3         29 12.01.2017 09:48:16          4        10        3    40
+#> 4         41 13.01.2017 12:07:29          4        10        3    40
+#> 5         58 14.01.2017 15:43:01          3         8        2    40
+#> 6         83 16.01.2017 10:16:52         NA        NA       NA    40
+#> # A tibble: 6 x 6
+#>   row_number           date_time study_time self_eval interest score
+#>        <int>               <chr>      <int>     <int>    <int> <int>
+#> 1        234 23.01.2017 18:13:15          3         1        1    17
+#> 2        142 19.01.2017 19:02:12          3         4        1    18
+#> 3        221 23.01.2017 11:40:30          1         1        1    23
+#> 4        230 23.01.2017 16:27:49          1         1        1    23
+#> 5         92 17.01.2017 17:18:55          1         1        1    24
+#> 6        107 18.01.2017 16:01:36          3         2        1    24
 ```
 
 Einige Anmerkungen. Die generelle Syntax lautet `arrange(df, Spalte1, ...)`, wobei `df` den Dataframe bezeichnet und `Spalte1` die erste zu sortierende Spalte; die Punkte `...` geben an, dass man weitere Parameter übergeben kann. Man kann sowohl numerische Spalten als auch Textspalten sortieren. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.
@@ -325,14 +309,10 @@ Merke:
 
 Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/arrange-crop} 
-
-}
-
-\caption{Spalten sortieren}(\#fig:fig-arrange)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/arrange-crop.png" alt="Spalten sortieren" width="70%" />
+<p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
+</div>
 
 
 
@@ -342,36 +322,40 @@ Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten El
 ```r
 
 top_n(stats_test, 3)
-#>      X                 V_1 study_time self_eval interest score
-#> 1    3 05.01.2017 23:33:47          5        10        6    40
-#> 2    7 06.01.2017 14:25:49         NA        NA       NA    40
-#> 3   29 12.01.2017 09:48:16          4        10        3    40
-#> 4   41 13.01.2017 12:07:29          4        10        3    40
-#> 5   58 14.01.2017 15:43:01          3         8        2    40
-#> 6   83 16.01.2017 10:16:52         NA        NA       NA    40
-#> 7  116 18.01.2017 23:07:32          4         8        5    40
-#> 8  119 19.01.2017 09:05:01         NA        NA       NA    40
-#> 9  132 19.01.2017 18:22:32         NA        NA       NA    40
-#> 10 175 20.01.2017 23:03:36          5        10        5    40
-#> 11 179 21.01.2017 07:40:05          5         9        1    40
-#> 12 185 21.01.2017 15:01:26          4        10        5    40
-#> 13 196 22.01.2017 13:38:56          4        10        5    40
-#> 14 197 22.01.2017 14:55:17          4        10        5    40
-#> 15 248 24.01.2017 16:29:45          2        10        2    40
-#> 16 249 24.01.2017 17:19:54         NA        NA       NA    40
-#> 17 257 25.01.2017 10:44:34          2         9        3    40
-#> 18 306 27.01.2017 11:29:48          4         9        3    40
+#> # A tibble: 18 x 6
+#>    row_number           date_time study_time self_eval interest score
+#>         <int>               <chr>      <int>     <int>    <int> <int>
+#>  1          3 05.01.2017 23:33:47          5        10        6    40
+#>  2          7 06.01.2017 14:25:49         NA        NA       NA    40
+#>  3         29 12.01.2017 09:48:16          4        10        3    40
+#>  4         41 13.01.2017 12:07:29          4        10        3    40
+#>  5         58 14.01.2017 15:43:01          3         8        2    40
+#>  6         83 16.01.2017 10:16:52         NA        NA       NA    40
+#>  7        116 18.01.2017 23:07:32          4         8        5    40
+#>  8        119 19.01.2017 09:05:01         NA        NA       NA    40
+#>  9        132 19.01.2017 18:22:32         NA        NA       NA    40
+#> 10        175 20.01.2017 23:03:36          5        10        5    40
+#> 11        179 21.01.2017 07:40:05          5         9        1    40
+#> 12        185 21.01.2017 15:01:26          4        10        5    40
+#> 13        196 22.01.2017 13:38:56          4        10        5    40
+#> 14        197 22.01.2017 14:55:17          4        10        5    40
+#> 15        248 24.01.2017 16:29:45          2        10        2    40
+#> 16        249 24.01.2017 17:19:54         NA        NA       NA    40
+#> 17        257 25.01.2017 10:44:34          2         9        3    40
+#> 18        306 27.01.2017 11:29:48          4         9        3    40
 top_n(stats_test, 3, interest)
-#>     X                 V_1 study_time self_eval interest score
-#> 1   3 05.01.2017 23:33:47          5        10        6    40
-#> 2   5 06.01.2017 14:13:08          4         8        6    34
-#> 3  43 13.01.2017 14:14:16          4         8        6    36
-#> 4  65 15.01.2017 12:41:27          3         6        6    22
-#> 5 110 18.01.2017 18:53:02          5         8        6    37
-#> 6 136 19.01.2017 18:22:57          3         1        6    39
-#> 7 172 20.01.2017 20:42:46          5        10        6    34
-#> 8 214 22.01.2017 21:57:36          2         6        6    31
-#> 9 301 27.01.2017 08:17:59          4         8        6    33
+#> # A tibble: 9 x 6
+#>   row_number           date_time study_time self_eval interest score
+#>        <int>               <chr>      <int>     <int>    <int> <int>
+#> 1          3 05.01.2017 23:33:47          5        10        6    40
+#> 2          5 06.01.2017 14:13:08          4         8        6    34
+#> 3         43 13.01.2017 14:14:16          4         8        6    36
+#> 4         65 15.01.2017 12:41:27          3         6        6    22
+#> 5        110 18.01.2017 18:53:02          5         8        6    37
+#> 6        136 19.01.2017 18:22:57          3         1        6    39
+#> 7        172 20.01.2017 20:42:46          5        10        6    34
+#> 8        214 22.01.2017 21:57:36          2         6        6    31
+#> 9        301 27.01.2017 08:17:59          4         8        6    33
 ```
 
 Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
@@ -395,14 +379,10 @@ Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittl
 
 >   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/group_by} 
-
-}
-
-\caption{Datensätze nach Subgruppen aufteilen}(\#fig:fig-groupby)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/group_by.png" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
+<p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
+</div>
 
 In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. Variable) `Fach` in mehrere Gruppen geteilt (Fach A, Fach B...). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
@@ -414,18 +394,18 @@ test_gruppiert
 #> Groups: interest [7]
 #> 
 #> # A tibble: 306 x 6
-#>        X                 V_1 study_time self_eval interest score
-#>    <int>              <fctr>      <int>     <int>    <int> <int>
-#>  1     1 05.01.2017 13:57:01          5         8        5    29
-#>  2     2 05.01.2017 21:07:56          3         7        3    29
-#>  3     3 05.01.2017 23:33:47          5        10        6    40
-#>  4     4 06.01.2017 09:58:05          2         3        2    18
-#>  5     5 06.01.2017 14:13:08          4         8        6    34
-#>  6     6 06.01.2017 14:21:18         NA        NA       NA    39
-#>  7     7 06.01.2017 14:25:49         NA        NA       NA    40
-#>  8     8 06.01.2017 17:24:53          2         5        3    24
-#>  9     9 07.01.2017 10:11:17          2         3        5    25
-#> 10    10 07.01.2017 18:10:05          4         5        5    33
+#>    row_number           date_time study_time self_eval interest score
+#>         <int>               <chr>      <int>     <int>    <int> <int>
+#>  1          1 05.01.2017 13:57:01          5         8        5    29
+#>  2          2 05.01.2017 21:07:56          3         7        3    29
+#>  3          3 05.01.2017 23:33:47          5        10        6    40
+#>  4          4 06.01.2017 09:58:05          2         3        2    18
+#>  5          5 06.01.2017 14:13:08          4         8        6    34
+#>  6          6 06.01.2017 14:21:18         NA        NA       NA    39
+#>  7          7 06.01.2017 14:25:49         NA        NA       NA    40
+#>  8          8 06.01.2017 17:24:53          2         5        3    24
+#>  9          9 07.01.2017 10:11:17          2         3        5    25
+#> 10         10 07.01.2017 18:10:05          4         5        5    33
 #> # ... with 296 more rows
 ```
 
@@ -438,14 +418,10 @@ Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Aus
 
 Die Idee des "Gruppieren - Zusammenfassen - Kombinieren" ist flexibel; man kann sie häufig brauchen. Es lohnt sich, diese Idee zu lernen (vgl. Abb. \@ref(fig:sac)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/sac_crop} 
-
-}
-
-\caption{Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'}(\#fig:sac)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/sac_crop.png" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
+<p class="caption">(\#fig:sac)Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'</p>
+</div>
 
 
 #### Aufgaben^[R, F, R, R]
@@ -470,21 +446,19 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max` (vgl. Abb. \@ref(fig:fig-summarise). Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/summarise} 
-
-}
-
-\caption{Spalten zu einer Zahl zusammenfassen}(\#fig:fig-summarise)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/summarise.png" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
+<p class="caption">(\#fig:fig-summarise)Spalten zu einer Zahl zusammenfassen</p>
+</div>
 
 
 
 ```r
 summarise(stats_test, mean(score))
-#>   mean(score)
-#> 1        31.1
+#> # A tibble: 1 x 1
+#>   `mean(score)`
+#>           <dbl>
+#> 1          31.1
 ```
 
 Man könnte diesen Befehl so ins Deutsche übersetzen: `Fasse aus Tabelle stats_test die Spalte score anhand des Mittelwerts zusammen`. Nicht vergessen, wenn die Spalte `score` fehlende Werte hat, wird der Befehl `mean` standardmäßig dies mit `NA` quittieren. Ergänzt man den Parameter `nr.rm = TRUE`, so ignoriert R fehlende Werte und der Befehl `mean` liefert ein Ergebnis zurück.
@@ -550,11 +524,15 @@ Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
 
 ```r
 summarise(stats_test, mean(score))
-#>   mean(score)
-#> 1        31.1
+#> # A tibble: 1 x 1
+#>   `mean(score)`
+#>           <dbl>
+#> 1          31.1
 summarise(stats_test, sd(score))
-#>   sd(score)
-#> 1      5.74
+#> # A tibble: 1 x 1
+#>   `sd(score)`
+#>         <dbl>
+#> 1        5.74
 ```
 
 Natürlich könnte man auch einfacher schreiben:
@@ -611,8 +589,10 @@ Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl^[
 
 ```r
 summarise(stats_test, n())
-#>   n()
-#> 1 306
+#> # A tibble: 1 x 1
+#>   `n()`
+#>   <int>
+#> 1   306
 summarise(test_gruppiert, n())
 #> # A tibble: 7 x 2
 #>   interest `n()`
@@ -800,27 +780,19 @@ Ah! Der Score `34` ist der häufigste!
 ## Die Pfeife
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/ma-150089-WEB} 
-
-}
-
-\caption{La trahison des images [Ceci n'est pas une pipe]}(\#fig:cecie-une-pipe)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/ma-150089-WEB.jpg" alt="La trahison des images [Ceci n'est pas une pipe]" width="70%" />
+<p class="caption">(\#fig:cecie-une-pipe)La trahison des images [Ceci n'est pas une pipe]</p>
+</div>
 
 
  Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens (s. Abb. \@ref(fig:fig-durchpfeifen)).
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/Datenjudo/durchpfeifen} 
-
-}
-
-\caption{Das 'Durchpeifen'}(\#fig:fig-durchpfeifen)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/durchpfeifen.png" alt="Das 'Durchpeifen'" width="80%" />
+<p class="caption">(\#fig:fig-durchpfeifen)Das 'Durchpeifen'</p>
+</div>
 
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
 
@@ -907,13 +879,16 @@ Ein konkretes Beispiel:
 stats_test %>% 
   mutate(bestanden = score > 25) %>% 
   head()
-#>   X                 V_1 study_time self_eval interest score bestanden
-#> 1 1 05.01.2017 13:57:01          5         8        5    29      TRUE
-#> 2 2 05.01.2017 21:07:56          3         7        3    29      TRUE
-#> 3 3 05.01.2017 23:33:47          5        10        6    40      TRUE
-#> 4 4 06.01.2017 09:58:05          2         3        2    18     FALSE
-#> 5 5 06.01.2017 14:13:08          4         8        6    34      TRUE
-#> 6 6 06.01.2017 14:21:18         NA        NA       NA    39      TRUE
+#> # A tibble: 6 x 7
+#>   row_number           date_time study_time self_eval interest score
+#>        <int>               <chr>      <int>     <int>    <int> <int>
+#> 1          1 05.01.2017 13:57:01          5         8        5    29
+#> 2          2 05.01.2017 21:07:56          3         7        3    29
+#> 3          3 05.01.2017 23:33:47          5        10        6    40
+#> 4          4 06.01.2017 09:58:05          2         3        2    18
+#> 5          5 06.01.2017 14:13:08          4         8        6    34
+#> 6          6 06.01.2017 14:21:18         NA        NA       NA    39
+#> # ... with 1 more variables: bestanden <lgl>
 ```
 
 Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 25 ist. Falls ja (TRUE), dann ist `bestanden` TRUE, ansonsten ist `bestanden` FALSE (Pech). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
@@ -921,14 +896,10 @@ Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte p
 
 Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/mutate} 
-
-}
-
-\caption{Sinnbild für mutate}(\#fig:fig-mutate)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/mutate.png" alt="Sinnbild für mutate" width="70%" />
+<p class="caption">(\#fig:fig-mutate)Sinnbild für mutate</p>
+</div>
 
 
 
@@ -1000,32 +971,19 @@ flights %>%
 
 Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
 
-\begin{table}
 
-\caption{(\#tab:befehle-datenjudo)Befehle des Kapitels 'Datenjudo'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket und Funktion & Beschreibung\\
-\hline
-dplyr::arrange & Sortiert Spalten\\
-\hline
-dplyr::filter & Filtert Zeilen\\
-\hline
-dplyr::select & Wählt Spalten\\
-\hline
-dplyr::group\_by & gruppiert einen Dataframe\\
-\hline
-dplyr::n & zählt Zeilen\\
-\hline
-dplyr::count & zählt Zeilen nach Untergruppen\\
-\hline
-\%>\% (dplyr) & verkettet Befehle\\
-\hline
-dplyr::mutate & erzeugt/berechnet Spalten\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-datenjudo)Befehle des Kapitels 'Datenjudo'
+
+Paket und Funktion   Beschreibung                   
+-------------------  -------------------------------
+dplyr::arrange       Sortiert Spalten               
+dplyr::filter        Filtert Zeilen                 
+dplyr::select        Wählt Spalten                  
+dplyr::group_by      gruppiert einen Dataframe      
+dplyr::n             zählt Zeilen                   
+dplyr::count         zählt Zeilen nach Untergruppen 
+%>% (dplyr)          verkettet Befehle              
+dplyr::mutate        erzeugt/berechnet Spalten      
 
 
 

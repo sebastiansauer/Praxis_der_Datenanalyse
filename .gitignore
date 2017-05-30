@@ -21,7 +21,9 @@ Praxis_der_Datenanalyse.ind
 Praxis_der_Datenanalyse.rds
 Praxis_der_Datenanalyse.fls
 Praxis_der_Datenanalyse.idx
+Praxis_der_Datenanalyse.aux
 Praxis_der_Datenanalyse.fds_latexmk
+Praxis_der_Datenanalyse.fdb_latexmk
 *.rds
 *.RData
 *.knit.*

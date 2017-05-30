@@ -28,22 +28,20 @@ biblio-style: apalike
 
 
 
-\newpage\setcounter{chapter}{0}\chapter{Vorwort}
+
+# Vorwort {-}
 
 
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
-![](images/vorwort/Forschung_frueher_heute.pdf)<!-- --> 
+<img src="images/vorwort/Forschung_frueher_heute.jpg" width="4108" />
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
 
@@ -108,14 +106,13 @@ Nummer, Verweis zum Bild, Names des Autors, Titel, Quelle (URL), Lizenz, Abrufda
 Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
 
 
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 **Autoren**
 
 *Sebastian Sauer* schrieb den Hauptteil dieses Buchs. *Oliver Gansser* schrieb das Kapitel zur Dimensionsreduktion.
-*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
+*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse sowie Teile des Kapitels 'Rahmen'. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
 
 
 **Danke**
@@ -128,7 +125,7 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S., Gansser, O. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-
+![DOI](https://zenodo.org/badge/81811975.svg)
 
 
 

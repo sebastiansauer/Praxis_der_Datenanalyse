@@ -3,11 +3,9 @@
 # Klassifizierende Regression
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -58,14 +56,10 @@ p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_
 p1
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr1-1} 
-
-}
-
-\caption{Streudiagramm von Risikobereitschaft und Aktienkauf}(\#fig:fig-logist-regr1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr1)Streudiagramm von Risikobereitschaft und Aktienkauf</p>
+</div>
 
 Berechnen wir dann eine normale Regression.
 
@@ -104,14 +98,10 @@ p1 + geom_abline(intercept = .18, slope = .05, color = "red")
 
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr2-1} 
-
-}
-
-\caption{Regressionsgerade für Aktien-Modell}(\#fig:fig-logist-regr2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr2)Regressionsgerade für Aktien-Modell</p>
+</div>
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
@@ -125,14 +115,10 @@ $$p(y=1)=\frac{e^x}{1+e^x}$$
 
 Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/logist-curve-1} 
-
-}
-
-\caption{Die logistische Regression beschreibt eine 's-förmige' Kurve}(\#fig:logist-curve)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">(\#fig:logist-curve)Die logistische Regression beschreibt eine 's-förmige' Kurve</p>
+</div>
 
 
 ## Die Idee der logistischen Regression
@@ -151,14 +137,10 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
 
 Wir schauen uns zunächst den Plot an (Abb. \@ref(fig:aktien-plot).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/aktien-plot-1} 
-
-}
-
-\caption{Modelldiagramm für den Aktien-Datensatz}(\#fig:aktien-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
+<p class="caption">(\#fig:aktien-plot)Modelldiagramm für den Aktien-Datensatz</p>
+</div>
 
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
@@ -267,14 +249,10 @@ Zunächst ein Plot (Abb. \@ref(fig:jitter-tips)).
 qplot(x = smoker, y = day, data = tips, geom = "jitter")
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/jitter-tips-1} 
-
-}
-
-\caption{Verwackeltes Streudiagramm ('Jitter')}(\#fig:jitter-tips)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/jitter-tips-1.png" alt="Verwackeltes Streudiagramm ('Jitter')" width="70%" />
+<p class="caption">(\#fig:jitter-tips)Verwackeltes Streudiagramm ('Jitter')</p>
+</div>
 
 
 Die relativen Häufigkeiten zeigt folgende Tabelle:
@@ -440,9 +418,7 @@ performance(pred,"auc")@y.values
 #> [1] 0.636
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
+<img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -555,34 +531,20 @@ Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klas
 Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels dar. 
 
 
-\begin{table}
 
-\caption{(\#tab:befehle-logist-regression)Befehle des Kapitels 'Logistische Regression'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-ggplot2::geom\_abline & Fügt das Geom "abline" (normale Gerade) zu einem ggplot2-Plot hinzu\\
-\hline
-glm & Berechnet ein "generalisiertes lineares Modell", z.B. eine logistische Regression\\
-\hline
-exp & Berechnet die e-Funktion für den angegeben Ausdruck (synonym: "delogarithmiert" den Ausdruck)\\
-\hline
-SDMTools::confusion.matrix & Berechnet eine Konfusionsmatrix\\
-\hline
-SDMTools::sensitivity & Berechnet die Sensitivität eines Klassifikationsmodells\\
-\hline
-SDMTools::specificity & Berechnet die Spezifität eines Klassifikationsmodells\\
-\hline
-ROCR::performance & Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen\\
-\hline
-lmtest::lrtest & Berechnet den Likelihood-Ratio-Test\\
-\hline
-BaylorEdPsych::PseudoR2 & Berechnet Pseudo-R-Quadrat-Werte\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-logist-regression)Befehle des Kapitels 'Logistische Regression'
+
+Paket::Funktion              Beschreibung                                                                                  
+---------------------------  ----------------------------------------------------------------------------------------------
+ggplot2::geom_abline         Fügt das Geom "abline" (normale Gerade) zu einem ggplot2-Plot hinzu                           
+glm                          Berechnet ein "generalisiertes lineares Modell", z.B. eine logistische Regression             
+exp                          Berechnet die e-Funktion für den angegeben Ausdruck (synonym: "delogarithmiert" den Ausdruck) 
+SDMTools::confusion.matrix   Berechnet eine Konfusionsmatrix                                                               
+SDMTools::sensitivity        Berechnet die Sensitivität eines Klassifikationsmodells                                       
+SDMTools::specificity        Berechnet die Spezifität eines Klassifikationsmodells                                         
+ROCR::performance            Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen                               
+lmtest::lrtest               Berechnet den Likelihood-Ratio-Test                                                           
+BaylorEdPsych::PseudoR2      Berechnet Pseudo-R-Quadrat-Werte                                                              
 
 
 

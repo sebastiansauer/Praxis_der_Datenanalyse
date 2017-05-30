@@ -22,7 +22,7 @@ bookdown::gitbook:
   css: style.css
   fig_crop: TRUE
   config:
-    download: null
+    download: no
     search: yes
     sharing:
       facebook: yes

@@ -5,11 +5,9 @@
 # Dimensionsreduktion
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -189,9 +187,7 @@ library(corrplot)
 corrplot(cor(Werte.sc), order = "hclust")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-8-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
@@ -269,14 +265,10 @@ Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Ger�
 plot(Werte.pc, type="l")
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/pca-scree-1} 
-
-}
-
-\caption{Screeplot}(\#fig:pca-scree)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/pca-scree-1.png" alt="Screeplot" width="70%" />
+<p class="caption">(\#fig:pca-scree)Screeplot</p>
+</div>
 
 
 Wir sehen in Abb. \@ref(fig:pca-scree), dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente. 
@@ -341,14 +333,10 @@ library(nFactors)
 VSS.scree(Werte)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/vss-scree-1} 
-
-}
-
-\caption{VSS-Screeplot}(\#fig:vss-scree)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/vss-scree-1.png" alt="VSS-Screeplot" width="70%" />
+<p class="caption">(\#fig:vss-scree)VSS-Screeplot</p>
+</div>
 
 
 ### Biplot
@@ -362,9 +350,7 @@ Dazu verwenden wir `biplot()`:
 biplot(Werte.pc)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Variablen-Gruppierungen sind als rote Ladungspfeile sichtbar. Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist hier durch die große Anzahl an Beobachtung recht unübersichtlich. 
 
@@ -445,9 +431,7 @@ Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden
 fa.diagram(Werte.pca)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -585,14 +569,10 @@ heatmap.2(Werte.fa$loadings,
           )
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmpa-1} 
-
-}
-
-\caption{Heatmap einer EFA}(\#fig:efa-heatmpa)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/efa-heatmpa-1.png" alt="Heatmap einer EFA" width="70%" />
+<p class="caption">(\#fig:efa-heatmpa)Heatmap einer EFA</p>
+</div>
 
 
 Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
