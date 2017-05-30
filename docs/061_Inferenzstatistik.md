@@ -3,9 +3,11 @@
 # Der p-Wert
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 
@@ -17,10 +19,14 @@
 
 
 
-<div class="figure" style="text-align: center">
-<img src="images/inferenz/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="20%" />
-<p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.2\linewidth]{images/inferenz/Ronald_Fisher} 
+
+}
+
+\caption{Der größte Statistiker des 20. Jahrhunderts (p < .05)}(\#fig:sir-fisher)
+\end{figure}
 
 ## Der p-Wert sagt nicht das, was viele denken
 
@@ -28,10 +34,14 @@
 Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschung. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert kommt viel Bedeutung zu bzw. ihm wird viel Bedeutung zugemessen (vgl. Abb. \@ref(fig:who-said)). 
 
 
-<div class="figure" style="text-align: center">
-<img src="images/inferenz/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="35%" />
-<p class="caption">(\#fig:who-said)Der p-Wert wird oft als wichtig erachtet</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.35\linewidth]{images/inferenz/p_value_who_said} 
+
+}
+
+\caption{Der p-Wert wird oft als wichtig erachtet}(\#fig:who-said)
+\end{figure}
 
 
 Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
@@ -65,10 +75,14 @@ $$ P(M|T) \ne P(T|M) $$
 
 
 
-<div class="figure" style="text-align: center">
-<img src="images/inferenz/moslems_terroristen.jpeg" alt="Moslem und Terrorist zu sein, ist nicht das gleiche." width="70%" />
-<p class="caption">(\#fig:moslems-terroristen)Moslem und Terrorist zu sein, ist nicht das gleiche.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/moslems_terroristen} 
+
+}
+
+\caption{Moslem und Terrorist zu sein, ist nicht das gleiche.}(\#fig:moslems-terroristen)
+\end{figure}
 
 
 Das Bild (Abb. \@ref(fig:moslems-terroristen)) zeigt den Anteil der Moslems an den Terroristen (sehr hoch). Und es zeigt den Anteil der Terroristen von allen Moslems (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Terrorist zu sein, wenn man Moslem ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Moslem zu sein, wenn man Terrorist ist*. Ein großer Unterschied^[die Größe der Anteile sind frei erfunden].
@@ -80,10 +94,14 @@ Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertai
 
 Ein Haupt-Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das schränkt die praktische Nützlichkeit ein (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
 
-<div class="figure" style="text-align: center">
-<img src="images/inferenz/einfluss_pwert_crop.png" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
-<p class="caption">(\#fig:einfluss-pwert)Zwei Haupteinflüsse auf den p-Wert</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/einfluss_pwert_crop} 
+
+}
+
+\caption{Zwei Haupteinflüsse auf den p-Wert}(\#fig:einfluss-pwert)
+\end{figure}
 
 
 Die Verteidigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
@@ -94,10 +112,14 @@ Betrachten wir ein praktisches Beispiel des Einfluss der Stichprobengröße auf 
 
 Mit steigender Stichprobengröße sollte der Anteil an statistisch signifikanten Tests steigen. Schauen wir, ob dem so ist (vgl. Abb. \@ref(fig:simulate-pvalues)).
 
-<div class="figure" style="text-align: center">
-<img src="images/inferenz/simulate_ps.png" alt="Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)" width="70%" />
-<p class="caption">(\#fig:simulate-pvalues)Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/simulate_ps} 
+
+}
+
+\caption{Der Anteil an statistisch signifikanten p-Werten bei simulierten Daten. Die X-Achse zeigt die Stichprobengröße (ns), die Y-Achse den Anteil der statistisch signifikanten p-Werte (ps)}(\#fig:simulate-pvalues)
+\end{figure}
 
 Das Diagramm zeigt: Mit steigendem Stichprobenumfang werden die Tests immer signifikanter. Zugespitzt formuliert:
 
@@ -156,6 +178,7 @@ Alternativen zum p-Wert sind
 
 
 
-<img src="images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.3\linewidth]{images/inferenz/meme_pwert_1iw22a_pvalue_dino} \end{center}
 
 
