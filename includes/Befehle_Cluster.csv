@@ -1,6 +1,0 @@
-Paket::Funktion,Beschreibung
-dist,Berechnet den euklidischen Abstand zwischen Vektoren
-dplyr::glimpse,Stellt einen Dataframe im Überblick dar
-cluster::daisy,Berechnet verschiedene Abstandsmaße
-set.seed,Zufallsgenerator auf bestimmte Zahlen festlegen
-cluster::clusplot,Visualisiert eine Clusteranalyse
