@@ -1,14 +1,6 @@
 # gitignore for branch 'release_recent'
 
 
-# ignore everything except docs/ and .gitignore
+# ignore nothing
 
-
-/*
-/*/
-!/docs/
-!.gitignore
-!data/
-!includes/
-!Readme*
 
