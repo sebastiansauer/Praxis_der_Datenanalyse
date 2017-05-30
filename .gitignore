@@ -1,6 +1,7 @@
-# gitignore for branch 'release_recent'
+# gitignore for branch 'gh-pages'
+# note that all files needed for the gitbook must be places on the root level (not ind dos folder)
 
+# ignore all except what is needed for the gitbook
 
-# ignore nothing
-
-
+*.md
+docs/
