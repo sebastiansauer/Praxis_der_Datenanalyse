@@ -1,0 +1,25 @@
+# SessionInfo
+This project was built in the following environment
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(message = FALSE, echo = FALSE)
+```
+
+
+```{r}
+load("Pakete_fuer_PraDa.Rda")
+
+```
+
+
+```{r include = FALSE}
+lapply(packages, require, character.only = TRUE)
+
+```
+
+
+```{r}
+sessionInfo()
+
+```
+

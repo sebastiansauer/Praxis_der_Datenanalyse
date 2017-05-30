@@ -1,0 +1,10 @@
+Paket::Funktion,Beschreibung
+ggplot2::geom_abline,"Fügt das Geom ""abline"" (normale Gerade) zu einem ggplot2-Plot hinzu"
+glm,"Berechnet ein ""generalisiertes lineares Modell"", z.B. eine logistische Regression"
+exp,"Berechnet die e-Funktion für den angegeben Ausdruck (synonym: ""delogarithmiert"" den Ausdruck)"
+SDMTools::confusion.matrix,Berechnet eine Konfusionsmatrix
+SDMTools::sensitivity,Berechnet die Sensitivität eines Klassifikationsmodells
+SDMTools::specificity,Berechnet die Spezifität eines Klassifikationsmodells
+ROCR::performance,Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen
+lmtest::lrtest,Berechnet den Likelihood-Ratio-Test
+BaylorEdPsych::PseudoR2,Berechnet Pseudo-R-Quadrat-Werte

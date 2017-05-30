@@ -1,0 +1,4 @@
+Paket::Funktion,Beschreibung
+data,Lädt Daten aus einem Paket.
+dplyr::glimpse,Zeigt einen Überblick über einen Datensatz
+dplyr::row_number,Gibt die Zeilennummern zurück.

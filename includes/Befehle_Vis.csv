@@ -1,0 +1,4 @@
+Paket::Funktion,Beschreibung
+ggplot2::qplot,Malt schnell mal einen Plot
+ggplot2::ggplot,Malt einen Plot
+factor,Wandelt einen Vektor in den Typ factor um

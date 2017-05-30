@@ -8,4 +8,7 @@
 /*/
 !/docs/
 !.gitignore
+!data/
+!includes/
+!Readme*
 
