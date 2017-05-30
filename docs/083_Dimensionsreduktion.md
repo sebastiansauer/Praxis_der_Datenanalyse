@@ -1,55 +1,34 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-```
 
 
 
 # Dimensionsreduktion
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
 
-```{block2, ziele-dimred, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Den Unterschied zwischen einer Hauptkomponentenanalyse und einer Exploratorische Faktorenanalyse kennen
 - Methoden kennen, um die Anzahl von Dimensionen zu bestimmen
 - Methoden der Visualisierung anwenden können
 - Umsetzungsmethoden in R anwenden können
 - Ergebnisse interpretieren können.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Kapitel werden folgende Pakete benötigt:
 
-```{r}
+
+```r
 library("corrplot")
 library("gplots")
 library("nFactors")
-
 ```
 
 
@@ -90,17 +69,69 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 Wir untersuchen die Dimensionalität mittels einer auf 1000 Fälle reduzierten Zufallsauswahl von 15 Variablen zur Messung der grundlegenden Wertorientierungen von Menschen. Die Daten wurden im Sommersemester 2017 von FOM Studierenden im ersten Semester an der FOM bundesweit erhoben. Die Variablen zu Wertorientierungen wurden ursprüngliche aus dem 40-Item-Set des Portraits Value Questionnaire» (PVQ) von @Schmidt2007 adaptiert und durch Studien an der FOM seit 2014 stufenweise bis auf 15 relevante Variablen reduziert. Alle Variablen wurden auf einer Skala von 1 bis 7 (wobei 1 am wenigsten und 7 am meisten zutrifft) abgefragt. 
 
 Das Einlesen der Daten erfolgt mit dem Befehl read.csv2.
-```{r}
+
+```r
 Werte <- read.csv2("data/Werte.csv")
 ```
 
 
 Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung.
-```{r}
-str(Werte)
-head(Werte)
-summary(Werte)
 
+```r
+str(Werte)
+#> 'data.frame':	1000 obs. of  15 variables:
+#>  $ W1 : int  6 3 2 7 3 5 7 5 4 5 ...
+#>  $ W3 : int  6 7 7 7 4 5 5 5 4 5 ...
+#>  $ W4 : int  7 3 3 7 3 5 5 5 3 3 ...
+#>  $ W6 : int  6 1 6 4 4 4 3 3 2 2 ...
+#>  $ W7 : int  6 1 6 3 4 3 4 3 1 2 ...
+#>  $ W9 : int  2 7 4 1 5 1 3 3 3 1 ...
+#>  $ W10: int  5 7 7 7 2 5 6 3 4 5 ...
+#>  $ W11: int  4 3 6 3 4 3 4 2 2 5 ...
+#>  $ W12: int  6 7 7 2 7 3 4 5 6 5 ...
+#>  $ W13: int  6 7 7 6 7 4 6 6 7 4 ...
+#>  $ W14: int  6 7 3 3 6 5 6 7 3 7 ...
+#>  $ W15: int  6 7 7 5 3 7 5 6 2 5 ...
+#>  $ W16: int  5 6 1 3 3 5 5 4 5 6 ...
+#>  $ W17: int  4 7 1 7 6 5 7 6 6 5 ...
+#>  $ W18: int  7 6 7 5 2 7 7 6 7 7 ...
+head(Werte)
+#>   W1 W3 W4 W6 W7 W9 W10 W11 W12 W13 W14 W15 W16 W17 W18
+#> 1  6  6  7  6  6  2   5   4   6   6   6   6   5   4   7
+#> 2  3  7  3  1  1  7   7   3   7   7   7   7   6   7   6
+#> 3  2  7  3  6  6  4   7   6   7   7   3   7   1   1   7
+#> 4  7  7  7  4  3  1   7   3   2   6   3   5   3   7   5
+#> 5  3  4  3  4  4  5   2   4   7   7   6   3   3   6   2
+#> 6  5  5  5  4  3  1   5   3   3   4   5   7   5   5   7
+summary(Werte)
+#>        W1             W3             W4             W6      
+#>  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00  
+#>  1st Qu.:4.00   1st Qu.:4.00   1st Qu.:3.00   1st Qu.:2.00  
+#>  Median :5.00   Median :5.00   Median :4.00   Median :4.00  
+#>  Mean   :5.23   Mean   :5.12   Mean   :4.18   Mean   :3.61  
+#>  3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:5.00  
+#>  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00  
+#>        W7             W9            W10            W11            W12   
+#>  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1  
+#>  1st Qu.:2.00   1st Qu.:1.00   1st Qu.:4.00   1st Qu.:2.00   1st Qu.:4  
+#>  Median :4.00   Median :2.00   Median :5.00   Median :4.00   Median :5  
+#>  Mean   :3.71   Mean   :2.96   Mean   :4.78   Mean   :3.68   Mean   :5  
+#>  3rd Qu.:5.00   3rd Qu.:4.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:6  
+#>  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7  
+#>       W13            W14           W15            W16            W17      
+#>  Min.   :1.00   Min.   :1.0   Min.   :1.00   Min.   :1.00   Min.   :1.00  
+#>  1st Qu.:5.00   1st Qu.:4.0   1st Qu.:5.00   1st Qu.:4.00   1st Qu.:4.00  
+#>  Median :6.00   Median :6.0   Median :6.00   Median :5.00   Median :5.00  
+#>  Mean   :5.65   Mean   :5.2   Mean   :5.56   Mean   :5.03   Mean   :4.89  
+#>  3rd Qu.:7.00   3rd Qu.:6.0   3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:6.00  
+#>  Max.   :7.00   Max.   :7.0   Max.   :7.00   Max.   :7.00   Max.   :7.00  
+#>       W18      
+#>  Min.   :1.00  
+#>  1st Qu.:4.00  
+#>  Median :6.00  
+#>  Mean   :5.24  
+#>  3rd Qu.:6.00  
+#>  Max.   :7.00
 ```
 
 Wir sehen in der `summary()`, dass die Bereiche der Bewertungen für jede Variable 1-7 sind. In `str()` sehen wir, dass die Bewertungen als numerisch (Integer, also ganzzahlig) eingelesen wurden. Die Daten sind somit offenbar richtig formatiert.
@@ -111,9 +142,38 @@ In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird übliche
 
 Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.sc` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
 
-```{r}
+
+```r
 Werte.sc <- scale(Werte)
 summary(Werte.sc)
+#>        W1               W3               W4               W6        
+#>  Min.   :-2.842   Min.   :-2.803   Min.   :-1.874   Min.   :-1.451  
+#>  1st Qu.:-0.828   1st Qu.:-0.763   1st Qu.:-0.695   1st Qu.:-0.895  
+#>  Median :-0.156   Median :-0.084   Median :-0.106   Median : 0.215  
+#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
+#>  3rd Qu.: 1.186   3rd Qu.: 0.596   3rd Qu.: 0.484   3rd Qu.: 0.771  
+#>  Max.   : 1.186   Max.   : 1.276   Max.   : 1.663   Max.   : 1.881  
+#>        W7               W9              W10              W11        
+#>  Min.   :-1.536   Min.   :-0.998   Min.   :-2.252   Min.   :-1.608  
+#>  1st Qu.:-0.970   1st Qu.:-0.998   1st Qu.:-0.466   1st Qu.:-1.009  
+#>  Median : 0.162   Median :-0.487   Median : 0.129   Median : 0.189  
+#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
+#>  3rd Qu.: 0.728   3rd Qu.: 0.533   3rd Qu.: 0.725   3rd Qu.: 0.788  
+#>  Max.   : 1.859   Max.   : 2.064   Max.   : 1.320   Max.   : 1.986  
+#>       W12              W13             W14              W15       
+#>  Min.   :-2.528   Min.   :-3.30   Min.   :-2.675   Min.   :-3.43  
+#>  1st Qu.:-0.630   1st Qu.:-0.46   1st Qu.:-0.763   1st Qu.:-0.42  
+#>  Median : 0.003   Median : 0.25   Median : 0.511   Median : 0.33  
+#>  Mean   : 0.000   Mean   : 0.00   Mean   : 0.000   Mean   : 0.00  
+#>  3rd Qu.: 0.635   3rd Qu.: 0.96   3rd Qu.: 0.511   3rd Qu.: 1.09  
+#>  Max.   : 1.268   Max.   : 0.96   Max.   : 1.148   Max.   : 1.09  
+#>       W16              W17              W18        
+#>  Min.   :-2.688   Min.   :-2.605   Min.   :-2.944  
+#>  1st Qu.:-0.688   1st Qu.:-0.598   1st Qu.:-0.863  
+#>  Median :-0.021   Median : 0.071   Median : 0.524  
+#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
+#>  3rd Qu.: 0.646   3rd Qu.: 0.740   3rd Qu.: 0.524  
+#>  Max.   : 1.313   Max.   : 1.409   Max.   : 1.218
 ```
 
 Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle Beobachtungen 0 und die sd 1 ist. 
@@ -122,11 +182,16 @@ Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle 
 
 Wir verwenden den Befehl `corrplot()` für die Erstinspektion von bivariaten Beziehungen zwischen den Variablen. Das Argument `order = "hclust"` ordnet die Zeilen und Spalten entsprechend der Ähnlichkeit der Variablen in einer hierarchischen Cluster-Lösung der Variablen (mehr dazu im Kapitel \@ref(cluster)) neu an.
 
-```{r}
+
+```r
 library(corrplot)
 
 corrplot(cor(Werte.sc), order = "hclust")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
@@ -141,14 +206,16 @@ Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen
 Wenn in den Daten leere Zellen, also fehlende Werte, vorhanden sind, dann kann es bei bestimmten Rechenoperationen zu Fehlermeldungen kommen. Dies betrifft zum Beispiel Korrelationen, PCA und EFA. Der Ansatz besteht deshalb darin, NA-Werte explizit zu entfernen. Dies kann am einfachsten mit dem Befehl `na.omit()` geschehen:
 
 Beispiel: 
-```{r, eval=FALSE}
+
+```r
 corrplot(cor(na.omit((Werte.sc), order = "hclust"))
 ```
 
 Da wir in unserem Datensatz vollständige Daten verwenden, gibt es auch keine Leerzellen. 
 
 *Hinweis:* In vielen Funktionen gibt es auch die Option `na.rm = TRUE`, die fehlende Werte entfernt, z. B.:
-```{r, eval=FALSE}
+
+```r
 var(Werte.sc, na.rm = TRUE)
 ```
 
@@ -161,13 +228,27 @@ Die PCA berechnet ein Variablenset (Komponenten) in Form von linearen Gleichunge
 ### Bestimmung der Anzahl der Hauptkomponenten
 
 Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Werte. Wir finden die Komponenten mit prcomp().
-```{r}
+
+```r
 Werte.pc <- prcomp(Werte.sc)
 summary(Werte.pc)
-
+#> Importance of components:
+#>                          PC1   PC2   PC3    PC4    PC5    PC6    PC7
+#> Standard deviation     1.691 1.542 1.384 1.1428 1.0797 0.8855 0.8298
+#> Proportion of Variance 0.191 0.159 0.128 0.0871 0.0777 0.0523 0.0459
+#> Cumulative Proportion  0.191 0.349 0.477 0.5639 0.6416 0.6939 0.7398
+#>                           PC8    PC9   PC10   PC11   PC12  PC13   PC14
+#> Standard deviation     0.8078 0.7882 0.7599 0.7413 0.6884 0.648 0.6449
+#> Proportion of Variance 0.0435 0.0414 0.0385 0.0366 0.0316 0.028 0.0277
+#> Cumulative Proportion  0.7833 0.8247 0.8632 0.8999 0.9315 0.959 0.9872
+#>                          PC15
+#> Standard deviation     0.4388
+#> Proportion of Variance 0.0128
+#> Cumulative Proportion  1.0000
 ```
 
-```{r}
+
+```r
 # Berechnung der Gesamtvarianz
 Gesamtvarianz <- sum(Werte.pc$sdev^2)
 
@@ -175,6 +256,7 @@ Gesamtvarianz <- sum(Werte.pc$sdev^2)
 
 # Varianzanteil der ersten Hauptkomponente
 Werte.pc$sdev[1]^2 / Gesamtvarianz
+#> [1] 0.191
 ```
 
 
@@ -182,10 +264,19 @@ Werte.pc$sdev[1]^2 / Gesamtvarianz
 
 Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Geröll"], Dieser zeigt uns in Reihenfolge der Hauptkomponenten jeweils die durch diese Hauptkomponente erfasste Streuung (Varianz). Wir plotten ein Liniendiagramm mit dem Argument `type = "l"` (`l` für Linie), s. Abb. \@ref(fig:pca-scree)).
 
-```{r pca-scree, fig.cap = "Screeplot"}
-plot(Werte.pc, type="l")
 
+```r
+plot(Werte.pc, type="l")
 ```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/pca-scree-1} 
+
+}
+
+\caption{Screeplot}(\#fig:pca-scree)
+\end{figure}
 
 
 Wir sehen in Abb. \@ref(fig:pca-scree), dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente. 
@@ -198,19 +289,66 @@ Nach dem *Ellbogen-Kriterium*\index{Ellbogen-Kriterium} werden alle Hauptkompone
 
 Der *Eigenwert*\index{Eigenwert} ist eine Metrik für den Anteil der erklärten Varianz pro Hauptkomponente. Die Anzahl Eigenwerte können wir über den Befehl `eigen()` ausgeben.   
 
-```{r}
-eigen(cor(Werte))
 
+```r
+eigen(cor(Werte))
+#> $values
+#>  [1] 2.859 2.378 1.916 1.306 1.166 0.784 0.689 0.653 0.621 0.577 0.550
+#> [12] 0.474 0.420 0.416 0.193
+#> 
+#> $vectors
+#>          [,1]    [,2]     [,3]    [,4]    [,5]    [,6]    [,7]     [,8]
+#>  [1,] -0.3360 -0.2562  0.12816 -0.2571 -0.3169 -0.0889  0.0120 -0.04125
+#>  [2,] -0.3394 -0.2852  0.08185 -0.1592 -0.2717  0.0752  0.2663 -0.13585
+#>  [3,] -0.2639 -0.3166 -0.02087 -0.3541 -0.1630  0.0153  0.1008 -0.00337
+#>  [4,] -0.0823 -0.3339 -0.51113  0.0687  0.2738 -0.0882  0.0152 -0.05503
+#>  [5,] -0.0871 -0.3471 -0.47413  0.0757  0.3483 -0.0434  0.0584  0.03857
+#>  [6,] -0.0534  0.3031 -0.21855 -0.3830  0.2185  0.2994  0.4606  0.32818
+#>  [7,] -0.2362  0.2144 -0.25639 -0.3171 -0.0895 -0.1169 -0.5396  0.42299
+#>  [8,] -0.1540  0.3269 -0.17147 -0.3448  0.1406  0.1411 -0.2855 -0.70991
+#>  [9,] -0.2746  0.3383 -0.23404  0.1936 -0.1457 -0.2681  0.1305 -0.12314
+#> [10,] -0.3044  0.2172 -0.16643  0.3226 -0.2446 -0.4345  0.1108  0.11516
+#> [11,] -0.2735  0.2343 -0.11639  0.2791 -0.1675  0.5463  0.1090  0.02066
+#> [12,] -0.2954 -0.1718  0.00605  0.4025 -0.0024  0.4913 -0.2515  0.02419
+#> [13,] -0.3110  0.0555  0.33806 -0.0865  0.3504  0.0277 -0.1176  0.35210
+#> [14,] -0.2776  0.1469  0.24874  0.0342  0.3960 -0.1661  0.3910 -0.15683
+#> [15,] -0.3188 -0.0734  0.27436  0.1283  0.3725 -0.1565 -0.2432 -0.08194
+#>          [,9]    [,10]   [,11]   [,12]    [,13]    [,14]    [,15]
+#>  [1,] -0.0141  0.13021  0.3101 -0.0270  0.67608  0.23964 -0.01401
+#>  [2,] -0.0858 -0.15704  0.3822 -0.2411 -0.55627 -0.23709 -0.02689
+#>  [3,]  0.1529  0.07493 -0.7301  0.3027 -0.10366 -0.05236  0.01611
+#>  [4,] -0.0792  0.10887  0.0702 -0.0737  0.00748  0.05089  0.70614
+#>  [5,] -0.0611  0.09661  0.0227 -0.0945  0.05078  0.00934 -0.69865
+#>  [6,]  0.3872 -0.19518  0.1962  0.1211  0.07465  0.06917  0.04537
+#>  [7,] -0.3791 -0.14870  0.1039  0.1943 -0.10784 -0.11782 -0.01622
+#>  [8,]  0.0826 -0.02452 -0.0444 -0.1755 -0.06446  0.22016 -0.05602
+#>  [9,]  0.1657 -0.00433 -0.1147 -0.1631  0.28330 -0.66711  0.00900
+#> [10,]  0.2048 -0.08408 -0.0638 -0.0336 -0.24080  0.58366 -0.03821
+#> [11,] -0.2485  0.58465  0.0133  0.1725 -0.06163  0.05156 -0.00444
+#> [12,]  0.1156 -0.59999 -0.1105 -0.0235  0.16793  0.02761  0.02934
+#> [13,]  0.0562  0.23756 -0.2018 -0.6413 -0.02620  0.03045  0.06156
+#> [14,] -0.5830 -0.25695 -0.1034  0.2122  0.10191  0.06346  0.01993
+#> [15,]  0.4135  0.19855  0.2952  0.4874 -0.13201 -0.14046 -0.00201
 ```
 
 Der Eigenwert einer Komponente/ eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Laut dem Eigenwert-Kriterium sollen nur Faktoren mit einem *Eigenwert größer 1* extrahiert werden. Dies sind bei den Werte-Daten fünf Komponenten/ Faktoren, da fünf Eigenwerte größer 1 sind. Der Grund ist, dass Komponenten/ Faktoren mit einem Eigenwert kleiner als 1 weniger Erklärungswert haben als die ursprünglichen Variablen. 
 
 Dies kann auch grafisch mit dem `VSS.Scree` geplotet werden (s. Abb. \@ref(fig:vss-scree)). 
 
-```{r vss-scree, fig.cap = "VSS-Screeplot"}
+
+```r
 library(nFactors)
 VSS.scree(Werte)
 ```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/vss-scree-1} 
+
+}
+
+\caption{VSS-Screeplot}(\#fig:vss-scree)
+\end{figure}
 
 
 ### Biplot
@@ -219,18 +357,57 @@ Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die
 
 Dazu verwenden wir `biplot()`:
 
-```{r}
+
+```r
 biplot(Werte.pc)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Die Variablen-Gruppierungen sind als rote Ladungspfeile sichtbar. Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist hier durch die große Anzahl an Beobachtung recht unübersichtlich. 
 
 Am einfachsten lassen sich die Komponenten extrahieren mit dem `principal`-Befehl aus dem psych-Paket:
 
-```{r}
+
+```r
 Werte.pca <- principal(Werte, nfactors = 5)
 print(Werte.pca, cut = 0.5, sort = TRUE, digits = 2)
-
+#> Principal Components Analysis
+#> Call: principal(r = Werte, nfactors = 5)
+#> Standardized loadings (pattern matrix) based upon correlation matrix
+#>     item   RC1   RC2   RC3   RC5   RC4   h2   u2 com
+#> W1     1  0.83                         0.71 0.29 1.1
+#> W3     2  0.78                         0.65 0.35 1.2
+#> W4     3  0.76                         0.63 0.37 1.2
+#> W13   10        0.79                   0.64 0.36 1.0
+#> W12    9        0.75                   0.67 0.33 1.3
+#> W14   11        0.70                   0.50 0.50 1.1
+#> W15   12                               0.53 0.47 4.2
+#> W7     5              0.94             0.89 0.11 1.0
+#> W6     4              0.92             0.88 0.12 1.1
+#> W16   13                    0.77       0.66 0.34 1.2
+#> W18   15                    0.76       0.63 0.37 1.2
+#> W17   14                    0.73       0.57 0.43 1.2
+#> W9     6                          0.74 0.57 0.43 1.1
+#> W11    8                          0.72 0.56 0.44 1.2
+#> W10    7                          0.62 0.54 0.46 1.8
+#> 
+#>                        RC1  RC2  RC3  RC5  RC4
+#> SS loadings           2.08 2.02 1.89 1.87 1.76
+#> Proportion Var        0.14 0.13 0.13 0.12 0.12
+#> Cumulative Var        0.14 0.27 0.40 0.52 0.64
+#> Proportion Explained  0.22 0.21 0.20 0.19 0.18
+#> Cumulative Proportion 0.22 0.43 0.62 0.82 1.00
+#> 
+#> Mean item complexity =  1.4
+#> Test of the hypothesis that 5 components are sufficient.
+#> 
+#> The root mean square of the residuals (RMSR) is  0.07 
+#>  with the empirical chi square  1038  with prob <  1.6e-191 
+#> 
+#> Fit based upon off diagonal values = 0.88
 ```
 
 ### Interpretation der Ergebnisse der PCA: 
@@ -263,9 +440,14 @@ Um die inhaltliche Bedeutung der Komponenten zu interpretieren, schauen wir uns 
 
 Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden.
 
-```{r}
+
+```r
 fa.diagram(Werte.pca)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 
 
@@ -283,9 +465,11 @@ Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu 
 
 Durch das Paket `nFactors` bekommen wir eine formalisierte Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()`
 
-```{r}
-nScree(Werte)
 
+```r
+nScree(Werte)
+#>   noc naf nparallel nkaiser
+#> 1   5   3         5       5
 ```
 
 `nScree` gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden fünf Faktoren vorschlagen.
@@ -295,14 +479,86 @@ nScree(Werte)
 
 Eine EFA wird geschätzt mit dem Befehl `factanal(x,factors = k)`, wobei `k` die Anzahl Faktoren angibt.
 
-```{r}
+
+```r
 Werte.fa<-factanal(Werte, factors = 5)
 Werte.fa
+#> 
+#> Call:
+#> factanal(x = Werte, factors = 5)
+#> 
+#> Uniquenesses:
+#>    W1    W3    W4    W6    W7    W9   W10   W11   W12   W13   W14   W15 
+#> 0.401 0.486 0.584 0.243 0.139 0.660 0.662 0.626 0.395 0.481 0.729 0.713 
+#>   W16   W17   W18 
+#> 0.463 0.666 0.561 
+#> 
+#> Loadings:
+#>     Factor1 Factor2 Factor3 Factor4 Factor5
+#> W1           0.756           0.147         
+#> W3           0.686           0.149         
+#> W4   0.172   0.611                         
+#> W6   0.849   0.131          -0.133         
+#> W7   0.921                                 
+#> W9          -0.123                   0.568 
+#> W10          0.154   0.266           0.492 
+#> W11                  0.168           0.580 
+#> W12                  0.715           0.298 
+#> W13                  0.710                 
+#> W14                  0.483   0.132   0.137 
+#> W15  0.188   0.230   0.268   0.265  -0.240 
+#> W16 -0.114   0.158           0.698   0.106 
+#> W17                  0.149   0.539   0.111 
+#> W18          0.181           0.618  -0.109 
+#> 
+#>                Factor1 Factor2 Factor3 Factor4 Factor5
+#> SS loadings      1.668   1.600   1.473   1.332   1.116
+#> Proportion Var   0.111   0.107   0.098   0.089   0.074
+#> Cumulative Var   0.111   0.218   0.316   0.405   0.479
+#> 
+#> Test of the hypothesis that 5 factors are sufficient.
+#> The chi square statistic is 93.3 on 40 degrees of freedom.
+#> The p-value is 3.83e-06
 ```
 
 Eine übersichtlichere Ausgabe bekommen wir mit dem `print` Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit `digits = 2`, alle Ladungen kleiner als 0,5 ausblenden mit `cutoff = .4` und die Ladungen mit `sort = TRUE` so sortieren, dass die Ladungen, die auf einen Faktor laden, untereinander stehen.
-```{r out.width = "100%"}
+
+```r
 print(Werte.fa, digits = 2, cutoff = .4, sort = TRUE)
+#> 
+#> Call:
+#> factanal(x = Werte, factors = 5)
+#> 
+#> Uniquenesses:
+#>   W1   W3   W4   W6   W7   W9  W10  W11  W12  W13  W14  W15  W16  W17  W18 
+#> 0.40 0.49 0.58 0.24 0.14 0.66 0.66 0.63 0.39 0.48 0.73 0.71 0.46 0.67 0.56 
+#> 
+#> Loadings:
+#>     Factor1 Factor2 Factor3 Factor4 Factor5
+#> W6   0.85                                  
+#> W7   0.92                                  
+#> W1           0.76                          
+#> W3           0.69                          
+#> W4           0.61                          
+#> W12                  0.72                  
+#> W13                  0.71                  
+#> W16                          0.70          
+#> W17                          0.54          
+#> W18                          0.62          
+#> W9                                   0.57  
+#> W11                                  0.58  
+#> W10                                  0.49  
+#> W14                  0.48                  
+#> W15                                        
+#> 
+#>                Factor1 Factor2 Factor3 Factor4 Factor5
+#> SS loadings       1.67    1.60    1.47    1.33    1.12
+#> Proportion Var    0.11    0.11    0.10    0.09    0.07
+#> Cumulative Var    0.11    0.22    0.32    0.40    0.48
+#> 
+#> Test of the hypothesis that 5 factors are sufficient.
+#> The chi square statistic is 93.3 on 40 degrees of freedom.
+#> The p-value is 3.83e-06
 ```
 
 
@@ -312,7 +568,8 @@ Standardmäßig wird bei `factanal()` eine *Varimax-Rotation* durchgeführt (das
 
 In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt `Werte.fa` sind diese als  `$loadings` vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von `$loadings` visualisieren, s. Abb. \@ref(fig:efa-heatmap):
 
-```{r efa-heatmpa, fig.cap = "Heatmap einer EFA"}
+
+```r
 heatmap.2(Werte.fa$loadings,
           dendrogram = "both",
           labRow = NULL,
@@ -328,6 +585,15 @@ heatmap.2(Werte.fa$loadings,
           )
 ```
 
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmpa-1} 
+
+}
+
+\caption{Heatmap einer EFA}(\#fig:efa-heatmpa)
+\end{figure}
+
 
 Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
 
@@ -336,11 +602,19 @@ Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktor
 
 Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Faktorwerte für jede Beobachtung schätzen. Die gängige Extraktionsmethode ist die Bartlett-Methode.
 
-```{r}
+
+```r
 Werte.ob <- factanal(Werte, factors = 5, scores = "Bartlett")
 Werte.scores <- data.frame(Werte.ob$scores)
 names(Werte.scores) <- c("Anerkennung", "Genuss", "Sicherheit", "Bewusstsein", "Konformismus") 
 head(Werte.scores)
+#>   Anerkennung Genuss Sicherheit Bewusstsein Konformismus
+#> 1       1.380  0.985      0.563       0.173       -0.106
+#> 2      -1.404 -0.721      1.597       1.166        0.695
+#> 3       1.532 -0.657      1.672      -2.003        0.239
+#> 4      -0.579  2.344     -1.056      -1.120       -0.118
+#> 5       0.234 -1.652      1.189      -1.701        0.437
+#> 6      -0.130  0.111     -1.053       0.791       -1.003
 ```
 
 
@@ -365,8 +639,39 @@ größer 0,5 |   schlecht
 
 
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
-```{r}
+
+```r
 alpha(Werte[, c("W12","W13", "W14", "W15")], check.keys = TRUE)
+#> 
+#> Reliability analysis   
+#> Call: alpha(x = Werte[, c("W12", "W13", "W14", "W15")], check.keys = TRUE)
+#> 
+#>   raw_alpha std.alpha G6(smc) average_r S/N   ase mean sd
+#>       0.64      0.63     0.6       0.3 1.7 0.018  5.4  1
+#> 
+#>  lower alpha upper     95% confidence boundaries
+#> 0.6 0.64 0.67 
+#> 
+#>  Reliability if an item is dropped:
+#>     raw_alpha std.alpha G6(smc) average_r  S/N alpha se
+#> W12      0.51      0.51    0.42      0.26 1.05    0.026
+#> W13      0.50      0.49    0.42      0.24 0.97    0.027
+#> W14      0.54      0.53    0.49      0.28 1.15    0.025
+#> W15      0.68      0.69    0.61      0.42 2.19    0.017
+#> 
+#>  Item statistics 
+#>        n raw.r std.r r.cor r.drop mean  sd
+#> W12 1000  0.75  0.73  0.64   0.49  5.0 1.6
+#> W13 1000  0.75  0.75  0.65   0.52  5.7 1.4
+#> W14 1000  0.73  0.72  0.55   0.45  5.2 1.6
+#> W15 1000  0.52  0.56  0.29   0.23  5.6 1.3
+#> 
+#> Non missing response frequency for each item
+#>        1    2    3    4    5    6    7 miss
+#> W12 0.02 0.06 0.12 0.15 0.21 0.25 0.19    0
+#> W13 0.01 0.02 0.05 0.11 0.18 0.27 0.35    0
+#> W14 0.02 0.05 0.10 0.14 0.19 0.25 0.25    0
+#> W15 0.01 0.02 0.06 0.11 0.22 0.31 0.28    0
 ```
 
 Bei dem Konstrukt `Sicherheit` können wir durch Elimination von `W15` das Cronbachs Alpha von 0,64 auf einen fast akzeptablen Wert von 0,68 erhöhen.

@@ -36,7 +36,7 @@ bookdown::gitbook:
       collapse: subsection
       scroll_highlight: yes
       before: |
-        <li><img src="https://sebastiansauer.github.io/images/FOM.jpg"
+        <li><img src="images/FOM.jpg"
         title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 
 bookdown::epub_book: default

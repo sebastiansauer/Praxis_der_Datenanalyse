@@ -106,7 +106,9 @@ qplot(x = affairs, data = Affair)
 qplot(x = rating, data = Affair)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-epub3/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /><img src="076_Fallstudie_Affairs_files/figure-epub3/unnamed-chunk-8-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-2} \end{center}
 
 Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.
 
@@ -296,7 +298,9 @@ library(corrplot)
 corrplot(cor_tab)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-epub3/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -731,14 +735,21 @@ tidy(lm10) %>% kable
 ```
 
 
-
-term            estimate   std.error   statistic   p.value
--------------  ---------  ----------  ----------  --------
-(Intercept)        0.054       0.430       0.125     0.901
-gendermale         0.242       0.197       1.229     0.219
-childrenyes        0.394       0.283       1.390     0.164
-rating            -0.465       0.087      -5.327     0.000
-yearsmarried       0.022       0.021       1.040     0.299
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 0.054 & 0.430 & 0.125 & 0.901\\
+\hline
+gendermale & 0.242 & 0.197 & 1.229 & 0.219\\
+\hline
+childrenyes & 0.394 & 0.283 & 1.390 & 0.164\\
+\hline
+rating & -0.465 & 0.087 & -5.327 & 0.000\\
+\hline
+yearsmarried & 0.022 & 0.021 & 1.040 & 0.299\\
+\hline
+\end{tabular}
 
 
 ### Zum Abschluss
@@ -755,7 +766,9 @@ Affair %>%
   geom_jitter(aes(color = gender, shape = children)) 
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-epub3/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 
@@ -767,7 +780,9 @@ Affair %>%
   geom_smooth()
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-epub3/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 Puh. Geschafft!
@@ -779,25 +794,44 @@ Puh. Geschafft!
 
 Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zusammen.
 
+\begin{table}
 
-Table: (\#tab:befehle-fallstudien)Befehle des Kapitels 'Fallstudien'
-
-Paket::Funktion         Beschreibung                                                                                 
-----------------------  ---------------------------------------------------------------------------------------------
-data                    Lädt Daten aus einem Datensatz                                                               
-chisq.test              Rechnet einen Chi-Quadrat-Test                                                               
-compute.es::chies       Liefert Effektstärkemaße für einen Chi-Quadrat-Test                                          
-glm                     Rechnet eine generalisiertes lineares Modell (logistische Regression)                        
-exp                     Delogarithmiert einen Ausdruck                                                               
-coef                    Liefert die Koeffizienten von einem Objekt des Typs lm oder glm zurück.                      
-predict                 Macht eine Vorhersage für ein Objekt des Typs lm oder glm                                    
-psych::describe         Liefert eine Reihe zentraler Statistiken                                                     
-is.na                   Zeigt an, ob ein Vektor fehlende Werte beinhaltet                                            
-dplyr::summarise_each   Führt summarise für jede Spalte aus                                                          
-t.test                  Rechnet einen t-Test                                                                         
-MBESS:ci.smd            Berechnet Cohens d                                                                           
-dplyr::ntile            Teilt einen Wertebereich in n gleich große Teile auf (d.h. mit jeweils gleich vielen Fällen) 
-broom::tidy             Wandelt ein Modellobjekt (z.B. von "lm") in einen Dataframe um.                              
+\caption{(\#tab:befehle-fallstudien)Befehle des Kapitels 'Fallstudien'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & Beschreibung\\
+\hline
+data & Lädt Daten aus einem Datensatz\\
+\hline
+chisq.test & Rechnet einen Chi-Quadrat-Test\\
+\hline
+compute.es::chies & Liefert Effektstärkemaße für einen Chi-Quadrat-Test\\
+\hline
+glm & Rechnet eine generalisiertes lineares Modell (logistische Regression)\\
+\hline
+exp & Delogarithmiert einen Ausdruck\\
+\hline
+coef & Liefert die Koeffizienten von einem Objekt des Typs lm oder glm zurück.\\
+\hline
+predict & Macht eine Vorhersage für ein Objekt des Typs lm oder glm\\
+\hline
+psych::describe & Liefert eine Reihe zentraler Statistiken\\
+\hline
+is.na & Zeigt an, ob ein Vektor fehlende Werte beinhaltet\\
+\hline
+dplyr::summarise\_each & Führt summarise für jede Spalte aus\\
+\hline
+t.test & Rechnet einen t-Test\\
+\hline
+MBESS:ci.smd & Berechnet Cohens d\\
+\hline
+dplyr::ntile & Teilt einen Wertebereich in n gleich große Teile auf (d.h. mit jeweils gleich vielen Fällen)\\
+\hline
+broom::tidy & Wandelt ein Modellobjekt (z.B. von "lm") in einen Dataframe um.\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

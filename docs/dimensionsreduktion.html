@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-<link rel="prev" href="klassische-lineare-numerische-regression.html">
-<link rel="next" href="fallstudien-zum-geleiteten-modellieren.html">
+<link rel="prev" href="cluster.html">
+<link rel="next" href="vertiefung-textmining.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -396,454 +396,619 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="klassifizierende-regression" class="section level1">
-<h1><span class="header-section-number">Kapitel 12</span> Klassifizierende Regression</h1>
+<div id="dimensionsreduktion" class="section level1">
+<h1><span class="header-section-number">Kapitel 15</span> Dimensionsreduktion</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
 
 <div class="rmdcaution">
 <p>Lernziele:</p>
 <ul>
-<li>Die Idee der logistischen Regression verstehen.</li>
-<li>Die Koeffizienten der logistischen Regression interpretieren können.</li>
-<li>Vertiefungen wie Modellgüte kennen.</li>
+<li>Den Unterschied zwischen einer Hauptkomponentenanalyse und einer Exploratorische Faktorenanalyse kennen</li>
+<li>Methoden kennen, um die Anzahl von Dimensionen zu bestimmen</li>
+<li>Methoden der Visualisierung anwenden können</li>
+<li>Umsetzungsmethoden in R anwenden können</li>
+<li>Ergebnisse interpretieren können.</li>
 </ul>
 </div>
 <p></p>
-<p>Für dieses Kapitel benötigen Sie folgende Pakete:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SDMTools)  <span class="co"># Güte von Klassifikationsmodellen</span>
-<span class="kw">library</span>(ROCR)  <span class="co"># Visualisierung der Güte </span>
-<span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo</span>
-<span class="kw">library</span>(BaylorEdPsych)  <span class="co"># Pseudo-R-Quadrat</span></code></pre></div>
-<div id="vorbereitung" class="section level2">
-<h2><span class="header-section-number">12.1</span> Vorbereitung</h2>
-<p>Hier werden wir den Datensatz <em>Aktienkauf</em> der Universität Zürich (<a href="http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html">Universität Zürich, Methodenberatung</a>) analysieren. Es handelt es sich um eine finanzpsychologische Fragestellung. Es wurde untersucht, welche Variablen mit der Wahrscheinlichkeit, dass jemand Aktien erwirbt, zusammenhängen. Insgesamt wurden 700 Personen befragt. Folgende Daten wurden erhoben:</p>
+<p>In diesem Kapitel werden folgende Pakete benötigt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;corrplot&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;gplots&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;nFactors&quot;</span>)</code></pre></div>
+<div id="einfuhrung-1" class="section level2">
+<h2><span class="header-section-number">15.1</span> Einführung</h2>
+<p>Datensätze in den Sozialwissenschaften, und damit auch in der Wirtschaftspsychologie, haben oft viele Variablen - oder auch Dimensionen - und es ist vorteilhaft, diese auf eine kleinere Anzahl von Variablen (oder Dimensionen) zu reduzieren. Zusammenhänge zwischen verschiedenen Dimensionen oder Unterschiede zwischen verschiedenen Gruppen bezüglich einer oder mehrerer Dimensionen (z. B. bei Experimenten) können so klarer und einfacher identifiziert werden. Dimensionen mit konkreten Sachverhalten werden in der Sprache der Wissenschaft häufig als <em>Konstrukte</em> bezeichnet.</p>
+<p>Konstrukte stellen in den Sozialwissenschaften gedankliche bzw. theoretische Sachverhalt dar, die nicht direkt beobachtbar und damit nicht direkt messbar sind. Nehmen wir beispielsweise an, es soll das Konstrukt <em>Anerkennung</em> im Rahmen einer sozialwissenschaftlichen Studie gemessen werden. Dabei gibt es zunächst zwei Fragestellungen:</p>
+<ol style="list-style-type: decimal">
+<li>Was bedeutet Anerkennung?</li>
+<li>Wie wird Anerkennung gemessen?</li>
+</ol>
+<p>Liest man bei Wikipediea diesen Begriff nach, kommt folgende Antwort: “Anerkennung bedeutet die Erlaubnis einer Person oder einer Gruppe gegenüber einer anderen Person, Gruppe oder Institution, sich mit ihren derzeitigen spezifischen Eigenschaften an der Kommunikation, an Entscheidungsprozessen oder anderen gesellschaftlichen Prozessen zu beteiligen. Der Begriff Anerkennung wird auch als Synonym für Akzeptanz, Lob oder Respekt verwendet.” Gut, wir kennen nun die Bedeutung von Anerkennung, aber wir wissen immer noch nicht, wie wir Anerkennung messen können. Da die Suche nach Anerkennung in der Psychologie kein neues <code>Konstrukt</code> darstellt, sondern schon vielfach gemessen wurde, müssen wir nur in bisherigen Forschungsergebnissen nachlesen. Dies führt unweigerlich dazu, dass wir auf bisherige Forschungen stoßen, die das Konstrukt Anerkennung als ein <code>multidimensionales Konstrukt</code> definieren und mit mehr als einem <em>Item (Indikator)</em> messen. Mehr zur Messung von Anerkennung weiter unten im Datenbeispiel. D. h. der Sachverhalt <code>Anerkennung</code> wird aus anderen, messbaren Sachverhalten <code>(Indikatoren)</code> messbar gemacht. Der Prozess des <em>“Messbar machens”</em> heißt <em>Operationalisierung</em>. Mehr zur Operationalisierung von Anerkennung und anderen Konstrukten betrachten wir weiter untern im Datenbeispiel.</p>
+<p>In diesem Kapitel betrachten wir zwei gängige Methoden, um die Komplexität von multivarianten, metrischen Daten zu reduzieren, indem wir die Anzahl der Dimensionen in den Daten reduzieren.</p>
 <ul>
-<li>Aktienkauf (0 = nein, 1 = ja)</li>
-<li>Jahreseinkommen (in Tausend CHF),</li>
-<li>Risikobereitschaft (Skala von 0 bis 25)</li>
-<li>Interesse an der aktuellen Marktlage (Skala von 0 bis 45).</li>
+<li>Die <em>Hauptkomponentenanalyse</em> (engl. principal component analysis, PCA) versucht, unkorrelierte Linearkombinationen zu finden, die die maximale Varianz in den Daten erfassen. Die PCA beinhaltet also das Extrahieren von linearen Zusammenhängen der beobachteten Variablen.</li>
+<li>Die <em>Exploratorische Faktorenanalyse (EFA)</em> versucht, die Varianz auf Basis einer kleinen Anzahl von Dimensionen zu modellieren, während sie gleichzeitig versucht, die Dimensionen in Bezug auf die ursprünglichen Variablen interpretierbar zu machen. Es wird davon ausgegangen, dass die Daten einem Faktoren Modell entsprechen, bei der die beobachteten Korrelationen auf <code>latente</code> Faktoren zurückführen. Mit der EFA wird <em>nicht</em> die gesamte Varianz erklärt.</li>
 </ul>
-<p>Importieren Sie zunächst die Daten.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aktien &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/Aktien.csv&quot;</span>)</code></pre></div>
+<p>In der Psychologie werden diese beiden Methoden oft in der Konstruktion von mehrstufigen Tests angewendet, um festzustellen, welche <code>Items</code> auf welche Konstrukte laden. Sie ergeben in der Regel ähnliche inhaltliche Schlussfolgerungen. Dies erklärt, warum einige Statistik-Software-Programme beide Methoden zusammenpacken. So wird die PCA als Standard-Extraktionsmethode in den SPSS-Faktoranalyse-Routinen verwendet. Dies führt zweifellos zu einer gewissen Verwirrung über die Unterscheidung zwischen den beiden Methoden. Die EFA wird oft als <em>Common Factor Analysis</em> oder <em>principal axis analysis (Hauptachsenanalyse)</em> bezeichnet. Die EFA verwendet eine Vielzahl von Optimierungsroutinen und das Ergebnis, im Gegensatz zu PCA, hängt von der verwendeten Optimierungsroutine und Ausgangspunkten für diese Routinen ab. Es gibt also <em>keine einzigartige</em> Lösung bei der EFA.</p>
+<p>Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:</p>
+<ul>
+<li>Führe die PCA durch, wenn die korrelierten beobachteten Variablen einfach auf einen kleineren Satz von wichtigen unabhängigen zusammengesetzten Variablen reduziert werden soll.</li>
+<li>Führe die EFA durch, wenn ein theoretisches Modell von latenten Faktoren zugrunde liegt, dass die beobachtete Variablen verursacht.</li>
+</ul>
 </div>
-<div id="problemstellung" class="section level2">
-<h2><span class="header-section-number">12.2</span> Problemstellung</h2>
-<p>Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. <a href="klassifizierende-regression.html#fig:fig-logist-regr1">12.1</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Aktienkauf, <span class="dt">x =</span> Risikobereitschaft), <span class="dt">data =</span> Aktien) +<span class="st"> </span><span class="kw">geom_point</span>()
-p1</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr1"></span>
-<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
-<p class="caption">
-Abbildung 12.1: Streudiagramm von Risikobereitschaft und Aktienkauf
-</p>
+<div id="grunde-fur-die-notwendigkeit-der-datenreduktion" class="section level2">
+<h2><span class="header-section-number">15.2</span> Gründe für die Notwendigkeit der Datenreduktion</h2>
+<ul>
+<li>Im technischen Sinne der Dimensionsreduktion können wir statt Variablen-Sets die Faktor-/ Komponentenwerte verwenden (z. B. für Mittelwertvergleiche zwischen Experimental- und Kontrollgruppe, Regressionsanalyse und Clusteranalyse).</li>
+<li>Wir können Unsicherheit verringern. Wenn wir glauben, dass ein Konstrukt nicht eindeutig messbar ist, dann kann mit einem Variablen-Set die Unsicherheit reduziert werden.</li>
+<li>Wir können den Aufwand bei der Datenerfassung vereinfachen, indem wir uns auf Variablen konzentrieren, von denen bekannt ist, dass sie einen hohen Beitrag zum interessierenden Faktor/ Komponente leisten. Wenn wir feststellen, dass einige Variablen für einen Faktor nicht wichtig sind, können wir sie aus dem Datensatz eliminieren.</li>
+</ul>
 </div>
-<p>Berechnen wir dann eine normale Regression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">data =</span> Aktien)
-<span class="kw">summary</span>(lm1)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = Aktienkauf ~ Risikobereitschaft, data = Aktien)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Residuals:</span>
-<span class="co">#&gt;    Min     1Q Median     3Q    Max </span>
-<span class="co">#&gt; -0.684 -0.243 -0.204  0.348  0.814 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="co">#&gt; (Intercept)         0.18246    0.02001    9.12  &lt; 2e-16 ***</span>
-<span class="co">#&gt; Risikobereitschaft  0.05083    0.00762    6.67  5.2e-11 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Residual standard error: 0.427 on 698 degrees of freedom</span>
-<span class="co">#&gt; Multiple R-squared:  0.0599, Adjusted R-squared:  0.0586 </span>
-<span class="co">#&gt; F-statistic: 44.5 on 1 and 698 DF,  p-value: 5.25e-11</span></code></pre></div>
-<p>Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<div id="daten-1" class="section level2">
+<h2><span class="header-section-number">15.3</span> Daten</h2>
+<p>Wir untersuchen die Dimensionalität mittels einer auf 1000 Fälle reduzierten Zufallsauswahl von 15 Variablen zur Messung der grundlegenden Wertorientierungen von Menschen. Die Daten wurden im Sommersemester 2017 von FOM Studierenden im ersten Semester an der FOM bundesweit erhoben. Die Variablen zu Wertorientierungen wurden ursprüngliche aus dem 40-Item-Set des Portraits Value Questionnaire» (PVQ) von <span class="citation">Schmidt u. a. (<a href="#ref-Schmidt2007">2007</a>)</span> adaptiert und durch Studien an der FOM seit 2014 stufenweise bis auf 15 relevante Variablen reduziert. Alle Variablen wurden auf einer Skala von 1 bis 7 (wobei 1 am wenigsten und 7 am meisten zutrifft) abgefragt.</p>
+<p>Das Einlesen der Daten erfolgt mit dem Befehl read.csv2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/Werte.csv&quot;</span>)</code></pre></div>
+<p>Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(Werte)
+<span class="co">#&gt; &#39;data.frame&#39;:    1000 obs. of  15 variables:</span>
+<span class="co">#&gt;  $ W1 : int  6 3 2 7 3 5 7 5 4 5 ...</span>
+<span class="co">#&gt;  $ W3 : int  6 7 7 7 4 5 5 5 4 5 ...</span>
+<span class="co">#&gt;  $ W4 : int  7 3 3 7 3 5 5 5 3 3 ...</span>
+<span class="co">#&gt;  $ W6 : int  6 1 6 4 4 4 3 3 2 2 ...</span>
+<span class="co">#&gt;  $ W7 : int  6 1 6 3 4 3 4 3 1 2 ...</span>
+<span class="co">#&gt;  $ W9 : int  2 7 4 1 5 1 3 3 3 1 ...</span>
+<span class="co">#&gt;  $ W10: int  5 7 7 7 2 5 6 3 4 5 ...</span>
+<span class="co">#&gt;  $ W11: int  4 3 6 3 4 3 4 2 2 5 ...</span>
+<span class="co">#&gt;  $ W12: int  6 7 7 2 7 3 4 5 6 5 ...</span>
+<span class="co">#&gt;  $ W13: int  6 7 7 6 7 4 6 6 7 4 ...</span>
+<span class="co">#&gt;  $ W14: int  6 7 3 3 6 5 6 7 3 7 ...</span>
+<span class="co">#&gt;  $ W15: int  6 7 7 5 3 7 5 6 2 5 ...</span>
+<span class="co">#&gt;  $ W16: int  5 6 1 3 3 5 5 4 5 6 ...</span>
+<span class="co">#&gt;  $ W17: int  4 7 1 7 6 5 7 6 6 5 ...</span>
+<span class="co">#&gt;  $ W18: int  7 6 7 5 2 7 7 6 7 7 ...</span>
+<span class="kw">head</span>(Werte)
+<span class="co">#&gt;   W1 W3 W4 W6 W7 W9 W10 W11 W12 W13 W14 W15 W16 W17 W18</span>
+<span class="co">#&gt; 1  6  6  7  6  6  2   5   4   6   6   6   6   5   4   7</span>
+<span class="co">#&gt; 2  3  7  3  1  1  7   7   3   7   7   7   7   6   7   6</span>
+<span class="co">#&gt; 3  2  7  3  6  6  4   7   6   7   7   3   7   1   1   7</span>
+<span class="co">#&gt; 4  7  7  7  4  3  1   7   3   2   6   3   5   3   7   5</span>
+<span class="co">#&gt; 5  3  4  3  4  4  5   2   4   7   7   6   3   3   6   2</span>
+<span class="co">#&gt; 6  5  5  5  4  3  1   5   3   3   4   5   7   5   5   7</span>
+<span class="kw">summary</span>(Werte)
+<span class="co">#&gt;        W1             W3             W4             W6      </span>
+<span class="co">#&gt;  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00  </span>
+<span class="co">#&gt;  1st Qu.:4.00   1st Qu.:4.00   1st Qu.:3.00   1st Qu.:2.00  </span>
+<span class="co">#&gt;  Median :5.00   Median :5.00   Median :4.00   Median :4.00  </span>
+<span class="co">#&gt;  Mean   :5.23   Mean   :5.12   Mean   :4.18   Mean   :3.61  </span>
+<span class="co">#&gt;  3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:5.00  </span>
+<span class="co">#&gt;  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00  </span>
+<span class="co">#&gt;        W7             W9            W10            W11            W12   </span>
+<span class="co">#&gt;  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1  </span>
+<span class="co">#&gt;  1st Qu.:2.00   1st Qu.:1.00   1st Qu.:4.00   1st Qu.:2.00   1st Qu.:4  </span>
+<span class="co">#&gt;  Median :4.00   Median :2.00   Median :5.00   Median :4.00   Median :5  </span>
+<span class="co">#&gt;  Mean   :3.71   Mean   :2.96   Mean   :4.78   Mean   :3.68   Mean   :5  </span>
+<span class="co">#&gt;  3rd Qu.:5.00   3rd Qu.:4.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:6  </span>
+<span class="co">#&gt;  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7  </span>
+<span class="co">#&gt;       W13            W14           W15            W16            W17      </span>
+<span class="co">#&gt;  Min.   :1.00   Min.   :1.0   Min.   :1.00   Min.   :1.00   Min.   :1.00  </span>
+<span class="co">#&gt;  1st Qu.:5.00   1st Qu.:4.0   1st Qu.:5.00   1st Qu.:4.00   1st Qu.:4.00  </span>
+<span class="co">#&gt;  Median :6.00   Median :6.0   Median :6.00   Median :5.00   Median :5.00  </span>
+<span class="co">#&gt;  Mean   :5.65   Mean   :5.2   Mean   :5.56   Mean   :5.03   Mean   :4.89  </span>
+<span class="co">#&gt;  3rd Qu.:7.00   3rd Qu.:6.0   3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:6.00  </span>
+<span class="co">#&gt;  Max.   :7.00   Max.   :7.0   Max.   :7.00   Max.   :7.00   Max.   :7.00  </span>
+<span class="co">#&gt;       W18      </span>
+<span class="co">#&gt;  Min.   :1.00  </span>
+<span class="co">#&gt;  1st Qu.:4.00  </span>
+<span class="co">#&gt;  Median :6.00  </span>
+<span class="co">#&gt;  Mean   :5.24  </span>
+<span class="co">#&gt;  3rd Qu.:6.00  </span>
+<span class="co">#&gt;  Max.   :7.00</span></code></pre></div>
+<p>Wir sehen in der <code>summary()</code>, dass die Bereiche der Bewertungen für jede Variable 1-7 sind. In <code>str()</code> sehen wir, dass die Bewertungen als numerisch (Integer, also ganzzahlig) eingelesen wurden. Die Daten sind somit offenbar richtig formatiert.</p>
+</div>
+<div id="neuskalierung-der-daten" class="section level2">
+<h2><span class="header-section-number">15.4</span> Neuskalierung der Daten</h2>
+<p>In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird üblicherweise als <em>Standardisierung</em>, <em>Normierung</em>, oder <em>Z-Transformation</em> bezeichnet. Als Ergebnis ist der Mittelwert aller Variablen über alle Beobachtungen dann 0 und die Standardabweichung (SD) 1. Da wir hier gleiche Skalenstufen haben, ist ein Skalieren nicht unbedingt notwendig, wir führen es aber trotzdem durch.</p>
+<p>Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl <code>scale()</code>. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe <code>Werte.sc</code> zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte.sc &lt;-<span class="st"> </span><span class="kw">scale</span>(Werte)
+<span class="kw">summary</span>(Werte.sc)
+<span class="co">#&gt;        W1               W3               W4               W6        </span>
+<span class="co">#&gt;  Min.   :-2.842   Min.   :-2.803   Min.   :-1.874   Min.   :-1.451  </span>
+<span class="co">#&gt;  1st Qu.:-0.828   1st Qu.:-0.763   1st Qu.:-0.695   1st Qu.:-0.895  </span>
+<span class="co">#&gt;  Median :-0.156   Median :-0.084   Median :-0.106   Median : 0.215  </span>
+<span class="co">#&gt;  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  </span>
+<span class="co">#&gt;  3rd Qu.: 1.186   3rd Qu.: 0.596   3rd Qu.: 0.484   3rd Qu.: 0.771  </span>
+<span class="co">#&gt;  Max.   : 1.186   Max.   : 1.276   Max.   : 1.663   Max.   : 1.881  </span>
+<span class="co">#&gt;        W7               W9              W10              W11        </span>
+<span class="co">#&gt;  Min.   :-1.536   Min.   :-0.998   Min.   :-2.252   Min.   :-1.608  </span>
+<span class="co">#&gt;  1st Qu.:-0.970   1st Qu.:-0.998   1st Qu.:-0.466   1st Qu.:-1.009  </span>
+<span class="co">#&gt;  Median : 0.162   Median :-0.487   Median : 0.129   Median : 0.189  </span>
+<span class="co">#&gt;  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  </span>
+<span class="co">#&gt;  3rd Qu.: 0.728   3rd Qu.: 0.533   3rd Qu.: 0.725   3rd Qu.: 0.788  </span>
+<span class="co">#&gt;  Max.   : 1.859   Max.   : 2.064   Max.   : 1.320   Max.   : 1.986  </span>
+<span class="co">#&gt;       W12              W13             W14              W15       </span>
+<span class="co">#&gt;  Min.   :-2.528   Min.   :-3.30   Min.   :-2.675   Min.   :-3.43  </span>
+<span class="co">#&gt;  1st Qu.:-0.630   1st Qu.:-0.46   1st Qu.:-0.763   1st Qu.:-0.42  </span>
+<span class="co">#&gt;  Median : 0.003   Median : 0.25   Median : 0.511   Median : 0.33  </span>
+<span class="co">#&gt;  Mean   : 0.000   Mean   : 0.00   Mean   : 0.000   Mean   : 0.00  </span>
+<span class="co">#&gt;  3rd Qu.: 0.635   3rd Qu.: 0.96   3rd Qu.: 0.511   3rd Qu.: 1.09  </span>
+<span class="co">#&gt;  Max.   : 1.268   Max.   : 0.96   Max.   : 1.148   Max.   : 1.09  </span>
+<span class="co">#&gt;       W16              W17              W18        </span>
+<span class="co">#&gt;  Min.   :-2.688   Min.   :-2.605   Min.   :-2.944  </span>
+<span class="co">#&gt;  1st Qu.:-0.688   1st Qu.:-0.598   1st Qu.:-0.863  </span>
+<span class="co">#&gt;  Median :-0.021   Median : 0.071   Median : 0.524  </span>
+<span class="co">#&gt;  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  </span>
+<span class="co">#&gt;  3rd Qu.: 0.646   3rd Qu.: 0.740   3rd Qu.: 0.524  </span>
+<span class="co">#&gt;  Max.   : 1.313   Max.   : 1.409   Max.   : 1.218</span></code></pre></div>
+<p>Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle Beobachtungen 0 und die sd 1 ist.</p>
+</div>
+<div id="zusammenhange-in-den-daten" class="section level2">
+<h2><span class="header-section-number">15.5</span> Zusammenhänge in den Daten</h2>
+<p>Wir verwenden den Befehl <code>corrplot()</code> für die Erstinspektion von bivariaten Beziehungen zwischen den Variablen. Das Argument <code>order = &quot;hclust&quot;</code> ordnet die Zeilen und Spalten entsprechend der Ähnlichkeit der Variablen in einer hierarchischen Cluster-Lösung der Variablen (mehr dazu im Kapitel <a href="cluster.html#cluster">14</a>) neu an.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrplot)
 
-p1 +<span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> .<span class="dv">18</span>, <span class="dt">slope =</span> .<span class="dv">05</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:fig-logist-regr2"></span>
-<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
-<p class="caption">
-Abbildung 12.2: Regressionsgerade für Aktien-Modell
-</p>
+<span class="kw">corrplot</span>(<span class="kw">cor</span>(Werte.sc), <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>)</code></pre></div>
+<p><img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:</p>
+<ul>
+<li>(“W1”, “W3”, “W4”)</li>
+<li>(“W12”, “W13”, “W14”, “W15”)</li>
+<li>(“W16”, “W17”, “W18”)</li>
+<li>(“W6”, “W7”)</li>
+<li>(“W9”, “W10”, “W11”)</li>
+</ul>
 </div>
-<p>Der Schätzer für die Steigung für <code>Risikobereitschaft</code> ist signifikant. Das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.</p>
-<p>Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?</p>
-<p>Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 “umbiegt” (die sogenannte <em>Linkfunktion</em>). Eine häufig dafür verwendete Funktion ist die <em>logistische Funktion</em>. Im einfachsten Fall:</p>
-<p><span class="math display">\[p(y=1)=\frac{e^x}{1+e^x}\]</span></p>
-<p>Exemplarisch können wir die logistische Funktion für einen Bereich von <span class="math inline">\(\eta=-10\)</span> bis <span class="math inline">\(+10\)</span> darstellen (vgl. <a href="klassifizierende-regression.html#fig:logist-curve">12.3</a>). Der Graph der logistischen Funktion ähnelt einem langgestreckten S (“Ogive” genannt).</p>
-<div class="figure" style="text-align: center"><span id="fig:logist-curve"></span>
-<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
-<p class="caption">
-Abbildung 12.3: Die logistische Regression beschreibt eine ‘s-förmige’ Kurve
-</p>
+<div id="daten-mit-fehlende-werten" class="section level2">
+<h2><span class="header-section-number">15.6</span> Daten mit fehlende Werten</h2>
+<p>Wenn in den Daten leere Zellen, also fehlende Werte, vorhanden sind, dann kann es bei bestimmten Rechenoperationen zu Fehlermeldungen kommen. Dies betrifft zum Beispiel Korrelationen, PCA und EFA. Der Ansatz besteht deshalb darin, NA-Werte explizit zu entfernen. Dies kann am einfachsten mit dem Befehl <code>na.omit()</code> geschehen:</p>
+<p>Beispiel:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(<span class="kw">cor</span>(<span class="kw">na.omit</span>((Werte.sc), <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>))</code></pre></div>
+<p>Da wir in unserem Datensatz vollständige Daten verwenden, gibt es auch keine Leerzellen.</p>
+<p><em>Hinweis:</em> In vielen Funktionen gibt es auch die Option <code>na.rm = TRUE</code>, die fehlende Werte entfernt, z. B.:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(Werte.sc, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
-</div>
-<div id="die-idee-der-logistischen-regression" class="section level2">
-<h2><span class="header-section-number">12.3</span> Die Idee der logistischen Regression</h2>
-<p>Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (<em>general linear model, GLM</em>). Die Modellgleichung lautet: <span class="math display">\[p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i\]</span></p>
-<blockquote>
-<p><span class="math inline">\(L\)</span> ist die Linkfunktion, in unserer Anwendung die logistische Funktion.<br />
-<span class="math inline">\(x_{ik}\)</span> sind die beobachten Werte der unabhängigen Variablen <span class="math inline">\(X_k\)</span>.<br />
-<span class="math inline">\(k\)</span> sind die unabhängigen Variablen <span class="math inline">\(1\)</span> bis <span class="math inline">\(K\)</span>.</p>
-</blockquote>
-<p>Die Funktion <code>glm</code> führt die logistische Regression durch.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm1 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
-            <span class="dt">data =</span> Aktien)</code></pre></div>
-<p>Wir schauen uns zunächst den Plot an (Abb. <a href="klassifizierende-regression.html#fig:aktien-plot">12.4</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:aktien-plot"></span>
-<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
-<p class="caption">
-Abbildung 12.4: Modelldiagramm für den Aktien-Datensatz
-</p>
-</div>
-<blockquote>
-<p>Es werden ein Streudiagramm der beobachten Werte sowie die <em>Regressionslinie</em> ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.</p>
-</blockquote>
-<p>Die Zusammenfassung des Modells zeigt folgendes:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(glm1)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft, family = binomial(&quot;logit&quot;), </span>
-<span class="co">#&gt;     data = Aktien)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Deviance Residuals: </span>
-<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
-<span class="co">#&gt; -1.653  -0.738  -0.677   0.825   1.823  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="co">#&gt; (Intercept)         -1.4689     0.1184   -12.4  &lt; 2e-16 ***</span>
-<span class="co">#&gt; Risikobereitschaft   0.2573     0.0468     5.5  3.8e-08 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
-<span class="co">#&gt; Residual deviance: 765.86  on 698  degrees of freedom</span>
-<span class="co">#&gt; AIC: 769.9</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
-<p>Der Achsenabschnitt (<code>intercept</code>) des logits <span class="math inline">\(\eta\)</span> wird mit -1.47 geschätzt, die Steigung in Richtung <code>Risikobereitschaft</code> mit 0.26. Die (Punkt-)Prognose für die Wahrscheinlickeit eines Aktienkaufs <span class="math inline">\(p(y=1)\)</span> benötigt anders als in der linearen Regression noch die Linkfunktion und ergibt sich somit zu: <span class="math display">\[p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(-1.47 + 0.26 \cdot \texttt{Risikobereitschaft})}}\]</span></p>
-<p>Die p-Werte der Koeffizienten können in der Spalte <code>Pr(&gt;|z|)</code> abgelesen werden.</p>
-</div>
-<div id="welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe" class="section level2">
-<h2><span class="header-section-number">12.4</span> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</h2>
-<p>Es gibt kein <span class="math inline">\(R^2\)</span> im Sinne einer erklärten Streuung der <span class="math inline">\(y\)</span>-Werte, da die beobachteten <span class="math inline">\(y\)</span>-Werte nur <span class="math inline">\(0\)</span> oder <span class="math inline">\(1\)</span> annehmen können. Das Gütemaß bei der logistischen Regression ist das <em>Akaike Information Criterion</em> (<em>AIC</em>). Hier gilt allerdings: je <strong>kleiner</strong>, desto <strong>besser</strong>. (Anmerkung: es kann ein Pseudo-<span class="math inline">\(R^2\)</span> berechnet werden – kommt später.)</p>
-<p>Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden – kommt später.)</p>
-</div>
-<div id="interpretation-der-koeffizienten" class="section level2">
-<h2><span class="header-section-number">12.5</span> Interpretation der Koeffizienten</h2>
-<div id="y-achsenabschnitt-intercept-beta_0" class="section level3">
-<h3><span class="header-section-number">12.5.1</span> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></h3>
-<p>Für <span class="math inline">\(\beta_0&gt;0\)</span> gilt, dass selbst wenn alle anderen unabhängigen Variablen <span class="math inline">\(0\)</span> sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für <span class="math inline">\(\beta_0&lt;0\)</span> gilt entsprechend das Umgekehrte.</p>
-</div>
-<div id="steigung-beta_i-mit-i12...k" class="section level3">
-<h3><span class="header-section-number">12.5.2</span> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></h3>
-<p>Für <span class="math inline">\(\beta_i&gt;0\)</span> gilt, dass mit zunehmenden <span class="math inline">\(x_i\)</span> die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei <span class="math inline">\(\beta_i&lt;0\)</span> nimmt die Wahrscheinlichkeit entsprechend ab.</p>
-<p>Eine Abschätzung der Änderung der Wahrscheinlichkeit (<em>relatives Risiko</em>, <em>relative risk</em> <span class="math inline">\(RR\)</span>) kann über das Chancenverhältnis (<em>Odds Ratio</em> <span class="math inline">\(OR\)</span>) gemacht werden.<a href="#fn51" class="footnoteRef" id="fnref51"><sup>51</sup></a> Es ergibt sich vereinfacht <span class="math inline">\(e^{\beta_i}\)</span>. Die Wahrscheinlichkeit ändert sich näherungsweise um diesen Faktor, wenn sich <span class="math inline">\(x_i\)</span> um eine Einheit erhöht. <strong>Hinweis:</strong> <span class="math inline">\(RR\approx OR\)</span> gilt nur, wenn der Anteil des modellierten Ereignisses in den beobachteten Daten sehr klein (<span class="math inline">\(&lt;5\%\)</span>) oder sehr groß ist (<span class="math inline">\(&gt;95\%\)</span>).</p>
-</div>
-<div id="aufgabe" class="section level3">
-<h3><span class="header-section-number">12.5.3</span> Aufgabe</h3>
-<p>Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die <code>Risikobereitschaft</code> um 1 erhöht (Funktion <code>exp()</code>). Vergleichen Sie das Ergebnis mit der Punktprognose für <code>Risikobereitschaft</code><span class="math inline">\(=7\)</span> im Vergleich zu <code>Risikobereitschaft</code><span class="math inline">\(=8\)</span>.</p>
-<p>Lösung:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aus Koeffizient abgeschätzt</span>
-<span class="kw">exp</span>(<span class="kw">coef</span>(glm1)[<span class="dv">2</span>])
-<span class="co">#&gt; Risikobereitschaft </span>
-<span class="co">#&gt;               1.29</span></code></pre></div>
-<p>In Worten: “Mit jedem Punkt mehr Risikobereitschaft steigen die Chancen (das OR) für Aktienkauf um 1.293”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># mit dem vollständigen Modell berechnet</span>
-<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">1</span>), 
-        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
-<span class="co">#&gt;     1 </span>
-<span class="co">#&gt; 0.229</span>
+<div id="hauptkomponentenanalyse-pca" class="section level2">
+<h2><span class="header-section-number">15.7</span> Hauptkomponentenanalyse (PCA)</h2>
+<p>Die PCA berechnet ein Variablenset (Komponenten) in Form von linearen Gleichungen, die die linearen Beziehungen in den Daten erfassen. Die erste Komponente erfasst so viel Streuung (Varianz) wie möglich von allen Variablen als eine einzige lineare Funktion. Die zweite Komponente erfasst unkorreliert zur ersten Komponente so viel Streuung wie möglich, die nach der ersten Komponente verbleibt. Das geht so lange weiter, bis es so viele Komponenten gibt wie Variablen.</p>
+<div id="bestimmung-der-anzahl-der-hauptkomponenten" class="section level3">
+<h3><span class="header-section-number">15.7.1</span> Bestimmung der Anzahl der Hauptkomponenten</h3>
+<p>Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Werte. Wir finden die Komponenten mit prcomp().</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte.pc &lt;-<span class="st"> </span><span class="kw">prcomp</span>(Werte.sc)
+<span class="kw">summary</span>(Werte.pc)
+<span class="co">#&gt; Importance of components:</span>
+<span class="co">#&gt;                          PC1   PC2   PC3    PC4    PC5    PC6    PC7</span>
+<span class="co">#&gt; Standard deviation     1.691 1.542 1.384 1.1428 1.0797 0.8855 0.8298</span>
+<span class="co">#&gt; Proportion of Variance 0.191 0.159 0.128 0.0871 0.0777 0.0523 0.0459</span>
+<span class="co">#&gt; Cumulative Proportion  0.191 0.349 0.477 0.5639 0.6416 0.6939 0.7398</span>
+<span class="co">#&gt;                           PC8    PC9   PC10   PC11   PC12  PC13   PC14</span>
+<span class="co">#&gt; Standard deviation     0.8078 0.7882 0.7599 0.7413 0.6884 0.648 0.6449</span>
+<span class="co">#&gt; Proportion of Variance 0.0435 0.0414 0.0385 0.0366 0.0316 0.028 0.0277</span>
+<span class="co">#&gt; Cumulative Proportion  0.7833 0.8247 0.8632 0.8999 0.9315 0.959 0.9872</span>
+<span class="co">#&gt;                          PC15</span>
+<span class="co">#&gt; Standard deviation     0.4388</span>
+<span class="co">#&gt; Proportion of Variance 0.0128</span>
+<span class="co">#&gt; Cumulative Proportion  1.0000</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Berechnung der Gesamtvarianz</span>
+Gesamtvarianz &lt;-<span class="st"> </span><span class="kw">sum</span>(Werte.pc$sdev^<span class="dv">2</span>)
 
-<span class="kw">predict</span>(glm1, <span class="kw">data.frame</span>(<span class="dt">Risikobereitschaft =</span> <span class="dv">8</span>), 
-        <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
-<span class="co">#&gt;     1 </span>
-<span class="co">#&gt; 0.643</span></code></pre></div>
-<p>Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für <span class="math inline">\(y=1\)</span>, d.h. für das Ereignis “Aktienkauf”, 0.23. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei 0.64.</p>
-<p>Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit <code>Risikobereitschaft</code><span class="math inline">\(=1\)</span> liegt allerdings auch bei 0.26.</p>
+<span class="co"># Bei sum(Werte.pc$sdev^2) wird die Summe aller 15 Standardabweichungen berechnet.</span>
+
+<span class="co"># Varianzanteil der ersten Hauptkomponente</span>
+Werte.pc$sdev[<span class="dv">1</span>]^<span class="dv">2</span> /<span class="st"> </span>Gesamtvarianz
+<span class="co">#&gt; [1] 0.191</span></code></pre></div>
 </div>
-</div>
-<div id="kategoriale-variablen" class="section level2">
-<h2><span class="header-section-number">12.6</span> Kategoriale Variablen</h2>
-<p>Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz <code>tips</code> und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (<code>smoker == yes</code>), in Abhängigkeit vom Wochentag ändert.</p>
-<p>Laden Sie dazu zunächst den Trinkgeld-Datensatz.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tips &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/tips.csv&quot;</span>)</code></pre></div>
-<p>Zunächst ein Plot (Abb. <a href="klassifizierende-regression.html#fig:jitter-tips">12.5</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> smoker, <span class="dt">y =</span> day, <span class="dt">data =</span> tips, <span class="dt">geom =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:jitter-tips"></span>
-<img src="072_klassifizierende_Regression_files/figure-html/jitter-tips-1.png" alt="Verwackeltes Streudiagramm ('Jitter')" width="70%" />
+<div id="scree-plot" class="section level3">
+<h3><span class="header-section-number">15.7.2</span> Scree-Plot</h3>
+<p>Der Standard-Plot <code>plot()</code> für die PCA ist ein <em>Scree-Plot</em><a href="#fn58" class="footnoteRef" id="fnref58"><sup>58</sup></a>, Dieser zeigt uns in Reihenfolge der Hauptkomponenten jeweils die durch diese Hauptkomponente erfasste Streuung (Varianz). Wir plotten ein Liniendiagramm mit dem Argument <code>type = &quot;l&quot;</code> (<code>l</code> für Linie), s. Abb. <a href="dimensionsreduktion.html#fig:pca-scree">15.1</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Werte.pc, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:pca-scree"></span>
+<img src="083_Dimensionsreduktion_files/figure-html/pca-scree-1.png" alt="Screeplot" width="70%" />
 <p class="caption">
-Abbildung 12.5: Verwackeltes Streudiagramm (‘Jitter’)
+Abbildung 15.1: Screeplot
 </p>
 </div>
-<p>Die relativen Häufigkeiten zeigt folgende Tabelle:</p>
-<p>Probieren wir die logistische Regression aus:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glmtips &lt;-<span class="st"> </span><span class="kw">glm</span>(smoker ~<span class="st"> </span>day, 
-               <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>),
-               <span class="dt">data =</span> tips)
-<span class="kw">summary</span>(glmtips)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; glm(formula = smoker ~ day, family = binomial(&quot;logit&quot;), data = tips)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Deviance Residuals: </span>
-<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
-<span class="co">#&gt; -1.765  -0.801  -0.758   1.207   1.665  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="co">#&gt; (Intercept)    1.322      0.563    2.35  0.01883 *  </span>
-<span class="co">#&gt; daySat        -1.391      0.602   -2.31  0.02093 *  </span>
-<span class="co">#&gt; daySun        -2.420      0.622   -3.89    1e-04 ***</span>
-<span class="co">#&gt; dayThur       -2.295      0.631   -3.64  0.00027 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Null deviance: 324.34  on 243  degrees of freedom</span>
-<span class="co">#&gt; Residual deviance: 298.37  on 240  degrees of freedom</span>
-<span class="co">#&gt; AIC: 306.4</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></code></pre></div>
-<p>Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier: Freitag) interpretieren. Die Wahrscheinlichkeit ist an einem Samstag niedriger, der Wert für <code>daySat</code> ist negativ. Eine Abschätzung erhalten wir wieder mit <span class="math inline">\(e^{\beta_i}\)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(glmtips)[<span class="dv">2</span>])
-<span class="co">#&gt; daySat </span>
-<span class="co">#&gt;  0.249</span></code></pre></div>
-<p>Daher ist das Chancenverhältnis (<em>Odds Ratio</em>), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor 0.25 niedriger als am Freitag<a href="#fn52" class="footnoteRef" id="fnref52"><sup>52</sup></a>:</p>
-<p><span class="math display">\[{OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
-{\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
-=\frac{\frac{0.483}{0.517}}
-{\frac{0.79}{0.21}}
-\approx 0.249}\]</span></p>
-<p>Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder so ausgeben lassen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glmtips, <span class="kw">list</span>(<span class="dt">day =</span> <span class="st">&quot;Sat&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
-<span class="co">#&gt;     1 </span>
-<span class="co">#&gt; 0.483</span></code></pre></div>
+<p>Wir sehen in Abb. <a href="dimensionsreduktion.html#fig:pca-scree">15.1</a>, dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente.</p>
 </div>
-<div id="multiple-logistische-regression" class="section level2">
-<h2><span class="header-section-number">12.7</span> Multiple logistische Regression</h2>
-<p>Wir kehren wieder zurück zu dem Datensatz <em>Aktienkauf</em>. Können wir unser Model <code>glm1</code> mit nur einer erklärenden Variable verbessern, indem weitere unabhängige Variablen hinzugefügt werden?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm2 &lt;-<span class="st"> </span><span class="kw">glm</span>(Aktienkauf ~<span class="st"> </span>Risikobereitschaft +<span class="st"> </span>Einkommen +<span class="st"> </span>Interesse, 
-            <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), 
-            <span class="dt">data =</span> Aktien)
-
-<span class="kw">summary</span>(glm2)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; glm(formula = Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, </span>
-<span class="co">#&gt;     family = binomial(&quot;logit&quot;), data = Aktien)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Deviance Residuals: </span>
-<span class="co">#&gt;    Min      1Q  Median      3Q     Max  </span>
-<span class="co">#&gt; -2.130  -0.715  -0.539   0.518   3.214  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;                    Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="co">#&gt; (Intercept)        -1.66791    0.27903   -5.98  2.3e-09 ***</span>
-<span class="co">#&gt; Risikobereitschaft  0.34781    0.08822    3.94  8.1e-05 ***</span>
-<span class="co">#&gt; Einkommen          -0.02157    0.00564   -3.83  0.00013 ***</span>
-<span class="co">#&gt; Interesse           0.08520    0.01775    4.80  1.6e-06 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Null deviance: 804.36  on 699  degrees of freedom</span>
-<span class="co">#&gt; Residual deviance: 679.01  on 696  degrees of freedom</span>
-<span class="co">#&gt; AIC: 687</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
-<p>Alle Schätzer sind signifkant zum 0.1 %-Niveau (<code>***</code> in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.</p>
-<p>Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86 auf 687.01 gesunken ist.</p>
+<div id="ellbogen-kriterium" class="section level3">
+<h3><span class="header-section-number">15.7.3</span> Ellbogen-Kriterium</h3>
+<p>Nach dem <em>Ellbogen-Kriterium</em> werden alle Hauptkomponenten berücksichtigt, die links von der Knickstelle im Scree-Plot liegen. Gibt es mehrere Knicks, dann werden jene Hauptkomponenten ausgewählt, die links vom rechtesten Knick liegen. Gibt es keinen Knick, dann hilft der Scree-Plot nicht weiter. Bei den Werte-Daten tritt der Ellbogen, je nach Betrachtungsweise, entweder bei vier oder sechs Komponenten auf. Dies deutet darauf hin, dass die ersten fünf Komponenten die meiste Streuung in den Werte-Daten erklären.</p>
 </div>
-<div id="modell--bzw.-klassifikationsgute" class="section level2">
-<h2><span class="header-section-number">12.8</span> Modell- bzw. Klassifikationsgüte</h2>
-<p>Logistische Regressionsmodelle werden häufig zur <em>Klassifikation</em> verwendet, z.B. ob der Kredit für einen Neukunden ein “guter” Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.</p>
-<p>Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (<em>cutpoint</em>), häufig <span class="math inline">\(0.5\)</span>, einer geschätzten <span class="math inline">\(1\)</span> zugeordnet, unterhalb des Schwellenwertes einer <span class="math inline">\(0\)</span>. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix (<em>confusion matrix</em>) mit den beobachteten Häufigkeiten verglichen.</p>
-<p>Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (<em>True Positive Rate, TPR</em>), also der Anteil der mit <span class="math inline">\(1\)</span> geschätzten an allen mit <span class="math inline">\(1\)</span> beobachten Werten, und die Spezifität (<em>True Negative Rate</em>) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.</p>
-<p>Sie können die Konfusionsmatrix mit dem Paket <code>confusion.matrix()</code> aus dem Paket <code>SDMTools</code>. Ein Parameter ist <code>cutpoint</code>, der standardmäßig auf <span class="math inline">\(0.5\)</span> steht.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-(cm &lt;-<span class="st"> </span><span class="kw">confusion.matrix</span>(Aktien$Aktienkauf, glm1$fitted.values)) 
-<span class="co">#&gt;     obs</span>
-<span class="co">#&gt; pred   0   1</span>
-<span class="co">#&gt;    0 509 163</span>
-<span class="co">#&gt;    1   8  20</span>
-<span class="co">#&gt; attr(,&quot;class&quot;)</span>
-<span class="co">#&gt; [1] &quot;confusion.matrix&quot;</span>
-<span class="kw">sensitivity</span>(cm)
-<span class="co">#&gt; [1] 0.109</span>
-<span class="kw">specificity</span>(cm)
-<span class="co">#&gt; [1] 0.985</span></code></pre></div>
-<p>Wenn die Anteile der <span class="math inline">\(1\)</span> in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten <span class="math inline">\(p(y=1)\)</span> alle unter <span class="math inline">\(0.5\)</span> liegen. Das würde zu einer Sensitität von <span class="math inline">\(0\)</span> und einer Spezifiät von <span class="math inline">\(1\)</span> führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die <em>ROC</em>-Kurve (<em>Return Operating Characteristic</em>) und den daraus abgeleiteten <em>AUC</em>-Wert (<em>Area Under Curve</em>).</p>
-<p>Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen <span class="math inline">\(1-\)</span>Spezifität (welche Werte sind als <span class="math inline">\(1\)</span> modelliert worden unter den beobachten <span class="math inline">\(0\)</span>, <em>False Positive Rate, FPR</em>). Um diese Werte auszugeben, benötigen Sie das Paket <code>ROCR</code> und die Funktion <code>performance()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggf. install.packages(&quot;ROCR&quot;)</span>
-<span class="kw">library</span>(ROCR)
-<span class="co"># Ein für die Auswertung notwendiges prediction Objekt anlegen</span>
-pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(glm1$fitted.values, Aktien$Aktienkauf)
-<span class="co"># ROC Kurve</span>
-perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<span class="st">&quot;tpr&quot;</span>,<span class="st">&quot;fpr&quot;</span>)
-<span class="kw">plot</span>(perf)
-<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)
-<span class="co"># Area under curve (ROC-Wert)</span>
-<span class="kw">performance</span>(pred,<span class="st">&quot;auc&quot;</span>)@y.values
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 0.636</span></code></pre></div>
-<p><img src="072_klassifizierende_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>AUC liegt zwischen <span class="math inline">\(0.5\)</span>, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und <span class="math inline">\(1\)</span>. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei <span class="math inline">\(0.7\)</span> und größer, gute Werte sind es ab <span class="math inline">\(0.8\)</span>.<a href="#fn53" class="footnoteRef" id="fnref53"><sup>53</sup></a></p>
-</div>
-<div id="vertiefung" class="section level2">
-<h2><span class="header-section-number">12.9</span> Vertiefung</h2>
-<div id="modellschatzung" class="section level3">
-<h3><span class="header-section-number">12.9.1</span> Modellschätzung</h3>
-<p>Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die <em>Maximum Likelihood</em> Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (<em>Maximum Likelihood</em>) werden.</p>
-<p>Das ist ein iteratives Verfahren (OLS erfolgt rein analytisch), daher wird in der letzten Zeile der Ausgabe auch die Anzahl der Iterationen (<code>Fisher Scoring Iterations</code>) ausgegeben.</p>
-<p>Die Devianz des Modells (<code>Residual deviance</code>) ist <span class="math inline">\(-2\)</span> mal die logarithmierte Likelihood. Die Nulldevianz (<code>Null deviance</code>) ist die Devianz eines Nullmodells, d. h., alle <span class="math inline">\(\beta\)</span> außer der Konstanten sind 0.</p>
-</div>
-<div id="likelihood-quotienten-test" class="section level3">
-<h3><span class="header-section-number">12.9.2</span> Likelihood Quotienten Test</h3>
-<p>Der Likelihood Quotienten Test (<em>Likelihood Ratio Test, LR-Test</em>) vergleicht die Likelihood <span class="math inline">\(L_0\)</span> des Nullmodels mit der Likelihood <span class="math inline">\(L_{\beta}\)</span> des geschätzten Modells. Die Prüfgröße des LR-Tests ergibt sich aus: <span class="math display">\[{T=-2\cdot ln\left( \frac{L_0}{L_{\beta}}\right)}\]</span> <span class="math inline">\(T\)</span> ist näherungsweise <span class="math inline">\(\chi ^2\)</span>-verteilt mit <span class="math inline">\(k\)</span> Freiheitsgraden.</p>
-<p>In R können Sie den Test mit <code>lrtest()</code> aufrufen. Sie benötigen dazu das Paket <code>lmtest</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lmtest)
-<span class="kw">lrtest</span>(glm2)
-<span class="co">#&gt; Likelihood ratio test</span>
+<div id="eigenwert-kriterium" class="section level3">
+<h3><span class="header-section-number">15.7.4</span> Eigenwert-Kriterium</h3>
+<p>Der <em>Eigenwert</em> ist eine Metrik für den Anteil der erklärten Varianz pro Hauptkomponente. Die Anzahl Eigenwerte können wir über den Befehl <code>eigen()</code> ausgeben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eigen</span>(<span class="kw">cor</span>(Werte))
+<span class="co">#&gt; $values</span>
+<span class="co">#&gt;  [1] 2.859 2.378 1.916 1.306 1.166 0.784 0.689 0.653 0.621 0.577 0.550</span>
+<span class="co">#&gt; [12] 0.474 0.420 0.416 0.193</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
-<span class="co">#&gt; Model 2: Aktienkauf ~ 1</span>
-<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
-<span class="co">#&gt; 1   4   -340                        </span>
-<span class="co">#&gt; 2   1   -402 -3   125     &lt;2e-16 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
-<p>Das Modell <code>glm2</code> ist als Ganzes signifikant, der p-Wert ist sehr klein.</p>
-<p>Den Likelihood Quotienten Test können Sie auch verwenden, um zwei Modelle miteinander zu vergleichen, z. B., wenn Sie eine weitere Variable hinzugenommen haben und wissen wollen, ob die Verbesserung auch signifikant war.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lrtest</span>(glm1, glm2)
-<span class="co">#&gt; Likelihood ratio test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model 1: Aktienkauf ~ Risikobereitschaft</span>
-<span class="co">#&gt; Model 2: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse</span>
-<span class="co">#&gt;   #Df LogLik Df Chisq Pr(&gt;Chisq)    </span>
-<span class="co">#&gt; 1   2   -383                        </span>
-<span class="co">#&gt; 2   4   -340  2  86.9     &lt;2e-16 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></code></pre></div>
-<p>Ja, die Modelle <code>glm1</code> (mit einer erklärenden Variable) und <code>glm2</code> unterscheiden sich signifikant voneinander.</p>
-</div>
-<div id="pseudo-r2" class="section level3">
-<h3><span class="header-section-number">12.9.3</span> Pseudo-<span class="math inline">\(R^2\)</span></h3>
-<p>Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem <span class="math inline">\(R^2\)</span> der linearen Regression entspricht. Exemplarisch sei hier McFaddens <span class="math inline">\(R^2\)</span> gezeigt: <span class="math display">\[{R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}\]</span> Wie bei bei dem <span class="math inline">\(R^2\)</span> der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen <span class="math inline">\(R^2\)</span> der beiden Modelle <code>glm1</code> und <code>glm2</code>? Sie können es direkt berechnen oder das Paket <code>BaylorEdPsych</code> verwenden.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># direkte Berechnung</span>
-<span class="dv">1</span> -<span class="st"> </span>glm1$deviance/glm1$null.deviance
-<span class="co">#&gt; [1] 0.0479</span>
-<span class="dv">1</span> -<span class="st"> </span>glm2$deviance/glm2$null.deviance
-<span class="co">#&gt; [1] 0.156</span>
-<span class="co"># ggf. install.packages(&quot;BaylorEdPsych&quot;)</span>
-<span class="kw">library</span>(BaylorEdPsych)
-<span class="kw">PseudoR2</span>(glm1)
-<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
-<span class="co">#&gt;           0.0479           0.0404           0.0535           0.0783 </span>
-<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
-<span class="co">#&gt;           0.0826           0.0584           0.7557           0.0656 </span>
-<span class="co">#&gt;              AIC    Corrected.AIC </span>
-<span class="co">#&gt;         769.8624         769.8796</span>
-<span class="kw">PseudoR2</span>(glm2)
-<span class="co">#&gt;         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke </span>
-<span class="co">#&gt;           0.1558           0.1434           0.1640           0.2400 </span>
-<span class="co">#&gt; McKelvey.Zavoina           Effron            Count        Adj.Count </span>
-<span class="co">#&gt;           0.2828           0.1845           0.7614           0.0874 </span>
-<span class="co">#&gt;              AIC    Corrected.AIC </span>
-<span class="co">#&gt;         687.0068         687.0644</span></code></pre></div>
-<p>Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. <strong>Hinweis:</strong> Die Funktion <code>PseudoR2(model)</code> zeigt verschiedene Pseudo-<span class="math inline">\(R^2\)</span> Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.</p>
+<span class="co">#&gt; $vectors</span>
+<span class="co">#&gt;          [,1]    [,2]     [,3]    [,4]    [,5]    [,6]    [,7]     [,8]</span>
+<span class="co">#&gt;  [1,] -0.3360 -0.2562  0.12816 -0.2571 -0.3169 -0.0889  0.0120 -0.04125</span>
+<span class="co">#&gt;  [2,] -0.3394 -0.2852  0.08185 -0.1592 -0.2717  0.0752  0.2663 -0.13585</span>
+<span class="co">#&gt;  [3,] -0.2639 -0.3166 -0.02087 -0.3541 -0.1630  0.0153  0.1008 -0.00337</span>
+<span class="co">#&gt;  [4,] -0.0823 -0.3339 -0.51113  0.0687  0.2738 -0.0882  0.0152 -0.05503</span>
+<span class="co">#&gt;  [5,] -0.0871 -0.3471 -0.47413  0.0757  0.3483 -0.0434  0.0584  0.03857</span>
+<span class="co">#&gt;  [6,] -0.0534  0.3031 -0.21855 -0.3830  0.2185  0.2994  0.4606  0.32818</span>
+<span class="co">#&gt;  [7,] -0.2362  0.2144 -0.25639 -0.3171 -0.0895 -0.1169 -0.5396  0.42299</span>
+<span class="co">#&gt;  [8,] -0.1540  0.3269 -0.17147 -0.3448  0.1406  0.1411 -0.2855 -0.70991</span>
+<span class="co">#&gt;  [9,] -0.2746  0.3383 -0.23404  0.1936 -0.1457 -0.2681  0.1305 -0.12314</span>
+<span class="co">#&gt; [10,] -0.3044  0.2172 -0.16643  0.3226 -0.2446 -0.4345  0.1108  0.11516</span>
+<span class="co">#&gt; [11,] -0.2735  0.2343 -0.11639  0.2791 -0.1675  0.5463  0.1090  0.02066</span>
+<span class="co">#&gt; [12,] -0.2954 -0.1718  0.00605  0.4025 -0.0024  0.4913 -0.2515  0.02419</span>
+<span class="co">#&gt; [13,] -0.3110  0.0555  0.33806 -0.0865  0.3504  0.0277 -0.1176  0.35210</span>
+<span class="co">#&gt; [14,] -0.2776  0.1469  0.24874  0.0342  0.3960 -0.1661  0.3910 -0.15683</span>
+<span class="co">#&gt; [15,] -0.3188 -0.0734  0.27436  0.1283  0.3725 -0.1565 -0.2432 -0.08194</span>
+<span class="co">#&gt;          [,9]    [,10]   [,11]   [,12]    [,13]    [,14]    [,15]</span>
+<span class="co">#&gt;  [1,] -0.0141  0.13021  0.3101 -0.0270  0.67608  0.23964 -0.01401</span>
+<span class="co">#&gt;  [2,] -0.0858 -0.15704  0.3822 -0.2411 -0.55627 -0.23709 -0.02689</span>
+<span class="co">#&gt;  [3,]  0.1529  0.07493 -0.7301  0.3027 -0.10366 -0.05236  0.01611</span>
+<span class="co">#&gt;  [4,] -0.0792  0.10887  0.0702 -0.0737  0.00748  0.05089  0.70614</span>
+<span class="co">#&gt;  [5,] -0.0611  0.09661  0.0227 -0.0945  0.05078  0.00934 -0.69865</span>
+<span class="co">#&gt;  [6,]  0.3872 -0.19518  0.1962  0.1211  0.07465  0.06917  0.04537</span>
+<span class="co">#&gt;  [7,] -0.3791 -0.14870  0.1039  0.1943 -0.10784 -0.11782 -0.01622</span>
+<span class="co">#&gt;  [8,]  0.0826 -0.02452 -0.0444 -0.1755 -0.06446  0.22016 -0.05602</span>
+<span class="co">#&gt;  [9,]  0.1657 -0.00433 -0.1147 -0.1631  0.28330 -0.66711  0.00900</span>
+<span class="co">#&gt; [10,]  0.2048 -0.08408 -0.0638 -0.0336 -0.24080  0.58366 -0.03821</span>
+<span class="co">#&gt; [11,] -0.2485  0.58465  0.0133  0.1725 -0.06163  0.05156 -0.00444</span>
+<span class="co">#&gt; [12,]  0.1156 -0.59999 -0.1105 -0.0235  0.16793  0.02761  0.02934</span>
+<span class="co">#&gt; [13,]  0.0562  0.23756 -0.2018 -0.6413 -0.02620  0.03045  0.06156</span>
+<span class="co">#&gt; [14,] -0.5830 -0.25695 -0.1034  0.2122  0.10191  0.06346  0.01993</span>
+<span class="co">#&gt; [15,]  0.4135  0.19855  0.2952  0.4874 -0.13201 -0.14046 -0.00201</span></code></pre></div>
+<p>Der Eigenwert einer Komponente/ eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Laut dem Eigenwert-Kriterium sollen nur Faktoren mit einem <em>Eigenwert größer 1</em> extrahiert werden. Dies sind bei den Werte-Daten fünf Komponenten/ Faktoren, da fünf Eigenwerte größer 1 sind. Der Grund ist, dass Komponenten/ Faktoren mit einem Eigenwert kleiner als 1 weniger Erklärungswert haben als die ursprünglichen Variablen.</p>
+<p>Dies kann auch grafisch mit dem <code>VSS.Scree</code> geplotet werden (s. Abb. <a href="dimensionsreduktion.html#fig:vss-scree">15.2</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nFactors)
+<span class="kw">VSS.scree</span>(Werte)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:vss-scree"></span>
+<img src="083_Dimensionsreduktion_files/figure-html/vss-scree-1.png" alt="VSS-Screeplot" width="70%" />
+<p class="caption">
+Abbildung 15.2: VSS-Screeplot
+</p>
 </div>
 </div>
-<div id="ubung-rot--oder-weiwein" class="section level2">
-<h2><span class="header-section-number">12.10</span> Übung: Rot- oder Weißwein?</h2>
-<p>Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen <span class="citation">(Cortez u. a. <a href="#ref-cortez2009modeling">2009</a>)</span>.</p>
-<p>Sie können in unter <a href="https://goo.gl/Dkd7nK" class="uri">https://goo.gl/Dkd7nK</a> herunterladen. Die Originaldaten finden Sie im UCI Machine Learning Repository<a href="#fn54" class="footnoteRef" id="fnref54"><sup>54</sup></a>.</p>
-<p>Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren<a href="#fn55" class="footnoteRef" id="fnref55"><sup>55</sup></a>.</p>
-<p><strong>Zusatzaufgabe:</strong> Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable <code>color</code> aufgenommen wird (Rot = 0, Weiß = 1).</p>
+<div id="biplot" class="section level3">
+<h3><span class="header-section-number">15.7.5</span> Biplot</h3>
+<p>Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein <em>Biplot</em>. Dies ist ein zweidimensionales Diagramm von Datenpunkten in Bezug auf die ersten beiden Hauptkomponenten, die mit einer Projektion der Variablen auf die Komponenten überlagert wird.</p>
+<p>Dazu verwenden wir <code>biplot()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(Werte.pc)</code></pre></div>
+<p><img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Die Variablen-Gruppierungen sind als rote Ladungspfeile sichtbar. Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist hier durch die große Anzahl an Beobachtung recht unübersichtlich.</p>
+<p>Am einfachsten lassen sich die Komponenten extrahieren mit dem <code>principal</code>-Befehl aus dem psych-Paket:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte.pca &lt;-<span class="st"> </span><span class="kw">principal</span>(Werte, <span class="dt">nfactors =</span> <span class="dv">5</span>)
+<span class="kw">print</span>(Werte.pca, <span class="dt">cut =</span> <span class="fl">0.5</span>, <span class="dt">sort =</span> <span class="ot">TRUE</span>, <span class="dt">digits =</span> <span class="dv">2</span>)
+<span class="co">#&gt; Principal Components Analysis</span>
+<span class="co">#&gt; Call: principal(r = Werte, nfactors = 5)</span>
+<span class="co">#&gt; Standardized loadings (pattern matrix) based upon correlation matrix</span>
+<span class="co">#&gt;     item   RC1   RC2   RC3   RC5   RC4   h2   u2 com</span>
+<span class="co">#&gt; W1     1  0.83                         0.71 0.29 1.1</span>
+<span class="co">#&gt; W3     2  0.78                         0.65 0.35 1.2</span>
+<span class="co">#&gt; W4     3  0.76                         0.63 0.37 1.2</span>
+<span class="co">#&gt; W13   10        0.79                   0.64 0.36 1.0</span>
+<span class="co">#&gt; W12    9        0.75                   0.67 0.33 1.3</span>
+<span class="co">#&gt; W14   11        0.70                   0.50 0.50 1.1</span>
+<span class="co">#&gt; W15   12                               0.53 0.47 4.2</span>
+<span class="co">#&gt; W7     5              0.94             0.89 0.11 1.0</span>
+<span class="co">#&gt; W6     4              0.92             0.88 0.12 1.1</span>
+<span class="co">#&gt; W16   13                    0.77       0.66 0.34 1.2</span>
+<span class="co">#&gt; W18   15                    0.76       0.63 0.37 1.2</span>
+<span class="co">#&gt; W17   14                    0.73       0.57 0.43 1.2</span>
+<span class="co">#&gt; W9     6                          0.74 0.57 0.43 1.1</span>
+<span class="co">#&gt; W11    8                          0.72 0.56 0.44 1.2</span>
+<span class="co">#&gt; W10    7                          0.62 0.54 0.46 1.8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;                        RC1  RC2  RC3  RC5  RC4</span>
+<span class="co">#&gt; SS loadings           2.08 2.02 1.89 1.87 1.76</span>
+<span class="co">#&gt; Proportion Var        0.14 0.13 0.13 0.12 0.12</span>
+<span class="co">#&gt; Cumulative Var        0.14 0.27 0.40 0.52 0.64</span>
+<span class="co">#&gt; Proportion Explained  0.22 0.21 0.20 0.19 0.18</span>
+<span class="co">#&gt; Cumulative Proportion 0.22 0.43 0.62 0.82 1.00</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Mean item complexity =  1.4</span>
+<span class="co">#&gt; Test of the hypothesis that 5 components are sufficient.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; The root mean square of the residuals (RMSR) is  0.07 </span>
+<span class="co">#&gt;  with the empirical chi square  1038  with prob &lt;  1.6e-191 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Fit based upon off diagonal values = 0.88</span></code></pre></div>
 </div>
-<div id="befehlsubersicht-7" class="section level2">
-<h2><span class="header-section-number">12.11</span> Befehlsübersicht</h2>
-<p>Tabelle <a href="klassifizierende-regression.html#tab:befehle-logist-regression">12.1</a> stellt die Befehle dieses Kapitels dar.</p>
+<div id="interpretation-der-ergebnisse-der-pca" class="section level3">
+<h3><span class="header-section-number">15.7.6</span> Interpretation der Ergebnisse der PCA:</h3>
+<ul>
+<li><p>Das Ergebnis sieht sehr gut aus. Es laden immer mehrere Items (mindestens 2) hoch (&gt; 0,5) auf einer Komponente (die mit RC1 bis RC5 bezeichnet werden, RC steht für Rotated Component). Innerhalb einer PCA kann die Interpretierbarkeit über eine <strong>Rotation</strong> erhöht werden. Wenn die Rotation nicht ausgeschlossen wird (mit dem Argument <code>rotate=&quot;none&quot;</code>), dann ist die Voreinstellung eine <code>Varimax-Rotation</code>.</p></li>
+<li><p>Es gibt keine Items die auf mehr als einer Komponente hoch laden. Die Ladungen sind Korrelationskoeffizienten zwischen den Items und den Hauptkomponenten. * In der Zeile SS loadings finden wir die Eigenwerte der fünf Hauptkomponenten. Den Anteil an der Gesamtvarianz, den sie erklären, findet man in der Zeile Proportion Var. Aufsummiert sind die Anteile in der Zeile Cumlative Var. Insgesamt werden durch die fünf Hauptkomponenten 64% der Gesamtvarianz erklärt.</p></li>
+<li><p>Einzig das Item W15 lädt auf keine der Hauptkomponenten hoch.</p></li>
+</ul>
+<p>Um die inhaltliche Bedeutung der Komponenten zu interpretieren, schauen wir uns die Inhalte der jeweiligen Items an und versuchen hierfür einen inhaltlichen Gesamtbegriff zu finden. Die Erste Komponenten könnte mit <strong>Genuss</strong>, die zweite mit <strong>Sicherheit</strong>, die dritte mit <strong>Bewusstsein</strong>, die vierte mit <strong>Konformismus</strong> und die fünfte mit <strong>Anerkennung</strong> bezeichnet werden.</p>
 <table>
-<caption><span id="tab:befehle-logist-regression">Tabelle 12.1: </span>Befehle des Kapitels ‘Logistische Regression’</caption>
+<colgroup>
+<col width="8%" />
+<col width="91%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Paket::Funktion</th>
-<th align="left">Beschreibung</th>
+<th>Item</th>
+<th>Inhalt des Items</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">ggplot2::geom_abline</td>
-<td align="left">Fügt das Geom “abline” (normale Gerade) zu einem ggplot2-Plot hinzu</td>
+<td>W1:</td>
+<td>Spaß haben und Dinge tun, die Freude bereiten.</td>
 </tr>
 <tr class="even">
-<td align="left">glm</td>
-<td align="left">Berechnet ein “generalisiertes lineares Modell”, z.B. eine logistische Regression</td>
+<td>W3:</td>
+<td>Freuden des Lebens genießen und sich selbst verwöhnen.</td>
 </tr>
 <tr class="odd">
-<td align="left">exp</td>
-<td align="left">Berechnet die e-Funktion für den angegeben Ausdruck (synonym: “delogarithmiert” den Ausdruck)</td>
+<td>W4:</td>
+<td>Überraschungen mögen und aufregendes Leben führen.</td>
 </tr>
 <tr class="even">
-<td align="left">SDMTools::confusion.matrix</td>
-<td align="left">Berechnet eine Konfusionsmatrix</td>
+<td>W12:</td>
+<td>Im sicheren Umfeld leben und Gefahren meiden.</td>
 </tr>
 <tr class="odd">
-<td align="left">SDMTools::sensitivity</td>
-<td align="left">Berechnet die Sensitivität eines Klassifikationsmodells</td>
+<td>W13:</td>
+<td>Interne und externe Sicherheit im Land.</td>
 </tr>
 <tr class="even">
-<td align="left">SDMTools::specificity</td>
-<td align="left">Berechnet die Spezifität eines Klassifikationsmodells</td>
+<td>W14:</td>
+<td>Wertschätzen von Ordentlichkeit, Sauberkeit und ablehnen von Unordnung.</td>
 </tr>
 <tr class="odd">
-<td align="left">ROCR::performance</td>
-<td align="left">Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen</td>
+<td>W16:</td>
+<td>Andersartigen Menschen zuhören und Meinung verstehen.</td>
 </tr>
 <tr class="even">
-<td align="left">lmtest::lrtest</td>
-<td align="left">Berechnet den Likelihood-Ratio-Test</td>
+<td>W17:</td>
+<td>Für die Natur einsetzen und um die Umwelt kümmern.</td>
 </tr>
 <tr class="odd">
-<td align="left">BaylorEdPsych::PseudoR2</td>
-<td align="left">Berechnet Pseudo-R-Quadrat-Werte</td>
+<td>W18:</td>
+<td>Interessieren, neugierig sein und versuchen Dinge verstehen.</td>
+</tr>
+<tr class="even">
+<td>W9:</td>
+<td>Religiös sein und auch danach leben.</td>
+</tr>
+<tr class="odd">
+<td>W10:</td>
+<td>Eltern und ältere Menschen respektieren und gehorsam sein.</td>
+</tr>
+<tr class="even">
+<td>W11:</td>
+<td>Demütig und bescheiden sein, keine Aufmerksamkeit anziehen.</td>
+</tr>
+<tr class="odd">
+<td>W6:</td>
+<td>Führung übernehmen.</td>
+</tr>
+<tr class="even">
+<td>W7:</td>
+<td>Entscheidungen treffen.</td>
 </tr>
 </tbody>
 </table>
+<p>Mit der Funktion <code>fa.diagram</code> kann das Ergebnis auch grafisch dargestellt werden.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fa.diagram</span>(Werte.pca)</code></pre></div>
+<p><img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="verweise-6" class="section level2">
-<h2><span class="header-section-number">12.12</span> Verweise</h2>
-<p>Dieses Kapitel basiert teilweise auf Übungen zum Buch <a href="https://www.openintro.org/stat/index.php?stat_book=isrs">OpenIntro</a> <span class="citation">(Diez, Barr, und Cetinkaya-Rundel <a href="#ref-introstats">2014</a>)</span> unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.</p>
+</div>
+<div id="exploratorische-faktorenanalyse-efa" class="section level2">
+<h2><span class="header-section-number">15.8</span> Exploratorische Faktorenanalyse (EFA)</h2>
+<p>Die EFA ist eine Methode, um die Beziehung von Konstrukten (Konzepten), d. h. Faktoren zu Variablen zu beurteilen. Dabei werden die Faktoren als <em>latente Variablen</em> betrachtet, die nicht direkt beobachtet werden können. Stattdessen werden sie empirisch durch mehrere Variablen beobachtet, von denen jede ein Indikator der zugrundeliegenden Faktoren ist. Diese beobachteten Werte werden als <em>manifeste Variablen</em> bezeichnet und umfassen Indikatoren. Die EFA versucht den Grad zu bestimmen, in dem Faktoren die beobachtete Streuung der manifesten Variablen berücksichtigen.</p>
+<p>Das Ergebnis der EFA ist ähnlich zur PCA: eine Matrix von Faktoren (ähnlich zu den PCA-Komponenten) und ihre Beziehung zu den ursprünglichen Variablen (Ladung der Faktoren auf die Variablen). Im Gegensatz zur PCA versucht die EFA, Lösungen zu finden, die in den <em>manifesten variablen maximal interpretierbar</em> sind. Im Allgemeinen versucht sie, Lösungen zu finden, bei denen eine kleine Anzahl von Ladungen für jeden Faktor sehr hoch ist, während andere Ladungen für diesen Faktor gering sind. Wenn dies möglich ist, kann dieser Faktor mit diesem Variablen-Set interpretiert werden.</p>
+<div id="finden-einer-efa-losung" class="section level3">
+<h3><span class="header-section-number">15.8.1</span> Finden einer EFA Lösung</h3>
+<p>Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu verwenden wir wieder das Ellbow-Kriterium und das Eigenwert-Kriterium. Beide Kriterien haben wir schon bei der PCA verwendet, dabei kommen wir auf 5 Faktoren.</p>
+<p>Durch das Paket <code>nFactors</code> bekommen wir eine formalisierte Berechnung der Scree-Plot Lösung mit dem Befehl <code>nScree()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nScree</span>(Werte)
+<span class="co">#&gt;   noc naf nparallel nkaiser</span>
+<span class="co">#&gt; 1   5   3         5       5</span></code></pre></div>
+<p><code>nScree</code> gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden fünf Faktoren vorschlagen.</p>
+</div>
+<div id="schatzung-der-efa" class="section level3">
+<h3><span class="header-section-number">15.8.2</span> Schätzung der EFA</h3>
+<p>Eine EFA wird geschätzt mit dem Befehl <code>factanal(x,factors = k)</code>, wobei <code>k</code> die Anzahl Faktoren angibt.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte.fa&lt;-<span class="kw">factanal</span>(Werte, <span class="dt">factors =</span> <span class="dv">5</span>)
+Werte.fa
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; factanal(x = Werte, factors = 5)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Uniquenesses:</span>
+<span class="co">#&gt;    W1    W3    W4    W6    W7    W9   W10   W11   W12   W13   W14   W15 </span>
+<span class="co">#&gt; 0.401 0.486 0.584 0.243 0.139 0.660 0.662 0.626 0.395 0.481 0.729 0.713 </span>
+<span class="co">#&gt;   W16   W17   W18 </span>
+<span class="co">#&gt; 0.463 0.666 0.561 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Loadings:</span>
+<span class="co">#&gt;     Factor1 Factor2 Factor3 Factor4 Factor5</span>
+<span class="co">#&gt; W1           0.756           0.147         </span>
+<span class="co">#&gt; W3           0.686           0.149         </span>
+<span class="co">#&gt; W4   0.172   0.611                         </span>
+<span class="co">#&gt; W6   0.849   0.131          -0.133         </span>
+<span class="co">#&gt; W7   0.921                                 </span>
+<span class="co">#&gt; W9          -0.123                   0.568 </span>
+<span class="co">#&gt; W10          0.154   0.266           0.492 </span>
+<span class="co">#&gt; W11                  0.168           0.580 </span>
+<span class="co">#&gt; W12                  0.715           0.298 </span>
+<span class="co">#&gt; W13                  0.710                 </span>
+<span class="co">#&gt; W14                  0.483   0.132   0.137 </span>
+<span class="co">#&gt; W15  0.188   0.230   0.268   0.265  -0.240 </span>
+<span class="co">#&gt; W16 -0.114   0.158           0.698   0.106 </span>
+<span class="co">#&gt; W17                  0.149   0.539   0.111 </span>
+<span class="co">#&gt; W18          0.181           0.618  -0.109 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;                Factor1 Factor2 Factor3 Factor4 Factor5</span>
+<span class="co">#&gt; SS loadings      1.668   1.600   1.473   1.332   1.116</span>
+<span class="co">#&gt; Proportion Var   0.111   0.107   0.098   0.089   0.074</span>
+<span class="co">#&gt; Cumulative Var   0.111   0.218   0.316   0.405   0.479</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Test of the hypothesis that 5 factors are sufficient.</span>
+<span class="co">#&gt; The chi square statistic is 93.3 on 40 degrees of freedom.</span>
+<span class="co">#&gt; The p-value is 3.83e-06</span></code></pre></div>
+<p>Eine übersichtlichere Ausgabe bekommen wir mit dem <code>print</code> Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit <code>digits = 2</code>, alle Ladungen kleiner als 0,5 ausblenden mit <code>cutoff = .4</code> und die Ladungen mit <code>sort = TRUE</code> so sortieren, dass die Ladungen, die auf einen Faktor laden, untereinander stehen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(Werte.fa, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">cutoff =</span> .<span class="dv">4</span>, <span class="dt">sort =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; factanal(x = Werte, factors = 5)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Uniquenesses:</span>
+<span class="co">#&gt;   W1   W3   W4   W6   W7   W9  W10  W11  W12  W13  W14  W15  W16  W17  W18 </span>
+<span class="co">#&gt; 0.40 0.49 0.58 0.24 0.14 0.66 0.66 0.63 0.39 0.48 0.73 0.71 0.46 0.67 0.56 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Loadings:</span>
+<span class="co">#&gt;     Factor1 Factor2 Factor3 Factor4 Factor5</span>
+<span class="co">#&gt; W6   0.85                                  </span>
+<span class="co">#&gt; W7   0.92                                  </span>
+<span class="co">#&gt; W1           0.76                          </span>
+<span class="co">#&gt; W3           0.69                          </span>
+<span class="co">#&gt; W4           0.61                          </span>
+<span class="co">#&gt; W12                  0.72                  </span>
+<span class="co">#&gt; W13                  0.71                  </span>
+<span class="co">#&gt; W16                          0.70          </span>
+<span class="co">#&gt; W17                          0.54          </span>
+<span class="co">#&gt; W18                          0.62          </span>
+<span class="co">#&gt; W9                                   0.57  </span>
+<span class="co">#&gt; W11                                  0.58  </span>
+<span class="co">#&gt; W10                                  0.49  </span>
+<span class="co">#&gt; W14                  0.48                  </span>
+<span class="co">#&gt; W15                                        </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;                Factor1 Factor2 Factor3 Factor4 Factor5</span>
+<span class="co">#&gt; SS loadings       1.67    1.60    1.47    1.33    1.12</span>
+<span class="co">#&gt; Proportion Var    0.11    0.11    0.10    0.09    0.07</span>
+<span class="co">#&gt; Cumulative Var    0.11    0.22    0.32    0.40    0.48</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Test of the hypothesis that 5 factors are sufficient.</span>
+<span class="co">#&gt; The chi square statistic is 93.3 on 40 degrees of freedom.</span>
+<span class="co">#&gt; The p-value is 3.83e-06</span></code></pre></div>
+<p>Standardmäßig wird bei <code>factanal()</code> eine <em>Varimax-Rotation</em> durchgeführt (das Koordinatensystem der Faktoren wird so rotiert, das eine optimale Zuordnung zu den Variablen erfolgt). Bei Varimax gibt es keine Korrelationen zwischen den Faktoren. Sollen Korrelationen zwischen den Faktoren zugelassen werden, empfiehlt sich die Oblimin-Rotation mit dem Argument <code>rotation=&quot;oblimin&quot;</code> aus dem Paket <code>GPArotation</code>.</p>
+</div>
+<div id="heatmap-mit-ladungen" class="section level3">
+<h3><span class="header-section-number">15.8.3</span> Heatmap mit Ladungen</h3>
+<p>In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt <code>Werte.fa</code> sind diese als <code>$loadings</code> vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von <code>$loadings</code> visualisieren, s. Abb. <a href="#fig:efa-heatmap"><strong>??</strong></a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(Werte.fa$loadings,
+          <span class="dt">dendrogram =</span> <span class="st">&quot;both&quot;</span>,
+          <span class="dt">labRow =</span> <span class="ot">NULL</span>,
+          <span class="dt">labCol =</span> <span class="ot">NULL</span>,
+          <span class="dt">cexRow=</span><span class="dv">1</span>,
+          <span class="dt">cexCol=</span><span class="dv">1</span>,
+          <span class="dt">margins =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">7</span>),
+          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>,
+          <span class="co">#lmat = rbind(c(0,0),c(0,1)),</span>
+          <span class="dt">lhei =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>),
+          <span class="dt">keysize=</span><span class="fl">0.75</span>, 
+          <span class="dt">key.par =</span> <span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.5</span>)
+          )</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efa-heatmpa"></span>
+<img src="083_Dimensionsreduktion_files/figure-html/efa-heatmpa-1.png" alt="Heatmap einer EFA" width="70%" />
+<p class="caption">
+Abbildung 15.3: Heatmap einer EFA
+</p>
+</div>
+<p>Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als <em>Anerkennung</em>, <em>Genuss</em>, <em>Sicherheit</em>, <em>Bewusstsein</em> und <em>Konformismus</em>.</p>
+</div>
+<div id="berechnung-der-faktor-scores" class="section level3">
+<h3><span class="header-section-number">15.8.4</span> Berechnung der Faktor-Scores</h3>
+<p>Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Faktorwerte für jede Beobachtung schätzen. Die gängige Extraktionsmethode ist die Bartlett-Methode.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Werte.ob &lt;-<span class="st"> </span><span class="kw">factanal</span>(Werte, <span class="dt">factors =</span> <span class="dv">5</span>, <span class="dt">scores =</span> <span class="st">&quot;Bartlett&quot;</span>)
+Werte.scores &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Werte.ob$scores)
+<span class="kw">names</span>(Werte.scores) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Anerkennung&quot;</span>, <span class="st">&quot;Genuss&quot;</span>, <span class="st">&quot;Sicherheit&quot;</span>, <span class="st">&quot;Bewusstsein&quot;</span>, <span class="st">&quot;Konformismus&quot;</span>) 
+<span class="kw">head</span>(Werte.scores)
+<span class="co">#&gt;   Anerkennung Genuss Sicherheit Bewusstsein Konformismus</span>
+<span class="co">#&gt; 1       1.380  0.985      0.563       0.173       -0.106</span>
+<span class="co">#&gt; 2      -1.404 -0.721      1.597       1.166        0.695</span>
+<span class="co">#&gt; 3       1.532 -0.657      1.672      -2.003        0.239</span>
+<span class="co">#&gt; 4      -0.579  2.344     -1.056      -1.120       -0.118</span>
+<span class="co">#&gt; 5       0.234 -1.652      1.189      -1.701        0.437</span>
+<span class="co">#&gt; 6      -0.130  0.111     -1.053       0.791       -1.003</span></code></pre></div>
+<p>Wir haben nun anstatt der 15 Variablen 5 Faktoren mit Scores. Die Dimensionen wurden um ein Drittel reduziert.</p>
+</div>
+</div>
+<div id="interne-konsistenz-der-skalen" class="section level2">
+<h2><span class="header-section-number">15.9</span> Interne Konsistenz der Skalen</h2>
+<p>Das einfachste Maß für die <strong>interne Konsistenz</strong> ist die <strong>Split-Half-Reliabilität</strong>. Die Items werden in zwei Hälften unterteilt und die resultierenden Scores sollten in ihren Kenngrößen ähnlich sein. Hohe Korrelationen zwischen den Hälften deuten auf eine hohe interne Konsistenz hin. Das Problem ist, dass die Ergebnisse davon abhängen, wie die Items aufgeteilt werden. Ein üblicher Ansatz zur Lösung dieses Problems besteht darin, den Koeffizienten <strong>Alpha (Cronbachs Alpha)</strong> zu verwenden.</p>
+<p>Der Koeffizient <strong>Alpha</strong> ist der Mittelwert aller möglichen Split-Half-Koeffizienten, die sich aus verschiedenen Arten der Aufteilung der Items ergeben. Dieser Koeffizient variiert von 0 bis 1. Formal ist es ein korrigierter durchschnittlicher Korrelationskoeffizient.</p>
+<p>Faustregeln für die Bewertung von Cronbachs Alpha:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Alpha</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>größer 0,9</td>
+<td>exzellent</td>
+</tr>
+<tr class="even">
+<td>größer 0,8</td>
+<td>gut</td>
+</tr>
+<tr class="odd">
+<td>größer 0,7</td>
+<td>akzeptabel</td>
+</tr>
+<tr class="even">
+<td>größer 0,6</td>
+<td>fragwürdig</td>
+</tr>
+<tr class="odd">
+<td>größer 0,5</td>
+<td>schlecht</td>
+</tr>
+</tbody>
+</table>
+<p>Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt <code>Sicherheit</code> und nehmen zur Demonstration das Item <code>W15</code> mit in die Analyse auf.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">alpha</span>(Werte[, <span class="kw">c</span>(<span class="st">&quot;W12&quot;</span>,<span class="st">&quot;W13&quot;</span>, <span class="st">&quot;W14&quot;</span>, <span class="st">&quot;W15&quot;</span>)], <span class="dt">check.keys =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Reliability analysis   </span>
+<span class="co">#&gt; Call: alpha(x = Werte[, c(&quot;W12&quot;, &quot;W13&quot;, &quot;W14&quot;, &quot;W15&quot;)], check.keys = TRUE)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   raw_alpha std.alpha G6(smc) average_r S/N   ase mean sd</span>
+<span class="co">#&gt;       0.64      0.63     0.6       0.3 1.7 0.018  5.4  1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  lower alpha upper     95% confidence boundaries</span>
+<span class="co">#&gt; 0.6 0.64 0.67 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Reliability if an item is dropped:</span>
+<span class="co">#&gt;     raw_alpha std.alpha G6(smc) average_r  S/N alpha se</span>
+<span class="co">#&gt; W12      0.51      0.51    0.42      0.26 1.05    0.026</span>
+<span class="co">#&gt; W13      0.50      0.49    0.42      0.24 0.97    0.027</span>
+<span class="co">#&gt; W14      0.54      0.53    0.49      0.28 1.15    0.025</span>
+<span class="co">#&gt; W15      0.68      0.69    0.61      0.42 2.19    0.017</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Item statistics </span>
+<span class="co">#&gt;        n raw.r std.r r.cor r.drop mean  sd</span>
+<span class="co">#&gt; W12 1000  0.75  0.73  0.64   0.49  5.0 1.6</span>
+<span class="co">#&gt; W13 1000  0.75  0.75  0.65   0.52  5.7 1.4</span>
+<span class="co">#&gt; W14 1000  0.73  0.72  0.55   0.45  5.2 1.6</span>
+<span class="co">#&gt; W15 1000  0.52  0.56  0.29   0.23  5.6 1.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Non missing response frequency for each item</span>
+<span class="co">#&gt;        1    2    3    4    5    6    7 miss</span>
+<span class="co">#&gt; W12 0.02 0.06 0.12 0.15 0.21 0.25 0.19    0</span>
+<span class="co">#&gt; W13 0.01 0.02 0.05 0.11 0.18 0.27 0.35    0</span>
+<span class="co">#&gt; W14 0.02 0.05 0.10 0.14 0.19 0.25 0.25    0</span>
+<span class="co">#&gt; W15 0.01 0.02 0.06 0.11 0.22 0.31 0.28    0</span></code></pre></div>
+<p>Bei dem Konstrukt <code>Sicherheit</code> können wir durch Elimination von <code>W15</code> das Cronbachs Alpha von 0,64 auf einen fast akzeptablen Wert von 0,68 erhöhen.</p>
+<p>Das Argument <code>check.keys=TRUE</code> gibt uns eine Warnung aus, sollte die Ladung eines oder mehrerer Items negativ sein. Dies ist hier nicht der Fall, somit müssen auch keine Items recodiert werden.</p>
 
 </div>
 </div>
 <h3>Literaturverzeichnis</h3>
 <div id="refs" class="references">
-<div id="ref-cortez2009modeling">
-<p>Cortez, Paulo, António Cerdeira, Fernando Almeida, Telmo Matos, und José Reis. 2009. „Modeling wine preferences by data mining from physicochemical properties“. <em>Decision Support Systems</em> 47 (4). Elsevier: 547–53.</p>
-</div>
-<div id="ref-introstats">
-<p>Diez, David M, Christopher D Barr, und Mine Cetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. CreateSpace Independent Publishing Platform.</p>
+<div id="ref-Schmidt2007">
+<p>Schmidt, Peter, Sebastian Bamberg, Eldad Davidov, Johannes Herrmann, und Shalom H. Schwartz. 2007. „Die Messung von Werten mit dem Portraits Value Questionnaire“. <em>Zeitschrift für Sozialpsychologie</em> 38 (4). Hogrefe Publishing Group: 261–75. doi:<a href="https://doi.org/10.1024/0044-3514.38.4.261">10.1024/0044-3514.38.4.261</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="51">
-<li id="fn51"><p>Wahrscheinlichkeit vs. Chance: Die Wahrscheinlichkeit bei einem fairen Würfel, eine 6 zu würfeln, ist <span class="math inline">\(1/6\)</span>. Die Chance (<em>Odd</em>), eine 6 zu würfeln, ist die Wahrscheinlichkeit dividiert durch die Gegenwahrscheinlichkeit, also <span class="math inline">\(\frac{1/6}{5/6}=1/5\)</span>.<a href="klassifizierende-regression.html#fnref51">↩</a></p></li>
-<li id="fn52"><p>Am Freitag liegen die Chancen (das OR) für einen Raucher bei 3.75. Das OR für Samstag ist das Produkt dieser beiden OR. Um das OR zu einer Wahrscheinlichkeit umzurechnen kann man, möchte vom “von Hand” arbeiten, diese Formel verwenden: <span class="math inline">\(p = OR / (OR + 1)\)</span>.<a href="klassifizierende-regression.html#fnref52">↩</a></p></li>
-<li id="fn53"><p>Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164<a href="klassifizierende-regression.html#fnref53">↩</a></p></li>
-<li id="fn54"><p><a href="http://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">http://archive.ics.uci.edu/ml/datasets/Wine+Quality</a><a href="klassifizierende-regression.html#fnref54">↩</a></p></li>
-<li id="fn55"><p>Anregungen zu dieser Übung stammen von INTW Statistics: <a href="https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html" class="uri">https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html</a><a href="klassifizierende-regression.html#fnref55">↩</a></p></li>
+<ol start="58">
+<li id="fn58"><p>scree: engl. “Geröll”<a href="dimensionsreduktion.html#fnref58">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -851,8 +1016,8 @@ perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred,<spa
           </div>
         </div>
       </div>
-<a href="klassische-lineare-numerische-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fallstudien-zum-geleiteten-modellieren.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cluster.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vertiefung-textmining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -24,7 +24,7 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 
 
-# Vertiefung: Clusteranalyse
+# Vertiefung: Clusteranalyse {#cluster}
 
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}

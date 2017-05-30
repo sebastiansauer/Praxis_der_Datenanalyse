@@ -205,10 +205,14 @@ Da in der Umfrage nur ganze Zahlen von 1 bis 5 abgefragt wurden, ist die `3.21..
 qplot(x = score, data = stats_test, binwidth = 1)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-ausreisser-1.png" alt="Ausreißer identifizieren" width="70%" />
-<p class="caption">(\#fig:fig-ausreisser)Ausreißer identifizieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-ausreisser-1} 
+
+}
+
+\caption{Ausreißer identifizieren}(\#fig:fig-ausreisser)
+\end{figure}
 
 Mit `binwidth = 1` sagen wir, dass jeder Balken (bin) eine Breite (width) von 1 haben soll.
 
@@ -255,10 +259,14 @@ km %>%
   rplot()  # Korrelationsplot
 ```
 
-<div class="figure" style="text-align: center">
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-corrr-1.png" alt="Ein Korrelationsplot" width="70%" />
-<p class="caption">(\#fig:fig-corrr)Ein Korrelationsplot</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-corrr-1} 
+
+}
+
+\caption{Ein Korrelationsplot}(\#fig:fig-corrr)
+\end{figure}
 
 Die Funktion `correlate` stammt aus dem Paket `corrr`^[https://github.com/drsimonj/corrr ], welches vorher installiert und geladen sein muss. Hier ist die Korrelation nicht zu groß, so dass wir keine weiteren Schritte unternehmen. Hätten wir eine sehr hohe Korrelation gefunden, so hätten wir eine der beiden beteiligten Variablen aus dem Datensatz löschen können.
 
@@ -388,10 +396,14 @@ n_distinct(extra$sex)  # es scheint 3 Geschlechter zu geben...
 ### Auf Normalverteilung prüfen
 Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher macht es Sinn, Normalverteilung zu prüfen. *Perfekte* Normalverteilung ist genau so häufig wie *perfekte* Kreise in der Natur. Entsprechend werden Signifikanztests, die ja auf perfekte Normalverteilung prüfen, *immer signifikant* sein, sofern die *Stichprobe groß* genug ist. Daher ist meist zweckmäßiger, einen graphischen "Test" durchzuführen: ein Histogramm, ein QQ-Plot oder ein Dichte-Diagramm als "glatt geschmirgelte" Variante des Histogramms bieten sich an (s. Abb. \@ref(fig:fig-norm-check)).
 
-<div class="figure" style="text-align: center">
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/fig-norm-check-1.png" alt="Visuelles Prüfen der Normalverteilung" width="70%" />
-<p class="caption">(\#fig:fig-norm-check)Visuelles Prüfen der Normalverteilung</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/fig-norm-check-1} 
+
+}
+
+\caption{Visuelles Prüfen der Normalverteilung}(\#fig:fig-norm-check)
+\end{figure}
 
 Während die der mittlere Extraversionswert recht gut normalverteilt ist, ist die Anzahl der Facebookfreunde ordentlich (rechts-)schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen; ein Thema, auf das wir hier nicht weiter eingehen.
 
@@ -400,18 +412,26 @@ Während die der mittlere Extraversionswert recht gut normalverteilt ist, ist di
 
 *Umkodieren*\index{Umkodieren} meint, die Werte zu ändern. Man sieht immer mal wieder, dass die Variable "gender" (Geschlecht) mit `1` und `2` kodiert ist. Verwechslungen sind da vorprogrammiert ("Ich bin mir echt ziemlich sicher, dass ich 1 für Männer kodiert habe, wahrscheinlich..."). Besser wäre es, die Ausprägungen `male` und `female` ("Mann", "Frau") o.ä. zu verwenden (vgl. Abb. \@ref(fig:umkodieren)).
 
-<div class="figure" style="text-align: center">
-<img src="images/typ_prob/umkodieren_crop.png" alt="Sinnbild für Umkodieren" width="70%" />
-<p class="caption">(\#fig:umkodieren)Sinnbild für Umkodieren</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/umkodieren_crop} 
+
+}
+
+\caption{Sinnbild für Umkodieren}(\#fig:umkodieren)
+\end{figure}
 
 
 Partionieren\index{Partionieren) oder *"Binnen"*\index{Binnen} meint, eine kontinuierliche Variablen in einige Bereiche (mindestens 2) zu zerschneiden. Damit macht man aus einer kontinuierlichen Variablen eine diskrete. Ein Bild erläutert das am einfachsten (vgl. Abb. \@ref(fig:cut-schere)). 
 
-<div class="figure" style="text-align: center">
-<img src="images/typ_prob/cut_schere_crop.png" alt="Sinnbild zum 'Binnen'" width="70%" />
-<p class="caption">(\#fig:cut-schere)Sinnbild zum 'Binnen'</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/typ_prob/cut_schere_crop} 
+
+}
+
+\caption{Sinnbild zum 'Binnen'}(\#fig:cut-schere)
+\end{figure}
 
 
 
@@ -783,7 +803,9 @@ stats_test %>%
   rplot
 ```
 
-<img src="043_Typische_Probleme_Datenanalyse_files/figure-epub3/rplot-demo-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{043_Typische_Probleme_Datenanalyse_files/figure-latex/rplot-demo-1} \end{center}
 
 
 ## Befehlsübersicht
@@ -792,28 +814,52 @@ Tabelle \@ref(tab:befehle-praxisprobleme) stellt die Befehle dieses Kapitels dar
 
 
 
+\begin{table}
 
-Table: (\#tab:befehle-praxisprobleme)Befehle des Kapitels 'Praxisprobleme'
-
-Paket::Funktion         Beschreibung                                                       
-----------------------  -------------------------------------------------------------------
-na.omit                 Löscht Zeilen, die fehlende Werte enthalten                        
-nrow                    Liefert die Anzahl der Zeilen des Dataframes zurück                
-complete.cases          Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück       
-car::recode             Kodiert Werte um                                                   
-cut                     Schneidet eine kontinuierliche Variable in Wertebereiche           
-rowMeans                Berechnet Zeilen-Mittelwerte                                       
-dplyr::rowwise          Gruppiert nach Zeilen                                              
-ggplot2::cut_number     Schneidet eine kontinuierliche Variable in n gleich große Bereiche 
-ggplot2::cut_interval   Schneidet eine kontinuierliche Variable in Intervalle der Größe k  
-head                    Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.     
-scale                   z-skaliert eine Variable                                           
-dplyr::select_if        Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist              
-dplyr::glimpse          Gibt einen Überblick über einen Dataframe                          
-dplyr::mutate_if        definiert eine Spalte, wenn eine Kriterium erfüllt ist             
-:                       Definiert einen Bereich von … bis …                                
-corrr::correlate        Berechnet Korrelationtabelle, liefert einen Dataframe zurück       
-cor                     Berechnet Korrelationtabelle                                       
-corrr::rplot            Plottet Korrelationsmatrix von correlate                           
-corrr::shave            “Rasiert” redundantes Dreick in Korrelationsmatrix ab              
+\caption{(\#tab:befehle-praxisprobleme)Befehle des Kapitels 'Praxisprobleme'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & Beschreibung\\
+\hline
+na.omit & Löscht Zeilen, die fehlende Werte enthalten\\
+\hline
+nrow & Liefert die Anzahl der Zeilen des Dataframes zurück\\
+\hline
+complete.cases & Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück\\
+\hline
+car::recode & Kodiert Werte um\\
+\hline
+cut & Schneidet eine kontinuierliche Variable in Wertebereiche\\
+\hline
+rowMeans & Berechnet Zeilen-Mittelwerte\\
+\hline
+dplyr::rowwise & Gruppiert nach Zeilen\\
+\hline
+ggplot2::cut\_number & Schneidet eine kontinuierliche Variable in n gleich große Bereiche\\
+\hline
+ggplot2::cut\_interval & Schneidet eine kontinuierliche Variable in Intervalle der Größe k\\
+\hline
+head & Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.\\
+\hline
+scale & z-skaliert eine Variable\\
+\hline
+dplyr::select\_if & Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist\\
+\hline
+dplyr::glimpse & Gibt einen Überblick über einen Dataframe\\
+\hline
+dplyr::mutate\_if & definiert eine Spalte, wenn eine Kriterium erfüllt ist\\
+\hline
+: & Definiert einen Bereich von … bis …\\
+\hline
+corrr::correlate & Berechnet Korrelationtabelle, liefert einen Dataframe zurück\\
+\hline
+cor & Berechnet Korrelationtabelle\\
+\hline
+corrr::rplot & Plottet Korrelationsmatrix von correlate\\
+\hline
+corrr::shave & “Rasiert” redundantes Dreick in Korrelationsmatrix ab\\
+\hline
+\end{tabular}
+\end{table}
 

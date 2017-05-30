@@ -1,11 +1,11 @@
 --- 
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
-author: "Sebastian Sauer und Oliver Gansser. Mit Beiträgen von Matthias Gehrke und Karsten Lübke"
+author: "Sebastian Sauer. Mit Beiträgen von Olliver Gansser, Matthias Gehrke und Karsten Lübke"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 lang: de-De
 colorlinks: yes
-thanks: "Danke an IFES"
+thanks: "Danke an Norman Markgraf"
 cover-image: "images/div/cover.jpg"
 favicon: "images/favicon/favicon.ico"
 #url: "https\://sebastiansauer.github.io/Praxis_der_Datenanalyse/"
@@ -122,7 +122,7 @@ knitr::include_graphics("images/licence.png")
 **Autoren**
 
 *Sebastian Sauer* schrieb den Hauptteil dieses Buchs. *Oliver Gansser* schrieb das Kapitel zur Dimensionsreduktion.
-*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
+*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse sowie Teile des Kapitels 'Rahmen'. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
 
 
 **Danke**
