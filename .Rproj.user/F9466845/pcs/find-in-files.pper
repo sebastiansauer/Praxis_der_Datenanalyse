@@ -1,0 +1,10 @@
+{
+    "dialog-state" : {
+        "caseSensitive" : false,
+        "filePatterns" : [
+        ],
+        "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse",
+        "query" : "wann_welcher_test",
+        "regex" : true
+    }
+}
