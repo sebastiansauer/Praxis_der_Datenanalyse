@@ -245,7 +245,7 @@ df <- read_csv("includes/effectsizes.csv")
 library(pander)
 pander::cache.off()
 panderOptions("table.alignment.default", "left")
-pander::pander(df, caption = "Überblick über gängige Effektstärkemaße")
+pander::pander(data.frame(df), caption = "Überblick über gängige Effektstärkemaße")
 
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 

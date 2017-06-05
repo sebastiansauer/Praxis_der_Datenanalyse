@@ -427,7 +427,7 @@ df <- readr::read_csv("includes/Befehle_fallstudien.csv")
 library(pander)
 pander::cache.off()
 panderOptions("table.alignment.default", "left")
-pander::pander(df, caption = "Befehle des Kapitels 'Fallstudien'")
+pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Fallstudien'")
 
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 
