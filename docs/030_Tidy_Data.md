@@ -2,7 +2,7 @@
 
 
 
-# Daten einlesen
+# Daten einlesen {#daten-einlesen}
 
 
 
@@ -125,23 +125,7 @@ Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Impor
 
 
 
-### Das Arbeitsverzeichnis
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
-Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
-</div>\EndKnitrBlock{rmdcaution}
-
-Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern. In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
-
-Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
-
-
-```r
-# nicht ausführen:
-daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
-```
-
-R geht dann davon aus, dass sich die Datei `daten_deutsch.csv` im Arbeitsverzeichnis befindet.
 
 ## Normalform einer Tabelle
 Tabellen in R werden als `data frames` ("Dataframe" auf Denglisch; moderner: als `tibble`, Tibble kurz für "Table-df") bezeichnet. Tabellen sollten in "Normalform" vorliegen ("tidy"), bevor wir weitere Analysen starten. Unter Normalform verstehen sich folgende Punkte:
@@ -203,7 +187,7 @@ Abb. \@ref(fig:gather-spread) zeigt ein Beispiel dazu.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/gather_spread} 
+{\centering \includegraphics[width=0.7\linewidth]{images/tidy/gather_spread-crop} 
 
 }
 
@@ -215,7 +199,7 @@ Warum ist es wichtig, von der "breiten" (links in Abb. \@ref(fig:gather-spread))
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/tidy/bsp_diagramm-crop} 
+{\centering \includegraphics[width=0.5\linewidth]{images/tidy/bsp_diagramm-crop} 
 
 }
 
@@ -226,6 +210,7 @@ Warum ist es wichtig, von der "breiten" (links in Abb. \@ref(fig:gather-spread))
 Um von der breiten Form zur langen Form zu kommen, kann man den Befehl `tidyr::gather` nehmen. Von der langen Form zur breiten From gibt es `tidyr::spread`. Also etwa:
 
 ```
+library(tidyr)
 df_lang <- gather(df_breit, key = "Quartal", value = "Umsatz")
 
 df_breit <- spread(df_lang, Quartal, Umsatz)
@@ -243,7 +228,7 @@ In Kapitel \@ref(case-movies) werden wir dazu ein Fallstudie einüben.
 ## Textkodierung
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht man... Text und sonst nichts, also keine Formatierung etc. Eine Textdatei besteht aus Text und sonst nichts (daher der Name...). Auch eine R-Skript-Datei (`Coole_Syntax.R`) ist eine Textdatei.
-Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Ein bestimmtes Zeichen wie "A" bekommt einen bestimmten Code wie "41". Mit etwas Glück weiß der Computer jetzt, dass er das Zeichen "41" auf den Bildschirm ausgeben soll. Es stellt sich jetzt die Frage, welche Code-Tabelle der Computer nutzt? Welchem Code wird "A" (bzw. ein beliebiges Zeichen) zugeordnet? Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
+Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Ein bestimmtes Zeichen wie "A" bekommt einen bestimmten Code wie "41". Mit etwas Glück weiß der Computer jetzt, dass er das Zeichen "41" auf den Bildschirm ausgeben soll. Es stellt sich jetzt die Frage, welche Code-Tabelle der Computer nutzt? Welchem Code wird "A" (bzw. ein beliebiges Zeichen) zugeordnet? Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, Ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
 
 >    Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
 
@@ -266,15 +251,6 @@ Mit `help(write.csv)` bekommt man mehr Hinweise dazu. Beachten Sie, dass immer i
 
 Tabelle \@ref(tab:befehle-tidy) stellt die Befehle dieses Kapitels dar. 
 
-
-
-```
-#> Parsed with column specification:
-#> cols(
-#>   `Paket::Funktion` = col_character(),
-#>   Beschreibung = col_character()
-#> )
-```
 
 \begin{table}
 

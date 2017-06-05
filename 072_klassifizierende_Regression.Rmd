@@ -64,7 +64,7 @@ Hier werden wir den Datensatz *Aktienkauf* der Universität Zürich ([Universit�
 Importieren Sie zunächst die Daten.
 
 ```{r load-data-Aktien}
-Aktien <- read_csv("data/Aktien.csv")
+Aktien <- readr::read_csv("data/Aktien.csv")
 ```
 
 
@@ -409,7 +409,14 @@ Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels 
 
 df <- readr::read_csv("includes/Befehle_logist_Regression.csv")
 
-knitr::kable(df, caption = "Befehle des Kapitels 'Logistische Regression'")
+library(pander)
+pander::cache.off()
+panderOptions("table.alignment.default", "left")
+pander::pander(df, caption =  "Befehle des Kapitels 'Logistische Regression'")
+
+# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+
+
 
 ```
 

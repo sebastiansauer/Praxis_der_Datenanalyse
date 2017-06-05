@@ -45,7 +45,7 @@ Importieren Sie zunächst die Daten.
 
 
 ```r
-Aktien <- read_csv("data/Aktien.csv")
+Aktien <- readr::read_csv("data/Aktien.csv")
 ```
 
 
@@ -555,34 +555,44 @@ Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klas
 Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels dar. 
 
 
-\begin{table}
 
-\caption{(\#tab:befehle-logist-regression)Befehle des Kapitels 'Logistische Regression'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-ggplot2::geom\_abline & Fügt das Geom "abline" (normale Gerade) zu einem ggplot2-Plot hinzu\\
-\hline
-glm & Berechnet ein "generalisiertes lineares Modell", z.B. eine logistische Regression\\
-\hline
-exp & Berechnet die e-Funktion für den angegeben Ausdruck (synonym: "delogarithmiert" den Ausdruck)\\
-\hline
-SDMTools::confusion.matrix & Berechnet eine Konfusionsmatrix\\
-\hline
-SDMTools::sensitivity & Berechnet die Sensitivität eines Klassifikationsmodells\\
-\hline
-SDMTools::specificity & Berechnet die Spezifität eines Klassifikationsmodells\\
-\hline
-ROCR::performance & Erstellt Objekte mit Gütekennzahlen von Klassifikationsmodellen\\
-\hline
-lmtest::lrtest & Berechnet den Likelihood-Ratio-Test\\
-\hline
-BaylorEdPsych::PseudoR2 & Berechnet Pseudo-R-Quadrat-Werte\\
-\hline
-\end{tabular}
-\end{table}
+-------------------------------------------------------------
+Paket::Funktion              Beschreibung                    
+---------------------------- --------------------------------
+ggplot2::geom_abline         Fügt das Geom "abline"          
+                             (normale Gerade) zu einem       
+                             ggplot2-Plot hinzu              
+
+glm                          Berechnet ein "generalisiertes  
+                             lineares Modell", z.B. eine     
+                             logistische Regression          
+
+exp                          Berechnet die e-Funktion für    
+                             den angegeben Ausdruck          
+                             (synonym: "delogarithmiert"     
+                             den Ausdruck)                   
+
+SDMTools::confusion.matrix   Berechnet eine                  
+                             Konfusionsmatrix                
+
+SDMTools::sensitivity        Berechnet die Sensitivität      
+                             eines Klassifikationsmodells    
+
+SDMTools::specificity        Berechnet die Spezifität eines  
+                             Klassifikationsmodells          
+
+ROCR::performance            Erstellt Objekte mit            
+                             Gütekennzahlen von              
+                             Klassifikationsmodellen         
+
+lmtest::lrtest               Berechnet den                   
+                             Likelihood-Ratio-Test           
+
+BaylorEdPsych::PseudoR2      Berechnet                       
+                             Pseudo-R-Quadrat-Werte          
+-------------------------------------------------------------
+
+Table: Befehle des Kapitels 'Logistische Regression'
 
 
 

@@ -1,0 +1,9 @@
+Name,Synonyme,Beschreibung,R-Befehl,Beispiel,Restriktionen
+numeric,"num, double, dbl",Reelle Zahl (mit Nachkommastellen),as.numeric,"x <- c(2.71, 3.14)",grundlegend
+integer,"int, L",Ganze Zahl,as.integer," y <- c(42,7)",grundlegend
+character,"chr, string",Text,as.character,"der_name <- ""Joachim""",grundlegend
+logical,"lgl, logi","logisch; gibt an, ob ein Ausdruck wahr (TRUE; T) oder falsch (FALSE, F) ist",as.logical,"c(TRUE, FALSE)",grundlegend
+factor,fctr,Nominal skalierte Variable mit vorab definierten Ausprägungen; z.B. um Gruppen (Männer vs. Frauen) zu benennen,factor,der_name <- factor(der_name),grundlegend
+vector,-,Mehrere Elemente eines grundlegenden Typs,c,"x <- c(2.71, 3.14)",sortenrein
+dataframe,"tibble, df","Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben",data.frame,"df <- data.frame(x,y)",rechteckig: Vektoren müssen von gleicher Länge sein
+list,-,Kombination beliebigiger Vektoren,list,"liste <- list(x, der_name, df)",keine besonderen Restriktionen

@@ -53,16 +53,14 @@ Hier laden wir einen Datensatz von einer Online-Umfrage:
 
 ```{r}
 data <- read.csv("data/extra.csv")
-
 ```
 
-Der DOI für diesen Datensatz ist 10.17605/OSF.IO/4KGZH.
 
 Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow^[https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
 
 
 Die Umfrage kann hier^[https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform] eingesehen werden. Schauen wir uns die Daten mal an:
-```{r}
+```{r eval = FALSE}
 glimpse(data)
 ```
 

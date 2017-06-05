@@ -1,0 +1,1093 @@
+---
+title: "Folien für das Modul 'Praxis der Datenanalyse'"
+#author: "ses"
+#institute: "FOM" 
+date: "WS17"
+linkcolor: blue
+urlcolor: blue
+lang: de-De
+output:
+  beamer_presentation:
+    fig_caption: no
+    slide_level: 2
+    includes:
+        in_header: "Rahmen.tex" 
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    echo = TRUE,
+    background='#E0E0E0',
+#   fig.keep="none",
+    out.width="80%",
+#   cache = TRUE,
+#    tidy=TRUE,
+    fig.align = "center",
+    width.cutoff=60,
+    fig.asp = .61,
+    message = FALSE,
+    warning = FALSE,
+    out.width = "70%"
+)
+options(width = 73)
+
+
+```
+
+
+```{r libs, include = FALSE, echo = FALSE}
+#library(mosaic)
+library(tidyverse)
+library(formatR)
+library(knitr)
+library(gridExtra)
+```
+
+
+## Vorwort
+
+- Dieser Foliensatz dient zur Unterstützung des Unterrichts im Rahmen des Moduls 'Praxis der Datenanalyse' an der FOM Hochschule.
+
+- Dieser Foliensatz ist *nicht* zur Vermittlung des Stoffes gedacht (auch nicht zum Nachbereiten der Stoffes); dazu gibt es ein [Skript](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/). Er soll zur Unterstützung der Vermittlung des Stoffes im Unterricht helfen.
+
+- Autoren: Sebastian Sauer schrieb den Hauptteil dieses Buchs. Oliver Gansser schrieb das Kapitel zur Dimensionsreduktion. Karsten Lübke schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse sowie Teile des Kapitels ‘Rahmen’. Matthias Gehrke schrieb den Großteil des Kapitels zur logistischen Regression. Norman Markgraf schrieb die Vorlage für Folien.
+
+
+## Danke
+
+- Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen angemahnt vorgenommen. Der Austausch mit den ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
+
+
+# Organisatorisches
+
+## Modulziele
+
+Die Studierenden können nach erfolgreichem Abschluss des Moduls:
+
+
+- den Ablauf eines Projekts aus der Datenanalyse in wesentlichen Schritten nachvollziehen,
+-	Daten aufbereiten und ansprechend visualisieren,
+-	Inferenzstatistik anwenden und kritisch hinterfragen,
+- klassische Vorhersagemethoden (Regression) anwenden,
+-	moderne Methoden der angewandten Datenanalyse anwenden (z.B. Textmining),
+-	betriebswirtschaftliche Fragestellungen mittels datengetriebener Vorhersagemodellen beantworten.
+
+
+## Themen pro Termin (insgesamt 44UE Lehre)
+
+
+
+\footnotesize
+```{r termin-themen, echo = FALSE}
+
+df <- readr::read_csv("../includes/Termin_Themen.csv")
+
+knitr::kable(df)
+
+```
+
+
+
+## Prüfung - Allgemeine Hinweise
+
+
+- Die Prüfung besteht aus zwei Teilen
+    - einer Klausur (50% der Teilnote)
+    - einer Datenanalyse (50% der Teilnote).
+   
+   
+   
+*Prüfungsrelevant* ist der gesamte Stoff aus dem Skript und dem Unterricht mit folgenden Ausnahmen:
+
+  - Inhalte/Abschnitte, die als "nicht klausurrelevant" gekennzeichnet sind,
+  - Inhalte/Abschnitte, die als "Vertiefung" gekennzeichnet sind,
+  - Fallstudien (nur für Klausuren nicht prüfungslevant),
+  - die Inhalte von Links,
+  - die Inhalte von Fußnoten,
+  - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
+  
+
+Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt.  
+
+
+
+## Klausur und Datenanalyse
+
+
+### Klausur
+- Hinweise zur Klausur finden Sie [hier]()
+- Im Unterricht findet eine Probeklausur statt.
+- Lernaufgaben finden sich im Skript.
+
+
+### Datenanalyse
+- Hinweise zur Datenanalyse finden Sie [hier]().
+- Die Datenanalyse wird (in fast jeder Stunde) praktisch eingeübt.
+- Beispiele für gute Datenanalysen von Studierenden finden Sie [hier]().
+
+
+# Rahmen
+
+## Lernziele
+
+- Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
+- R und RStudio installieren können.
+- Einige häufige technische Probleme zu lösen wissen.
+- R-Pakete installieren können.
+- Einige grundlegende R-Funktionalitäten verstehen.
+- Auf die Frage "Was ist Statistik?" eine Antwort geben können.
+
+
+
+## Prozess der Datenanalyse - Überblick über das Modul
+
+```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
+knitr::include_graphics("../images/Rahmen/Prozess_Datenanalyse.png") 
+```
+
+
+## R und RStudio installieren
+
+![](../images/Rahmen/Rlogo.png){ width=10% } ![](../images/Rahmen/rstudiologo.png){ width=10% }
+
+
+
+
+```{r echo = FALSE, fig.cap = "RStudio"} 
+knitr::include_graphics("../images/Rahmen/RStudio-Screenshot.png")
+
+```
+
+
+## Hilfe! R!
+
+Beliebte Fehler:
+
+```
+- install.packages(dplyr) 
+
+- install.packages("dliar")
+
+- install.packages("derpyler") 
+
+- install.packages("dplyr")  # dependencies vergessen 
+
+- Keine Internet-Verbindung 
+
+- library(dplyr)  # ohne vorher zu installieren
+```
+
+## Pakete installieren
+
+
+```{r fig-install-packages, echo = FALSE, fig.cap = "So installiert man Pakete in RStudio", out.width = "50%"}
+
+knitr::include_graphics("../images/Rahmen/install_packages.png")
+
+```
+
+
+## Aufgaben
+
+1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
+
+2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
+
+
+## Aufgaben 
+
+3. Führen Sie diese Syntax aus:
+
+```{r eval = FALSE}
+meine_coole_variable <- 10
+meine_coole_var1able 
+```
+
+Woher rührt der Fehler?
+
+4. Korrigieren Sie die Syntax:
+
+```{r eval = FALSE}
+install.packages(dplyer)
+```
+
+
+## Aufgaben
+
+`y <- Hallo R!`
+
+
+`Hallo R <- 1`
+
+
+```{r eval = FALSE}
+Hallo_R < - 1
+```
+
+
+
+## Was ist Statistik?
+
+*Eine* Antwort dazu ist, dass Statistik die Wissenschaft von
+Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe 
+mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle. 
+
+```{r desk-vs-inf, echo = FALSE, fig.cap  ="Sinnbild für die Deskriptiv- und die Inferenzstatistik"}
+
+knitr::include_graphics("../images/Rahmen/desk_vs_inf-crop.png")
+```
+
+
+## Abduktion als klassische Denkfigur in der Statistik
+
+```
+Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
+Prämisse 2: Die Daten weisen das Muster D auf.
+---
+Konklusion: Daher muss das Modell M wahr sein.
+```
+
+Die Konklusion ist *nicht* zwangsläufig richtig.
+
+## Befehlsübersicht für das Kapitel 'Rahmen'
+
+
+```{r befehle-rahmen, echo = FALSE}
+
+df <- readr::read_csv("../includes/Befehle_Rahmen.csv")
+
+knitr::kable(df, caption = "Befehle des Kapitels 'Rahmen'")
+
+```
+
+# Daten einlesen
+
+## Lernziele
+
+- Wissen, was eine CSV-Datei ist.
+- Wissen, was UTF-8 bedeutet.
+- Erläutern können, was R unter dem "working directory" versteht.
+- Erkennen können, ob eine Tabelle in Normalform vorliegt.
+- Daten aus R hinauskriegen (exportieren).
+
+
+Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Form in R hinein?".
+
+
+## Prozess der Datenanalyse -- Einlesen
+
+
+```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
+knitr::include_graphics("../images/tidy/Einlesen.png")
+```
+
+
+## Daten (CSV, XLS,...) mit RStudio importieren
+
+
+```{r data-import-RStudio, echo = FALSE, out.width = "50%", fig.cap = "Daten einlesen (importieren) mit RStudio"}
+knitr::include_graphics("../images/tidy/import_RStudio.png")
+```
+
+## CSV-Dateien sind einer der wichtigsten Daten-Formate
+
+
+```
+row_number,date_time,study_time,self_eval,interest,score
+1,05.01.2017 13:57:01,5,8,5,29
+2,05.01.2017 21:07:56,3,7,3,29
+3,05.01.2017 23:33:47,5,10,6,40
+4,06.01.2017 09:58:05,2,3,2,18
+5,06.01.2017 14:13:08,4,8,6,34
+6,06.01.2017 14:21:18,NA,NA,NA,39
+```
+
+## Das Arbeitsverzeichnis mit RStudio wählen
+
+
+```{r Arbeitsverzeichnis, echo = FALSE, fig.cap = "Das Arbeitsverzeichnis mit RStudio auswählen", out.width = "50%"}
+
+knitr::include_graphics("../images/tidy/Arbeitsverzeichnis.png")
+```
+
+
+## Normalform einer Tabelle
+
+```{r tidy1, fig.cap = "Schematische Darstellung eines Dataframes in Normalform", echo = FALSE}
+knitr::include_graphics("../images/tidy/tidy-1.png")
+```
+
+
+## Breit vs. Lang
+
+```{r lang-breit, echo = FALSE, fig.cap = "Dieselben Daten - einmal breit, einmal lang"}
+knitr::include_graphics("../images/tidy/breit_lang.png")
+```
+
+
+## Ein Dataframe in Normalform - Beispiel
+
+```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform", out.width = "50%"}
+knitr::include_graphics("../images/tidy/Normalform.png")
+```
+
+
+## Tabelle in Normalform bringen {#normalform}
+
+
+
+```{r gather-spread, echo = FALSE, fig.cap = "Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form"}
+
+knitr::include_graphics("../images/tidy/gather_spread-crop.png")
+
+```
+
+
+## Beispiel für die Normalisierung einer Tabelle
+
+```{r bsp-abb, echo = FALSE, fig.cap = "Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle", out.width = "50%"}
+
+knitr::include_graphics("../images/tidy/bsp_diagramm-crop.png")
+```
+
+
+## `gather` und `spread`
+
+```{r eval = FALSE}
+library(tidyr)
+
+df_lang <- gather(df_breit, key = "Quartal", 
+                  value = "Umsatz")
+
+df_breit <- spread(df_lang, Quartal, Umsatz)
+
+df_lang <- gather(df_breit, key = "Quartal", 
+                  value = "Umsatz", -ID)
+```
+
+
+## Textkodierung und Daten exportieren
+
+>    Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
+
+
+```{r eval = FALSE}
+write.csv(name_der_tabelle, "Dateiname.csv")
+```
+
+
+## Befehlsübersicht für das Kapitel 'Daten einlesen'
+
+```{r befehle-tidy, echo = FALSE, message = FALSE}
+
+df <- readr::read_csv("../includes/Befehle_tidy.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Daten einlesen'")
+```
+
+
+
+
+## Aufgaben^[F, R, F, R, R, R, F, F]
+
+1. In CSV-Dateien dürfen Spalten *nie* durch Komma getrennt sein.
+2. RStudio bietet die Möglichkeit, CSV-Dateien per Klick zu importieren.
+2. RStudio bietet *nicht* die Möglichkeit, CSV-Dateien per Klick zu importieren.
+2. "Deutsche" CSV-Dateien verwenden als Spalten-Trennzeichen einen Strichpunkt.
+2. In einer Tabelle in Normalform stehen in jeder Zeile eine Beobachtung.
+2. In einer Tabelle in Normalform stehen in jeder Spalte eine Variable.
+2. R stellt fehlende Werte mit einem Fragezeichen `?` dar.
+2. Um Excel-Dateien zu importieren, kann man den Befehl `read.csv` verwenden.
+
+
+# Datenjudo
+
+## Lernziele für das Kapitel 'Datenjudo'
+
+- Die zentralen Ideen der Datenanalye mit dplyr verstehen.
+- Typische Probleme der Datenanalyse schildern können.
+- Zentrale `dplyr`-Befehle anwenden können.
+- `dplyr`-Befehle kombinieren können.
+- Die Pfeife anwenden können.
+- Werte umkodieren und "binnen" können.
+
+
+
+## Prozess der Datenanalyse -- Datenjudo
+
+
+```{r fig-datenjudo, echo = FALSE, fig.cap = "Daten aufbereiten"}
+knitr::include_graphics("../images/Datenjudo/Aufbereiten.png")
+```
+
+
+## Typische Probleme bei der Datenaufbereitung
+
+
+
+Typische Probleme, die immer wieder auftreten, sind:
+
+- *Fehlende Werte*
+- *Unerwartete Daten*
+- *Daten müssen umgeformt werden*
+- *Neue Variablen (Spalten) berechnen*: 
+- ...
+
+
+## Daten aufbereiten mit `dplyr`
+
+
+\begin{columns}
+  \begin{column}{0.49\textwidth}
+    
+```{r bausteine, echo = FALSE, fig.cap = "Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine", out.width = "100%"}
+knitr::include_graphics("../images/Datenjudo/Bausteine_dplyr-crop.png")
+```
+
+ \end{column}
+  \begin{column}{0.49\textwidth}
+
+
+```{r durchpfeifen-allgemein, echo = FALSE, fig.cap = "Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht", out.width = "100%"}
+knitr::include_graphics("../images/Datenjudo/durchpfeifen_allgemein_crop.png")
+```
+
+
+  \end{column}
+\end{columns}
+
+## Zeilen filtern mit `filter`
+
+
+```{r fig-filter, echo = FALSE, fig.cap = "Zeilen filtern"}
+knitr::include_graphics("../images/Datenjudo/filter.png")
+```
+
+
+
+## Spalten wählen mit `select`
+
+
+```{r fig-select, echo = FALSE, fig.cap = "Spalten auswählen"}
+knitr::include_graphics("../images/Datenjudo/select.png")
+```
+
+
+## Zeilen sortieren mit `arrange`
+
+
+
+```{r fig-arrange, echo = FALSE, fig.cap = "Spalten sortieren"}
+knitr::include_graphics("../images/Datenjudo/arrange-crop.png")
+```
+
+
+## Datensatz gruppieren mit `group_by`
+
+
+```{r fig-groupby, echo = FALSE, fig.cap = "Datensätze nach Subgruppen aufteilen"}
+knitr::include_graphics("../images/Datenjudo/group_by.png")
+```
+
+
+
+## Eine Spalte zusammenfassen mit `summarise`
+
+
+```{r fig-summarise, echo = FALSE, fig.cap = "Spalten zu einer Zahl zusammenfassen"}
+knitr::include_graphics("../images/Datenjudo/summarise.png")
+```
+
+
+## Zeilen zählen mit `n` und `count`
+
+
+```{r fig-count, echo = FALSE, fig.cap = "Sinnbild für 'count'"}
+
+knitr::include_graphics("../images/Datenjudo/count-crop.png")
+```
+
+
+## Die Pfeife
+
+```{r cecie-une-pipe, echo = FALSE, fig.cap = "Das ist keine Pfeife"}
+knitr::include_graphics("../images/Datenjudo/800px-Pipa_savinelli.jpg")
+```
+
+
+## Befehle hintereinander reihen mit der Pfeife
+
+
+```{r fig-durchpfeifen, echo = FALSE, out.width  = "80%", fig.cap = "Das 'Durchpeifen'"}
+knitr::include_graphics("../images/Datenjudo/durchpfeifen.png")
+```
+
+## Introducing Pipe-Syntax
+
+Vergleichen Sie mal diese Syntax
+
+```{r eval = FALSE}
+filter(summarise(group_by(filter(stats_test, 
+       !is.na(score)), interest), mw = mean(score)), 
+       mw > 30)
+```
+
+mit dieser
+
+```{r eval = FALSE}
+stats_test %>% 
+  filter(!is.na(score)) %>% 
+  group_by(interest) %>% 
+  summarise(mw = mean(score)) %>% 
+  filter(mw > 30)
+```
+
+
+## Pfeifen macht das Leben leichter
+
+Tipp: In RStudio gibt es einen Shortcut für die Pfeife: Strg-Shift-M (auf allen Betriebssystemen).
+
+
+
+
+Die Syntax von oben auf Deutsch:
+
+- Nimm die Tabelle "stats_test" UND DANN  
+- filtere alle nicht-fehlenden Werte UND DANN  
+- gruppiere die verbleibenden Werte nach "interest" UND DANN  
+- bilde den Mittelwert (pro Gruppe) für "score" UND DANN  
+- liefere nur die Werte größer als 30 zurück.  
+
+
+## Spalten berechnen mit `mutate`
+
+
+```{r fig-mutate, echo = FALSE, fig.cap = "Sinnbild für mutate"}
+knitr::include_graphics("../images/Datenjudo/mutate.png")
+```
+
+
+## Beispiel für `mutate`
+
+
+```{r eval = FALSE}
+stats_test %>% 
+  mutate(Streber = score > 38) %>% 
+  head()
+```
+
+
+## Deskriptive Statistik mit `dplyr`
+
+
+```{r eval = FALSE}
+stats_test2 <- select(stats_test, -date_time) 
+desctable(stats_test2l)
+```
+
+
+
+
+## Befehlsübersicht - Kapitel 'Datenjudo'
+
+
+
+```{r befehle-datenjudo, echo = FALSE}
+
+df <- readr::read_csv("../includes/Befehle_Datenjudo.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Datenjudo'")
+```
+
+
+
+# Daten visualisieren
+
+
+## Lernziele für das Kapitel 'Daten visualisieren'
+
+- An einem Beispiel erläutern können, warum/ wann ein Bild mehr sagt, als 1000 Worte.
+- Häufige Arten von Diagrammen erstellen können.
+- Diagramme bestimmten Zwecken zuordnen können.
+
+
+## Statistik ist wie ein Bikini...
+
+
+```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
+knitr::include_graphics("../images/visualisieren/anscombe.png")
+```
+
+
+[Dinosaurier-Video](https://youtu.be/DbJyPELmhJc)
+
+
+
+
+## Die Anatomie eines Diagramms
+
+
+
+```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms"}
+knitr::include_graphics("../images/visualisieren/anatomie_diagramm_crop.jpg")
+```
+
+
+## Beispiel für ein Diagramm it mit `ggplot2::qplot`
+
+```{r echo = FALSE}
+movies <- read.csv("../data/movies.csv")
+```
+
+
+```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
+qplot(x = year, y = budget, geom = "point", data = movies)
+```
+
+## Anatomiestunde mit `qplot`
+
+
+
+- `qplot`: Erstelle schnell (q wie quick in `qplot`) mal einen Plot (engl. "plot": Diagramm).    
+- `x`: Der X-Achse soll die Variable "year" zugeordnet werden.    
+- `y`: Der Y-Achse soll die Variable "budget" zugeorndet werden.  
+- `geom`: ("geometriches Objekt") Gemalt werden sollen Punkte und zwar pro Beobachtung (hier: Film) ein Punkt; nicht etwa Linien oder Boxplots.
+- `data`: Als Datensatz bitte `movies` verwenden.  
+
+
+## Syntax-Blaupause für `qplot`
+
+Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
+
+```{r, eval = FALSE}
+qplot (x = X_Achse, 
+       y = Y_Achse, 
+       data = mein_dataframe, 
+       geom = "ein_geom")
+```
+
+
+## Häufige Diagrammtypen
+
+
+
+```{r diagrammtypen, echo = FALSE}
+
+df <- read_csv("../includes/Diagrammtypen.csv")
+
+knitr::kable(df, caption = "Häufige Diagrammtypen")
+```
+
+
+
+# Grundlagen des Modellierens
+
+
+## Prozess der Datenanalyse - Modellieren
+
+
+```{r echo = FALSE, out.width = "70%"}
+knitr::include_graphics("../images/modellieren/Modellieren.png")
+```
+
+
+
+## Was ist ein Modell
+
+```{r vwmodell, echo = FALSE, fig.cap = "Modell eines VW-Käfers"}
+knitr::include_graphics("../images/modellieren/vw_modell.JPG")
+```
+
+
+
+## Die Beziehung von Gegenstandsbereich und Modell
+
+```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
+knitr::include_graphics("../images/modellieren/Modell.png")
+```
+
+
+## Modelle spiegeln empirische Relationen in numerischen Relationen
+
+>   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
+
+```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modellierens"}
+knitr::include_graphics("../images/modellieren/Modellieren_formal_crop.png")
+```
+
+
+
+## Ein Beispiel zum Modellieren aus der Datenanalyse
+
+```{r plot-stats-smooth, echo = FALSE}
+stats_test <- read_csv("../data/test_inf_short.csv")
+
+stats_test %>% 
+ggplot(aes(y = score, x = self_eval)) +
+geom_jitter() -> p1
+
+p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
+
+# p3 <- grid::rasterGrob(readPNG("../images/Modellieren_Bsp1.png"), interpolate=TRUE)
+grid.arrange(p1, p2, nrow = 1)
+```
+
+Die blaue Gerade ist ein Modell für den Datensatz (sie versucht es zumindest).
+
+
+## Modelle umfassen drei Aspekte
+
+```{r fig-blackbox, echo = FALSE, fig.cap = "Modelle mit schwarzer Kiste"}
+knitr::include_graphics("../images/modellieren/Modell_Blackbox.png")
+```
+
+
+## Taxonomie der Ziele des Modellierens 
+
+- Geleitetes Modellieren
+    - Prädiktives Modellieren
+    - Explikaties Modellieren
+- Ungeleitetes Modellieren
+    - Dimensionsreduzierendes Modellieren
+    - Fallreduzierendes Modellieren
+
+
+## Veranschaulichung der beiden Arten des Modellierens
+
+```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
+
+knitr::include_graphics("../images/modellieren/ungeleitetes_Modellieren_crop.png")
+
+```
+
+
+
+## Die vier Schritte des statistischen Modellierens
+
+
+1. Man wählt eines der vier Ziele des Modellierens (z.B. ein prädiktives Modell).
+1. Man wählt ein Modell aus (genauer: eine Modellfamilie), z.B. postuliert man, dass die Körpergröße einen linearen Einfluss auf die Schuhgröße habe.
+3. Man bestimmt (berechnet) die Details des Modells anhand der Daten: Wie groß ist die Steigung der Geraden und wo ist der Achsenabschnitt? Man sagt auch, dass man die *Modellparameter* anhand der Daten schätzt ("Modellinstantiierung" oder "Modellanpassung", engl. "model fitting").
+4. Dann prüft man, wie gut das Modell zu den Daten passt (Modellgüte, engl. "model fit"); wie gut lässt sich die Schuhgröße anhand der Körpergröße vorhersagen bzw. wie groß ist der Vorhersagefehler?
+
+
+## Einfache vs. komplexe Modelle: Unter- vs. Überanpassung
+
+
+
+```{r overfitting-prep-4-plots, echo = FALSE, include = FALSE, fig.height = 3, fig.width = 3}
+x <- seq(from = 1, to = 10, by = .3)
+y <- sin(x) + rnorm(n = length(x), mean = 0, sd = .3)
+
+daten <- data_frame(x, y)
+
+ggplot(daten) +
+  aes(x = x, y = y) + 
+  coord_fixed(ratio = 5/1) +
+  labs(y = "") +
+  geom_point() +
+  ggtitle("A") -> p1
+
+ggplot(daten) +
+  aes(x = x, y = y) +
+  geom_point() + 
+  coord_fixed(ratio = 5/1) +
+  labs(y = "") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  ggtitle("B")-> p2
+
+
+ggplot(daten) +
+  aes(x = x, y = y) +
+  geom_point() + 
+  coord_fixed(ratio = 5/1) +
+  labs(y = "") +
+  geom_line(color = "blue") +
+  ggtitle("C") -> p3
+
+ggplot(daten) +
+  aes(x = x, y = y) +
+  geom_point() + 
+  coord_fixed(ratio = 5/1) +
+  labs(y = "") +
+  stat_function(n = 99, fun = sin, color = "darkgreen") +
+  ggtitle("D") -> p4
+```
+
+
+```{r overfitting-4-plots, echo = FALSE, fig.cap = "Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?", out.width = "90%"}
+
+grid.arrange(p1, p2, p3, p4, ncol = 4)
+
+```
+
+
+
+## Vorhersagegüte der Trainings-Stichprobe vs. der Test-Stichprobe
+
+Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, heißt das noch *nicht*, dass es auch zukünftige (und vergleichbare) Stichproben gut beschreiben wird.  Die Güte (Vorhersagegenauigkeit) eines Modells sollte sich daher stets auf eine neue Stichprobe beziehen (Test-Stichprobe), die nicht in der Stichprobe beim Anpassen des Modells (Trainings-Stichprobe) enthalten war. 
+
+
+## Overfitting
+
+```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe"}
+knitr::include_graphics("../images/modellieren/overfitting.png")
+```
+
+
+## Bias-Varianz-Abwägung
+
+>    Einfache Modelle: Viel Bias, wenig Varianz.
+     Komplexe Modelle: Wenig Bias, viel Varianz.
+     
+     
+
+```{r plot-bias-variance, echo = FALSE, fig.cap = "Der Spagat zwischen Verzerrung und Varianz", out.width = "50%"}
+poly_degree = 15
+df <- data_frame(x = seq(from = 1, to = 10, by = .3),
+                 y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))
+
+df %>% 
+  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
+  group_by(binned) %>% 
+  mutate(y_group_md = median(y)) -> df
+
+
+p1 <- ggplot(df) +
+  aes(x = x, y = y) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
+  coord_fixed(ratio = 5/1)
+
+
+p2 <-  ggplot(df) +
+  aes(x = x) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
+  coord_fixed(ratio = 5/1) 
+
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+
+
+
+## Befehlsübersicht
+
+
+```{r befehle-modellieren, echo = FALSE}
+
+df <- readr::read_csv("../includes/Befehle_Modellieren.csv")
+
+knitr::kable(df,
+             caption = "Befehle des Kapitels 'Modellieren'")
+```
+
+
+
+# Der p-Wert
+
+
+## Lernziele
+
+
+- Den p-Wert erläutern können.
+- Den p-Wert kritisieren können.
+- Alternativen zum p-Wert kennen.
+- Inferenzstatistische Verfahren für häufige Fragestellungen kennen.
+
+
+
+## Sir Ronald Fisher, Erfinder des Nullhypothesen Testens 
+
+
+```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "20%", fig.align = "center"}
+knitr::include_graphics("../images/inferenz/Ronald_Fisher.jpg")
+```
+
+## Der p-Wert ist die heilige Kuh der Forscher
+
+```{r who-said, echo = FALSE, out.width = "35%", fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
+knitr::include_graphics("../images/inferenz/p_value_who_said.png")
+```
+
+>   Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
+
+
+## Von Männern und Päpsten
+
+$$ P(M|T) \ne P(T|M) $$
+
+```{r moslems-terroristen, echo = FALSE, fig.cap = "Mann und Papst zu sein, ist nicht das gleiche."}
+knitr::include_graphics("../images/inferenz/maenner_papst-crop.png")
+```
+
+## Der p-Wert ist eine Funktion der Stichprobengröße
+
+```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
+
+knitr::include_graphics("../images/inferenz/einfluss_pwert-crop.png")
+```
+
+
+
+
+
+## Zur Philosophie des p-Werts: Frequentismus
+
+
+
+```{r echo = FALSE}
+df <- data_frame(
+  i = 1:500,
+  flip = sample(x = c(0,1), size = 500, replace = TRUE),
+  prop = cumsum(flip) / i
+)
+```
+
+
+
+
+```{r muenzwurf, echo = FALSE, fig.cap = "Anteil von 'Kopf' bei wiederholtem Münzwurf"}
+
+ggplot(df) +
+  aes(x = i, y = prop) +
+  geom_line() +
+  geom_point(color = "grey40") +
+  ylim(c(0,1)) +
+  labs(x = "Anzahl der Würfe",
+       y = "Anteil von 'Kopf'")
+
+```
+
+
+
+
+## Alternativen zum p-Wert - Konfidenzintervalle
+
+>   Das 95%-Konfidenzintervall ist der Bereich, in dem der Parameter in 95% der Fälle fallen würde bei sehr häufiger Wiederholung des Versuchs. 
+
+
+
+[Visualisierung zum Konfidenzintervall](http://rpsychologist.com/d3/CI/)
+
+
+
+
+## Alternativen zum p-Wert - Effektstärken
+
+```{r effectsizes, echo = FALSE}
+
+df <- read_csv("../includes/effectsizes.csv")
+
+knitr::kable(df, caption = "Überblick über gängige Effektstärkemaße")
+```
+
+
+## Alternativen zum p-Wert - Bayes-Statistik
+
+$p(D|H)$
+
+```{r bayes, echo = FALSE, fig.cap = "Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli"}
+
+knitr::include_graphics("../images/inferenz/bayes-crop.png")
+
+```
+
+
+
+# Klassiche lineare Regression
+
+
+## Lernziel
+
+Lernziele:
+
+- Wissen, was man unter Regression versteht.
+- Die Annahmen der Regression überprüfen können.
+- Regression mit kategorialen Prädiktoren durchführen können.
+- Die Regression inferenzstatisisch absichern können.
+- Die Modellgüte bei der Regression bestimmen können.
+- Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.
+
+
+## Beispiel für eine lineare Regression
+
+```
+score = achsenabschnitt + steigung*study_time
+```
+
+```{r bsp-regression, fig.cap = "Beispiel für eine Regression", echo = FALSE}
+stats_test <- read.csv("../data/test_inf_short.csv")
+
+stats_test %>% 
+  ggplot +
+  aes(x = study_time, y = score) +
+  geom_jitter() +
+  geom_abline(intercept = 24, 
+              slope = 2.3, 
+              color = "red")
+
+```
+
+
+## Vorhersagegüte - Veranschaulichung
+
+```{r resids-plot, echo = FALSE, results = "hold", fig.cap = "Geringer (links) vs. hoher (rechts) Vorhersagefehler"}
+
+set.seed(42)  
+N      <- 100
+beta   <- 0.4
+intercept <- 1
+
+
+sim <- data_frame(
+  x = rnorm(N),
+  error1 = rnorm(N, mean = 0, sd = .5),
+  error2 = rnorm(N, mean = 0, sd = 2),
+  y1 = intercept + x*beta + error1,
+  y2 = intercept + x*beta + error2,
+  pred = 1 + x*beta
+)
+
+
+
+p1 <- ggplot(sim, aes(x, y1)) + 
+  geom_abline(intercept = intercept, slope = beta, colour = "red") +
+  geom_point(colour = "#00998a") +
+  geom_linerange(aes(ymin = y1, ymax = pred), colour = "grey40") +
+  ylim(-6,+6)
+
+
+p2 <- ggplot(sim, aes(x, y2)) + 
+  geom_abline(intercept = intercept, slope = beta, colour = "red") +
+  geom_point(colour = "#00998a") +
+  geom_linerange(aes(ymin = y2, ymax = pred), colour = "grey40") +
+  ylim(-6,+6)
+
+
+grid.arrange(p1, p2, ncol = 2)
+
+```
+
+
+## Vorhersagegüte - MSE und $R^2$
+
+$$ MSE = \frac{1}{n} \sum{(pred - obs)^2} $$
+
+$$ R^2 = 1 - \left( \frac{SS_T - SS_M}{SS_T} \right)$$
+
+
+# Klassifizierende Regression
+
+# Clusteranalyse
+
+# Dimensionsreduktion
+
+# Textmining
+
+# Probeklausur

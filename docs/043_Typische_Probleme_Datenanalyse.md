@@ -74,83 +74,23 @@ stats_test %>%
 
 
 Hier verlieren wir 68 Zeilen, das verschmerzen wir.
-Welche Zeilen verlieren wir eigentlich?
+
+Welche Zeilen verlieren wir eigentlich? Lassen wir uns nur die *nicht-*kompletten Fälle anzeigen (und davon nur die ersten paar):
 
 ```r
 stats_test %>% 
-   filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
-#>    row_number           date_time study_time self_eval interest score
-#> 1           6 06.01.2017 14:21:18         NA        NA       NA    39
-#> 2           7 06.01.2017 14:25:49         NA        NA       NA    40
-#> 3          15 09.01.2017 15:23:15         NA        NA       NA    30
-#> 4          19 10.01.2017 17:16:48         NA        NA       NA    22
-#> 5          42 13.01.2017 14:08:08         NA        NA       NA    38
-#> 6          49 14.01.2017 07:02:39         NA        NA       NA    39
-#> 7          67 15.01.2017 13:30:48         NA        NA       NA    24
-#> 8          74 15.01.2017 16:12:54         NA        NA       NA    30
-#> 9          83 16.01.2017 10:16:52         NA        NA       NA    40
-#> 10         89 16.01.2017 21:18:05         NA        NA       NA    34
-#> 11         91 17.01.2017 15:19:36         NA        NA       NA    29
-#> 12         99 18.01.2017 09:04:30         NA        NA       NA    37
-#> 13        104 18.01.2017 13:42:20         NA        NA       NA    39
-#> 14        106 18.01.2017 15:52:04         NA        NA       NA    38
-#> 15        111 18.01.2017 19:24:49         NA        NA       NA    37
-#> 16        117 19.01.2017 08:06:05         NA        NA       NA    37
-#> 17        118 19.01.2017 08:54:43         NA        NA       NA    33
-#> 18        119 19.01.2017 09:05:01         NA        NA       NA    40
-#> 19        124 19.01.2017 12:51:10         NA        NA       NA    32
-#> 20        125 19.01.2017 13:03:26         NA        NA       NA    30
-#> 21        132 19.01.2017 18:22:32         NA        NA       NA    40
-#> 22        133 19.01.2017 18:22:38         NA        NA       NA    38
-#> 23        139 19.01.2017 18:35:56         NA        NA       NA    31
-#> 24        141 19.01.2017 18:44:32         NA        NA       NA    34
-#> 25        150 20.01.2017 09:53:47         NA        NA       NA    32
-#> 26        155 20.01.2017 15:33:55         NA        NA       NA    39
-#> 27        157 20.01.2017 17:34:48         NA        NA       NA    31
-#> 28        158 20.01.2017 17:53:16         NA        NA       NA    36
-#> 29        159 20.01.2017 17:57:26         NA        NA       NA    34
-#> 30        160 20.01.2017 17:59:19         NA        NA       NA    34
-#> 31        162 20.01.2017 18:00:53         NA        NA       NA    35
-#> 32        163 20.01.2017 18:04:21         NA        NA       NA    36
-#> 33        180 21.01.2017 08:04:17         NA        NA       NA    39
-#> 34        183 21.01.2017 12:20:37         NA        NA       NA    31
-#> 35        187 21.01.2017 16:27:32         NA        NA       NA    26
-#> 36        191 22.01.2017 11:31:27         NA        NA       NA    36
-#> 37        195 22.01.2017 13:24:51         NA        NA       NA    23
-#> 38        202 22.01.2017 17:13:02         NA        NA       NA    36
-#> 39        206 22.01.2017 18:42:49         NA        NA       NA    20
-#> 40        207 22.01.2017 18:56:56         NA        NA       NA    28
-#> 41        211 22.01.2017 20:28:43         NA        NA       NA    38
-#> 42        213 22.01.2017 21:47:06         NA        NA       NA    29
-#> 43        225 23.01.2017 13:24:22         NA        NA       NA    39
-#> 44        226 23.01.2017 14:17:10         NA        NA       NA    36
-#> 45        235 23.01.2017 18:26:20         NA        NA       NA    20
-#> 46        238 23.01.2017 19:53:10         NA        NA       NA    27
-#> 47        242 24.01.2017 14:09:33         NA        NA       NA    28
-#> 48        245 24.01.2017 14:56:24         NA        NA       NA    28
-#> 49        246 24.01.2017 15:09:44         NA        NA       NA    24
-#> 50        247 24.01.2017 15:37:27         NA        NA       NA    28
-#> 51        249 24.01.2017 17:19:54         NA        NA       NA    40
-#> 52        253 25.01.2017 09:32:55         NA        NA       NA    39
-#> 53        255 25.01.2017 10:05:00         NA        NA       NA    29
-#> 54        265 25.01.2017 13:14:00         NA        NA       NA    30
-#> 55        270 25.01.2017 16:35:41         NA        NA       NA    28
-#> 56        271 25.01.2017 16:53:17         NA        NA       NA    34
-#> 57        272 25.01.2017 17:03:21         NA        NA       NA    36
-#> 58        274 25.01.2017 17:38:36         NA        NA       NA    37
-#> 59        275 25.01.2017 18:06:36         NA        NA       NA    34
-#> 60        283 26.01.2017 10:39:44         NA        NA       NA    23
-#> 61        285 26.01.2017 10:54:41         NA        NA       NA    34
-#> 62        286 26.01.2017 11:19:10         NA        NA       NA    38
-#> 63        288 26.01.2017 13:36:14         NA        NA       NA    28
-#> 64        289 26.01.2017 14:19:14         NA        NA       NA    31
-#> 65        290 26.01.2017 14:34:23         NA        NA       NA    36
-#> 66        291 26.01.2017 14:55:17         NA        NA       NA    39
-#> 67        293 26.01.2017 15:17:47         NA        NA       NA    36
-#> 68        294 26.01.2017 15:51:56         NA        NA       NA    34
+   filter(!complete.cases(.)) %>% 
+  head 
+#>   row_number           date_time study_time self_eval interest score
+#> 1          6 06.01.2017 14:21:18         NA        NA       NA    39
+#> 2          7 06.01.2017 14:25:49         NA        NA       NA    40
+#> 3         15 09.01.2017 15:23:15         NA        NA       NA    30
+#> 4         19 10.01.2017 17:16:48         NA        NA       NA    22
+#> 5         42 13.01.2017 14:08:08         NA        NA       NA    38
+#> 6         49 14.01.2017 07:02:39         NA        NA       NA    39
 ```
 
-Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
+Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht". Mit `head` bekommt man nur die ersten paar Fälle (6 im Standard) angezeigt, was oft reicht für einen Überblick.
 
 In Pseudo-Syntax liest es sich so:
 
@@ -277,105 +217,28 @@ Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur ve
 
 ```r
 extra %>% 
-  select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
+  select(i01, i02r) %>%  
   scale() %>%  # z-standardisieren
   head()  # nur die ersten paar Zeilen abdrucken
-#>          X    i01  i02r     i03   i04     i05    i06r     i07     i08  i09
-#> [1,] -1.73 -0.499 -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826 -0.5
-#> [2,] -1.72 -1.964 -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867 -0.5
-#> [3,] -1.71 -0.499  1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826 -0.5
-#> [4,] -1.71 -0.499 -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867 -0.5
-#> [5,] -1.70  0.966 -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826 -0.5
-#> [6,] -1.69 -0.499 -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867 -0.5
-#>         i10 n_facebook_friends n_hangover    age extra_single_item
-#> [1,] -1.388            -0.4111     -0.434 -0.306             1.350
-#> [2,] -1.388            -0.9094     -0.487  1.621             0.183
-#> [3,] -1.388            -0.5322     -0.487 -0.131             1.350
-#> [4,] -0.273            -0.5841      0.305  2.322             0.183
-#> [5,]  1.956            -0.9301     -0.487  0.570             1.350
-#> [6,]  0.841             0.0249     -0.434  1.271             1.350
-#>      time_conversation n_party extra_description prop_na_per_row
-#> [1,]           -0.0468  0.0961                NA           0.519
-#> [2,]           -0.0468 -0.6174                NA           0.519
-#> [3,]           -0.0468 -0.7126                NA           0.519
-#> [4,]           -0.0468  0.3340                NA           0.519
-#> [5,]           -0.0468 -0.6650                NA           0.519
-#> [6,]           -0.0468 -0.6650                NA           0.519
-#>      extra_mean extra_median client_freq
-#> [1,]    -0.0175       -0.024          NA
-#> [2,]    -1.7517       -1.740          NA
-#> [3,]    -0.6678       -0.024          NA
-#> [4,]    -0.0175       -0.024          NA
-#> [5,]     0.6328        0.834          NA
-#> [6,]    -0.2343       -0.024          NA
+#>         i01  i02r
+#> [1,] -0.499 -0.15
+#> [2,] -1.964 -1.39
+#> [3,] -0.499  1.09
+#> [4,] -0.499 -0.15
+#> [5,]  0.966 -0.15
+#> [6,] -0.499 -1.39
 ```
 
-Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
+Dieser Befehl liefert z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
 
 
 ```r
 extra %>% 
   mutate_if(is.numeric, funs("z" = scale)) %>% 
   head
-#>   X           timestamp code i01 i02r i03 i04 i05 i06r i07 i08 i09 i10
-#> 1 1 11.03.2015 19:17:48  HSC   3    3   3   3   4    4   3   2   3   1
-#> 2 2 11.03.2015 19:18:05  ERB   2    2   1   2   3    2   2   3   3   1
-#> 3 3 11.03.2015 19:18:09  ADP   3    4   1   4   4    1   3   2   3   1
-#> 4 4 11.03.2015 19:18:19  KHB   3    3   2   4   3    3   3   3   3   2
-#> 5 5 11.03.2015 19:18:19  PTG   4    3   1   4   4    3   4   2   3   4
-#> 6 6 11.03.2015 19:18:23  ABL   3    2   1   4   2    3   4   3   3   3
-#>   n_facebook_friends n_hangover age  sex extra_single_item
-#> 1                250          1  24 Frau                 4
-#> 2                106          0  35 Frau                 3
-#> 3                215          0  25 Frau                 4
-#> 4                200         15  39 Frau                 3
-#> 5                100          0  29 Frau                 4
-#> 6                376          1  33 Mann                 4
-#>   time_conversation presentation n_party clients extra_vignette
-#> 1                10         nein      20                       
-#> 2                15         nein       5                       
-#> 3                15         nein       3                       
-#> 4                 5         nein      25                       
-#> 5                 5         nein       4                       
-#> 6                20           ja       4                       
-#>   extra_description prop_na_per_row extra_mean extra_median client_freq
-#> 1                NA          0.0435        2.9          3.0          NA
-#> 2                NA          0.0435        2.1          2.0          NA
-#> 3                NA          0.0435        2.6          3.0          NA
-#> 4                NA          0.0435        2.9          3.0          NA
-#> 5                NA          0.0435        3.2          3.5          NA
-#> 6                NA          0.0435        2.8          3.0          NA
-#>     X_z  i01_z i02r_z   i03_z i04_z   i05_z  i06r_z   i07_z   i08_z i09_z
-#> 1 -1.73 -0.499  -0.15  1.1784 -0.33  1.2307  1.3643  0.0466 -1.0826  -0.5
-#> 2 -1.72 -1.964  -1.39 -0.9838 -1.70 -0.0705 -1.2193 -1.3192  0.0867  -0.5
-#> 3 -1.71 -0.499   1.09 -0.9838  1.04  1.2307 -2.5111  0.0466 -1.0826  -0.5
-#> 4 -1.71 -0.499  -0.15  0.0973  1.04 -0.0705  0.0725  0.0466  0.0867  -0.5
-#> 5 -1.70  0.966  -0.15 -0.9838  1.04  1.2307  0.0725  1.4124 -1.0826  -0.5
-#> 6 -1.69 -0.499  -1.39 -0.9838  1.04 -1.3718  0.0725  1.4124  0.0867  -0.5
-#>    i10_z n_facebook_friends_z n_hangover_z  age_z extra_single_item_z
-#> 1 -1.388              -0.4111       -0.434 -0.306               1.350
-#> 2 -1.388              -0.9094       -0.487  1.621               0.183
-#> 3 -1.388              -0.5322       -0.487 -0.131               1.350
-#> 4 -0.273              -0.5841        0.305  2.322               0.183
-#> 5  1.956              -0.9301       -0.487  0.570               1.350
-#> 6  0.841               0.0249       -0.434  1.271               1.350
-#>   time_conversation_z n_party_z extra_description_z prop_na_per_row_z
-#> 1             -0.0468    0.0961                  NA             0.519
-#> 2             -0.0468   -0.6174                  NA             0.519
-#> 3             -0.0468   -0.7126                  NA             0.519
-#> 4             -0.0468    0.3340                  NA             0.519
-#> 5             -0.0468   -0.6650                  NA             0.519
-#> 6             -0.0468   -0.6650                  NA             0.519
-#>   extra_mean_z extra_median_z client_freq_z
-#> 1      -0.0175         -0.024            NA
-#> 2      -1.7517         -1.740            NA
-#> 3      -0.6678         -0.024            NA
-#> 4      -0.0175         -0.024            NA
-#> 5       0.6328          0.834            NA
-#> 6      -0.2343         -0.024            NA
 ```
 
-Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
+Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies nur, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
 
 
 ### Quasi-Konstante finden
@@ -704,15 +567,15 @@ stats_test %>%
   na.omit %>% 
   filter(study_time > 1) %>% 
   group_by(intessiert = interest > 3) %>% 
-  summarise(median(score))
+  summarise(md_gruppe = median(score))
 #> # A tibble: 2 x 2
-#>   intessiert `median(score)`
-#>        <lgl>           <dbl>
-#> 1      FALSE              30
-#> 2       TRUE              32
+#>   intessiert md_gruppe
+#>        <lgl>     <dbl>
+#> 1      FALSE        30
+#> 2       TRUE        32
 ```
 
-Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`).
+Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`). Außerdem haben wir der Spalte, die die Mediane zurückliefert einen ansprechenderen Namen gegeben (`md_gruppe`).
 
 
 Etwas expliziter wäre es, `mutate` zu verwenden, um die Variable `interessiert` zu erstellen:
@@ -724,14 +587,16 @@ stats_test %>%
   filter(study_time > 1) %>% 
   mutate(interessiert = interest > 3) %>% 
   group_by(interessiert) %>% 
-  summarise(median(score))
-#> # A tibble: 2 x 2
-#>   interessiert `median(score)`
-#>          <lgl>           <dbl>
-#> 1        FALSE              30
-#> 2         TRUE              32
+  summarise(md_gruppe = median(score),
+            mw_gruppe = mean(score))
+#> # A tibble: 2 x 3
+#>   interessiert md_gruppe mw_gruppe
+#>          <lgl>     <dbl>     <dbl>
+#> 1        FALSE        30      30.6
+#> 2         TRUE        32      31.5
 ```
 
+Dieses Mal haben wir nicht nur eine Spalte mit den Medianwerten, sondern zusätzlich noch mit Mittelwerten berechnet.
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreißer: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.
 

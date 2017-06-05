@@ -95,8 +95,9 @@ Werte <- read.csv2("data/Werte.csv")
 ```
 
 
-Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung.
-```{r}
+Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung. Probieren Sie die folgenden Befehle aus:
+
+```{r eval = FALSE}
 str(Werte)
 head(Werte)
 summary(Werte)
@@ -111,7 +112,11 @@ In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird übliche
 
 Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.sc` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
 
-```{r}
+
+
+
+
+```{r show-z-scaled, results = "hide"}
 Werte.sc <- scale(Werte)
 summary(Werte.sc)
 ```
@@ -198,7 +203,7 @@ Nach dem *Ellbogen-Kriterium*\index{Ellbogen-Kriterium} werden alle Hauptkompone
 
 Der *Eigenwert*\index{Eigenwert} ist eine Metrik für den Anteil der erklärten Varianz pro Hauptkomponente. Die Anzahl Eigenwerte können wir über den Befehl `eigen()` ausgeben.   
 
-```{r}
+```{r show-eigenvalues, results = "hide"}
 eigen(cor(Werte))
 
 ```
@@ -295,13 +300,13 @@ nScree(Werte)
 
 Eine EFA wird geschätzt mit dem Befehl `factanal(x,factors = k)`, wobei `k` die Anzahl Faktoren angibt.
 
-```{r}
+```{r werte-factanal, results = "hide"}
 Werte.fa<-factanal(Werte, factors = 5)
 Werte.fa
 ```
 
 Eine übersichtlichere Ausgabe bekommen wir mit dem `print` Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit `digits = 2`, alle Ladungen kleiner als 0,5 ausblenden mit `cutoff = .4` und die Ladungen mit `sort = TRUE` so sortieren, dass die Ladungen, die auf einen Faktor laden, untereinander stehen.
-```{r out.width = "100%"}
+```{r out.width = "100%", eval = FALSE}
 print(Werte.fa, digits = 2, cutoff = .4, sort = TRUE)
 ```
 
@@ -312,7 +317,7 @@ Standardmäßig wird bei `factanal()` eine *Varimax-Rotation* durchgeführt (das
 
 In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt `Werte.fa` sind diese als  `$loadings` vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von `$loadings` visualisieren, s. Abb. \@ref(fig:efa-heatmap):
 
-```{r efa-heatmpa, fig.cap = "Heatmap einer EFA"}
+```{r efa-heatmap, fig.cap = "Heatmap einer EFA"}
 heatmap.2(Werte.fa$loadings,
           dendrogram = "both",
           labRow = NULL,

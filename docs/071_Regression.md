@@ -6,7 +6,7 @@
 
 
 
-# Klassische lineare (numerische) Regression
+# Klassische lineare Regression
 
 
 
@@ -193,23 +193,25 @@ Der RMSE hat die selben Einheiten wie die zu schätzende Variable, also z.B. Sch
 
 
 ### R-Quadrat ($R^2$)
-$R^2$, auch *Bestimmtheitsmaß*\index{Bestimmtheitsmaß} oder Determinationskoeffizient\index{Determinationskoeffizient} genannt, gibt die Vorhersagegüte\index{Vorhersagegüte} im Verhältnis zu einem "Nullmodell" an. Das Nullmodell hier würde sagen, wenn es sprechen könnte: "Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!".
+$R^2$, auch *Bestimmtheitsmaß*\index{Bestimmtheitsmaß} oder *Determinationskoeffizient*\index{Determinationskoeffizient} genannt, setzt die Höhe unseres Vorhersagefehlers\index{Vorhersagefehler} im Verhältnis zum Vorhersagefehler eines "Nullmodell". Das Nullmodell hier würde sagen, wenn es sprechen könnte: "Keine Ahnung, was ich schätzen soll, mich interessieren auch keine Prädiktoren, ich schätzen einfach immer den Mittelwert der Grundgesamtheit!".
+
+Analog zum Nullmodell-Fehler spricht auch von der Gesamtvarianz oder $SS_T$ (sum of squares total); beim Vorhersagefehler des eigentlichen Modells spricht man auch von $SS_M$ (sum of squares model).
 
 Damit gibt $R^2$ an, wie gut unsere Vorhersagen im Verhältnis zu den Vorhersagen des Nullmodells sind. Ein $R^2$ von 25% (0.25) hieße, dass unser Vorhersagefehler 25% *kleiner* ist als der der Nullmodells. Ein $R^2$ von 100% (1) heißt also, dass wir den kompletten Fehler reduziert haben (Null Fehler übrig) - eine perfekte Vorhersage. Etwas formaler, kann man $R^2$ so definieren:
 
-$$ R^2 = 1 - \left( \frac{Nullmodellfehler - Vorhersagefehler}{Nullmodellfehler} \right)$$
+$$ R^2 = 1 - \left( \frac{SS_T - SS_M}{SS_T} \right)$$
 
 Präziser, in R-Syntax:
 
-`
+```
 R2 <- 1 - sum((df$pred - df$obs)^2) / sum((mean(df$obs) - df$obs)^2)
-`
+```
+
 
 Praktischerweise gibt es einige R-Pakete, z.B. `caret`, die diese Berechnung für uns besorgen:
 
 
 ```r
-
 postResample(obs = obs, pred = pred)
 ```
 
@@ -241,7 +243,7 @@ Wir werden weiter den Datensatz *tips* analysieren [@bryant1995practical].
 Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
 
 ```r
-tips <- read.csv("https://sebastiansauer.github.io/data/tips.csv")
+tips <- read.csv("data/tips.csv")
 ```
 
 
@@ -885,40 +887,55 @@ Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekenn
 Tabelle \@ref(tab:befehle-regression) stellt die Befehle dieses Kapitels dar. 
 
 
-\begin{table}
 
-\caption{(\#tab:befehle-regression)Befehle des Kapitels 'Regression'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-lm & Berechnet eine Regression ("lm" steht für "lineares Modell")\\
-\hline
-sqrt & Zieht die Quadratwurzel\\
-\hline
-caret::postResample & Berechnet Gütekriterien für das Testsample\\
-\hline
-summary & Fasst zentrale Informationen zu einem Objekt zusammen\\
-\hline
-modelr::add\_residuals & Fügt eine Spalte mit den Residuen zu einem Dataframe hinzu\\
-\hline
-modelr::add\_predictions & Fügt eine Spalte mit den vorhergesagten Werten zu einem Dataframe hinzu\\
-\hline
-levels & Zeigt oder ändert die Stufen eines Faktors\\
-\hline
-factor & Erstellt einen Faktor (nominalskalierte Variable)\\
-\hline
-coef & Zeigt die Koeffizienten eines Objekts z.B. vom typ "lm" an.\\
-\hline
-step & Führt iene Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums für ein Regressionsmodell durch\\
-\hline
-sample\_frac & Sampelt einen Prozentsatz aus einem Datensatz\\
-\hline
-anti\_join & Fügt nicht-matchende Zeilen eines Datensatzes zu einem anderen Datensatz hinzu\\
-\hline
-\end{tabular}
-\end{table}
+-----------------------------------------------------------
+Paket::Funktion           Beschreibung                     
+------------------------- ---------------------------------
+lm                        Berechnet eine Regression        
+                          ("lm" steht für "lineares        
+                          Modell")                         
+
+sqrt                      Zieht die Quadratwurzel          
+
+caret::postResample       Berechnet Gütekriterien für      
+                          das Testsample                   
+
+summary                   Fasst zentrale Informationen     
+                          zu einem Objekt zusammen         
+
+modelr::add_residuals     Fügt eine Spalte mit den         
+                          Residuen zu einem Dataframe      
+                          hinzu                            
+
+modelr::add_predictions   Fügt eine Spalte mit den         
+                          vorhergesagten Werten zu einem   
+                          Dataframe hinzu                  
+
+levels                    Zeigt oder ändert die Stufen     
+                          eines Faktors                    
+
+factor                    Erstellt einen Faktor            
+                          (nominalskalierte Variable)      
+
+coef                      Zeigt die Koeffizienten eines    
+                          Objekts z.B. vom typ "lm" an.    
+
+step                      Führt iene                       
+                          Schrittweise-Rückwärtsselektion  
+                          auf Basis des                    
+                          Akaike-Informationskriteriums    
+                          für ein Regressionsmodell        
+                          durch                            
+
+sample_frac               Sampelt einen Prozentsatz aus    
+                          einem Datensatz                  
+
+anti_join                 Fügt nicht-matchende Zeilen      
+                          eines Datensatzes zu einem       
+                          anderen Datensatz hinzu          
+-----------------------------------------------------------
+
+Table: Befehle des Kapitels 'Regression'
 
 
 

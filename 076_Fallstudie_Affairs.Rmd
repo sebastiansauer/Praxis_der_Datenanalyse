@@ -424,8 +424,13 @@ Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zu
 
 df <- readr::read_csv("includes/Befehle_fallstudien.csv")
 
-knitr::kable(df,
-             caption = "Befehle des Kapitels 'Fallstudien'")
+library(pander)
+pander::cache.off()
+panderOptions("table.alignment.default", "left")
+pander::pander(df, caption = "Befehle des Kapitels 'Fallstudien'")
+
+# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+
 ```
 
 

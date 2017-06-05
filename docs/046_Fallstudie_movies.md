@@ -92,6 +92,8 @@ mit der oder den Funktionen "Summe" (sum).
 </div>\EndKnitrBlock{rmdpseudocode}
 
 
+Genau wie der Befehl `summarise` fasst auch `summarise_all` Spalten zu einer Zahl zusammen - nur eben nicht *eine*, sondern *alle* Spalten eines Dataframe. Die Funktion(en), die beim Zusammenfassen verwendet werden sollen, werden mit `funs()` definiert.
+
 ## Welches Genre ist am häufigsten?
 
 Bzw. in welchem Genre wurden am meisten Filme gedreht (in unserem Datensatz)?
@@ -113,7 +115,7 @@ movies %>%
 #> 7       Short  9458
 ```
 
-Der Befehl `gather` baut einen Datafraem von "breit" nach "lang" um (vgl. Kapitel \@ref(normalform)). Ah, ~~Schmunzetten~~ Dramen sind also am häufigsten. Welcome to Hollywood.
+Der Befehl `gather` baut einen Dataframe von "breit" nach "lang" um (vgl. Kapitel \@ref(normalform)). Ah, ~~Schmunzetten~~ Dramen sind also am häufigsten (wie der Befehl `arrange` dann zeigt). Welcome to Hollywood. :tada:
 
 ## Zusammenhang zwischen Budget und Beurteilung
 
@@ -149,4 +151,4 @@ movies %>%
 #> 3  budget  0.2907 -0.0142      NA
 ```
 
-Offenbar wurden die Filme im Lauf der Zeit nicht besser beurteilt; wohl wurden sie aber teurer.
+Offenbar wurden die Filme im Lauf der Zeit nicht besser beurteilt: Die Korrelation von `year` und `rating` ist praktisch Null. Wohl wurden sie aber teurer: Die Korrelation von `year` und `budget` ist substanziell.

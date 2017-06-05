@@ -3,13 +3,14 @@
 
 
 
+# Grundlagen des Modellierens {#mod1}
+
+
+
 \begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
 
 
 \begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
-
-
-# Grundlagen des Modellierens {#mod1}
 
 
 
@@ -43,11 +44,11 @@ library(tidyverse)
 
 ## Was ist ein Modell? Was ist Modellieren? {#Modellieren}
 
-In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell)).
+In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/vw_modell} 
+{\centering \includegraphics[width=0.4\linewidth]{images/modellieren/vw_modell} 
 
 }
 
@@ -56,7 +57,9 @@ In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigen
 
 In die Wissenschaft kam der Begriff in der Zeit nach Kant, als man sich klar wurde, dass (physikalische) Theorien nicht die Wirklichkeit als solche zeigen, sondern ein *Modell* davon. Modellieren ist eine grundlegenden Tätigkeit, derer sich Menschen fortlaufend bedienen, um die Welt zu *verstehen*. Denn das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es daher sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen. Modelle sind häufig vereinfachend: es wird nur ein Ausschnitt der Wirklichkeit berücksichtigt.
 
-Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren, da Lebensqualität nicht direkt beobachtbar ist. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung (vgl. Abb. \@ref(fig:modellieren-plot)). Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle "falsch" in diesem Sinne.
+Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren, da Lebensqualität nicht direkt beobachtbar ist. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung . Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle "falsch" in diesem Sinne.
+
+Gegenstandsbereich und Modelle stehen in einer Beziehung miteinander (vgl. Abb. \@ref(fig:modellieren-plot), das Foto stammt von Unrau [-@unrau1]).
 
 
 \begin{figure}
@@ -69,13 +72,14 @@ Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sic
 \end{figure}
 
 
-Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine mathematische Struktur zu übersetzen. 
+Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine mathematische Struktur zu übersetzen. 
 
 Wirklichkeit kann dabei als *empirisches System* bezeichnet werden, welches aus einer oder mehr Mengen von Objekten besteht, die zu einander in bestimmten Beziehungen stehen. Ein Bespiel wäre eine Reihe von Personen, die in bestimmten Größe-Relationen zueinander stehen oder eine Reihe von Menschen, bei denen die Füße tendenziell größer werden, je größer die Körpergröße ist. 
 
-Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Auch hier gibt es eine Reihe von (mathematischen) Objekten wie Zahlen oder Vektoren. Diese mathematischen Objekten stehen ebenfalls in gewissen Relationen zueinander. Der springende Punkt ist: die Beziehungen zwischen den mathematischen Objekten sollen die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Ist Anna (Person A) größer als Berta (Berson B), so soll die Zahl von Anna größer sein als die Zahl von Berta. Oder: Anna hat ein große Körpergröße (KG) und eine große Schuhgröße (SG); Berta ist kleiner, daher soll gelten $KG_A > KG_B \wedge SG_A > SG_B$.
+Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Auch hier gibt es eine Reihe von (mathematischen) Objekten wie Zahlen oder Vektoren. Diese mathematischen Objekten stehen ebenfalls in gewissen Relationen zueinander. Der springende Punkt ist: Im Modell sollen  die Beziehungen zwischen den mathematischen Objekten die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Stellen wir uns vor, der Klausurerfolg steigt mit der Lernzeit^[wieder ein typisches Dozentenbeispiel]. Fragen wir das Modell, welchen Klausurerfolg Alois hat (er hat sehr viel gelernt), so sollte das Modell erwidern, dass Alois einen hohen Klausurerfolg hat (Modelle geben in diesem Fall gerne eine im Verhältnis große Zahl von sich). Damit würde das Modell korrekt die Empirie widerspiegeln.
 
-Sprich: Die Relation im empirischen System findet sich im numerischen System wieder.
+
+>   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
 
 \begin{figure}
 
@@ -86,30 +90,34 @@ Sprich: Die Relation im empirischen System findet sich im numerischen System wie
 \caption{Formaleres Modell des Modellierens}(\#fig:modellieren-formal)
 \end{figure}
 
-In gewisser Weise gibt es keine Modelle. Es gibt nur "Modelle von" etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
+Etwas spitzfinding könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
 
-Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von Relationen R_E (Relationen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen R_Z (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
+Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von Relationen $R_E$ (Relationen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
 
 
 
-## Ein Besipiel zum Modellieren in der Datenanalyse
+## Ein Beispiel zum Modellieren in der Datenanalyse
 
-Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den Datensatz `wo_men`.
+Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den Datensatz zur Statistikklausur.
+
+
+
+
 
 
 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/plot-women-1} 
+{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/plot-stats-1} 
 
 }
 
-\caption{Ein Beispiel für Modellieren}(\#fig:plot-women)
+\caption{Ein Beispiel für Modellieren}(\#fig:plot-stats)
 \end{figure}
 
 
-Im ersten Plot von Abb. \@ref(fig:plot-women) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
+Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
 
 Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
 
@@ -147,7 +155,7 @@ Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Ein
 </div>\EndKnitrBlock{rmdcaution}
 
 
-Modelle, wie wir sie betrachten werden, postulieren eine quantifizierbaren Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Damit lassen sich unsere Modelle in drei Aspekte gliedern.
+Modelle, wie wir sie betrachten werden, berechnen eine quantitativen Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien.  Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
 \begin{figure}
 
@@ -159,11 +167,11 @@ Modelle, wie wir sie betrachten werden, postulieren eine quantifizierbaren Zusam
 \end{figure}
 
 
-Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage* "hinten bei rauskommt"^[das ist schließlich entscheidend - frei nach Helmut Kohl.]. Mathematischer ausgedrückt:
+Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage* "hinten bei rauskommt"^[das ist schließlich entscheidend - frei nach Helmut Kohl]. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Mathematischer ausgedrückt:
 
 $$Y = f(X) + \epsilon$$
 
-Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\index{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine "datengenerierende Maschine" bezeichnen.
+Hier stehen $Y$ für das Kriterium, $X$ für den oder die Prädiktoren, $f$ für die "schwarze Kiste" und $\epsilon$ für den Fehler, den wir bei unserer Vorhersage begehen. Durch den Fehlerterm in der Gleichung ist das Modell *nicht*  *deterministisch*\index{deterministisch}, sondern beinhaltet erstens einen funktionalen Term ($Y=f(x)$) und zweitens einen *stochastischen* Term ($\epsilon$). Die schwarze Kiste könnte man auch als eine *datengenerierende Maschine*\index{datengenerierende Maschine} oder datengenerierenden Prozess bezeichnen.
 
 Übrigens: Auf das Skalenniveau der Eingabe- bzw. Ausgabegrößen (qualitativ vs. quantitativ) kommt es hier nicht grundsätzlich an; es gibt Modelle für verschiedene Skalenniveaus bzw. Modelle, die recht anspruchslos sind hinsichtlich des Skalenniveaus (sowohl für Eingabe- als auch Ausgabegrößen). Was die Ausgabegröße (das Kriterium) betrifft, so "fühlen" qualitative Variablen von quantitativen Variablen anders an. Ein Beispiel zur Verdeutlichung: "Gehört Herr Bussi-Ness zur Gruppe der Verweigerer oder der Wichtigmacher?" (qualitatives Kriterium); "Wie hoch ist der Wichtigmacher-Score von Herrn Bussi-Ness?" (quantitatives Kriterium). Ein Modell mit qualitativem Kriterium bezeichnet man auch als *Klassifikation*\index{Klassifikation}; ein Modell mit quantitativem Kriterium bezeichnet man auch als *Regression*\index{Klassifikation}. Bei letzterem Begriff ist zu beachten, dass er *doppelt* verwendet wird. Neben der gerade genannten Bedeutung steht er auch für ein häufig verwendetes Modell - eigentlich das prototypische Modell - für quantitative Kriterien.
 
@@ -223,8 +231,8 @@ Modellieren ist in der Datenanalyse bzw. in der Statistik eine zentrale Tätigke
 
 1. Man wählt eines der vier Ziele des Modellierens (z.B. ein prädiktives Modell).
 1. Man wählt ein Modell aus (genauer: eine Modellfamilie), z.B. postuliert man, dass die Körpergröße einen linearen Einfluss auf die Schuhgröße habe.
-3. Man bestimmt die Details des Modells anhand der Daten: Wie groß ist die Steigung der Geraden und wo ist der Achsenabschnitt? Man sagt auch, dass man die *Modellparameter* anhand der Daten schätzt ("Modellinstantiierung").
-4. Dann prüft man, wie gut das Modell zu den Daten passt; wie gut lässt sich die Schuhgröße anhand der Körpergröße vorhersagen bzw. wie groß ist der Vorhersagefehler?
+3. Man bestimmt (berechnet) die Details des Modells anhand der Daten: Wie groß ist die Steigung der Geraden und wo ist der Achsenabschnitt? Man sagt auch, dass man die *Modellparameter* anhand der Daten schätzt ("Modellinstantiierung" oder "Modellanpassung", engl. "model fitting").
+4. Dann prüft man, wie gut das Modell zu den Daten passt (Modellgüte, engl. "model fit"); wie gut lässt sich die Schuhgröße anhand der Körpergröße vorhersagen bzw. wie groß ist der Vorhersagefehler?
 
 
 
@@ -243,12 +251,14 @@ Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbere
 
 }
 
-\caption{Welches Modell passt am besten zu diesen Daten?}(\#fig:overfitting-4-plots)
+\caption{Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?}(\#fig:overfitting-4-plots)
 \end{figure}
 
-Der 1. Plot (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; der 2. Plot legt ein lineares Modell (rote Gerade) in die Daten. Der 3. Plot zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
+Der Plot A (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; Plot B legt ein lineares Modell (rote Gerade) in die Daten.  Plot C zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
-Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue" Modell beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen.
+Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue Modell" beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen. 
+
+>   Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, heißt das noch *nicht*, dass es auch zukünftige (und vergleichbare) Stichproben gut beschreiben wird.  Die Güte (Vorhersagegenauigkeit) eines Modells sollte sich daher stets auf eine neue Stichprobe beziehen (Test-Stichprobe), die nicht in der Stichprobe beim Anpassen des Modells (Trainings-Stichprobe) enthalten war. 
 
 Was das "blaue Modell" zu detailverliebt ist, ist das "rote Modell" zu simpel. Die Gerade beschreibt die Y-Werte nur sehr schlecht. Man hätte gleich den Mittelwert von Y als Schätzwert für jedes einzelne $Y_i$ hernehmen können. Dieses lineare Modell ist *unterangepasst*\index{Unteranpassung}, könnte man sagen (engl. *underfittting*\index{underfitting}). Auch dieses Modell wird uns wenig helfen können, wenn es darum geht, zukünftige Y-Werte vorherzusagen (gegeben jeweils einen bestimmten X-Wert).
 
@@ -258,10 +268,16 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 >    Je komplexer ein Modell ist, desto besser beschreibt es einen bekannten Datensatz (Trainings-Stichprobe). Allerdings ist das Modell, welches den Trainings-Datensatz am besten beschreibt, nicht zwangsläufig das Modell, welches neue, unbekannte Daten am besten beschreibt. Oft im Gegenteil!
 
 
-Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder!
+Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder (vgl. Abb. \@ref(fig:overfitting-schema)! Eine 'mittlere' Komplexität ist daher am besten; die Frage ist nur, wieviel 'mittel' ist.
 
+\begin{figure}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{images/modellieren/overfitting} \end{center}
+{\centering \includegraphics[width=0.5\linewidth]{images/modellieren/overfitting} 
+
+}
+
+\caption{'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe}(\#fig:overfitting-schema)
+\end{figure}
 
 
 ## Bias-Varianz-Abwägung
@@ -275,7 +291,7 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
      Komplexe Modelle: Wenig Bias, viel Varianz.
      
      
-Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); basierend auf [@kuhn2013applied]).
+Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); vgl. Kuhn & Johnson [-@kuhn2013applied]).
 
 
 \begin{figure}
@@ -303,12 +319,24 @@ Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainier
 Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample (vgl. die Fallstudie dazu: \@ref(overfitting-casestudy)).
 
 
+Zum Aufteilen verfügbarer Daten in eine Trainings- und eine Test-Stichprobe gibt es mehrere Wege. Einer sieht so aus:
+
+
 ```r
-train <- wo_men %>% 
+train <- slice(stats_test, 1:200)
+test <- slice(stats_test, 201:306)
+```
+
+`dplyr::slice` schneidet eine 'Scheibe' aus einem Datensatz. 
+
+
+
+```r
+train <- stats_test %>% 
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
-test <- wo_men %>% 
-  anti_join(train)  # Alle Zeilen von "wo_men", die nicht in "train" vorkommen
+test <- stats_test %>% 
+  anti_join(train)  # Alle Zeilen von "stats_test", die nicht in "train" vorkommen
 ```
 
 
@@ -414,13 +442,50 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 
 ## Befehlsübersicht
 
-
-Funktion             Beschreibung
------------------    -------------
-dplyr::sample_frac   Zielt eine Stichprobe von x% aus einem Dataframe
-dplyr::anti_join     Behält alle Zeilen von df1, die *nicht in df2 vorkommen
+Tabelle \@ref(tab:befehle-modellieren) fasst die R-Funktionen dieses Kapitels zusammen.
 
 
+
+-----------------------------------------------------
+PaketFunktion        Beschreibung                    
+-------------------- --------------------------------
+dplyr::sample_frac   Zielt eine Stichprobe von x%    
+                     aus einem Dataframe             
+
+dplyr::anti_join     Behält alle Zeilen von df1,     
+                     die *nicht* in df2 vorkommen    
+
+dplyr::slice         Schneidet eine 'Scheibe' aus    
+                     einem Datensatz (filter Zeilen  
+                     nach angegebener Start- und     
+                     Endposition)                    
+-----------------------------------------------------
+
+Table: Befehle des Kapitels 'Modellieren'
+
+
+-----------------------------------------------------
+PaketFunktion        Beschreibung                    
+-------------------- --------------------------------
+dplyr::sample_frac   Zielt eine Stichprobe von x%    
+                     aus einem Dataframe             
+
+dplyr::anti_join     Behält alle Zeilen von df1,     
+                     die *nicht* in df2 vorkommen    
+
+dplyr::slice         Schneidet eine 'Scheibe' aus    
+                     einem Datensatz (filter Zeilen  
+                     nach angegebener Start- und     
+                     Endposition)                    
+-----------------------------------------------------
+
+```
+#> [[1]]
+#> [1] "1" "2" "3"
+#> 
+#> [[2]]
+#> [1] "PaketFunktion" "Beschreibung"
+```
 
 
 
@@ -429,6 +494,8 @@ dplyr::anti_join     Behält alle Zeilen von df1, die *nicht in df2 vorkommen
 - Einige Ansatzpunkte zu moderner Statistik ("Data Science") finden sich bei Peng und Matsui [-@peng2015art].
 
 - Chester Ismay erläutert einige Grundlagen von R und RStudio, die für Modellierung hilfreich sind: https://bookdown.org/chesterismay/rbasics/.  
+
+- Eine klassische und sehr gute Einführung findet sich bei James, Witten, Hastie & Tibshirani [@introstatlearning]. Dieses Buch bietet ein [frei verfügbares PDF](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Sixth%20Printing.pdf).
 
 
 
@@ -444,4 +511,4 @@ dplyr::anti_join     Behält alle Zeilen von df1, die *nicht in df2 vorkommen
 
 [^233]: Gerade wenn sie die Zukunft betreffen; ein Bonmot, das Yogi Berra nachgesagt wird.
 
-[^260]: Genauer gesagt ein Polynom vom Grad 5.
+[^260]: Genauer gesagt ein Polynom von Grad 5.

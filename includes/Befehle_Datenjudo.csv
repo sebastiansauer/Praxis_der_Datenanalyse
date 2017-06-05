@@ -1,4 +1,4 @@
-Paket und Funktion,Beschreibung
+Paket::Funktion,Beschreibung
 dplyr::arrange     ,Sortiert Spalten
 dplyr::filter      ,Filtert Zeilen
 dplyr::select      ,Wählt Spalten
@@ -7,3 +7,4 @@ dplyr::n     ,zählt Zeilen
 dplyr::count       ,zählt Zeilen nach Untergruppen
 %>% (dplyr)        ,verkettet Befehle
 dplyr::mutate      ,erzeugt/berechnet Spalten
+desctable::desctable,Liefert Tabelle mit deskriptiver Statistik zurück

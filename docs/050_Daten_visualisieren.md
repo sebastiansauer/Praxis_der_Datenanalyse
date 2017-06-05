@@ -52,6 +52,8 @@ Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichun
 
 Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden "Natur") passiert. 
 
+Eine coole Variante mit der gleichen Botschaft findet sich [hier](https://www.autodeskresearch.com/publications/samestats) bzw. mit einer Animation [hier](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif); vgl. Matejka & Fitzmaurice [-@matejka2017same].
+
 
 Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
 
@@ -74,7 +76,9 @@ Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier
 \caption{Anatomie eines Diagramms}(\#fig:fig-anatomie)
 \end{figure}
 
-Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
+Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bzw. `aes` bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
+
+>    Erstellt `ggplot2` ein Diagramm, so ordnet es Spalten den Bestandteilen des zu erzeugenden Diagramms zu (auch "mapping" genannt). 
 
 ## Einstieg in `ggplot2` - `qplot`
 
@@ -129,7 +133,9 @@ Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser wäre es
 
 
 ```r
-movies$Jahrzehnt <- (movies$year / 10) %>% trunc
+movies$Jahrzehnt <- (movies$year / 10) %>% trunc 
+
+movies$Jahrzehnt <- movies$Jahrzehnt * 10
 ```
 
 Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer "abhacken": "1978" wird zu "178". Das erreichen wir in dem wir die Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen lassen (trunkieren, `trunc`). 
@@ -151,9 +157,9 @@ qplot(x = factor(Jahrzehnt), y = budget, geom = "boxplot", data = movies)
 \caption{Film-Budgets über die die Jahrzehnte}(\#fig:fig-movies-jahrzehnt)
 \end{figure}
 
-Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauchen.
+Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauschen.
 
-Aber schauen wir uns zuerst die Syntax von `qplot` näher an. "q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (=komplexere) Syntax. Fangen wir mit `qplot` an.
+"q" in `qplot` steht für "quick". Tatsächlich hat `qplot` einen großen Bruder, `ggplot`^[Achtung: Nicht `qqplot`, nicht `ggplot2`, nicht `gplot`...], der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (komplexere) Syntax. Fangen wir mit `qplot` an.
 
 
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
@@ -171,24 +177,38 @@ Unter den vielen Arten von Diagrammen und vielen Arten, diese zu klassifizieren 
 
 ### Eine kontinuierliche Variable
 
-Schauen wir uns die Verteilung der Schuhgrößen von Studierenden an.
+Schauen wir uns die Verteilung von Filmbudgets aus `movies` an (s. Abb. \@ref(fig:fig-budget-movies)).
 
 
 ```r
-wo_men <- read.csv("data/wo_men.csv")
 
-qplot(x = shoe_size, data = wo_men)
+qplot(x = budget, data = movies)
 ```
 
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-budget-movies-1} 
+
+}
+
+\caption{Verteilung des Budgets von Filmen}(\#fig:fig-budget-movies)
+\end{figure}
+
+Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Was heißt das kleine 'e', das man bei wissenschaftlichen Zahlen hin und wieder sieht (wie im Diagramm \@ref(fig:fig-budget-movies))?
 
-Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). Alternativ wäre ein Dichtediagramm hier von Interesse:
+Zum Beispiel: `5.0e+07`. Das $e$ sagt, wie viele Stellen im Exponenten (zur Basis 10) stehen: hier $10^{07}$. Eine große Zahl - eine $1$ gefolgt von *sieben* Nullern: 10000000. Die schöne Zahl soll noch mit 5 multipliziert werden: also 50000000. Bei so vielen Nullern kann man schon mal ein Flimmern vor den Augen bekommen... Daher ist die "wissenschaftliche" Notation ganz praktisch, wenn die Zahlen sehr groß (oder sehr klein) werden. Sehr kleine Zahlen werden mit dieser Notation so dargestellt: `5.0e-07` heißt $frac{1}{10^7}$. Eine Zahl sehr nahe bei Null. Das Minuszeichen zeigt hier, dass wir den Kehrwert der großen Zahl nehmen sollen.
+</div>\EndKnitrBlock{rmdcaution}
+Alternativ wäre ein Dichtediagramm hier von Interesse:
+
+
+
 
 
 ```r
-qplot(x = shoe_size, data = wo_men, geom = "density")
+qplot(x = budget, data = movies, geom = "density")
 ```
 
 
@@ -201,8 +221,8 @@ Vielleicht wäre es noch schön, beide Geome zu kombinieren in einem Diagramm. D
 
 
 ```r
-ggplot(data = wo_men) +
-  aes(x = shoe_size) +
+ggplot(data = movies) +
+  aes(x = budget) +
   geom_histogram(aes(y = ..density..), alpha = .7) +
   geom_density(color = "blue")
 ```
@@ -213,29 +233,40 @@ ggplot(data = wo_men) +
 
 Zuerst haben wir mit dem Parameter `data` den Dataframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Datenframe handelt, sondern um eine "interne" Variable von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *über* das Histogramm.
 
-Wünsche sind ein Fass ohne Boden... Wäre es nicht schön, ein Diagramm für Männer und eines für Frauen zu haben, um die Verteilungen vergleichen zu können?
+Wünsche sind ein Fass ohne Boden... Wäre es nicht interessant, einzelne Zeiträume (Jahrzehnte) zu vergleichen? Schauen wir uns die letzten Jahrzehnte im Vergleich an.
 
 
 ```r
-qplot(x = shoe_size, data = wo_men, geom = "density", color = sex)
-qplot(x = shoe_size, data = wo_men, geom = "density", fill = sex, 
+movies2 <- filter(movies, Jahrzehnt > 1980)
+
+movies2$Jahrzehnt <- factor(movies2$Jahrzehnt)
+
+qplot(x = budget, 
+      data = movies2, 
+      geom = "density", 
+      fill = Jahrzehnt, 
       alpha = I(.7))
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-11-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-11-1} \end{center}
+
+`qplot` erwartet immer *Variablen* als Parameter; wollen wir mal keine Variable, sondern eine fixen Wert, wie 0.7, übergeben, so können wir das mit dem Befehl `I` (wie "identity") tun.
 
 Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:
 
 
 ```r
 
-wo_men %>% 
-  filter(height > 150, height < 210) -> wo_men2
+movies2 %>% 
+  filter(budget < 1e08) -> movies2
 
-qplot(x = shoe_size, data = wo_men2,      
-      geom = "density", fill = sex, alpha = I(.7))
+qplot(x = budget, 
+      data = movies2,      
+      geom = "density", 
+      fill = Jahrzehnt, 
+      alpha = I(.7))
 ```
 
 
@@ -246,10 +277,11 @@ Besser. Man kann das Durchpfeifen auch bis zu `qplot` weiterführen:
 
 
 ```r
-wo_men %>% 
-  filter(shoe_size <= 47) %>% 
-  qplot(x = shoe_size, data = ., geom = "density", 
-        fill = sex, alpha = I(.7))
+movies %>% 
+  filter(budget < 1e+08, Jahrzehnt >= 1990) %>% 
+  mutate(Jahrzehnt = factor(Jahrzehnt)) %>% 
+  qplot(x = budget, data = ., geom = "density", 
+        fill = Jahrzehnt, alpha = I(.7))
 ```
 
 
@@ -258,7 +290,7 @@ wo_men %>%
 
 Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
 
-Mit `fill = sex` sagen wir `qplot`, dass er für Männer und Frauen jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns `ggplot2` im Standard voraussucht). Mit anderen Worten: Die Werte von `sex` werden der Füllfarbe der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: `color = sex`.
+Mit `fill = Jahrzehnt` sagen wir `qplot`, dass er für jedes Jahrzehnt jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns `ggplot2` im Standard voraussucht). Mit anderen Worten: Die Werte von `Jahrzehnt` werden der *Füllfarbe* der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: `color = sex`. Man beachte, dass die Variable für `fill` oder `color` eine nominale Variable (`factor` oder `character`) sein muss, damit `ggplot2` tut, was will wollen.
 
 ### Zwei kontinuierliche Variablen
 
@@ -266,40 +298,26 @@ Ein Streudiagramm ist die klassische Art, zwei metrische Variablen darzustellen.
 
 
 ```r
-qplot(x = height, y = shoe_size, data = wo_men)
+p <- qplot(x = budget, y = rating, data = movies2)
+p
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt `ggplot2` automatisch ein Streudiagramm - d.h. Punkte als Geom (`geom = "point"`). Wir sollten aber noch die Extremwerte herausnehmen:
+Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt `ggplot2` automatisch ein Streudiagramm - d.h. Punkte als Geom (`geom = "point"`). 
+
+Es ist nicht wirklich ein Trend erkennbar: Teuere Filme sind nicht unbedingt beliebter bzw. besser bewertet. Zeichnen wir eine Trendgerade ein.
 
 
 ```r
-wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
-  qplot(x = height, y = shoe_size, data = .)
+p + geom_smooth(method = "lm")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-15-1} \end{center}
-
-Der Trend ist deutlich erkennbar: Je größer die Person, desto länger die Füß´. Zeichnen wir noch eine Trendgerade ein.
-
-
-
-```r
-wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
-  qplot(x = height, y = shoe_size, data = .) +
-  geom_smooth(method = "lm")
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Synonym könnten wir auch schreiben:
 
@@ -363,7 +381,7 @@ wo_men %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
 
@@ -393,83 +411,73 @@ wo_men4 %>%
 Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
 
 
-### Eine diskrete Variable
-Bei diskreten Variablen, vor allem nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Wie viele Männer und Frauen sind in dem Datensatz?
+### Eine nominale Variable
+Bei nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Ein Klassiker: Wie viele Männer und Frauen finden sich in dem Datensatz? Wie viele Studenten haben (nicht) bestanden?
 
 
 ```r
-qplot(x = sex, data = wo_men)
+
+stats_test <- read.csv("data/test_inf_short.csv"
+                       )
+qplot(x = bestanden, data = stats_test)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-18-1} \end{center}
+
+Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom (es steht uns frei, trotzdem `geom = bar` anzugeben).
+
+
+Wir könnten uns jetzt die Frage stellen, wie viele Nicht-Interessierte und Hoch-Interessierte es in der Gruppe, die bestanden hat (`bestanden == "yes"`) gibt; entsprechend für die Gruppe, die nicht bestanden hat. 
+
+
+```r
+
+  
+qplot(x = bestanden, fill = factor(interest), data = stats_test)
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
-Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom.
 
-Entfernen wir vorher noch die fehlenden Werte:
+Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `interest` füllen soll. Damit `qplot` (und `ggplot`) sich bequemt, die Füllung umzusetzen, müssen wir aus `interet` eine nominal-skalierte Variablen machen - `factor` macht das für uns.
+
+
+Schön wäre noch, wenn die Balken Anteile (Prozentwerte) angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um. Und, um die Story zuzuspitzen, schauen wir uns nur die Extremwerte von `interest` an.
 
 
 ```r
-wo_men %>% 
-  na.omit() %>% 
-  qplot(x = sex, data = .)
+stats_test %>% 
+  filter(interest == 1 | interest == 6) %>% 
+  ggplot() +
+  aes(x = bestanden, fill = factor(interest)) +
+  geom_bar(position = "fill")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
-Wir könnten uns jetzt die Frage stellen, wie viele kleine und viele große Menschen es bei Frauen und bei den Männern gibt. Dazu müssen wir zuerst eine Variable wie "Größe gruppiert" erstellen mit zwei Werten: "klein" und "groß". Nennen wir sie `groesse_gruppe`
-
-
-```r
-wo_men$groesse_gruppe <- car::recode(wo_men$height,
-                                     "lo:175 = 'klein'; else = 'gross'")
-
-wo_men %>% 
-  filter(height > 150, height < 210, shoe_size < 55) %>% 
-  na.omit -> wo_men2
-  
-qplot(x = sex, fill = groesse_gruppe, data = wo_men2)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-21-1} \end{center}
-
-In Worten sagt der `recode`-Befehl hier in etwa: "Kodiere `wo_men$height` um, und zwar vom kleinsten (`lo`) Wert bis 170 soll den Wert `klein` bekommen, ansonsten bekommt eine Größe den Wert `gross`".
-
-Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `groesse_gruppe` füllen soll. Und bei den Frauen sind bei dieser Variablen die Werte `klein` häufig; bei den Männern hingegen die Werte `gross`.
-
-Schön wäre noch, wenn die Balken Prozentwerte angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um.
-
-
-```r
-wo_men2 %>% 
-  ggplot() +
-  aes(x = sex, fill = groesse_gruppe) +
-  geom_bar(position = "fill")
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-22-1} \end{center}
+Der Lehrer freut sich: In der Gruppe, die bestanden hat, ist der Anteil der ~~freaks~~ Hoch-Interessierten größer als bei den Durchfallern.
 
 Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
 \BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">
-`wo_men2`:  Hey R, nimm den Datensatz `wo_men2` UND DANN...  
-`ggpplot()` : Hey R, male ein Diagramm von Typ ggplot (mit dem Datensatz aus dem vorherigen Pfeifen-Schritt, d.h. aus der vorherigen Zeile, also `wo_men2`)!    
+`stats_teste`:  Hey R, nimm den Datensatz `stats_test` UND DANN...  
+`ggplot()` : Hey R, male ein Diagramm von Typ `ggplo`t (mit dem Datensatz aus dem vorherigen Pfeifen-Schritt, d.h. aus der vorherigen Zeile, also `stats_test`)!    
+`filter`: wir wollen nur Zeilen (Studenten), für die gilt `interest == 1` oder `interest == 6`. Der horizontale Strich heißt 'oder'.   
 `+`:  Das Pluszeichen grenzt die Teile eines ggplot-Befehls voneinander ab.  
 `aes`:  von "aethetics", also welche Variablen des Datensatzes den sichtbaren Aspekten (v.a. Achsen, Farben) zugeordnet werden.  
-`x`: Der X-Achse (Achtung, `x` wird klein geschrieben hier) wird die Variable `sex` zugeordnet.   
+`x`: Der X-Achse (Achtung, `x` wird klein geschrieben hier) wird die Variable `bestanden` zugeordnet.   
 `y`: gibt es nicht??? Wenn in einem ggplot-Diagramm *keine* Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).  
-`fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `groesse_gruppe` darin widerspiegelt.  
+`fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `interest` darin widerspiegelt.  
 
 `geom_XYZ`: Als "Geom" soll ein Balken ("bar") gezeichnet werden.  Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit `geom_bar`, `geom_boxplot`, geom_point` etc. gewählt.  
 
-`position = fill`: `position_fill` will sagen, dass die Balken alls eine Höhe von 100% (1) haben. Die Balken zeigen also nur die Anteile der Werte der `fill`-Variablen. 
+`position = fill`: `position_fill` will sagen, dass die Balken alle eine Höhe von 100% (1) haben, d.h. gleich hoch sind. Die Balken zeigen also nur die Anteile der Werte der `fill`-Variablen. 
 </div>\EndKnitrBlock{rmdpseudocode}
 
 
@@ -482,8 +490,8 @@ Wir sehen, dass die Anteile von großen bzw. kleinen Menschen bei den beiden Gru
 
 
 
-### Zwei diskrete Variablen 
-Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse. Bleiben wir bei letztem Beispiel. 
+### Zwei nominale Variablen 
+Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie viele Narzisseten gibt es in welcher Management-Stufe? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse?. Bleiben wir bei letztem Beispiel. 
 
 
 
@@ -500,7 +508,7 @@ profiles %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Was haben wir gemacht? Also:
 
@@ -515,7 +523,7 @@ Male Fliesen UND DANN
 Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.  
 </div>\EndKnitrBlock{rmdpseudocode}
 
-
+Diese Art von Diagramm nennt man auch 'Mosaicplot', weil es an ein Mosaic erinnert (wer hätt's gedacht).
      
 Was sofort ins Auge sticht, ist dass "soziales Trinken", nennen wir es mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.     
 
@@ -524,16 +532,16 @@ Manchmal möchten wir *nicht* die Rohwerte einer Variablen darstellen, sondern z
 
 
 ```r
-wo_men2 %>% 
-  group_by(sex) %>% 
-  summarise(Groesse_MW = mean(height)) -> wo_men3
+stats_test %>% 
+  group_by(bestanden) %>% 
+  summarise(interest_mw = mean(interest, na.rm = TRUE)) -> stats_test_summary
 
-wo_men3
+stats_test_summary
 #> # A tibble: 2 x 2
-#>      sex Groesse_MW
-#>   <fctr>      <dbl>
-#> 1    man        183
-#> 2  woman        167
+#>   bestanden interest_mw
+#>      <fctr>       <dbl>
+#> 1        ja        3.26
+#> 2      nein        2.97
 ```
 
 
@@ -541,27 +549,101 @@ Diese Tabelle schieben wir jetzt in `ggplot2`; natürlich hätten wir das gleich
 
 
 ```r
-wo_men3 %>% 
-  qplot(x = sex, y = Groesse_MW, data = .)
+stats_test_summary %>% 
+  qplot(x = bestanden, y = interest_mw, data = .)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-23-1} \end{center}
+
+Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Bereichern wir das Diagramm um die Frage, wieviel (jeder Student gelernt hat (`study_time`). Schauen wir uns aber der Einfachheit halber nur die Studenten an, die ganz viel oder ganz wenig gelernt haben.
+
+
+```r
+stats_test %>% 
+  group_by(bestanden, study_time) %>% 
+  summarise(interest_mw = mean(interest, na.rm = TRUE)) %>% 
+  qplot(x = bestanden, y = interest_mw, data = ., color = factor(study_time)) +
+  geom_line(aes(group = factor(study_time)))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-24-1} \end{center}
+
+In Pseudosyntax:
+
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz "stats_test" UND DANN  
+gruppiere nach den Variablen `bestanden` und `study_time` UND DANN
+fasse für diese Gruppen jeweils die Spalte `interest` zum Mittelwert zusammen UND DANN  
+male einen schnellen Plot mit diesen Daten UND DANN
+füge ein Liniendiagramm dazu, wobei jede Stufe von `study_time` eine Gruppe ist. Und Punkte einer Gruppe sollen verbunden werden.
+</div>\EndKnitrBlock{rmdpseudocode}
+
+Warum steht der arme pinkfarbene Punkt bei 'ja' und ~4.5 so für sich alleine oder Linie?^[es gibt kein `study_time == 5` bei den Durchfallen, d.h. bei `bestanden == nein`.]
+
+
+Alternativ, und deutlich informationsreicher (besser) sind hier Boxplots.
+
+
+```r
+qplot(x = bestanden, 
+      y = interest,
+      data = stats_test,
+      geom = "boxplot")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
-Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Wenn wir noch zusätzlich die Mittelwerte nach `Groesse_Gruppe` ausweisen, wird das noch überschaubar bleiben.
+Hm, wie Sie sehen, sehen Sie nix. Kein Unterschied im Median zwischen den Gruppen. Vergleichen wir mal die Punkte zwischen den einzelnen Interessenstufen.
 
 
 ```r
-wo_men2 %>% 
-  group_by(sex, groesse_gruppe) %>% 
-  summarise(Groesse_MW = mean(height)) %>% 
-  qplot(x = sex, color = factor(groesse_gruppe), y = Groesse_MW, data = .)
+qplot(x = factor(interest),
+      y = score,
+      data = stats_test,
+      geom = "boxplot")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+Das `factor(interest)` brauchen wir, weil `ggplot2` nur dann mehrere Boxplots malt, wenn es Gruppen zum Vergleichen (auf der X-Achse) gibt - sprich wenn auf der X-Achse eine Faktor- oder Textvariable steht.
+
+
+### Überblick zu häufigen Diagrammtypen
+
+Die Tabelle \@ref(tab:diagrammtypen) fasst die gerade besprochenen Diagrammtypen zusammen.
+
+\begin{table}
+
+\caption{(\#tab:diagrammtypen)Häufige Diagrammtypen}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+X-Achse & Y-Achse & Diagrammtyp\\
+\hline
+kontinuierliche Variable & - & Histogramm, Dichtediagramm\\
+\hline
+kontinuierliche Variable & kontinuierliche Variable & Punkte, Schachbrett-Diagramme\\
+\hline
+nominale Variable & - & Balkendiagramm\\
+\hline
+nominale Variable & nominale Variable & Mosaicplot (Fliesendiagramm)\\
+\hline
+nominale Variable & metrische Variable & Punktediagramm für Zusammenfassungen\\
+\hline
+nominale Variable & metrische Variable & Boxplots (besser)\\
+\hline
+\end{tabular}
+\end{table}
+
 
 ## Die Gefühlswelt von `ggplot2`
 
@@ -569,8 +651,8 @@ wo_men2 %>%
 
 
 ```r
-qplot(x = sex, data = wo_men)  # identisch zu
-qplot(x = sex, data = wo_men, geom = "bar")
+qplot(x = score, data = stats_test)  # identisch zu
+qplot(x = score, data = stats_test, geom = "bar")
 
 ```
 
@@ -579,19 +661,19 @@ qplot(x = sex, data = wo_men, geom = "bar")
 
 
 ```r
-qplot(x = height, data = wo_men)  # identisch zu
-qplot(x = height, data = profiles, geom = "histogram")
+qplot(x = score, data = stats_test)  # identisch zu
+qplot(x = score, data = stats_test, geom = "histogram")
 ```
 
 - Geben Sie eine *kontinuierliche X-Achse* an und eine *kontinuierliche Y-Achse* an, so greift qplot im Standard auf das Geom `point` zurück (Streudiagramm).
 
 
 ```r
-qplot(x = height, y = shoe_size, data = wo_men2)  # identisch zu
-qplot(x = height, y=  shoe_size, data = wo_men2i, geom = "point")
+qplot(x = score, y = self-eval, data = stats_test)  # identisch zu
+qplot(x = score, y=  self-eval, data = stats_test, geom = "point")
 ```
 
-- Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Variable diskret sein:
+- Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Gruppierungs-Variable diskret sein:
 
 
 ```r
@@ -772,9 +854,5 @@ ggplot(wo_men2) +
 - Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: https://bookdown.org/Rmadillo/likert/. 
 
 - Es finden sich viele Tutorials online zu `ggplot2`; ein deutschsprachiger Tutorial findet sich hier: http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html.
-
-
-
-
 
 

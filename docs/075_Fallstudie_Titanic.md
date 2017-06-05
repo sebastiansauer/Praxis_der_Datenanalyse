@@ -77,7 +77,6 @@ Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm daz
 
 ```r
 # install.packages("ggplot2", dependencies = TRUE)
-library(ggplot2)
 qplot(x = Pclass, y = n, data = c1)
 ```
 
@@ -283,7 +282,7 @@ chies(chi.sq = 96, n = 707)
 #>  Total N = 707
 ```
 
-Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you live...
+Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you life...
 
 
 ### Logististische Regression

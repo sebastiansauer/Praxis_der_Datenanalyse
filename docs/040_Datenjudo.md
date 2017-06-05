@@ -39,6 +39,7 @@ In diesem Kapitel werden folgende Pakete benötigt:
 library(tidyverse)  # Datenjudo
 library(stringr)   # Texte bearbeiten
 library(car)  # für 'recode'
+library(desctable)  # Statistiken auf einen Streich
 ```
 
 Das Paket `tidyverse` lädt `dplyr`, `ggplot2` und weitere Pakete^[für eine Liste s. `tidyverse_packages(include_self = TRUE)`]. Daher ist es komfortabler, `tidyverse` zu laden, damit spart man sich Tipparbeit. Die eigentliche Funktionalität, die wir in diesem Kapitel nutzen, kommt aus dem Paket `dplyr`.
@@ -49,7 +50,7 @@ Mit *Datenjudo*\index{Datenjudo} ist gemeint, die Daten für die eigentliche Ana
 Ist das Aufbereiten von Daten auch nicht statistisch anspruchsvoll, so ist es trotzdem von großer Bedeutung und häufig recht zeitintensiv. Eine Anekdote zur Relevanz der Datenaufbereitung, die (so will es die Geschichte) mir an einer Bar nach einer einschlägigen Konferenz erzählt wurde (daher keine Quellenangebe, Sie verstehen...). Eine Computerwissenschaftlerin aus den USA (deutschen Ursprungs) hatte einen beeindruckenden "Track Record" an Siegen in Wettkämpfen der Datenanalyse. Tatsächlich hatte sie keine besonderen, raffinierten Modellierungstechniken eingesetzt; klassische Regression war ihre Methode der Wahl. Bei einem Wettkampf, bei dem es darum ging, Krebsfälle aus Krankendaten vorherzusagen (z.B. von Röntgenbildern) fand sie nach langem Datenjudo heraus, dass in die "ID-Variablen" Information gesickert war, die dort nicht hingehörte und die sie nutzen konnte für überraschend (aus Sicht der Mitstreiter) gute Vorhersagen zu Krebsfällen. Wie war das möglich? Die Daten stammten aus mehreren Kliniken, jede Klinik verwendete ein anderes System, um IDs für Patienten zu erstellen. Überall waren die IDs stark genug, um die Anonymität der Patienten sicherzustellen, aber gleich wohl konnte man (nach einigem Judo) unterscheiden, welche ID von welcher Klinik stammte. Was das bringt? Einige Kliniken waren reine Screening-Zentren, die die Normalbevölkerung versorgte. Dort sind wenig Krebsfälle zu erwarten. Andere Kliniken jedoch waren Onkologie-Zentren für bereits bekannte Patienten oder für Patienten mit besonderer Risikolage. Wenig überraschen, dass man dann höhere Krebsraten vorhersagen kann. Eigentlich ganz einfach; besondere Mathe steht hier (zumindest in dieser Geschichte) nicht dahinter. Und, wenn man den Trick kennt, ganz einfach. Aber wie so oft ist es nicht leicht, den Trick zu finden. Sorgfältiges Datenjudo hat hier den Schlüssel zum Erfolg gebracht.
 
 
-## Typische Probleme
+## Typische Probleme der Datenaufbereitung
 Bevor man seine Statistik-Trickkiste so richtig schön aufmachen kann, muss man die Daten häufig erst noch in Form bringen. Das ist nicht schwierig in dem Sinne, dass es um komplizierte Mathe ginge. Allerdings braucht es mitunter recht viel Zeit und ein paar (oder viele) handwerkliche Tricks sind hilfreich. Hier soll das folgende Kapitel helfen.
 
 
@@ -77,7 +78,6 @@ Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r
 
 Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine* geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed...), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, was ich will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Wir schauen wir uns diese Bausteine gleich näher an.
 
-
 \begin{figure}
 
 {\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Bausteine_dplyr_crop} 
@@ -86,7 +86,6 @@ Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine
 
 \caption{Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine}(\#fig:bausteine)
 \end{figure}
-
 
 
 
@@ -236,7 +235,7 @@ Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unte
 
 ```r
 
-stats_test <- read_csv("data/test_inf_short.csv")
+stats_test <- read.csv("data/test_inf_short.csv")
 ```
 
 
@@ -288,40 +287,47 @@ arrange(stats_test, interest, score)
 
 
 ```
-#> # A tibble: 6 x 6
-#>   row_number           date_time study_time self_eval interest score
-#>        <int>               <chr>      <int>     <int>    <int> <int>
-#> 1        234 23.01.2017 18:13:15          3         1        1    17
-#> 2          4 06.01.2017 09:58:05          2         3        2    18
-#> 3        131 19.01.2017 18:03:45          2         3        4    18
-#> 4        142 19.01.2017 19:02:12          3         4        1    18
-#> 5         35 12.01.2017 19:04:43          1         2        3    19
-#> 6         71 15.01.2017 15:03:29          3         3        3    20
-#> # A tibble: 6 x 6
-#>   row_number           date_time study_time self_eval interest score
-#>        <int>               <chr>      <int>     <int>    <int> <int>
-#> 1          3 05.01.2017 23:33:47          5        10        6    40
-#> 2          7 06.01.2017 14:25:49         NA        NA       NA    40
-#> 3         29 12.01.2017 09:48:16          4        10        3    40
-#> 4         41 13.01.2017 12:07:29          4        10        3    40
-#> 5         58 14.01.2017 15:43:01          3         8        2    40
-#> 6         83 16.01.2017 10:16:52         NA        NA       NA    40
-#> # A tibble: 6 x 6
-#>   row_number           date_time study_time self_eval interest score
-#>        <int>               <chr>      <int>     <int>    <int> <int>
-#> 1        234 23.01.2017 18:13:15          3         1        1    17
-#> 2        142 19.01.2017 19:02:12          3         4        1    18
-#> 3        221 23.01.2017 11:40:30          1         1        1    23
-#> 4        230 23.01.2017 16:27:49          1         1        1    23
-#> 5         92 17.01.2017 17:18:55          1         1        1    24
-#> 6        107 18.01.2017 16:01:36          3         2        1    24
+#>   row_number           date_time bestanden study_time self_eval interest
+#> 1        234 23.01.2017 18:13:15      nein          3         1        1
+#> 2          4 06.01.2017 09:58:05      nein          2         3        2
+#> 3        131 19.01.2017 18:03:45      nein          2         3        4
+#> 4        142 19.01.2017 19:02:12      nein          3         4        1
+#> 5         35 12.01.2017 19:04:43      nein          1         2        3
+#> 6         71 15.01.2017 15:03:29      nein          3         3        3
+#>   score
+#> 1    17
+#> 2    18
+#> 3    18
+#> 4    18
+#> 5    19
+#> 6    20
+#>   row_number           date_time bestanden study_time self_eval interest
+#> 1          3 05.01.2017 23:33:47        ja          5        10        6
+#> 2          7 06.01.2017 14:25:49        ja         NA        NA       NA
+#> 3         29 12.01.2017 09:48:16        ja          4        10        3
+#> 4         41 13.01.2017 12:07:29        ja          4        10        3
+#> 5         58 14.01.2017 15:43:01        ja          3         8        2
+#> 6         83 16.01.2017 10:16:52        ja         NA        NA       NA
+#>   score
+#> 1    40
+#> 2    40
+#> 3    40
+#> 4    40
+#> 5    40
+#> 6    40
+#>   row_number           date_time bestanden study_time self_eval interest
+#> 1        234 23.01.2017 18:13:15      nein          3         1        1
+#> 2        142 19.01.2017 19:02:12      nein          3         4        1
+#>   score
+#> 1    17
+#> 2    18
 ```
 
 Einige Anmerkungen. Die generelle Syntax lautet `arrange(df, Spalte1, ...)`, wobei `df` den Dataframe bezeichnet und `Spalte1` die erste zu sortierende Spalte; die Punkte `...` geben an, dass man weitere Parameter übergeben kann. Man kann sowohl numerische Spalten als auch Textspalten sortieren. Am wichtigsten ist hier, dass man weitere Spalten übergeben kann. Dazu gleich mehr.
 
 Standardmäßig sortiert `arrange` *aufsteigend*  (weil kleine Zahlen im Zahlenstrahl vor den großen Zahlen kommen). Möchte man diese Reihenfolge umdrehen (große Werte zuert, d.h. *absteigend*), so kann man ein Minuszeichen vor den Namen der Spalte setzen.
 
-Gibt man *zwei oder mehr* Spalten an, so werden pro Wert von `Spalte1` die Werte von `Spalte2` sortiert etc; man betrachte den Output des Beispiels oben dazu.
+Gibt man *zwei oder mehr* Spalten an, so werden pro Wert von `Spalte1` die Werte von `Spalte2` sortiert etc; man betrachte den Output des Beispiels oben dazu. Abbildung \@ref(fig:fig-arrange)) erläutert die Arbeitsweise von `arrange`.
 
 
 
@@ -329,7 +335,7 @@ Merke:
 
 >    Die Funktion `arrange` sortiert die Zeilen eines Datafames.
 
-Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
+
 
 \begin{figure}
 
@@ -342,51 +348,38 @@ Ein Sinnbild zur Verdeutlichung (s. Abb. \@ref(fig:fig-arrange)):
 
 
 
-Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Elemente* widergibt:
+Ein ähnliches Ergebnis erhält mit man `top_n()`, welches die `n` *größten Ränge* widergibt:
 
 
 ```r
 
-top_n(stats_test, 3)
-#> # A tibble: 18 x 6
-#>    row_number           date_time study_time self_eval interest score
-#>         <int>               <chr>      <int>     <int>    <int> <int>
-#>  1          3 05.01.2017 23:33:47          5        10        6    40
-#>  2          7 06.01.2017 14:25:49         NA        NA       NA    40
-#>  3         29 12.01.2017 09:48:16          4        10        3    40
-#>  4         41 13.01.2017 12:07:29          4        10        3    40
-#>  5         58 14.01.2017 15:43:01          3         8        2    40
-#>  6         83 16.01.2017 10:16:52         NA        NA       NA    40
-#>  7        116 18.01.2017 23:07:32          4         8        5    40
-#>  8        119 19.01.2017 09:05:01         NA        NA       NA    40
-#>  9        132 19.01.2017 18:22:32         NA        NA       NA    40
-#> 10        175 20.01.2017 23:03:36          5        10        5    40
-#> 11        179 21.01.2017 07:40:05          5         9        1    40
-#> 12        185 21.01.2017 15:01:26          4        10        5    40
-#> 13        196 22.01.2017 13:38:56          4        10        5    40
-#> 14        197 22.01.2017 14:55:17          4        10        5    40
-#> 15        248 24.01.2017 16:29:45          2        10        2    40
-#> 16        249 24.01.2017 17:19:54         NA        NA       NA    40
-#> 17        257 25.01.2017 10:44:34          2         9        3    40
-#> 18        306 27.01.2017 11:29:48          4         9        3    40
+
 top_n(stats_test, 3, interest)
-#> # A tibble: 9 x 6
-#>   row_number           date_time study_time self_eval interest score
-#>        <int>               <chr>      <int>     <int>    <int> <int>
-#> 1          3 05.01.2017 23:33:47          5        10        6    40
-#> 2          5 06.01.2017 14:13:08          4         8        6    34
-#> 3         43 13.01.2017 14:14:16          4         8        6    36
-#> 4         65 15.01.2017 12:41:27          3         6        6    22
-#> 5        110 18.01.2017 18:53:02          5         8        6    37
-#> 6        136 19.01.2017 18:22:57          3         1        6    39
-#> 7        172 20.01.2017 20:42:46          5        10        6    34
-#> 8        214 22.01.2017 21:57:36          2         6        6    31
-#> 9        301 27.01.2017 08:17:59          4         8        6    33
+#>   row_number           date_time bestanden study_time self_eval interest
+#> 1          3 05.01.2017 23:33:47        ja          5        10        6
+#> 2          5 06.01.2017 14:13:08        ja          4         8        6
+#> 3         43 13.01.2017 14:14:16        ja          4         8        6
+#> 4         65 15.01.2017 12:41:27      nein          3         6        6
+#> 5        110 18.01.2017 18:53:02        ja          5         8        6
+#> 6        136 19.01.2017 18:22:57        ja          3         1        6
+#> 7        172 20.01.2017 20:42:46        ja          5        10        6
+#> 8        214 22.01.2017 21:57:36        ja          2         6        6
+#> 9        301 27.01.2017 08:17:59        ja          4         8        6
+#>   score
+#> 1    40
+#> 2    34
+#> 3    36
+#> 4    22
+#> 5    37
+#> 6    39
+#> 7    34
+#> 8    31
+#> 9    33
 ```
 
-Gibt man *keine* Spalte an, so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
+Gibt man *keine* Spalte an (also nur `top_n(stats_test)`), so bezieht sich `top_n` auf die letzte Spalte im Datensatz.
 
-Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 40) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr "denkt" sich: "Ok, er will die drei besten Werte; aber ersten 4 haben alle den gleichen Wert, wen sollte ich da ausschließen? Am besten ich liefere alle zurück, die den gleichen Wert habe, falls ich sonst zu wenig Objekte zurückliefern würde". 
+Wenn sich aber, wie hier, mehrere Objekte, den größten Rang (Wert 6) teilen, bekommen wir *nicht* 3 Zeilen zurückgeliefert, sondern entsprechend mehr. dplyr "denkt" sich: "Ok, er will die drei besten Ränge; aber 9 Studenten teilen sich den ersten Rang (Interesse 6), wen sollte ich da ausschließen? Am besten ich liefere alle 9 zurück, sonst wäre es ja ungerecht, weil alle 9 sind ja gleich vom Interesse her". 
 
 #### Aufgaben^[F, F, F, F, F]
 
@@ -420,23 +413,23 @@ In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. 
 ```r
 test_gruppiert <- group_by(stats_test, interest)
 test_gruppiert
-#> Source: local data frame [306 x 6]
+#> Source: local data frame [306 x 7]
 #> Groups: interest [7]
 #> 
-#> # A tibble: 306 x 6
-#>    row_number           date_time study_time self_eval interest score
-#>         <int>               <chr>      <int>     <int>    <int> <int>
-#>  1          1 05.01.2017 13:57:01          5         8        5    29
-#>  2          2 05.01.2017 21:07:56          3         7        3    29
-#>  3          3 05.01.2017 23:33:47          5        10        6    40
-#>  4          4 06.01.2017 09:58:05          2         3        2    18
-#>  5          5 06.01.2017 14:13:08          4         8        6    34
-#>  6          6 06.01.2017 14:21:18         NA        NA       NA    39
-#>  7          7 06.01.2017 14:25:49         NA        NA       NA    40
-#>  8          8 06.01.2017 17:24:53          2         5        3    24
-#>  9          9 07.01.2017 10:11:17          2         3        5    25
-#> 10         10 07.01.2017 18:10:05          4         5        5    33
-#> # ... with 296 more rows
+#> # A tibble: 306 x 7
+#>    row_number           date_time bestanden study_time self_eval interest
+#>         <int>              <fctr>    <fctr>      <int>     <int>    <int>
+#>  1          1 05.01.2017 13:57:01        ja          5         8        5
+#>  2          2 05.01.2017 21:07:56        ja          3         7        3
+#>  3          3 05.01.2017 23:33:47        ja          5        10        6
+#>  4          4 06.01.2017 09:58:05      nein          2         3        2
+#>  5          5 06.01.2017 14:13:08        ja          4         8        6
+#>  6          6 06.01.2017 14:21:18        ja         NA        NA       NA
+#>  7          7 06.01.2017 14:25:49        ja         NA        NA       NA
+#>  8          8 06.01.2017 17:24:53      nein          2         5        3
+#>  9          9 07.01.2017 10:11:17        ja          2         3        5
+#> 10         10 07.01.2017 18:10:05        ja          4         5        5
+#> # ... with 296 more rows, and 1 more variables: score <int>
 ```
 
 Schaut man sich nun den Datensatz an, sieht man erstmal wenig Effekt der Gruppierung. R teilt uns lediglich mit `Groups: interest [7]`, dass es 7 Gruppen gibt, aber es gibt keine extra Spalte oder sonstige Anzeichen der Gruppierung. Aber keine Sorge, wenn wir gleich einen Mittelwert ausrechnen, bekommen wir den Mittelwert pro Gruppe!
@@ -493,10 +486,8 @@ Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist
 
 ```r
 summarise(stats_test, mean(score))
-#> # A tibble: 1 x 1
-#>   `mean(score)`
-#>           <dbl>
-#> 1          31.1
+#>   mean(score)
+#> 1        31.1
 ```
 
 Man könnte diesen Befehl so ins Deutsche übersetzen: `Fasse aus Tabelle stats_test die Spalte score anhand des Mittelwerts zusammen`. Nicht vergessen, wenn die Spalte `score` fehlende Werte hat, wird der Befehl `mean` standardmäßig dies mit `NA` quittieren. Ergänzt man den Parameter `nr.rm = TRUE`, so ignoriert R fehlende Werte und der Befehl `mean` liefert ein Ergebnis zurück.
@@ -548,47 +539,6 @@ Merke:
 >    Mit summarise kann man eine Spalte eines Dataframes zu einem Wert zusammenfassen.
 
 
-#### Deskriptive Statistik mit `summarise`
-
-
->    Die deskriptive Statistik hat zwei Haupt-Bereiche: Lagemaße und Streuungsmaße.
-
-*Lagemaße* geben den "typischen", "mittleren" oder "repräsentativen" Vertreter der Verteilung an. Bei den Lagemaßen\index{Lagemaße} denkt man sofort an das *arithmetische Mittel* (synonym: Mittelwert; häufig als $\bar{X}$ abgekürzt; `mean`). Ein Nachteil von Mittelwerten ist, dass sie nicht robust gegenüber Extremwerte sind: Schon ein vergleichsweise großer Einzelwert kann den Mittelwert deutlich verändern und damit die Repräsentativität des Mittelwerts für die Gesamtmenge der Daten in Frage stellen. Eine robuste Variante ist der *Median* (Md; `median`). Ist die Anzahl der (unterschiedlichen) Ausprägungen nicht zu groß im Verhältnis zur Fallzahl, so ist der *Modus* eine sinnvolle Statistik; er gibt die häufigste Ausprägung an^[Der *Modus* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. https://cran.r-project.org/web/packages/modes/index.html].
-
-*Streuungsmaße*\index{Streuungsmaße} geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der *mittlere Absolutabstand* (MAA; MAD) ^[Der *MAD* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Es gibt einige Pakete, die diese Funktion anbieten: z.B. https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html], die *Standardabweichung* (sd; `sd`), die *Varianz* (Var; `var`) und der *Interquartilsabstand* (IQR; `IQR`). Da nur der IQR *nicht* auf dem Mittelwert basiert, ist er am robustesten. Beliebige Quantile bekommt man mit dem R-Befehl `quantile`.
-
-Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
-
-
-```r
-summarise(stats_test, mean(score))
-#> # A tibble: 1 x 1
-#>   `mean(score)`
-#>           <dbl>
-#> 1          31.1
-summarise(stats_test, sd(score))
-#> # A tibble: 1 x 1
-#>   `sd(score)`
-#>         <dbl>
-#> 1        5.74
-```
-
-Natürlich könnte man auch einfacher schreiben:
-
-
-```r
-mean(stats_test$score)
-#> [1] 31.1
-median(stats_test$score)
-#> [1] 31
-```
-
-
-`summarise` liefert aber im Unterschied zu `mean` etc. immer einen Dataframe zurück. Da der Dataframe die typische Datenstruktur ist, ist es häufig praktisch, wenn man einen Dataframe zurückbekommt, mit dem man weiterarbeiten kann. Außerdem lassen `mean` etc. keine Gruppierungsoperationen zu; über `group_by` kann man dies aber bei `dplyr` erreichen.
-
-
-
-
 #### Aufgaben^[R, R, R, R, R]
 
 
@@ -622,15 +572,13 @@ mad
 
 
 ### Zeilen zählen mit `n` und `count`
-Ebenfalls nützlich ist es, Zeilen zu zählen. Im Gegensatz zum Standardbefehl^[Standardbefehl meint, dass die Funktion zum Standardrepertoire von R gehört, also nicht über ein Paket extra geladen werden muss] `nrow` versteht der `dyplr`-Befehl `n`\index{dplyr::n} auch Gruppierungen. `n` darf nur innerhalb von `summarise` oder ähnlichen `dplyr`-Befehlen verwendet werden.
+Ebenfalls nützlich ist es, Zeilen zu zählen, also Häufigkeiten zu bestimmen. Im Gegensatz zum Standardbefehl^[Standardbefehl meint, dass die Funktion zum Standardrepertoire von R gehört, also nicht über ein Paket extra geladen werden muss] `nrow` versteht der `dyplr`-Befehl `n`\index{dplyr::n} auch Gruppierungen. `n` darf im Pfeifen-Workflow nur im Rahmen  von `summarise` oder ähnlichen `dplyr`-Befehlen verwendet werden.
 
 
 ```r
 summarise(stats_test, n())
-#> # A tibble: 1 x 1
-#>   `n()`
-#>   <int>
-#> 1   306
+#>   n()
+#> 1 306
 summarise(test_gruppiert, n())
 #> # A tibble: 7 x 2
 #>   interest `n()`
@@ -694,11 +642,23 @@ dplyr::count(stats_test, interest, study_time)
 #> # ... with 19 more rows
 ```
 
-Allgemeiner formuliert lautet die Syntax: `count(df, Spalte1, ...)`, wobei `df` der Dataframe ist und `Spalte1` die erste (es können mehrere sein) auszuzählende Spalte. Gibt man z.B. zwei Spalten an, so wird pro Wert der 1. Spalte die Häufigkeiten der 2. Spalte ausgegeben.
+Allgemeiner formuliert lautet die Syntax: `count(df, Spalte1, ...)`, wobei `df` der Dataframe ist und `Spalte1` die erste (es können mehrere sein) auszuzählende Spalte. Gibt man z.B. zwei Spalten an, so wird pro Wert der 1. Spalte die Häufigkeiten der 2. Spalte ausgegeben (vgl. Abb. \@ref(fig:fig-count)).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/count-crop} 
+
+}
+
+\caption{Sinnbild für 'count'}(\#fig:fig-count)
+\end{figure}
+
 
 Merke:
 
 >    n und count zählen die Anzahl der Zeilen, d.h. die Anzahl der Fälle. 
+
+
 
 
 #### Vertiefung zum Zählen von Zeilen: Relative Häufigkeiten
@@ -757,32 +717,16 @@ stats_test %>%
 #> 12        6      TRUE     8         0.889
 #> 13       NA     FALSE     7         0.103
 #> 14       NA      TRUE    61         0.897
+```
 
+Synonym zur letzten Syntax könnte man auch schreiben:
+
+
+```r
 stats_test %>% 
   count(interest, bestanden) %>% 
   mutate(prop_interest = n / sum(n)) 
-#> Source: local data frame [14 x 4]
-#> Groups: interest [7]
-#> 
-#> # A tibble: 14 x 4
-#>    interest bestanden     n prop_interest
-#>       <int>     <lgl> <int>         <dbl>
-#>  1        1     FALSE    10         0.333
-#>  2        1      TRUE    20         0.667
-#>  3        2     FALSE     9         0.191
-#>  4        2      TRUE    38         0.809
-#>  5        3     FALSE    14         0.212
-#>  6        3      TRUE    52         0.788
-#>  7        4     FALSE     9         0.220
-#>  8        4      TRUE    32         0.780
-#>  9        5     FALSE     6         0.133
-#> 10        5      TRUE    39         0.867
-#> 11        6     FALSE     1         0.111
-#> 12        6      TRUE     8         0.889
-#> 13       NA     FALSE     7         0.103
-#> 14       NA      TRUE    61         0.897
 ```
-
 
 
 #### Aufgaben^[R, R, F, F]
@@ -816,15 +760,15 @@ Ah! Der Score `34` ist der häufigste!
 
 
 ## Die Pfeife
-Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe)).
+Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife" (Durchpfeifen)\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe); [@m7_savinellis_2004]).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/ma-150089-WEB} 
+{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/800px-Pipa_savinelli} 
 
 }
 
-\caption{La trahison des images [Ceci n'est pas une pipe]}(\#fig:cecie-une-pipe)
+\caption{Das ist keine Pfeife}(\#fig:cecie-une-pipe)
 \end{figure}
 
 
@@ -840,7 +784,15 @@ Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\ind
 \caption{Das 'Durchpeifen'}(\#fig:fig-durchpfeifen)
 \end{figure}
 
-Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. Vergleichen Sie mal diese Syntax
+Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Tipp: In RStudio gibt es einen Shortcut für die Pfeife: Strg-Shift-M (auf allen Betriebssystemen).
+</div>\EndKnitrBlock{rmdcaution}
+
+
+Vergleichen Sie mal diese Syntax
 
 
 ```r
@@ -916,28 +868,26 @@ die sich berechnet als Summe von `spalte1` und `spalte2`.
 </div>\EndKnitrBlock{rmdpseudocode}
 
 
-Allerdings berücksichtigt `mutate` auch Gruppierungen. Der Hauptvorteil ist die bessere Lesbarkeit durch Auflösen der Verschachtelungen.
+Allerdings berücksichtigt `mutate` auch Gruppierungen, das ist praktisch. Der Hauptvorteil ist die bessere Lesbarkeit durch Auflösen der Verschachtelungen.
 
 Ein konkretes Beispiel:
 
 
 ```r
 stats_test %>% 
-  mutate(bestanden = score > 25) %>% 
+  select(bestanden, interest, score) %>% 
+  mutate(Streber = score > 38) %>% 
   head()
-#> # A tibble: 6 x 7
-#>   row_number           date_time study_time self_eval interest score
-#>        <int>               <chr>      <int>     <int>    <int> <int>
-#> 1          1 05.01.2017 13:57:01          5         8        5    29
-#> 2          2 05.01.2017 21:07:56          3         7        3    29
-#> 3          3 05.01.2017 23:33:47          5        10        6    40
-#> 4          4 06.01.2017 09:58:05          2         3        2    18
-#> 5          5 06.01.2017 14:13:08          4         8        6    34
-#> 6          6 06.01.2017 14:21:18         NA        NA       NA    39
-#> # ... with 1 more variables: bestanden <lgl>
+#>   bestanden interest score Streber
+#> 1      TRUE        5    29   FALSE
+#> 2      TRUE        3    29   FALSE
+#> 3      TRUE        6    40    TRUE
+#> 4     FALSE        2    18   FALSE
+#> 5      TRUE        6    34   FALSE
+#> 6      TRUE       NA    39    TRUE
 ```
 
-Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 25 ist. Falls ja (TRUE), dann ist `bestanden` TRUE, ansonsten ist `bestanden` FALSE (Pech). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
+Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Persion, ob `score` > 38 ist. Falls ja (TRUE), dann ist `Streber` TRUE, ansonsten ist `Streber` FALSE (tja). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
 
 
 Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
@@ -953,6 +903,13 @@ Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
 
 
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+`mutate` erwartet als Input *keinen* Dateframe, sondern eine Spalte. Betrachten Sie das Sinnbild von `mutate`. Die Idee ist, eine Spalte umzuwandeln nach dem Motto: "Nimm eine Spalte, mach was damit und liefere die neue Spalte zurück". Die Spalte (und damit jeder einzelne Wert in der Spalte) wird *verändert* ('mutiert', daher 'mutate'). Man kann auch sagen, die Spalte wird *transformiert*.
+</div>\EndKnitrBlock{rmdcaution}
+
+
+
 ### Aufgaben
 
 1. Entschlüsseln Sie dieses Ungetüm! Übersetzen Sie diese Syntax auf Deutsch:
@@ -960,15 +917,11 @@ Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
 ```r
 
-library(nycflights13)
-data(flights)
-
-verspaetung <-
+bestanden_gruppen <-
   filter(
     summarise(
-    group_by(filter(flights, !is.na(dep_delay), month)), 
-    delay = mean(dep_delay), n = n()), n > 10)
- 
+      group_by(filter(select(stats_test, -c(row_number, date_time)) , bestanden == "ja"), interest), 
+      Punkte = mean(score), n = n()))
 ```
 
 
@@ -976,18 +929,24 @@ verspaetung <-
 
 
 ```r
-verspaetung <- flights %>% filter(!is.na(dep_delay)) %>%
-group_by(month) %>%
-summarise(delay = mean(dep_delay), n = n()) %>% filter(n > 10)
+
+stats_test %>% 
+  select(-row_number, -date_time) %>% 
+  filter(bestanden == "ja") %>% 
+  group_by(interest) %>% 
+  summarise(Punkte = mean(score),
+            n = n())
+#> # A tibble: 0 x 3
+#> # ... with 3 variables: interest <int>, Punkte <dbl>, n <int>
 ```
 
 
-3. (schwierig) Die Pfeife bei `arr_delay`
+3. Die Pfeife bei im Klausur-Datensatz
 
-- Übersetzen Sie die folgende Pseudo-Syntax ins ERRRische!
+- (Übersetzen Sie die folgende Pseudo-Syntax ins ERRRische!
 
-\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz `flights` UND DANN...  
-Wähle daraus die Spalte `arr_delay` UND DANN...  
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nimm den Datensatz `stats_test` UND DANN...  
+Wähle daraus die Spalte `score` UND DANN...  
 Berechne den Mittelwert der Spalte UND DANN...  
 ziehe vom Mittelwert die Spalte ab UND DANN...
 quadriere die einzelnen Differenzen UND DANN...
@@ -998,23 +957,129 @@ Lösung:
 
 
 ```r
-flights %>% 
-  select(arr_delay) %>% 
-  mutate(arr_delay_delta = arr_delay - mean(flights$arr_delay, na.rm = TRUE)) %>% 
-  mutate(arr_delay_delta_quadrat = arr_delay_delta^2) %>% 
-  summarise(arr_delay_var = mean(arr_delay_delta_quadrat, na.rm = TRUE)) %>% 
-  summarise(sqrt(arr_delay_var))
-#> # A tibble: 1 x 1
-#>   `sqrt(arr_delay_var)`
-#>                   <dbl>
-#> 1                  44.6
+stats_test %>% 
+  select(score) %>% 
+  mutate(score_delta = score - mean(.$score)) %>% 
+  mutate(score_delta_squared = score_delta^2) %>% 
+  summarise(score_var = mean(score_delta_squared)) %>% 
+  summarise(sqrt(score_var))
+#>   sqrt(score_var)
+#> 1            5.73
 ```
 
 
-- Berechnen Sie die sd von `arr_delay` in `flights`! Vergleichen Sie sie mit dem Ergebnis der vorherigen Aufgabe!^[`sd(flights$arr_delay, na.rm = TRUE)`]
+Was sagt uns der Punkt `.` in der Syntax oben? Der Punkt steht für die Tabelle, wie sie gerade aufbereitet ist (also laut letzter Zeile in der Syntax). Warum müssen wir dem Befehl `mean` sagen, welche Spalte/Variable `score` wir meinen? Ist doch logo, wir meinen natürlich die Spalte score im aktuellen, durchgepfiffenen Datensatz! Leider weiß das der Befehl `mean` nicht. `mean` hat keinerlei Idee von Pfeifen, unseren Wünschen und Sorgen. `mean` denkt sich: "Not my job! Sag mir gefälligst *wie immer*, in welchem Dataframe ich die Spalte finde!". Also sagen wir `mean`, wo er die Spalte findet...
 
 
-- Was hat die Pfeifen-Syntax oben berechnet?^[die sd von `arr_delay`]
+- Berechnen Sie die sd von `score` in `stats_test`! Vergleichen Sie sie mit dem Ergebnis der vorherigen Aufgabe!^[`sd(stats_test$score)`]
+
+
+- Was hat die Pfeifen-Syntax oben berechnet?^[die sd von `score`]
+
+
+
+### Deskriptive Statistik
+
+`dplyr` kann man gut gebrauchen, um deskriptive Statistik zu berechnen. `summarise` charakterisiert eine Hauptidee der Deskriptivstatistik: Einen Vektor zu einer Zahl zusammenzufassen. `group_by` steht für die Idee, 'Zahlensäcke' (Verteilungen) in Subgruppen aufzuteilen. `mutate` tranformiert Daten. `n` zählt Häufigkeiten.
+
+Ein weiterer zentraler Gedanken der Deskriptivstatistik ist es, dass es beim Zusammenfassen von Daten nicht reicht, sich auf den Mittelwert oder eine (hoffentlich) 'repräsentative' Zahl zu verlassen. Man braucht auch einen Hinweis, wie unterschiedlich die Daten sind. Entsprechend spricht man von zwei Hauptbereichen der deskriptiven Statistik.
+
+>    Die deskriptive Statistik hat zwei Hauptbereiche: Lagemaße und Streuungsmaße.
+
+*Lagemaße* geben den "typischen", "mittleren" oder "repräsentativen" Vertreter der Verteilung an. Bei den Lagemaßen\index{Lagemaße} denkt man sofort an das *arithmetische Mittel* (synonym: Mittelwert; häufig als $\bar{X}$ abgekürzt; `mean`). Ein Nachteil von Mittelwerten ist, dass sie nicht robust gegenüber Extremwerte sind: Schon ein vergleichsweise großer Einzelwert kann den Mittelwert deutlich verändern und damit die Repräsentativität des Mittelwerts für die Gesamtmenge der Daten in Frage stellen. Eine robuste Variante ist der *Median* (Md; `median`). Ist die Anzahl der (unterschiedlichen) Ausprägungen nicht zu groß im Verhältnis zur Fallzahl, so ist der *Modus* eine sinnvolle Statistik; er gibt die häufigste Ausprägung an^[Der *Modus* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. https://cran.r-project.org/web/packages/modes/index.html].
+
+*Streuungsmaße*\index{Streuungsmaße} geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der *mittlere Absolutabstand* (MAA; MAD) ^[Der *MAD* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Es gibt einige Pakete, die diese Funktion anbieten: z.B. https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html], die *Standardabweichung* (sd; `sd`), die *Varianz* (Var; `var`) und der *Interquartilsabstand* (IQR; `IQR`). Da nur der IQR *nicht* auf dem Mittelwert basiert, ist er am robustesten. Beliebige Quantile bekommt man mit dem R-Befehl `quantile`.
+
+Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
+
+
+```r
+summarise(stats_test, mean(score))
+#>   mean(score)
+#> 1        31.1
+summarise(stats_test, sd(score))
+#>   sd(score)
+#> 1      5.74
+```
+
+Natürlich könnte man auch einfacher schreiben:
+
+
+```r
+mean(stats_test$score)
+#> [1] 31.1
+median(stats_test$score)
+#> [1] 31
+```
+
+
+`summarise` liefert aber im Unterschied zu `mean` etc. immer einen Dataframe zurück. Da der Dataframe die typische Datenstruktur ist, ist es häufig praktisch, wenn man einen Dataframe zurückbekommt, mit dem man weiterarbeiten kann. Außerdem lassen `mean` etc. keine Gruppierungsoperationen zu; über `group_by` kann man dies aber bei `dplyr` erreichen.
+
+
+Möchte man die "üblichen Verdächtigen" an deskriptiven Statistiken mit einem Befehl bekommen, so ist der Befehl `desctable` hilfreich:
+
+
+```r
+stats_test2 <- select(stats_test, -date_time) 
+desctable(stats_test2)
+#>                N Med IQR
+#> 1 row_number 306 154 152
+#> 2  bestanden 306   1   0
+#> 3 study_time 238   3   2
+#> 4  self_eval 238   5   3
+#> 5   interest 238   3   2
+#> 6      score 306  31   9
+```
+
+
+Die Variable `date_time` wurde deswegen entfernt, weil sie vom Typ `factor` ist. Wenn es Faktorvariablen gibt, werden die metrischen Werte von `desctable` für jede Faktorstufe getrennt ausgewiesen. Das wäre hier aber nicht sinnvoll. `desctable` wählt die passenden Statistiken selber aus. Bei metrischen Variablen wird zum Beispiel nur dann der Mittelwert und die SD angezeigt, wenn die Variablen normalverteilt sind. Man kann die Auswahl der Statistiken mit dem Parameter `stats` steuern; folgnde Möglichkeiten stehen zur Verfügung: `stats_auto`, `stats_normal`, `stats_nonnormal`, `stats_default`.
+
+
+
+```r
+stats_test2 <- select(stats_test, -date_time) 
+desctable(stats_test2, stats = stats_normal)
+#>                N  Mean/%     sd
+#> 1 row_number 306 153.500 88.479
+#> 2  bestanden 306   0.817  0.387
+#> 3 study_time 238   2.912  1.116
+#> 4  self_eval 238   5.382  2.455
+#> 5   interest 238   3.214  1.390
+#> 6      score 306  31.121  5.744
+```
+
+`stats_normal` gibt Statistiken unter der Annahme von Normalverteilung an.
+
+#### Vertiefung - eigene Statistikauswahl bei `desctable`
+
+Möchte man Statistiken nach eigenem Gusto präsentiert bekommen bei `desctable`, so kann man dies so einstellen^[Die Idee kommt von Norman Markgraf]:
+
+
+```r
+stats_yeah = function(data) {
+  list(N=length, 'Mean/%' = is.factor ~ percent | mean, sd = is.factor ~ NA | sd, Med = median, IQR = is.factor ~ NA | IQR)
+}
+
+desctable(stats_test2, stats = stats_yeah)
+#>                N  Mean/%     sd Med IQR
+#> 1 row_number 306 153.500 88.479 154 152
+#> 2  bestanden 306   0.817  0.387   1   0
+#> 3 study_time 238   2.912  1.116   3   2
+#> 4  self_eval 238   5.382  2.455   5   3
+#> 5   interest 238   3.214  1.390   3   2
+#> 6      score 306  31.121  5.744  31   9
+```
+
+
+Natürlich kann man auch Subgruppen so vergleichen:
+
+
+```r
+stats_test %>% 
+  select(-c(row_number, date_time)) %>% 
+  group_by(bestanden) %>% 
+  desctable
+```
 
 
 ## Befehlsübersicht
@@ -1027,7 +1092,7 @@ Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusa
 \centering
 \begin{tabular}[t]{l|l}
 \hline
-Paket und Funktion & Beschreibung\\
+Paket::Funktion & Beschreibung\\
 \hline
 dplyr::arrange & Sortiert Spalten\\
 \hline
@@ -1045,6 +1110,8 @@ dplyr::count & zählt Zeilen nach Untergruppen\\
 \hline
 dplyr::mutate & erzeugt/berechnet Spalten\\
 \hline
+desctable::desctable & Liefert Tabelle mit deskriptiver Statistik zurück\\
+\hline
 \end{tabular}
 \end{table}
 
@@ -1054,7 +1121,7 @@ dplyr::mutate & erzeugt/berechnet Spalten\\
 
 - Die offizielle Dokumentation von `dplyr` findet sich hier: https://cran.r-project.org/web/packages/dplyr/dplyr.pdf. 
 
-- Eine schöne Demonstration der Mächtigkeit von `dplyr` findet sich hier:  <http://bit.ly/2kX9lvC>.
+- Eine schöne Demonstration wie mächtig `dplyr` ist findet sich hier:  <http://bit.ly/2kX9lvC>.
 
 - Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
 

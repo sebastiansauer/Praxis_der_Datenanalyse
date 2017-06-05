@@ -135,7 +135,7 @@ Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf ein
 
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
 
-```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene"}
+```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene", out.width = "50%"}
 
 knitr::include_graphics("images/cluster/distanz_crop.png")
 ```
@@ -149,7 +149,7 @@ In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\s
 
 Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch "Statistikliebe" erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).
 
-```{r pythagoras2, echo = FALSE, fig.cap = "Pythagoras in 3D"}
+```{r pythagoras2, echo = FALSE, fig.cap = "Pythagoras in 3D", out.width = "50%"}
 
 knitr::include_graphics("images/cluster/pythagoras2_crop.png")
 ```

@@ -794,44 +794,54 @@ Puh. Geschafft!
 
 Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zusammen.
 
-\begin{table}
 
-\caption{(\#tab:befehle-fallstudien)Befehle des Kapitels 'Fallstudien'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-data & Lädt Daten aus einem Datensatz\\
-\hline
-chisq.test & Rechnet einen Chi-Quadrat-Test\\
-\hline
-compute.es::chies & Liefert Effektstärkemaße für einen Chi-Quadrat-Test\\
-\hline
-glm & Rechnet eine generalisiertes lineares Modell (logistische Regression)\\
-\hline
-exp & Delogarithmiert einen Ausdruck\\
-\hline
-coef & Liefert die Koeffizienten von einem Objekt des Typs lm oder glm zurück.\\
-\hline
-predict & Macht eine Vorhersage für ein Objekt des Typs lm oder glm\\
-\hline
-psych::describe & Liefert eine Reihe zentraler Statistiken\\
-\hline
-is.na & Zeigt an, ob ein Vektor fehlende Werte beinhaltet\\
-\hline
-dplyr::summarise\_each & Führt summarise für jede Spalte aus\\
-\hline
-t.test & Rechnet einen t-Test\\
-\hline
-MBESS:ci.smd & Berechnet Cohens d\\
-\hline
-dplyr::ntile & Teilt einen Wertebereich in n gleich große Teile auf (d.h. mit jeweils gleich vielen Fällen)\\
-\hline
-broom::tidy & Wandelt ein Modellobjekt (z.B. von "lm") in einen Dataframe um.\\
-\hline
-\end{tabular}
-\end{table}
+--------------------------------------------------------
+Paket::Funktion         Beschreibung                    
+----------------------- --------------------------------
+data                    Lädt Daten aus einem Datensatz  
+
+chisq.test              Rechnet einen Chi-Quadrat-Test  
+
+compute.es::chies       Liefert Effektstärkemaße für    
+                        einen Chi-Quadrat-Test          
+
+glm                     Rechnet eine generalisiertes    
+                        lineares Modell (logistische    
+                        Regression)                     
+
+exp                     Delogarithmiert einen Ausdruck  
+
+coef                    Liefert die Koeffizienten von   
+                        einem Objekt des Typs lm oder   
+                        glm zurück.                     
+
+predict                 Macht eine Vorhersage für ein   
+                        Objekt des Typs lm oder glm     
+
+psych::describe         Liefert eine Reihe zentraler    
+                        Statistiken                     
+
+is.na                   Zeigt an, ob ein Vektor         
+                        fehlende Werte beinhaltet       
+
+dplyr::summarise_each   Führt summarise für jede        
+                        Spalte aus                      
+
+t.test                  Rechnet einen t-Test            
+
+MBESS:ci.smd            Berechnet Cohens d              
+
+dplyr::ntile            Teilt einen Wertebereich in n   
+                        gleich große Teile auf (d.h.    
+                        mit jeweils gleich vielen       
+                        Fällen)                         
+
+broom::tidy             Wandelt ein Modellobjekt (z.B.  
+                        von "lm") in einen Dataframe    
+                        um.                             
+--------------------------------------------------------
+
+Table: Befehle des Kapitels 'Fallstudien'
 
 
 

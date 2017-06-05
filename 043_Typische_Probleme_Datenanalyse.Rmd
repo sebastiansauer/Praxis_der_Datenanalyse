@@ -89,13 +89,15 @@ Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klam
 
 
 Hier verlieren wir `r nrow(stats_test) - nrow(stats_test_na_omit)` Zeilen, das verschmerzen wir.
-Welche Zeilen verlieren wir eigentlich?
+
+Welche Zeilen verlieren wir eigentlich? Lassen wir uns nur die *nicht-*kompletten Fälle anzeigen (und davon nur die ersten paar):
 ```{r}
 stats_test %>% 
-   filter(!complete.cases(.))  # Nur die nicht-kompletten Fälle filtern
+   filter(!complete.cases(.)) %>% 
+  head 
 ```
 
-Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht".
+Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht". Mit `head` bekommt man nur die ersten paar Fälle (6 im Standard) angezeigt, was oft reicht für einen Überblick.
 
 In Pseudo-Syntax liest es sich so:
 
@@ -174,20 +176,20 @@ Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur ve
 
 ```{r}
 extra %>% 
-  select_if(is.numeric) %>%  # Spalte nur auswählen, wenn numerisch
+  select(i01, i02r) %>%  
   scale() %>%  # z-standardisieren
   head()  # nur die ersten paar Zeilen abdrucken
 ```
 
-Dieser Befehl liefert zwei z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
+Dieser Befehl liefert z-standardisierte Spalten zurück. Kommoder ist es aber, alle Spalten des Datensatzes zurück zu bekommen, wobei zusätzlich die z-Werte aller numerischen Variablen hinzugekommen sind:
 
-```{r}
+```{r eval = FALSE}
 extra %>% 
   mutate_if(is.numeric, funs("z" = scale)) %>% 
   head
 ```
 
-Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
+Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies nur, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
 
 
 ### Quasi-Konstante finden
@@ -442,10 +444,10 @@ stats_test %>%
   na.omit %>% 
   filter(study_time > 1) %>% 
   group_by(intessiert = interest > 3) %>% 
-  summarise(median(score))
+  summarise(md_gruppe = median(score))
 ```
 
-Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`).
+Die beiden Gruppen von `interessiert` sind "ja, interessiert" (`interest > 3` ist `TRUE`) und "nein, nicht interessiert" (`interest > 3` ist `FALSE`). Außerdem haben wir der Spalte, die die Mediane zurückliefert einen ansprechenderen Namen gegeben (`md_gruppe`).
 
 
 Etwas expliziter wäre es, `mutate` zu verwenden, um die Variable `interessiert` zu erstellen:
@@ -456,9 +458,11 @@ stats_test %>%
   filter(study_time > 1) %>% 
   mutate(interessiert = interest > 3) %>% 
   group_by(interessiert) %>% 
-  summarise(median(score))
+  summarise(md_gruppe = median(score),
+            mw_gruppe = mean(score))
 ```
 
+Dieses Mal haben wir nicht nur eine Spalte mit den Medianwerten, sondern zusätzlich noch mit Mittelwerten berechnet.
 
 ```{block2, robust-only, type='rmdcaution', echo = TRUE} 
 Statistiken, die auf dem Mittelwert (arithmetisches Mittel) beruhen, sind nicht robust gegenüber Ausreißer: Schon wenige Extremwerte können diese Statistiken so verzerren, dass sie erheblich an Aussagekraft verlieren.

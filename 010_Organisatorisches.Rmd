@@ -49,8 +49,6 @@ Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vg
 Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 
-
-
 Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
 
 ```{r termin-themen, echo = FALSE}
@@ -109,12 +107,13 @@ Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
   - die Inhalte von Fußnoten,
   - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
   
-  
+
+Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt.  
   
 ### Klausur
   
 
-- Die Klausur besteht fast oder komplett aus Multiple-Choice (MC-)-Aufgaben mit mehreren Antwortoptionen; zumeist ist eine Antwort aus vieren auszuwählen.
+- Die Klausur besteht fast oder komplett aus Multiple-Choice (MC-)-Aufgaben mit mehreren Antwortoptionen (sofern nicht anders vom Dozenten vorgegeben). 
 
 - Die (maximale) Anzahl der richtigen Aussagen ist pro Aufgabe angegeben. Werden mehr Aussagen als "richtig" angekreuzt als angegeben, so wird die Aufgabe mit 0 Punkten beurteilt. Ansonsten werden Teilpunkte für jede Aufgabe vergeben.
 

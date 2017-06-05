@@ -141,6 +141,49 @@ rechts unten durch.
 Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist `Shift-Alt-K`.
 
 
+### Sonstiges Material für dieses Skript
+
+Bitte laden Sie sich auch das sonstige Material aus dem [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter:
+
+- Daten (Ordner `data`)
+- Liste der benötigten R-Pakete (Datei `Paktete_fuer_Prada`)
+
+Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustate/Kontextmenü und dann "Dateien extrahieren" o.ä.]. 
+
+### Das Arbeitsverzeichnis {#wd}
+
+
+Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/tidy/Arbeitsverzeichnis} 
+
+}
+
+\caption{Das Arbeitsverzeichnis mit RStudio auswählen}(\#fig:Arbeitsverzeichnis)
+\end{figure}
+
+
+Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
+
+
+```r
+# nicht ausführen:
+daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
+```
+
+R geht dann davon aus, dass sich die Datei `daten_deutsch.csv` im Arbeitsverzeichnis befindet.
+
+
+Für diesen Kurs ist es sinnvoll, das Arbeitsverzeichnis in einen "Hauptordner" zu legen (z.B. "Praxis_der_Datenanalyse"), in dem Daten und sonstiges Material als Unterordner abgelegt sind.
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
+</div>\EndKnitrBlock{rmdcaution}
+
+
 ### Hilfe! R tut nicht so wie ich das will
 
 >    Manntje, Manntje, Timpe Te,   
@@ -197,9 +240,9 @@ installiert werden konnte (z.B. "Package 'Rcpp' could not be installed" oder "es
 gibt kein Paket namens ‘Rcpp’" oder "unable to move temporary installation XXX 
 to YYY"), dann tun Sie folgendes:
 
-- Schließen Sie R und starten Sie es neu. 
-- Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
-- Starten Sie das entsprechende Paket mit `library(name_des_pakets)`.
+    - Schließen Sie R und starten Sie es neu. 
+    - Installieren Sie das oder die angesprochenen Pakete mit `install.packages("name_des_pakets", dependencies = TRUE)` oder mit dem entsprechenden Klick in RStudio. 
+    - Starten Sie das entsprechende Paket mit `library(name_des_pakets)`.
 
 
 - Gerade bei Windows 10 scheinen die Schreibrechte für R (und damit RStudio oder
@@ -283,19 +326,33 @@ diesen Tugenden zu trainieren :-)
 
 
 
-### Pakete installieren
+### Pakete 
+
+Ein Großteil der Neuentwicklungen bei R passiert in sog. 'Paketen' (engl. *packages*), das sind Erweiterungen für R. Jeder, der sich berufen fühlt, kann ein R-Paket schreiben und es zum 'R-Appstore' ([CRAN](https://cran.r-project.org/)) hochladen. Von dort kann es dann frei (frei wie in Bier) heruntergeladen werden.
+
+Am einfachsten installiert man R-Pakete in RStudio über den Button "Install" im Reiter "Packages" (s. Abb. \@ref(fig:fig-install-packages)).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/install_packages} 
+
+}
+
+\caption{So installiert man Pakete in RStudio}(\#fig:fig-install-packages)
+\end{figure}
+
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt 
-`dplyr`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es 
-schon einmal, sofern noch nicht geschehen:
+`tidyverse`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es 
+schon einmal, sofern noch nicht geschehen. Sie können auch folgenden Befehl verwenden, um Pakete zu installieren.
 
 
 ```r
-install.packages("dplyr", dependencies = TRUE) 
+install.packages("tidyverse", dependencies = TRUE) 
 ```
 
 
-
+Sofern Sie online sind, sollte das Paket `tidyverse` jetzt installiert sein.
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Beim Installieren von 
 R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. 
@@ -315,7 +372,6 @@ installiert sind (gut möglich), dann werden diese sog. "dependencies" gleich
 mitinstalliert (wenn Sie  `dependencies = TRUE` setzen).
 
 
-Sie müssen online sein, um Packages zu installieren.
 
 Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten* 
 (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder 
@@ -343,7 +399,7 @@ oder library('dplyr'); geht beides.
 
 Das Installieren und Starten anderer Pakete läuft genauso ab. Am besten 
 installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann 
-haben Sie Ruhe.
+haben Sie Ruhe (eine schnelle Internetverbindung vorausgesetzt).
 
 
 
@@ -351,6 +407,7 @@ haben Sie Ruhe.
 
 In diesem Skript verwenden wir die folgenden 
 R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein. 
+
 
 
 
@@ -367,53 +424,30 @@ R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Admini
 #> [29] "tidyverse"     "wordcloud"
 ```
 
-Mit folgenden Befehlen installieren Sie alle Pakete auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.
+Mit folgenden Befehlen installieren Sie alle Pakete für diesen Kurs auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.
+
 
 ```r
-load("includes/Pakete_fuer_PraDa.Rda")
+load("div/Pakete_fuer_PraDa.Rda")
 install.packages(packages)
 ```
 
-Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu ladne sind.
+Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu diesem Skript zugrifen, davon ausgehen, dass das Arbeitsverzeichnis passend gesetzt ist (vgl. Kapitel \@ref(wd)). Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu laden sind. 
 
-### Datensätze { #daten }
+### Datensätze {#daten}
 
+Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages/data). Bitte laden Sie diesen Ordner herunter.
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
-- Datensatz `inf_test_short`, hier herunterzuladen: <https://osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
+- Datensatz `inf_test_short`, URL: <https://osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
 - Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
-- Datensatz 'wo_men`, hier herunterzuladen: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
+- Datensatz 'wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
-- Datensatz `extra`, hier herunterzuladen: <https://osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
+- Datensatz `extra`, URL: <https://osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
 
 
-Wir verwenden zwei Methoden, um Datensätze in R zu laden.
-
-- Zum einen laden wir Datensätze aus R-Paketen, z.B. aus dem Paket 
-`okcupiddata`. Dazu muss das entsprechende Paket installiert und geladen sein. 
-Mit dem Befehl `data(name_des_datensatzes, package = "name_des_paketes")`, kann 
-man dann die Daten laden. Das Laden eines Pakets lädt noch *nicht* die Daten des
-Paketes; dafür ist der Befehl `data` zuständig.
-
-
-```r
-library(okcupiddata) 
-data(profiles, package = "okcupiddata")
-```
-
-
-- Alternativ kann man die Daten als CSV- oder als XLS(X)-Datei importieren. Die 
-Datei darf dabei sowohl auf einer Webseite als auch lokal (Festplatte, Stick...) 
-liegen.
-
-
-```r
-Daten <- read.csv("https://sebastiansauer.github.io/data/tips.csv") 
-```
-
-Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
-
+Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen).
 
 
 
@@ -432,9 +466,22 @@ Wir werden mit beiden Methoden arbeiten und "on the job" Details besprechen.
 
 ## ERRRstkontakt
 
-<!-- Es fehlen noch: -->
-<!-- - Hinweise zu R-Datentypen -->
+### Datentypen in R
 
+Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
+
+\begin{table}
+
+\caption{(\#tab:datentypen)Wichtige Datentypen in R}
+\centering
+\begin{tabular}[t]{l}
+\hline
+includes/Datentypen.csv\\
+\hline
+\end{tabular}
+\end{table}
+
+Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
 ### Hinweise
 
@@ -621,12 +668,22 @@ Sammlung, Analyse, Interpretation und Kommunikation von Daten ist mithilfe
 mathematischer Verfahren ist und zur Entscheidungshilfe beitragen solle 
 [@oxford; @sep-statistics]. Damit hätten wir auch den Unterschied zur schnöden 
 Datenanalyse (ein Teil der Statistik) herausgemeißelt. Statistik wird häufig in 
-die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt. Erstere 
+die zwei Gebiete *deskriptive* und *inferierende* Statistik eingeteilt (vgl. Abb. \@ref(fig:desk-vs-inf)). Erstere 
 fasst viele Zahlen zusammen, so dass wir den Wald statt vieler Bäume sehen. 
 Letztere verallgemeinert von den vorliegenden (sog. "Stichproben-")Daten auf 
 eine zugrunde liegende Grundmenge (Population). Dabei spielt die 
 Wahrscheinlichkeitsrechnung (Stochastik) eine große 
 Rolle.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/desk_vs_inf-crop} 
+
+}
+
+\caption{Sinnbild für die Deskriptiv- und die Inferenzstatistik}(\#fig:desk-vs-inf)
+\end{figure}
+
 
 
 Aufgabe der deskriptiven Statistik ist es primär, Daten prägnant 
@@ -657,9 +714,7 @@ Statistisches Modellieren läuft gewöhnlich nach folgendem Muster ab [@grolemun
 ```
 Prämisse 1: Wenn Modell M wahr ist, dann sollten die Daten das Muster D aufweisen.
 Prämisse 2: Die Daten weisen das Muster D auf.
-
 ---
-
 Konklusion: Daher muss das Modell M wahr sein.
 ```
 
@@ -669,7 +724,7 @@ Ein Beispiel: Auf dem Nachhauseweg eines langen Arbeitstags wartet, in einer dun
 
 Ein Modell, welches wir hier verwenden könnten, lautet: Wenn die Münze gezinkt ist (Modell M zutrifft), dann wäre diese Datenlage D (10 von 10 Treffern) wahrscheinlich - Prämisse 1. Datenlage D ist tatsächlich der Fall; der Statistiker hat 10 von 10 Treffer erzielt - Prämisse 2. Die Daten D "passen" also zum Modell M; man entscheidet sich, dass der Professor ein Falschspieler ist. 
 
-Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen *wenn* beginnt. Also davon *ausgeht*, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Dass, worüber wir entscheiden wollen, wird also bereits vorausgesetzt. Gilt also M, wie gut passen dann die Daten dazu? 
+Wichtig zu erkennen ist, dass Abduktion mit dem Wörtchen *wenn* beginnt. Also davon *ausgeht*, dass ein Modell M der Fall ist (der Professor also tatsächlich ein Betrüger ist). Das, worüber wir entscheiden wollen, wird bereits vorausgesetzt. Falls M gilt, gehen wir mal davon aus, wie gut passen dann die Daten dazu? 
 
 >    Wie gut passen die Daten D zum Modell M?
 
@@ -677,13 +732,12 @@ Das ist die Frage, die hier tatsächlich gestellt bzw. beantwortet wird.
 
 Natürlich ist es keineswegs sicher, *dass* das Modell gilt. Darüber macht die Abduktion auch keine Aussage. Es könnte also sein, dass ein anderes Modell zutrifft: Der Professor könnte ein Heiliger sein, der uns auf etwas merkwürdige Art versucht, Geld zuzuschanzen... Oder er hat einfach Glück gehabt.
 
->   Statistische Modelle beantworten i.d.R. nicht, wie wahrsheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.
+>   Statistische Modelle beantworten i.d.R. nicht, wie wahrscheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.
 
 Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze "einschießt" auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein[^447]. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt. 
 
 
 ## Befehlsübersicht
-
 
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 

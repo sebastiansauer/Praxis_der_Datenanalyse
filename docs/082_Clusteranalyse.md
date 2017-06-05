@@ -103,7 +103,7 @@ Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/cluster/distanz_crop} 
+{\centering \includegraphics[width=0.5\linewidth]{images/cluster/distanz_crop} 
 
 }
 
@@ -121,7 +121,7 @@ Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/cluster/pythagoras2_crop} 
+{\centering \includegraphics[width=0.5\linewidth]{images/cluster/pythagoras2_crop} 
 
 }
 

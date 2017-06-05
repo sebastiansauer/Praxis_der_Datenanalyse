@@ -140,7 +140,9 @@ Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen 
 
 
 ```r
-afd_url <- "https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf"
+afd_url <- paste0("https://www.alternativefuer.de",
+"/wp-content/uploads/sites/7/2016/05/",
+"2016-06-27_afd-grundsatzprogramm_web-version.pdf")
 
 afd_pfad <- "data/afd_programm.pdf"
 
@@ -148,10 +150,10 @@ download(afd_url, afd_pfad)
 
 afd_raw <- pdf_text(afd_pfad)
 
-head(afd_raw, 1)
-#> [1] "PROGRAMM FÜR\nDEUTSCHLAND.\nDas Grundsatzprogramm der Alternative für Deutschland.\n"
 ```
 
+
+Mit `head(afd_raw)`können Sie sich den Beginn dieses Textvektor anzeigen lassen.
 
 Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als `afd_pfad` gespeichert. Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest. `head(afd_raw, 1)` liest das 1. Element (und nur das erste) aus `afd_raw` aus.
 
@@ -298,7 +300,11 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
 ```r
-wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
+wordcloud(words = afd_count$token_stem, 
+          freq = afd_count$n, 
+          max.words = 100, 
+          scale = c(2,.5), 
+          colors=brewer.pal(6, "Dark2"))
 ```
 
 
@@ -352,32 +358,35 @@ Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktier
 
 Tabelle \@ref(tab:befehle-text) fasst die R-Funktionen dieses Kapitels zusammen.
 
-\begin{table}
 
-\caption{(\#tab:befehle-text)Befehle des Kapitels 'Textmining'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Befehl & Beschreibung\\
-\hline
-tidytext::unnest\_tokens & Jedes Token (Wort) einer Spalte bekommt eine eigene Zeile in einem Dataframe\\
-\hline
-stringr::str\_detect & Sucht nach einem String (Text)\\
-\hline
-downloader:: download & lädt eine Datei aus dem Internet herunter\\
-\hline
-dplyr::rename & Benennt Spalten um\\
-\hline
-anti\_join & Führt Dataframes zusammen, so dass nicht matchende Einträge übernommen werden\\
-\hline
-wordcloud::wordcloud & Erstellt eine Wordcloud\\
-\hline
-ggplot2::labs & Fügt Titel oder andere Hinweise einem ggplot2-Objekt hinzu\\
-\hline
-ggplot2::coord\_flip & Dreht die Achsen um 90 Grad\\
-\hline
-\end{tabular}
-\end{table}
+----------------------------------------------------------
+Paket::Befehl             Beschreibung                    
+------------------------- --------------------------------
+tidytext::unnest_tokens   Jedes Token (Wort) einer        
+                          Spalte bekommt eine eigene      
+                          Zeile in einem Dataframe        
+
+stringr::str_detect       Sucht nach einem String (Text)  
+
+downloader:: download     lädt eine Datei aus dem         
+                          Internet herunter               
+
+dplyr::rename             Benennt Spalten um              
+
+anti_join                 Führt Dataframes zusammen, so   
+                          dass nicht matchende Einträge   
+                          übernommen werden               
+
+wordcloud::wordcloud      Erstellt eine Wordcloud         
+
+ggplot2::labs             Fügt Titel oder andere          
+                          Hinweise einem ggplot2-Objekt   
+                          hinzu                           
+
+ggplot2::coord_flip       Dreht die Achsen um 90 Grad     
+----------------------------------------------------------
+
+Table: Befehle des Kapitels 'Textmining'
 
 
 ## Verweise

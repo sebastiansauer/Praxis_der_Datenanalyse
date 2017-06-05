@@ -75,63 +75,14 @@ Werte <- read.csv2("data/Werte.csv")
 ```
 
 
-Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung.
+Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und die Zusammenfassung. Probieren Sie die folgenden Befehle aus:
+
 
 ```r
 str(Werte)
-#> 'data.frame':	1000 obs. of  15 variables:
-#>  $ W1 : int  6 3 2 7 3 5 7 5 4 5 ...
-#>  $ W3 : int  6 7 7 7 4 5 5 5 4 5 ...
-#>  $ W4 : int  7 3 3 7 3 5 5 5 3 3 ...
-#>  $ W6 : int  6 1 6 4 4 4 3 3 2 2 ...
-#>  $ W7 : int  6 1 6 3 4 3 4 3 1 2 ...
-#>  $ W9 : int  2 7 4 1 5 1 3 3 3 1 ...
-#>  $ W10: int  5 7 7 7 2 5 6 3 4 5 ...
-#>  $ W11: int  4 3 6 3 4 3 4 2 2 5 ...
-#>  $ W12: int  6 7 7 2 7 3 4 5 6 5 ...
-#>  $ W13: int  6 7 7 6 7 4 6 6 7 4 ...
-#>  $ W14: int  6 7 3 3 6 5 6 7 3 7 ...
-#>  $ W15: int  6 7 7 5 3 7 5 6 2 5 ...
-#>  $ W16: int  5 6 1 3 3 5 5 4 5 6 ...
-#>  $ W17: int  4 7 1 7 6 5 7 6 6 5 ...
-#>  $ W18: int  7 6 7 5 2 7 7 6 7 7 ...
 head(Werte)
-#>   W1 W3 W4 W6 W7 W9 W10 W11 W12 W13 W14 W15 W16 W17 W18
-#> 1  6  6  7  6  6  2   5   4   6   6   6   6   5   4   7
-#> 2  3  7  3  1  1  7   7   3   7   7   7   7   6   7   6
-#> 3  2  7  3  6  6  4   7   6   7   7   3   7   1   1   7
-#> 4  7  7  7  4  3  1   7   3   2   6   3   5   3   7   5
-#> 5  3  4  3  4  4  5   2   4   7   7   6   3   3   6   2
-#> 6  5  5  5  4  3  1   5   3   3   4   5   7   5   5   7
 summary(Werte)
-#>        W1             W3             W4             W6      
-#>  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00  
-#>  1st Qu.:4.00   1st Qu.:4.00   1st Qu.:3.00   1st Qu.:2.00  
-#>  Median :5.00   Median :5.00   Median :4.00   Median :4.00  
-#>  Mean   :5.23   Mean   :5.12   Mean   :4.18   Mean   :3.61  
-#>  3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:5.00  
-#>  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00  
-#>        W7             W9            W10            W11            W12   
-#>  Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1.00   Min.   :1  
-#>  1st Qu.:2.00   1st Qu.:1.00   1st Qu.:4.00   1st Qu.:2.00   1st Qu.:4  
-#>  Median :4.00   Median :2.00   Median :5.00   Median :4.00   Median :5  
-#>  Mean   :3.71   Mean   :2.96   Mean   :4.78   Mean   :3.68   Mean   :5  
-#>  3rd Qu.:5.00   3rd Qu.:4.00   3rd Qu.:6.00   3rd Qu.:5.00   3rd Qu.:6  
-#>  Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7.00   Max.   :7  
-#>       W13            W14           W15            W16            W17      
-#>  Min.   :1.00   Min.   :1.0   Min.   :1.00   Min.   :1.00   Min.   :1.00  
-#>  1st Qu.:5.00   1st Qu.:4.0   1st Qu.:5.00   1st Qu.:4.00   1st Qu.:4.00  
-#>  Median :6.00   Median :6.0   Median :6.00   Median :5.00   Median :5.00  
-#>  Mean   :5.65   Mean   :5.2   Mean   :5.56   Mean   :5.03   Mean   :4.89  
-#>  3rd Qu.:7.00   3rd Qu.:6.0   3rd Qu.:7.00   3rd Qu.:6.00   3rd Qu.:6.00  
-#>  Max.   :7.00   Max.   :7.0   Max.   :7.00   Max.   :7.00   Max.   :7.00  
-#>       W18      
-#>  Min.   :1.00  
-#>  1st Qu.:4.00  
-#>  Median :6.00  
-#>  Mean   :5.24  
-#>  3rd Qu.:6.00  
-#>  Max.   :7.00
+
 ```
 
 Wir sehen in der `summary()`, dass die Bereiche der Bewertungen für jede Variable 1-7 sind. In `str()` sehen wir, dass die Bewertungen als numerisch (Integer, also ganzzahlig) eingelesen wurden. Die Daten sind somit offenbar richtig formatiert.
@@ -143,37 +94,13 @@ In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird übliche
 Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.sc` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
 
 
+
+
+
+
 ```r
 Werte.sc <- scale(Werte)
 summary(Werte.sc)
-#>        W1               W3               W4               W6        
-#>  Min.   :-2.842   Min.   :-2.803   Min.   :-1.874   Min.   :-1.451  
-#>  1st Qu.:-0.828   1st Qu.:-0.763   1st Qu.:-0.695   1st Qu.:-0.895  
-#>  Median :-0.156   Median :-0.084   Median :-0.106   Median : 0.215  
-#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
-#>  3rd Qu.: 1.186   3rd Qu.: 0.596   3rd Qu.: 0.484   3rd Qu.: 0.771  
-#>  Max.   : 1.186   Max.   : 1.276   Max.   : 1.663   Max.   : 1.881  
-#>        W7               W9              W10              W11        
-#>  Min.   :-1.536   Min.   :-0.998   Min.   :-2.252   Min.   :-1.608  
-#>  1st Qu.:-0.970   1st Qu.:-0.998   1st Qu.:-0.466   1st Qu.:-1.009  
-#>  Median : 0.162   Median :-0.487   Median : 0.129   Median : 0.189  
-#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
-#>  3rd Qu.: 0.728   3rd Qu.: 0.533   3rd Qu.: 0.725   3rd Qu.: 0.788  
-#>  Max.   : 1.859   Max.   : 2.064   Max.   : 1.320   Max.   : 1.986  
-#>       W12              W13             W14              W15       
-#>  Min.   :-2.528   Min.   :-3.30   Min.   :-2.675   Min.   :-3.43  
-#>  1st Qu.:-0.630   1st Qu.:-0.46   1st Qu.:-0.763   1st Qu.:-0.42  
-#>  Median : 0.003   Median : 0.25   Median : 0.511   Median : 0.33  
-#>  Mean   : 0.000   Mean   : 0.00   Mean   : 0.000   Mean   : 0.00  
-#>  3rd Qu.: 0.635   3rd Qu.: 0.96   3rd Qu.: 0.511   3rd Qu.: 1.09  
-#>  Max.   : 1.268   Max.   : 0.96   Max.   : 1.148   Max.   : 1.09  
-#>       W16              W17              W18        
-#>  Min.   :-2.688   Min.   :-2.605   Min.   :-2.944  
-#>  1st Qu.:-0.688   1st Qu.:-0.598   1st Qu.:-0.863  
-#>  Median :-0.021   Median : 0.071   Median : 0.524  
-#>  Mean   : 0.000   Mean   : 0.000   Mean   : 0.000  
-#>  3rd Qu.: 0.646   3rd Qu.: 0.740   3rd Qu.: 0.524  
-#>  Max.   : 1.313   Max.   : 1.409   Max.   : 1.218
 ```
 
 Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle Beobachtungen 0 und die sd 1 ist. 
@@ -191,7 +118,7 @@ corrplot(cor(Werte.sc), order = "hclust")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
@@ -232,7 +159,7 @@ Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Wert
 ```r
 Werte.pc <- prcomp(Werte.sc)
 summary(Werte.pc)
-#> Importance of components:
+#> Importance of components%s:
 #>                          PC1   PC2   PC3    PC4    PC5    PC6    PC7
 #> Standard deviation     1.691 1.542 1.384 1.1428 1.0797 0.8855 0.8298
 #> Proportion of Variance 0.191 0.159 0.128 0.0871 0.0777 0.0523 0.0459
@@ -292,43 +219,6 @@ Der *Eigenwert*\index{Eigenwert} ist eine Metrik für den Anteil der erklärten 
 
 ```r
 eigen(cor(Werte))
-#> $values
-#>  [1] 2.859 2.378 1.916 1.306 1.166 0.784 0.689 0.653 0.621 0.577 0.550
-#> [12] 0.474 0.420 0.416 0.193
-#> 
-#> $vectors
-#>          [,1]    [,2]     [,3]    [,4]    [,5]    [,6]    [,7]     [,8]
-#>  [1,] -0.3360 -0.2562  0.12816 -0.2571 -0.3169 -0.0889  0.0120 -0.04125
-#>  [2,] -0.3394 -0.2852  0.08185 -0.1592 -0.2717  0.0752  0.2663 -0.13585
-#>  [3,] -0.2639 -0.3166 -0.02087 -0.3541 -0.1630  0.0153  0.1008 -0.00337
-#>  [4,] -0.0823 -0.3339 -0.51113  0.0687  0.2738 -0.0882  0.0152 -0.05503
-#>  [5,] -0.0871 -0.3471 -0.47413  0.0757  0.3483 -0.0434  0.0584  0.03857
-#>  [6,] -0.0534  0.3031 -0.21855 -0.3830  0.2185  0.2994  0.4606  0.32818
-#>  [7,] -0.2362  0.2144 -0.25639 -0.3171 -0.0895 -0.1169 -0.5396  0.42299
-#>  [8,] -0.1540  0.3269 -0.17147 -0.3448  0.1406  0.1411 -0.2855 -0.70991
-#>  [9,] -0.2746  0.3383 -0.23404  0.1936 -0.1457 -0.2681  0.1305 -0.12314
-#> [10,] -0.3044  0.2172 -0.16643  0.3226 -0.2446 -0.4345  0.1108  0.11516
-#> [11,] -0.2735  0.2343 -0.11639  0.2791 -0.1675  0.5463  0.1090  0.02066
-#> [12,] -0.2954 -0.1718  0.00605  0.4025 -0.0024  0.4913 -0.2515  0.02419
-#> [13,] -0.3110  0.0555  0.33806 -0.0865  0.3504  0.0277 -0.1176  0.35210
-#> [14,] -0.2776  0.1469  0.24874  0.0342  0.3960 -0.1661  0.3910 -0.15683
-#> [15,] -0.3188 -0.0734  0.27436  0.1283  0.3725 -0.1565 -0.2432 -0.08194
-#>          [,9]    [,10]   [,11]   [,12]    [,13]    [,14]    [,15]
-#>  [1,] -0.0141  0.13021  0.3101 -0.0270  0.67608  0.23964 -0.01401
-#>  [2,] -0.0858 -0.15704  0.3822 -0.2411 -0.55627 -0.23709 -0.02689
-#>  [3,]  0.1529  0.07493 -0.7301  0.3027 -0.10366 -0.05236  0.01611
-#>  [4,] -0.0792  0.10887  0.0702 -0.0737  0.00748  0.05089  0.70614
-#>  [5,] -0.0611  0.09661  0.0227 -0.0945  0.05078  0.00934 -0.69865
-#>  [6,]  0.3872 -0.19518  0.1962  0.1211  0.07465  0.06917  0.04537
-#>  [7,] -0.3791 -0.14870  0.1039  0.1943 -0.10784 -0.11782 -0.01622
-#>  [8,]  0.0826 -0.02452 -0.0444 -0.1755 -0.06446  0.22016 -0.05602
-#>  [9,]  0.1657 -0.00433 -0.1147 -0.1631  0.28330 -0.66711  0.00900
-#> [10,]  0.2048 -0.08408 -0.0638 -0.0336 -0.24080  0.58366 -0.03821
-#> [11,] -0.2485  0.58465  0.0133  0.1725 -0.06163  0.05156 -0.00444
-#> [12,]  0.1156 -0.59999 -0.1105 -0.0235  0.16793  0.02761  0.02934
-#> [13,]  0.0562  0.23756 -0.2018 -0.6413 -0.02620  0.03045  0.06156
-#> [14,] -0.5830 -0.25695 -0.1034  0.2122  0.10191  0.06346  0.01993
-#> [15,]  0.4135  0.19855  0.2952  0.4874 -0.13201 -0.14046 -0.00201
 ```
 
 Der Eigenwert einer Komponente/ eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Laut dem Eigenwert-Kriterium sollen nur Faktoren mit einem *Eigenwert größer 1* extrahiert werden. Dies sind bei den Werte-Daten fünf Komponenten/ Faktoren, da fünf Eigenwerte größer 1 sind. Der Grund ist, dass Komponenten/ Faktoren mit einem Eigenwert kleiner als 1 weniger Erklärungswert haben als die ursprünglichen Variablen. 
@@ -364,7 +254,7 @@ biplot(Werte.pc)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Die Variablen-Gruppierungen sind als rote Ladungspfeile sichtbar. Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist hier durch die große Anzahl an Beobachtung recht unübersichtlich. 
 
@@ -447,7 +337,7 @@ fa.diagram(Werte.pca)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 
 
@@ -483,82 +373,12 @@ Eine EFA wird geschätzt mit dem Befehl `factanal(x,factors = k)`, wobei `k` die
 ```r
 Werte.fa<-factanal(Werte, factors = 5)
 Werte.fa
-#> 
-#> Call:
-#> factanal(x = Werte, factors = 5)
-#> 
-#> Uniquenesses:
-#>    W1    W3    W4    W6    W7    W9   W10   W11   W12   W13   W14   W15 
-#> 0.401 0.486 0.584 0.243 0.139 0.660 0.662 0.626 0.395 0.481 0.729 0.713 
-#>   W16   W17   W18 
-#> 0.463 0.666 0.561 
-#> 
-#> Loadings:
-#>     Factor1 Factor2 Factor3 Factor4 Factor5
-#> W1           0.756           0.147         
-#> W3           0.686           0.149         
-#> W4   0.172   0.611                         
-#> W6   0.849   0.131          -0.133         
-#> W7   0.921                                 
-#> W9          -0.123                   0.568 
-#> W10          0.154   0.266           0.492 
-#> W11                  0.168           0.580 
-#> W12                  0.715           0.298 
-#> W13                  0.710                 
-#> W14                  0.483   0.132   0.137 
-#> W15  0.188   0.230   0.268   0.265  -0.240 
-#> W16 -0.114   0.158           0.698   0.106 
-#> W17                  0.149   0.539   0.111 
-#> W18          0.181           0.618  -0.109 
-#> 
-#>                Factor1 Factor2 Factor3 Factor4 Factor5
-#> SS loadings      1.668   1.600   1.473   1.332   1.116
-#> Proportion Var   0.111   0.107   0.098   0.089   0.074
-#> Cumulative Var   0.111   0.218   0.316   0.405   0.479
-#> 
-#> Test of the hypothesis that 5 factors are sufficient.
-#> The chi square statistic is 93.3 on 40 degrees of freedom.
-#> The p-value is 3.83e-06
 ```
 
 Eine übersichtlichere Ausgabe bekommen wir mit dem `print` Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit `digits = 2`, alle Ladungen kleiner als 0,5 ausblenden mit `cutoff = .4` und die Ladungen mit `sort = TRUE` so sortieren, dass die Ladungen, die auf einen Faktor laden, untereinander stehen.
 
 ```r
 print(Werte.fa, digits = 2, cutoff = .4, sort = TRUE)
-#> 
-#> Call:
-#> factanal(x = Werte, factors = 5)
-#> 
-#> Uniquenesses:
-#>   W1   W3   W4   W6   W7   W9  W10  W11  W12  W13  W14  W15  W16  W17  W18 
-#> 0.40 0.49 0.58 0.24 0.14 0.66 0.66 0.63 0.39 0.48 0.73 0.71 0.46 0.67 0.56 
-#> 
-#> Loadings:
-#>     Factor1 Factor2 Factor3 Factor4 Factor5
-#> W6   0.85                                  
-#> W7   0.92                                  
-#> W1           0.76                          
-#> W3           0.69                          
-#> W4           0.61                          
-#> W12                  0.72                  
-#> W13                  0.71                  
-#> W16                          0.70          
-#> W17                          0.54          
-#> W18                          0.62          
-#> W9                                   0.57  
-#> W11                                  0.58  
-#> W10                                  0.49  
-#> W14                  0.48                  
-#> W15                                        
-#> 
-#>                Factor1 Factor2 Factor3 Factor4 Factor5
-#> SS loadings       1.67    1.60    1.47    1.33    1.12
-#> Proportion Var    0.11    0.11    0.10    0.09    0.07
-#> Cumulative Var    0.11    0.22    0.32    0.40    0.48
-#> 
-#> Test of the hypothesis that 5 factors are sufficient.
-#> The chi square statistic is 93.3 on 40 degrees of freedom.
-#> The p-value is 3.83e-06
 ```
 
 
@@ -587,11 +407,11 @@ heatmap.2(Werte.fa$loadings,
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmpa-1} 
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmap-1} 
 
 }
 
-\caption{Heatmap einer EFA}(\#fig:efa-heatmpa)
+\caption{Heatmap einer EFA}(\#fig:efa-heatmap)
 \end{figure}
 
 

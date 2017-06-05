@@ -14,7 +14,7 @@
 
 Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fragen verlangen einen "Text" als Antwort.
 
-## Fragen
+
 
 1. Bei `install.packages` spielt der Parameter `dependencies = TRUE` in der Praxis keine Rolle.
 

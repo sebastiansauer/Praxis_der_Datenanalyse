@@ -131,7 +131,9 @@ Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen 
 
 
 ```{r}
-afd_url <- "https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf"
+afd_url <- paste0("https://www.alternativefuer.de",
+"/wp-content/uploads/sites/7/2016/05/",
+"2016-06-27_afd-grundsatzprogramm_web-version.pdf")
 
 afd_pfad <- "data/afd_programm.pdf"
 
@@ -139,9 +141,11 @@ download(afd_url, afd_pfad)
 
 afd_raw <- pdf_text(afd_pfad)
 
-head(afd_raw, 1)
+
 ```
 
+
+Mit `head(afd_raw)`können Sie sich den Beginn dieses Textvektor anzeigen lassen.
 
 Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als `afd_pfad` gespeichert. Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest. `head(afd_raw, 1)` liest das 1. Element (und nur das erste) aus `afd_raw` aus.
 
@@ -226,7 +230,11 @@ Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
 ```{r}
-wordcloud(words = afd_count$token_stem, freq = afd_count$n, max.words = 100, scale = c(2,.5), colors=brewer.pal(6, "Dark2"))
+wordcloud(words = afd_count$token_stem, 
+          freq = afd_count$n, 
+          max.words = 100, 
+          scale = c(2,.5), 
+          colors=brewer.pal(6, "Dark2"))
 ```
 
 Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
@@ -276,8 +284,16 @@ Tabelle \@ref(tab:befehle-text) fasst die R-Funktionen dieses Kapitels zusammen.
 
 df <- readr::read_csv("includes/Befehle_text.csv")
 
-knitr::kable(df,
-             caption = "Befehle des Kapitels 'Textmining'")
+
+
+library(pander)
+pander::cache.off()
+panderOptions("table.alignment.default", "left")
+pander::pander(df, caption = "Befehle des Kapitels 'Textmining'")
+
+# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+
+
 ```
 
 
