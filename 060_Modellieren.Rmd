@@ -523,10 +523,8 @@ df <- read_csv("includes/Befehle_Modellieren.csv")
 library(pander)
 pander::cache.off()
 panderOptions("table.alignment.default", "left")
-pander::pander(df, caption = "Befehle des Kapitels 'Modellieren'")
-
-pander(df)
-dimnames(df)
+pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Modellieren'")
+# tibbles sind halt keine data.frames ;-) (NM)
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 
 
