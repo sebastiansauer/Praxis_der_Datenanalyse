@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke"
-date: "05 June, 2017"
+date: "09 June, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an Norman Markgraf"

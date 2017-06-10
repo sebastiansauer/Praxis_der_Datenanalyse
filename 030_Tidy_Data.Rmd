@@ -214,7 +214,6 @@ Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Ge
 >    Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
 
 
-### Daten exportieren
 
 Wie bekommt man seine Daten wieder aus R raus ("ich will zu Excel zurück!")?
 

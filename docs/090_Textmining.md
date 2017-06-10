@@ -7,13 +7,21 @@
 # Vertiefung: Textmining
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Sie kennen zentrale Ziele und Begriffe des Textminings.
+- Sie wissen, was ein 'tidy text dataframe' ist.
+- Sie können Worthäufigkeiten auszählen.
+- Sie können Worthäufigkeiten anhand einer Wordcloud visualisieren.
+
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Kapitel benötigte R-Pakete:
@@ -34,11 +42,11 @@ library(wordcloud)  # Wordcloud anzeigen
 Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in "unstrukturierter" Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.
 
 
-In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich *dümmer* als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
+In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch (?) wesentlich *dümmer* als ein Mensch, zumindest in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
 
 In der Regel wird das Textmining als *gemischte* Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.
 
-## Einführung
+## Zentrale Begriffe
 
 
 Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:  
@@ -75,34 +83,38 @@ text_df <- data_frame(Zeile = 1:4,
 ```
 
 
-\begin{tabular}{r|l}
-\hline
-Zeile & text\\
-\hline
-1 & Wir haben die Frauen zu Bett gebracht,\\
-\hline
-2 & als die Männer in Frankreich standen.\\
-\hline
-3 & Wir hatten uns das viel schöner gedacht.\\
-\hline
-4 & Wir waren nur Konfirmanden.\\
-\hline
-\end{tabular}
+ Zeile  text                                     
+------  -----------------------------------------
+     1  Wir haben die Frauen zu Bett gebracht,   
+     2  als die Männer in Frankreich standen.    
+     3  Wir hatten uns das viel schöner gedacht. 
+     4  Wir waren nur Konfirmanden.              
 
 Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
 
 ```r
 
 text_df %>% 
-  unnest_tokens(wort, text)
-#> # A tibble: 24 x 2
-#>   Zeile  wort
-#>   <int> <chr>
-#> 1     1   wir
-#> 2     1 haben
-#> 3     1   die
-#> # ... with 21 more rows
+  unnest_tokens(output = wort, input = text) -> tidytext_df
+
+tidytext_df %>% head
+#> # A tibble: 6 x 2
+#>   Zeile   wort
+#>   <int>  <chr>
+#> 1     1    wir
+#> 2     1  haben
+#> 3     1    die
+#> 4     1 frauen
+#> 5     1     zu
+#> 6     1   bett
 ```
+
+Der Parameter `output` sagt, wie neue 'saubere' Spalte heißen soll; `input` sagt der Funktion, welche Spalte sie als ihr Futter betrachten soll (welche Spalte in tidy text umgewandelt werden soll).
+
+>   In einem 'tidy text Dataframe'  steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts im Dokument.
+
+Überprüfen Sie, ob das stimmt: Betrachten Sie den Dataframe `tidytext_df`.
+
 
 Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die Tokens - so dass in *jeder Zeile* nur noch *ein Wort* (genauer: Token) steht. Die Syntax ist `unnest_tokens(Ausgabespalte, Eingabespalte)`. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.
 
@@ -162,14 +174,12 @@ Der Vektor `afd_raw` hat 96 Elemente (entsprechend der Seitenzahl des Dokzements
 
 
 ```r
-
 afd_df <- data_frame(Zeile = 1:96, 
                      afd_raw)
-
-
 afd_df %>% 
-  unnest_tokens(token, afd_raw) %>% 
-  filter(str_detect(token, "[a-z]")) -> afd_df
+  unnest_tokens(output = token, input = afd_raw) %>% 
+  dplyr::filter(str_detect(token, "[a-z]")) -> afd_df
+
 
 count(afd_df) 
 #> # A tibble: 1 x 1
@@ -177,6 +187,11 @@ count(afd_df)
 #>   <int>
 #> 1 26396
 ```
+
+
+
+
+
 
 Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
 
@@ -206,7 +221,8 @@ data(stopwords_de)
 stopwords_de <- data_frame(word = stopwords_de)
 
 stopwords_de <- stopwords_de %>% 
-  rename(token = word)
+  rename(token = word)  
+# Für das Joinen werden gleiche Spaltennamen benötigt
 
 afd_df %>% 
   anti_join(stopwords_de) -> afd_df
@@ -223,31 +239,18 @@ afd_df %>%
 
 
 
-\begin{tabular}{l|r}
-\hline
-token & n\\
-\hline
-deutschland & 190\\
-\hline
-afd & 171\\
-\hline
-programm & 80\\
-\hline
-wollen & 67\\
-\hline
-bürger & 57\\
-\hline
-euro & 55\\
-\hline
-dafür & 53\\
-\hline
-eu & 53\\
-\hline
-deutsche & 47\\
-\hline
-deutschen & 47\\
-\hline
-\end{tabular}
+token            n
+------------  ----
+deutschland    190
+afd            171
+programm        80
+wollen          67
+bürger          57
+euro            55
+dafür           53
+eu              53
+deutsche        47
+deutschen       47
 
 Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder "trunkieren".
 
@@ -263,31 +266,19 @@ afd_count %>%
 ```
 
 
-\begin{tabular}{l|r}
-\hline
-token\_stem & n\\
-\hline
-deutschland & 219\\
-\hline
-afd & 171\\
-\hline
-deutsch & 119\\
-\hline
-polit & 88\\
-\hline
-staat & 85\\
-\hline
-programm & 81\\
-\hline
-europa & 80\\
-\hline
-woll & 67\\
-\hline
-burg & 66\\
-\hline
-soll & 63\\
-\hline
-\end{tabular}
+
+token_stem       n
+------------  ----
+deutschland    219
+afd            171
+deutsch        119
+polit           88
+staat           85
+programm        81
+europa          80
+woll            67
+burg            66
+soll            63
 
 Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch). Denken Sie daran, dass `.` bei `dplyr` nur den Datensatz meint, wie er im letzten Schritt definiert war. Mit `.$token` wählen wir also die Variable `token` aus `afd_raw` aus.
 
@@ -307,9 +298,7 @@ wordcloud(words = afd_count$token_stem,
           colors=brewer.pal(6, "Dark2"))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="090_Textmining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
 ].
@@ -343,12 +332,26 @@ library(gridExtra)
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{090_Textmining_files/figure-latex/unnamed-chunk-18-1} \end{center}
+<img src="090_Textmining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
+
+## Aufgaben^[F, R, F, F, R, R]
+
+
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
+
+1. Unter einem Token versteht man die größte Analyseeinheit in einem Text.
+1. In einem tidytext Dataframe steht jedes Wort in einer (eigenen) Zeile.
+1. Eine hinreichende Bedingung für einen tidytext Dataframe ist es, dass in jeder Zeile ein Wort steht (beziehen Sie sich auf den tidytext Dataframe wie in diesem Kapitel erörtert).
+1. Gibt es 'Stop-Wörter' in einem Dataframe, dessen Text analysiert wird, so kommt es - per definitionem - zu einem Stop.
+1. Mit dem Befehl `unnest_tokens` kann man einen tidytext Dataframe erstellen.
+1. Balkendiagramme sind sinnvolle und auch häufige Diagrammtypen, um die häufigsten Wörter (oder auch Tokens) in einem Corpus darzustellen.
+
+
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -360,7 +363,7 @@ Tabelle \@ref(tab:befehle-text) fasst die R-Funktionen dieses Kapitels zusammen.
 
 
 ----------------------------------------------------------
-Paket::Befehl             Beschreibung                    
+Paket..Befehl             Beschreibung                    
 ------------------------- --------------------------------
 tidytext::unnest_tokens   Jedes Token (Wort) einer        
                           Spalte bekommt eine eigene      

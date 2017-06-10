@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 
 
-# Klassische lineare Regression
+# Lineare Regression
 
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
@@ -38,12 +38,13 @@ knitr::include_graphics("images/licence.png")
 ```{block2, ziele-regression, type='rmdcaution', echo = TRUE} 
 Lernziele:
 
+
 - Wissen, was man unter Regression versteht.
 - Die Annahmen der Regression überprüfen können.
 - Regression mit kategorialen Prädiktoren durchführen können.
-- Die Regression inferenzstatisisch absichern können.
 - Die Modellgüte bei der Regression bestimmen können.
-- Vertiefende Aspekte beherrschen, wie Modellwahl und Interaktionen.
+- Interaktionen erkennen und ihre Stärke einschätzen können.
+
 
 
 ```
@@ -55,12 +56,13 @@ library(caret)  # Modellieren
 library(tidyverse)  # Datenjudo, Visualisierung,...
 library(gridExtra)  # Mehrere Plots kombinieren
 library(modelr)  # Residuen und Schätzwerte zum Datensatz hinzufügen
+library(broom)  # Regressionswerte geordnet ausgeben lassen
 ```
 
 
 ## Die Idee der klassischen Regression
 
-Regression\index{Regression} ist eine bestimmte Art der *Modellierung* von Daten. Wir legen eine Gerade "schön mittig" in die Daten; damit haben wir ein einfaches Modell der Daten (vgl. Abb. \@ref(fig:bsp-regression)).
+Regression\index{Regression} ist eine bestimmte Art der *Modellierung* von Daten. Wir legen eine Gerade 'schön mittig' in die Daten; damit haben wir ein einfaches Modell der Daten (vgl. Abb. \@ref(fig:bsp-regression)). Die Gerade 'erklärt' die Daten: Für jeden X-Wert liefert sie einen Y-Wert als Vorhersage zurück.
 
 ```{r bsp-regression, fig.cap = "Beispiel für eine Regression"}
 stats_test <- read.csv("data/test_inf_short.csv")
@@ -75,7 +77,9 @@ stats_test %>%
 
 ```
 
-Schauen wir uns die Syntax genauer an.
+Wie wir genau die Regressionsgerade berechnet haben, dazu gleich mehr. Fürs Erste begnügen wir uns mit der etwas groberen Beobachtung, dass die Gerade 'schön mittig' in der Punktewolke liegt. 
+
+Schauen wir uns zunächst die Syntax genauer an.
 
 ```{block2, pseudo-regression, type='rmdpseudocode', echo = TRUE} 
 
@@ -134,7 +138,7 @@ Aber wie erkannt man, ob eine Regression "gut" ist - die Vorhersagen also präzi
 
 In R kann man eine Regression so berechnen:
 
-```{r}
+```{r lm1-stats-test}
 lm(score ~ study_time, data = stats_test)
 ```
 
@@ -146,16 +150,18 @@ lm(kriterium ~ praediktor, data = meine_datentabelle)
 
 Um ausführlichere Informationen über das Regressionsmodell zu bekommen, kann man die Funktion `summary` nutzen:
 
-```
+
+```{r eval = FALSE}
 mein_lm <- lm(kriterium ~ praediktor, data = meine_datentabelle)
-summary(lm)
+summary(mein_lm)
 ```
+
 
 Natürlich kann das auch ~~in der Pfeife rauchen~~ mit der Pfeife darstellen:
 
 ```
 lm(kriterium ~ praediktor, data = meine_datentabelle) %>% 
-  lm
+  summary
 ```
 
 
@@ -262,18 +268,6 @@ postResample(obs = obs, pred = pred)
 Hier steht `obs` für beobachtete Werte und `pred` für die vorhergesagten Werte (beides numerische Vektoren). Dieser Befehl gibt sowohl RMSE als auch $R^2$ wieder.
 
 
-### Likelihood and Friends
-
-Der *Likelihood* $L$ beantwortet folgende Frage:
-
->   Angenommen, ein Modell M ist wahr. Wie wahrscheinlich ist es dann, die Daten D zu beobachten?
-
-Zum Beispiel: Eine faire Münze wird 10 Mal geworfen (Modell M: faire Münze). Wie wahrscheinlich ist es, 10 Mal Zahl zu werfen? Die Wahrscheinlichkeit hierfür liegt bei ca. 0.1%. Der Likelihood wäre also hier ~0.1%.
-
-Bei komplexen Modellen kann der Likelihood sehr klein werden. Damit haben Computer Probleme, weil z.B. nur eine begrenzte Anzahl von Dezimalen berücksichtigt werden. Werden zu viele Dezimalstellen gerundet, kann es das Ergebnis verfälschen. Daher wird der Likelihood häufig logarithmiert; man spricht dann vom *log Likelihood*. Der Logarithmus von einer positiven, sehr kleine Zahl ist eine negative Zahl mit großen Absolutwert. Man verwendet meist den natürlichen Logarithmus, wobei das eigentlich keine Rolle spielt. Manchmal dreht man noch das Vorzeichen um, damit der Log Likelihood wieder positiv ist. 
-
-Gütekriterien wie AIC, BIC, CAIC oder die Devianz (engl. *deviance*) sind vom Likelihood abgeleitet. Meist wird noch berücksichtigt, wie komplex das Modell ist; komplexe Modelle tun sich leichter als einfachere Modelle, die Daten zu erklären. Aber sie könnten die Daten auch "überanpassen". Um die mögliche Scheingenauigkeit komplexerer Modelle auszugleichen, wird der Likelihood vom AIC etc. mit einem Strafwert belegt, der proportional zur Komplexität des Modells ist [@zumel2014practical].
-
 
 
 ```{block2, r-nicht-als-guete, type='rmdcaution', echo = TRUE}
@@ -283,95 +277,113 @@ Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. 
 
 
 
-## Beispiel für eine Regression
-Wir werden weiter den Datensatz *tips* analysieren [@bryant1995practical].
+## Die Regression an einem Beispiel erläutert
 
-Sofern noch nicht geschehen, können Sie in [hier](https://goo.gl/whKjnl) als `csv`-Datei herunterladen:
-```{r load-data}
-tips <- read.csv("data/tips.csv")
-```
+Schauen wir uns den Datensatz zur Statistikklausur noch einmal an. Welchen Einfluss hat die Lernzeit auf den Klausurerfolg? Wieviel bringt es also zu lernen? Wenn das Lernen keinen Einfluss auf den Klausurerfolg hat, dann kann man es ja gleich sein lassen... Aber umgekehrt, wenn es viel bringt, ok gut, dann könnte man sich die Sache (vielleicht) noch mal überlegen. Aber was heißt "viel bringen" eigentlich?
+
+>   Wenn für jede Stunde Lernen viele zusätzliche Punkte herausspringen, dann bringt Lernen viel. Allgemeiner: Je größer der Zuwachs im Kriterium ist pro zusätzliche Einheit des Prädiktors, desto größer ist der Einfluss des Prädiktors.
+
+Natürlich könnte jetzt jemand argumentieren, dass die ersten paar Stunden lernen viel bringen, aber dann flacht der Nutzen ab, weil es ja schnell einfach und trivial wird. Aber wir argumentieren (erstmal) so nicht. Wir gehen davon aus, dass jede Stunde Lernen gleich viel (oder wenig) Nutzen bringt.
+
+>   Geht man davon aus, dass jede Einheit des Prädiktors gleich viel Zuwachs bringt, unabhängig von dem Wert des Prädiktors, so geht man von einem linearen Einfluss aus.
 
 
+Versuchen wir im ersten Schritt die Stärke des Einfluss an einem Streudiagramm abzuschätzen (s. Abb. \@ref(fig:bsp-regression)).
 
-Wie hängen Trinkgeldhöhe `tip` und Rechnungshöhe `total_bill` zusammen? Kann die Höhe des Trinkgeldes als *lineare* Funktion der Rechnungshöhe linear modelliert werden? 
-$$tip_i=\beta_0+\beta_1\cdot total\_bill_i+\epsilon_i$$
 
-Zunächst eine visuelle Analyse mi Hilfe eines Scatterplots.
-```{r}
-qplot(y = tip, x = total_bill, data = tips)
-```
+Hey R - berechne uns die "Trendlinie"! Dazu nimmt man den Befehl `lm`:
 
-Es scheint einen positiven Zusammenhang zu geben. Modellieren wir das Kriterium `tip` (inhaltliche Entscheidung!) als lineare Funktion des Prädiktors `total_bill`:
 
 ```{r}
-LinMod.1 <- lm(tip ~ total_bill, data=tips)
-summary(LinMod.1)
+mein_lm <- lm(score ~ study_time, data = stats_test)
+summary(mein_lm)
+
 ```
 
+`lm` steht für 'lineares Modell', eben weil eine *Linie* als Modell in die Daten gelegt wird. Aha. Die Steigung der Geraden beträgt 2.3 - das ist der Einfluss des Prädiktors Lernzeit auf das Kriterium Klausurerfolg! Man könnte sagen: Der "Wechselkurs" von Lernzeit auf Klausurpunkte. Für jede Stunde Lernzeit bekommt man offenbar 2.3 Klausurpunkte (natürlich viel zu leicht). Wenn man nichts lernt (`study_time == 0`) hat man 24 Punkte.
 
-Der Achsenabschnitt (`intercept`) wird mit `r round(coef(LinMod.1)[1],2)` geschätzt, die Steigung in Richtung `total_bill` mit `r round(coef(LinMod.1)[2],2)`: steigt `total_bill` um einen Dollar, steigt im *Durchschnitt* `tip` um `r round(coef(LinMod.1)[2], 2)`. 
-
-Die (Punkt-)Prognose für `tip` lautet also
-
-`tip` = `r round(coef(LinMod.1)[1],2)` + `r round(coef(LinMod.1)[2],2)` * `total_bill`
-
-Die Koeffizienten (Steigung und Achsenabschnitt) werden dabei so geschätzt, dass $\sum \epsilon_i^2$ minimiert wird. Dies wird auch als  *Kleinste Quadrate* (*Ordinary Least Squares*, *OLS*) Kriterium bezeichnet^[Eine robuste Regression ist z. B. mit der Funktion `rlm()` aus dem Paket `MASS` möglich].
+>    Der Einfluss des Prädiktors steht unter 'estimate'. Der Kriteriumswert wenn der Prädiktor Null ist steht unter '(Intercept)'.
 
 
-Die (Punkt-)Prognose für die Trinkgeldhöhe, bspw. für eine Rechnung von 30$ kann einfacher berechnet werden mit
+
+Malen wir diese Gerade in unser Streudiagramm (Abbildung \@ref(fig:stats-test-scatter2).
+
+
+```{r stats-test-scatter2, fig.cap = "Streudiagramm von Lernzeit und Klausurerfolg"}
+ggplot(data = stats_test) +
+  aes(y = score, x = study_time) +
+  geom_jitter() +
+  geom_abline(slope = 2.3, intercept = 24, color = "red")
+```
+
+Jetzt kennen wir die Stärke (und Richtung) des Einflusses der Lernzeit. Ob das viel oder wenig ist, ist am besten im Verhältnis zu einem Referenzwert zu sagen.
+
+Die Gerade wird übrigens so in die Punktewolke gelegt, dass die (quadrierten) Abstände der Punkte zur Geraden minimal sind. Dies wird auch als *Kriterium der Kleinsten Quadrate*\index{Kriterium der Kleinsten Quadrate} (*Ordinary Least Squares*, *OLS*)\index{Ordinary Least Squares} bezeichnet.
+
+Jetzt können wir auch einfach Vorhersagen machen. Sagt uns jemand, ich habe "viel" gelernt (Lernzeit = 4), so können wir den Klausurerfolg grob im Diagramm ablesen.
+
+Genauer geht es natürlich mit dieser Rechnung:
+
+$y = 4*2.3 + 24$
+
+Oder mit diesem R-Befehl:
+
+
 
 ```{r}
-predict(LinMod.1, data.frame(total_bill = 30))
+predict(mein_lm, data.frame(study_time = 4))
 ```
 
-also ca. 4$.
+
 
 Berechnen wir noch die Vorversagegüte des Modells.
 
 ```{r}
-summary(LinMod.1)
+summary(mein_lm)
 ```
 
 
-Das Bestimmtheitsmaß $R^2$ ist mit `r round(summary(LinMod.1)$r.squared,2)` "ok": `r round(summary(LinMod.1)$r.squared*100)`-\% der Variation des Trinkgeldes wird im Modell "erklärt".
+Das Bestimmtheitsmaß $R^2$ ist mit `r round(summary(mein_lm)$r.squared,2)` "ok": `r round(summary(mein_lm)$r.squared*100)`-\% der Varianz des Klausurerfolg wird im Modell 'erklärt'. 'Erklärt' meint hier, dass wenn die Lernzeit konstant wäre, würde die Varianz von Klausurerfolg um diesen Prozentwert sinken.
 
 
 ## Überprüfung der Annahmen der linearen Regression
 
 Aber wie sieht es mit den Annahmen aus?
 
-- Die *Linearität des Zusammenhangs* haben wir zu Beginn mit Hilfe des Scatterplots "überprüft".
-- Zur Überprüfung der *Normalverteilung der Residuen* zeichnen wir ein Histogramm. Die *Residuen*\index{Residuen} können über den Befehl `add_residuals` (Paket `modelr`) zum Datensatz hinzugefügt werden. Dann wird eine Spalte mit dem Namen `resid` zum Datensatz hinzugefügt.  
+- Die *Linearität des Zusammenhangs* haben wir zu Beginn mit Hilfe des Scatterplots überprüft. Es schien einigermaßen zu passen.
+
+- Zur Überprüfung der *Normalverteilung der Residuen* zeichnen wir ein Histogramm (s. Abbildung \@ref(resid-distrib)). Die *Residuen*\index{Residuen} können über den Befehl `add_residuals` (Paket `modelr`) zum Datensatz hinzugefügt werden. Dann wird eine Spalte mit dem Namen `resid` zum Datensatz hinzugefügt.  
 
 Hier scheint es zu passen:
 
-```{r}
-tips %>% 
-  add_residuals(LinMod.1) %>% 
+```{r resid-distrib, fig.cap = "Die Residuen verteilen sich hinreichend normal."}
+stats_test %>% 
+  add_residuals(mein_lm) %>% 
   ggplot +
   aes(x = resid) +
   geom_histogram()
 ```
 
-Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
+
+Sieht passabel aus. Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
 
 ```{r}
-tips %>% 
-  add_predictions(LinMod.1) %>% 
-  ggplot +
-  aes(x = pred) +
-  geom_histogram()
+stats_test %>% 
+  add_predictions(mein_lm) %>% 
+  select(pred) %>% 
+  head
 ```
 
 
-- *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der y-Achse und den angepassten Werten auf der x-Achse überprüft werden. Bei jedem X-Wert sollte die Varianz der Y-Werte (etwa) gleich sein.
+- *Konstante Varianz*: Dies kann z. B. mit einem Scatterplot der Residuen auf der Y-Achse und den vorhergesagten Werten auf der X-Achse überprüft werden. Bei jedem X-Wert sollte die Varianz der Y-Werte (etwa) gleich sein (s. Abbildung \@ref(fig:tips-preds-resid)).
 
-Die angepassten (geschätzten) Werte kann man über den Befehl `add_predictions()` aus dem Paket `modelr` bekommen. Die Fehlerwerte entsprechend mit dem Befehl `add_residuals`.  Hypothesentests, d. h., $H_0:\beta_1=0$. 
+Die geschätzten (angepassten) Werte kann man über den Befehl `add_predictions()` aus dem Paket `modelr` bekommen. Die Fehlerwerte entsprechend mit dem Befehl `add_residuals`. 
 
 ```{r tips-preds-resid, fig.cap = "Vorhergesagte Werte vs. Residualwerte im Datensatz tips"}
-tips %>% 
-  add_predictions(LinMod.1) %>% 
-  add_residuals(LinMod.1) %>% 
+
+stats_test %>% 
+  add_predictions(mein_lm) %>% 
+  add_residuals(mein_lm) %>% 
   ggplot() +
   aes(y = resid, x = pred) +
   geom_point()
@@ -379,56 +391,75 @@ tips %>%
 ```
 
 
-Die Annahme der konstanten Varianz scheint verletzt zu sein (vgl. Abb. \@ref(fig:tips-preds-resid)): je größer die Prognose des Trinkgeldes, desto größer wirkt die Streuung der Residuen. Dieses Phänomen ließ sich schon aus dem ursprünglichen Scatterplot 
-`qplot(x = tip, y = total_bill, data=tips)` erahnen. Das ist auch inhaltlich plausibel: je höher die Rechnung, desto höher die Varianz beim Trinkgeld. Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes des
+Die Annahme der konstanten Varianz scheint verletzt zu sein: Die sehr großen vorhersagten Werte können recht genau geschätzt werden; aber die mittleren Werte nur ungenau.
+Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, sondern die Schätzung des Standardfehlers, also des p-Wertes der Einflusswerte.
 
-- *Extreme Ausreißer*: Wie am Streudiagramm erkennbar, gibt es vereinzelt Ausreißer nach oben, allerdings ohne einen extremen Hebel.
+- *Extreme Ausreißer*: Extreme Ausreißer scheint es nicht zu geben.
 
-
+- *Unabhängigkeit der Beobachtungen*: Wenn die Studenten in Lerngruppen lernen, kann es sein, dass die Beobachtungen nicht unabhängig voneinander sind: Wenn ein Mitglied der Lerngruppe gute Noten hat, ist die Wahrscheinlichkeit für ebenfalls gute Noten bei den anderen Mitgliedern der Lerngruppe erhöht. Böse Zungen behaupten, dass 'Abschreiben' eine Gefahr für die Unabhängigkeit der Beobachtungen sei.
 
 
 
 ```{block2, tips-uebung, type='rmdexercises', echo = TRUE}
-1.  Um wie viel Dollar steigt im Durchschnitt das Trinkgeld, wenn eine Person mehr am Tisch sitzt?
+1.  Wie groß ist der Einfluss des Interesss?
 
 2.  Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?
+
+3.  Welcher Einflussfaktor (in unseren Daten) ist am stärksten?
 
 ```
 
 
 
 ## Regression mit kategorialen Prädiktoren
-Der Wochentag `day` ist eine kategoriale Variable. Wie sieht eine Regression des Trinkgeldes darauf aus?
+Vergleichen wir interessierte und nicht interessierte Studenten. Dazu teilen wir die Variable `interest` in zwei Gruppen (1-3 vs. 4-6) auf:
 
-Zunächst grafisch:
 ```{r}
-qplot(x = tip,y = day, data=tips)
+stats_test$interessiert <- stats_test$interest > 3
 ```
+
+
+Vergleichen wir die Mittelwerte des Klausurerfolgs zwischen den Interessierten und Nicht-Interessierten:
+
+```{r}
+stats_test %>% 
+  group_by(interessiert) %>% 
+  summarise(score = mean(score)) -> score_interesse
+
+score_interesse
+```
+
+Aha, die Interessierten haben im Schnitt mehr Punkte; aber nicht viel.
+
+```{r}
+stats_test %>% 
+  na.omit %>% 
+  ggplot() +
+  aes(x = interessiert, y = score) +
+  geom_jitter(width = .1) +
+  geom_point(data = score_interesse, color = "red", size = 5) +
+  geom_line(data = score_interesse, group = 1, color = "red")
+```
+
+Mit `group=1` bekommt man eine Linie, die alle Punkte verbindet. Wir haben in dem Fall nur zwei Punkte, die entsprechend verbunden werden.
+
+
+Visualisieren Sie den Gruppenunterschied auch mit einem Boxplot.
+
 
 Und als Lineares Modell:
 ```{r}
-LinMod.2 <- lm(tip ~ day, data=tips)
-summary(LinMod.2)
+lm2 <- lm(score ~ interessiert, data = stats_test)
+summary(lm2)
 ```
 
-Die im Modell angegebenen Schätzwerte sind die Änderung der Trinkgeldprognose, wenn z. B. der Tag ein Samstag (`daySat`) im Vergleich zu einer Referenzkategorie. Dies ist in R das erste Element des Vektors der Faktorlevel. Welcher dies ist ist über den Befehl `levels()` zu erfahren
-```{r}
-levels(tips$day)
-```
-
-
-Möchte man die Reihenfolge der Faktorstufen ändern, so kann man innerhalb von `factor()` die Option `levels=` direkt in der gewünschten Sortierung setzen, z.B. so:
-
-```{r, eval=FALSE}
-day <- factor(tips$day, levels=c("Thur", "Fri", "Sat",  "Sun"))
-```
-
-
+Der Einfluss von `interessiert` ist statistisch signifikant (p = .03). Der Stärke des Einflusses ist im Schnitt 1.6 Klausurpunkte (zugunsten `interessiertTRUE`). Das ist genau, was wir oben herausgefunden haben.
 
 
 ```{block2, tips-uebung2, type='rmdexercises', echo = TRUE}
-3.  Wie verändert sich die Rechnungshöhe im Durchschnitt, wenn die Essenszeit Dinner statt Lunch ist?
-4.  Wie viel \% der Variation der Rechnungshöhe können Sie durch die Essenszeit modellieren?
+3.  Vie ist der Einfluss von `study_time`, auch in zwei Gruppen geteilt?
+
+4.  Wie viel \% der Variation des Klausurerfolgs können Sie durch das Interesse modellieren?
 
 ```
 
@@ -436,98 +467,147 @@ day <- factor(tips$day, levels=c("Thur", "Fri", "Sat",  "Sun"))
 
 
 ## Multiple Regression
-Aber wie wirken sich mehrere Einflussgrößen *zusammen* auf das Trinkgeld aus?
-```{r}
-LinMod.4 <- lm(tip ~ total_bill + size + sex  + smoker + day + time, data=tips)
-summary(LinMod.4)
-```
-Interessant sind die negativen Vorzeichen vor den Schätzwerten für `sexMale` und `smokerYes` -- anscheinend geben Männer und Raucher weniger Trinkgeld, wenn alle anderen Faktoren konstant bleiben. Bei einer rein univariaten Betrachtung wäre etwas anderes herausgekommen!
+Aber wie wirken sich mehrere Einflussgrößen *zusammen* auf den Klausurerfolg aus?
+
 
 ```{r}
-lm(tip ~ sex, data=tips) %>% summary
-lm(tip ~ smoker, data=tips)  %>% summary
-```
-Diese *Umkehrung* des modellierten Effektes liegt daran, dass es auch einen positiven Zusammenhang zur Rechnungshöhe gibt:
-```{r}
-lm(total_bill ~ sex, data=tips) %>% summary
-lm(total_bill ~ smoker, data=tips) %>% summary
+lm3 <- lm(score ~ study_time + interessiert, data = stats_test)
+summary(lm3)
 ```
 
-Im vollem Modell `LinMod.4` sind alle unabhängigen Variablen berücksichtigt, die Koeffizienten beziehen sich dann immer auf: gegeben, die anderen Variablen bleiben konstant, d.h. ceteris paribus.
+Interessant ist das *negative* Vorzeichen vor dem Einfluss von `interessiertTRUE`! Die multiple Regression untersucht den 'Nettoeinfluss' jedes Prädiktors. Den Einfluss also, wenn der andere Prädiktor *konstant* gehalten wird. Anders gesagt: Betrachten wir jeden Wert von `study_time` separat, so haben die Interessierten jeweils im Schnitt etwas *weniger* Punkte (jesses). Allerdings ist dieser Unterschied nicht statistisch signifikant.
 
-Vergleichen wir mal zwei Modelle:
-```{r}
-LinMod.5a <- lm(tip ~  sex, data=tips)
-coef(LinMod.5a) # Koeffizienten extrahieren
-LinMod.5b <- lm(tip ~  sex + total_bill, data=tips)
-coef(LinMod.5b) # Koeffizienten extrahieren
+>   Die multiple Regression zeigt den 'Nettoeinfluss' jedes Prädiktor: Den Einfluss dieses Prädiktor, wenn der andere Prädiktor oder die anderne Prädiktoren konstant gehalten werden.
+
+
+Hier haben wir übrigens dem Modell aufgezwungen, dass der Einfluss von Lernzeit auf Klausurerfolg bei den beiden Gruppen gleich groß sein soll  (d.h. bei Interessierten und Nicht-Interessierten ist die Steigung der Regressionsgeraden gleich). Das illustriert sich am einfachsten in einem Diagramm (s. Abbildung \@ref(fig:no-interakt)).
+
+
+```{r no-interakt, echo = FALSE, fig.cap = "Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben", fig.height = 7}
+
+library(viridis)
+
+df1 <- data_frame(
+  interessiert = c(T, F),
+  slope = c(2.3, 2.3),
+  intercept = c(23.7, 24)
+)
+
+
+p1 <- stats_test %>% 
+  na.omit %>% 
+  ggplot +
+  aes(x=study_time, y = score) +
+  geom_jitter(width = .1) +
+  #facet_wrap(~interessiert) +
+  geom_abline(data = df1, mapping = aes(slope = slope, intercept = intercept, color = interessiert)) +
+  guides(color = FALSE) +
+  scale_color_viridis(discrete = TRUE) +
+  labs(title = "A") +
+  coord_cartesian(ylim = c(25,35))
+
+
+df2 <- data_frame(
+  slope = rep(-.33, 5),
+  intercept = rep(c(24), 5),
+  study_time = 1:5)
+
+
+p2 <- stats_test %>% 
+  na.omit %>% 
+  ggplot +
+  aes(x=interessiert, y = score) +
+  geom_jitter(width = .1) +
+  facet_wrap(~study_time) +
+  geom_abline(data = df2, mapping = aes(slope = slope, intercept = intercept, color = study_time)) +
+  scale_color_viridis() +
+  guides(color = FALSE) +
+  labs(title = "B")
+
+
+gridExtra::grid.arrange(p1, p2, nrow = 2)
 ```
-Ohne die Berücksichtigung der **Kovariable/Störvariable** Rechnungshöhe geben 
- `r levels(tips$sex)[2]`  
- ein um im Durchschnitt `r round(coef(LinMod.5a)[2],2)`
- *höheres* Trinkgeld, bei Kontrolle, d. h. gleicher Rechnungshöhe ein um 
- `r abs(round(coef(LinMod.5b)[2],2))`
- *niedrigeres* Trinkgeld als die Referenzklasse 
- `r levels(tips$sex)[1]` (`levels(tips$sex)[1]`). 
 
-## Inferenz in der linearen Regression
-Kehren wir noch einmal zur multiplen Regression (`LinMod.4`) zurück. 
-```{r}
-summary(LinMod.4)
-```
 
-In der 4. Spalte der, mit Zeilennamen versehenen Tabelle `Coefficients` stehen die p-Werte der Nullhypothese, die unabhängige Variable hat, gegeben alle anderen Variablen im Modell, keinen linearen Einfluss auf die abhängige Variable: $H_0: \beta_i=0$. 
+Diese *multivariate*\index{multivariat} Analyse (mehr als 2 Variablen sind beteiligt) zeigt uns, dass die Regressionsgerade nicht gleich ist in den beiden Gruppen (Interessierte vs. Nicht-Interessierte; s. Abbildung \@ref(fig:no-interakt)): Im Teildiagramm A sind die Geraden (leicht) versetzt. Analog zeigt Teildiagramm B, dass die Interessierten (`interessiert == TRUE`) geringe Punktewerte haben als die Nicht-Interessierten, wenn man die Werte von `study_time` getrennt betrachtet.
 
-Zur schnelleren Übersicht finden sich dahinter "Sternchen" und "Punkte", die die entsprechenden Signifikanzniveaus symbolisieren: `***` bedeutet eine Irrtumswahrscheinlichkeit, Wahrscheinlichkeit für Fehler 1. Art, von unter 0.001, d. h. unter 0,1\%. `**` entsprechend 1\%, `*` 5\% und `.` 10\%. 
+>    Die multivariate Analyse zeigt ein anderes Bild, ein genaueres Bild als die einfachere Analyse. Ein Sachverhalt, der für den ganzen Datensatz gilt, kann in Subgruppen anders sein.
 
-Zum Signifikanzniveau von 10\% sind hier also zwei Faktoren und der Achsenabschnitt (`(Intercept)`) signifikant -- nicht notwendigerweise relevant: Rechnungshöhe `total_bill` sowie Anzahl Personen `size`. Beides wirkt sich linear positiv auf die Trinkgeldhöhe aus: Mit jedem Dollar Rechnungshöhe steigt im Mittelwert die Trinkgeldhöhe um `r round(coef(LinMod.4)[2],2)` Dollar, 
-mit jeder Person um `r round(coef(LinMod.4)[3],2)` Dollar -- gegeben alle anderen Faktoren bleiben konstant. Das Bestimmtheitsmaß R² (`Multiple R-squared:`) liegt bei 
-`r round(summary(LinMod.4)$r.squared,2)`, also `r round(summary(LinMod.4)$r.squared*100)`\% der Variation des Trinkgeldes wird im Modell erklärt.
+Ohne multivariate Analyse hätten wir dies nicht entdeckt. Daher sind multivariate Analysen sinnvoll und sollten gegenüber einfacheren Analysen bevorzugt werden.
 
-Außerdem wird getestet, ob alle Koeffizienten der unabhängigen Variablen gleich Null sind:
-$$H_0: \beta_1=\beta_2=\cdots=\beta_k=0$$
+Man könnte sich jetzt noch fragen, ob die Regressiongeraden in Abbildung \@ref(fig:no-interakt) parallel sein müssen. Gerade hat unser R-Befehl sie noch gezwungen, parallel zu sein. Gleich lassen wir hier die Zügel locker. Wenn die Regressionsgerade nicht mehr parallel sind, spricht man von *Interaktionseffekten*.
+
+
 Das Ergebnis des zugrunde-liegenden F-Tests (vgl. Varianzanalyse) wird in der letzten Zeile angegeben (`F-Statistic`). Hier wird $H_0$ also verworfen.
 
 
 
-## Vertiefungen zum Regressionmodell
 
-### Modellwahl
-Das Modell mit allen Variablen des Datensatzes, d. h., mit 6 unabhängigen (`LinMod.4`) erklärt `r round(summary(LinMod.4)$r.squared*100,2)`% der Variation, das Modell *nur* mit der Rechnungshöhe als erklärende Variable (`LinMod.1`) schon `r round(summary(LinMod.1)$r.squared*100,2)`%, der Erklärungszuwachs liegt also gerade einmal bei `r round(summary(LinMod.4)$r.squared*100,2) - round(summary(LinMod.1)$r.squared*100,2)` Prozentpunkten. In der Statistik ist die Wahl des *richtigen* Modells eine der größten Herausforderungen, auch deshalb, weil das wahre Modell in der Regel nicht bekannt ist und es schwer ist, die richtige Balance zwischen Einfachheit und Komplexität zu finden. Aufgrund des Zufalls kann es immer passieren, dass das Modell sich zu sehr an die *zufälligen* Daten anpasst (Stichwort: Overfitting). Es gibt unzählige Modellwahlmethoden, und leider garantiert keine, dass immer das beste Modell gefunden wird. Eine Möglichkeit ist die sogenannte Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums (AIC)^[siehe z. B. Rob J Hyndman & George Athanasopoulos, Forecasting: principles and practice [@hyndman2014forecasting], Kapitel 5.3: Selecting predictors,   [https://www.otexts.org/fpp/5/3](https://www.otexts.org/fpp/5/3)]. Diese ist nicht nur recht weit verbreitet - und liefert unter bestimmten Annahmen das "richtige" Modell - sondern in R durch den Befehl `step()` einfach umsetzbar:
-```{r}
-step(LinMod.4)
-```
-In den letzten Zeilen der Ausgabe steht das beste Modell, das diese Methode (schrittweise, rückwärts) mit diesem Kriterium (AIC) bei diesen Daten findet (Punktprognose, d. h. ohne Residuum):
+## Interaktionen 
 
-`tip =  0.66894 +  0.09271 * total_bill + 0.19260 * size`
-
-Der Ausgabe können Sie auch entnehmen, welche Variablen in welcher Reihenfolge *entfernt* wurden: Zunächst `day`, dann `time`, danach `sex` und schließlich `smoker`. Hier sind also dieselben Variablen noch im Modell, die auch in `LinMod.4` signifikant zum Niveau 10\% waren, eine Auswahl der dort signifikanten Variablen hätte also dasselbe Modell ergeben. Das ist häufig so, aber nicht immer!
-
-### Interaktionen 
-
-Wir haben gesehen, dass es einen Zusammenhang zwischen der Trinkgeldhöhe und der Rechnungshöhe gibt. Vielleicht unterscheidet sich der Zusammenhang je nachdem, ob geraucht wurde, d. h., vielleicht gibt es eine Interaktion (Wechselwirkung). Die kann in `lm` einfach durch ein `*` zwischen den unabhängigen Variablen modelliert werden:
+Es könnte ja sein, dass die Stärke des Einflusses von Lernzeit auf Klausurerfolg in der Gruppe der Interessierten anders ist als in der Gruppe der Nicht-Interessierten. Wenn man nicht interessiert ist, so könnte man argumentieren, dann bringt eine Stunden Lernen weniger als wenn man interessiert ist. Darum müssten die Steigungen der Regressiongeraden in den beiden Gruppen unterschiedlich sein. Schauen wir uns es an. Um R dazu zu bringen, die Regressiongeraden frei variieren zu lassen, so dass sie nicht mehr parallel sind, nutzen wir das Symbol `*`, dass wir zwischen die betreffenden Prädiktoren schreiben:
 
 ```{r}
-LinMod.6 <- lm(tip ~ smoker*total_bill, data = tips)
-summary(LinMod.6)
+lm4 <- lm(score ~ interessiert*study_time, data = stats_test)
+summary(lm4)
 ```
 
-Der Schätzwert für die Interaktion steht bei `:`. Hier also: Wenn geraucht wurde, ist die Steigung im Durchschnitt um 6,8 Cent geringer. Aber wenn geraucht wurde, ist die Rechnung im Achsenabschnitt erstmal um 1,20\$ höher (Effekt, ceteris paribus). Wer will, kann ausrechnen, ab welcher Rechnungshöhe Rauchertische im Mittelwert lukrativer sind... 
+Interessanterweise zeigen die Interessierten nun wiederum - betrachtet man jede Stufe von `study_time` einzeln - bessere Klausurergebnisse als die Nicht-Interessierten. Ansonsten ist noch die Zeile `interessiertTRUE:study_time` neu. Diese Zeile zeigt die Höhe des *Interaktionseffekts*\index{Interaktionseffekts}. Bei den Interessierten ist die Steigung der Geraden um 0.32 Punkte geringer als bei den Interessierten. Der Effekt ist klein und nicht statistisch signifikant, so dass wir wahrscheinlich Zufallsrauschen überinterpretieren. Aber die reine Zahl sagt, dass bei den Interessierten jede Lernstunde weniger Klausurerfolg bringt als bei den Nicht-Interessierten. Auch hier ist eine Visualisierung wieder hilfreich. 
 
-Das gleiche Bild (höhere Achsenabschnitt, geringere Steigung) ergibt sich übrigens bei getrennten Regressionen:
-```{r}
-lm(tip~total_bill, data=tips, subset = smoker=="Yes")
-lm(tip~total_bill, data=tips, subset = smoker=="No")
+
+
+```{r interakt-stats-test, echo = FALSE, fig.cap = "Eine Regressionsanalyse mit Interaktionseffekten"}
+
+
+
+df1 <- data_frame(
+  interessiert = c(F, T),
+  slope = c(2.44, 2.44-.32),
+  intercept = c(23.6, 23.6+.66)
+)
+
+
+p1 <- stats_test %>% 
+  na.omit %>% 
+  ggplot +
+  aes(x=study_time, y = score) +
+  geom_jitter(width = .1) +
+  #facet_wrap(~interessiert) +
+  geom_abline(data = df1, mapping = aes(slope = slope, intercept = intercept, color = interessiert)) +
+  guides(color = FALSE) +
+  scale_color_viridis(discrete = TRUE) +
+  labs(title = "A") +
+  coord_cartesian(ylim = c(25,35))
+
+
+
+df2 <- stats_test %>% 
+  data_grid(
+    study_time = 1:5,
+    interessiert = c(F, T)
+  ) %>% 
+  add_predictions(lm4)
+  
+
+
+p2 <- stats_test %>% 
+  na.omit %>% 
+  ggplot +
+  aes(x=interessiert, group = study_time) +
+  geom_jitter(aes(y = score), width = .1) +
+  geom_line(data = df2, aes(y = pred, color = factor(study_time))) +
+  scale_color_viridis(discrete = TRUE) +
+  theme(legend.position = "bottom")
+  
+
+
+gridExtra::grid.arrange(p1, p2, nrow = 2)
 ```
 
-### Weitere Modellierungsmöglichkeiten
 
-Über das Formelinterface `y~x` können auch direkt z. B. Polynome modelliert werden. Hier eine quadratische Funktion:
-```{r}
-summary(lm(tip~I(total_bill^2)+total_bill, data=tips))
-```
+Wir wir in Abbildung \@ref(fig:interakt-stats-test) sehen, ist der Einfluss von `study_time' je nach Gruppe (Wert von `interessiert`) unterschiedlich (Teildiagramm A). Analog ist der Einfluss des Interesses (leicht) unterschiedlich, wenn man die fünf Stufen von `study_time` getrennt betrachtet. 
 
-D. h., die geschätzte Funktion ist eine "umgedrehte Parabel" (negatives Vorzeichen bei `I(total_bill^2) `), bzw. die Funktion ist konkav, die Steigung nimmt ab. Allerdings ist der Effekt nicht signifikant. **Hinweis:** Um zu "rechnen" und nicht beispielsweise Interaktion zu modellieren, geben Sie die Variablen in der Formel in der Funktion `I()` (*As Is*) ein.
+>   Sind die Regressionsgerade nicht parallel, so liegt ein Interaktionseffekt vor. Andernfalls nicht.
 
 
 
@@ -539,31 +619,33 @@ D. h., die geschätzte Funktion ist eine "umgedrehte Parabel" (negatives Vorzeic
 Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand der *Trainingsstichprobe* schätzt mit einer Regression, bei der die Modellgüte in einer *Test-Stichprobe* überprüft wird.
 
 
-Zuerst führen wir dafür eine simple Regression aus und lassen uns $R^2$ ausgeben.
-```{r lm-overfitting1}
-df <-  read_csv("https://sebastiansauer.github.io/data/wo_men.csv")
+Betrachten wir nochmal die einfache Regression von oben. Wie lautet das $R^2$?
 
-lm1 <- lm(shoe_size ~ height, data = df)
-summary(lm1)$r.squared
+```{r lm-overfitting1}
+
+lm1 <- lm(score ~ study_time, data = stats_test)
+
 ```
 
+Es lautet `round(summary(lm1)$r.squared, 2)`.
 
 Im zweiten Schritt teilen wir die Stichprobe in eine Trainings- und eine Test-Stichprobe auf. Wir "trainineren" das Modell anhand der Daten aus der Trainings-Stichprobe:
+
 ```{r lm-overfitting2}
-train <- df %>% 
+train <- stats_test %>% 
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
-test <- df %>% 
+test <- stats_test %>% 
   anti_join(train)  # Alle Zeilen von "df", die nicht in "train" vorkommen
 
-lm2 <- lm(shoe_size ~ height, data = train)
+lm_train <- lm(score ~ study_time, data = train)
 ```
 
 
-Dann testen wir (die Modellgüte) anhand der Test-Stichprobe. Also los, `lm2`, mach Deine Vorhersage:
+Dann testen wir (die Modellgüte) anhand der *Test*-Stichprobe. Also los, `lm_train`, mach Deine Vorhersage:
 
 ```{r lm-overfitting-predict}
-lm2_predict <- predict(lm2, newdata = test)
+lm2_predict <- predict(lm_train, newdata = test)
 ```
 
 Diese Syntax sagt:
@@ -575,14 +657,17 @@ wobei frische Daten ("newdata = test") verwendet werden sollen.
 
 ```
 
-Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Trinkgeld-Wert speichert.
+Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Klausurpunktewert speichert.
 
 ```{r R2-postresample}
-caret::postResample(pred = lm2_predict, obs = test$shoe_size)
+caret::postResample(pred = lm2_predict, obs = test$score)
 
 ```
 
-Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich schlechter ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
+Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich *schlechter* ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
+
+
+>   Die Modellgüte im in der Test-Stichprobe ist meist schlechter als in der Trainings-Stichprobe. Das warnt uns vor Befunden, die naiv nur die Werte aus der Trainings-Stichprobe berichten.
 
 
 ## Befehlsübersicht
@@ -607,13 +692,6 @@ pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Regression'")
 
 ```
 
-
-
-
-
-## Verweise
-
-Dieses Kapitel basiert teilweise auf Übungen zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) [@introstats] unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
 
 
 

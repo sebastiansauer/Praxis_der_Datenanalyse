@@ -36,6 +36,18 @@ knitr::include_graphics("images/licence.png")
 
 
 
+```{block2, ziele-textmining, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Sie kennen zentrale Ziele und Begriffe des Textminings.
+- Sie wissen, was ein 'tidy text dataframe' ist.
+- Sie können Worthäufigkeiten auszählen.
+- Sie können Worthäufigkeiten anhand einer Wordcloud visualisieren.
+
+
+```
+
+
 In diesem Kapitel benötigte R-Pakete:
 ```{r}
 library(tidyverse)  # Datenjudo
@@ -53,11 +65,11 @@ library(wordcloud)  # Wordcloud anzeigen
 Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in "unstrukturierter" Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.
 
 
-In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich *dümmer* als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
+In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch (?) wesentlich *dümmer* als ein Mensch, zumindest in dieser Hinsicht. Allerdings ist er auch wesentlich *schneller* als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.
 
 In der Regel wird das Textmining als *gemischte* Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.
 
-## Einführung
+## Zentrale Begriffe
 
 
 Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:  
@@ -99,8 +111,17 @@ Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
 ```{r}
 
 text_df %>% 
-  unnest_tokens(wort, text)
+  unnest_tokens(output = wort, input = text) -> tidytext_df
+
+tidytext_df %>% head
 ```
+
+Der Parameter `output` sagt, wie neue 'saubere' Spalte heißen soll; `input` sagt der Funktion, welche Spalte sie als ihr Futter betrachten soll (welche Spalte in tidy text umgewandelt werden soll).
+
+>   In einem 'tidy text Dataframe'  steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts im Dokument.
+
+Überprüfen Sie, ob das stimmt: Betrachten Sie den Dataframe `tidytext_df`.
+
 
 Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die Tokens - so dass in *jeder Zeile* nur noch *ein Wort* (genauer: Token) steht. Die Syntax ist `unnest_tokens(Ausgabespalte, Eingabespalte)`. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.
 
@@ -127,7 +148,7 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf].
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
 
 
 ```{r}
@@ -153,18 +174,24 @@ Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als
 Der Vektor `afd_raw` hat 96 Elemente (entsprechend der Seitenzahl des Dokzements); zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.
 
 ```{r}
-
 afd_df <- data_frame(Zeile = 1:96, 
                      afd_raw)
-
-
 afd_df %>% 
-  unnest_tokens(token, afd_raw) %>% 
-  filter(str_detect(token, "[a-z]")) -> afd_df
+  unnest_tokens(output = token, input = afd_raw) %>% 
+  dplyr::filter(str_detect(token, "[a-z]")) -> afd_df
+
 
 count(afd_df) 
+```
+
+
+
+```{r}
+
+
 
 ```
+
 
 Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
 
@@ -185,7 +212,8 @@ data(stopwords_de)
 stopwords_de <- data_frame(word = stopwords_de)
 
 stopwords_de <- stopwords_de %>% 
-  rename(token = word)
+  rename(token = word)  
+# Für das Joinen werden gleiche Spaltennamen benötigt
 
 afd_df %>% 
   anti_join(stopwords_de) -> afd_df
@@ -205,7 +233,7 @@ afd_df %>%
 ```{r echo = FALSE}
 afd_count %>% 
   top_n(10) %>% 
-  knitr::kable()
+  knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm")
 ```
 
 Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder "trunkieren".
@@ -217,7 +245,7 @@ afd_df %>%
 
 afd_count %>% 
   top_n(10) %>% 
-  knitr::kable()
+  knitr::kable(aption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
 ```
 
 Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch). Denken Sie daran, dass `.` bei `dplyr` nur den Datensatz meint, wie er im letzten Schritt definiert war. Mit `.$token` wählen wir also die Variable `token` aus `afd_raw` aus.
@@ -271,6 +299,24 @@ grid.arrange(p1, p2, ncol = 2)
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
+
+## Aufgaben^[F, R, F, F, R, R]
+
+
+
+```{block2, exercises-text, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Unter einem Token versteht man die größte Analyseeinheit in einem Text.
+1. In einem tidytext Dataframe steht jedes Wort in einer (eigenen) Zeile.
+1. Eine hinreichende Bedingung für einen tidytext Dataframe ist es, dass in jeder Zeile ein Wort steht (beziehen Sie sich auf den tidytext Dataframe wie in diesem Kapitel erörtert).
+1. Gibt es 'Stop-Wörter' in einem Dataframe, dessen Text analysiert wird, so kommt es - per definitionem - zu einem Stop.
+1. Mit dem Befehl `unnest_tokens` kann man einen tidytext Dataframe erstellen.
+1. Balkendiagramme sind sinnvolle und auch häufige Diagrammtypen, um die häufigsten Wörter (oder auch Tokens) in einem Corpus darzustellen.
+
+
+
+```
 
 
 

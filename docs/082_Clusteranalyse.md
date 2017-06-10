@@ -9,11 +9,9 @@
 # Vertiefung: Clusteranalyse {#cluster}
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
@@ -25,6 +23,15 @@ library(tidyverse)
 library(cluster)
 ```
 
+
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
+
+- Das Ziel einer Clusteranalyse erläutern können.
+- Das Konzept der euklidischen Abstände verstehen.
+- Eine k-Means-Clusteranalyse berechnen und interpretieren können.
+</div>\EndKnitrBlock{rmdcaution}
 
 
 ## Einführung
@@ -40,25 +47,17 @@ Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*
 
 Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster1-1} 
-
-}
-
-\caption{Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?}(\#fig:cluster1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster1-1.png" alt="Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?" width="70%" />
+<p class="caption">(\#fig:cluster1)Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?</p>
+</div>
 
 Färben wir das Diagramm mal ein (Abb. \@ref(fig:cluster2)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster2-1} 
-
-}
-
-\caption{Ein Streudiagramm - mit drei Clustern}(\#fig:cluster2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster2-1.png" alt="Ein Streudiagramm - mit drei Clustern" width="70%" />
+<p class="caption">(\#fig:cluster2)Ein Streudiagramm - mit drei Clustern</p>
+</div>
 
 Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende "Cluster", "Gruppen" oder "Typen" von Studierenden zu geben:
 
@@ -71,28 +70,20 @@ Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es 
 
 Drei Gruppen scheinen ganz gut zu passen. Wir hätten theoretisch auch mehr oder weniger Gruppen unterteilen können. Die Clusteranalyse gibt keine definitive Anzahl an Gruppen vor; vielmehr gilt es, aus theoretischen und statistischen Überlegungen heraus die richtige Anzahl auszuwählen (dazu gleich noch mehr).
 
-Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abb. \@ref(fig:cluster3)).
+Unterteilen wir zur Illustration den Datensatz einmal in bis zu 9 Cluster (Abbildung \@ref(fig:cluster3)).
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster3-1} 
-
-}
-
-\caption{Unterschiedliche Anzahlen von Clustern im Vergleich}(\#fig:cluster3)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster3-1.png" alt="Unterschiedliche Anzahlen von Clustern im Vergleich" width="70%" />
+<p class="caption">(\#fig:cluster3)Unterschiedliche Anzahlen von Clustern im Vergleich</p>
+</div>
 
 Das "X" soll den "Mittelpunkt" des Clusters zeigen. Der Mittelpunkt ist so gewählt, dass die Distanz von jedem Punkt zum Mittelpunkt möglichst kurz ist. Dieser Abstand wird auch "Varianz innerhalb des Clusters" oder kurz "Varianz within" bezeichnet. Natürlich wird diese Varianz within immer kleiner, je größer die Anzahl der Cluster wird.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/cluster4-1} 
-
-}
-
-\caption{Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.}(\#fig:cluster4)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="082_Clusteranalyse_files/figure-html/cluster4-1.png" alt="Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot." width="70%" />
+<p class="caption">(\#fig:cluster4)Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.</p>
+</div>
 
 Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeihchnet. Fertig!
 
@@ -101,32 +92,24 @@ Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf ein
 
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/cluster/distanz_crop} 
-
-}
-
-\caption{Distanz zwischen zwei Punkten in der Ebene}(\#fig:distanz)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/cluster/distanz_crop.png" alt="Distanz zwischen zwei Punkten in der Ebene" width="50%" />
+<p class="caption">(\#fig:distanz)Distanz zwischen zwei Punkten in der Ebene</p>
+</div>
 
 
 Eine Möglichkeit, die Distanz zwischen zwei Punkten in der Ebene (2D) zu bestimmen, ist der *Satz des Pythagoras* (leise Trompetenfanfare). Generationen von Schülern haben diese Gleichung ähmm... geliebt:
 
 $$c^2 = a^2 + b^2$$
 
-In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\sqrt{25}=5$. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art von "Abstand" nennt man den *euklidischen Abstand*.
+In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\sqrt{25}=5$. Der Abstand oder der Unterschied zwischen Anna und Berta beträgt also 5 - diese Art von "Abstand" nennt man den *euklidischen Abstand*\index{euklidischen Abstand}.
 
 Aber kann man den euklidischen Abstand auch in 3D (Raum) verwenden? Oder gar in Räumen mehr mehr Dimensionen??? Betrachten wir den Versuch, zwei Dreiecke in 3D zu zeichnen. Stellen wir uns vor, zusätzlich zu Lernzeit und Klausurerfolg hätten wir als 3. Merkmal der Studentinnen noch "Statistikliebe" erfasst (Bertas Statistikliebe ist um 2 Punkte höher als Annas).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/cluster/pythagoras2_crop} 
-
-}
-
-\caption{Pythagoras in 3D}(\#fig:pythagoras2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/cluster/pythagoras2_crop.png" alt="Pythagoras in 3D" width="50%" />
+<p class="caption">(\#fig:pythagoras2)Pythagoras in 3D</p>
+</div>
 
 Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
 
@@ -145,14 +128,10 @@ Intuitiv gesprochen, "schalten wir mehrere Pythagoras-Sätze hintereinander".
 >   Der euklidische Abstand berechnet sich mit Pythagoras' Satz!
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/cluster/pythagoras_crop} 
-
-}
-
-\caption{Pythagoras in Reihe geschaltet}(\#fig:pythagoras)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/cluster/pythagoras_crop.png" alt="Pythagoras in Reihe geschaltet" width="70%" />
+<p class="caption">(\#fig:pythagoras)Pythagoras in Reihe geschaltet</p>
+</div>
 
 Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.
 
@@ -190,7 +169,7 @@ Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwis
 
 ## Daten
 
-Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus *Chapman & Feit (2015): R for Marketing Research and Analytics. Springer* analysieren ([http://r-marketing.r-forge.r-project.org](http://r-marketing.r-forge.r-project.org)). Näheres dazu siehe Kapitel 5 dort.
+Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus @Chapman2015 analysieren. Näheres zu den Daetn siehe Kapitel 5 dort.
 
 Sie können ihn von <https://goo.gl/eUm8PI> als `csv`-Datei herunterladen; oder, wenn sich die Datei im Unterordner `data/` (relativ zu ihrem Arbeitsverzeichnis) befindet:
 
@@ -236,27 +215,17 @@ dist(head(segment))
 
 Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
 
-Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte unterschiedliche Skalenniveaus aufweisen.
+Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich auch den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte aus Variablen mit unterschiedlichen Skalenniveaus bestehen
 
 
 ```r
 daisy(head(segment))
-#> Dissimilarities :
-#>       1     2     3     4     5
-#> 2 0.307                        
-#> 3 0.560 0.390                  
-#> 4 0.219 0.184 0.502            
-#> 5 0.516 0.220 0.242 0.404      
-#> 6 0.401 0.206 0.239 0.268 0.426
-#> 
-#> Metric :  mixed ;  Types = I, N, I, I, N, N, N 
-#> Number of objects : 6
 ```
 
 
 ## k-Means Clusteranalyse
 
-Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in k Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
+Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in $k$ Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
 
 Der Ablauf des Verfahrens ist wie folgt:
 
@@ -269,19 +238,19 @@ Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung
 *Hinweis:* Die (robuste) Funktion `pam()` aus dem Paket `cluster` kann auch mit allgemeinen Distanzen umgehen. Außerdem für gemischte Variablentypen gut geeignet: Das Paket [`clustMixType`](https://cran.r-project.org/web/packages/clustMixType/index.html).
 
 
-Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale, und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:
+Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:
 
 ```r
 segment.num <- segment %>%
   mutate(Frau = Geschlecht == "Frau") %>%
-  mutate(Eigenheim = Eigenheim =="Ja") %>%
+  mutate(Eigenheim = Eigenheim == "Ja") %>%
   mutate(Mitgliedschaft = Mitgliedschaft == "Ja") %>%
   dplyr::select(-Geschlecht, -Segment)
 ```
 
-Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzene Variablen ausgewählt. Die "Pfeife" `%>%` übergeben das Ergebnis der vorherigen Funktion an die folgende.
+Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzene Variablen ausgewählt. Mit der "Pfeife" `%>%` übergeben wir das Ergebnis der vorherigen Funktion an die folgende.
 
-Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion `kmeans()` erfolgt dies durch die Option `nstart=`. Hier mit `k=4` Clustern:
+Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion `kmeans()` erfolgt dies durch die Option `nstart =`. Hier mit `k = 4` Clustern:
 
 
 ```r
@@ -321,6 +290,8 @@ seg.k
 ```
 Neben der Anzahl Beobachtungen im Cluster (z. B. 26 in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster 3 mit 27 am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit 54 \% in Cluster 2 am höchsten.
 
+In zwei Dimensionen kann man Cluster gut visualisieren (Abbildung \@ref(fig:cluster3)).; in drei Dimensionen wird es schon unübersichtlich. Mehr Dimensionen sind schwierig. Daher ist es oft sinnvoll, die Anzahl der Dimensionen durch Verfahren der Dimensionsreduktion zu verringern. Die Hauptkomponentenanalyse oder die Faktorenanalyse bieten sich dafür an.
+
 Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion `clusplot()` aus dem Paket `cluster` erhalten.
 
 ```r
@@ -328,9 +299,7 @@ clusplot(segment.num, seg.k$cluster,
          color = TRUE, shade = TRUE, labels = 4)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{082_Clusteranalyse_files/figure-latex/unnamed-chunk-10-1} \end{center}
+<img src="082_Clusteranalyse_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?^[Das Paket `NbClust`, siehe Malika Charrad, Nadia Ghazzali, Veronique Boiteau, Azam Niknafs (2014) *NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set*, Journal of Statistical Software, 61(6), 1-36. [http://dx.doi.org/10.18637/jss.v061.i06](http://dx.doi.org/10.18637/jss.v061.i06), bietet viele Möglichkeiten die Anzahl der Cluster optimal zu bestimmen.]
 
 ***
@@ -352,26 +321,16 @@ Er kann von [https://goo.gl/0YCEHf](https://goo.gl/0YCEHf) heruntergeladen werde
 
 Tabelle \@ref(tab:befehle-cluster) fasst die R-Funktionen dieses Kapitels zusammen.
 
-\begin{table}
 
-\caption{(\#tab:befehle-cluster)Befehle des Kapitels 'Clusteranalyse'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-dist & Berechnet den euklidischen Abstand zwischen Vektoren\\
-\hline
-dplyr::glimpse & Stellt einen Dataframe im Überblick dar\\
-\hline
-cluster::daisy & Berechnet verschiedene Abstandsmaße\\
-\hline
-set.seed & Zufallsgenerator auf bestimmte Zahlen festlegen\\
-\hline
-cluster::clusplot & Visualisiert eine Clusteranalyse\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-cluster)Befehle des Kapitels 'Clusteranalyse'
+
+Paket::Funktion     Beschreibung                                         
+------------------  -----------------------------------------------------
+dist                Berechnet den euklidischen Abstand zwischen Vektoren 
+dplyr::glimpse      Stellt einen Dataframe im Überblick dar              
+cluster::daisy      Berechnet verschiedene Abstandsmaße                  
+set.seed            Zufallsgenerator auf bestimmte Zahlen festlegen      
+cluster::clusplot   Visualisiert eine Clusteranalyse                     
 
 
 

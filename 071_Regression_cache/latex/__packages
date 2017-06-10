@@ -1,0 +1,13 @@
+base
+lattice
+ggplot2
+caret
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+gridExtra
+modelr
+pander

@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-<link rel="prev" href="dimensionsreduktion.html">
+<link rel="prev" href="vertiefung-dimensionsreduktion.html">
 <link rel="next" href="probeklausur.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -126,8 +126,9 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="2.1.6" data-path="rahmen.html"><a href="rahmen.html#die-denk--und-gefuhlswelt-von-r"><i class="fa fa-check"></i><b>2.1.6</b> Die Denk- und Gefühlswelt von R</a></li>
 <li class="chapter" data-level="2.1.7" data-path="rahmen.html"><a href="rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.7</b> Pakete</a></li>
 <li class="chapter" data-level="2.1.8" data-path="rahmen.html"><a href="rahmen.html#r-pakete-fur-dieses-buch"><i class="fa fa-check"></i><b>2.1.8</b> R-Pakete für dieses Buch</a></li>
-<li class="chapter" data-level="2.1.9" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.9</b> Datensätze</a></li>
-<li class="chapter" data-level="2.1.10" data-path="rahmen.html"><a href="rahmen.html#aufgaben"><i class="fa fa-check"></i><b>2.1.10</b> Aufgaben</a></li>
+<li class="chapter" data-level="2.1.9" data-path="rahmen.html"><a href="rahmen.html#vertiefung-zuordnung-von-paketen-zu-befehlen"><i class="fa fa-check"></i><b>2.1.9</b> Vertiefung: Zuordnung von Paketen zu Befehlen</a></li>
+<li class="chapter" data-level="2.1.10" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.10</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.11" data-path="rahmen.html"><a href="rahmen.html#aufgaben"><i class="fa fa-check"></i><b>2.1.11</b> Aufgaben</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="rahmen.html"><a href="rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="rahmen.html"><a href="rahmen.html#datentypen-in-r"><i class="fa fa-check"></i><b>2.2.1</b> Datentypen in R</a></li>
@@ -171,10 +172,10 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="4.4" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>4.4</b> Die Pfeife</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>4.4.1</b> Spalten berechnen mit <code>mutate</code></a></li>
 <li class="chapter" data-level="4.4.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-9"><i class="fa fa-check"></i><b>4.4.2</b> Aufgaben</a></li>
-<li class="chapter" data-level="4.4.3" data-path="datenjudo.html"><a href="datenjudo.html#deskriptive-statistik"><i class="fa fa-check"></i><b>4.4.3</b> Deskriptive Statistik</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.5</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="4.6" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.6</b> Verweise</a></li>
+<li class="chapter" data-level="4.5" data-path="datenjudo.html"><a href="datenjudo.html#deskriptive-statistik"><i class="fa fa-check"></i><b>4.5</b> Deskriptive Statistik</a></li>
+<li class="chapter" data-level="4.6" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.6</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="4.7" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.7</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>5</b> Praxisprobleme der Datenaufbereitung</a><ul>
 <li class="chapter" data-level="5.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#datenaufbereitung"><i class="fa fa-check"></i><b>5.1</b> Datenaufbereitung</a><ul>
@@ -263,48 +264,39 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="10.6" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#fazit"><i class="fa fa-check"></i><b>10.6</b> Fazit</a></li>
 <li class="chapter" data-level="10.7" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#verweise-5"><i class="fa fa-check"></i><b>10.7</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html"><i class="fa fa-check"></i><b>11</b> Klassische lineare Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#die-idee-der-klassischen-regression"><i class="fa fa-check"></i><b>11.1</b> Die Idee der klassischen Regression</a></li>
-<li class="chapter" data-level="11.2" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#vorhersagegute"><i class="fa fa-check"></i><b>11.2</b> Vorhersagegüte</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>11.2.1</b> Mittlere Quadratfehler</a></li>
-<li class="chapter" data-level="11.2.2" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>11.2.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
-<li class="chapter" data-level="11.2.3" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#likelihood-and-friends"><i class="fa fa-check"></i><b>11.2.3</b> Likelihood and Friends</a></li>
+<li class="chapter" data-level="11" data-path="lineare-regression.html"><a href="lineare-regression.html"><i class="fa fa-check"></i><b>11</b> Lineare Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lineare-regression.html"><a href="lineare-regression.html#die-idee-der-klassischen-regression"><i class="fa fa-check"></i><b>11.1</b> Die Idee der klassischen Regression</a></li>
+<li class="chapter" data-level="11.2" data-path="lineare-regression.html"><a href="lineare-regression.html#vorhersagegute"><i class="fa fa-check"></i><b>11.2</b> Vorhersagegüte</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="lineare-regression.html"><a href="lineare-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>11.2.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="11.2.2" data-path="lineare-regression.html"><a href="lineare-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>11.2.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#beispiel-fur-eine-regression"><i class="fa fa-check"></i><b>11.3</b> Beispiel für eine Regression</a></li>
-<li class="chapter" data-level="11.4" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>11.4</b> Überprüfung der Annahmen der linearen Regression</a></li>
-<li class="chapter" data-level="11.5" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>11.5</b> Regression mit kategorialen Prädiktoren</a></li>
-<li class="chapter" data-level="11.6" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#multiple-regression"><i class="fa fa-check"></i><b>11.6</b> Multiple Regression</a></li>
-<li class="chapter" data-level="11.7" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#inferenz-in-der-linearen-regression"><i class="fa fa-check"></i><b>11.7</b> Inferenz in der linearen Regression</a></li>
-<li class="chapter" data-level="11.8" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#vertiefungen-zum-regressionmodell"><i class="fa fa-check"></i><b>11.8</b> Vertiefungen zum Regressionmodell</a><ul>
-<li class="chapter" data-level="11.8.1" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#modellwahl"><i class="fa fa-check"></i><b>11.8.1</b> Modellwahl</a></li>
-<li class="chapter" data-level="11.8.2" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#interaktionen"><i class="fa fa-check"></i><b>11.8.2</b> Interaktionen</a></li>
-<li class="chapter" data-level="11.8.3" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#weitere-modellierungsmoglichkeiten"><i class="fa fa-check"></i><b>11.8.3</b> Weitere Modellierungsmöglichkeiten</a></li>
-</ul></li>
-<li class="chapter" data-level="11.9" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>11.9</b> Fallstudie zu Overfitting</a></li>
-<li class="chapter" data-level="11.10" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>11.10</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="11.11" data-path="klassische-lineare-regression.html"><a href="klassische-lineare-regression.html#verweise-6"><i class="fa fa-check"></i><b>11.11</b> Verweise</a></li>
+<li class="chapter" data-level="11.3" data-path="lineare-regression.html"><a href="lineare-regression.html#die-regression-an-einem-beispiel-erlautert"><i class="fa fa-check"></i><b>11.3</b> Die Regression an einem Beispiel erläutert</a></li>
+<li class="chapter" data-level="11.4" data-path="lineare-regression.html"><a href="lineare-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>11.4</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="11.5" data-path="lineare-regression.html"><a href="lineare-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>11.5</b> Regression mit kategorialen Prädiktoren</a></li>
+<li class="chapter" data-level="11.6" data-path="lineare-regression.html"><a href="lineare-regression.html#multiple-regression"><i class="fa fa-check"></i><b>11.6</b> Multiple Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="lineare-regression.html"><a href="lineare-regression.html#interaktionen"><i class="fa fa-check"></i><b>11.7</b> Interaktionen</a></li>
+<li class="chapter" data-level="11.8" data-path="lineare-regression.html"><a href="lineare-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>11.8</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="11.9" data-path="lineare-regression.html"><a href="lineare-regression.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>11.9</b> Befehlsübersicht</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a><ul>
 <li class="chapter" data-level="12.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vorbereitung"><i class="fa fa-check"></i><b>12.1</b> Vorbereitung</a></li>
 <li class="chapter" data-level="12.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#problemstellung"><i class="fa fa-check"></i><b>12.2</b> Problemstellung</a></li>
 <li class="chapter" data-level="12.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>12.3</b> Die Idee der logistischen Regression</a></li>
-<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#welche-unterschiede-zur-linearen-regression-gibt-es-in-der-ausgabe"><i class="fa fa-check"></i><b>12.4</b> Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?</a></li>
+<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kein-r2-dafur-aic"><i class="fa fa-check"></i><b>12.4</b> Kein <span class="math inline">\(R^2\)</span>, dafür AIC</a></li>
 <li class="chapter" data-level="12.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>12.5</b> Interpretation der Koeffizienten</a><ul>
 <li class="chapter" data-level="12.5.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>12.5.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
 <li class="chapter" data-level="12.5.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>12.5.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
 <li class="chapter" data-level="12.5.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#aufgabe"><i class="fa fa-check"></i><b>12.5.3</b> Aufgabe</a></li>
 </ul></li>
-<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-variablen"><i class="fa fa-check"></i><b>12.6</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-pradiktoren"><i class="fa fa-check"></i><b>12.6</b> Kategoriale Prädiktoren</a></li>
 <li class="chapter" data-level="12.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>12.7</b> Multiple logistische Regression</a></li>
-<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modell--bzw.-klassifikationsgute"><i class="fa fa-check"></i><b>12.8</b> Modell- bzw. Klassifikationsgüte</a></li>
-<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vertiefung"><i class="fa fa-check"></i><b>12.9</b> Vertiefung</a><ul>
-<li class="chapter" data-level="12.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellschatzung"><i class="fa fa-check"></i><b>12.9.1</b> Modellschätzung</a></li>
-<li class="chapter" data-level="12.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#likelihood-quotienten-test"><i class="fa fa-check"></i><b>12.9.2</b> Likelihood Quotienten Test</a></li>
-<li class="chapter" data-level="12.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#pseudo-r2"><i class="fa fa-check"></i><b>12.9.3</b> Pseudo-<span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellgute-1"><i class="fa fa-check"></i><b>12.8</b> Modellgüte</a></li>
+<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#klassifikationskennzahlen"><i class="fa fa-check"></i><b>12.9</b> Klassifikationskennzahlen</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vier-arten-von-ergebnissen-einer-klassifikation"><i class="fa fa-check"></i><b>12.9.1</b> Vier Arten von Ergebnissen einer Klassifikation</a></li>
+<li class="chapter" data-level="12.9.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#klassifikationsgutekennzahlen"><i class="fa fa-check"></i><b>12.9.2</b> Klassifikationsgütekennzahlen</a></li>
+<li class="chapter" data-level="12.9.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#roc-kurven"><i class="fa fa-check"></i><b>12.9.3</b> ROC-Kurven</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#ubung-rot--oder-weiwein"><i class="fa fa-check"></i><b>12.10</b> Übung: Rot- oder Weißwein?</a></li>
-<li class="chapter" data-level="12.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#befehlsubersicht-7"><i class="fa fa-check"></i><b>12.11</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="12.12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#verweise-7"><i class="fa fa-check"></i><b>12.12</b> Verweise</a></li>
+<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#befehlsubersicht-7"><i class="fa fa-check"></i><b>12.10</b> Befehlsübersicht</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>13</b> Fallstudien zum geleiteten Modellieren</a><ul>
 <li class="chapter" data-level="13.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>13.1</b> Überleben auf der Titanic</a><ul>
@@ -347,41 +339,44 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="14.6" data-path="cluster.html"><a href="cluster.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>14.6</b> k-Means Clusteranalyse</a></li>
 <li class="chapter" data-level="14.7" data-path="cluster.html"><a href="cluster.html#ubung-b3-datensatz"><i class="fa fa-check"></i><b>14.7</b> Übung: B3 Datensatz</a></li>
 <li class="chapter" data-level="14.8" data-path="cluster.html"><a href="cluster.html#befehlsubersicht-9"><i class="fa fa-check"></i><b>14.8</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="14.9" data-path="cluster.html"><a href="cluster.html#verweise-8"><i class="fa fa-check"></i><b>14.9</b> Verweise</a></li>
+<li class="chapter" data-level="14.9" data-path="cluster.html"><a href="cluster.html#verweise-6"><i class="fa fa-check"></i><b>14.9</b> Verweise</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html"><i class="fa fa-check"></i><b>15</b> Dimensionsreduktion</a><ul>
-<li class="chapter" data-level="15.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#einfuhrung-1"><i class="fa fa-check"></i><b>15.1</b> Einführung</a></li>
-<li class="chapter" data-level="15.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>15.2</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
-<li class="chapter" data-level="15.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#daten-1"><i class="fa fa-check"></i><b>15.3</b> Daten</a></li>
-<li class="chapter" data-level="15.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>15.4</b> Neuskalierung der Daten</a></li>
-<li class="chapter" data-level="15.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>15.5</b> Zusammenhänge in den Daten</a></li>
-<li class="chapter" data-level="15.6" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#daten-mit-fehlende-werten"><i class="fa fa-check"></i><b>15.6</b> Daten mit fehlende Werten</a></li>
-<li class="chapter" data-level="15.7" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>15.7</b> Hauptkomponentenanalyse (PCA)</a><ul>
-<li class="chapter" data-level="15.7.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>15.7.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
-<li class="chapter" data-level="15.7.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#scree-plot"><i class="fa fa-check"></i><b>15.7.2</b> Scree-Plot</a></li>
-<li class="chapter" data-level="15.7.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#ellbogen-kriterium"><i class="fa fa-check"></i><b>15.7.3</b> Ellbogen-Kriterium</a></li>
-<li class="chapter" data-level="15.7.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#eigenwert-kriterium"><i class="fa fa-check"></i><b>15.7.4</b> Eigenwert-Kriterium</a></li>
-<li class="chapter" data-level="15.7.5" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#biplot"><i class="fa fa-check"></i><b>15.7.5</b> Biplot</a></li>
-<li class="chapter" data-level="15.7.6" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#interpretation-der-ergebnisse-der-pca"><i class="fa fa-check"></i><b>15.7.6</b> Interpretation der Ergebnisse der PCA:</a></li>
+<li class="chapter" data-level="15" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html"><i class="fa fa-check"></i><b>15</b> Vertiefung: Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="15.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#einfuhrung-1"><i class="fa fa-check"></i><b>15.1</b> Einführung</a></li>
+<li class="chapter" data-level="15.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#grunde-fur-die-notwendigkeit-der-datenreduktion"><i class="fa fa-check"></i><b>15.2</b> Gründe für die Notwendigkeit der Datenreduktion</a></li>
+<li class="chapter" data-level="15.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#intuition-zur-dimensionsreduktion"><i class="fa fa-check"></i><b>15.3</b> Intuition zur Dimensionsreduktion</a></li>
+<li class="chapter" data-level="15.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#daten-1"><i class="fa fa-check"></i><b>15.4</b> Daten</a></li>
+<li class="chapter" data-level="15.5" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>15.5</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="15.6" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>15.6</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="15.7" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#daten-mit-fehlende-werten"><i class="fa fa-check"></i><b>15.7</b> Daten mit fehlende Werten</a></li>
+<li class="chapter" data-level="15.8" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>15.8</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>15.8.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="15.8.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#scree-plot"><i class="fa fa-check"></i><b>15.8.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="15.8.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#ellbogen-kriterium"><i class="fa fa-check"></i><b>15.8.3</b> Ellbogen-Kriterium</a></li>
+<li class="chapter" data-level="15.8.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#eigenwert-kriterium"><i class="fa fa-check"></i><b>15.8.4</b> Eigenwert-Kriterium</a></li>
+<li class="chapter" data-level="15.8.5" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#biplot"><i class="fa fa-check"></i><b>15.8.5</b> Biplot</a></li>
+<li class="chapter" data-level="15.8.6" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#interpretation-der-ergebnisse-der-pca"><i class="fa fa-check"></i><b>15.8.6</b> Interpretation der Ergebnisse der PCA</a></li>
 </ul></li>
-<li class="chapter" data-level="15.8" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>15.8</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
-<li class="chapter" data-level="15.8.1" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>15.8.1</b> Finden einer EFA Lösung</a></li>
-<li class="chapter" data-level="15.8.2" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#schatzung-der-efa"><i class="fa fa-check"></i><b>15.8.2</b> Schätzung der EFA</a></li>
-<li class="chapter" data-level="15.8.3" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#heatmap-mit-ladungen"><i class="fa fa-check"></i><b>15.8.3</b> Heatmap mit Ladungen</a></li>
-<li class="chapter" data-level="15.8.4" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>15.8.4</b> Berechnung der Faktor-Scores</a></li>
+<li class="chapter" data-level="15.9" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>15.9</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="15.9.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>15.9.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="15.9.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#schatzung-der-efa"><i class="fa fa-check"></i><b>15.9.2</b> Schätzung der EFA</a></li>
+<li class="chapter" data-level="15.9.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#vertiefung-heatmap-mit-ladungen"><i class="fa fa-check"></i><b>15.9.3</b> Vertiefung: Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="15.9.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>15.9.4</b> Berechnung der Faktor-Scores</a></li>
 </ul></li>
-<li class="chapter" data-level="15.9" data-path="dimensionsreduktion.html"><a href="dimensionsreduktion.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>15.9</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="15.10" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>15.10</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="15.11" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#befehlsubersicht-10"><i class="fa fa-check"></i><b>15.11</b> Befehlsübersicht</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html"><i class="fa fa-check"></i><b>16</b> Vertiefung: Textmining</a><ul>
-<li class="chapter" data-level="16.1" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#einfuhrung-2"><i class="fa fa-check"></i><b>16.1</b> Einführung</a></li>
+<li class="chapter" data-level="16.1" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#zentrale-begriffe"><i class="fa fa-check"></i><b>16.1</b> Zentrale Begriffe</a></li>
 <li class="chapter" data-level="16.2" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>16.2</b> Grundlegende Analyse</a><ul>
 <li class="chapter" data-level="16.2.1" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>16.2.1</b> Tidy Text Dataframes</a></li>
 <li class="chapter" data-level="16.2.2" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>16.2.2</b> Text-Daten einlesen</a></li>
 <li class="chapter" data-level="16.2.3" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>16.2.3</b> Worthäufigkeiten auszählen</a></li>
 <li class="chapter" data-level="16.2.4" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#visualisierung"><i class="fa fa-check"></i><b>16.2.4</b> Visualisierung</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#befehlsubersicht-10"><i class="fa fa-check"></i><b>16.3</b> Befehlsübersicht</a></li>
-<li class="chapter" data-level="16.4" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#verweise-9"><i class="fa fa-check"></i><b>16.4</b> Verweise</a></li>
+<li class="chapter" data-level="16.3" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#aufgaben-12"><i class="fa fa-check"></i><b>16.3</b> Aufgaben</a></li>
+<li class="chapter" data-level="16.4" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#befehlsubersicht-11"><i class="fa fa-check"></i><b>16.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="16.5" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#verweise-7"><i class="fa fa-check"></i><b>16.5</b> Verweise</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>17</b> Probeklausur</a><ul>
 <li class="chapter" data-level="17.1" data-path="probeklausur.html"><a href="probeklausur.html#losungen-1"><i class="fa fa-check"></i><b>17.1</b> Lösungen</a></li>
@@ -409,6 +404,17 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <h1><span class="header-section-number">Kapitel 16</span> Vertiefung: Textmining</h1>
 <p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
 <p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>Sie kennen zentrale Ziele und Begriffe des Textminings.</li>
+<li>Sie wissen, was ein ‘tidy text dataframe’ ist.</li>
+<li>Sie können Worthäufigkeiten auszählen.</li>
+<li>Sie können Worthäufigkeiten anhand einer Wordcloud visualisieren.</li>
+</ul>
+</div>
+<p></p>
 <p>In diesem Kapitel benötigte R-Pakete:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  <span class="co"># Datenjudo</span>
 <span class="kw">library</span>(stringr)  <span class="co"># Textverarbeitung</span>
@@ -419,10 +425,10 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <span class="kw">library</span>(SnowballC)  <span class="co"># Wörter trunkieren</span>
 <span class="kw">library</span>(wordcloud)  <span class="co"># Wordcloud anzeigen</span></code></pre></div>
 <p>Ein großer Teil der zur Verfügung stehenden Daten liegt nicht als braves Zahlenmaterial vor, sondern in “unstrukturierter” Form, z.B. in Form von Texten. Im Gegensatz zur Analyse von numerischen Daten ist die Analyse von Texten weniger verbreitet bisher. In Anbetracht der Menge und der Informationsreichhaltigkeit von Text erscheint die Analyse von Text als vielversprechend.</p>
-<p>In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch wesentlich <em>dümmer</em> als ein Mensch, in dieser Hinsicht. Allerdings ist er auch wesentlich <em>schneller</em> als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.</p>
+<p>In gewisser Weise ist das Textmining ein alternative zu klassischen qualitativen Verfahren der Sozialforschung. Geht es in der qualitativen Sozialforschung primär um das Verstehen eines Textes, so kann man für das Textmining ähnliche Ziele formulieren. Allerdings: Das Textmining ist wesentlich schwächer und beschränkter in der Tiefe des Verstehens. Der Computer ist einfach noch (?) wesentlich <em>dümmer</em> als ein Mensch, zumindest in dieser Hinsicht. Allerdings ist er auch wesentlich <em>schneller</em> als ein Mensch, was das Lesen betrifft. Daher bietet sich das Textmining für das Lesen großer Textmengen an, in denen eine geringe Informationsdichte vermutet wird. Sozusagen maschinelles Sieben im großen Stil. Da fällt viel durch die Maschen, aber es werden Tonnen von Sand bewegt.</p>
 <p>In der Regel wird das Textmining als <em>gemischte</em> Methode verwendet: sowohl qualitative als auch qualitative Aspekte spielen eine Rolle. Damit vermittelt das Textmining auf konstruktive Art und Weise zwischen den manchmal antagonierenden Schulen der qualitativ-idiographischen und der quantitativ-nomothetischen Sichtweise auf die Welt. Man könnte es auch als qualitative Forschung mit moderner Technik bezeichnen - mit den skizzierten Einschränkungen wohlgemerkt.</p>
-<div id="einfuhrung-2" class="section level2">
-<h2><span class="header-section-number">16.1</span> Einführung</h2>
+<div id="zentrale-begriffe" class="section level2">
+<h2><span class="header-section-number">16.1</span> Zentrale Begriffe</h2>
 <p>Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig aus Quellen der Linguistik; entsprechende Fachtermini finden Verwendung:</p>
 <ul>
 <li><p>Ein <em>Corpus</em> bezeichnet die Menge der zu analyisierenden Dokumente; das könnten z.B. alle Reden der Bundeskanzlerin Angela Merkel sein oder alle Tweets von “@realDonaldTrump”.</p></li>
@@ -434,7 +440,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <h2><span class="header-section-number">16.2</span> Grundlegende Analyse</h2>
 <div id="tidy-text-dataframes" class="section level3">
 <h3><span class="header-section-number">16.2.1</span> Tidy Text Dataframes</h3>
-<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn64" class="footnoteRef" id="fnref64"><sup>64</sup></a> besteht aus 4 Elementen.</p>
+<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn63" class="footnoteRef" id="fnref63"><sup>63</sup></a> besteht aus 4 Elementen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Wir haben die Frauen zu Bett gebracht,&quot;</span>,
           <span class="st">&quot;als die Männer in Frankreich standen.&quot;</span>,
           <span class="st">&quot;Wir hatten uns das viel schöner gedacht.&quot;</span>,
@@ -471,14 +477,23 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <p>Und “dehnen” diesen Dataframe zu einem <em>tidy text</em> Dataframe.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 text_df %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">unnest_tokens</span>(wort, text)
-<span class="co">#&gt; # A tibble: 24 x 2</span>
-<span class="co">#&gt;   Zeile  wort</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1     1   wir</span>
-<span class="co">#&gt; 2     1 haben</span>
-<span class="co">#&gt; 3     1   die</span>
-<span class="co">#&gt; # ... with 21 more rows</span></code></pre></div>
+<span class="st">  </span><span class="kw">unnest_tokens</span>(<span class="dt">output =</span> wort, <span class="dt">input =</span> text) -&gt;<span class="st"> </span>tidytext_df
+
+tidytext_df %&gt;%<span class="st"> </span>head
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;   Zeile   wort</span>
+<span class="co">#&gt;   &lt;int&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt; 1     1    wir</span>
+<span class="co">#&gt; 2     1  haben</span>
+<span class="co">#&gt; 3     1    die</span>
+<span class="co">#&gt; 4     1 frauen</span>
+<span class="co">#&gt; 5     1     zu</span>
+<span class="co">#&gt; 6     1   bett</span></code></pre></div>
+<p>Der Parameter <code>output</code> sagt, wie neue ‘saubere’ Spalte heißen soll; <code>input</code> sagt der Funktion, welche Spalte sie als ihr Futter betrachten soll (welche Spalte in tidy text umgewandelt werden soll).</p>
+<blockquote>
+<p>In einem ‘tidy text Dataframe’ steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts im Dokument.</p>
+</blockquote>
+<p>Überprüfen Sie, ob das stimmt: Betrachten Sie den Dataframe <code>tidytext_df</code>.</p>
 <p>Das <code>unnest_tokens</code> kann übersetzt werden als “entschachtele” oder “dehne” die Tokens - so dass in <em>jeder Zeile</em> nur noch <em>ein Wort</em> (genauer: Token) steht. Die Syntax ist <code>unnest_tokens(Ausgabespalte, Eingabespalte)</code>. Nebenbei werden übrigens alle Buchstaben auf Kleinschreibung getrimmt.</p>
 <p>Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df %&gt;%<span class="st"> </span>
@@ -504,7 +519,7 @@ filtere die Spalte “wort”, so dass nur noch Kleinbuchstaben übrig bleiben. 
 </div>
 <div id="text-daten-einlesen" class="section level3">
 <h3><span class="header-section-number">16.2.2</span> Text-Daten einlesen</h3>
-<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein<a href="#fn65" class="footnoteRef" id="fnref65"><sup>65</sup></a>. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn66" class="footnoteRef" id="fnref66"><sup>66</sup></a>.</p>
+<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein<a href="#fn64" class="footnoteRef" id="fnref64"><sup>64</sup></a>. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn65" class="footnoteRef" id="fnref65"><sup>65</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_url &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;https://www.alternativefuer.de&quot;</span>,
 <span class="st">&quot;/wp-content/uploads/sites/7/2016/05/&quot;</span>,
 <span class="st">&quot;2016-06-27_afd-grundsatzprogramm_web-version.pdf&quot;</span>)
@@ -517,14 +532,12 @@ afd_raw &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(afd_pfad)
 <p>Mit <code>head(afd_raw)</code>können Sie sich den Beginn dieses Textvektor anzeigen lassen.</p>
 <p>Mit <code>download</code> haben wir die Datei mit der Url <code>afd_url</code> heruntergeladen und als <code>afd_pfad</code> gespeichert. Für uns ist <code>pdf_text</code> sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest. <code>head(afd_raw, 1)</code> liest das 1. Element (und nur das erste) aus <code>afd_raw</code> aus.</p>
 <p>Der Vektor <code>afd_raw</code> hat 96 Elemente (entsprechend der Seitenzahl des Dokzements); zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-afd_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">96</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">Zeile =</span> <span class="dv">1</span>:<span class="dv">96</span>, 
                      afd_raw)
-
-
 afd_df %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">unnest_tokens</span>(token, afd_raw) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(token, <span class="st">&quot;[a-z]&quot;</span>)) -&gt;<span class="st"> </span>afd_df
+<span class="st">  </span><span class="kw">unnest_tokens</span>(<span class="dt">output =</span> token, <span class="dt">input =</span> afd_raw) %&gt;%<span class="st"> </span>
+<span class="st">  </span>dplyr::<span class="kw">filter</span>(<span class="kw">str_detect</span>(token, <span class="st">&quot;[a-z]&quot;</span>)) -&gt;<span class="st"> </span>afd_df
+
 
 <span class="kw">count</span>(afd_df) 
 <span class="co">#&gt; # A tibble: 1 x 1</span>
@@ -551,7 +564,8 @@ afd_df %&gt;%<span class="st"> </span>
 stopwords_de &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">word =</span> stopwords_de)
 
 stopwords_de &lt;-<span class="st"> </span>stopwords_de %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">token =</span> word)
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">token =</span> word)  
+<span class="co"># Für das Joinen werden gleiche Spaltennamen benötigt</span>
 
 afd_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">anti_join</span>(stopwords_de) -&gt;<span class="st"> </span>afd_df</code></pre></div>
@@ -676,8 +690,8 @@ afd_count %&gt;%<span class="st"> </span>
           <span class="dt">max.words =</span> <span class="dv">100</span>, 
           <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), 
           <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
-<p><img src="090_Textmining_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn67" class="footnoteRef" id="fnref67"><sup>67</sup></a>.</p>
+<p><img src="090_Textmining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn66" class="footnoteRef" id="fnref66"><sup>66</sup></a>.</p>
 <p>Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 afd_count %&gt;%<span class="st"> </span>
@@ -700,12 +714,28 @@ afd_df %&gt;%<span class="st"> </span>
 
 <span class="kw">library</span>(gridExtra)
 <span class="kw">grid.arrange</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="090_Textmining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="090_Textmining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit <code>reorder</code> ordnen wir die Spalte <code>token</code> nach der Spalte <code>n</code>. <code>coord_flip</code> dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. <code>grid.arrange</code> packt beide Plots in eine Abbildung, welche 2 Spalten (<code>ncol</code>) hat.</p>
 </div>
 </div>
-<div id="befehlsubersicht-10" class="section level2">
-<h2><span class="header-section-number">16.3</span> Befehlsübersicht</h2>
+<div id="aufgaben-12" class="section level2">
+<h2><span class="header-section-number">16.3</span> Aufgaben<a href="#fn67" class="footnoteRef" id="fnref67"><sup>67</sup></a></h2>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li>Unter einem Token versteht man die größte Analyseeinheit in einem Text.</li>
+<li>In einem tidytext Dataframe steht jedes Wort in einer (eigenen) Zeile.</li>
+<li>Eine hinreichende Bedingung für einen tidytext Dataframe ist es, dass in jeder Zeile ein Wort steht (beziehen Sie sich auf den tidytext Dataframe wie in diesem Kapitel erörtert).</li>
+<li>Gibt es ‘Stop-Wörter’ in einem Dataframe, dessen Text analysiert wird, so kommt es - per definitionem - zu einem Stop.</li>
+<li>Mit dem Befehl <code>unnest_tokens</code> kann man einen tidytext Dataframe erstellen.</li>
+<li>Balkendiagramme sind sinnvolle und auch häufige Diagrammtypen, um die häufigsten Wörter (oder auch Tokens) in einem Corpus darzustellen.</li>
+</ol>
+</div>
+<p></p>
+</div>
+<div id="befehlsubersicht-11" class="section level2">
+<h2><span class="header-section-number">16.4</span> Befehlsübersicht</h2>
 <p>Tabelle <a href="#tab:befehle-text"><strong>??</strong></a> fasst die R-Funktionen dieses Kapitels zusammen.</p>
 <table style="width:81%;">
 <caption>Befehle des Kapitels ‘Textmining’</caption>
@@ -715,7 +745,7 @@ afd_df %&gt;%<span class="st"> </span>
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Paket::Befehl</th>
+<th align="left">Paket..Befehl</th>
 <th align="left">Beschreibung</th>
 </tr>
 </thead>
@@ -755,8 +785,8 @@ afd_df %&gt;%<span class="st"> </span>
 </tbody>
 </table>
 </div>
-<div id="verweise-9" class="section level2">
-<h2><span class="header-section-number">16.4</span> Verweise</h2>
+<div id="verweise-7" class="section level2">
+<h2><span class="header-section-number">16.5</span> Verweise</h2>
 <ul>
 <li>Das Buch <em>Tidy Text Minig</em> <span class="citation">(Julia und David <a href="#ref-tidytextminig">2017</a>)</span> ist eine hervorragende Quelle vertieftem Wissens zum Textmining mit R.</li>
 </ul>
@@ -776,11 +806,12 @@ afd_df %&gt;%<span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="64">
-<li id="fn64"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="vertiefung-textmining.html#fnref64">↩</a></p></li>
-<li id="fn65"><p>Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.<a href="vertiefung-textmining.html#fnref65">↩</a></p></li>
-<li id="fn66"><p><a href="https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf" class="uri">https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf</a><a href="vertiefung-textmining.html#fnref66">↩</a></p></li>
-<li id="fn67"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="vertiefung-textmining.html#fnref67">↩</a></p></li>
+<ol start="63">
+<li id="fn63"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="vertiefung-textmining.html#fnref63">↩</a></p></li>
+<li id="fn64"><p>Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.<a href="vertiefung-textmining.html#fnref64">↩</a></p></li>
+<li id="fn65"><p><a href="https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf" class="uri">https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf</a><a href="vertiefung-textmining.html#fnref65">↩</a></p></li>
+<li id="fn66"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="vertiefung-textmining.html#fnref66">↩</a></p></li>
+<li id="fn67"><p>F, R, F, F, R, R<a href="vertiefung-textmining.html#fnref67">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -788,7 +819,7 @@ afd_df %&gt;%<span class="st"> </span>
           </div>
         </div>
       </div>
-<a href="dimensionsreduktion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vertiefung-dimensionsreduktion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="probeklausur.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

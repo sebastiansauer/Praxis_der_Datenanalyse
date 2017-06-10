@@ -25,6 +25,7 @@ rmd_files: [
 "090_Textmining.Rmd",
 "100_Anhang.Rmd",
 "116_Probeklausur.Rmd",
+"117_Hinweise.Rmd",
 "120_Literatur.Rmd"
 ]
 clean: [bookdown.bbl]

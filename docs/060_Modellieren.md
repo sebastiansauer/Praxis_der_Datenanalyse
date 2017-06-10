@@ -6,11 +6,9 @@
 # Grundlagen des Modellierens {#mod1}
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
@@ -36,8 +34,7 @@ library(tidyverse)
 
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{images/modellieren/Modellieren} \end{center}
+<img src="images/modellieren/Modellieren.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -46,14 +43,10 @@ library(tidyverse)
 
 In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.4\linewidth]{images/modellieren/vw_modell} 
-
-}
-
-\caption{Modell eines VW-Käfers}(\#fig:vwmodell)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/vw_modell.JPG" alt="Modell eines VW-Käfers" width="40%" />
+<p class="caption">(\#fig:vwmodell)Modell eines VW-Käfers</p>
+</div>
 
 In die Wissenschaft kam der Begriff in der Zeit nach Kant, als man sich klar wurde, dass (physikalische) Theorien nicht die Wirklichkeit als solche zeigen, sondern ein *Modell* davon. Modellieren ist eine grundlegenden Tätigkeit, derer sich Menschen fortlaufend bedienen, um die Welt zu *verstehen*. Denn das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es daher sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen. Modelle sind häufig vereinfachend: es wird nur ein Ausschnitt der Wirklichkeit berücksichtigt.
 
@@ -62,14 +55,10 @@ Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sic
 Gegenstandsbereich und Modelle stehen in einer Beziehung miteinander (vgl. Abb. \@ref(fig:modellieren-plot), das Foto stammt von Unrau [-@unrau1]).
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/Modell} 
-
-}
-
-\caption{Modellieren}(\#fig:modellieren-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modell.png" alt="Modellieren" width="70%" />
+<p class="caption">(\#fig:modellieren-plot)Modellieren</p>
+</div>
 
 
 Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine mathematische Struktur zu übersetzen. 
@@ -81,14 +70,10 @@ Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen Syst
 
 >   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/Modellieren_formal_crop} 
-
-}
-
-\caption{Formaleres Modell des Modellierens}(\#fig:modellieren-formal)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_formal_crop.png" alt="Formaleres Modell des Modellierens" width="70%" />
+<p class="caption">(\#fig:modellieren-formal)Formaleres Modell des Modellierens</p>
+</div>
 
 Etwas spitzfinding könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
 
@@ -107,14 +92,10 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/plot-stats-1} 
-
-}
-
-\caption{Ein Beispiel für Modellieren}(\#fig:plot-stats)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-stats-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">(\#fig:plot-stats)Ein Beispiel für Modellieren</p>
+</div>
 
 
 Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
@@ -122,14 +103,10 @@ Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in ei
 Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/Modellieren_Bsp1} 
-
-}
-
-\caption{Ein Beispiel für ein Pfadmodell}(\#fig:mod-beispiel)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_Bsp1.png" alt="Ein Beispiel für ein Pfadmodell" width="70%" />
+<p class="caption">(\#fig:mod-beispiel)Ein Beispiel für ein Pfadmodell</p>
+</div>
 
 
 
@@ -137,14 +114,10 @@ Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein 
 
 Ein etwas aufwändigeres Modell könnte so aussehen (Abb. \@ref(fig:plot-modell-bsp2):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/Modellieren_Bsp2} 
-
-}
-
-\caption{Ein etwas aufwändigeres Modell}(\#fig:plot-modell-bsp2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_Bsp2.png" alt="Ein etwas aufwändigeres Modell" width="70%" />
+<p class="caption">(\#fig:plot-modell-bsp2)Ein etwas aufwändigeres Modell</p>
+</div>
 
 
 Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Einflussgrößen} bzw. *Prädiktoren*\index{Prädiktoren}, von denen wir annehmen, dass sie einen Einfluss haben auf genau eine *Zielgröße* (*Ausgabegröße*) bzw. *Kriterium*\index{Kriterium}.
@@ -157,14 +130,10 @@ Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Ein
 
 Modelle, wie wir sie betrachten werden, berechnen eine quantitativen Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien.  Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/Modell_Blackbox} 
-
-}
-
-\caption{Modelle mit schwarzer Kiste}(\#fig:fig-blackbox)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modell_Blackbox.png" alt="Modelle mit schwarzer Kiste" width="70%" />
+<p class="caption">(\#fig:fig-blackbox)Modelle mit schwarzer Kiste</p>
+</div>
 
 
 Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage* "hinten bei rauskommt"^[das ist schließlich entscheidend - frei nach Helmut Kohl]. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Mathematischer ausgedrückt:
@@ -206,14 +175,10 @@ Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um 
 
 Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modelieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/modellieren/ungeleitetes_Modellieren_crop} 
-
-}
-
-\caption{Die zwei Arten des ungeleiteten Modellierens}(\#fig:ungeleitetes-modellieren)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/ungeleitetes_Modellieren_crop.png" alt="Die zwei Arten des ungeleiteten Modellierens" width="70%" />
+<p class="caption">(\#fig:ungeleitetes-modellieren)Die zwei Arten des ungeleiteten Modellierens</p>
+</div>
 
 
 Fässt man *Fälle* zusammen, so spricht man von *Fallreduzierendem Modellieren*\index{Fallreduzierendes Modellieren}. Zum Beispiel könnte man spektakulärerweise "Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann" zusammen fassen.
@@ -245,14 +210,10 @@ Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbere
 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{060_Modellieren_files/figure-latex/overfitting-4-plots-1} 
-
-}
-
-\caption{Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?}(\#fig:overfitting-4-plots)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/overfitting-4-plots-1.png" alt="Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?" width="90%" />
+<p class="caption">(\#fig:overfitting-4-plots)Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?</p>
+</div>
 
 Der Plot A (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; Plot B legt ein lineares Modell (rote Gerade) in die Daten.  Plot C zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
@@ -270,14 +231,10 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 
 Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder (vgl. Abb. \@ref(fig:overfitting-schema)! Eine 'mittlere' Komplexität ist daher am besten; die Frage ist nur, wieviel 'mittel' ist.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/modellieren/overfitting} 
-
-}
-
-\caption{'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe}(\#fig:overfitting-schema)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/overfitting.png" alt="'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe" width="50%" />
+<p class="caption">(\#fig:overfitting-schema)'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe</p>
+</div>
 
 
 ## Bias-Varianz-Abwägung
@@ -294,14 +251,10 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); vgl. Kuhn & Johnson [-@kuhn2013applied]).
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{060_Modellieren_files/figure-latex/plot-bias-variance-1} 
-
-}
-
-\caption{Der Spagat zwischen Verzerrung und Varianz}(\#fig:plot-bias-variance)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance-1.png" alt="Der Spagat zwischen Verzerrung und Varianz" width="70%" />
+<p class="caption">(\#fig:plot-bias-variance)Der Spagat zwischen Verzerrung und Varianz</p>
+</div>
 
 Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten können große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 
@@ -414,14 +367,10 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 - mehr oder weniger präzise?
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{060_Modellieren_files/figure-latex/plot-bias-variance2-1} 
-
-}
-
-\caption{Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz.}(\#fig:plot-bias-variance2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance2-1.png" alt="Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz." width="70%" />
+<p class="caption">(\#fig:plot-bias-variance2)Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz.</p>
+</div>
 
 
 4. Richtig oder falsch?^[R, F, F, F, R]
@@ -462,30 +411,6 @@ dplyr::slice         Schneidet eine 'Scheibe' aus
 -----------------------------------------------------
 
 Table: Befehle des Kapitels 'Modellieren'
-
-
------------------------------------------------------
-PaketFunktion        Beschreibung                    
--------------------- --------------------------------
-dplyr::sample_frac   Zielt eine Stichprobe von x%    
-                     aus einem Dataframe             
-
-dplyr::anti_join     Behält alle Zeilen von df1,     
-                     die *nicht* in df2 vorkommen    
-
-dplyr::slice         Schneidet eine 'Scheibe' aus    
-                     einem Datensatz (filter Zeilen  
-                     nach angegebener Start- und     
-                     Endposition)                    
------------------------------------------------------
-
-```
-#> [[1]]
-#> [1] "1" "2" "3"
-#> 
-#> [[2]]
-#> [1] "PaketFunktion" "Beschreibung"
-```
 
 
 

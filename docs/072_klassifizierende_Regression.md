@@ -3,18 +3,17 @@
 # Klassifizierende Regression
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Die Idee der logistischen Regression verstehen.
 - Die Koeffizienten der logistischen Regression interpretieren können.
-- Vertiefungen wie Modellgüte kennen.
+- Die Modellgüte einer logistischten Regression einschätzen können.
+- Klassifikatorische Kennzahlen kennen und beurteilen können.
 
 </div>\EndKnitrBlock{rmdcaution}
 
@@ -24,7 +23,7 @@ Für dieses Kapitel benötigen Sie folgende Pakete:
 
 ```r
 library(SDMTools)  # Güte von Klassifikationsmodellen
-library(ROCR)  # Visualisierung der Güte 
+library(pROC)  # für ROC- und AUC-Berechnung
 library(tidyverse)  # Datenjudo
 library(BaylorEdPsych)  # Pseudo-R-Quadrat
 ```
@@ -45,8 +44,10 @@ Importieren Sie zunächst die Daten.
 
 
 ```r
-Aktien <- readr::read_csv("data/Aktien.csv")
+Aktien <- readr::read_csv("data/Aktien.csv") %>% na.omit
 ```
+
+Um uns das Leben leichter zu machen, haben wir fehlende Werte (`NA`s) mit `na.omit` gelöscht.
 
 
 ## Problemstellung
@@ -58,14 +59,10 @@ p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_
 p1
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr1-1} 
-
-}
-
-\caption{Streudiagramm von Risikobereitschaft und Aktienkauf}(\#fig:fig-logist-regr1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr1)Streudiagramm von Risikobereitschaft und Aktienkauf</p>
+</div>
 
 Berechnen wir dann eine normale Regression.
 
@@ -99,19 +96,14 @@ Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch 
 
 ```r
 
-
 p1 + geom_abline(intercept = .18, slope = .05, color = "red")
 
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr2-1} 
-
-}
-
-\caption{Regressionsgerade für Aktien-Modell}(\#fig:fig-logist-regr2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr2)Regressionsgerade für Aktien-Modell</p>
+</div>
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
@@ -125,18 +117,16 @@ $$p(y=1)=\frac{e^x}{1+e^x}$$
 
 Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/logist-curve-1} 
-
-}
-
-\caption{Die logistische Regression beschreibt eine 's-förmige' Kurve}(\#fig:logist-curve)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">(\#fig:logist-curve)Die logistische Regression beschreibt eine 's-förmige' Kurve</p>
+</div>
 
 
 ## Die Idee der logistischen Regression
-Die logistische Regression ist eine Anwendung des allgemeinen linearen Modells (*general linear model, GLM*). Die Modellgleichung lautet: $$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
+Die logistische Regression ist eine Anwendung des *Allgemeinen Linearen Modells*\index{Allgemeines Lineares Modells} (general linear model, GLM). Die Modellgleichung lautet:
+
+$$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
 
 > $L$ ist die Linkfunktion, in unserer Anwendung die logistische Funktion.  
 $x_{ik}$ sind die beobachten Werte der unabhängigen Variablen $X_k$.  
@@ -145,20 +135,17 @@ $k$ sind die unabhängigen Variablen $1$ bis $K$.
 Die Funktion `glm` führt die logistische Regression durch. 
 
 ```r
-glm1 <- glm(Aktienkauf ~ Risikobereitschaft, family = binomial("logit"),
+glm1 <- glm(Aktienkauf ~ Risikobereitschaft, 
+            family = binomial("logit"),
             data = Aktien)
 ```
 
 Wir schauen uns zunächst den Plot an (Abb. \@ref(fig:aktien-plot).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/aktien-plot-1} 
-
-}
-
-\caption{Modelldiagramm für den Aktien-Datensatz}(\#fig:aktien-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
+<p class="caption">(\#fig:aktien-plot)Modelldiagramm für den Aktien-Datensatz</p>
+</div>
 
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
@@ -193,24 +180,69 @@ summary(glm1)
 #> Number of Fisher Scoring iterations: 4
 ```
 
-Der Achsenabschnitt (`intercept`) des logits $\eta$ wird mit -1.47 geschätzt, die Steigung in Richtung `Risikobereitschaft` mit 0.26. Die (Punkt-)Prognose für die Wahrscheinlickeit eines Aktienkaufs $p(y=1)$ benötigt anders als in der linearen Regression noch die Linkfunktion und ergibt sich somit zu:
-$$p(\texttt{Aktienkauf}=1)=\frac{1}{1+e^{-(-1.47 + 0.26 \cdot \texttt{Risikobereitschaft})}}$$
+Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit -1.47 geschätzt, die Steigung in Richtung `Risikobereitschaft` mit 0.26. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} L:
 
-Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. 
 
-## Welche Unterschiede zur linearen Regression gibt es in der Ausgabe?
-Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.)
+$\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
 
-Es gibt keine F-Statistik (oder ANOVA) mit der Frage, ob das Modell als Ganzes signifikant ist. (Anmerkung: es kann aber ein vergleichbarer Test durchgeführt werden -- kommt später.)
+Zugeben, dass klingt erstmal opaque. Das praktische ist, dass wir die Koeffizienten in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
+
+`y = intercept + 3*Risikobereitschaft`, also
+
+
+```r
+(y <- -1.469 + 3 * 0.257)
+#> [1] -0.698
+```
+
+
+Einfach, oder? Aber beachten Sie, dass das Ergebnis in *Logits* angegeben ist. Was ein Logit ist? Naja, der Logarithmus der Chancen (Wahrscheinlichkeit zu Gegenwahrscheinlichkeit, auch *Odds* genant). Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
+
+
+```r
+exp(y)
+#> [1] 0.498
+```
+Jetzt haben wir wir also Chancen. Wie rechnet man Chancen in Wahrscheinlichkeiten um? Ein Beispiel zur Illustration. Bei Prof. Schnaggeldi fallen von 10 Studenten 9 durch. Die Durchfall*chance* ist also 9:1 oder 9. Die Durchfall*wahrscheinlichkeit* 9/10 oder .9. Also kann man so umrechnen:
+
+`wskt = 9 / (9+1) = 9/10 = .9`.
+
+In unserem Fall sind die Chancen 0.322; also lautet die Umrechnung:
+
+
+```r
+wskt <- .498 / (.498+1)
+```
+
+Diesen Ritt kann man sich merklich kommoder bereiten, wenn man diesen Befehl kennt:
+
+
+```r
+predict(glm1, newdata = data.frame(Risikobereitschaft = 3), type = "response")
+#>     1 
+#> 0.332
+```
+
+
+
+
+## Kein $R^2$, dafür AIC
+Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.) Richtlinien, was ein "guter" AIC-Wert ist, gibt es nicht. Diese Werte helfen nur beim Vergleichen von Modellen.
+
+
 
 ## Interpretation der Koeffizienten
+
+Ist ein Logit $\mathfrak{L}$ größer als $0$, so ist die zugehörige Wahrscheinlichkeit größer als 50% (und umgekehrt.)
+
 ### y-Achsenabschnitt (`Intercept`) $\beta_0$ 
+
 Für $\beta_0>0$ gilt, dass selbst wenn alle anderen unabhängigen Variablen $0$ sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für $\beta_0<0$ gilt entsprechend das Umgekehrte.
 
 ### Steigung $\beta_i$ mit $i=1,2,...,K$
 Für $\beta_i>0$ gilt, dass mit zunehmenden $x_i$ die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei $\beta_i<0$ nimmt die Wahrscheinlichkeit entsprechend ab.
 
-Eine Abschätzung der Änderung der Wahrscheinlichkeit (*relatives Risiko*, *relative risk* $RR$) kann über das Chancenverhältnis (*Odds Ratio* $OR$) gemacht werden.^[Wahrscheinlichkeit vs. Chance: Die Wahrscheinlichkeit bei einem fairen Würfel, eine 6 zu würfeln, ist $1/6$. Die Chance (*Odd*), eine 6 zu würfeln, ist die Wahrscheinlichkeit dividiert durch die Gegenwahrscheinlichkeit, also $\frac{1/6}{5/6}=1/5$.] Es ergibt sich vereinfacht $e^{\beta_i}$. Die Wahrscheinlichkeit ändert sich näherungsweise um diesen Faktor, wenn sich $x_i$ um eine Einheit erhöht. **Hinweis:** $RR\approx OR$ gilt nur, wenn der Anteil des modellierten Ereignisses in den beobachteten Daten sehr klein ($<5\%$) oder sehr groß ist ($>95\%$).
+
 
 ### Aufgabe
 
@@ -251,97 +283,105 @@ Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für $y=1$, d
 
 Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit `Risikobereitschaft`$=1$ liegt allerdings auch bei 0.26.
 
-## Kategoriale Variablen
-Wie schon in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. Als Beispiel nehmen wir den Datensatz `tips` und versuchen abzuschätzen, ob sich die Wahrscheinlichkeit dafür, dass ein Raucher bezahlt hat (`smoker == yes`), in Abhängigkeit vom Wochentag ändert. 
+## Kategoriale Prädiktoren
+Wie in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. 
 
-Laden Sie dazu zunächst den Trinkgeld-Datensatz.
+Betrachten wir als Beispiel die Frage, ob die kategoriale Variable "Interessiert" (genauer: dichotome Variable) einen Einfluss auf das Bestehen in der Klausur hat, also die Wahrscheinlichkeit für Bestehen erhöht.
+
 
 ```r
-tips <- read.csv("data/tips.csv")
+stats_test <- read.csv("data/test_inf_short.csv")
+
+stats_test$interessiert <- stats_test$interest > 3
 ```
 
 
-Zunächst ein Plot (Abb. \@ref(fig:jitter-tips)).
+Zunächst ein Plot (Abb. \@ref(fig:jitter-stats-logist)).
+
 
 ```r
-qplot(x = smoker, y = day, data = tips, geom = "jitter")
+
+stats_test %>% 
+  na.omit %>% 
+  ggplot() +
+  aes(x = interessiert, y = bestanden) +
+  geom_jitter(width = .1)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/jjitter-stats-logist-1.png" alt="Verwackeltes Streudiagramm ('Jitter')" width="70%" />
+<p class="caption">(\#fig:jjitter-stats-logist)Verwackeltes Streudiagramm ('Jitter')</p>
+</div>
 
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/jitter-tips-1} 
-
-}
-
-\caption{Verwackeltes Streudiagramm ('Jitter')}(\#fig:jitter-tips)
-\end{figure}
-
-
-Die relativen Häufigkeiten zeigt folgende Tabelle:
-
-
-
-
-Probieren wir die logistische Regression aus:
+Eine Sache sollten wir noch ändern: Auf der Y-Achse (`bestanden`) steht unten "ja" und oben "nein". Für unsere logistische Regression macht es aber genau anders herum Sinn: `bestanden=="ja") soll oben stehen. `bestanden` ist eine Variable vom Typ 'Faktor':
 
 
 ```r
-glmtips <- glm(smoker ~ day, 
+str(stats_test$bestanden)
+#>  Factor w/ 2 levels "ja","nein": 1 1 1 2 1 1 1 2 1 1 ...
+```
+
+Wir sehen, dass `bestanden` offenbar zwei Stufen hat ("ja" und "nein"). Die Reihenfolge der Stufen können wir so ändern:
+
+
+```r
+stats_test$bestanden <- factor(stats_test$bestanden, levels = c("nein", "ja"))
+```
+
+Die neue Reihenfolge ist nicht nur optisch ansprechender, sondern auch für die logistische Regression sinnvoll: R berechnet die Wahrscheinlichkeit für die zweite Stufe (also die "obere" auf der Y-Achse); für R entspricht die erste Stufe 0 und die zweite Stufe 1. Außerdem sollten Achsen stets von wenig (nichts/nein) zu viel (ja) gehen.
+
+
+Los geht's, probieren wir die logistische Regression aus:
+
+
+```r
+log_stats <- glm(bestanden ~ interessiert, 
                family = binomial("logit"),
-               data = tips)
-summary(glmtips)
+               data = stats_test)
+summary(log_stats)
 #> 
 #> Call:
-#> glm(formula = smoker ~ day, family = binomial("logit"), data = tips)
+#> glm(formula = bestanden ~ interessiert, family = binomial("logit"), 
+#>     data = stats_test)
 #> 
 #> Deviance Residuals: 
 #>    Min      1Q  Median      3Q     Max  
-#> -1.765  -0.801  -0.758   1.207   1.665  
+#> -2.034   0.520   0.520   0.633   0.633  
 #> 
 #> Coefficients:
-#>             Estimate Std. Error z value Pr(>|z|)    
-#> (Intercept)    1.322      0.563    2.35  0.01883 *  
-#> daySat        -1.391      0.602   -2.31  0.02093 *  
-#> daySun        -2.420      0.622   -3.89    1e-04 ***
-#> dayThur       -2.295      0.631   -3.64  0.00027 ***
+#>                  Estimate Std. Error z value Pr(>|z|)    
+#> (Intercept)         1.504      0.217    6.94    4e-12 ***
+#> interessiertTRUE    0.430      0.377    1.14     0.25    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> (Dispersion parameter for binomial family taken to be 1)
 #> 
-#>     Null deviance: 324.34  on 243  degrees of freedom
-#> Residual deviance: 298.37  on 240  degrees of freedom
-#> AIC: 306.4
+#>     Null deviance: 209.02  on 237  degrees of freedom
+#> Residual deviance: 207.68  on 236  degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> AIC: 211.7
 #> 
 #> Number of Fisher Scoring iterations: 4
 ```
 
-Auch hier können wir die Koeffizienten in Relation zur Referenzkategorie (hier: Freitag) interpretieren. Die Wahrscheinlichkeit ist an einem Samstag niedriger, der Wert für `daySat` ist negativ. Eine Abschätzung erhalten wir wieder mit $e^{\beta_i}$:
+Der Einflusswert (die Steigung) von `interessiert` ist positiv: Wenn man interessiert ist, steigt die Wahrscheinlichkeit zu bestehen. Gut. Aber wie groß ist die Wahrscheinlichkeit für jede Gruppe? Am einfachsten lässt man sich das von R ausrechnen:
 
 
 ```r
-exp(coef(glmtips)[2])
-#> daySat 
-#>  0.249
-```
-
-Daher ist das Chancenverhältnis (*Odds Ratio*), dass am Samstag ein Raucher am Tisch sitzt, näherungsweise um den Faktor 0.25 niedriger als am Freitag[^173]: 
-
-
-$${OR=\frac{\frac{P(Raucher|Samstag)}{1-P(Raucher|Samstag)}}
-{\frac{P(Raucher|Freitag)}{1-P(Raucher|Freitag)}}
-=\frac{\frac{0.483}{0.517}}
-{\frac{0.79}{0.21}}
-\approx 0.249}$$
-
-Die Wahrscheinlichkeit für einen Raucher am Samstag können wir uns wieder  so ausgeben lassen:
-
-
-```r
-predict(glmtips, list(day = "Sat"), type = "response")
+predict(log_stats, newdata = data.frame(interessiert = FALSE), 
+        type = "response")
 #>     1 
-#> 0.483
+#> 0.818
+predict(log_stats, newdata = data.frame(interessiert = TRUE), 
+        type = "response")
+#>     1 
+#> 0.874
 ```
+
+Also 82% bzw. 87%; kein gewaltig großer Unterschied.
+
+
 
 
 
@@ -385,26 +425,60 @@ summary(glm2)
 
 
 
-
 Alle Schätzer sind signifkant zum 0.1 %-Niveau (`***` in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.
 
-Ist das Modell besser als das einfache? Ja, da der AIC-Wert von 769.86 auf 687.01 gesunken ist.
 
+## Modellgüte
 
+Aber wie gut ist das Modell? Und welches Modell von beiden ist besser? R hat uns kein $R^2$ ausgegeben. R hat uns deswegen kein $R^2$ ausgegeben, weil die Regressionsfunktion nicht über Abweichungsquadrate bestimmt wird. Stattdessen wird das Maximum Likelihood-Verfahren eingesetzt. Man kann also kein $R^2$ ausrechnen, zumindest nicht ohne Tricks. Einige findige Statistiker haben sich aber Umrechungswege einfallen lassen, wie man auch ohne Abweichungsquadrate ein $R^2$ berechnen kann; weil es kein 'echtes' $R^2$ ist, nennt man es auch *Pseudo-*$R^2$.
 
-
-## Modell- bzw. Klassifikationsgüte
-Logistische Regressionsmodelle werden häufig zur *Klassifikation*\index{Klassifikation} verwendet, z.B. ob der Kredit für einen Neukunden ein "guter" Kredit ist oder nicht. Daher sind die Klassifikationseigenschaften bei logistischen Modellen wichtige Kriterien.
-
-Hierzu werden die aus dem Modell ermittelten Wahrscheinlichkeiten ab einem Schwellenwert (*cutpoint*), häufig $0.5$, einer geschätzten $1$ zugeordnet, unterhalb des Schwellenwertes einer $0$. Diese aus dem Modell ermittelten Häufigkeiten werden dann in einer sogenannten Konfusionsmatrix\index{Konfusionsmatrix} (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen.
-
-Daher sind wichtige Kriterien eines Modells, wie gut diese Zuordnung erfolgt. Dazu werden die Sensitivität (*True Positive Rate, TPR*), also der Anteil der mit $1$ geschätzten an allen mit $1$ beobachten Werten, und die Spezifität (*True Negative Rate*) berechnet. Ziel ist es, dass beide Werte möglichst hoch sind.
-
-Sie können die Konfusionsmatrix mit dem Paket `confusion.matrix()` aus dem Paket `SDMTools`. Ein Parameter ist `cutpoint`, der standardmäßig auf $0.5$ steht.
+Eine Reihe von R-Paketen bieten die Berechnung a:
 
 
 ```r
+library(BaylorEdPsych)
+PseudoR2(glm1)
+PseudoR2(glm2)
+```
 
+Die Ausgabe zeigt uns, dass `glm2` die Daten besser erklärt als `glm1`.
+
+
+
+
+## Klassifikationskennzahlen
+
+### Vier Arten von Ergebnissen einer Klassifikation
+Logistische Regressionsmodelle werden häufig zur *Klassifikation*\index{Klassifikation} verwendet. Das heißt man versucht, Beobachtungen richtig zu zu Klassen zuzuordnen:
+
+- Ein medizinischer Test soll Kranke als krank und Gesunde als gesund klassifizieren.
+- Ein statistischer Test sollte wahre Hypothesen als wahr und falsche Hypothesen als falsch klassifizieren.
+- Ein Personaler sollte geeignte Bewerber als geeignet und nicht geeignete Bewerber als nicht geeignet einstufen.
+
+Diese beiden Arten von Klassifikationen können unterschiedlich gut sein. Im Extremfall könnte ein Test alle Menschen als krank ('positiv') einstufen. Mit Sicherheit wurden dann alle Kranken korrekt als krank diagnostiziert. Dummerweise würde der Test 'auf der anderen Seite' viele Fehler machen: Gesunde als gesund ('negativ') zu klassifizieren.
+
+>   Ein Test, der alle positiven Fälle korrekt als positiv klassifiziert muss deshalb noch lange nicht alle negativen Fälle als negativ klassifizieren. Die beiden Werte können unterschiedlich sein.
+
+Etwas genauer kann man folgende vier Arten von Ergebnisse aus einem  Test erwarten (s. Tabelle \@ref(tab:class-stats)).
+
+
+Table: (\#tab:class-stats)Vier Arten von Ergebnisse von Klassfikationen
+
+Wahrheit                  Als negativ (-) vorhergesagt   Als positiv (+) vorhergesagt   Summe 
+------------------------  -----------------------------  -----------------------------  ------
+In Wahrheit negativ (-)   Richtig negativ (RN)           Falsch positiv (FP)            N     
+In Wahrheit positiv (+)   Falsch negativ (FN)            Richtig positiv (RN)           P     
+Summe                     N*                             P*                             N+P   
+
+
+Die logistische Regression gibt uns für jeden Fall eine Wahrscheinlichkeit zurück, dass der Fall zum Ereignis $1$ gehört. Wir müssen dann einen Schwellenwert (threshold) auswählen. Einen Wert also, der bestimmt, ob der Fall zum Ereignis $1$ gehört. Häufigt nimmt man  $0.5$. Liegt die Wahrscheinlichkeit unter dem Schwellenwert, so ordnet man den Fall dem Ereignis $0$ zu. 
+
+Beispiel: Alois' Wahrscheinlichkeit, die Klausur zu bestehen, wird vom Regressionsmodell auf 51% geschätzt. Unser Schwellenwert sei 50%; wir ordnen Alois der Klasse "bestehen" zu. Alois freut sich. Das Modell sagt also "bestehen" ($1$) für Alois voraus. Man sagt auch, der 'geschätzte Wert' (*fitted value*) von Alois sei $1$. 
+
+Die aus dem Modell ermittelten Wahrscheinlichkeiten werden dann in einer sogenannten Konfusionsmatrix\index{Konfusionsmatrix} (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen:
+
+
+```r
 (cm <- confusion.matrix(Aktien$Aktienkauf, glm1$fitted.values)) 
 #>     obs
 #> pred   0   1
@@ -412,6 +486,36 @@ Sie können die Konfusionsmatrix mit dem Paket `confusion.matrix()` aus dem Pake
 #>    1   8  20
 #> attr(,"class")
 #> [1] "confusion.matrix"
+```
+
+Dabei stehen `obs` (observed) für die wahren, also tatsächlich beobachteten Werte und `pred` (predicted) für die geschätzten (vorhergesagten) Werte.
+
+Wie häufig hat unser Modell richtig geschätzt? Genauer: Wie viele echte $1$ hat unser Modell als $1$ vorausgesagt und wie viele echte $0$ hat unser Modell als $0$ vorausgesagt?
+
+### Klassifikationsgütekennzahlen
+
+In der Literatur und Praxis herrscht eine recht wilde Vielfalt an Begriffen dazu, deswegen stellt Tabelle \@ref(tab:class-stats) einen Überblick vor.
+
+
+Table: (\#tab:diag-stats)Geläufige Kennwerte der Klassifikation
+
+Name                             Definition        Synonyme                                           
+-------------------------------  ----------------  ---------------------------------------------------
+Falsch-Positiv-Rate (FP-Rate)    FP/N              Alphafehler, Typ-1-Fehler, 1-Spezifität, Fehlalarm 
+Richtig-Positiv-Rate (RP-Rate)   RP/N              Power, Sensitivität, 1-Betafehler, Recall          
+Falsch-Negativ-Rate (FN-Rate)    FN/N              Fehlender Alarm, Befafehler                        
+Richtig-Negativ-Rate (RN-Rate)   RN/N              Spezifität, 1-Alphafehler                          
+Positiver Vorhersagewert         RP/P*             Präzision, Relevanz                                
+Negativer Vorhersagewert         RN/N*             Segreganz                                          
+Gesamtgenauigkeitsrate           (RP+RN) / (N+P)   Richtigkeit, Korrektklassifikationsrate            
+
+Zu beachten ist, dass die Gesamtgenauigkeit einer Klassifikation an sich wenig aussagekräftig ist: Ist eine Krankheit sehr selten, werde ich durch die einfache Strategie "diagnostiziere alle als gesund" insgesamt kaum Fehler machen. Meine Gesamtgenauigkeit wird beeindruckend genau sein - trotzdem lassen Sie sich davon wohl kaum beeindrucken. Besser ist, die Richtig-Positiv- und die Richtig-Negativ-Raten getrennt zu beurteilen. Aus dieser Kombination leitet sich der *Youden-Index* ab.\index{Youden-Index}. Er berechnet sich als: `RP-Rate + RN-Rate - 1`.
+
+Sie können die Konfusionsmatrix mit dem Paket `confusion.matrix()` aus dem Paket `SDMTools` berechnen.
+
+
+
+```r
 sensitivity(cm)
 #> [1] 0.109
 specificity(cm)
@@ -419,134 +523,76 @@ specificity(cm)
 ```
 
 
+Wir haben die Aktienkäufer ($1$) also nur schlecht identifiziert; die Nichtkäufer ($0$) haben wir hingegen fast alle gefunden.
 
-Wenn die Anteile der $1$ in den beobachteten Daten sehr gering sind (z. B. bei einem medizinischem Test auf eine seltene Krankheit, Klicks auf einen Werbebanner oder Kreditausfall), kommt eine Schwäche der logistischen Regression zum Tragen: Das Modell wird so optimiert, dass die Wahrscheinlichkeiten $p(y=1)$ alle unter $0.5$ liegen. Das würde zu einer Sensitität von $0$ und einer Spezifiät von $1$ führen. Daher kann es sinnvoll sein, den Cutpoint zu varieren. Daraus ergibt sich ein verallgemeinertes Gütemaß, die *ROC*-Kurve (*Return Operating Characteristic*) und den daraus abgeleiteten *AUC*-Wert (*Area Under Curve*). 
-
-Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Sensitivität gegen $1-$Spezifität (welche Werte sind als $1$ modelliert worden unter den beobachten $0$, *False Positive Rate, FPR*). Um diese Werte auszugeben, benötigen Sie das Paket `ROCR` und die Funktion `performance()`.
-
-
-```r
-# ggf. install.packages("ROCR")
-library(ROCR)
-# Ein für die Auswertung notwendiges prediction Objekt anlegen
-pred <- prediction(glm1$fitted.values, Aktien$Aktienkauf)
-# ROC Kurve
-perf <- performance(pred,"tpr","fpr")
-plot(perf)
-abline(0,1, col = "grey")
-# Area under curve (ROC-Wert)
-performance(pred,"auc")@y.values
-#> [[1]]
-#> [1] 0.636
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
-
-
-
-AUC liegt zwischen $0.5$, wenn das Modell gar nichts erklärt (im Plot die graue Linie) und $1$. Hier ist der Wert also recht gering. Akzeptable Werte liegen bei $0.7$ und größer, gute Werte sind es ab $0.8$.^[Hosmer/Lemeshow, Applied Logistic Regression, 3rd Ed. (2013), S. 164]
-
-## Vertiefung
-
-### Modellschätzung
-Das Modell wird nicht wie bei der lineare Regression über die Methode der kleinsten Quadrate (OLS) geschätzt, sondern über die *Maximum Likelihood* Methode. Die Koeffizienten werden so gewählt, dass die beobachteten Daten am wahrscheinlichsten (*Maximum Likelihood*) werden.
-
-Das ist ein iteratives Verfahren (OLS erfolgt rein analytisch), daher wird in der letzten Zeile der Ausgabe auch die Anzahl der Iterationen (`Fisher Scoring Iterations`) ausgegeben.
-
-Die Devianz des Modells (`Residual deviance`) ist $-2$ mal die logarithmierte Likelihood. Die Nulldevianz (`Null deviance`) ist die Devianz eines Nullmodells, d. h., alle $\beta$ außer der Konstanten sind 0.
-
-### Likelihood Quotienten Test
-Der Likelihood Quotienten Test (*Likelihood Ratio Test, LR-Test*) vergleicht die Likelihood $L_0$ des Nullmodels mit der Likelihood $L_{\beta}$ des geschätzten Modells. Die Prüfgröße des LR-Tests ergibt sich aus: $${T=-2\cdot ln\left( \frac{L_0}{L_{\beta}}\right)}$$
-$T$ ist näherungsweise $\chi ^2$-verteilt mit $k$ Freiheitsgraden.
-
-In R können Sie den Test mit `lrtest()` aufrufen. Sie benötigen dazu das Paket `lmtest`.
+Wir könnten jetzt sagen, dass wir im Zweifel lieber eine Person als Käufer einschätzen (um ja keinen Kunden zu verlieren). Dazu würden wir den Schwellenwert (threshold) von 50% auf z.B. 30%$ herabsetzen:
 
 
 ```r
-library(lmtest)
-lrtest(glm2)
-#> Likelihood ratio test
-#> 
-#> Model 1: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse
-#> Model 2: Aktienkauf ~ 1
-#>   #Df LogLik Df Chisq Pr(>Chisq)    
-#> 1   4   -340                        
-#> 2   1   -402 -3   125     <2e-16 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+(cm <- confusion.matrix(Aktien$Aktienkauf, glm1$fitted.values, threshold = .3))
+#>     obs
+#> pred   0   1
+#>    0 440 128
+#>    1  77  55
+#> attr(,"class")
+#> [1] "confusion.matrix"
+sensitivity(cm)
+#> [1] 0.301
+specificity(cm)
+#> [1] 0.851
 ```
 
 
-Das Modell `glm2` ist als Ganzes signifikant, der p-Wert ist sehr klein.
+### ROC-Kurven
+Siehe da! Die Sensitivität ist gestiegen, wir haben mehr Käufer als solche identifiziert. Unsere liberalere Strategie hat aber mehr falsch-positive Fälle produziert. So können wir jetzt viele verschiedene Schwellenwerte vergleichen. 
 
-Den Likelihood Quotienten Test können Sie auch verwenden, um zwei Modelle miteinander zu vergleichen, z. B., wenn Sie eine weitere Variable hinzugenommen haben und wissen wollen, ob die Verbesserung auch signifikant war.
+
+>   Ein Test ist dann gut, wenn wir für alle möglichen Schwellenwert ingesamt wenig Fehler produziert.
+
+
+
+
+Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Richtig-Positiv-Rate (Sensitivität) gegen die Falsch-Positiv-Rate ($1-$Spezifität) abgetragen. Das Paket `pROC` hilft uns hier weiter. Zuerst berechnen wir für viele verschiedene Schwellenwerte jeweils die beiden Fehler (Falsch-Positiv-Rate und Falsch-Negativ-Rate). Trägt man diese in ein Daigramm ab, so bekommt man Abbildung \@ref(fig:roc-stats), eine sog. *ROC-Kurve*\index{ROC}.
+
+
+```r
+lets_roc <- roc(Aktien$Aktienkauf, glm1$fitted.values)
+```
+
+Da die Sensitivität determiniert ist, wenn die Falsch-Positiv-Rate bekannt ist (1 - FP-Rate), kann man statt Sensitivität auch die FP-Rate abbilden. Für die Spezifität und die Falsch-Negativ-Rate gilt das gleiche. In Abbildung \@ref(fig:roc-stats) steht auf der X-Achse Spezifität, aber die Achse ist 'rückwärts' (absteigend) skaliert, so dass die X-Achse identisch ist mit FP-Rate (normal skaliert; d.h. aufsteigend).
 
 
 
 ```r
-lrtest(glm1, glm2)
-#> Likelihood ratio test
-#> 
-#> Model 1: Aktienkauf ~ Risikobereitschaft
-#> Model 2: Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse
-#>   #Df LogLik Df Chisq Pr(>Chisq)    
-#> 1   2   -383                        
-#> 2   4   -340  2  86.9     <2e-16 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+plot(lets_roc)
 ```
 
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/roc-stats-1.png" alt="Eine ROC-Kurve" width="70%" />
+<p class="caption">(\#fig:roc-stats)Eine ROC-Kurve</p>
+</div>
 
 
-Ja, die Modelle `glm1` (mit einer erklärenden Variable) und `glm2` unterscheiden sich signifikant voneinander.
+Die 'Fläche unter der Kurve' (area under curve, AUC) is damit ein Maß für die Güte des Tests. Abbildung \@ref(fig:example-rocs) stellt drei Beispiele von Klassifikationsgüten dar: sehr gute (A), gute (B) und schlechte (C). Ein hohe Klassifikationsgüte zeigt sich daran, dass eine hohe Richtig-Positiv-Rate mit einer kleinen Fehlalarmquote einher geht: Wir finden alle Kranken, aber nur die Kranken. Die AUC-Kurve "hängt oben links an der Decke". Ein schlechter Klassifikator trifft so gut wie ein Münzwurf: Ist das Ereignis selten, hat er eine hohe Falsch-Positiv-Rate und eine geringe Falsch-Negativ-Rate. Ist das Ereignis hingegen häufig, liegen die Fehlerhöhen genau umgekehrt: Eine hohe Richtig-Positiv-Rate wird mit einer hoher Falsch-Positiv-Rate einher.
 
 
-### Pseudo-$R^2$ 
-Verschiedene Statistiker haben versucht, aus der Likelihood eine Größe abzuleiten, die dem $R^2$ der linearen Regression entspricht. Exemplarisch sei hier McFaddens $R^2$ gezeigt: $${R^2=1-\frac{ln(L_{\beta})}{ln(L_0)}}$$ Wie bei bei dem $R^2$ der linearen Regression liegt der Wertebereich zwischen 0 und 1. Ab einem Wert von 0,4 kann die Modellanpassung als gut eingestuft werden. Wo liegen  $R^2$ der beiden Modelle `glm1` und `glm2`? Sie können es direkt berechnen oder das Paket `BaylorEdPsych` verwenden.
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/example-rocs-1.png" alt="Beispiel für eine sehr gute, gute und schlechte Klassifikation" width="70%" />
+<p class="caption">(\#fig:example-rocs)Beispiel für eine sehr gute, gute und schlechte Klassifikation</p>
+</div>
+
+
+Fragt sich noch, wie man den besten Schwellenwert herausfindet. Den besten Schwellenwert kann man als besten Youden-Index-Wert verstehen. Im Paket `pROC` gibt es dafür den Befehl `coords`, der uns im ROC-Diagramm die Koordinaten des besten Schwellenwert und den Wert dieses besten Schwellenwerts liefert:
 
 
 ```r
-# direkte Berechnung
-1 - glm1$deviance/glm1$null.deviance
-#> [1] 0.0479
-1 - glm2$deviance/glm2$null.deviance
-#> [1] 0.156
-# ggf. install.packages("BaylorEdPsych")
-library(BaylorEdPsych)
-PseudoR2(glm1)
-#>         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke 
-#>           0.0479           0.0404           0.0535           0.0783 
-#> McKelvey.Zavoina           Effron            Count        Adj.Count 
-#>           0.0826           0.0584           0.7557           0.0656 
-#>              AIC    Corrected.AIC 
-#>         769.8624         769.8796
-PseudoR2(glm2)
-#>         McFadden     Adj.McFadden        Cox.Snell       Nagelkerke 
-#>           0.1558           0.1434           0.1640           0.2400 
-#> McKelvey.Zavoina           Effron            Count        Adj.Count 
-#>           0.2828           0.1845           0.7614           0.0874 
-#>              AIC    Corrected.AIC 
-#>         687.0068         687.0644
+coords(lets_roc, "best")
+#>   threshold specificity sensitivity 
+#>       0.229       0.603       0.623
 ```
 
 
-
-Insgesamt ist die Modellanpassung, auch mit allen Variablen, als schlecht zu bezeichnen. **Hinweis:** Die Funktion `PseudoR2(model)` zeigt verschiedene Pseudo-$R^2$ Statistiken, die jeweils unter bestimmten Bedingungen vorteilhaft einzusetzen sind. Für weitere Erläuterungen sei auf die Literatur verwiesen.
-
-
-
-## Übung: Rot- oder Weißwein?
-
-Der Datensatz untersucht den Zusammenhang zwischen der Qualität und physiochemischen Eigenschaften von portugisieschen Rot- und Weißweinen [@cortez2009modeling].
-
-
-Sie können in unter <https://goo.gl/Dkd7nK> herunterladen. Die Originaldaten finden Sie im UCI Machine Learning Repository[^336].
-
-Versuchen Sie anhand geeigneter Variablen, Rot- und Weißweine (richtig) zu klassifizieren[^338]. 
-
-**Zusatzaufgabe:** Die Originaldaten bestehen aus einem Datensatz für Weißweine und einem für Rotweine. Laden Sie diese, beachten Sie die Fehlermeldung und beheben die damit verbundenen Fehler und fassen beide Datensätze zu einem gemeinsamen Datensatz zusammen, in dem eine zusätzliche Variable `color` aufgenommen wird (Rot = 0, Weiß = 1).
 
 
 ## Befehlsübersicht
@@ -557,7 +603,7 @@ Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels 
 
 
 -------------------------------------------------------------
-Paket::Funktion              Beschreibung                    
+Paket..Funktion              Beschreibung                    
 ---------------------------- --------------------------------
 ggplot2::geom_abline         Fügt das Geom "abline"          
                              (normale Gerade) zu einem       
@@ -596,18 +642,3 @@ Table: Befehle des Kapitels 'Logistische Regression'
 
 
 
-
-## Verweise
-
-
-Dieses Kapitel basiert teilweise auf Übungen zum Buch [OpenIntro](https://www.openintro.org/stat/index.php?stat_book=isrs) [@introstats] unter der Lizenz [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0). 
-
-
-
-
-[^173]: Am Freitag liegen die Chancen (das OR) für einen Raucher bei 3.75. Das OR für Samstag ist das Produkt dieser beiden OR. Um das OR zu einer Wahrscheinlichkeit umzurechnen kann man, möchte vom "von Hand" arbeiten, diese Formel verwenden: $p = OR / (OR + 1)$.
-
-
-[^336]: http://archive.ics.uci.edu/ml/datasets/Wine+Quality
-
-[^338]: Anregungen zu dieser Übung stammen von INTW Statistics: https://www.inwt-statistics.de/blog-artikel-lesen/Logistische_Regression_Beispiel_mit_R.html

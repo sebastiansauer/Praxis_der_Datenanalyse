@@ -16,11 +16,9 @@
 
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
@@ -39,14 +37,10 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/Prozess_Datenanalyse} 
-
-}
-
-\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
+</div>
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -112,8 +106,7 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
+<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -155,14 +148,10 @@ Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass
 
 Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{images/tidy/Arbeitsverzeichnis} 
-
-}
-
-\caption{Das Arbeitsverzeichnis mit RStudio auswählen}(\#fig:Arbeitsverzeichnis)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Arbeitsverzeichnis.png" alt="Das Arbeitsverzeichnis mit RStudio auswählen" width="50%" />
+<p class="caption">(\#fig:Arbeitsverzeichnis)Das Arbeitsverzeichnis mit RStudio auswählen</p>
+</div>
 
 
 Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
@@ -332,14 +321,10 @@ Ein Großteil der Neuentwicklungen bei R passiert in sog. 'Paketen' (engl. *pack
 
 Am einfachsten installiert man R-Pakete in RStudio über den Button "Install" im Reiter "Packages" (s. Abb. \@ref(fig:fig-install-packages)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/install_packages} 
-
-}
-
-\caption{So installiert man Pakete in RStudio}(\#fig:fig-install-packages)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/install_packages.png" alt="So installiert man Pakete in RStudio" width="70%" />
+<p class="caption">(\#fig:fig-install-packages)So installiert man Pakete in RStudio</p>
+</div>
 
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt 
@@ -402,7 +387,6 @@ installieren Sie alle Pakete, die wir in diesem Buch benötigen auf einmal, dann
 haben Sie Ruhe (eine schnelle Internetverbindung vorausgesetzt).
 
 
-
 ### R-Pakete für dieses Buch 
 
 In diesem Skript verwenden wir die folgenden 
@@ -434,9 +418,62 @@ install.packages(packages)
 
 Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu diesem Skript zugrifen, davon ausgehen, dass das Arbeitsverzeichnis passend gesetzt ist (vgl. Kapitel \@ref(wd)). Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu laden sind. 
 
+
+### Vertiefung: Zuordnung von Paketen zu Befehlen
+
+
+*Woher weiß man, welche Befehle (oder auch Daten) in einem Paket enthalten sind?*
+
+Eine einfache Möglichkeit ist es, beim Reiter 'Pakete' auf den Namen eines der installierten Pakete zu klicken. Daraufhin öffnet sich die Dokumentation des Pakets und man sieht dort alle Befehle und Daten aufgeführt (s. Abbildung \@ref(fig:pakete-hilfe)). Übrigens sehen Sie dort auch die Version eines Pakets (vielleicht sagt jemand mal zu Ihnen, "Sie sind ja outdated", dann schauen Sie mal auf die die Paket-Versionen).
+
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/hilfe_pakete.png" alt="Hier werden Sie geholfen: Die Dokumentation der R-Pakete" width="50%" />
+<p class="caption">(\#fig:pakete-hilfe)Hier werden Sie geholfen: Die Dokumentation der R-Pakete</p>
+</div>
+
+
+Für geladenen Pakete kann man auch den Befehl `help` nutzen, z.B. `help(ggplot2)`.
+
+
+*Und umgekehrt, woher weiß ich, in welchem Paket ein Befehl 'wohnt'?*
+
+Probieren Sie den Befehl `help.search("qplot")`, wenn Sie wissen möchten, in welchem Paket `qplot` zuhause ist. `help.search` sucht alle Hilfeseiten von *installierten* Paketen, in der der Suchbegriff irgendwie vorkommt. Um das Paket eines *geladenen* Befehl zu finden, hilft der Befehl `find`: `find("qplot")`.
+
+
+Sie können auch diesen selbstgestrickten Befehl nutzen, den Sie zuerst laden müssen:
+
+
+```r
+source("includes/find_funs.R")
+find_funs("qplot")
+#> [1] "ggplot2"
+```
+
+
+In diesem Skript sind am Ende jedes Kapitels die jeweils besprochenen (neuen) Befehle aufgeführt - inklusive ihres Paketes. Falls bei einem Befehl kein Paket angegeben ist, heißt das, dass der Befehl im 'Standard-R' wohnt - Sie müssen kein weiteres Paket laden^[Eine Liste der Pakete, die beim Standard-R enthalten sind (also bereits installiert sind) finden Sie [hier](https://stat.ethz.ch/R-manual/R-devel/doc/html/packages.html)]. Also zum Beispiel `ggplot2::qplot`: Der *Befehl* `qplot` ist im *Paket* `ggplot2` enthalten. Das Zeichen `::` trennt also Paket von Befehl.
+
+
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Manche Befehle haben Allerweltsnamen (z.B. 'filter'). Manchmal gibt es Befehle mit gleichem Namen in verschiedenen Paketen; besonders Befehle mit Allerweltsnamen (wie 'filter') sind betroffen ('mosaic::filter' vs. 'dplyr::filter'). Falls Sie von wirre Ausgaben bekommen oder diffuse Fehlermeldung kann es sein, kann es sein, dass R einen Befehl mit dem richtigen Namen aber aus dem 'falschen' Paket zieht. Geben Sie im Zweifel lieber den Namen des Pakets vor dem Paketnamen an, z.B. so `dplyr::filter`.</div>\EndKnitrBlock{rmdcaution}
+
+
+Außerdem sind zu Beginn jedes Kapitels die in diesem Kapitel benötigten Pakete angegeben. Wenn sie diese Pakete laden, werden alle Befehle dieses Kapitels funktionieren^[es sei denn, sie tun es nicht].
+
+
+
+*Wie weiß ich, ob ein Paket geladen ist?*
+
+Wenn der Haken im Reiter 'Packages' gesetzt ist (s. Abbildung \@ref(fig:pakete-hilfe)), dann ist das Paket geladen. Sonst nicht.
+
+
+
+
+
 ### Datensätze {#daten}
 
-Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages/data). Bitte laden Sie diesen Ordner herunter.
+Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages/data). Bitte laden Sie den Ordner Ordner herunter.
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
@@ -445,6 +482,8 @@ Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis
 - Datensatz 'wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
 - Datensatz `extra`, URL: <https://osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
+- Datensatz `Werte` URL: <https://osf.io/4kgzh/> [@Gansser_2017]; es handelt sich um Werte von Studierenden (`data/werte.csv`).
+- Datensatz `Segment` URL: <https://goo.gl/eUm8PI> [@Chapman2015]; es handelt sich um soziodemographische Daten (simuliert)
 
 
 Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen).
@@ -470,16 +509,12 @@ Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), bespr
 
 Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
 
-\begin{table}
 
-\caption{(\#tab:datentypen)Wichtige Datentypen in R}
-\centering
-\begin{tabular}[t]{l}
-\hline
-includes/Datentypen.csv\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:datentypen)Wichtige Datentypen in R
+
+------------------------
+includes/Datentypen.csv 
+------------------------
 
 Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
@@ -594,8 +629,7 @@ Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *me
 ### Funktionen aufrufen
 
 
-Um einen "Befehl" (präziser: eine Funktion) aufzurufen, geben wir ihren Namen an
-und definieren sog. "Parameter" in einer runden Klammer, z.B. so:
+Um einen *Befehl*\index{Befehl, Funktion} (präziser aber synonym hier: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. *Parameter*\index{Parameter eines R-Befehls} in einer runden Klammer, z.B. so:
 
 
 ```r
@@ -609,7 +643,7 @@ funktionsname(parametername1 = wert1, parametername2 = wert2, ...)
 ```
 
 Die drei Punkte `...` sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. 
-Die Reihenfolge der Parameter ist egal - wenn man die Parameternamen anführt. 
+Die Reihenfolge der Parameter ist *egal* - wenn man die Parameternamen anführt. 
 Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:
 
 
@@ -623,6 +657,9 @@ wo_men <- read.csv(header = TRUE, sep = ",", file = "data/wo_men.csv")
 # ohno:
 wo_men <- read.csv(TRUE, "data/wo_men.csv", ",")
 ```
+
+
+In der Hilfe zu einem Befehl findet man die Standard-Syntax inklusive der möglichen Parameter, ihrer Reihenfolge und Standardwerten (default values) von Parametern. Zum Beispiel ist beim Befehl `read.csv` der Standardwert für `sep` mit `;` voreingestellt (schauen Sie mal in der Hilfe nach). Gibt man einen Parameter nicht an, für den ein Standardwert eingestellt ist, 'befüllt' R den Parameter mit diesem Standardwert.
 
 
 ### Aufgaben 
@@ -675,14 +712,10 @@ eine zugrunde liegende Grundmenge (Population). Dabei spielt die
 Wahrscheinlichkeitsrechnung (Stochastik) eine große 
 Rolle.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/desk_vs_inf-crop} 
-
-}
-
-\caption{Sinnbild für die Deskriptiv- und die Inferenzstatistik}(\#fig:desk-vs-inf)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/desk_vs_inf-crop.png" alt="Sinnbild für die Deskriptiv- und die Inferenzstatistik" width="70%" />
+<p class="caption">(\#fig:desk-vs-inf)Sinnbild für die Deskriptiv- und die Inferenzstatistik</p>
+</div>
 
 
 
@@ -741,24 +774,15 @@ Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gema
 
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 
-\begin{table}
 
-\caption{(\#tab:befehle-rahmen)Befehle des Kapitels 'Rahmen'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-install.packages("x") & Installiert Paket "x" (nicht: Paket "X")\\
-\hline
-library & lädt ein Paket\\
-\hline
-<- & Weist einer Variablen einen Wert zu\\
-\hline
-c & erstellt eine Spalte/ einen Vektor\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-rahmen)Befehle des Kapitels 'Rahmen'
+
+Paket::Funktion         Beschreibung                             
+----------------------  -----------------------------------------
+install.packages("x")   Installiert Paket "x" (nicht: Paket "X") 
+library                 lädt ein Paket                           
+<-                      Weist einer Variablen einen Wert zu      
+c                       erstellt eine Spalte/ einen Vektor       
 
 
 

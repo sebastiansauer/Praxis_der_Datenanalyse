@@ -1,0 +1,16 @@
+base
+corrplot
+gplots
+MASS
+psych
+boot
+lattice
+nFactors
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+plot3D

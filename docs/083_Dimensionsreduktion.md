@@ -2,14 +2,12 @@
 
 
 
-# Dimensionsreduktion
+# Vertiefung: Dimensionsreduktion
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -26,9 +24,11 @@ In diesem Kapitel werden folgende Pakete benötigt:
 
 
 ```r
-library("corrplot")
-library("gplots")
-library("nFactors")
+library(corrplot)  # für `corrplot`
+library(gplots)  # für `heatmap.2`
+library(nFactors)  # PCA und EFA
+library(tidyverse)  # Datenjudo
+library(psych)  # für z.B. 'alpha'
 ```
 
 
@@ -59,9 +59,40 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 
 ## Gründe für die Notwendigkeit der Datenreduktion
 
-* Im technischen Sinne der Dimensionsreduktion können wir statt Variablen-Sets die Faktor-/ Komponentenwerte verwenden (z. B. für Mittelwertvergleiche zwischen Experimental- und Kontrollgruppe, Regressionsanalyse und Clusteranalyse).
-* Wir können Unsicherheit verringern. Wenn wir glauben, dass ein Konstrukt nicht eindeutig messbar ist, dann kann mit einem Variablen-Set die Unsicherheit reduziert werden. 
-* Wir können den Aufwand bei der Datenerfassung vereinfachen, indem wir uns auf Variablen konzentrieren, von denen bekannt ist, dass sie einen hohen Beitrag zum interessierenden Faktor/ Komponente leisten. Wenn wir feststellen, dass einige Variablen für einen Faktor nicht wichtig sind, können wir sie aus dem Datensatz eliminieren.
+* *Dimensionen reduzieren*: Im technischen Sinne der Dimensionsreduktion können wir statt Variablen-Sets die Faktor-/ Komponentenwerte verwenden (z. B. für Mittelwertvergleiche zwischen Experimental- und Kontrollgruppe, Regressionsanalyse und Clusteranalyse).
+* *Unsicherheit verringern*: Wenn wir glauben, dass ein Konstrukt nicht eindeutig messbar ist, dann kann mit einem Variablen-Set die Unsicherheit reduziert werden. 
+* *Aufwand verringern*: Wir können den Aufwand bei der Datenerfassung vereinfachen, indem wir uns auf Variablen konzentrieren, von denen bekannt ist, dass sie einen hohen Beitrag zum interessierenden Faktor/ Komponente leisten. Wenn wir feststellen, dass einige Variablen für einen Faktor nicht wichtig sind, können wir sie aus dem Datensatz eliminieren. Außerdem werden die statistischen Modelle einfacher, wenn wir statt vieler Ausgangsvariablen einige wenige Komponenten/Faktoren als Eingabevariablen verwenden.
+
+
+## Intuition zur Dimensionsreduktion
+
+Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalten) in Abbildung \@ref(fig:fig-scatter3d)). Man braucht nicht viel Phantasie, um einen Pfeil (Vektor) in der Punktewolke zu sehen. Um jeden Punkt einigermaßen genau zu bestimmen, reicht es, seine "Pfeil-Koordinate" zu wissen. Praktischerweise geben in Abbildung \@ref(fig:fig-scatter3d) die Farben (in etwa) die Koordinaten auf dem Pfeil an^[genau genommen ist hier die Regressionsgerade gezeichnet, es müsste aber der größte Eigenvektor sein. Geschenkt.]. Damit können wir die Anzahl der Variablen (Dimensionen), die es braucht, um einen Punkt zu beschreiben von 3 auf 1 reduzieren; 2/3 der Komplexität eingespart. Wir verlieren etwas Genauigkeit, aber nicht viel. Dieser Pfeil, der mitten durch den Punkteschwarm geht, nennt man auch die 1. Hauptkomponente.
+
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-1.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" /><img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-2.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" />
+<p class="caption">(\#fig:fig-scatter3d)Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine</p>
+</div>
+
+
+Beachten Sie, dass hoch korrelierte Variablen eng an der Regressionsgeraden liegen; entsprechend sind in Abbildung \@ref(fig:ig-scatter3d) die drei Variablen stark korreliert. Sehen Sie auch, dass die Hauptkomponente Varianz erklärt: Jede Variable für sich genommen, hat recht viel Streuung. Die Streuung der Punkte zur Hauptkomponente ist aber relativ gering. Daher sagt man, die Streuung (Varianz) wurde reduziert durch die Hauptkomponente.
+
+
+>   Der längste Vektor, den man in die Punktewolke legen kann, bezeichnet man als den 1. Eigenvektor oder die 1. Hauptkomponente.
+
+In Abbildung \@ref(fig:ig-scatter3d) ist dieser als Pfeil eingezeichnet^[die Hauptkomponente ist hier ähnlich zur Regressionslinie, aber nicht identisch]. Weitere Hauptkomponenten kann man nach dem gleichen Muster bestimmen mit der Auflage, dass sie im rechten Winkel zu bestehenden Hauptkomponenten liegen. Damit kann man in einer 3D-Raum nicht mehr als 3 Hauptkomponenten bestehen (in einem $n$-dimensionalen Raum also maximal $n$ Hauptkomponenten). 
+
+
+
+
+
+```
+#>       V1    V2    V3
+#> V1 1.000 0.933 0.955
+#> V2 0.933 1.000 0.833
+#> V3 0.955 0.833 1.000
+```
+
+>   Je stärker die Korrelation zwischen Variablen, desto besser kann man sie zusammenfassen. 
 
 
 ## Daten
@@ -79,17 +110,17 @@ Wir überprüfen zuerst die Struktur des Datensatzes, die ersten 6 Zeilen und di
 
 
 ```r
-str(Werte)
-head(Werte)
-summary(Werte)
-
+glimpse(Werte)
 ```
 
-Wir sehen in der `summary()`, dass die Bereiche der Bewertungen für jede Variable 1-7 sind. In `str()` sehen wir, dass die Bewertungen als numerisch (Integer, also ganzzahlig) eingelesen wurden. Die Daten sind somit offenbar richtig formatiert.
+Wir sehen mit `glimpse`, dass die Bereiche der Bewertungen für jede Variable 1-7 sind. Außerdem sehen wir, dass die Bewertungen als numerisch (Integer, also ganzzahlig) eingelesen wurden. Die Daten sind somit offenbar richtig fo rmatiert.
 
 ## Neuskalierung der Daten 
 
-In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren. Dies wird üblicherweise als *Standardisierung*, *Normierung*, oder *Z-Transformation* bezeichnet. Als Ergebnis ist der Mittelwert aller Variablen über alle Beobachtungen dann 0 und die Standardabweichung (SD) 1. Da wir hier gleiche Skalenstufen haben, ist ein Skalieren nicht unbedingt notwendig, wir führen es aber trotzdem durch. 
+In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren - auch bei der Dimensionsreduktion. Warum ist das nötig? 
+
+
+Dies wird üblicherweise als *Standardisierung*, *Normierung*, oder *Z-Transformation* bezeichnet. Als Ergebnis ist der Mittelwert aller Variablen über alle Beobachtungen dann 0 und die Standardabweichung (SD) 1. Da wir hier gleiche Skalenstufen haben, ist ein Skalieren nicht unbedingt notwendig, wir führen es aber trotzdem durch. 
 
 Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.sc` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
 
@@ -111,14 +142,10 @@ Wir verwenden den Befehl `corrplot()` für die Erstinspektion von bivariaten Bez
 
 
 ```r
-library(corrplot)
-
 corrplot(cor(Werte.sc), order = "hclust")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
@@ -135,16 +162,16 @@ Wenn in den Daten leere Zellen, also fehlende Werte, vorhanden sind, dann kann e
 Beispiel: 
 
 ```r
-corrplot(cor(na.omit((Werte.sc), order = "hclust"))
+
+Werte.sc <- na.omit(Werte.sc)
+
+corrplot(cor(Werte.sc), order = "hclust")
 ```
 
 Da wir in unserem Datensatz vollständige Daten verwenden, gibt es auch keine Leerzellen. 
 
-*Hinweis:* In vielen Funktionen gibt es auch die Option `na.rm = TRUE`, die fehlende Werte entfernt, z. B.:
+Mit dem Parameter `order` kann man die Reihenfolger (order) der Variablen, wie sie im Diagramm dargestellt werden ändern (vgl `help(corrplot)`). Hier haben wir die Variablen nach Ähnlichkeit aufgereiht: Ähnliche Variablen stehen näher beieinander. Damit können wir gut erkennen, welche Variablen sich ähnlich sind (hoch korreliert sind) und somit Kandidaten für eine Einsparung (Zusammenfassung zu einer Hauptkomponente bzw. einem Faktor) sind.
 
-```r
-var(Werte.sc, na.rm = TRUE)
-```
 
 
 
@@ -157,7 +184,7 @@ Die PCA berechnet ein Variablenset (Komponenten) in Form von linearen Gleichunge
 Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Werte. Wir finden die Komponenten mit prcomp().
 
 ```r
-Werte.pc <- prcomp(Werte.sc)
+Werte.pc <- prcomp(Werte.sc)  # Principal Components berechnen
 summary(Werte.pc)
 #> Importance of components%s:
 #>                          PC1   PC2   PC3    PC4    PC5    PC6    PC7
@@ -196,14 +223,10 @@ Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Ger�
 plot(Werte.pc, type="l")
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/pca-scree-1} 
-
-}
-
-\caption{Screeplot}(\#fig:pca-scree)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/pca-scree-1.png" alt="Screeplot" width="70%" />
+<p class="caption">(\#fig:pca-scree)Screeplot</p>
+</div>
 
 
 Wir sehen in Abb. \@ref(fig:pca-scree), dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente. 
@@ -223,75 +246,83 @@ eigen(cor(Werte))
 
 Der Eigenwert einer Komponente/ eines Faktors sagt aus, wie viel Varianz dieser Faktor an der Gesamtvarianz aufklärt. Laut dem Eigenwert-Kriterium sollen nur Faktoren mit einem *Eigenwert größer 1* extrahiert werden. Dies sind bei den Werte-Daten fünf Komponenten/ Faktoren, da fünf Eigenwerte größer 1 sind. Der Grund ist, dass Komponenten/ Faktoren mit einem Eigenwert kleiner als 1 weniger Erklärungswert haben als die ursprünglichen Variablen. 
 
-Dies kann auch grafisch mit dem `VSS.Scree` geplotet werden (s. Abb. \@ref(fig:vss-scree)). 
+Dies kann auch grafisch mit dem `psych::VSS.Scree`^[das Paket `psych` wird automatisch vom Paket `nfactors` gestartet, sie müssen es nicht extra starten] geplottet werden (s. Abb. \@ref(fig:vss-scree)). 
 
 
 ```r
-library(nFactors)
 VSS.scree(Werte)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/vss-scree-1} 
-
-}
-
-\caption{VSS-Screeplot}(\#fig:vss-scree)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/vss-scree-1.png" alt="VSS-Screeplot" width="70%" />
+<p class="caption">(\#fig:vss-scree)VSS-Screeplot</p>
+</div>
 
 
 ### Biplot
 
-Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein *Biplot*\index{Biplot}. Dies ist ein zweidimensionales Diagramm von Datenpunkten in Bezug auf die ersten beiden Hauptkomponenten, die mit einer Projektion der Variablen auf die Komponenten überlagert wird.
-
-Dazu verwenden wir `biplot()`:
+Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein *Biplot*\index{Biplot}. Ein Biplot zeigt die Ausprägungen der Fälle auf den ersten beiden Hauptkomponenten. Häufig sind die beiden ersten Hauptkomponenten schon recht aussagekräftig, vereinen also einen Gutteil der Streuung auf sich. Dazu verwenden wir `biplot()` (s. Abbildung \@ref(fig:fig-biplot))
 
 
 ```r
 biplot(Werte.pc)
 ```
 
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/fig-biplot-1.png" alt="Ein Biplot für den Werte-Datensatz" width="70%" />
+<p class="caption">(\#fig:fig-biplot)Ein Biplot für den Werte-Datensatz</p>
+</div>
+
+Die einzelnen Ausgangsvariablen sind in Abbildung Abbildung \@ref(fig:fig-biplot) durch rote Pfeile (Vektoren) gekennzeichnet. 
+
+>   Je paralleler der Vektor einer Ausgangsvariable zur X-Achse (1. Hauptkomponente) ist, umso identischer sind sich die entsprechende Variable und die Hauptkomponente. Das hilft uns, die Hauptkomponente inhatlich zu interpretieren. Hauptkomponenten (oder Faktoren) sollten stets inhaltlich interpretiert werden - auch wenn eine subjektive Komponente mitschwingt. 
+
+Die 1. Hauptkomponente wird offenbar stark geprägt duch die Ausgangsvariablen `W6`, `W7`, `W9` und `W11`. Die 2. Hauptkomponente primär durch `W18` und `W19`. 
+
+Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten): Gruppen von Punkten entsprechen ähnlichen Fällen (ähnlich hinsichtlich ihrer Werte in den ersten zwei Hauptkomponenten). Der Biplot ist hier durch die große Anzahl an Beobachtung allerdings recht unübersichtlich. 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
-Die Variablen-Gruppierungen sind als rote Ladungspfeile sichtbar. Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten). Der Biplot ist hier durch die große Anzahl an Beobachtung recht unübersichtlich. 
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">
+1. Ziehen Sie eine Zufallsstichprobe aus dem Datensatz, berechnen Sie die PCA erneut und betrachten Sie den Biplot. Wie stark ist die Änderung?
 
-Am einfachsten lassen sich die Komponenten extrahieren mit dem `principal`-Befehl aus dem psych-Paket:
+2. Erstellen Sie mehrere Streudiagramme und überprüfen Sie die bivariaten Zusammenhänge (die ja zur Dimensionsreduktion führen) visuell.
+</div>\EndKnitrBlock{rmdexercises}
+
+Am einfachsten lassen sich die Komponenten extrahieren mit dem `principal`-Befehl aus dem Paket `psych`:
 
 
 ```r
-Werte.pca <- principal(Werte, nfactors = 5)
+Werte.pca <- principal(Werte, nfactors = 5, rotate = "none")
 print(Werte.pca, cut = 0.5, sort = TRUE, digits = 2)
 #> Principal Components Analysis
-#> Call: principal(r = Werte, nfactors = 5)
+#> Call: principal(r = Werte, nfactors = 5, rotate = "none")
 #> Standardized loadings (pattern matrix) based upon correlation matrix
-#>     item   RC1   RC2   RC3   RC5   RC4   h2   u2 com
-#> W1     1  0.83                         0.71 0.29 1.1
-#> W3     2  0.78                         0.65 0.35 1.2
-#> W4     3  0.76                         0.63 0.37 1.2
-#> W13   10        0.79                   0.64 0.36 1.0
-#> W12    9        0.75                   0.67 0.33 1.3
-#> W14   11        0.70                   0.50 0.50 1.1
-#> W15   12                               0.53 0.47 4.2
-#> W7     5              0.94             0.89 0.11 1.0
-#> W6     4              0.92             0.88 0.12 1.1
-#> W16   13                    0.77       0.66 0.34 1.2
-#> W18   15                    0.76       0.63 0.37 1.2
-#> W17   14                    0.73       0.57 0.43 1.2
-#> W9     6                          0.74 0.57 0.43 1.1
-#> W11    8                          0.72 0.56 0.44 1.2
-#> W10    7                          0.62 0.54 0.46 1.8
+#>     item  PC1   PC2   PC3  PC4  PC5   h2   u2 com
+#> W3     2 0.57                       0.65 0.35 2.8
+#> W1     1 0.57                       0.71 0.29 3.4
+#> W18   15 0.54                       0.63 0.37 3.0
+#> W16   13 0.53                       0.66 0.34 3.0
+#> W13   10 0.51                       0.64 0.36 3.7
+#> W15   12                            0.53 0.47 2.5
+#> W17   14                            0.57 0.43 3.3
+#> W14   11                            0.50 0.50 3.4
+#> W10    7                            0.54 0.46 4.1
+#> W12    9       0.52                 0.67 0.33 3.3
+#> W11    8       0.50                 0.56 0.44 3.2
+#> W4     3                            0.63 0.37 3.2
+#> W9     6                            0.57 0.43 3.3
+#> W6     4      -0.51  0.71           0.88 0.12 2.3
+#> W7     5      -0.54  0.66           0.89 0.11 2.7
 #> 
-#>                        RC1  RC2  RC3  RC5  RC4
-#> SS loadings           2.08 2.02 1.89 1.87 1.76
-#> Proportion Var        0.14 0.13 0.13 0.12 0.12
-#> Cumulative Var        0.14 0.27 0.40 0.52 0.64
-#> Proportion Explained  0.22 0.21 0.20 0.19 0.18
-#> Cumulative Proportion 0.22 0.43 0.62 0.82 1.00
+#>                        PC1  PC2  PC3  PC4  PC5
+#> SS loadings           2.86 2.38 1.92 1.31 1.17
+#> Proportion Var        0.19 0.16 0.13 0.09 0.08
+#> Cumulative Var        0.19 0.35 0.48 0.56 0.64
+#> Proportion Explained  0.30 0.25 0.20 0.14 0.12
+#> Cumulative Proportion 0.30 0.54 0.74 0.88 1.00
 #> 
-#> Mean item complexity =  1.4
+#> Mean item complexity =  3.2
 #> Test of the hypothesis that 5 components are sufficient.
 #> 
 #> The root mean square of the residuals (RMSR) is  0.07 
@@ -300,13 +331,20 @@ print(Werte.pca, cut = 0.5, sort = TRUE, digits = 2)
 #> Fit based upon off diagonal values = 0.88
 ```
 
-### Interpretation der Ergebnisse der PCA: 
+`cut = 0.5` heißt, dass nur Ladungen ab 0.5 angezeigt werden sollen. Mit `rotate = 'none'` sagen wir, dass wir keine Rotation wünschen. Eine Rotation ist 
 
-* Das Ergebnis sieht sehr gut aus. Es laden immer mehrere Items (mindestens 2) hoch (> 0,5) auf einer Komponente (die mit RC1 bis RC5 bezeichnet werden, RC steht für Rotated Component). Innerhalb einer PCA kann die Interpretierbarkeit über eine **Rotation** erhöht werden. Wenn die Rotation nicht ausgeschlossen wird (mit dem Argument `rotate="none"`), dann ist die Voreinstellung eine `Varimax-Rotation`.
+### Interpretation der Ergebnisse der PCA
 
-* Es gibt keine Items die auf mehr als einer Komponente hoch laden. Die Ladungen sind Korrelationskoeffizienten zwischen den Items und den Hauptkomponenten. * In der Zeile SS loadings finden wir die Eigenwerte der fünf Hauptkomponenten. Den Anteil an der Gesamtvarianz, den sie erklären, findet man in der Zeile Proportion Var. Aufsummiert sind die Anteile in der Zeile Cumlative Var. Insgesamt werden durch die fünf Hauptkomponenten 64% der Gesamtvarianz erklärt. 
+Das Ergebnis sieht sehr gut aus. Es laden immer mehrere Items (Ausgangsvariablen) (mindestens 2) hoch (> 0,5) auf einer Komponente (die mit RC1 bis RC5 bezeichnet werden, *RC* steht für *Rotated Component*). Mit "laden" ist die Parallelität der Ausgangsvariable zur Hauptkomponente gemeint. Vereinfacht gesprochen ist die Ladung die Korrelation der Items mit der jeweiligen Komponente.
 
-* Einzig das Item W15 lädt auf keine der Hauptkomponenten hoch. 
+
+Innerhalb einer PCA kann die Interpretierbarkeit über eine **Rotation** erhöht werden. Wenn die Rotation nicht ausgeschlossen wird (mit dem Argument `rotate="none"`), dann ist die Voreinstellung eine `Varimax-Rotation`.
+
+Mit `h2` (Kommunalität) ist der Anteil eines Items bezeichnet, der durch die Komponenten insgesamt erklärt wird. Hier haben die Anzahl der Komponenten auf 5 beschränkt. Daher wird nicht die ganze Varianz des Items erklärt.
+
+Es gibt keine Items die auf mehr als einer Komponente hoch laden. Die Ladungen sind Korrelationskoeffizienten zwischen den Items und den Hauptkomponenten. In der Zeile *SS loadings* finden wir die Eigenwerte der fünf Hauptkomponenten (berechnet als Summe der quadrierten Ladungen). Den Anteil an der Gesamtvarianz, den sie erklären, findet man in der Zeile *Proportion Var*. Aufsummiert sind die Anteile in der Zeile *Cumlative Var*. Insgesamt werden durch die fünf Hauptkomponenten 64% der Gesamtvarianz erklärt. Die stärke Hauptkomponente hat einen Eigenwert von 2.08 und erklärt 14% der Varianz.
+
+Einzig das Item W15 lädt auf keine der Hauptkomponenten hoch. 
 
 Um die inhaltliche Bedeutung der Komponenten zu interpretieren, schauen wir uns die Inhalte der jeweiligen Items an und versuchen hierfür einen inhaltlichen Gesamtbegriff zu finden. Die Erste Komponenten könnte mit **Genuss**, die zweite mit **Sicherheit**, die dritte mit **Bewusstsein**, die vierte mit **Konformismus** und die fünfte mit **Anerkennung** bezeichnet werden. 
 
@@ -335,16 +373,16 @@ Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden
 fa.diagram(Werte.pca)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
 
 ## Exploratorische Faktorenanalyse (EFA)
 
-Die EFA ist eine Methode, um die Beziehung von Konstrukten (Konzepten), d. h. Faktoren zu Variablen zu beurteilen. Dabei werden die Faktoren als *latente Variablen* betrachtet, die nicht direkt beobachtet werden können. Stattdessen werden sie empirisch durch mehrere Variablen beobachtet, von denen jede ein Indikator der zugrundeliegenden Faktoren ist. Diese beobachteten Werte werden als *manifeste Variablen* bezeichnet und umfassen Indikatoren. Die EFA versucht den Grad zu bestimmen, in dem Faktoren die beobachtete Streuung der manifesten Variablen berücksichtigen.
+Genau genommen ist der Begriff *Faktorenanalyse (FA)*\index{Faktorenanalyse} ein Überbegriff für mehrere Arten von ähnlichen Verfahren der Dimensionsreduktion. Ein Beispiel für eine Art von Faktorenanalyse wäre dann die PCA. Aber der Begriff Faktorenanalyse wird auch verwendet, um eine bestimmte Art von Faktorenanalyse - sozusagen eine Faktorenanalyse im engeren Sinne - zu bezeichnen. Wir halten uns hier an letztere Begriffskonvention.
+
+In diesem Sinne ist die *Exploratorische Faktorenanalyse (EFA)*\index{Exploratorische Faktorenanalyse} ist eine Methode, um die Beziehung von Konstrukten (Konzepten), d. h. Faktoren zu Variablen zu beurteilen. Dabei werden die Faktoren als *latente Variablen* betrachtet, die nicht direkt beobachtet werden können. Stattdessen werden sie empirisch durch mehrere Variablen beobachtet, von denen jede ein Indikator der zugrundeliegenden Faktoren ist. Diese beobachteten Werte werden als *manifeste Variablen* bezeichnet und umfassen Indikatoren. Die EFA versucht den Grad zu bestimmen, in dem Faktoren die beobachtete Streuung der manifesten Variablen berücksichtigen.
 
 Das Ergebnis der EFA ist ähnlich zur PCA: eine Matrix von Faktoren (ähnlich zu den PCA-Komponenten) und ihre Beziehung zu den ursprünglichen Variablen (Ladung der Faktoren auf die Variablen). Im Gegensatz zur PCA versucht die EFA, Lösungen zu finden, die in den *manifesten variablen maximal interpretierbar* sind. Im Allgemeinen versucht sie, Lösungen zu finden, bei denen eine kleine Anzahl von Ladungen für jeden Faktor sehr hoch ist, während andere Ladungen für diesen Faktor gering sind. Wenn dies möglich ist, kann dieser Faktor mit diesem Variablen-Set interpretiert werden. 
 
@@ -353,7 +391,7 @@ Das Ergebnis der EFA ist ähnlich zur PCA: eine Matrix von Faktoren (ähnlich zu
 
 Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu verwenden wir wieder das Ellbow-Kriterium und das Eigenwert-Kriterium. Beide Kriterien haben wir schon bei der PCA verwendet, dabei kommen wir auf 5 Faktoren. 
 
-Durch das Paket `nFactors` bekommen wir eine formalisierte Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()`
+Durch das Paket `nFactors` bekommen wir eine ausgefuchstere Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()` - es werden noch weitere, sophistiziertere Methoden zur Berechnung der 'richtigen' Anzahl von Faktoren eingesetzt. Wir sparen uns hier die Details.
 
 
 ```r
@@ -362,12 +400,12 @@ nScree(Werte)
 #> 1   5   3         5       5
 ```
 
-`nScree` gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden fünf Faktoren vorschlagen.
+`nScree` gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden fünf Faktoren vorschlagen. Nach kurzer Überlegung und Blick aus dem Fenster entscheiden wir uns für 5 Faktoren.
 
 
 ### Schätzung der EFA
 
-Eine EFA wird geschätzt mit dem Befehl `factanal(x,factors = k)`, wobei `k` die Anzahl Faktoren angibt.
+Eine EFA wird geschätzt mit dem Befehl `factanal(x,factors = k)`, wobei `k` die Anzahl Faktoren angibt und `x` den Datensatz.
 
 
 ```r
@@ -384,9 +422,21 @@ print(Werte.fa, digits = 2, cutoff = .4, sort = TRUE)
 
 Standardmäßig wird bei `factanal()` eine *Varimax-Rotation* durchgeführt (das Koordinatensystem der Faktoren wird so rotiert, das eine optimale Zuordnung zu den Variablen erfolgt). Bei Varimax gibt es keine Korrelationen zwischen den Faktoren. Sollen Korrelationen zwischen den Faktoren zugelassen werden, empfiehlt sich die Oblimin-Rotation mit dem Argument `rotation="oblimin"` aus dem Paket `GPArotation`.
 
-### Heatmap mit Ladungen
+Das eine Rotation sinnvoll ist, kann man sich am einfachsten an einem Diagramm verdeutlichen (s. Abbildung \@ref(fig:rotation), [@fjalnes_orthogonale_2014]).
 
-In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt `Werte.fa` sind diese als  `$loadings` vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap von `$loadings` visualisieren, s. Abb. \@ref(fig:efa-heatmap):
+
+<div class="figure" style="text-align: center">
+<img src="images/dimred/rotation.png" alt="Beispiel für eine rechtwinklige Rotation" width="70%" />
+<p class="caption">(\#fig:rotation)Beispiel für eine rechtwinklige Rotation</p>
+</div>
+
+Das Rotieren kann man sich als Drehen des Koordinatensystems vorstellen. Durch die Rotation sind die Items 'näher' an den Faktoren: Die Faktorladung zu einem Faktor wurde größer, zum anderen Faktor hingegen geringer. Damit wurde die Ladung, also die Zuordnung der Items zu den Faktoren, insgesamt klarer, besser. Das wollen wir. Übrigens: Der Winkel der Achsen ist beim Rotieren gleich (rechtwinklig, orthogonoal) geblieben. Daher spricht man von einer rechtwinkligen oder orthogonalen Rotation. Man kann auch die Achsen unterschiedlich rotieren, so dass sie nicht mehr rechtwinklig sind. Das könnte die Ladung noch klarer machen, führt aber dazu, dass die Faktoren dann korreliert sind. Korrelierte Faktoren sind oft nicht wünschenswert, weil ähnlich.
+
+
+
+### Vertiefung: Heatmap mit Ladungen
+
+In der obigen Ausgabe werden die Item-to-Faktor-Ladungen angezeigt. Im zurückgegebenen Objekt `Werte.fa` sind diese als  `$loadings` vorhanden. Wir können die Item-Faktor-Beziehungen mit einer Heatmap  von `$loadings` visualisieren aus dem Paket `gplots`^[bereits automatisch geladen], s. Abb. \@ref(fig:efa-heatmap):
 
 
 ```r
@@ -405,14 +455,10 @@ heatmap.2(Werte.fa$loadings,
           )
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmap-1} 
-
-}
-
-\caption{Heatmap einer EFA}(\#fig:efa-heatmap)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="083_Dimensionsreduktion_files/figure-html/efa-heatmap-1.png" alt="Heatmap einer EFA" width="70%" />
+<p class="caption">(\#fig:efa-heatmap)Heatmap einer EFA</p>
+</div>
 
 
 Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
@@ -420,7 +466,8 @@ Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktor
 
 ### Berechnung der Faktor-Scores
 
-Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Faktorwerte für jede Beobachtung schätzen. Die gängige Extraktionsmethode ist die Bartlett-Methode.
+Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Faktorwerte für jede Beobachtung schätzen. Die gängige Extraktionsmethode ist die Bartlett-Methode, worauf wir hir nicht weiter eingehen. Kurz gesagt: Jeder Fall (jede Zeile im Datensatz, jede Person) bekommt einen Wert pro Komponente bzw. Faktor, man spricht von Faktor-Scores oder Faktorwerten der Beobachtungen.
+
 
 
 ```r
@@ -443,9 +490,9 @@ Wir haben nun anstatt der 15 Variablen 5 Faktoren mit Scores. Die Dimensionen wu
 
 ## Interne Konsistenz der Skalen
 
-Das einfachste Maß für die **interne Konsistenz** ist die **Split-Half-Reliabilität**. Die Items werden in zwei Hälften unterteilt und die resultierenden Scores sollten in ihren Kenngrößen ähnlich sein. Hohe Korrelationen zwischen den Hälften deuten auf eine hohe interne Konsistenz hin. Das Problem ist, dass die Ergebnisse davon abhängen, wie die Items aufgeteilt werden. Ein üblicher Ansatz zur Lösung dieses Problems besteht darin, den Koeffizienten **Alpha (Cronbachs Alpha)** zu verwenden.
+Das einfachste Maß für die *interne Konsistenz*\index{interne Konsistenz} ist die *Split-Half-Reliabilität*\index{Split-Half-Reliabilität}. Die Items werden in zwei Hälften unterteilt und die resultierenden Scores sollten in ihren Kenngrößen ähnlich sein. Hohe Korrelationen zwischen den Hälften deuten auf eine hohe interne Konsistenz hin. Das Problem ist, dass die Ergebnisse davon abhängen, wie die Items aufgeteilt werden. Ein üblicher Ansatz zur Lösung dieses Problems besteht darin, den Koeffizienten *Alpha (Cronbachs Alpha)*\index{Cronbachs Alpha} zu verwenden.
 
-Der Koeffizient **Alpha** ist der Mittelwert aller möglichen Split-Half-Koeffizienten, die sich aus verschiedenen Arten der Aufteilung der Items ergeben. Dieser Koeffizient variiert von 0 bis 1. Formal ist es ein korrigierter durchschnittlicher Korrelationskoeffizient.
+Der Koeffizient *Alpha* ist der Mittelwert aller möglichen Split-Half-Koeffizienten, die sich aus verschiedenen Arten der Aufteilung der Items ergeben. Dieser Koeffizient variiert von 0 bis 1. Inhaltlich ist Alpha eine Art mittlere Korrelation, die sich ergibt wenn man alle Items (paarweise) miteinander korrliert: I1-I2, I1-I3,...
 
 Faustregeln für die Bewertung von Cronbachs Alpha:
 
@@ -461,10 +508,13 @@ größer 0,5 |   schlecht
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
 
 ```r
-alpha(Werte[, c("W12","W13", "W14", "W15")], check.keys = TRUE)
+Werte %>% 
+  select(W12, W13, W14, W15) -> df
+
+psych::alpha(df, check.keys = TRUE)
 #> 
 #> Reliability analysis   
-#> Call: alpha(x = Werte[, c("W12", "W13", "W14", "W15")], check.keys = TRUE)
+#> Call: psych::alpha(x = df, check.keys = TRUE)
 #> 
 #>   raw_alpha std.alpha G6(smc) average_r S/N   ase mean sd
 #>       0.64      0.63     0.6       0.3 1.7 0.018  5.4  1
@@ -498,3 +548,31 @@ Bei dem Konstrukt `Sicherheit` können wir durch Elimination von `W15` das Cronb
 
 Das Argument `check.keys=TRUE` gibt uns eine Warnung aus, sollte die Ladung eines oder mehrerer Items negativ sein. Dies ist hier nicht der Fall, somit müssen auch keine Items recodiert werden. 
 
+
+## Befehlsübersicht
+
+
+Tabelle \@ref(tab:befehle-dimred) fasst die R-Funktionen dieses Kapitels zusammen.
+
+
+Table: (\#tab:befehle-dimred)Befehle des Kapitels 'Dimensionsreduktion'
+
+Paket::Funktion      "Beschreibung"                                                          
+-------------------  ------------------------------------------------------------------------
+cor                  "Berechnet eine Korrelationsmatrix."                                    
+read.csv2            "Liest eine 'deutsche' CSV-Datei ein."                                  
+glimpse              "Wirft einen Blick (to glimpse) in den Datensatz."                      
+scale                "führt eine z-Transformation durch"                                     
+corrplot::corrplot   "Plottet einen Korrelationsplot."                                       
+na.omit              "Schließt Zeilen mit fehlenden Werten von Datensatz aus."               
+pr.comp              "Berechnet Hauptkomponentenanalyse."                                    
+eigen                "Berechnet Eigenwerte."                                                 
+psych::VSS.scree     "Plottet einen Screeplot."                                              
+biplot               "Plottet einen Biplot."                                                 
+psych::principal     "Berechnet die Statistiken für eine Hauptkomponentenanalyse"            
+psych::fa.diagram    "Plottet ein Pfaddiagramm für eine Faktorenanalyse"                     
+nFactors::nscree     "Gibt verschiedenen Vorschläge für die Anzahl der 'richtigen' Faktoren" 
+factanal             "Berechnet eine Faktorenanalyse"                                        
+gplots::heatmap.2    "Plottet ein Heatmap"                                                   
+factanal             "Berechnet Faktor-Scores"                                               
+psych::alpha         "Berechnet Cronbachs Alpha und weitere Statistiken"                     

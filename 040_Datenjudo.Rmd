@@ -56,6 +56,12 @@ library(tidyverse)  # Datenjudo
 library(stringr)   # Texte bearbeiten
 library(car)  # für 'recode'
 library(desctable)  # Statistiken auf einen Streich
+library(lsr)  # für Befehl `aad`
+```
+
+
+```{r hidden-libs, echo = FALSE}
+library(methods)
 ```
 
 Das Paket `tidyverse` lädt `dplyr`, `ggplot2` und weitere Pakete^[für eine Liste s. `tidyverse_packages(include_self = TRUE)`]. Daher ist es komfortabler, `tidyverse` zu laden, damit spart man sich Tipparbeit. Die eigentliche Funktionalität, die wir in diesem Kapitel nutzen, kommt aus dem Paket `dplyr`.
@@ -747,7 +753,7 @@ Was sagt uns der Punkt `.` in der Syntax oben? Der Punkt steht für die Tabelle,
 
 
 
-### Deskriptive Statistik
+## Deskriptive Statistik
 
 `dplyr` kann man gut gebrauchen, um deskriptive Statistik zu berechnen. `summarise` charakterisiert eine Hauptidee der Deskriptivstatistik: Einen Vektor zu einer Zahl zusammenzufassen. `group_by` steht für die Idee, 'Zahlensäcke' (Verteilungen) in Subgruppen aufzuteilen. `mutate` tranformiert Daten. `n` zählt Häufigkeiten.
 
@@ -755,15 +761,16 @@ Ein weiterer zentraler Gedanken der Deskriptivstatistik ist es, dass es beim Zus
 
 >    Die deskriptive Statistik hat zwei Hauptbereiche: Lagemaße und Streuungsmaße.
 
-*Lagemaße* geben den "typischen", "mittleren" oder "repräsentativen" Vertreter der Verteilung an. Bei den Lagemaßen\index{Lagemaße} denkt man sofort an das *arithmetische Mittel* (synonym: Mittelwert; häufig als $\bar{X}$ abgekürzt; `mean`). Ein Nachteil von Mittelwerten ist, dass sie nicht robust gegenüber Extremwerte sind: Schon ein vergleichsweise großer Einzelwert kann den Mittelwert deutlich verändern und damit die Repräsentativität des Mittelwerts für die Gesamtmenge der Daten in Frage stellen. Eine robuste Variante ist der *Median* (Md; `median`). Ist die Anzahl der (unterschiedlichen) Ausprägungen nicht zu groß im Verhältnis zur Fallzahl, so ist der *Modus* eine sinnvolle Statistik; er gibt die häufigste Ausprägung an^[Der *Modus* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. https://cran.r-project.org/web/packages/modes/index.html].
+*Lagemaße* geben den "typischen", "mittleren" oder "repräsentativen" Vertreter der Verteilung an. Bei den Lagemaßen\index{Lagemaße} denkt man sofort an das *arithmetische Mittel* (synonym: Mittelwert, arithmetisches Mittel; häufig als $\bar{X}$ abgekürzt; `mean`). Ein Nachteil von Mittelwerten ist, dass sie *nicht robust* gegenüber Extremwerte sind: Schon ein vergleichsweise großer Einzelwert kann den Mittelwert stark verändern und damit die Repräsentativität des Mittelwerts für die Gesamtmenge der Daten in Frage stellen. Eine robuste Variante ist der *Median* (Md; `median`). Ist die Anzahl der (unterschiedlichen) Ausprägungen nicht zu groß im Verhältnis zur Fallzahl, so ist der *Modus* eine sinnvolle Statistik; er gibt die häufigste Ausprägung an^[Der *Modus* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Man kann ihn aber leicht von Hand bestimmen; s.u. Es gibt auch einige Pakete, die diese Funktion anbieten: z.B. <https://cran.r-project.org/web/packages/modes/index.html>].
 
-*Streuungsmaße*\index{Streuungsmaße} geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der *mittlere Absolutabstand* (MAA; MAD) ^[Der *MAD* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Es gibt einige Pakete, die diese Funktion anbieten: z.B. https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html], die *Standardabweichung* (sd; `sd`), die *Varianz* (Var; `var`) und der *Interquartilsabstand* (IQR; `IQR`). Da nur der IQR *nicht* auf dem Mittelwert basiert, ist er am robustesten. Beliebige Quantile bekommt man mit dem R-Befehl `quantile`.
+*Streuungsmaße*\index{Streuungsmaße} geben die Unterschiedlichkeit in den Daten wieder; mit anderen Worten: sind die Daten sich ähnlich oder unterscheiden sich die Werte deutlich? Zentrale Statistiken sind der *mittlere Absolutabstand* (MAA; engl. mean absolute deviation, MAD) ^[Der *MAD* ist im Standard-R nicht mit einem eigenen Befehl vertreten. Es gibt einige Pakete, die diese Funktion anbieten: z.B. `lsr::aad` (absolute average deviation from the mean) <https://artax.karlin.mff.cuni.cz/r-help/library/lsr/html/aad.html>], die *Standardabweichung* (sd; `sd`), die *Varianz* (Var; `var`) und der *Interquartilsabstand* (IQR; `IQR`). Da nur der IQR *nicht* auf dem Mittelwert basiert, ist er robuster als Statistiken, die sich aus dem Mittelwert ergeben. Beliebige Quantile bekommt man mit dem R-Befehl `quantile`. Möchte man z.B. Q1, Median und Q3, so kann man das so sagen: `quantile(x, probs = c(.25, .50, .75)), wobei `x` eine Spalte (ein Vektor) ist.
 
 Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
 
 ```{r}
 summarise(stats_test, mean(score))
 summarise(stats_test, sd(score))
+summarise(stats_test, aad(score))  # aus Paket 'lsr'
 ```
 
 Natürlich könnte man auch einfacher schreiben:
@@ -771,6 +778,16 @@ Natürlich könnte man auch einfacher schreiben:
 ```{r}
 mean(stats_test$score)
 median(stats_test$score)
+aad(stats_test$score)
+```
+
+
+```{block2, achtung-narm, type='rmdcaution', echo = TRUE} 
+
+Viele R-Befehle der deskriptiven Statistik sind im Standard so eingestellt, dass sie `NA` zurückliefern, falls es in den Daten fehlende Werte gibt. Das ist einerseits informativ, aber oft unnötig. Mit dem Parameter `na.rm = TRUE` kann man dieses Verhalten abstellen.
+
+Tipp: Mit dem Befehl `df <- na.omit(df)` entfernen Sie alle fehlenden Werte aus `df`.
+
 ```
 
 
@@ -833,11 +850,11 @@ knitr::kable(df, caption = "Befehle des Kapitels 'Datenjudo'")
 
 ## Verweise
 
-- Die offizielle Dokumentation von `dplyr` findet sich hier: https://cran.r-project.org/web/packages/dplyr/dplyr.pdf. 
+- Die offizielle Dokumentation von `dplyr` findet sich hier: <https://cran.r-project.org/web/packages/dplyr/dplyr.pdf>. 
 
 - Eine schöne Demonstration wie mächtig `dplyr` ist findet sich hier:  <http://bit.ly/2kX9lvC>.
 
-- Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr`, mächtig, modern und sieht cool aus: https://exploratory.io.
+- Die GUI "exploratory" ist ein "klickbare" Umsetzung von `dplyr` and friends; mächtig, modern und sieht cool aus: <https://exploratory.io>.
 
 - *R for Data Science* bietet umfangreiche Unterstützung zu diesem Thema [@r4ds].  
 

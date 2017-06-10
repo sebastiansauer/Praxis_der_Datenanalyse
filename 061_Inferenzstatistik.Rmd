@@ -65,7 +65,7 @@ knitr::include_graphics("images/inferenz/p_value_who_said.png")
 ```
 
 
-Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Inferenz-Hypothesen-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
+Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Hypothesen-Inferenz-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
 
 >    Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
 
@@ -93,7 +93,7 @@ Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist.
 Oder kürzer:
 
 
-$$ P(M|T) \ne P(T|M) $$
+$$ P(M|P) \ne P(P|M) $$
 
 
 
@@ -322,4 +322,6 @@ knitr::include_graphics("images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg")
 
 - Eine Einführung zur Bayes-Statistk findet man z.B. bei Kruschke [-@kruschke2010bayesian] oder bei @etz2016become. 
 - Eine ausführliche Darstellung der Inferenzstatistik und des p-Werts findet sich z.B. bei @lubke2014angewandte oder @eid2010statistik.
+
+- Eine vielverprechende, noch recht neue Software ist [JASP](), die nicht nur schöne Diagramme erstellt, sondern auch auf Mausklick eine Reihe von bayesianischer (und frequentistischer) Tests durchrechnet.
 
