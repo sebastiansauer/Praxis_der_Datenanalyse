@@ -126,11 +126,11 @@ Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-
 ## Die Idee der logistischen Regression
 Die logistische Regression ist eine Anwendung des *Allgemeinen Linearen Modells*\index{Allgemeines Lineares Modells} (general linear model, GLM). Die Modellgleichung lautet:
 
-$$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$$
+$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$
 
-> $L$ ist die Linkfunktion, in unserer Anwendung die logistische Funktion.  
-$x_{ik}$ sind die beobachten Werte der unabhängigen Variablen $X_k$.  
-$k$ sind die unabhängigen Variablen $1$ bis $K$.
+- $L$ ist die Linkfunktion, in unserer Anwendung die logistische Funktion.  
+- $x_{ik}$ sind die beobachten Werte der unabhängigen Variablen $X_k$.  
+- $k$ sind die unabhängigen Variablen $1$ bis $K$.
 
 Die Funktion `glm` führt die logistische Regression durch. 
 
@@ -211,7 +211,8 @@ In unserem Fall sind die Chancen 0.322; also lautet die Umrechnung:
 
 
 ```r
-wskt <- .498 / (.498+1)
+(wskt <- .498 / (.498+1))
+#> [1] 0.332
 ```
 
 Diesen Ritt kann man sich merklich kommoder bereiten, wenn man diesen Befehl kennt:
@@ -564,7 +565,6 @@ Da die Sensitivität determiniert ist, wenn die Falsch-Positiv-Rate bekannt ist 
 
 
 ```r
-
 plot(lets_roc)
 ```
 
@@ -578,8 +578,8 @@ Die 'Fläche unter der Kurve' (area under curve, AUC) is damit ein Maß für die
 
 
 <div class="figure" style="text-align: center">
-<img src="072_klassifizierende_Regression_files/figure-html/example-rocs-1.png" alt="Beispiel für eine sehr gute, gute und schlechte Klassifikation" width="70%" />
-<p class="caption">(\#fig:example-rocs)Beispiel für eine sehr gute, gute und schlechte Klassifikation</p>
+<img src="072_klassifizierende_Regression_files/figure-html/example-rocs-1.png" alt="Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation" width="70%" />
+<p class="caption">(\#fig:example-rocs)Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation</p>
 </div>
 
 

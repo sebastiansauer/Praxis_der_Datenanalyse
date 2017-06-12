@@ -147,7 +147,7 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf].
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
 
 
 
@@ -239,6 +239,8 @@ afd_df %>%
 
 
 
+Table: (\#tab:unnamed-chunk-16)Die häufigsten Wörter im AfD-Parteiprogramm
+
 token            n
 ------------  ----
 deutschland    190
@@ -262,7 +264,7 @@ afd_df %>%
 
 afd_count %>% 
   top_n(10) %>% 
-  knitr::kable()
+  knitr::kable(aption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
 ```
 
 

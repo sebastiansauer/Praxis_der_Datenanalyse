@@ -45,7 +45,7 @@ Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-f
 </div>
 
 
-Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Inferenz-Hypothesen-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
+Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Hypothesen-Inferenz-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
 
 >    Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
 
@@ -73,7 +73,7 @@ Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist.
 Oder kürzer:
 
 
-$$ P(M|T) \ne P(T|M) $$
+$$ P(M|P) \ne P(P|M) $$
 
 
 

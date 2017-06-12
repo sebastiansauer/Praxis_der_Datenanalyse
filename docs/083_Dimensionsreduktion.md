@@ -69,7 +69,7 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalten) in Abbildung \@ref(fig:fig-scatter3d)). Man braucht nicht viel Phantasie, um einen Pfeil (Vektor) in der Punktewolke zu sehen. Um jeden Punkt einigermaßen genau zu bestimmen, reicht es, seine "Pfeil-Koordinate" zu wissen. Praktischerweise geben in Abbildung \@ref(fig:fig-scatter3d) die Farben (in etwa) die Koordinaten auf dem Pfeil an^[genau genommen ist hier die Regressionsgerade gezeichnet, es müsste aber der größte Eigenvektor sein. Geschenkt.]. Damit können wir die Anzahl der Variablen (Dimensionen), die es braucht, um einen Punkt zu beschreiben von 3 auf 1 reduzieren; 2/3 der Komplexität eingespart. Wir verlieren etwas Genauigkeit, aber nicht viel. Dieser Pfeil, der mitten durch den Punkteschwarm geht, nennt man auch die 1. Hauptkomponente.
 
 <div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-1.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" /><img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-2.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" />
+<img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-1.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" />
 <p class="caption">(\#fig:fig-scatter3d)Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine</p>
 </div>
 
@@ -79,7 +79,7 @@ Beachten Sie, dass hoch korrelierte Variablen eng an der Regressionsgeraden lieg
 
 >   Der längste Vektor, den man in die Punktewolke legen kann, bezeichnet man als den 1. Eigenvektor oder die 1. Hauptkomponente.
 
-In Abbildung \@ref(fig:ig-scatter3d) ist dieser als Pfeil eingezeichnet^[die Hauptkomponente ist hier ähnlich zur Regressionslinie, aber nicht identisch]. Weitere Hauptkomponenten kann man nach dem gleichen Muster bestimmen mit der Auflage, dass sie im rechten Winkel zu bestehenden Hauptkomponenten liegen. Damit kann man in einer 3D-Raum nicht mehr als 3 Hauptkomponenten bestehen (in einem $n$-dimensionalen Raum also maximal $n$ Hauptkomponenten). 
+In Abbildung \@ref(fig:fig-scatter3d) ist dieser als Pfeil eingezeichnet^[die Hauptkomponente ist hier ähnlich zur Regressionslinie, aber nicht identisch]. Weitere Hauptkomponenten kann man nach dem gleichen Muster bestimmen mit der Auflage, dass sie im rechten Winkel zu bestehenden Hauptkomponenten liegen. Damit kann man in einer 3D-Raum nicht mehr als 3 Hauptkomponenten bestehen (in einem $n$-dimensionalen Raum also maximal $n$ Hauptkomponenten). 
 
 
 
@@ -130,9 +130,21 @@ Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der B
 
 
 ```r
-Werte.sc <- scale(Werte)
+Werte.sc <- Werte %>% scale %>% as_tibble
 summary(Werte.sc)
 ```
+
+
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">
+`<-`: Das Objekt `Werte.sc` soll wie folgt definiert sein  
+Nimm das Objekt (ein Dataframe) `Werte` UND DANN 
+z-skaliere das Objekt UND DANN  
+definiere es als Dataframe (genauer: tibble). FERTIG.  
+
+Ach ja, dann zeig noch ein `summary` von diesem Objekt.
+
+</div>\EndKnitrBlock{rmdpseudocode}
+
 
 Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle Beobachtungen 0 und die sd 1 ist. 
 
@@ -282,6 +294,7 @@ Die 1. Hauptkomponente wird offenbar stark geprägt duch die Ausgangsvariablen `
 Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten): Gruppen von Punkten entsprechen ähnlichen Fällen (ähnlich hinsichtlich ihrer Werte in den ersten zwei Hauptkomponenten). Der Biplot ist hier durch die große Anzahl an Beobachtung allerdings recht unübersichtlich. 
 
 
+### Aufgaben
 
 \BeginKnitrBlock{rmdexercises}<div class="rmdexercises">
 1. Ziehen Sie eine Zufallsstichprobe aus dem Datensatz, berechnen Sie die PCA erneut und betrachten Sie den Biplot. Wie stark ist die Änderung?

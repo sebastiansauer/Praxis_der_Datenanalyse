@@ -573,7 +573,7 @@ nominale Variable          metrische Variable         Boxplots (besser)
 
 ## Die Gefühlswelt von `ggplot2`
 
-- Geben Sie eine *diskrete X-Achs*e an und *keine Y-Achse*, so greift qplot im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie kein Geom angeben:
+- Geben Sie eine *diskrete X-Achs*e an und *keine Y-Achse*, so greift `qplot` im Standard auf das Geom `bar` zurück (Balkendiagramm), falls Sie *kein* Geom angeben:
 
 
 ```r

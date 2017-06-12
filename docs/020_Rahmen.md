@@ -131,49 +131,27 @@ werden Diagramme (Plots) dort ausgegeben. Klicken Sie mal die anderen Reiter im 
 rechts unten durch.
 
 
+
 Wer Shortcuts mag, wird in RStudio überschwänglich beschenkt; der Shortcut für die Shortcuts ist `Shift-Alt-K`.
+
+
+ Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn 
+Sie RStudio gestartet haben, *nicht* noch extra R. Damit hätten Sie sonst zwei 
+Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.
 
 
 ### Sonstiges Material für dieses Skript
 
-Bitte laden Sie sich auch das sonstige Material aus dem [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter:
+Bitte laden Sie sich auch das sonstige Material aus diesem [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter:
 
 - Daten (Ordner `data`)
-- Liste der benötigten R-Pakete (Datei `Paktete_fuer_Prada`)
+- Liste der benötigten R-Pakete (Datei `Pakete_fuer_PraDa.txt`)
 
-Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustate/Kontextmenü und dann "Dateien extrahieren" o.ä.]. 
-
-### Das Arbeitsverzeichnis {#wd}
+Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustate/Kontextmenü und dann "Dateien extrahieren" o.ä., sonst Googeln.]. 
 
 
-Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
 
-<div class="figure" style="text-align: center">
-<img src="images/tidy/Arbeitsverzeichnis.png" alt="Das Arbeitsverzeichnis mit RStudio auswählen" width="50%" />
-<p class="caption">(\#fig:Arbeitsverzeichnis)Das Arbeitsverzeichnis mit RStudio auswählen</p>
-</div>
-
-
-Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
-
-
-```r
-# nicht ausführen:
-daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
-```
-
-R geht dann davon aus, dass sich die Datei `daten_deutsch.csv` im Arbeitsverzeichnis befindet.
-
-
-Für diesen Kurs ist es sinnvoll, das Arbeitsverzeichnis in einen "Hauptordner" zu legen (z.B. "Praxis_der_Datenanalyse"), in dem Daten und sonstiges Material als Unterordner abgelegt sind.
-
-
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
-Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
-</div>\EndKnitrBlock{rmdcaution}
-
-
-### Hilfe! R tut nicht so wie ich das will
+### Hilfe! R startet nicht!
 
 >    Manntje, Manntje, Timpe Te,   
     Buttje, Buttje inne See,    
@@ -252,27 +230,14 @@ Pakete zu installieren.
 
 
 
-### Hier werden Sie geholfen
+#### I am an outdated model
 
-Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu 
-wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
 
-- Zu diesen Paketen gibt es gute "Spickzettel" (cheatsheets): ggplot2, 
-RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets > 
-...* oder gehen Sie auf <https://www.rstudio.com/resources/cheatsheets/>.
+Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres 
+Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto 
+Problem... Updaten Sie Ihre Packages regelmäßig z.B. mit `update.packages()` 
+oder dem Button "Update" bei RStudio (Reiter `Packages`).
 
-- In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie
-hier finden: *Tools > Keyboard Shortcuts Help*.
-
-- Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren 
-Sie z.B. `?mean`.
-
-- Im Internet finden sich zuhauf Tutorials.
-
-- Der Reiter "Help" bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.
-
-- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
-<http://stackoverflow.com>.
 
 
 
@@ -280,9 +245,7 @@ Sie z.B. `?mean`.
 
 ### Die Denk- und Gefühlswelt von R
 
-- Wenn Sie RStudio starten, startet R automatisch auch. Starten Sie daher, wenn 
-Sie RStudio gestartet haben, *nicht* noch extra R. Damit hätten Sie sonst zwei 
-Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.
+
 
 #### R-Skript-Dateien
 
@@ -296,20 +259,6 @@ bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung
 damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar 
 praktische Funktionen wie den "Run-Button".
 
-
-#### Stolpersteine beim Errisch lernen
-
->    I Errr, therefore I am...
-
-
-Verwenden Sie möglichst die neueste Version von R, RStudio und Ihres 
-Betriebssystems. Ältere Versionen führen u.U. zu Problemen; je älter, desto 
-Problem... Updaten Sie Ihre Packages regelmäßig z.B. mit `update.packages()` 
-oder dem Button "Update" bei RStudio (Reiter `Packages`).
-
-R zu lernen kann hart sein. Ich weiß, wovon ich spreche. Wahrscheinlich eine 
-spirituelle Prüfung in Geduld und Hartnäckigkeit... Tolle Gelegenheit, sich in 
-diesen Tugenden zu trainieren :-)
 
 
 
@@ -482,21 +431,13 @@ Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis
 - Datensatz 'wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
 - Datensatz `extra`, URL: <https://osf.io/4kgzh> [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
-- Datensatz `Werte` URL: <https://osf.io/4kgzh/> [@Gansser_2017]; es handelt sich um Werte von Studierenden (`data/werte.csv`).
+- Datensatz `Werte` URL: <https://osf.io/4kgzh/> [@Gansser_2017]; es handelt sich um Werte von Studierenden
 - Datensatz `Segment` URL: <https://goo.gl/eUm8PI> [@Chapman2015]; es handelt sich um soziodemographische Daten (simuliert)
 
 
 Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen).
 
 
-
-
-
-### Aufgaben
-
-1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
-
-2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
 
 
 
@@ -512,14 +453,21 @@ Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:da
 
 Table: (\#tab:datentypen)Wichtige Datentypen in R
 
-------------------------
-includes/Datentypen.csv 
-------------------------
+Name        Synonyme           Beschreibung                                                                                                     R-Befehl       Beispiel                         Restriktionen                                       
+----------  -----------------  ---------------------------------------------------------------------------------------------------------------  -------------  -------------------------------  ----------------------------------------------------
+numeric     num, double, dbl   Reelle Zahl (mit Nachkommastellen)                                                                               as.numeric     x <- c(2.71, 3.14)               grundlegend                                         
+integer     int, L             Ganze Zahl                                                                                                       as.integer     y <- c(42,7)                     grundlegend                                         
+character   chr, string        Text                                                                                                             as.character   der_name <- "Joachim"            grundlegend                                         
+logical     lgl, logi          logisch; gibt an, ob ein Ausdruck wahr (TRUE; T) oder falsch (FALSE, F) ist                                      as.logical     c(TRUE, FALSE)                   grundlegend                                         
+factor      fctr               Nominal skalierte Variable mit vorab definierten Ausprägungen; z.B. um Gruppen (Männer vs. Frauen) zu benennen   factor         der_name <- factor(der_name)     grundlegend                                         
+vector      -                  Mehrere Elemente eines grundlegenden Typs                                                                        c              x <- c(2.71, 3.14)               sortenrein                                          
+dataframe   tibble, df         Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben                                              data.frame     df <- data.frame(x,y)            rechteckig: Vektoren müssen von gleicher Länge sein 
+list        -                  Kombination beliebigiger Vektoren                                                                                list           liste <- list(x, der_name, df)   keine besonderen Restriktionen                      
 
 Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
-### Hinweise
 
+### Hinweise
 
 Unser erster Kontakt mit R! Ein paar Anmerkungen vorweg:
 
@@ -626,6 +574,8 @@ x <- c(1, 2, 3)
 Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *mehr als* einen Wert zuweisen, muss man die Werte erst in einen Vektor "zusammen binden"; das geht mit dem Befehl `c` (vom engl. "***c**ombine*").
 
 
+
+
 ### Funktionen aufrufen
 
 
@@ -662,7 +612,68 @@ wo_men <- read.csv(TRUE, "data/wo_men.csv", ",")
 In der Hilfe zu einem Befehl findet man die Standard-Syntax inklusive der möglichen Parameter, ihrer Reihenfolge und Standardwerten (default values) von Parametern. Zum Beispiel ist beim Befehl `read.csv` der Standardwert für `sep` mit `;` voreingestellt (schauen Sie mal in der Hilfe nach). Gibt man einen Parameter nicht an, für den ein Standardwert eingestellt ist, 'befüllt' R den Parameter mit diesem Standardwert.
 
 
+### Das Arbeitsverzeichnis {#wd}
+
+
+Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
+
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Arbeitsverzeichnis.png" alt="Das Arbeitsverzeichnis mit RStudio auswählen" width="50%" />
+<p class="caption">(\#fig:Arbeitsverzeichnis)Das Arbeitsverzeichnis mit RStudio auswählen</p>
+</div>
+
+
+Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
+
+
+```r
+# nicht ausführen:
+daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
+```
+
+R geht dann davon aus, dass sich die Datei `daten_deutsch.csv` im Arbeitsverzeichnis befindet.
+
+
+Für diesen Kurs ist es sinnvoll, das Arbeitsverzeichnis in einen "Hauptordner" zu legen (z.B. "Praxis_der_Datenanalyse"), in dem Daten und sonstiges Material als Unterordner abgelegt sind.
+
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
+</div>\EndKnitrBlock{rmdcaution}
+
+
+
+### Hier werden Sie geholfen
+
+Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu 
+wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
+
+- Zu diesen Paketen gibt es gute "Spickzettel" (cheatsheets): ggplot2, 
+RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets > 
+...* oder gehen Sie auf <https://www.rstudio.com/resources/cheatsheets/>.
+
+- In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie
+hier finden: *Tools > Keyboard Shortcuts Help*.
+
+- Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren 
+Sie z.B. `?mean`.
+
+- Im Internet finden sich zuhauf Tutorials.
+
+- Der Reiter "Help" bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.
+
+- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
+<http://stackoverflow.com>.
+
+
+
 ### Aufgaben 
+
+
+1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
+
+2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
+
 
 3. Führen Sie diese Syntax aus:
 

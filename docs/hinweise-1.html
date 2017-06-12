@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-<link rel="prev" href="daten-visualisieren.html">
-<link rel="next" href="mod1.html">
+<link rel="prev" href="probeklausur.html">
+<link rel="next" href="literaturverzeichnis.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -410,149 +410,89 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fallstudie-zur-visualisierung" class="section level1">
-<h1><span class="header-section-number">Kapitel 8</span> Fallstudie zur Visualisierung</h1>
-
-<div class="rmdcaution">
-<p>Lernziele:</p>
+<div id="hinweise-1" class="section level1">
+<h1><span class="header-section-number">Kapitel 18</span> Hinweise</h1>
+<div id="icons" class="section level2">
+<h2><span class="header-section-number">18.1</span> Icons</h2>
+<p>R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items <span class="citation">(LadyOfHats <a href="#ref-ladyofhats_smileys_2017">2017</a>)</span>.</p>
+<p><em>R-Pseudo-Syntax</em>: R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral ist R in diesem Kurs. Zugebenermaßen braucht es etwas Zeit, bis man ein paar Brocken “Errisch” spricht. Um den Einstieg zu erleichern, ist Errisch auf Deutsch übersetzt an einigen Stellen, wo mir dies besonders hilfreich erschien. Diese Stellen sind mit diesem Symbol <img src="images/pseudocode.png" style="width:5.0%" /> gekennzeichnet (für R-Pseudo-Syntax).</p>
+<p><em>Achtung, Falle</em>: Schwierige oder fehlerträchtige Stellen sind mit diesem Symbol <img src="images/caution.png" style="width:5.0%" /> markiert.</p>
+<p><em>Übungsaufgaben</em>: Das Skript beinhaltet in jedem Kapitel Übungsaufgaben oder/und Testfragen. Auf diese wird mit diesem Icon <img src="images/exercises.png" style="width:5.0%" /> verwiesen oder die Übungen sind in einem Abschnitt mit einsichtigem Titel zu finden.</p>
+<p><em>Love</em>: Wenn Ihnen R diesen Smiley präsentiert, dann sind Sie am Ziel Ihrer Träume: <img src="images/love.png" style="width:5.0%" />.</p>
+</div>
+<div id="voraussetzungen" class="section level2">
+<h2><span class="header-section-number">18.2</span> Voraussetzungen</h2>
+<p>Dieses Skript hat einige <em>Voraussetzungen</em>, was das Vorwissen der Leser angeht; folgende Themengebiete werden vorausgsetzt:</p>
 <ul>
-<li>Diagramme für nominale Variablen erstellen können.</li>
-<li>Balkendiagramme mit Prozentpunkten auf der Y-Achse erstellen können.</li>
-<li>Balkendiagramme drehen können.</li>
-<li>Text-Labels an Balkendiagramme anfügen können.</li>
-<li>Farbschemata von Balkendiagrammen ändern können.</li>
+<li>Deskriptive Statistik</li>
+<li>Grundlagen der Inferenzstatistik</li>
+<li>Grundagen der Regressionsanalyse</li>
+<li>Skalenniveaus</li>
+<li>Grundlagen von R</li>
 </ul>
 </div>
-<p></p>
-<p>Benötigte Pakete:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(corrr)
-<span class="kw">library</span>(GGally)</code></pre></div>
-<p>Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. Das ist der Gegenstand dieser Fallstudie.</p>
-<div id="daten-einlesen" class="section level2">
-<h2><span class="header-section-number">8.1</span> Daten einlesen</h2>
-<p>Hier laden wir einen Datensatz von einer Online-Umfrage:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/extra.csv&quot;</span>)</code></pre></div>
-<p>Der Datensatz besteht aus 10 Extraversions-Items (B5T nach Satow<a href="#fn41" class="footnoteRef" id="fnref41"><sup>41</sup></a>) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversions-Items, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.</p>
-<p>Die Umfrage kann hier<a href="#fn42" class="footnoteRef" id="fnref42"><sup>42</sup></a> eingesehen werden. Schauen wir uns die Daten mal an:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(data)</code></pre></div>
+<div id="zitationen" class="section level2">
+<h2><span class="header-section-number">18.3</span> Zitationen</h2>
+<p>Kunstwerke (Bilder) sind genau wie Standard-Literatur im Text zitiert. Alle Werke (auch Daten und Software) finden sich im Literaturverzeichnis.</p>
 </div>
-<div id="daten-umstellen" class="section level2">
-<h2><span class="header-section-number">8.2</span> Daten umstellen</h2>
-<p>Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die Items stehen (1,2,…,n) und auf der Y-Achse die Anzahl der Kreuze nach Kategorien.</p>
-<p>Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur <em>eine</em> Variable steht. <code>ggplot2</code>, das wir hier verwenden, ist da keine Ausnahme. Wir müssen also die “breite” Tabelle (10 Spalten, pro Item eine) in eine “lange Spalte” umbauen: Eine Spalte heißt dann “Itemnummer” und die zweite “Wert des Items” oder so ähnlich.</p>
-<p>Also, los geht’s: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversions-Items, in diesem Fall.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_items &lt;-<span class="st"> </span><span class="kw">select</span>(data, i01:i10)</code></pre></div>
-<p>Dann stellen wir die Daten von “breit” nach “lang” um, so dass die Items eine Variable bilden und damit für <code>ggplot2</code> gut zu verarbeiten sind.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_long &lt;-<span class="st"> </span><span class="kw">gather</span>(data_items, <span class="dt">key =</span> items, <span class="dt">value =</span> Antwort)
+<div id="lizenz" class="section level2">
+<h2><span class="header-section-number">18.4</span> Lizenz</h2>
+<p>Dieses Skript ist publiziert unter <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">CC-BY-NC-SA 3.0 DE</a>.</p>
+<p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="autoren" class="section level2">
+<h2><span class="header-section-number">18.5</span> Autoren</h2>
+<p><em>Sebastian Sauer</em> schrieb den Hauptteil dieses Skripts. <em>Oliver Gansser</em> schrieb das Kapitel zur Dimensionsreduktion. <em>Karsten Lübke</em> schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse sowie Teile des Kapitels ‘Rahmen’. <em>Matthias Gehrke</em> schrieb den Großteil des Kapitels zur logistischen Regression.</p>
+</div>
+<div id="danke" class="section level2">
+<h2><span class="header-section-number">18.6</span> Danke</h2>
+<p>Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen <del>angemahnt</del> vorgenommen. Der Austausch mit den ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!</p>
+</div>
+<div id="zitation-dieses-skripts" class="section level2">
+<h2><span class="header-section-number">18.7</span> Zitation dieses Skripts</h2>
+<p>Bitte zitieren Sie das Skript so:</p>
+<p>Sauer, S. (2017). <em>Praxis der Datenanalyse</em>. Skript zum Modul im MSc.-Studiengang “Wirtschaftspsychologie &amp; Consulting” an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.</p>
+<div class="figure">
+<img src="https://zenodo.org/badge/81811975.svg" />
 
-data_long$Antwort &lt;-<span class="st"> </span><span class="kw">factor</span>(data_long$Antwort)</code></pre></div>
-<p>Den Befehl mit <code>factor</code> brauchen wir für zum Diagramm erstellen im Folgenden. Dieser Befehl macht aus den Zahlen bei der Variable <code>Antwort</code> eine nominale Variable (in R: <code>factor</code>) mit Text-Werten “1”, “2” und so weiter. Wozu brauchen wir das? Der Digrammbefehl unten kann nur mit nominalen Variablen Gruppierungen durchführen. Wir werden in dem Diagramm die Anzahl der Antworten darstellen - die Anzahl der Antworten nach Antwort-Gruppe (Gruppe mit Antwort “1” etc.).</p>
-<p>Keine Sorge, wenn sich das reichlich ungewöhnlich anhört. Sie müssen es an dieser Stelle nicht erfinden :-)</p>
-<p>Man gewöhnt sich daran einerseits; und andererseits ist es vielleicht auch so, dass diese Funktionen nicht perfekt sind, oder nicht aus unserer Sicht oder nur aus Sicht des Menschen, der die Funktion geschrieben hat. Jedenfalls brauchen wir hier eine <code>factor</code> Variable zur Gruppierung…</p>
-<p>Damit haben wir es schon! Jetzt wird gemalt.</p>
 </div>
-<div id="diagramme-fur-anteile" class="section level2">
-<h2><span class="header-section-number">8.3</span> Diagramme für Anteile</h2>
-<p>Wir nutzen <code>ggplot2</code>, wie gesagt, und davon die Funktion <code>qplot</code> (q wie quick, nehme ich an.).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Was macht dieser <code>ggplot</code> Befehl? Schauen wir es uns in Einzelnen an:</p>
-<ul>
-<li><code>ggplot(data = ...)</code>: Wir sagen “Ich möchte gern die Funktion ggplot nutzen, um den Datensatz … zu plotten”.</li>
-<li><code>aes(...)</code>: Hier definieren wir die “aesthetics” des Diagramms, d.h. alles “Sichtbare”. Wir ordnen in diesem Fall der X-Achse die Variable <code>items</code> zu. Per Standardeinstellung geht <code>ggplot</code> davon aus, dass sie die Häufigkeiten der X-Werte auf der Y-Achse haben wollen, wenn Sie nichts über die Y-Achse sagen. Jetzt haben wir ein Koordinatensystem definiert (das noch leer ist).</li>
-<li><code>geom_bar()</code>: “Hey R oder ggplot, jetzt male mal einen barplot in den ansonsten noch leeren plot”.</li>
-<li><code>aes(fill = Antwort)</code>: Genauer gesagt nutzen wir <code>aes</code> um einen sichtbaren Aspekte des Diagramms (wie die X-Achse) eine Variable des Datensatzes zuzuordnen. Jetzt sagen wir, dass die Füllung (im Balkendiagramm) durch die Werte von <code>Antwort</code> definiert sein sollen (also “1”, “2” etc.).</li>
-<li><code>position = &quot;fill&quot;</code> sagt, dass die Gesamt-Höhe des Balken aufgeteilt werden soll mit den “Teil-Höhen” der Gruppen (Antwort-Kategorien 1 bis 4); wir hätten die Teil-Höhen auch nebeneinander stellen können.</li>
-</ul>
-<p>Vielleicht ist es schöner, die NAs erst zu entfernen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_long &lt;-<span class="st"> </span><span class="kw">na.omit</span>(data_long)</code></pre></div>
-<p>Und dann noch mal plotten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) </code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Mehr Infos zum DOI hier: <a href="https://zenodo.org/badge/latestdoi/81811975" class="uri">https://zenodo.org/badge/latestdoi/81811975</a></p>
+<p>Ein Bib-File um dieses Skript zu zitieren finden Sie hier: <a href="https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib" class="uri">https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib</a>.</p>
 </div>
-<div id="um-90-drehen" class="section level2">
-<h2><span class="header-section-number">8.4</span> Um 90° drehen</h2>
-<p>Dazu nehmen wir <code>+ coord_flip()</code>, also “flippe das Koordinatensystem”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="kontakt" class="section level2">
+<h2><span class="header-section-number">18.8</span> Kontakt</h2>
+<p>Wenn Sie einen Fehler oder Verbesserungshinweise berichten möchten, können Sie unter <a href="https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues" class="uri">https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues</a> einen “Issue” einreichen (Button “New Issue”). Alternativ können Sie Sebastian Sauer und die anderen Autoren über den Online Campus der FOM kontaktieren (eine Nachricht schreiben). Sebastian Sauer können Sie via Twitter folgen (<a href="https://twitter.com/sauer_sebastian" class="uri">https://twitter.com/sauer_sebastian</a>) oder seinen Blog lesen (<a href="https://sebastiansauer.github.io" class="uri">https://sebastiansauer.github.io</a>).</p>
 </div>
-<div id="text-labels-fur-die-items" class="section level2">
-<h2><span class="header-section-number">8.5</span> Text-Labels für die Items</h2>
-<p>Wir definieren die Texte (“Labels”) für die Items:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">item_labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ich bin das erste Item&quot;</span>,
-                 <span class="st">&quot;Das zweite Item&quot;</span>,
-                 <span class="st">&quot;Item 3 sdjfkladsjk&quot;</span>,
-                 <span class="st">&quot;Ich bin ein krasser Couch-Potato UMKODIERT&quot;</span>,
-<span class="st">&quot;i5 asf&quot;</span>, <span class="st">&quot;i6 sdf&quot;</span>, <span class="st">&quot;adfjks&quot;</span>, <span class="st">&quot;sfjlkd&quot;</span>, <span class="st">&quot;sdfkjl&quot;</span>, <span class="st">&quot;sdfjkl&quot;</span>)</code></pre></div>
-<p>Jetzt hängen wir die Labels an die Items im Diagramm:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_flip</span>() +
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels)</code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen… wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">item_labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ich bin das erste Item&quot;</span>,
-                 <span class="st">&quot;Das zweite Item&quot;</span>,
-                 <span class="st">&quot;Item 3 sdjfkladsjk&quot;</span>,
-                 <span class="st">&quot;Ich bin ein krasser </span><span class="ch">\n</span><span class="st">Couch-Potato***mit Zeilenumbruch***&quot;</span>,
-<span class="st">&quot;i5 asf&quot;</span>, <span class="st">&quot;i6 sdf&quot;</span>, <span class="st">&quot;adfjks&quot;</span>, <span class="st">&quot;sfjlkd&quot;</span>, <span class="st">&quot;sdfkjl&quot;</span>, <span class="st">&quot;sdfjkl&quot;</span>)</code></pre></div>
-<p>Und wieder plotten:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_flip</span>() +
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels, <span class="dt">name =</span> <span class="st">&quot;Extraversionsitems&quot;</span>) +
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Anteile&quot;</span>)</code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="technische-details" class="section level2">
+<h2><span class="header-section-number">18.9</span> Technische Details</h2>
+<p>Dieses Skript wurde mit dem Paket <code>bookdown</code> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> erstellt, welches wiederum stark auf den Paketen <code>knitr</code> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> und <code>rmarkdown</code> <span class="citation">(Allaire u. a. <a href="#ref-rmarkdown">2016</a><a href="#ref-rmarkdown">a</a>)</span> beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).</p>
+<p>Informationen zu den verwendeten Paketen etc. (<code>sessionInfo()</code>) finden Sie hier: <a href="https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html" class="uri">https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html</a>.</p>
 </div>
-<div id="diagramm-mit-haufigkeiten" class="section level2">
-<h2><span class="header-section-number">8.6</span> Diagramm mit Häufigkeiten</h2>
-<p>Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit <code>position = &quot;fill&quot;</code> wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien “aufeinander stapeln”</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_flip</span>() +
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) </code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="farbschema" class="section level2">
-<h2><span class="header-section-number">8.7</span> Farbschema</h2>
-<p>Ja, die Wünsche hören nicht auf… Also, noch ein anderes Farbschema:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data_long) +
-<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> items)  +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Antwort), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_flip</span>() +
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> item_labels) +
-<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="dv">17</span>)</code></pre></div>
-<p><img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
-
-<p></p>
+<div id="sonstiges" class="section level2">
+<h2><span class="header-section-number">18.10</span> Sonstiges</h2>
+<p>Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.</p>
 
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="41">
-<li id="fn41"><p><a href="https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf" class="uri">https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf</a><a href="fallstudie-zur-visualisierung.html#fnref41">↩</a></p></li>
-<li id="fn42"><p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform" class="uri">https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform</a><a href="fallstudie-zur-visualisierung.html#fnref42">↩</a></p></li>
-</ol>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-ladyofhats_smileys_2017">
+<p>LadyOfHats. 2017. „Smileys“. <a href="https://commons.wikimedia.org/wiki/User:LadyofHats#Smileys" class="uri">https://commons.wikimedia.org/wiki/User:LadyofHats#Smileys</a>.</p>
+</div>
+<div id="ref-xie2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and knitr</em>. 2nd Aufl. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+</div>
+<div id="ref-rmarkdown">
+<p>Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, und Rob Hyndman. 2016a. <em>rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown" class="uri">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="daten-visualisieren.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mod1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="probeklausur.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literaturverzeichnis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
