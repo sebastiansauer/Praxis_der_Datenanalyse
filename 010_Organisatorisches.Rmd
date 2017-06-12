@@ -31,6 +31,8 @@ knitr::include_graphics("images/licence.png")
 
 ## Modulziele
 
+
+```{block2, ziele-modul, type='rmdcaution', echo = TRUE} 
 Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 
@@ -40,6 +42,10 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 - klassische Vorhersagemethoden (Regression) anwenden,
 -	moderne Methoden der angewandten Datenanalyse anwenden (z.B. Textmining),
 -	betriebswirtschaftliche Fragestellungen mittels datengetriebener Vorhersagemodellen beantworten.
+
+
+```
+
 
 
 ## Themen pro Termin

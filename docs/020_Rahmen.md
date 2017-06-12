@@ -242,28 +242,6 @@ oder dem Button "Update" bei RStudio (Reiter `Packages`).
 
 
 
-
-### Die Denk- und Gefühlswelt von R
-
-
-
-#### R-Skript-Dateien
-
-- Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen...
-
-- R-Skripte können Sie speichern (unter `File-Save`) und öffnen.
-
-- R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
-Nur statt der Endung `.txt`, sind R-Skripte stolzer Träger der Endung `.R`. Es 
-bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung ".R",
-damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar 
-praktische Funktionen wie den "Run-Button".
-
-
-
-
-
-
 ### Pakete 
 
 Ein Großteil der Neuentwicklungen bei R passiert in sog. 'Paketen' (engl. *packages*), das sind Erweiterungen für R. Jeder, der sich berufen fühlt, kann ein R-Paket schreiben und es zum 'R-Appstore' ([CRAN](https://cran.r-project.org/)) hochladen. Von dort kann es dann frei (frei wie in Bier) heruntergeladen werden.
@@ -446,6 +424,18 @@ Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), bespr
 
 ## ERRRstkontakt
 
+
+### R-Skript-Dateien
+
+- Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen... R-Skripte können Sie speichern (unter `File-Save`) und öffnen. R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
+Nur statt der Endung `.txt`, sind R-Skripte stolzer Träger der Endung `.R`. Es 
+bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung ".R",
+damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar 
+praktische Funktionen wie den "Run-Button".
+
+
+
+
 ### Datentypen in R
 
 Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
@@ -464,7 +454,7 @@ vector      -                  Mehrere Elemente eines grundlegenden Typs        
 dataframe   tibble, df         Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben                                              data.frame     df <- data.frame(x,y)            rechteckig: Vektoren müssen von gleicher Länge sein 
 list        -                  Kombination beliebigiger Vektoren                                                                                list           liste <- list(x, der_name, df)   keine besonderen Restriktionen                      
 
-Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
+Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle, wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
 
 ### Hinweise
@@ -477,10 +467,7 @@ zwei verschiedene Dinge für R!
 Dezimaltrennzeichen.
 - Fehlende Werte werden in R durch `NA` kodiert.
 - Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert. 
-- Hilfe zu einem Befehl erhält man über ein vorgestelltes Fragezeichen `?`.
-- Zusätzliche Funktionalität kann über Zusatzpakete hinzugeladen werden. Diese 
-müssen ggf. zunächst installiert werden.
-- *Variablennamen*\index{Variablen} (synonym: *Objekte*\index{Objekte}) in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche `-` und Minuszeichen `-` enthalten sein. Leerzeichen sind nicht erlaubt.
+- *Variablennamen*\index{Variablen} in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche `-` und Minuszeichen `-` enthalten sein. Leerzeichen sollte man meiden.
 - Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.
 
 ```

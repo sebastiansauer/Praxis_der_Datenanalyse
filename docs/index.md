@@ -34,7 +34,7 @@ biblio-style: apalike
 
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
+<img src="images/icons/OER_Logo_201706_gruen.png" width="30%" style="display: block; margin: auto;" />
 
 <img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
