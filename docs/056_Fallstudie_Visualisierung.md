@@ -92,7 +92,9 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
 
@@ -119,7 +121,9 @@ ggplot(data = data_long) +
   geom_bar(aes(fill = Antwort), position = "fill") 
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 
 
@@ -134,7 +138,9 @@ ggplot(data = data_long) +
   coord_flip()
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 
 ## Text-Labels für die Items
@@ -160,7 +166,9 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels)
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 
 Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen... wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)
@@ -188,7 +196,9 @@ ggplot(data = data_long) +
   scale_y_continuous(name = "Anteile")
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 
 ## Diagramm mit Häufigkeiten
@@ -204,7 +214,9 @@ ggplot(data = data_long) +
   scale_x_discrete(labels = item_labels) 
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 ## Farbschema
 Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema:
@@ -219,5 +231,7 @@ ggplot(data = data_long) +
   scale_fill_brewer(palette = 17)
 ```
 
-<img src="056_Fallstudie_Visualisierung_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{056_Fallstudie_Visualisierung_files/figure-latex/unnamed-chunk-16-1} \end{center}
 

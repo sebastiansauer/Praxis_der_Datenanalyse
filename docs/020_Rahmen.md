@@ -16,9 +16,11 @@
 
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
@@ -37,10 +39,14 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-<div class="figure" style="text-align: center">
-<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
-<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/Prozess_Datenanalyse} 
+
+}
+
+\caption{Der Prozess der Datenanalyse}(\#fig:fig-prozess)
+\end{figure}
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -106,7 +112,8 @@ Die Oberfläche von R, die "Console", sieht so aus:
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus:
 
-<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/Rahmen/RStudio-Screenshot} \end{center}
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -248,10 +255,14 @@ Ein Großteil der Neuentwicklungen bei R passiert in sog. 'Paketen' (engl. *pack
 
 Am einfachsten installiert man R-Pakete in RStudio über den Button "Install" im Reiter "Packages" (s. Abb. \@ref(fig:fig-install-packages)).
 
-<div class="figure" style="text-align: center">
-<img src="images/Rahmen/install_packages.png" alt="So installiert man Pakete in RStudio" width="70%" />
-<p class="caption">(\#fig:fig-install-packages)So installiert man Pakete in RStudio</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/install_packages} 
+
+}
+
+\caption{So installiert man Pakete in RStudio}(\#fig:fig-install-packages)
+\end{figure}
 
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt 
@@ -353,10 +364,14 @@ Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu dies
 
 Eine einfache Möglichkeit ist es, beim Reiter 'Pakete' auf den Namen eines der installierten Pakete zu klicken. Daraufhin öffnet sich die Dokumentation des Pakets und man sieht dort alle Befehle und Daten aufgeführt (s. Abbildung \@ref(fig:pakete-hilfe)). Übrigens sehen Sie dort auch die Version eines Pakets (vielleicht sagt jemand mal zu Ihnen, "Sie sind ja outdated", dann schauen Sie mal auf die die Paket-Versionen).
 
-<div class="figure" style="text-align: center">
-<img src="images/Rahmen/hilfe_pakete.png" alt="Hier werden Sie geholfen: Die Dokumentation der R-Pakete" width="50%" />
-<p class="caption">(\#fig:pakete-hilfe)Hier werden Sie geholfen: Die Dokumentation der R-Pakete</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/Rahmen/hilfe_pakete} 
+
+}
+
+\caption{Hier werden Sie geholfen: Die Dokumentation der R-Pakete}(\#fig:pakete-hilfe)
+\end{figure}
 
 
 Für geladenen Pakete kann man auch den Befehl `help` nutzen, z.B. `help(ggplot2)`.
@@ -371,9 +386,16 @@ Sie können auch diesen selbstgestrickten Befehl nutzen, den Sie zuerst laden m�
 
 
 ```r
-source("includes/find_funs.R")
-find_funs("qplot")
-#> [1] "ggplot2"
+source("https://sebastiansauer.github.io/Rcode/find_funs.R")
+find_funs("select")
+#> # A tibble: 5 x 3
+#>   package_name builtin_pckage loaded
+#>          <chr>          <lgl>  <lgl>
+#> 1        dplyr          FALSE   TRUE
+#> 2         MASS           TRUE  FALSE
+#> 3       plotly          FALSE  FALSE
+#> 4       raster          FALSE  FALSE
+#> 5         VGAM          FALSE  FALSE
 ```
 
 
@@ -440,19 +462,32 @@ praktische Funktionen wie den "Run-Button".
 
 Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
 
+\begin{table}
 
-Table: (\#tab:datentypen)Wichtige Datentypen in R
-
-Name        Synonyme           Beschreibung                                                                                                     R-Befehl       Beispiel                         Restriktionen                                       
-----------  -----------------  ---------------------------------------------------------------------------------------------------------------  -------------  -------------------------------  ----------------------------------------------------
-numeric     num, double, dbl   Reelle Zahl (mit Nachkommastellen)                                                                               as.numeric     x <- c(2.71, 3.14)               grundlegend                                         
-integer     int, L             Ganze Zahl                                                                                                       as.integer     y <- c(42,7)                     grundlegend                                         
-character   chr, string        Text                                                                                                             as.character   der_name <- "Joachim"            grundlegend                                         
-logical     lgl, logi          logisch; gibt an, ob ein Ausdruck wahr (TRUE; T) oder falsch (FALSE, F) ist                                      as.logical     c(TRUE, FALSE)                   grundlegend                                         
-factor      fctr               Nominal skalierte Variable mit vorab definierten Ausprägungen; z.B. um Gruppen (Männer vs. Frauen) zu benennen   factor         der_name <- factor(der_name)     grundlegend                                         
-vector      -                  Mehrere Elemente eines grundlegenden Typs                                                                        c              x <- c(2.71, 3.14)               sortenrein                                          
-dataframe   tibble, df         Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben                                              data.frame     df <- data.frame(x,y)            rechteckig: Vektoren müssen von gleicher Länge sein 
-list        -                  Kombination beliebigiger Vektoren                                                                                list           liste <- list(x, der_name, df)   keine besonderen Restriktionen                      
+\caption{(\#tab:datentypen)Wichtige Datentypen in R}
+\centering
+\begin{tabular}[t]{l|l|l|l|l|l}
+\hline
+Name & Synonyme & Beschreibung & R-Befehl & Beispiel & Restriktionen\\
+\hline
+numeric & num, double, dbl & Reelle Zahl (mit Nachkommastellen) & as.numeric & x <- c(2.71, 3.14) & grundlegend\\
+\hline
+integer & int, L & Ganze Zahl & as.integer & y <- c(42,7) & grundlegend\\
+\hline
+character & chr, string & Text & as.character & der\_name <- "Joachim" & grundlegend\\
+\hline
+logical & lgl, logi & logisch; gibt an, ob ein Ausdruck wahr (TRUE; T) oder falsch (FALSE, F) ist & as.logical & c(TRUE, FALSE) & grundlegend\\
+\hline
+factor & fctr & Nominal skalierte Variable mit vorab definierten Ausprägungen; z.B. um Gruppen (Männer vs. Frauen) zu benennen & factor & der\_name <- factor(der\_name) & grundlegend\\
+\hline
+vector & - & Mehrere Elemente eines grundlegenden Typs & c & x <- c(2.71, 3.14) & sortenrein\\
+\hline
+dataframe & tibble, df & Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben & data.frame & df <- data.frame(x,y) & rechteckig: Vektoren müssen von gleicher Länge sein\\
+\hline
+list & - & Kombination beliebigiger Vektoren & list & liste <- list(x, der\_name, df) & keine besonderen Restriktionen\\
+\hline
+\end{tabular}
+\end{table}
 
 Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle, wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
@@ -604,10 +639,14 @@ In der Hilfe zu einem Befehl findet man die Standard-Syntax inklusive der mögli
 
 Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
 
-<div class="figure" style="text-align: center">
-<img src="images/tidy/Arbeitsverzeichnis.png" alt="Das Arbeitsverzeichnis mit RStudio auswählen" width="50%" />
-<p class="caption">(\#fig:Arbeitsverzeichnis)Das Arbeitsverzeichnis mit RStudio auswählen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/tidy/Arbeitsverzeichnis} 
+
+}
+
+\caption{Das Arbeitsverzeichnis mit RStudio auswählen}(\#fig:Arbeitsverzeichnis)
+\end{figure}
 
 
 Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
@@ -710,10 +749,14 @@ eine zugrunde liegende Grundmenge (Population). Dabei spielt die
 Wahrscheinlichkeitsrechnung (Stochastik) eine große 
 Rolle.
 
-<div class="figure" style="text-align: center">
-<img src="images/Rahmen/desk_vs_inf-crop.png" alt="Sinnbild für die Deskriptiv- und die Inferenzstatistik" width="70%" />
-<p class="caption">(\#fig:desk-vs-inf)Sinnbild für die Deskriptiv- und die Inferenzstatistik</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/Rahmen/desk_vs_inf-crop} 
+
+}
+
+\caption{Sinnbild für die Deskriptiv- und die Inferenzstatistik}(\#fig:desk-vs-inf)
+\end{figure}
 
 
 
@@ -772,15 +815,24 @@ Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gema
 
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 
+\begin{table}
 
-Table: (\#tab:befehle-rahmen)Befehle des Kapitels 'Rahmen'
-
-Paket::Funktion         Beschreibung                             
-----------------------  -----------------------------------------
-install.packages("x")   Installiert Paket "x" (nicht: Paket "X") 
-library                 lädt ein Paket                           
-<-                      Weist einer Variablen einen Wert zu      
-c                       erstellt eine Spalte/ einen Vektor       
+\caption{(\#tab:befehle-rahmen)Befehle des Kapitels 'Rahmen'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & Beschreibung\\
+\hline
+install.packages("x") & Installiert Paket "x" (nicht: Paket "X")\\
+\hline
+library & lädt ein Paket\\
+\hline
+<- & Weist einer Variablen einen Wert zu\\
+\hline
+c & erstellt eine Spalte/ einen Vektor\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

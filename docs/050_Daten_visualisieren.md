@@ -4,9 +4,11 @@
 # Daten visualisieren
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 
@@ -26,7 +28,8 @@ library(tidyverse)  # Zum Plotten
 ```
 
 
-<img src="images/visualisieren/Visualisieren.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/visualisieren/Visualisieren} \end{center}
 
 
 Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets `ggplot2`.
@@ -37,10 +40,14 @@ Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets `ggplot2`.
 Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe^[https://de.wikipedia.org/wiki/Anscombe-Quartett] an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.
 
 
-<div class="figure" style="text-align: center">
-<img src="images/visualisieren/anscombe.png" alt="Das Anscombe-Quartett" width="70%" />
-<p class="caption">(\#fig:fig-anscombe)Das Anscombe-Quartett</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/visualisieren/anscombe} 
+
+}
+
+\caption{Das Anscombe-Quartett}(\#fig:fig-anscombe)
+\end{figure}
 
 
 Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden "Natur") passiert. 
@@ -60,10 +67,14 @@ Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier
 - Geome (statistische Bilder wie Punkte, Linien, Boxplots, ...)
 
 
-<div class="figure" style="text-align: center">
-<img src="images/visualisieren/anatomie_diagramm_crop.jpg" alt="Anatomie eines Diagramms" width="70%" />
-<p class="caption">(\#fig:fig-anatomie)Anatomie eines Diagramms</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/visualisieren/anatomie_diagramm_crop} 
+
+}
+
+\caption{Anatomie eines Diagramms}(\#fig:fig-anatomie)
+\end{figure}
 
 Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (in `ggplot2` als "aesthetics" bzw. `aes` bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet `ggplot2` für uns, wenn wir es nicht explizieren). Mit *Geom* ist das eigentlich Art von "Bild" gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt \@ref(geome)).
 
@@ -84,10 +95,14 @@ movies <- read.csv("data/movies.csv")
 qplot(x = year, y = budget, geom = "point", data = movies)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="050_Daten_visualisieren_files/figure-html/fig-movies-1.png" alt="Mittleres Budget pro Jahr" width="70%" />
-<p class="caption">(\#fig:fig-movies)Mittleres Budget pro Jahr</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-movies-1} 
+
+}
+
+\caption{Mittleres Budget pro Jahr}(\#fig:fig-movies)
+\end{figure}
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 
@@ -108,7 +123,9 @@ Offenbar geht die Schwere in den Budgets auseinander; außerdem scheint das Budg
 qplot(x = factor(year), y = budget, geom = "boxplot", data = movies)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Übrigens: `factor(year)` wird benötigt, um aus `year` eine nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen auf der X-Achse zeichnet `qplot` mehrere Boxplots nebeneinander.
 
@@ -131,10 +148,14 @@ Ok, auf ein Neues (Abb. \@ref(fig:fig-movies-jahrzehnt)):
 qplot(x = factor(Jahrzehnt), y = budget, geom = "boxplot", data = movies)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="050_Daten_visualisieren_files/figure-html/fig-movies-jahrzehnt-1.png" alt="Film-Budgets über die die Jahrzehnte" width="70%" />
-<p class="caption">(\#fig:fig-movies-jahrzehnt)Film-Budgets über die die Jahrzehnte</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-movies-jahrzehnt-1} 
+
+}
+
+\caption{Film-Budgets über die die Jahrzehnte}(\#fig:fig-movies-jahrzehnt)
+\end{figure}
 
 Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauschen.
 
@@ -164,10 +185,14 @@ Schauen wir uns die Verteilung von Filmbudgets aus `movies` an (s. Abb. \@ref(fi
 qplot(x = budget, data = movies)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="050_Daten_visualisieren_files/figure-html/fig-budget-movies-1.png" alt="Verteilung des Budgets von Filmen" width="70%" />
-<p class="caption">(\#fig:fig-budget-movies)Verteilung des Budgets von Filmen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-budget-movies-1} 
+
+}
+
+\caption{Verteilung des Budgets von Filmen}(\#fig:fig-budget-movies)
+\end{figure}
 
 Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt `ggplot2` automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen). 
 
@@ -186,7 +211,9 @@ Alternativ wäre ein Dichtediagramm hier von Interesse:
 qplot(x = budget, data = movies, geom = "density")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter *ohne*.
 
@@ -200,7 +227,9 @@ ggplot(data = movies) +
   geom_density(color = "blue")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Zuerst haben wir mit dem Parameter `data` den Dataframe benannt. `aes` definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das `+`-Zeichen trennt die einzelnen Bestandteile des `ggplot`-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: `geom_histogram`. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. `ggplot` berechnet selbständig die Dichte und nennt diese Variable `..density..`; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine "normale" Variable aus dem eigenen Datenframe handelt, sondern um eine "interne" Variable von `ggplot` - die wir aber nichtsdestotrotz verwenden können. `alpha` bestimmt die "Durchsichtigkeit" eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm *über* das Histogramm.
 
@@ -219,7 +248,9 @@ qplot(x = budget,
       alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 `qplot` erwartet immer *Variablen* als Parameter; wollen wir mal keine Variable, sondern eine fixen Wert, wie 0.7, übergeben, so können wir das mit dem Befehl `I` (wie "identity") tun.
 
@@ -238,7 +269,9 @@ qplot(x = budget,
       alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Besser. Man kann das Durchpfeifen auch bis zu `qplot` weiterführen:
 
@@ -251,7 +284,9 @@ movies %>%
         fill = Jahrzehnt, alpha = I(.7))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den *ersten* Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von `qplot` zeigt, dass der erste Parameter nicht `data` ist, sondern `x`. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt `.` können wir sagen "nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde".
 
@@ -267,7 +302,9 @@ p <- qplot(x = budget, y = rating, data = movies2)
 p
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt `ggplot2` automatisch ein Streudiagramm - d.h. Punkte als Geom (`geom = "point"`). 
 
@@ -278,7 +315,9 @@ Es ist nicht wirklich ein Trend erkennbar: Teuere Filme sind nicht unbedingt bel
 p + geom_smooth(method = "lm")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Synonym könnten wir auch schreiben:
 
@@ -308,7 +347,9 @@ ggplot(movies) +
   geom_hex()
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/flights_hexbin-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/flights_hexbin-1} \end{center}
 
 
 Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.
@@ -322,7 +363,9 @@ wo_men2 %>%
   qplot(x = height, y = shoe_size, color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/fig-aes-color-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/fig-aes-color-1} \end{center}
 
 Mit `color = sex` sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von `sex` eingefärbt werden sollen. Die genaue Farbwahl übernimmt `ggplot2` für uns.
 
@@ -336,7 +379,9 @@ wo_men %>%
   qplot(x = height, y = shoe_size, facets = "~sex", color = sex, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
 
@@ -358,7 +403,9 @@ wo_men4 %>%
   
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/wo-men-facetten-bsp-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/wo-men-facetten-bsp-1} \end{center}
 
 
 Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
@@ -375,7 +422,9 @@ stats_test <- read.csv("data/test_inf_short.csv"
 qplot(x = bestanden, data = stats_test)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom (es steht uns frei, trotzdem `geom = bar` anzugeben).
 
@@ -389,7 +438,9 @@ Wir könnten uns jetzt die Frage stellen, wie viele Nicht-Interessierte und Hoch
 qplot(x = bestanden, fill = factor(interest), data = stats_test)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 
 Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `interest` füllen soll. Damit `qplot` (und `ggplot`) sich bequemt, die Füllung umzusetzen, müssen wir aus `interet` eine nominal-skalierte Variablen machen - `factor` macht das für uns.
@@ -406,7 +457,9 @@ stats_test %>%
   geom_bar(position = "fill")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 Der Lehrer freut sich: In der Gruppe, die bestanden hat, ist der Anteil der ~~freaks~~ Hoch-Interessierten größer als bei den Durchfallern.
 
@@ -453,7 +506,9 @@ profiles %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Was haben wir gemacht? Also:
 
@@ -498,7 +553,9 @@ stats_test_summary %>%
   qplot(x = bestanden, y = interest_mw, data = .)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Bereichern wir das Diagramm um die Frage, wieviel (jeder Student gelernt hat (`study_time`). Schauen wir uns aber der Einfachheit halber nur die Studenten an, die ganz viel oder ganz wenig gelernt haben.
 
@@ -511,7 +568,9 @@ stats_test %>%
   geom_line(aes(group = factor(study_time)))
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 In Pseudosyntax:
 
@@ -537,7 +596,9 @@ qplot(x = bestanden,
       geom = "boxplot")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 Hm, wie Sie sehen, sehen Sie nix. Kein Unterschied im Median zwischen den Gruppen. Vergleichen wir mal die Punkte zwischen den einzelnen Interessenstufen.
 
@@ -549,7 +610,9 @@ qplot(x = factor(interest),
       geom = "boxplot")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 Das `factor(interest)` brauchen wir, weil `ggplot2` nur dann mehrere Boxplots malt, wenn es Gruppen zum Vergleichen (auf der X-Achse) gibt - sprich wenn auf der X-Achse eine Faktor- oder Textvariable steht.
 
@@ -558,17 +621,28 @@ Das `factor(interest)` brauchen wir, weil `ggplot2` nur dann mehrere Boxplots ma
 
 Die Tabelle \@ref(tab:diagrammtypen) fasst die gerade besprochenen Diagrammtypen zusammen.
 
+\begin{table}
 
-Table: (\#tab:diagrammtypen)Häufige Diagrammtypen
-
-X-Achse                    Y-Achse                    Diagrammtyp                          
--------------------------  -------------------------  -------------------------------------
-kontinuierliche Variable   -                          Histogramm, Dichtediagramm           
-kontinuierliche Variable   kontinuierliche Variable   Punkte, Schachbrett-Diagramme        
-nominale Variable          -                          Balkendiagramm                       
-nominale Variable          nominale Variable          Mosaicplot (Fliesendiagramm)         
-nominale Variable          metrische Variable         Punktediagramm für Zusammenfassungen 
-nominale Variable          metrische Variable         Boxplots (besser)                    
+\caption{(\#tab:diagrammtypen)Häufige Diagrammtypen}
+\centering
+\begin{tabular}[t]{l|l|l}
+\hline
+X-Achse & Y-Achse & Diagrammtyp\\
+\hline
+kontinuierliche Variable & - & Histogramm, Dichtediagramm\\
+\hline
+kontinuierliche Variable & kontinuierliche Variable & Punkte, Schachbrett-Diagramme\\
+\hline
+nominale Variable & - & Balkendiagramm\\
+\hline
+nominale Variable & nominale Variable & Mosaicplot (Fliesendiagramm)\\
+\hline
+nominale Variable & metrische Variable & Punktediagramm für Zusammenfassungen\\
+\hline
+nominale Variable & metrische Variable & Boxplots (besser)\\
+\hline
+\end{tabular}
+\end{table}
 
 
 ## Die Gefühlswelt von `ggplot2`
@@ -644,10 +718,14 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 qplot(x = budget, geom = "histogram", data = movies, facets = ~factor(Jahrzehnt))
 ```
 
-<div class="figure" style="text-align: center">
-<img src="050_Daten_visualisieren_files/figure-html/movies-histogram-1.png" alt="Film-Budgets mit Histogrammen" width="70%" />
-<p class="caption">(\#fig:movies-histogram)Film-Budgets mit Histogrammen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/movies-histogram-1} 
+
+}
+
+\caption{Film-Budgets mit Histogrammen}(\#fig:movies-histogram)
+\end{figure}
 
 Der Boxplot ist besser geeignet als das Histogramm, um mehrere Verteilungen vergleichend zu präsentieren (vgl. Abb. \@ref(fig:movies-histogram)). Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
@@ -660,7 +738,9 @@ qplot(x = shoe_size, data = wo_men, bins = 10)
 qplot(x = shoe_size, data = wo_men, bins = 50)
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-31-1} \includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-31-2} \end{center}
 
 4. :
 
@@ -678,7 +758,9 @@ wo_men3 %>%
   geom_point(data = wo_men2, color = "grey80")
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`wo_men3`). Dann werden die Rohdaten (`wo_men2`) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.
 
@@ -704,14 +786,22 @@ Der "Trick" ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (`
 
 Tabelle \@ref(tab:befehle-vis) fasst die R-Funktionen dieses Kapitels zusammen.
 
+\begin{table}
 
-Table: (\#tab:befehle-vis)Befehle des Kapitels 'Daten visualisieren'
-
-Paket::Funktion   Beschreibung                              
-----------------  ------------------------------------------
-ggplot2::qplot    Malt schnell mal einen Plot               
-ggplot2::ggplot   Malt einen Plot                           
-factor            Wandelt einen Vektor in den Typ factor um 
+\caption{(\#tab:befehle-vis)Befehle des Kapitels 'Daten visualisieren'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & Beschreibung\\
+\hline
+ggplot2::qplot & Malt schnell mal einen Plot\\
+\hline
+ggplot2::ggplot & Malt einen Plot\\
+\hline
+factor & Wandelt einen Vektor in den Typ factor um\\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -723,12 +813,14 @@ Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfach
 
 1. Eine kontinuerliche Variable
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 2. Zwei kontinuierliche Variablen
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 3. Eine diskrete Variable (X-Achse)
 
@@ -740,12 +832,15 @@ ggplot(wo_men2) +
   geom_bar()
 ```
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 
 4. Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse
 
-<img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.7\linewidth]{050_Daten_visualisieren_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 
 ## Verweise

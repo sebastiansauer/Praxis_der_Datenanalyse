@@ -9,9 +9,11 @@
 # Lineare Regression
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -55,10 +57,14 @@ stats_test %>%
               color = "red")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/bsp-regression-1.png" alt="Beispiel für eine Regression" width="70%" />
-<p class="caption">(\#fig:bsp-regression)Beispiel für eine Regression</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/bsp-regression-1} 
+
+}
+
+\caption{Beispiel für eine Regression}(\#fig:bsp-regression)
+\end{figure}
 
 Wie wir genau die Regressionsgerade berechnet haben, dazu gleich mehr. Fürs Erste begnügen wir uns mit der etwas groberen Beobachtung, dass die Gerade 'schön mittig' in der Punktewolke liegt. 
 
@@ -77,10 +83,14 @@ und zeichne danach eine Gerade ("abline" in rot).
 
 Eine Regression zeigt anhand einer Regressionsgeraden einen "Trend" in den Daten an (s. weitere Beispiele in Abb. \@ref(fig:bsp-regression2)).
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/bsp-regression2-1.png" alt="Zwei weitere Beispiele für Regressionen" width="70%" />
-<p class="caption">(\#fig:bsp-regression2)Zwei weitere Beispiele für Regressionen</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/bsp-regression2-1} 
+
+}
+
+\caption{Zwei weitere Beispiele für Regressionen}(\#fig:bsp-regression2)
+\end{figure}
 
 
 Eine Regression lädt förmlich dazu ein, Vorhersagen zu treffen: Hat man erstmal eine Gerade, so kann man für jeden X-Wert ("Prädiktor") eine Vorhersage für den Y-Wert ("Kriterium") treffen. Anhand des Diagramms kann man also für jede Person (d.h. jeden Wert innerhalb des Wertebereichs von `study_time` oder einem anderen Prädiktor) einen Wert für `score` vorhersagen. Wie gut die Vorhersage ist, steht erstmal auf einen anderen Blatt.
@@ -143,10 +153,14 @@ lm(kriterium ~ praediktor, data = meine_datentabelle) %>%
 
 Der einfache Grundsatz lautet: Je geringer die Vorhersagefehler, desto besser; Abb. \@ref(fig:resids-plot) zeigt ein Regressionsmodell mit wenig Vorhersagefehler (links) und ein Regressionsmodell mit viel Vorhersagefehler (rechts).
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/resids-plot-1.png" alt="Geringer (links) vs. hoher (rechts) Vorhersagefehler" width="70%" />
-<p class="caption">(\#fig:resids-plot)Geringer (links) vs. hoher (rechts) Vorhersagefehler</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/resids-plot-1} 
+
+}
+
+\caption{Geringer (links) vs. hoher (rechts) Vorhersagefehler}(\#fig:resids-plot)
+\end{figure}
 
 
 In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte damit:
@@ -277,10 +291,14 @@ ggplot(data = stats_test) +
   geom_abline(slope = 2.3, intercept = 24, color = "red")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/stats-test-scatter2-1.png" alt="Streudiagramm von Lernzeit und Klausurerfolg" width="70%" />
-<p class="caption">(\#fig:stats-test-scatter2)Streudiagramm von Lernzeit und Klausurerfolg</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/stats-test-scatter2-1} 
+
+}
+
+\caption{Streudiagramm von Lernzeit und Klausurerfolg}(\#fig:stats-test-scatter2)
+\end{figure}
 
 Jetzt kennen wir die Stärke (und Richtung) des Einflusses der Lernzeit. Ob das viel oder wenig ist, ist am besten im Verhältnis zu einem Referenzwert zu sagen.
 
@@ -354,10 +372,14 @@ stats_test %>%
   geom_histogram()
 ```
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/resid-distrib-1.png" alt="Die Residuen verteilen sich hinreichend normal." width="70%" />
-<p class="caption">(\#fig:resid-distrib)Die Residuen verteilen sich hinreichend normal.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/resid-distrib-1} 
+
+}
+
+\caption{Die Residuen verteilen sich hinreichend normal.}(\#fig:resid-distrib)
+\end{figure}
 
 
 Sieht passabel aus. Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
@@ -393,10 +415,14 @@ stats_test %>%
   geom_point()
 ```
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/tips-preds-resid-1.png" alt="Vorhergesagte Werte vs. Residualwerte im Datensatz tips" width="70%" />
-<p class="caption">(\#fig:tips-preds-resid)Vorhergesagte Werte vs. Residualwerte im Datensatz tips</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/tips-preds-resid-1} 
+
+}
+
+\caption{Vorhergesagte Werte vs. Residualwerte im Datensatz tips}(\#fig:tips-preds-resid)
+\end{figure}
 
 
 Die Annahme der konstanten Varianz scheint verletzt zu sein: Die sehr großen vorhersagten Werte können recht genau geschätzt werden; aber die mittleren Werte nur ungenau.
@@ -456,7 +482,9 @@ stats_test %>%
   geom_line(data = score_interesse, group = 1, color = "red")
 ```
 
-<img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Mit `group=1` bekommt man eine Linie, die alle Punkte verbindet. Wir haben in dem Fall nur zwei Punkte, die entsprechend verbunden werden.
 
@@ -539,10 +567,14 @@ Interessant ist das *negative* Vorzeichen vor dem Einfluss von `interessiertTRUE
 Hier haben wir übrigens dem Modell aufgezwungen, dass der Einfluss von Lernzeit auf Klausurerfolg bei den beiden Gruppen gleich groß sein soll  (d.h. bei Interessierten und Nicht-Interessierten ist die Steigung der Regressionsgeraden gleich). Das illustriert sich am einfachsten in einem Diagramm (s. Abbildung \@ref(fig:no-interakt)).
 
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/no-interakt-1.png" alt="Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben" width="70%" />
-<p class="caption">(\#fig:no-interakt)Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/no-interakt-1} 
+
+}
+
+\caption{Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben}(\#fig:no-interakt)
+\end{figure}
 
 
 Diese *multivariate*\index{multivariat} Analyse (mehr als 2 Variablen sind beteiligt) zeigt uns, dass die Regressionsgerade nicht gleich ist in den beiden Gruppen (Interessierte vs. Nicht-Interessierte; s. Abbildung \@ref(fig:no-interakt)): Im Teildiagramm A sind die Geraden (leicht) versetzt. Analog zeigt Teildiagramm B, dass die Interessierten (`interessiert == TRUE`) geringe Punktewerte haben als die Nicht-Interessierten, wenn man die Werte von `study_time` getrennt betrachtet.
@@ -594,10 +626,14 @@ Interessanterweise zeigen die Interessierten nun wiederum - betrachtet man jede 
 
 
 
-<div class="figure" style="text-align: center">
-<img src="071_Regression_files/figure-html/interakt-stats-test-1.png" alt="Eine Regressionsanalyse mit Interaktionseffekten" width="70%" />
-<p class="caption">(\#fig:interakt-stats-test)Eine Regressionsanalyse mit Interaktionseffekten</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{071_Regression_files/figure-latex/interakt-stats-test-1} 
+
+}
+
+\caption{Eine Regressionsanalyse mit Interaktionseffekten}(\#fig:interakt-stats-test)
+\end{figure}
 
 
 Wir wir in Abbildung \@ref(fig:interakt-stats-test) sehen, ist der Einfluss von `study_time' je nach Gruppe (Wert von `interessiert`) unterschiedlich (Teildiagramm A). Analog ist der Einfluss des Interesses (leicht) unterschiedlich, wenn man die fünf Stufen von `study_time` getrennt betrachtet. 
@@ -658,7 +694,7 @@ Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Sampl
 ```r
 caret::postResample(pred = lm2_predict, obs = test$score)
 #>     RMSE Rsquared 
-#>    4.974    0.195
+#>    4.331    0.345
 ```
 
 Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich *schlechter* ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!

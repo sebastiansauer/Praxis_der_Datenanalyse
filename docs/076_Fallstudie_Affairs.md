@@ -106,7 +106,9 @@ qplot(x = affairs, data = Affair)
 qplot(x = rating, data = Affair)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /><img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-8-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-8-2} \end{center}
 
 Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.
 
@@ -296,7 +298,9 @@ library(corrplot)
 corrplot(cor_tab)
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -731,14 +735,21 @@ tidy(lm10) %>% kable
 ```
 
 
-
-term            estimate   std.error   statistic   p.value
--------------  ---------  ----------  ----------  --------
-(Intercept)        0.054       0.430       0.125     0.901
-gendermale         0.242       0.197       1.229     0.219
-childrenyes        0.394       0.283       1.390     0.164
-rating            -0.465       0.087      -5.327     0.000
-yearsmarried       0.022       0.021       1.040     0.299
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 0.054 & 0.430 & 0.125 & 0.901\\
+\hline
+gendermale & 0.242 & 0.197 & 1.229 & 0.219\\
+\hline
+childrenyes & 0.394 & 0.283 & 1.390 & 0.164\\
+\hline
+rating & -0.465 & 0.087 & -5.327 & 0.000\\
+\hline
+yearsmarried & 0.022 & 0.021 & 1.040 & 0.299\\
+\hline
+\end{tabular}
 
 
 ### Zum Abschluss
@@ -755,7 +766,9 @@ Affair %>%
   geom_jitter(aes(color = gender, shape = children)) 
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 
@@ -767,7 +780,9 @@ Affair %>%
   geom_smooth()
 ```
 
-<img src="076_Fallstudie_Affairs_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{076_Fallstudie_Affairs_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 Puh. Geschafft!

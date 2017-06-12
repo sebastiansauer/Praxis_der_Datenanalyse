@@ -1,16 +1,19 @@
 
 
-
+\newpage
 # Organisatorisches
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 ## Modulziele
 
-Die Studierenden können nach erfolgreichem Abschluss des Moduls:
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 
 - den Ablauf eines Projekts aus der Datenanalyse in wesentlichen Schritten nachvollziehen,
@@ -19,6 +22,9 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 - klassische Vorhersagemethoden (Regression) anwenden,
 -	moderne Methoden der angewandten Datenanalyse anwenden (z.B. Textmining),
 -	betriebswirtschaftliche Fragestellungen mittels datengetriebener Vorhersagemodellen beantworten.
+
+</div>\EndKnitrBlock{rmdcaution}
+
 
 
 ## Themen pro Termin
@@ -30,26 +36,46 @@ Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
 
+\begin{table}
 
-Table: (\#tab:termin-themen)Zuordnung von Themen zu Terminen
-
- Termin  Thema / Kapitel                                               
--------  --------------------------------------------------------------
-      1  Organisatorisches                                             
-      1  Einführung                                                    
-      1  Rahmen                                                        
-      1  Daten einlesen                                                
-      2  Datenjudo                                                     
-      3  Daten visualisieren                                           
-      4  Fallstudie                                                    
-      5  Der p-Wert                                                    
-      5  Daten modellieren                                             
-      6  Lineare Regression - metrisch                                 
-      7  Lineare Regression - kategorial                               
-      8  Fallstudie                                                    
-      9  Vertiefung 1: Textmining oder Clusteranalyse                  
-     10  Vertiefung 2: Baumbasierte Verfahren oder Dimensionsreduktion 
-     11  Wiederholung                                                  
+\caption{(\#tab:termin-themen)Zuordnung von Themen zu Terminen}
+\centering
+\begin{tabular}[t]{r|l}
+\hline
+Termin & Thema / Kapitel\\
+\hline
+1 & Organisatorisches\\
+\hline
+1 & Einführung\\
+\hline
+1 & Rahmen\\
+\hline
+1 & Daten einlesen\\
+\hline
+2 & Datenjudo\\
+\hline
+3 & Daten visualisieren\\
+\hline
+4 & Fallstudie\\
+\hline
+5 & Der p-Wert\\
+\hline
+5 & Daten modellieren\\
+\hline
+6 & Lineare Regression - metrisch\\
+\hline
+7 & Lineare Regression - kategorial\\
+\hline
+8 & Fallstudie\\
+\hline
+9 & Vertiefung 1: Textmining oder Clusteranalyse\\
+\hline
+10 & Vertiefung 2: Baumbasierte Verfahren oder Dimensionsreduktion\\
+\hline
+11 & Wiederholung\\
+\hline
+\end{tabular}
+\end{table}
 
 
 

@@ -5,9 +5,11 @@
 # Vertiefung: Dimensionsreduktion
 
 
-<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
+
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -68,10 +70,14 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 
 Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalten) in Abbildung \@ref(fig:fig-scatter3d)). Man braucht nicht viel Phantasie, um einen Pfeil (Vektor) in der Punktewolke zu sehen. Um jeden Punkt einigermaßen genau zu bestimmen, reicht es, seine "Pfeil-Koordinate" zu wissen. Praktischerweise geben in Abbildung \@ref(fig:fig-scatter3d) die Farben (in etwa) die Koordinaten auf dem Pfeil an^[genau genommen ist hier die Regressionsgerade gezeichnet, es müsste aber der größte Eigenvektor sein. Geschenkt.]. Damit können wir die Anzahl der Variablen (Dimensionen), die es braucht, um einen Punkt zu beschreiben von 3 auf 1 reduzieren; 2/3 der Komplexität eingespart. Wir verlieren etwas Genauigkeit, aber nicht viel. Dieser Pfeil, der mitten durch den Punkteschwarm geht, nennt man auch die 1. Hauptkomponente.
 
-<div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-1.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" />
-<p class="caption">(\#fig:fig-scatter3d)Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/fig-scatter3d-1} 
+
+}
+
+\caption{Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine}(\#fig:fig-scatter3d)
+\end{figure}
 
 
 Beachten Sie, dass hoch korrelierte Variablen eng an der Regressionsgeraden liegen; entsprechend sind in Abbildung \@ref(fig:ig-scatter3d) die drei Variablen stark korreliert. Sehen Sie auch, dass die Hauptkomponente Varianz erklärt: Jede Variable für sich genommen, hat recht viel Streuung. Die Streuung der Punkte zur Hauptkomponente ist aber relativ gering. Daher sagt man, die Streuung (Varianz) wurde reduziert durch die Hauptkomponente.
@@ -157,7 +163,9 @@ Wir verwenden den Befehl `corrplot()` für die Erstinspektion von bivariaten Bez
 corrplot(cor(Werte.sc), order = "hclust")
 ```
 
-<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
@@ -235,10 +243,14 @@ Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Ger�
 plot(Werte.pc, type="l")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/pca-scree-1.png" alt="Screeplot" width="70%" />
-<p class="caption">(\#fig:pca-scree)Screeplot</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/pca-scree-1} 
+
+}
+
+\caption{Screeplot}(\#fig:pca-scree)
+\end{figure}
 
 
 Wir sehen in Abb. \@ref(fig:pca-scree), dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente. 
@@ -265,10 +277,14 @@ Dies kann auch grafisch mit dem `psych::VSS.Scree`^[das Paket `psych` wird autom
 VSS.scree(Werte)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/vss-scree-1.png" alt="VSS-Screeplot" width="70%" />
-<p class="caption">(\#fig:vss-scree)VSS-Screeplot</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/vss-scree-1} 
+
+}
+
+\caption{VSS-Screeplot}(\#fig:vss-scree)
+\end{figure}
 
 
 ### Biplot
@@ -280,10 +296,14 @@ Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die
 biplot(Werte.pc)
 ```
 
-<div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/fig-biplot-1.png" alt="Ein Biplot für den Werte-Datensatz" width="70%" />
-<p class="caption">(\#fig:fig-biplot)Ein Biplot für den Werte-Datensatz</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/fig-biplot-1} 
+
+}
+
+\caption{Ein Biplot für den Werte-Datensatz}(\#fig:fig-biplot)
+\end{figure}
 
 Die einzelnen Ausgangsvariablen sind in Abbildung Abbildung \@ref(fig:fig-biplot) durch rote Pfeile (Vektoren) gekennzeichnet. 
 
@@ -386,7 +406,9 @@ Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden
 fa.diagram(Werte.pca)
 ```
 
-<img src="083_Dimensionsreduktion_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 
 
@@ -438,10 +460,14 @@ Standardmäßig wird bei `factanal()` eine *Varimax-Rotation* durchgeführt (das
 Das eine Rotation sinnvoll ist, kann man sich am einfachsten an einem Diagramm verdeutlichen (s. Abbildung \@ref(fig:rotation), [@fjalnes_orthogonale_2014]).
 
 
-<div class="figure" style="text-align: center">
-<img src="images/dimred/rotation.png" alt="Beispiel für eine rechtwinklige Rotation" width="70%" />
-<p class="caption">(\#fig:rotation)Beispiel für eine rechtwinklige Rotation</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/dimred/rotation} 
+
+}
+
+\caption{Beispiel für eine rechtwinklige Rotation}(\#fig:rotation)
+\end{figure}
 
 Das Rotieren kann man sich als Drehen des Koordinatensystems vorstellen. Durch die Rotation sind die Items 'näher' an den Faktoren: Die Faktorladung zu einem Faktor wurde größer, zum anderen Faktor hingegen geringer. Damit wurde die Ladung, also die Zuordnung der Items zu den Faktoren, insgesamt klarer, besser. Das wollen wir. Übrigens: Der Winkel der Achsen ist beim Rotieren gleich (rechtwinklig, orthogonoal) geblieben. Daher spricht man von einer rechtwinkligen oder orthogonalen Rotation. Man kann auch die Achsen unterschiedlich rotieren, so dass sie nicht mehr rechtwinklig sind. Das könnte die Ladung noch klarer machen, führt aber dazu, dass die Faktoren dann korreliert sind. Korrelierte Faktoren sind oft nicht wünschenswert, weil ähnlich.
 
@@ -468,10 +494,14 @@ heatmap.2(Werte.fa$loadings,
           )
 ```
 
-<div class="figure" style="text-align: center">
-<img src="083_Dimensionsreduktion_files/figure-html/efa-heatmap-1.png" alt="Heatmap einer EFA" width="70%" />
-<p class="caption">(\#fig:efa-heatmap)Heatmap einer EFA</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{083_Dimensionsreduktion_files/figure-latex/efa-heatmap-1} 
+
+}
+
+\caption{Heatmap einer EFA}(\#fig:efa-heatmap)
+\end{figure}
 
 
 Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
@@ -567,25 +597,47 @@ Das Argument `check.keys=TRUE` gibt uns eine Warnung aus, sollte die Ladung eine
 
 Tabelle \@ref(tab:befehle-dimred) fasst die R-Funktionen dieses Kapitels zusammen.
 
+\begin{table}
 
-Table: (\#tab:befehle-dimred)Befehle des Kapitels 'Dimensionsreduktion'
-
-Paket::Funktion      "Beschreibung"                                                          
--------------------  ------------------------------------------------------------------------
-cor                  "Berechnet eine Korrelationsmatrix."                                    
-read.csv2            "Liest eine 'deutsche' CSV-Datei ein."                                  
-glimpse              "Wirft einen Blick (to glimpse) in den Datensatz."                      
-scale                "führt eine z-Transformation durch"                                     
-corrplot::corrplot   "Plottet einen Korrelationsplot."                                       
-na.omit              "Schließt Zeilen mit fehlenden Werten von Datensatz aus."               
-pr.comp              "Berechnet Hauptkomponentenanalyse."                                    
-eigen                "Berechnet Eigenwerte."                                                 
-psych::VSS.scree     "Plottet einen Screeplot."                                              
-biplot               "Plottet einen Biplot."                                                 
-psych::principal     "Berechnet die Statistiken für eine Hauptkomponentenanalyse"            
-psych::fa.diagram    "Plottet ein Pfaddiagramm für eine Faktorenanalyse"                     
-nFactors::nscree     "Gibt verschiedenen Vorschläge für die Anzahl der 'richtigen' Faktoren" 
-factanal             "Berechnet eine Faktorenanalyse"                                        
-gplots::heatmap.2    "Plottet ein Heatmap"                                                   
-factanal             "Berechnet Faktor-Scores"                                               
-psych::alpha         "Berechnet Cronbachs Alpha und weitere Statistiken"                     
+\caption{(\#tab:befehle-dimred)Befehle des Kapitels 'Dimensionsreduktion'}
+\centering
+\begin{tabular}[t]{l|l}
+\hline
+Paket::Funktion & "Beschreibung"\\
+\hline
+cor & "Berechnet eine Korrelationsmatrix."\\
+\hline
+read.csv2 & "Liest eine 'deutsche' CSV-Datei ein."\\
+\hline
+glimpse & "Wirft einen Blick (to glimpse) in den Datensatz."\\
+\hline
+scale & "führt eine z-Transformation durch"\\
+\hline
+corrplot::corrplot & "Plottet einen Korrelationsplot."\\
+\hline
+na.omit & "Schließt Zeilen mit fehlenden Werten von Datensatz aus."\\
+\hline
+pr.comp & "Berechnet Hauptkomponentenanalyse."\\
+\hline
+eigen & "Berechnet Eigenwerte."\\
+\hline
+psych::VSS.scree & "Plottet einen Screeplot."\\
+\hline
+biplot & "Plottet einen Biplot."\\
+\hline
+psych::principal & "Berechnet die Statistiken für eine Hauptkomponentenanalyse"\\
+\hline
+psych::fa.diagram & "Plottet ein Pfaddiagramm für eine Faktorenanalyse"\\
+\hline
+nFactors::nscree & "Gibt verschiedenen Vorschläge für die Anzahl der 'richtigen' Faktoren"\\
+\hline
+factanal & "Berechnet eine Faktorenanalyse"\\
+\hline
+gplots::heatmap.2 & "Plottet ein Heatmap"\\
+\hline
+factanal & "Berechnet Faktor-Scores"\\
+\hline
+psych::alpha & "Berechnet Cronbachs Alpha und weitere Statistiken"\\
+\hline
+\end{tabular}
+\end{table}

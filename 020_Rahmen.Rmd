@@ -398,8 +398,8 @@ Probieren Sie den Befehl `help.search("qplot")`, wenn Sie wissen möchten, in we
 Sie können auch diesen selbstgestrickten Befehl nutzen, den Sie zuerst laden müssen:
 
 ```{r}
-source("includes/find_funs.R")
-find_funs("qplot")
+source("https://sebastiansauer.github.io/Rcode/find_funs.R")
+find_funs("select")
 ```
 
 

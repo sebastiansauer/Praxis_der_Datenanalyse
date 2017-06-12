@@ -245,7 +245,7 @@ afd_df %>%
 
 afd_count %>% 
   top_n(10) %>% 
-  knitr::kable(aption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
+  knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
 ```
 
 Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch). Denken Sie daran, dass `.` bei `dplyr` nur den Datensatz meint, wie er im letzten Schritt definiert war. Mit `.$token` wählen wir also die Variable `token` aus `afd_raw` aus.

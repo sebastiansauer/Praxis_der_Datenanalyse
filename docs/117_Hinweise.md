@@ -4,7 +4,7 @@
 
 ## Icons
 
-R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items [@ladyofhats_smileys_2017].
+R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items [@edu_icons].
 
 *R-Pseudo-Syntax*: R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral ist R in diesem Kurs. Zugebenermaßen braucht es etwas Zeit, bis man ein paar Brocken "Errisch" spricht. Um den Einstieg zu erleichern, ist Errisch auf Deutsch übersetzt an einigen Stellen, wo mir dies besonders hilfreich erschien. Diese Stellen sind mit diesem Symbol ![](images/icons/pseudocode.png){ width=5% } gekennzeichnet (für R-Pseudo-Syntax).
 
@@ -39,7 +39,8 @@ Kunstwerke (Bilder) sind genau wie Standard-Literatur im Text zitiert. Alle Werk
 Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
 
 
-<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
 
 
 ## Autoren
@@ -58,7 +59,7 @@ Bitte zitieren Sie das Skript so:
 
 Sauer, S. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
 
-![](https://zenodo.org/badge/81811975.svg)
+
 
 
 

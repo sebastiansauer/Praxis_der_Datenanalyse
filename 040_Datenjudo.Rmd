@@ -286,8 +286,8 @@ arrange(stats_test, interest, score)
 
 ```{r arrange-demo2, echo = FALSE}
 
-arrange(stats_test, score)  %>% head() # liefert die *schlechtesten* Noten zurück
-arrange(stats_test, -score) %>% head() # liefert die *besten* Noten zurück
+arrange(stats_test, score)  %>% head(2) # liefert die *schlechtesten* Noten zurück
+arrange(stats_test, -score) %>% head(2) # liefert die *besten* Noten zurück
 arrange(stats_test, interest, score) %>% head(2)
 
 ```
