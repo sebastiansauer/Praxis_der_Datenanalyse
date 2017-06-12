@@ -1,0 +1,57 @@
+
+
+.rmdcaution, .rmdimportant, .rmdnote, .rmdtip, .rmdwarning, .rmdlove, .rmdpseudocode, .rmdexercises {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f3 5px center/3em no-repeat;
+}
+.rmdcaution {
+  background-image: url("images/icons/caution.png");
+}
+.rmdimportant {
+  background-image: url("images/icons/important.png");
+}
+.rmdnote {
+  background-image: url("images/icons/note.png");
+}
+.rmdtip {
+  background-image: url("images/icons/tip.png");
+}
+.rmdwarning {
+  background-image: url("images/icons/warning.png");
+}
+.rmdlove {
+  background-image: url("images/icons/love.png");
+}
+.rmdpseudocode {
+  background-image: url("images/icons/pseudocode.png");
+}
+.rmdexercises {
+  background-image: url("images/icons/exercises.png");
+}
+p.caption {
+  color: #00998a;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+p.flushright {
+  text-align: right;
+}
+blockquote > p:last-child {
+  text-align: right;
+}
+blockquote > p:first-child {
+  text-align: inherit;
+}
+h1 {
+    color: #00998a;
+}

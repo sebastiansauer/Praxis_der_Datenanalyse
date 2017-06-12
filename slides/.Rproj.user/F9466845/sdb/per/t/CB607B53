@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# Textmining\n\n\n## Lernziele\n\n\n\n- Sie kennen zentrale Ziele und Begriffe des Textminings.\n- Sie wissen, was ein 'tidy text dataframe' ist.\n- Sie können Worthäufigkeiten auszählen.\n- Sie können Worthäufigkeiten anhand einer Wordcloud visualisieren.\n\n\n## Zentrale Begriffe\n\n\n\n- Ein *Corpus* bezeichnet die Menge der zu analyisierenden Dokumente-\n\n  - Ein *Token* (*Term*) ist ein elementarer Baustein eines Texts, die kleinste Analyseeinheit, häufig ein Wort.\n\n- Unter *tidy text* versteht man einen Dataframe, in dem pro Zeile nur ein Term steht.\n\n\n## Tidytext -- Input\n\n```{r}\ntext <- c(\"Wir haben die Frauen zu Bett gebracht,\",\n          \"als die Männer in Frankreich standen.\",\n          \"Wir hatten uns das viel schöner gedacht.\",\n          \"Wir waren nur Konfirmanden.\")\ntext_df <- data_frame(Zeile = 1:4,\n                      text = text)\n```\n\n## Tidytext -- Output\n\n```{r}\ntext_df %>%\n  unnest_tokens(output = wort, input = text) -> tidytext_df\n\ntidytext_df %>% head\n```\n\n>   In einem 'tidy text Dataframe'  steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts\nim Dokument.\n\n\n```{r echo = FALSE}\nafd_url <- paste0(\"https://www.alternativefuer.de\",\n                  \"/wp-content/uploads/sites/7/2016/05/\",\n                  \"2016-06-27_afd-grundsatzprogramm_web-version.pdf\")\n\nafd_url <- \"../data/2016-06-27_afd-grundsatzprogramm_web-version.pdf\"\n\nafd_pfad <- \"../data/afd_programm.pdf\"\n\n# download(afd_url, afd_pfad)\n\nafd_raw <- pdftools::pdf_text(afd_pfad)\nafd_df <- data_frame(Zeile = 1:96,\n                     afd_raw)\n\n\nafd_df %>%\n  unnest_tokens(token, afd_raw) %>%\n  filter(str_detect(token, \"[a-z]\")) -> afd_df\n\ncount(afd_df)\n\n```\n\n\n\n## Worthäufigkeiten auszählen\n\n```{r}\nafd_df %>%\n  na.omit() %>%  # fehlende Werte löschen\n  count(token, sort = TRUE) %>%\n  head\n```\n\n## Stopwörter entfernen\n\n```{r echo = FALSE}\ndata(stopwords_de)\n\nstopwords_de <- data_frame(word = stopwords_de)\n\nstopwords_de <- stopwords_de %>%\n  rename(token = word)\n\nafd_df %>%\n  anti_join(stopwords_de) -> afd_df\n\nafd_df %>%\n  count(token, sort = TRUE) -> afd_count\n\n\n```\n\n\n```{r echo = FALSE}\nafd_count %>%\n  top_n(5) %>%\n  knitr::kable()\n```\n\n\n",
+    "created" : 1497010200440.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "164922170",
+    "id" : "CB607B53",
+    "lastKnownWriteTime" : 1497010223,
+    "last_content_update" : 1497010223027,
+    "path" : "~/Documents/Publikationen/In_Arbeit/Praxis_der_Datenanalyse/slides/includes/dummy.R",
+    "project_path" : "includes/dummy.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
