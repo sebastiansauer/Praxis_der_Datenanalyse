@@ -1,22 +1,4 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-
-```
 
 
 
@@ -24,18 +6,13 @@ knitr::opts_chunk$set(
 # Grundlagen des Modellierens {#mod1}
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
-```{block2, ziele-modellieren, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Erläutern können, was man unter einem Modell versteht.
 - Die Ziele des Modellieren aufzählen und erläutern können.
@@ -45,37 +22,31 @@ Lernziele:
 - Wissen, was man unter Modellgüte versteht.
 - Um die Schwierigkeiten der Prädiktorenauswahl wissen.
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Kapitel benötigen wir diese Pakete:
-```{r libs}
+
+```r
 library(tidyverse)
 ```
 
 
-```{r echo = FALSE}
-require(gridExtra)
-```
-
-```{r echo = FALSE, out.width = "70%"}
-knitr::include_graphics("images/modellieren/Modellieren.png")
-```
 
 
-```{r libs-hidden, echo = FALSE}
-library(grid)
-library(png)
-```
+<img src="images/modellieren/Modellieren.png" width="70%" style="display: block; margin: auto;" />
+
+
+
 
 ## Was ist ein Modell? Was ist Modellieren? {#Modellieren}
 
 In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
 
-```{r vwmodell, echo = FALSE, fig.cap = "Modell eines VW-Käfers", out.width = "40%"}
-knitr::include_graphics("images/modellieren/vw_modell.JPG")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/vw_modell.JPG" alt="Modell eines VW-Käfers" width="40%" />
+<p class="caption">(\#fig:vwmodell)Modell eines VW-Käfers</p>
+</div>
 
 In die Wissenschaft kam der Begriff in der Zeit nach Kant, als man sich klar wurde, dass (physikalische) Theorien nicht die Wirklichkeit als solche zeigen, sondern ein *Modell* davon. Modellieren ist eine grundlegenden Tätigkeit, derer sich Menschen fortlaufend bedienen, um die Welt zu *verstehen*. Denn das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es daher sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen. Modelle sind häufig vereinfachend: es wird nur ein Ausschnitt der Wirklichkeit berücksichtigt.
 
@@ -84,9 +55,10 @@ Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sic
 Gegenstandsbereich und Modelle stehen in einer Beziehung miteinander (vgl. Abb. \@ref(fig:modellieren-plot), das Foto stammt von Unrau [-@unrau1]).
 
 
-```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
-knitr::include_graphics("images/modellieren/Modell.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modell.png" alt="Modellieren" width="70%" />
+<p class="caption">(\#fig:modellieren-plot)Modellieren</p>
+</div>
 
 
 Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine mathematische Struktur zu übersetzen. 
@@ -98,13 +70,14 @@ Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen Syst
 
 >   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
 
-```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modellierens"}
-knitr::include_graphics("images/modellieren/Modellieren_formal_crop.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_formal_crop.png" alt="Formaleres Modell des Modellierens" width="70%" />
+<p class="caption">(\#fig:modellieren-formal)Formaleres Modell des Modellierens</p>
+</div>
 
 Etwas spitzfinding könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
 
-Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von *Relationen*\index{Relation} $R_E$ (Relationen meint hier nichts mehr als irgendwelche Beziehungen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
+Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von Relationen $R_E$ (Relationen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
 
 
 
@@ -114,24 +87,15 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 
-```{r plot-stats-smooth, echo = FALSE}
-stats_test <- read_csv("data/test_inf_short.csv")
-
-stats_test %>% 
-ggplot(aes(y = score, x = self_eval)) +
-geom_jitter() -> p1
-
-p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
-```
 
 
 
 
-```{r plot-stats, echo = FALSE, out.width = "90%", fig.height = 1, fig.cap = "Ein Beispiel für Modellieren"}
 
-# p3 <- grid::rasterGrob(readPNG("images/Modellieren_Bsp1.png"), interpolate=TRUE)
-grid.arrange(p1, p2, nrow = 1)
-```
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-stats-1.png" alt="Ein Beispiel für Modellieren" width="90%" />
+<p class="caption">(\#fig:plot-stats)Ein Beispiel für Modellieren</p>
+</div>
 
 
 Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
@@ -139,9 +103,10 @@ Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in ei
 Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
 
 
-```{r mod-beispiel, fig.cap = "Ein Beispiel für ein Pfadmodell", echo = FALSE}
-knitr::include_graphics("images/modellieren/Modellieren_Bsp1.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_Bsp1.png" alt="Ein Beispiel für ein Pfadmodell" width="70%" />
+<p class="caption">(\#fig:mod-beispiel)Ein Beispiel für ein Pfadmodell</p>
+</div>
 
 
 
@@ -149,26 +114,26 @@ knitr::include_graphics("images/modellieren/Modellieren_Bsp1.png")
 
 Ein etwas aufwändigeres Modell könnte so aussehen (Abb. \@ref(fig:plot-modell-bsp2):
 
-```{r plot-modell-bsp2, echo = FALSE, fig.cap = "Ein etwas aufwändigeres Modell"}
-knitr::include_graphics("images/modellieren/Modellieren_Bsp2.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modellieren_Bsp2.png" alt="Ein etwas aufwändigeres Modell" width="70%" />
+<p class="caption">(\#fig:plot-modell-bsp2)Ein etwas aufwändigeres Modell</p>
+</div>
 
 
 Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Einflussgrößen} bzw. *Prädiktoren*\index{Prädiktoren}, von denen wir annehmen, dass sie einen Einfluss haben auf genau eine *Zielgröße* (*Ausgabegröße*) bzw. *Kriterium*\index{Kriterium}.
 
 
-```{block2, einfluss-nicht-kausal, type='rmdcaution', echo = TRUE} 
-
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
 *Einfluss* ist hier *nicht* kausal gemeint, auch wenn es das Wort so vermuten lässt. Stattdessen ist nur ein statistischer Einfluss gemeint; letztlich nichts anderes als ein Zusammenhang. In diesem Sinne könnte man postulieren, dass die Größe des Autos, das man fährt einen "Einfluss" auf das Vermögen des Fahrers habe. Empirisch ist es gut möglich, dass man Belege für dieses Modell findet. Jedoch wird dieser Einfluss nicht kausal sein (man informiere mich, wenn es anders sein sollte).
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 Modelle, wie wir sie betrachten werden, berechnen eine quantitativen Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien.  Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
-```{r fig-blackbox, echo = FALSE, fig.cap = "Modelle mit schwarzer Kiste"}
-knitr::include_graphics("images/modellieren/Modell_Blackbox.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/Modell_Blackbox.png" alt="Modelle mit schwarzer Kiste" width="70%" />
+<p class="caption">(\#fig:fig-blackbox)Modelle mit schwarzer Kiste</p>
+</div>
 
 
 Die Einflussgrößen werden in einer "schwarzen Kiste", die wir hier noch nicht näher benennen, irgendwie verwurstet, will sagen, verrechnet, so dass ein *geschätzter* Wert für das Kriterium, eine *Vorhersage* "hinten bei rauskommt"^[das ist schließlich entscheidend - frei nach Helmut Kohl]. Wir gehen dabei nicht davon aus, dass unsere Modelle perfekt sind, sondern dass Fehler passieren. Mathematischer ausgedrückt:
@@ -210,11 +175,10 @@ Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um 
 
 Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modelieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
 
-```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
-
-knitr::include_graphics("images/modellieren/ungeleitetes_Modellieren_crop.png")
-
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/ungeleitetes_Modellieren_crop.png" alt="Die zwei Arten des ungeleiteten Modellierens" width="70%" />
+<p class="caption">(\#fig:ungeleitetes-modellieren)Die zwei Arten des ungeleiteten Modellierens</p>
+</div>
 
 
 Fässt man *Fälle* zusammen, so spricht man von *Fallreduzierendem Modellieren*\index{Fallreduzierendes Modellieren}. Zum Beispiel könnte man spektakulärerweise "Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann" zusammen fassen.
@@ -243,51 +207,13 @@ Modellieren ist in der Datenanalyse bzw. in der Statistik eine zentrale Tätigke
 Je komplexer ein Modell, desto besser passt sie meistens auf den Gegenstandsbereich. Eine grobe, Holzschnitt artige Theorie ist doch schlechter als eine, die feine Nuancen berücksichtigt, oder nicht? Einiges spricht dafür; aber auch einiges dagegen. Schauen wir uns ein Problem mit komplexen Modellen an.
 
 
-```{r overfitting-prep-4-plots, echo = FALSE, include = FALSE, fig.height = 3, fig.width = 3}
-x <- seq(from = 1, to = 10, by = .3)
-y <- sin(x) + rnorm(n = length(x), mean = 0, sd = .3)
-
-daten <- data_frame(x, y)
-
-ggplot(daten) +
-  aes(x = x, y = y) + 
-  coord_fixed(ratio = 5/1) +
-  labs(y = "") +
-  geom_point() +
-  ggtitle("A") -> p1
-
-ggplot(daten) +
-  aes(x = x, y = y) +
-  geom_point() + 
-  coord_fixed(ratio = 5/1) +
-  labs(y = "") +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +
-  ggtitle("B")-> p2
 
 
-ggplot(daten) +
-  aes(x = x, y = y) +
-  geom_point() + 
-  coord_fixed(ratio = 5/1) +
-  labs(y = "") +
-  geom_line(color = "blue") +
-  ggtitle("C") -> p3
 
-ggplot(daten) +
-  aes(x = x, y = y) +
-  geom_point() + 
-  coord_fixed(ratio = 5/1) +
-  labs(y = "") +
-  stat_function(n = 99, fun = sin, color = "darkgreen") +
-  ggtitle("D") -> p4
-```
-
-
-```{r overfitting-4-plots, echo = FALSE, fig.cap = "Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?", out.width = "90%"}
-
-grid.arrange(p1, p2, p3, p4, ncol = 4)
-
-```
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/overfitting-4-plots-1.png" alt="Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?" width="90%" />
+<p class="caption">(\#fig:overfitting-4-plots)Welches Modell (Teil B-D; rot, grün, blau) passt am besten zu den Daten (Teil A) ?</p>
+</div>
 
 Der Plot A (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; Plot B legt ein lineares Modell (rote Gerade) in die Daten.  Plot C zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
@@ -305,9 +231,10 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 
 Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder (vgl. Abb. \@ref(fig:overfitting-schema)! Eine 'mittlere' Komplexität ist daher am besten; die Frage ist nur, wieviel 'mittel' ist.
 
-```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe", out.width = "50%"}
-knitr::include_graphics("images/modellieren/overfitting.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/modellieren/overfitting.png" alt="'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe" width="50%" />
+<p class="caption">(\#fig:overfitting-schema)'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe</p>
+</div>
 
 
 ## Bias-Varianz-Abwägung
@@ -324,33 +251,10 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); vgl. Kuhn & Johnson [-@kuhn2013applied]).
 
 
-```{r plot-bias-variance, echo = FALSE, fig.cap = "Der Spagat zwischen Verzerrung und Varianz"}
-poly_degree = 15
-df <- data_frame(x = seq(from = 1, to = 10, by = .3),
-                 y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))
-
-df %>% 
-  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
-  group_by(binned) %>% 
-  mutate(y_group_md = median(y)) -> df
-
-
-p1 <- ggplot(df) +
-  aes(x = x, y = y) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
-  coord_fixed(ratio = 5/1)
-
-
-p2 <-  ggplot(df) +
-  aes(x = x) +
-  geom_point(aes(y = y)) +
-  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
-  coord_fixed(ratio = 5/1) 
-
-
-grid.arrange(p1, p2, ncol = 2)
-```
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance-1.png" alt="Der Spagat zwischen Verzerrung und Varianz" width="70%" />
+<p class="caption">(\#fig:plot-bias-variance)Der Spagat zwischen Verzerrung und Varianz</p>
+</div>
 
 Der linke Plot zeigt ein komplexes Modell[^260]; das Modell (blaue Linie) erscheint "zittrig"; kleine Änderungen in den Daten können große Auswirkungen auf das Modell (Verlauf der blauen Linie) haben. Darüber hinaus sind einige Details des Modells unplausibel: es gibt viele kleine "Hügel", die nicht augenscheinlich plausibel sind.
 
@@ -370,7 +274,8 @@ Die Modellgüte ist im Trainings-Sample meist deutlich besser als im Test-Sample
 
 Zum Aufteilen verfügbarer Daten in eine Trainings- und eine Test-Stichprobe gibt es mehrere Wege. Einer sieht so aus:
 
-```{r}
+
+```r
 train <- slice(stats_test, 1:200)
 test <- slice(stats_test, 201:306)
 ```
@@ -378,13 +283,13 @@ test <- slice(stats_test, 201:306)
 `dplyr::slice` schneidet eine 'Scheibe' aus einem Datensatz. 
 
 
-```{r}
+
+```r
 train <- stats_test %>% 
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
 test <- stats_test %>% 
   anti_join(train)  # Alle Zeilen von "stats_test", die nicht in "train" vorkommen
-
 ```
 
 
@@ -462,41 +367,16 @@ Betrachten Sie Abb. \@ref(fig:plot-bias-variance2). Welches der beiden  Modelle 
 - mehr oder weniger präzise?
 
 
-```{r plot-bias-variance2, echo = FALSE, fig.cap = "Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz."}
-
-poly_degree = 5
-df <- data_frame(x = seq(from = 1, to = 10, by = .3),
-                 y = cos(x) + rnorm(n = length(x), mean = 0, sd = .5))
-
-df %>% 
-  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
-  group_by(binned) %>% 
-  mutate(y_group_md = mean(y)) -> df
-
-
-p1 <- ggplot(df) +
-  aes(x = x, y = y) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ poly(x, poly_degree), se = FALSE) +
-  coord_fixed(ratio = 5/1)
-
-
-p2 <-  ggplot(df) +
-  aes(x = x) +
-  geom_point(aes(y = y)) +
-  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
-  coord_fixed(ratio = 5/1) 
-
-
-grid.arrange(p1, p2, ncol = 2)
-```
+<div class="figure" style="text-align: center">
+<img src="060_Modellieren_files/figure-html/plot-bias-variance2-1.png" alt="Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz." width="70%" />
+<p class="caption">(\#fig:plot-bias-variance2)Bias-Varianz-Abwägung. Links: Wenig Bias, viel Varianz. Rechts: Viel Bias, wenig Varianz.</p>
+</div>
 
 
 4. Richtig oder falsch?^[R, F, F, F, R]
 
 
-```{block2, exercises-modellieren, type='rmdexercises', echo = TRUE} 
-Richtig oder Falsch!?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
 1. Die Aussage "Pro Kilo Schoki steigt der Hüftumfang um einen Zentimeter" kann als Beispiel für ein deterministisches Modell herhalten.
 1. Gruppiert man Kunden nach ähnlichen Kaufprofilen, so ist man insofern an "Reduzieren" der Datenmenge interessiert.
@@ -505,8 +385,7 @@ Richtig oder Falsch!?
 1. In der Gleichung $Y=f(x)+\epsilon$ steht $\epsilon$ für den Teil der Kriteriums, der nicht durch das Modell erklärt wird.
 
 
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -515,20 +394,23 @@ Richtig oder Falsch!?
 Tabelle \@ref(tab:befehle-modellieren) fasst die R-Funktionen dieses Kapitels zusammen.
 
 
-```{r befehle-modellieren, echo = FALSE}
 
-df <- read_csv("includes/Befehle_Modellieren.csv")
+-----------------------------------------------------
+PaketFunktion        Beschreibung                    
+-------------------- --------------------------------
+dplyr::sample_frac   Zielt eine Stichprobe von x%    
+                     aus einem Dataframe             
 
+dplyr::anti_join     Behält alle Zeilen von df1,     
+                     die *nicht* in df2 vorkommen    
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Modellieren'")
-# tibbles sind halt keine data.frames ;-) (NM)
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+dplyr::slice         Schneidet eine 'Scheibe' aus    
+                     einem Datensatz (filter Zeilen  
+                     nach angegebener Start- und     
+                     Endposition)                    
+-----------------------------------------------------
 
-
-```
+Table: Befehle des Kapitels 'Modellieren'
 
 
 
@@ -554,4 +436,4 @@ pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Modellieren'")
 
 [^233]: Gerade wenn sie die Zukunft betreffen; ein Bonmot, das Yogi Berra nachgesagt wird.
 
-[^260]: Genauer gesagt ein Polynom von Grad `r poly_degree`.
+[^260]: Genauer gesagt ein Polynom von Grad 5.

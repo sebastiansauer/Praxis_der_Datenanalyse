@@ -1,39 +1,17 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
 
-```
 
-`r if (knitr:::is_latex_output()) '\\newpage'`
 # Organisatorisches
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 ## Modulziele
 
 
-```{block2, ziele-modul, type='rmdcaution', echo = TRUE} 
-Die Studierenden können nach erfolgreichem Abschluss des Moduls:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 
 - den Ablauf eines Projekts aus der Datenanalyse in wesentlichen Schritten nachvollziehen,
@@ -43,8 +21,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 -	moderne Methoden der angewandten Datenanalyse anwenden (z.B. Textmining),
 -	betriebswirtschaftliche Fragestellungen mittels datengetriebener Vorhersagemodellen beantworten.
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -57,30 +34,29 @@ Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
 
-```{r termin-themen, echo = FALSE}
 
-df <- readr::read_csv("includes/Termin_Themen.csv")
+Table: (\#tab:termin-themen)Zuordnung von Themen zu Terminen
 
-knitr::kable(df, caption = "Zuordnung von Themen zu Terminen")
+ Termin  Thema / Kapitel                                               
+-------  --------------------------------------------------------------
+      1  Organisatorisches                                             
+      1  Einführung                                                    
+      1  Rahmen                                                        
+      1  Daten einlesen                                                
+      2  Datenjudo                                                     
+      3  Daten visualisieren                                           
+      4  Fallstudie                                                    
+      5  Der p-Wert                                                    
+      5  Daten modellieren                                             
+      6  Lineare Regression - metrisch                                 
+      7  Lineare Regression - kategorial                               
+      8  Fallstudie                                                    
+      9  Vertiefung 1: Textmining oder Clusteranalyse                  
+     10  Vertiefung 2: Baumbasierte Verfahren oder Dimensionsreduktion 
+     11  Wiederholung                                                  
 
-```
 
 
-```{r fig-themen, echo = FALSE, include = FALSE}
-
-# Bild erzeugen von der Tabelle, da einfacher zu handeln in Powerpoint
-
-library(gridExtra)
-library(grid)
-pdf("images/Orga/Themen_Termin.pdf", height=11, width=8.5)
-
-
-grid.table(df, rows = NULL)
-dev.off()
-
-
-
-```
 
 
           
@@ -111,7 +87,7 @@ Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
   - Fallstudien (nur für Klausuren nicht prüfungslevant),
   - die Inhalte von Links,
   - die Inhalte von Fußnoten,
-  - die Kapitel *Vorwort*, *Organisatorisches* und *Anhang*.  
+  - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
   
 
 Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt.  
@@ -141,8 +117,6 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 ### Datenanalyse
 
-#### Hinweise
-
 - Wenden Sie die passenden, im Modul eingeführten statistischen Verfahren an.
 
 - Werten Sie die Daten mit R aus; R-Syntax soll verwendet und im Hauptteil dokumentiert werden.
@@ -155,9 +129,9 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 - Hat sich jemand schon für einen Datensatz angemeldet, so darf dieser Datensatz nicht mehr gewählt werden ("first come, first serve").
 
-- Fundorte für Datensätze sind z.B. [hier](http://www.stat.ufl.edu/~winner/datasets.html), [hier](http://archive.ics.uci.edu/ml/datasets.html), [hier](https://www.kaggle.com/datasets) und [hier](http://vincentarelbundock.github.io/Rdatasets/datasets.html); im Internet finden sich viele Datensätze^[Googeln Sie mal nach "open datasets" o.ä.].
+- Fundorte für Datensätze sind z.B. [hier](http://www.stat.ufl.edu/~winner/datasets.html), [hier](http://archive.ics.uci.edu/ml/datasets.html) und [hier](http://vincentarelbundock.github.io/Rdatasets/datasets.html); im Internet finden sich viele Datensätze^[Googeln Sie mal nach "open datasets" o.ä.].
 
-- Schreiben Sie Ihre Ergebnisse in einer Ausarbeitung zusammen; der Umfang der Ausarbeitung umfasst ca. *1500 Wörter* (nur Hauptteil; d.h. exklusive Deckblatt, Verzeichnisse, Anhang etc.).
+- Schreiben Sie Ihre Ergebnisse in einer Ausarbeitung zusammen; der Umfang der Ausarbeitung umfasst ca. *1000-1500 Wörter* (nur Hauptteil; d.h. exklusive Deckblatt, Verzeichnisse, Anhang etc.).
 
 - Untersuchen Sie 2-3 Hypothesen.
 
@@ -166,7 +140,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 - Fügen Sie keine Erklärungen oder Definitionen von statistischen Verfahren an.
 
 
-#### Gliederungsvorschlag zur Datenanalyse
+### Gliederungsvorschlag zur Datenanalyse
 
 
 1. Datensatz

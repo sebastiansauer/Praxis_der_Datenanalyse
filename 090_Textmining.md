@@ -1,23 +1,5 @@
 
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 3, dplyr.print_max = 6)
-```
 
 
 
@@ -25,31 +7,26 @@ options(dplyr.print_min = 3, dplyr.print_max = 6)
 # Vertiefung: Textmining
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
 
-```{block2, ziele-textmining, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Sie kennen zentrale Ziele und Begriffe des Textminings.
 - Sie wissen, was ein 'tidy text dataframe' ist.
 - Sie können Worthäufigkeiten auszählen.
 - Sie können Worthäufigkeiten anhand einer Wordcloud visualisieren.
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Kapitel benötigte R-Pakete:
-```{r}
+
+```r
 library(tidyverse)  # Datenjudo
 library(stringr)  # Textverarbeitung
 library(tidytext)  # Textmining
@@ -89,7 +66,8 @@ Die computergestützte Analyse von Texten speiste (und speist) sich reichhaltig 
 Basteln wir uns einen *tidy text* Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor^[Nach dem Gedicht "Jahrgang 1899" von Erich Kästner] besteht aus 4 Elementen.
 
 
-```{r}
+
+```r
 text <- c("Wir haben die Frauen zu Bett gebracht,",
           "als die Männer in Frankreich standen.",
           "Wir hatten uns das viel schöner gedacht.",
@@ -98,22 +76,37 @@ text <- c("Wir haben die Frauen zu Bett gebracht,",
 
 Als nächstes machen wir daraus einen Dataframe.
 
-```{r}
+
+```r
 text_df <- data_frame(Zeile = 1:4,
                       text = text)
 ```
 
-```{r echo = FALSE}
-knitr::kable(text_df)
-```
+
+ Zeile  text                                     
+------  -----------------------------------------
+     1  Wir haben die Frauen zu Bett gebracht,   
+     2  als die Männer in Frankreich standen.    
+     3  Wir hatten uns das viel schöner gedacht. 
+     4  Wir waren nur Konfirmanden.              
 
 Und "dehnen" diesen Dataframe zu einem *tidy text* Dataframe.
-```{r}
+
+```r
 
 text_df %>% 
   unnest_tokens(output = wort, input = text) -> tidytext_df
 
 tidytext_df %>% head
+#> # A tibble: 6 x 2
+#>   Zeile   wort
+#>   <int>  <chr>
+#> 1     1    wir
+#> 2     1  haben
+#> 3     1    die
+#> 4     1 frauen
+#> 5     1     zu
+#> 6     1   bett
 ```
 
 Der Parameter `output` sagt, wie neue 'saubere' Spalte heißen soll; `input` sagt der Funktion, welche Spalte sie als ihr Futter betrachten soll (welche Spalte in tidy text umgewandelt werden soll).
@@ -127,23 +120,29 @@ Das `unnest_tokens` kann übersetzt werden als "entschachtele" oder "dehne" die 
 
 Als nächstes filtern wir die Satzzeichen heraus, da die Wörter für die Analyse wichtiger (oder zumindest einfacher) sind.
 
-```{r}
+
+```r
 text_df %>% 
   unnest_tokens(wort, text) %>% 
   filter(str_detect(wort, "[a-z]"))
+#> # A tibble: 24 x 2
+#>   Zeile  wort
+#>   <int> <chr>
+#> 1     1   wir
+#> 2     1 haben
+#> 3     1   die
+#> # ... with 21 more rows
 ```
 
 Das `"[a-z]"` steht für "alle Buchstaben von a-z". In Pseudo-Code heißt dieser Abschnitt:
 
 
-```{block2, pseudo-unnest, type='rmdpseudocode', echo = TRUE}
-Nehme den Datensatz "text_df" UND DANN  
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Nehme den Datensatz "text_df" UND DANN  
 dehne die einzelnen Elemente der Spalte "text", so dass jedes Element seine eigene Spalte bekommt.  
 Ach ja: Diese "gedehnte" Spalte soll "Wort" heißen (weil nur einzelne Wörter drinnen stehen).  
 Ach ja 2: Diesees "dehnen" wandelt automatisch Groß- in Kleinbuchstaben um. UND DANN   
 filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERTIG.  
-
-```
+</div>\EndKnitrBlock{rmdpseudocode}
 
 
 ### Text-Daten einlesen
@@ -151,7 +150,8 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
 
 
-```{r}
+
+```r
 afd_url <- paste0("https://www.alternativefuer.de",
 "/wp-content/uploads/sites/7/2016/05/",
 "2016-06-27_afd-grundsatzprogramm_web-version.pdf")
@@ -161,7 +161,6 @@ afd_pfad <- "data/afd_programm.pdf"
 download(afd_url, afd_pfad)
 
 afd_raw <- pdf_text(afd_pfad)
-
 
 ```
 
@@ -173,7 +172,8 @@ Mit `download` haben wir die Datei mit der Url `afd_url` heruntergeladen und als
 
 Der Vektor `afd_raw` hat 96 Elemente (entsprechend der Seitenzahl des Dokzements); zählen wir die Gesamtzahl an Wörtern. Dazu wandeln wir den Vektor in einen tidy text Dataframe um. Auch die Stopwörter entfernen wir wieder wie gehabt.
 
-```{r}
+
+```r
 afd_df <- data_frame(Zeile = 1:96, 
                      afd_raw)
 afd_df %>% 
@@ -182,15 +182,15 @@ afd_df %>%
 
 
 count(afd_df) 
+#> # A tibble: 1 x 1
+#>       n
+#>   <int>
+#> 1 26396
 ```
 
 
 
-```{r}
 
-
-
-```
 
 
 Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
@@ -198,15 +198,24 @@ Eine substanzielle Menge von Text. Was wohl die häufigsten Wörter sind?
 
 ### Worthäufigkeiten auszählen
 
-```{r}
+
+```r
 afd_df %>% 
   na.omit() %>%  # fehlende Werte löschen
   count(token, sort = TRUE)
+#> # A tibble: 7,087 x 2
+#>   token     n
+#>   <chr> <int>
+#> 1   die  1151
+#> 2   und  1147
+#> 3   der   870
+#> # ... with 7,084 more rows
 ```
 
 Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... Solche sogenannten "Stopwörter" sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket `lsa`.
 
-```{r}
+
+```r
 data(stopwords_de)
 
 stopwords_de <- data_frame(word = stopwords_de)
@@ -217,28 +226,38 @@ stopwords_de <- stopwords_de %>%
 
 afd_df %>% 
   anti_join(stopwords_de) -> afd_df
-
 ```
 
 
 Unser Datensatz hat jetzt viel weniger Zeilen; wir haben also durch `anti_join` Zeilen gelöscht (herausgefiltert). Das ist die Funktion von `anti_join`: Die Zeilen, die in beiden Dataframes vorkommen, werden herausgefiltert. Es verbleiben also nicht "Nicht-Stopwörter" in unserem Dataframe. Damit wird es schon interessanter, welche Wörter häufig sind.
 
-```{r}
+
+```r
 afd_df %>% 
   count(token, sort = TRUE) -> afd_count
-
 ```
 
 
-```{r echo = FALSE}
-afd_count %>% 
-  top_n(10) %>% 
-  knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm")
-```
+
+Table: (\#tab:unnamed-chunk-16)Die häufigsten Wörter im AfD-Parteiprogramm
+
+token            n
+------------  ----
+deutschland    190
+afd            171
+programm        80
+wollen          67
+bürger          57
+euro            55
+dafür           53
+eu              53
+deutsche        47
+deutschen       47
 
 Ganz interessant; aber es gibt mehrere Varianten des Themas "deutsch". Es ist wohl sinnvoller, diese auf den gemeinsamen Wortstamm zurückzuführen und diesen nur einmal zu zählen. Dieses Verfahren nennt man "stemming" oder "trunkieren".
 
-```{r}
+
+```r
 afd_df %>% 
   mutate(token_stem = wordStem(.$token, language = "german")) %>% 
   count(token_stem, sort = TRUE) -> afd_count
@@ -247,6 +266,23 @@ afd_count %>%
   top_n(10) %>% 
   knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
 ```
+
+
+
+Table: (\#tab:unnamed-chunk-17)Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'
+
+token_stem       n
+------------  ----
+deutschland    219
+afd            171
+deutsch        119
+polit           88
+staat           85
+programm        81
+europa          80
+woll            67
+burg            66
+soll            63
 
 Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen Vektor an Wörtern ein und gibt die Sprache an (Default ist Englisch). Denken Sie daran, dass `.` bei `dplyr` nur den Datensatz meint, wie er im letzten Schritt definiert war. Mit `.$token` wählen wir also die Variable `token` aus `afd_raw` aus.
 
@@ -257,13 +293,16 @@ Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen 
 Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
-```{r}
+
+```r
 wordcloud(words = afd_count$token_stem, 
           freq = afd_count$n, 
           max.words = 100, 
           scale = c(2,.5), 
           colors=brewer.pal(6, "Dark2"))
 ```
+
+<img src="090_Textmining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen^[https://cran.r-project.org/web/packages/wordcloud/index.html
 ].
@@ -272,7 +311,8 @@ Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wo
  
 Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).
 
-```{r}
+
+```r
 
 afd_count %>% 
   top_n(30) %>% 
@@ -294,18 +334,18 @@ afd_df %>%
 
 library(gridExtra)
 grid.arrange(p1, p2, ncol = 2)
-
 ```
+
+<img src="090_Textmining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
 
-## Aufgaben^[F, R, F, F, R, R, F, F]
+## Aufgaben^[F, R, F, F, R, R]
 
 
 
-```{block2, exercises-text, type='rmdexercises', echo = TRUE} 
-Richtig oder Falsch!?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
 1. Unter einem Token versteht man die größte Analyseeinheit in einem Text.
 1. In einem tidytext Dataframe steht jedes Wort in einer (eigenen) Zeile.
@@ -313,12 +353,9 @@ Richtig oder Falsch!?
 1. Gibt es 'Stop-Wörter' in einem Dataframe, dessen Text analysiert wird, so kommt es - per definitionem - zu einem Stop.
 1. Mit dem Befehl `unnest_tokens` kann man einen tidytext Dataframe erstellen.
 1. Balkendiagramme sind sinnvolle und auch häufige Diagrammtypen, um die häufigsten Wörter (oder auch Tokens) in einem Corpus darzustellen.
-1. In einem 'tidy text Dataframe' steht in jeder Zeile ein Wort (token) *aber nicht* die Häufigkeit des Worts im Dokument.
-1. Unter 'Stemming' versteht man (bei der Textanalyse), die Etymologie eines Wort (Herkunft) zu erkunden.
 
 
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -328,23 +365,35 @@ Richtig oder Falsch!?
 
 Tabelle \@ref(tab:befehle-text) fasst die R-Funktionen dieses Kapitels zusammen.
 
-```{r befehle-text, echo = FALSE}
 
-df <- readr::read_csv("includes/Befehle_text.csv")
+----------------------------------------------------------
+Paket..Befehl             Beschreibung                    
+------------------------- --------------------------------
+tidytext::unnest_tokens   Jedes Token (Wort) einer        
+                          Spalte bekommt eine eigene      
+                          Zeile in einem Dataframe        
 
+stringr::str_detect       Sucht nach einem String (Text)  
 
+downloader:: download     lädt eine Datei aus dem         
+                          Internet herunter               
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Textmining'")
+dplyr::rename             Benennt Spalten um              
 
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+anti_join                 Führt Dataframes zusammen, so   
+                          dass nicht matchende Einträge   
+                          übernommen werden               
 
+wordcloud::wordcloud      Erstellt eine Wordcloud         
 
-```
+ggplot2::labs             Fügt Titel oder andere          
+                          Hinweise einem ggplot2-Objekt   
+                          hinzu                           
 
+ggplot2::coord_flip       Dreht die Achsen um 90 Grad     
+----------------------------------------------------------
 
+Table: Befehle des Kapitels 'Textmining'
 
 
 ## Verweise

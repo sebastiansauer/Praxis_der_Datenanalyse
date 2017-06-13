@@ -70,7 +70,7 @@ library(wordcloud)  # Wordcloud anzeigen
 
 - [Vorwort](#Vorwort)
 - [Rahmen](#Rahmen)
-- [Daten einlesen]{#tidy}
+- [Daten einlesen](#tidy)
 - [Datenjudo](#Datenjudo)
 - [Daten visualisieren](#vis)
 - [Grundlagen des Modellierens](#mod)
@@ -86,13 +86,9 @@ library(wordcloud)  # Wordcloud anzeigen
 
 ## Hinweise
 
-- Diese Folien vermitteln *nicht* den Stoff.
+- Diese Folien vermitteln *nicht* den Stoff. Sie visualisieren nur einige zentrale Ideen.
 
-- Sie visualisieren nur einige zentrale Ideen.
-
-- Der Stoff wird vom Skript vermittelt.
-
-- Nutzen Sie das Skript zum eigentlichen Arbeiten.
+- Der Stoff wird vom [Skript](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/) vermittelt. Nutzen Sie das Skript zum eigentlichen Arbeiten.
 
 
 # Organisatorisches
@@ -134,17 +130,10 @@ knitr::kable(df)
    
    
    
-*Prüfungsrelevant* ist der gesamte Stoff aus dem Skript und dem Unterricht mit folgenden Ausnahmen:
+*Prüfungsrelevant* ist der gesamte Stoff aus dem Skript und dem Unterricht mit [einigen Ausnahmen](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html#prufung)
 
-  - Inhalte/Abschnitte, die als "nicht klausurrelevant" gekennzeichnet sind,
-  - Inhalte/Abschnitte, die als "Vertiefung" gekennzeichnet sind,
-  - Fallstudien (nur für Klausuren nicht prüfungslevant),
-  - die Inhalte von Links,
-  - die Inhalte von Fußnoten,
-  - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
-  
 
-Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt.  
+Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt. 
 
 
 
@@ -152,15 +141,15 @@ Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgel
 
 
 ### Klausur
-- Hinweise zur Klausur finden Sie [hier]()
-- Im Unterricht findet eine Probeklausur statt.
-- Lernaufgaben finden sich im Skript.
+- Hinweise zur Klausur finden Sie [hier](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html#klausur)
+- Im Skript finden Sie eine [Probeklausur](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/probeklausur.html).
+- Lernaufgaben finden sich im Skript am Ende jedes Kapitels.
 
 
 ### Datenanalyse
-- Hinweise zur Datenanalyse finden Sie [hier]().
+- Hinweise zur Datenanalyse finden Sie [hier](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html#klausur).
 - Die Datenanalyse wird (in fast jeder Stunde) praktisch eingeübt.
-- Beispiele für gute Datenanalysen von Studierenden finden Sie [hier]().
+- Beispiele für gute Datenanalysen von Studierenden finden Sie [hier](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html#klausur) (im OC).
 
 
 # Rahmen
@@ -190,10 +179,15 @@ knitr::include_graphics("../images/Rahmen/Prozess_Datenanalyse.png")
 
 
 
-```{r echo = FALSE, fig.cap = "RStudio"} 
+```{r echo = FALSE, fig.cap = "RStudio", out.width = "50%"} 
 knitr::include_graphics("../images/Rahmen/RStudio-Screenshot.png")
 
 ```
+
+
+## Sonstiges Material für dieses Skript
+
+Bitte laden Sie sich diesen Ordner [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter. Dazu klicken Sie auf den grünen Button "Clone or Download", wählen Sie dann "Download Zip". Daraufhin wird dieser Ordner heruntergeladen. 
 
 
 ## Hilfe! R!
@@ -224,6 +218,11 @@ knitr::include_graphics("../images/Rahmen/install_packages.png")
 ```
 
 
+## Datensätze {#daten}
+
+
+Alle Datensätze liegen im Ordner `data/`, den Sie vom [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunterladen können.
+
 
 ## Was ist Statistik?
 
@@ -240,7 +239,7 @@ knitr::include_graphics("../images/Rahmen/desk_vs_inf-crop.png")
 ## Abduktion als klassische Denkfigur in der Statistik
 
 
-`r knitr::asis_output("\\footnotesize")
+
 
 ```
 Prämisse 1: Wenn Modell M wahr ist,   
@@ -250,7 +249,7 @@ Prämisse 2: Die Daten weisen das Muster D auf.
 Konklusion: Daher muss das Modell M wahr sein.
 ```
 
-`r knitr::asis_output("\\normalsize")`
+
 
 Die Konklusion ist *nicht* zwangsläufig richtig.
 
@@ -575,7 +574,7 @@ desctable(stats_test2l)
 ## Statistik ist wie ein Bikini...
 
 
-```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett"}
+```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett", out.width = "50%"}
 knitr::include_graphics("../images/visualisieren/anscombe.png")
 ```
 
@@ -589,7 +588,7 @@ knitr::include_graphics("../images/visualisieren/anscombe.png")
 
 
 
-```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms"}
+```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms", out.width = "50%"}
 knitr::include_graphics("../images/visualisieren/anatomie_diagramm_crop.jpg")
 ```
 
@@ -601,7 +600,7 @@ movies <- read.csv("../data/movies.csv")
 ```
 
 
-```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
+```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr", out.width = "50%"}
 qplot(x = year, y = budget, geom = "point", data = movies)
 ```
 
@@ -630,6 +629,7 @@ qplot (x = X_Achse,
 
 ## Häufige Diagrammtypen
 
+[s. Skript](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/daten-visualisieren.html#haufige-arten-von-diagrammen)
 
 - Histogramm, Dichtediagramm
 - Punkte, Schachbrett-Diagramme
@@ -789,7 +789,7 @@ Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, hei�
 
 ## Overfitting
 
-```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe"}
+```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe", out.width = "50"}
 knitr::include_graphics("../images/modellieren/overfitting.png")
 ```
 
@@ -925,17 +925,12 @@ ggplot(df) +
 
 ## Alternativen zum p-Wert - Effektstärken
 
-```{r effectsizes, echo = FALSE}
-
-df <- read_csv("../includes/effectsizes.csv")
-
-pander::pander(df, caption = "Überblick über gängige Effektstärkemaße")
-```
+s. [Tabelle im Skript](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/der-p-wert-inferenzstatistik-und-alternativen.html#effektstarke)
 
 
 ## Alternativen zum p-Wert - Bayes-Statistik
 
-$p(D|H)$
+Bayes liefert $p(D|H)$. 
 
 ```{r bayes, echo = FALSE, fig.cap = "Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli"}
 
@@ -966,7 +961,7 @@ knitr::include_graphics("../images/inferenz/bayes-crop.png")
 score = achsenabschnitt + steigung*study_time
 ```
 
-```{r bsp-regression, fig.cap = "Beispiel für eine Regression", echo = FALSE}
+```{r bsp-regression, fig.cap = "Beispiel für eine Regression", echo = FALSE, out.width = "50%"}
 stats_test <- readr::read_csv("../data/test_inf_short.csv")
 
 stats_test %>% 
@@ -1046,13 +1041,13 @@ $$ R^2 = 1 - \left( \frac{SS_T - SS_M}{SS_T} \right)$$
 
 ## Unterscheiden sich Interessierten von Nicht-I. im Klausurerfolg?
 
-```{r}
+```{r echo = FALSE}
 stats_test$interessiert <- stats_test$interest > 3
 stats_test %>% 
   group_by(interessiert) %>% 
   summarise(score = mean(score)) -> score_interesse
 
-score_interesse
+score_interesse %>% knitr::kable
 ```
 
 
@@ -1227,7 +1222,7 @@ Aktien <- readr::read_csv("../data/Aktien.csv") %>% na.omit
 ```
 
 
-```{r fig-logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf"}
+```{r fig-logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf", echo = FALSE, out.width = "50%"}
 p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_point()
 p1
 ```
@@ -1248,7 +1243,7 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft,
 
 ## Visualisierung der logistischen Regression
 
-```{r fig-logist-regr2, fig.cap = "Regressionsgerade für Aktien-Modell"}
+```{r fig-logist-regr2, echo = FALSE, fig.cap = "Regressionsgerade für Aktien-Modell", out.width = "50%"}
 
 p1 + geom_abline(intercept = .18, 
                  slope = .05, color = "red")
@@ -1259,7 +1254,6 @@ p1 + geom_abline(intercept = .18,
 
 ## Formel der logistischen Regression
 
-$p(y=1)=\frac{e^x}{1+e^x}$
 
 
 ```{r logist-curve, echo = FALSE, fig.cap = "Die logistische Regression beschreibt eine 's-förmige' Kurve"}
@@ -1303,9 +1297,7 @@ Aktien %>%
 
 Ist ein Logit $\mathfrak{L}$ größer als $0$, so ist die zugehörige Wahrscheinlichkeit größer als 50% (und umgekehrt.)
 
-*Logits*\index{Logit} $\mathfrak{L}$:
-
-$\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
+*Logits*\index{Logit} $\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
 
 `y = intercept + 3*Risikobereitschaft`, also
 
@@ -1355,7 +1347,7 @@ pander(df, caption = "Vier Arten von Ergebnisse von Klassfikationen")
 
 ## Konfusionsmatrix
 
-```{r}
+```{r echo = FALSE}
 (cm <- SDMTools::confusion.matrix(Aktien$Aktienkauf, 
                                   glm1$fitted.values)) 
 sensitivity(cm); specificity(cm)
@@ -1511,7 +1503,16 @@ knitr::include_graphics("../images/cluster/pythagoras2_crop.png")
 knitr::include_graphics("../images/cluster/pythagoras_crop.png")
 ```
 
+## Wie viele Cluster sind "richtig"?
 
+
+```{r cluster4, echo = FALSE, fig.cap = "Die Summe der Varianz within in Abhängigkeit von der Anzahl von Clustern. Ein Screeplot.", out.width = "50%"}
+ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept = 3, linetype = "dashed", color = "grey30") +
+  xlab("Anzahl der Cluster") +
+  ylab("Summe der Varianz within über alle Cluster") +
+  scale_x_continuous(breaks = 1:9)
+
+```
 
 
 ## k-Means Clusteranalyse
@@ -1719,13 +1720,13 @@ Werte.pca <- principal(Werte, nfactors = 5, rotate = "none")
 
 
 ## Pfaddiagramm der Ladungen auf die Hauptkomponenten
-```{r out.width = "50%"}
+```{r out.width = "40%"}
 fa.diagram(Werte.pca)
 ```
 
 
 ## Rotation
-```{r rotation, echo = FALSE, fig.cap = "Beispiel für eine rechtwinklige Rotation"}
+```{r rotation, echo = FALSE, fig.cap = "Beispiel für eine rechtwinklige Rotation", out.width = "50%"}
 
 knitr::include_graphics("../images/dimred/rotation.png")
 
@@ -1762,11 +1763,13 @@ Werte.ob <- factanal(Werte, factors = 5, scores = "Bartlett")
 
 
 ## Interne Konsistenz der Skalen
-Inhaltlich ist Alpha eine Art mittlere Korrelation, die sich ergibt wenn man alle Items (paarweise) miteinander korrliert: I1-I2, I1-I3,...
+Inhaltlich ist Alpha eine Art mittlere Korrelation, die sich ergibt wenn man alle Items (paarweise) miteinander korreliert: I1-I2, I1-I3,...
 
 ```{r eval = FALSE}
-alpha(Werte[, c("W12","W13", "W14", "W15")], check.keys = TRUE)
+Werte %>% 
+  select(W12, W13, W14, W15) -> df
 
+psych::alpha(df, check.keys = TRUE)
 ```
 
 ## Faustregeln zur Höhe von Cronbachs Alpha
@@ -1817,11 +1820,11 @@ text_df <- data_frame(Zeile = 1:4,
 
 ## Tidytext -- Output
 
-```{r}
+```{r echo = FALSE}
 text_df %>%
   unnest_tokens(output = wort, input = text) -> tidytext_df
 
-tidytext_df %>% head
+tidytext_df %>% head %>% knitr::kable
 ```
 
 >   In einem 'tidy text Dataframe'  steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts
@@ -1865,10 +1868,18 @@ afd_df %>%
 
 ## Stopwörter entfernen
 
+
 ```{r echo = FALSE}
+stopwords_de <- data_frame(word = stopwords_de)
+
+stopwords_de %>% head %>% knitr::kable
+```
+
+
+```{r include = FALSE}
 data(stopwords_de)
 
-stopwords_de <- data_frame(word = stopwords_de)
+
 
 stopwords_de <- stopwords_de %>%
   rename(token = word)
@@ -1890,7 +1901,29 @@ afd_count %>%
 ```
 
 
+## Die drei häufigsten Wörter im AfD-Parteiprogramm
 
+
+```{r echo = FALSE}
+afd_df %>% 
+  mutate(token_stem = wordStem(.$token, language = "german")) %>% 
+  count(token_stem, sort = TRUE) -> afd_count
+
+afd_count %>% 
+  top_n(3) %>% 
+  knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
+```
+
+
+## Wordcloud
+
+```{r}
+wordcloud(words = afd_count$token_stem, 
+          freq = afd_count$n, 
+          max.words = 100, 
+          scale = c(2,.5), 
+          colors=brewer.pal(6, "Dark2"))
+```
 
 
 # Anhang

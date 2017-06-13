@@ -1,21 +1,4 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-```
 
 
 \part{Geleitetes Modellieren}
@@ -26,17 +9,12 @@ knitr::opts_chunk$set(
 # Lineare Regression
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
-```{block2, ziele-regression, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 
 - Wissen, was man unter Regression versteht.
@@ -46,12 +24,12 @@ Lernziele:
 - Interaktionen erkennen und ihre Stärke einschätzen können.
 
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 Für dieses Kapitel benötigen Sie folgende Pakete:
-```{r libs-regr}
+
+```r
 library(caret)  # Modellieren
 library(tidyverse)  # Datenjudo, Visualisierung,...
 library(gridExtra)  # Mehrere Plots kombinieren
@@ -64,7 +42,8 @@ library(broom)  # Regressionswerte geordnet ausgeben lassen
 
 Regression\index{Regression} ist eine bestimmte Art der *Modellierung* von Daten. Wir legen eine Gerade 'schön mittig' in die Daten; damit haben wir ein einfaches Modell der Daten (vgl. Abb. \@ref(fig:bsp-regression)). Die Gerade 'erklärt' die Daten: Für jeden X-Wert liefert sie einen Y-Wert als Vorhersage zurück.
 
-```{r bsp-regression, fig.cap = "Beispiel für eine Regression"}
+
+```r
 stats_test <- read.csv("data/test_inf_short.csv")
 
 stats_test %>% 
@@ -74,15 +53,18 @@ stats_test %>%
   geom_abline(intercept = 24, 
               slope = 2.3, 
               color = "red")
-
 ```
+
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/bsp-regression-1.png" alt="Beispiel für eine Regression" width="70%" />
+<p class="caption">(\#fig:bsp-regression)Beispiel für eine Regression</p>
+</div>
 
 Wie wir genau die Regressionsgerade berechnet haben, dazu gleich mehr. Fürs Erste begnügen wir uns mit der etwas groberen Beobachtung, dass die Gerade 'schön mittig' in der Punktewolke liegt. 
 
 Schauen wir uns zunächst die Syntax genauer an.
 
-```{block2, pseudo-regression, type='rmdpseudocode', echo = TRUE} 
-
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">
 Lade die CSV-Datei mit den Daten als `stats_test`.
   
 Nehme `stats_test` UND DANN...  
@@ -91,31 +73,14 @@ definiere das Diagramm (X-Achse, Y-Achse)
 zeichne das Geom "Jitter" (verwackeltes Punktediagramm)  
 und zeichne danach eine Gerade ("abline" in rot). 
 
-
-```
+</div>\EndKnitrBlock{rmdpseudocode}
 
 Eine Regression zeigt anhand einer Regressionsgeraden einen "Trend" in den Daten an (s. weitere Beispiele in Abb. \@ref(fig:bsp-regression2)).
 
-```{r bsp-regression2, echo = FALSE, fig.cap = "Zwei weitere Beispiele für Regressionen"}
-
-stats_test %>% 
-   ggplot +
-  aes(x = self_eval, y = score) +
-  geom_jitter() +
-  geom_smooth(method = "lm", color = "red", se = FALSE) -> p1
-
-
-stats_test %>% 
-   ggplot +
-  aes(x = interest, y = score) +
-  geom_jitter() +
-  geom_smooth(method = "lm", color = "red", se = FALSE) -> p2
-
-
-gridExtra::grid.arrange(p1, p2, ncol = 2)
-
-
-```
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/bsp-regression2-1.png" alt="Zwei weitere Beispiele für Regressionen" width="70%" />
+<p class="caption">(\#fig:bsp-regression2)Zwei weitere Beispiele für Regressionen</p>
+</div>
 
 
 Eine Regression lädt förmlich dazu ein, Vorhersagen zu treffen: Hat man erstmal eine Gerade, so kann man für jeden X-Wert ("Prädiktor") eine Vorhersage für den Y-Wert ("Kriterium") treffen. Anhand des Diagramms kann man also für jede Person (d.h. jeden Wert innerhalb des Wertebereichs von `study_time` oder einem anderen Prädiktor) einen Wert für `score` vorhersagen. Wie gut die Vorhersage ist, steht erstmal auf einen anderen Blatt.
@@ -138,8 +103,16 @@ Aber wie erkannt man, ob eine Regression "gut" ist - die Vorhersagen also präzi
 
 In R kann man eine Regression so berechnen:
 
-```{r lm1-stats-test}
+
+```r
 lm(score ~ study_time, data = stats_test)
+#> 
+#> Call:
+#> lm(formula = score ~ study_time, data = stats_test)
+#> 
+#> Coefficients:
+#> (Intercept)   study_time  
+#>       23.98         2.26
 ```
 
 `lm` steht dabei für "lineares Modell"; allgemeiner gesprochen lautet die Rechtschreibung für diesen Befehl:
@@ -151,7 +124,8 @@ lm(kriterium ~ praediktor, data = meine_datentabelle)
 Um ausführlichere Informationen über das Regressionsmodell zu bekommen, kann man die Funktion `summary` nutzen:
 
 
-```{r eval = FALSE}
+
+```r
 mein_lm <- lm(kriterium ~ praediktor, data = meine_datentabelle)
 summary(mein_lm)
 ```
@@ -169,42 +143,10 @@ lm(kriterium ~ praediktor, data = meine_datentabelle) %>%
 
 Der einfache Grundsatz lautet: Je geringer die Vorhersagefehler, desto besser; Abb. \@ref(fig:resids-plot) zeigt ein Regressionsmodell mit wenig Vorhersagefehler (links) und ein Regressionsmodell mit viel Vorhersagefehler (rechts).
 
-```{r resids-plot, echo = FALSE, results = "hold", fig.cap = "Geringer (links) vs. hoher (rechts) Vorhersagefehler"}
-
-set.seed(42)  
-N      <- 100
-beta   <- 0.4
-intercept <- 1
-
-
-sim <- data_frame(
-  x = rnorm(N),
-  error1 = rnorm(N, mean = 0, sd = .5),
-  error2 = rnorm(N, mean = 0, sd = 2),
-  y1 = intercept + x*beta + error1,
-  y2 = intercept + x*beta + error2,
-  pred = 1 + x*beta
-)
-
-
-
-p1 <- ggplot(sim, aes(x, y1)) + 
-  geom_abline(intercept = intercept, slope = beta, colour = "red") +
-  geom_point(colour = "#00998a") +
-  geom_linerange(aes(ymin = y1, ymax = pred), colour = "grey40") +
-  ylim(-6,+6)
-
-
-p2 <- ggplot(sim, aes(x, y2)) + 
-  geom_abline(intercept = intercept, slope = beta, colour = "red") +
-  geom_point(colour = "#00998a") +
-  geom_linerange(aes(ymin = y2, ymax = pred), colour = "grey40") +
-  ylim(-6,+6)
-
-
-grid.arrange(p1, p2, ncol = 2)
-
-```
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/resids-plot-1.png" alt="Geringer (links) vs. hoher (rechts) Vorhersagefehler" width="70%" />
+<p class="caption">(\#fig:resids-plot)Geringer (links) vs. hoher (rechts) Vorhersagefehler</p>
+</div>
 
 
 In einem Regressionsmodell lautet die grundlegenden Überlegung zur Modellgüte damit:
@@ -261,7 +203,8 @@ R2 <- 1 - sum((df$pred - df$obs)^2) / sum((mean(df$obs) - df$obs)^2)
 
 Praktischerweise gibt es einige R-Pakete, z.B. `caret`, die diese Berechnung für uns besorgen:
 
-```{r R2-caret, eval = FALSE}
+
+```r
 postResample(obs = obs, pred = pred)
 ```
 
@@ -270,11 +213,8 @@ Hier steht `obs` für beobachtete Werte und `pred` für die vorhergesagten Werte
 
 
 
-```{block2, r-nicht-als-guete, type='rmdcaution', echo = TRUE}
-
-Verwendet man die Korrelation (r) oder $R^2$ als Gütekriterium, so sollte man sich über folgenden Punkt klar sein. Bei Skalierung der Variablen ändert sich die Korrelation nicht; das gilt auch für $R^2$. Beide Koeffizienten ziehen allein auf das *Muster* der Zusammenhänge ab - nicht die Größe der Abstände. Aber häufig ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert. In dem Fall wäre der MSE vorzuziehen.
-
-```
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -295,10 +235,29 @@ Versuchen wir im ersten Schritt die Stärke des Einfluss an einem Streudiagramm 
 Hey R - berechne uns die "Trendlinie"! Dazu nimmt man den Befehl `lm`:
 
 
-```{r}
+
+```r
 mein_lm <- lm(score ~ study_time, data = stats_test)
 summary(mein_lm)
-
+#> 
+#> Call:
+#> lm(formula = score ~ study_time, data = stats_test)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -13.758  -3.693   0.242   3.983  12.760 
+#> 
+#> Coefficients:
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)   23.981      0.934   25.67   <2e-16 ***
+#> study_time     2.259      0.300    7.54    1e-12 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 5.15 on 236 degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> Multiple R-squared:  0.194,	Adjusted R-squared:  0.191 
+#> F-statistic: 56.8 on 1 and 236 DF,  p-value: 1.02e-12
 ```
 
 `lm` steht für 'lineares Modell', eben weil eine *Linie* als Modell in die Daten gelegt wird. Aha. Die Steigung der Geraden beträgt 2.3 - das ist der Einfluss des Prädiktors Lernzeit auf das Kriterium Klausurerfolg! Man könnte sagen: Der "Wechselkurs" von Lernzeit auf Klausurpunkte. Für jede Stunde Lernzeit bekommt man offenbar 2.3 Klausurpunkte (natürlich viel zu leicht). Wenn man nichts lernt (`study_time == 0`) hat man 24 Punkte.
@@ -310,12 +269,18 @@ summary(mein_lm)
 Malen wir diese Gerade in unser Streudiagramm (Abbildung \@ref(fig:stats-test-scatter2).
 
 
-```{r stats-test-scatter2, fig.cap = "Streudiagramm von Lernzeit und Klausurerfolg"}
+
+```r
 ggplot(data = stats_test) +
   aes(y = score, x = study_time) +
   geom_jitter() +
   geom_abline(slope = 2.3, intercept = 24, color = "red")
 ```
+
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/stats-test-scatter2-1.png" alt="Streudiagramm von Lernzeit und Klausurerfolg" width="70%" />
+<p class="caption">(\#fig:stats-test-scatter2)Streudiagramm von Lernzeit und Klausurerfolg</p>
+</div>
 
 Jetzt kennen wir die Stärke (und Richtung) des Einflusses der Lernzeit. Ob das viel oder wenig ist, ist am besten im Verhältnis zu einem Referenzwert zu sagen.
 
@@ -331,20 +296,43 @@ Oder mit diesem R-Befehl:
 
 
 
-```{r}
+
+```r
 predict(mein_lm, data.frame(study_time = 4))
+#>  1 
+#> 33
 ```
 
 
 
 Berechnen wir noch die Vorversagegüte des Modells.
 
-```{r}
+
+```r
 summary(mein_lm)
+#> 
+#> Call:
+#> lm(formula = score ~ study_time, data = stats_test)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -13.758  -3.693   0.242   3.983  12.760 
+#> 
+#> Coefficients:
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)   23.981      0.934   25.67   <2e-16 ***
+#> study_time     2.259      0.300    7.54    1e-12 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 5.15 on 236 degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> Multiple R-squared:  0.194,	Adjusted R-squared:  0.191 
+#> F-statistic: 56.8 on 1 and 236 DF,  p-value: 1.02e-12
 ```
 
 
-Das Bestimmtheitsmaß $R^2$ ist mit `r round(summary(mein_lm)$r.squared,2)` "ok": `r round(summary(mein_lm)$r.squared*100)`-\% der Varianz des Klausurerfolg wird im Modell 'erklärt'. 'Erklärt' meint hier, dass wenn die Lernzeit konstant wäre, würde die Varianz von Klausurerfolg um diesen Prozentwert sinken.
+Das Bestimmtheitsmaß $R^2$ ist mit 0.19 "ok": 19-\% der Varianz des Klausurerfolg wird im Modell 'erklärt'. 'Erklärt' meint hier, dass wenn die Lernzeit konstant wäre, würde die Varianz von Klausurerfolg um diesen Prozentwert sinken.
 
 
 ## Überprüfung der Annahmen der linearen Regression
@@ -357,7 +345,8 @@ Aber wie sieht es mit den Annahmen aus?
 
 Hier scheint es zu passen:
 
-```{r resid-distrib, fig.cap = "Die Residuen verteilen sich hinreichend normal."}
+
+```r
 stats_test %>% 
   add_residuals(mein_lm) %>% 
   ggplot +
@@ -365,14 +354,27 @@ stats_test %>%
   geom_histogram()
 ```
 
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/resid-distrib-1.png" alt="Die Residuen verteilen sich hinreichend normal." width="70%" />
+<p class="caption">(\#fig:resid-distrib)Die Residuen verteilen sich hinreichend normal.</p>
+</div>
+
 
 Sieht passabel aus. Übrigens kann man das Paket `modelr` auch nutzen, um sich komfortabel die vorhergesagten Werte zum Datensatz hinzufügen zu lassen (Spalte `pred`):
 
-```{r}
+
+```r
 stats_test %>% 
   add_predictions(mein_lm) %>% 
   select(pred) %>% 
   head
+#>   pred
+#> 1 35.3
+#> 2 30.8
+#> 3 35.3
+#> 4 28.5
+#> 5 33.0
+#> 6   NA
 ```
 
 
@@ -380,7 +382,8 @@ stats_test %>%
 
 Die geschätzten (angepassten) Werte kann man über den Befehl `add_predictions()` aus dem Paket `modelr` bekommen. Die Fehlerwerte entsprechend mit dem Befehl `add_residuals`. 
 
-```{r tips-preds-resid, fig.cap = "Vorhergesagte Werte vs. Residualwerte im Datensatz tips"}
+
+```r
 
 stats_test %>% 
   add_predictions(mein_lm) %>% 
@@ -388,8 +391,12 @@ stats_test %>%
   ggplot() +
   aes(y = resid, x = pred) +
   geom_point()
-
 ```
+
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/tips-preds-resid-1.png" alt="Vorhergesagte Werte vs. Residualwerte im Datensatz tips" width="70%" />
+<p class="caption">(\#fig:tips-preds-resid)Vorhergesagte Werte vs. Residualwerte im Datensatz tips</p>
+</div>
 
 
 Die Annahme der konstanten Varianz scheint verletzt zu sein: Die sehr großen vorhersagten Werte können recht genau geschätzt werden; aber die mittleren Werte nur ungenau.
@@ -401,38 +408,45 @@ Die Verletzung dieser Annahme beeinflusst *nicht* die Schätzung der Steigung, s
 
 
 
-```{block2, tips-uebung, type='rmdexercises', echo = TRUE}
-1.  Wie groß ist der Einfluss des Interesss?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">1.  Wie groß ist der Einfluss des Interesss?
 
 2.  Für wie aussagekräftig halten Sie Ihr Ergebnis aus 1.?
 
 3.  Welcher Einflussfaktor (in unseren Daten) ist am stärksten?
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
 ## Regression mit kategorialen Prädiktoren
 Vergleichen wir interessierte und nicht interessierte Studenten. Dazu teilen wir die Variable `interest` in zwei Gruppen (1-3 vs. 4-6) auf:
 
-```{r}
+
+```r
 stats_test$interessiert <- stats_test$interest > 3
 ```
 
 
 Vergleichen wir die Mittelwerte des Klausurerfolgs zwischen den Interessierten und Nicht-Interessierten:
 
-```{r}
+
+```r
 stats_test %>% 
   group_by(interessiert) %>% 
   summarise(score = mean(score)) -> score_interesse
 
 score_interesse
+#> # A tibble: 3 x 2
+#>   interessiert score
+#>          <lgl> <dbl>
+#> 1        FALSE  29.9
+#> 2         TRUE  31.5
+#> 3           NA  33.1
 ```
 
 Aha, die Interessierten haben im Schnitt mehr Punkte; aber nicht viel.
 
-```{r}
+
+```r
 stats_test %>% 
   na.omit %>% 
   ggplot() +
@@ -442,6 +456,8 @@ stats_test %>%
   geom_line(data = score_interesse, group = 1, color = "red")
 ```
 
+<img src="071_Regression_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
 Mit `group=1` bekommt man eine Linie, die alle Punkte verbindet. Wir haben in dem Fall nur zwei Punkte, die entsprechend verbunden werden.
 
 
@@ -449,20 +465,38 @@ Visualisieren Sie den Gruppenunterschied auch mit einem Boxplot.
 
 
 Und als Lineares Modell:
-```{r}
+
+```r
 lm2 <- lm(score ~ interessiert, data = stats_test)
 summary(lm2)
+#> 
+#> Call:
+#> lm(formula = score ~ interessiert, data = stats_test)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -13.537  -4.380  -0.537   4.463  10.091 
+#> 
+#> Coefficients:
+#>                  Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)        29.909      0.475   62.99   <2e-16 ***
+#> interessiertTRUE    1.628      0.752    2.17    0.031 *  
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 5.68 on 236 degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> Multiple R-squared:  0.0195,	Adjusted R-squared:  0.0153 
+#> F-statistic: 4.69 on 1 and 236 DF,  p-value: 0.0313
 ```
 
 Der Einfluss von `interessiert` ist statistisch signifikant (p = .03). Der Stärke des Einflusses ist im Schnitt 1.6 Klausurpunkte (zugunsten `interessiertTRUE`). Das ist genau, was wir oben herausgefunden haben.
 
 
-```{block2, tips-uebung2, type='rmdexercises', echo = TRUE}
-3.  Vie ist der Einfluss von `study_time`, auch in zwei Gruppen geteilt?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">3.  Vie ist der Einfluss von `study_time`, auch in zwei Gruppen geteilt?
 
 4.  Wie viel \% der Variation des Klausurerfolgs können Sie durch das Interesse modellieren?
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -471,9 +505,30 @@ Der Einfluss von `interessiert` ist statistisch signifikant (p = .03). Der Stär
 Aber wie wirken sich mehrere Einflussgrößen *zusammen* auf den Klausurerfolg aus?
 
 
-```{r}
+
+```r
 lm3 <- lm(score ~ study_time + interessiert, data = stats_test)
 summary(lm3)
+#> 
+#> Call:
+#> lm(formula = score ~ study_time + interessiert, data = stats_test)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -13.896  -3.577   0.418   3.805  13.065 
+#> 
+#> Coefficients:
+#>                  Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)        23.955      0.938   25.55  < 2e-16 ***
+#> study_time          2.314      0.323    7.15  1.1e-11 ***
+#> interessiertTRUE   -0.333      0.736   -0.45     0.65    
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 5.16 on 235 degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> Multiple R-squared:  0.195,	Adjusted R-squared:  0.188 
+#> F-statistic: 28.4 on 2 and 235 DF,  p-value: 8.81e-12
 ```
 
 Interessant ist das *negative* Vorzeichen vor dem Einfluss von `interessiertTRUE`! Die multiple Regression untersucht den 'Nettoeinfluss' jedes Prädiktors. Den Einfluss also, wenn der andere Prädiktor *konstant* gehalten wird. Anders gesagt: Betrachten wir jeden Wert von `study_time` separat, so haben die Interessierten jeweils im Schnitt etwas *weniger* Punkte (jesses). Allerdings ist dieser Unterschied nicht statistisch signifikant.
@@ -484,50 +539,10 @@ Interessant ist das *negative* Vorzeichen vor dem Einfluss von `interessiertTRUE
 Hier haben wir übrigens dem Modell aufgezwungen, dass der Einfluss von Lernzeit auf Klausurerfolg bei den beiden Gruppen gleich groß sein soll  (d.h. bei Interessierten und Nicht-Interessierten ist die Steigung der Regressionsgeraden gleich). Das illustriert sich am einfachsten in einem Diagramm (s. Abbildung \@ref(fig:no-interakt)).
 
 
-```{r no-interakt, echo = FALSE, fig.cap = "Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben", fig.height = 7}
-
-library(viridis)
-
-df1 <- data_frame(
-  interessiert = c(T, F),
-  slope = c(2.3, 2.3),
-  intercept = c(23.7, 24)
-)
-
-
-p1 <- stats_test %>% 
-  na.omit %>% 
-  ggplot +
-  aes(x=study_time, y = score) +
-  geom_jitter(width = .1) +
-  #facet_wrap(~interessiert) +
-  geom_abline(data = df1, mapping = aes(slope = slope, intercept = intercept, color = interessiert)) +
-  guides(color = FALSE) +
-  scale_color_viridis(discrete = TRUE) +
-  labs(title = "A") +
-  coord_cartesian(ylim = c(25,35))
-
-
-df2 <- data_frame(
-  slope = rep(-.33, 5),
-  intercept = rep(c(24), 5),
-  study_time = 1:5)
-
-
-p2 <- stats_test %>% 
-  na.omit %>% 
-  ggplot +
-  aes(x=interessiert, y = score) +
-  geom_jitter(width = .1) +
-  facet_wrap(~study_time) +
-  geom_abline(data = df2, mapping = aes(slope = slope, intercept = intercept, color = study_time)) +
-  scale_color_viridis() +
-  guides(color = FALSE) +
-  labs(title = "B")
-
-
-gridExtra::grid.arrange(p1, p2, nrow = 2)
-```
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/no-interakt-1.png" alt="Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben" width="70%" />
+<p class="caption">(\#fig:no-interakt)Eine multivariate Analyse fördert Einsichten zu Tage, die bei einfacheren Analysen verborgen bleiben</p>
+</div>
 
 
 Diese *multivariate*\index{multivariat} Analyse (mehr als 2 Variablen sind beteiligt) zeigt uns, dass die Regressionsgerade nicht gleich ist in den beiden Gruppen (Interessierte vs. Nicht-Interessierte; s. Abbildung \@ref(fig:no-interakt)): Im Teildiagramm A sind die Geraden (leicht) versetzt. Analog zeigt Teildiagramm B, dass die Interessierten (`interessiert == TRUE`) geringe Punktewerte haben als die Nicht-Interessierten, wenn man die Werte von `study_time` getrennt betrachtet.
@@ -548,62 +563,41 @@ Das Ergebnis des zugrunde-liegenden F-Tests (vgl. Varianzanalyse) wird in der le
 
 Es könnte ja sein, dass die Stärke des Einflusses von Lernzeit auf Klausurerfolg in der Gruppe der Interessierten anders ist als in der Gruppe der Nicht-Interessierten. Wenn man nicht interessiert ist, so könnte man argumentieren, dann bringt eine Stunden Lernen weniger als wenn man interessiert ist. Darum müssten die Steigungen der Regressiongeraden in den beiden Gruppen unterschiedlich sein. Schauen wir uns es an. Um R dazu zu bringen, die Regressiongeraden frei variieren zu lassen, so dass sie nicht mehr parallel sind, nutzen wir das Symbol `*`, dass wir zwischen die betreffenden Prädiktoren schreiben:
 
-```{r}
+
+```r
 lm4 <- lm(score ~ interessiert*study_time, data = stats_test)
 summary(lm4)
+#> 
+#> Call:
+#> lm(formula = score ~ interessiert * study_time, data = stats_test)
+#> 
+#> Residuals:
+#>     Min      1Q  Median      3Q     Max 
+#> -13.950  -3.614   0.356   4.020  12.598 
+#> 
+#> Coefficients:
+#>                             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)                   23.627      1.158   20.40  < 2e-16 ***
+#> interessiertTRUE               0.655      2.170    0.30     0.76    
+#> study_time                     2.441      0.418    5.85  1.7e-08 ***
+#> interessiertTRUE:study_time   -0.321      0.662   -0.48     0.63    
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 5.17 on 234 degrees of freedom
+#>   (68 observations deleted due to missingness)
+#> Multiple R-squared:  0.196,	Adjusted R-squared:  0.185 
+#> F-statistic:   19 on 3 and 234 DF,  p-value: 4.81e-11
 ```
 
 Interessanterweise zeigen die Interessierten nun wiederum - betrachtet man jede Stufe von `study_time` einzeln - bessere Klausurergebnisse als die Nicht-Interessierten. Ansonsten ist noch die Zeile `interessiertTRUE:study_time` neu. Diese Zeile zeigt die Höhe des *Interaktionseffekts*\index{Interaktionseffekts}. Bei den Interessierten ist die Steigung der Geraden um 0.32 Punkte geringer als bei den Interessierten. Der Effekt ist klein und nicht statistisch signifikant, so dass wir wahrscheinlich Zufallsrauschen überinterpretieren. Aber die reine Zahl sagt, dass bei den Interessierten jede Lernstunde weniger Klausurerfolg bringt als bei den Nicht-Interessierten. Auch hier ist eine Visualisierung wieder hilfreich. 
 
 
 
-```{r interakt-stats-test, echo = FALSE, fig.cap = "Eine Regressionsanalyse mit Interaktionseffekten"}
-
-
-
-df1 <- data_frame(
-  interessiert = c(F, T),
-  slope = c(2.44, 2.44-.32),
-  intercept = c(23.6, 23.6+.66)
-)
-
-
-p1 <- stats_test %>% 
-  na.omit %>% 
-  ggplot +
-  aes(x=study_time, y = score) +
-  geom_jitter(width = .1) +
-  #facet_wrap(~interessiert) +
-  geom_abline(data = df1, mapping = aes(slope = slope, intercept = intercept, color = interessiert)) +
-  guides(color = FALSE) +
-  scale_color_viridis(discrete = TRUE) +
-  labs(title = "A") +
-  coord_cartesian(ylim = c(25,35))
-
-
-
-df2 <- stats_test %>% 
-  data_grid(
-    study_time = 1:5,
-    interessiert = c(F, T)
-  ) %>% 
-  add_predictions(lm4)
-  
-
-
-p2 <- stats_test %>% 
-  na.omit %>% 
-  ggplot +
-  aes(x=interessiert, group = study_time) +
-  geom_jitter(aes(y = score), width = .1) +
-  geom_line(data = df2, aes(y = pred, color = factor(study_time))) +
-  scale_color_viridis(discrete = TRUE) +
-  theme(legend.position = "bottom")
-  
-
-
-gridExtra::grid.arrange(p1, p2, nrow = 2)
-```
+<div class="figure" style="text-align: center">
+<img src="071_Regression_files/figure-html/interakt-stats-test-1.png" alt="Eine Regressionsanalyse mit Interaktionseffekten" width="70%" />
+<p class="caption">(\#fig:interakt-stats-test)Eine Regressionsanalyse mit Interaktionseffekten</p>
+</div>
 
 
 Wir wir in Abbildung \@ref(fig:interakt-stats-test) sehen, ist der Einfluss von `study_time' je nach Gruppe (Wert von `interessiert`) unterschiedlich (Teildiagramm A). Analog ist der Einfluss des Interesses (leicht) unterschiedlich, wenn man die fünf Stufen von `study_time` getrennt betrachtet. 
@@ -622,17 +616,18 @@ Vergleichen wir im ersten Schritt eine Regression, die die Modellgüte anhand de
 
 Betrachten wir nochmal die einfache Regression von oben. Wie lautet das $R^2$?
 
-```{r lm-overfitting1}
+
+```r
 
 lm1 <- lm(score ~ study_time, data = stats_test)
-
 ```
 
 Es lautet `round(summary(lm1)$r.squared, 2)`.
 
 Im zweiten Schritt teilen wir die Stichprobe in eine Trainings- und eine Test-Stichprobe auf. Wir "trainineren" das Modell anhand der Daten aus der Trainings-Stichprobe:
 
-```{r lm-overfitting2}
+
+```r
 train <- stats_test %>% 
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
@@ -645,24 +640,25 @@ lm_train <- lm(score ~ study_time, data = train)
 
 Dann testen wir (die Modellgüte) anhand der *Test*-Stichprobe. Also los, `lm_train`, mach Deine Vorhersage:
 
-```{r lm-overfitting-predict}
+
+```r
 lm2_predict <- predict(lm_train, newdata = test)
 ```
 
 Diese Syntax sagt:
 
-```{block2, lm2-predict-block, type='rmdpseudocode', echo = TRUE}
-Speichere unter dem Namen "lm2_predict" das Ergebnis folgender Berechnung:  
+\BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">Speichere unter dem Namen "lm2_predict" das Ergebnis folgender Berechnung:  
 Mache eine Vorhersage ("to predict") anhand des Modells "lm2",   
 wobei frische Daten ("newdata = test") verwendet werden sollen. 
-
-```
+</div>\EndKnitrBlock{rmdpseudocode}
 
 Als Ergebnis bekommen wir einen Vektor, der für jede Beobachtung des Test-Samples den geschätzten (vorhergesagten) Klausurpunktewert speichert.
 
-```{r R2-postresample}
-caret::postResample(pred = lm2_predict, obs = test$score)
 
+```r
+caret::postResample(pred = lm2_predict, obs = test$score)
+#>     RMSE Rsquared 
+#>    4.974    0.195
 ```
 
 Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekennzahlen unser Modell. Wir sehen, dass die Modellgüte im Test-Sample deutlich *schlechter* ist als im Trainings-Sample. Ein typischer Fall, der uns warnt, nicht vorschnell optimistisch zu sein!
@@ -671,53 +667,60 @@ Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekenn
 >   Die Modellgüte im in der Test-Stichprobe ist meist schlechter als in der Trainings-Stichprobe. Das warnt uns vor Befunden, die naiv nur die Werte aus der Trainings-Stichprobe berichten.
 
 
-## Aufgaben^[F, R, R, F, F, F, F, F, R]
-
-
-
-```{block2, exercises-regr, type='rmdexercises', echo = TRUE} 
-Richtig oder Falsch!?
-
-1. X-Wert: Kriterium; Y-Wert: Prädiktor.
-
-1. Der Y-Wert in der einfachen Regression wird berechnet als Achsenabschnitt plus *x* mal die Geradensteigung.
-
-1. $R^2$ liefert einen *relativen* Vorhersagefehler und MSE einen *absoluten* (relativ im Sinne eines Anteils).
-
-1. Unter 'Ordinary Least Squares' versteht man eine abschätzige Haltung gegenüber Statistik.
-
-5. Zu den Annahmen der Regression gehört Normalverteilung der *Kriteriumswerte*.
-
-1. Die Regression darf nicht bei kategorialen Prädiktoren verwendet werden.
-
-1. Mehrere bivariate Regressionsanalysen (1 Prädiktor, 1 Kriterium) sind einer multivariaten Regression i.d.R. vorzuziehen.
-
-1. Interaktionen erkennt man daran, dass die Regressionsgeraden *nicht* parallel sind.
-
-```
-
-
 ## Befehlsübersicht
 
 Tabelle \@ref(tab:befehle-regression) stellt die Befehle dieses Kapitels dar. 
 
 
-```{r befehle-regression, echo = FALSE}
 
-df <- readr::read_csv("includes/Befehle_Regression.csv")
+-----------------------------------------------------------
+Paket..Funktion           Beschreibung                     
+------------------------- ---------------------------------
+lm                        Berechnet eine Regression        
+                          ("lm" steht für "lineares        
+                          Modell")                         
 
+sqrt                      Zieht die Quadratwurzel          
 
+caret::postResample       Berechnet Gütekriterien für      
+                          das Testsample                   
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Regression'")
+summary                   Fasst zentrale Informationen     
+                          zu einem Objekt zusammen         
 
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+modelr::add_residuals     Fügt eine Spalte mit den         
+                          Residuen zu einem Dataframe      
+                          hinzu                            
 
+modelr::add_predictions   Fügt eine Spalte mit den         
+                          vorhergesagten Werten zu einem   
+                          Dataframe hinzu                  
 
+levels                    Zeigt oder ändert die Stufen     
+                          eines Faktors                    
 
-```
+factor                    Erstellt einen Faktor            
+                          (nominalskalierte Variable)      
+
+coef                      Zeigt die Koeffizienten eines    
+                          Objekts z.B. vom typ "lm" an.    
+
+step                      Führt iene                       
+                          Schrittweise-Rückwärtsselektion  
+                          auf Basis des                    
+                          Akaike-Informationskriteriums    
+                          für ein Regressionsmodell        
+                          durch                            
+
+sample_frac               Sampelt einen Prozentsatz aus    
+                          einem Datensatz                  
+
+anti_join                 Fügt nicht-matchende Zeilen      
+                          eines Datensatzes zu einem       
+                          anderen Datensatz hinzu          
+-----------------------------------------------------------
+
+Table: Befehle des Kapitels 'Regression'
 
 
 
