@@ -465,9 +465,9 @@ Abbildung 10.2: Der p-Wert wird oft als wichtig erachtet
 <p>Oder kürzer:</p>
 <p><span class="math display">\[ P(M|P) \ne P(P|M) \]</span></p>
 <div class="figure" style="text-align: center"><span id="fig:moslems-terroristen"></span>
-<img src="images/inferenz/maenner_papst-crop.png" alt="Moslem und Terrorist zu sein, ist nicht das gleiche." width="70%" />
+<img src="images/inferenz/maenner_papst-crop.png" alt="Mann und Papst zu sein ist nicht das gleiche." width="70%" />
 <p class="caption">
-Abbildung 10.3: Moslem und Terrorist zu sein, ist nicht das gleiche.
+Abbildung 10.3: Mann und Papst zu sein ist nicht das gleiche.
 </p>
 </div>
 <p>Das Bild (Abb. <a href="der-p-wert-inferenzstatistik-und-alternativen.html#fig:moslems-terroristen">10.3</a>) zeigt den Anteil der Männer an den Päpsten (sehr hoch). Und es zeigt den Anteil der Päpsten von allen Männern (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die <em>Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist</em>. Das ist falsch. Der p-Wert ist die <em>Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist</em>. Ein großer Unterschied.</p>
@@ -483,6 +483,9 @@ Abbildung 10.3: Moslem und Terrorist zu sein, ist nicht das gleiche.
 Abbildung 10.4: Zwei Haupteinflüsse auf den p-Wert
 </p>
 </div>
+<blockquote>
+<p>Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.</p>
+</blockquote>
 <p>Die Verteidigung argumentiert hier, dass das “kein Bug, sondern ein Feature” sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.</p>
 </div>
 <div id="mythen-zum-p-wert" class="section level2">
@@ -491,19 +494,27 @@ Abbildung 10.4: Zwei Haupteinflüsse auf den p-Wert
 <blockquote>
 <p>Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) sicher richtig.</p>
 </blockquote>
-<p>Richtig ist: “Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als <span class="math inline">\(\alpha\)</span>, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt”.</p>
+<p>Falsch. Richtig ist: “Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als <span class="math inline">\(\alpha\)</span>, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt”.</p>
 <blockquote>
-<p>Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwarhscheinlich richtig.</p>
+<p>Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwahrscheinlich richtig.</p>
 </blockquote>
-<p>Richtig ist: Wenn der p-Wert kleiner ist als <span class="math inline">\(alpha\)</span>, dann sind die Daten unwahrscheinlich, <em>falls</em> die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.</p>
+<p>Falsch. Richtig ist: Wenn der p-Wert kleiner ist als <span class="math inline">\(alpha\)</span>, dann sind die Daten unwahrscheinlich, <em>falls</em> die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.</p>
+<blockquote>
+<p>Wenn der p-Wert kleiner als 5% ist, dann ist die Wahrscheinlichkeit der H0 kleiner als 5%.</p>
+</blockquote>
+<p>Falsch. Der p-Wert gibt <em>nicht</em> die Wahrscheinlichkeit einer Hypothese an. Richtig ist: Ist der p-Wert kleiner als 5%, dann sind meine Daten (oder noch extremere) unwahrscheinlich (&lt;5%), <em>wenn</em> die H0 gilt.</p>
 <blockquote>
 <p>Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.</p>
 </blockquote>
-<p>Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen <em>und</em> sprechen die Daten für die Ursache <em>und</em> sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man <em>eine</em> Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.</p>
+<p>Falsch. Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen <em>und</em> sprechen die Daten für die Ursache <em>und</em> sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man <em>eine</em> Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.</p>
 <blockquote>
 <p>Wenn der p-Wert kleiner als 5% ist, dann kann ich meine Studie veröffentlichen.</p>
 </blockquote>
 <p>Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie “gut” das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell?</p>
+<blockquote>
+<p>Wenn der p-Wert <em>größer</em> als 5% ist, dann ist das ein Beleg <em>für</em> die H0.</p>
+</blockquote>
+<p>Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel unter der H0 sind. Wenn es draußen regnet, ist es plausibel, dass es Herbst ist. Das heißt aber nicht, dass andere Hypothesen nicht auch plausibel sind. Ein großer p-Wert ist also Abwesenheit von klarer Evidenz – <em>nicht</em> Anwesenheit von klarer Evidenz zugunsten der H0. Schöner ausgedrückt: “No evidence of effect ist not the same as evidence of no effect”. Für die Wissenschaft ist das insofern ein großes Problem, als dass sich Zeitschriften weigern, nicht-signifikante Studien aufzunehmen: “Das ist eine unklare Befundlage. Kein Mehrwert.” so die Haltung. Das führt dazu, dass die wissenschaftliche Literatur einer großen Verzerrung unterworfen ist.</p>
 <div id="wann-welcher-inferenztest" class="section level3">
 <h3><span class="header-section-number">10.3.1</span> Wann welcher Inferenztest?</h3>
 <p>In der Praxis ist es eine häufige Frage, wann man welchen statistischen Test verwenden soll. Bei <span class="citation">Eid, Gollwitzer, und Schmitt (<a href="#ref-eid2010statistik">2010</a>)</span> findet man eine umfangreiche Tabelle dazu; auch online wird man schnell fündig. Die folgende Auflistung gibt einen Überblick zu gebräuchlichen Verfahren. Entscheidungskriterium ist hier (etwas vereinfacht) das Skalenniveau der Variablen (unterschieden in Input- und Outputvariablen).</p>

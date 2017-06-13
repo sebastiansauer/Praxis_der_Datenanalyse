@@ -567,9 +567,16 @@ Abbildung 2.3: Hier werden Sie geholfen: Die Dokumentation der R-Pakete
 <p><em>Und umgekehrt, woher weiß ich, in welchem Paket ein Befehl ‘wohnt’?</em></p>
 <p>Probieren Sie den Befehl <code>help.search(&quot;qplot&quot;)</code>, wenn Sie wissen möchten, in welchem Paket <code>qplot</code> zuhause ist. <code>help.search</code> sucht alle Hilfeseiten von <em>installierten</em> Paketen, in der der Suchbegriff irgendwie vorkommt. Um das Paket eines <em>geladenen</em> Befehl zu finden, hilft der Befehl <code>find</code>: <code>find(&quot;qplot&quot;)</code>.</p>
 <p>Sie können auch diesen selbstgestrickten Befehl nutzen, den Sie zuerst laden müssen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;includes/find_funs.R&quot;</span>)
-<span class="kw">find_funs</span>(<span class="st">&quot;qplot&quot;</span>)
-<span class="co">#&gt; [1] &quot;ggplot2&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;https://sebastiansauer.github.io/Rcode/find_funs.R&quot;</span>)
+<span class="kw">find_funs</span>(<span class="st">&quot;select&quot;</span>)
+<span class="co">#&gt; # A tibble: 5 x 3</span>
+<span class="co">#&gt;   package_name builtin_pckage loaded</span>
+<span class="co">#&gt;          &lt;chr&gt;          &lt;lgl&gt;  &lt;lgl&gt;</span>
+<span class="co">#&gt; 1        dplyr          FALSE   TRUE</span>
+<span class="co">#&gt; 2         MASS           TRUE  FALSE</span>
+<span class="co">#&gt; 3       plotly          FALSE  FALSE</span>
+<span class="co">#&gt; 4       raster          FALSE  FALSE</span>
+<span class="co">#&gt; 5         VGAM          FALSE  FALSE</span></code></pre></div>
 <p>In diesem Skript sind am Ende jedes Kapitels die jeweils besprochenen (neuen) Befehle aufgeführt - inklusive ihres Paketes. Falls bei einem Befehl kein Paket angegeben ist, heißt das, dass der Befehl im ‘Standard-R’ wohnt - Sie müssen kein weiteres Paket laden<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Also zum Beispiel <code>ggplot2::qplot</code>: Der <em>Befehl</em> <code>qplot</code> ist im <em>Paket</em> <code>ggplot2</code> enthalten. Das Zeichen <code>::</code> trennt also Paket von Befehl.</p>
 
 <div class="rmdcaution">
