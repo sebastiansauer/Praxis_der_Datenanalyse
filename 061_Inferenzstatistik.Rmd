@@ -98,7 +98,7 @@ $$ P(M|P) \ne P(P|M) $$
 
 
 
-```{r moslems-terroristen, echo = FALSE, fig.cap = "Moslem und Terrorist zu sein, ist nicht das gleiche."}
+```{r moslems-terroristen, echo = FALSE, fig.cap = "Mann und Papst zu sein ist nicht das gleiche."}
 knitr::include_graphics("images/inferenz/maenner_papst-crop.png")
 ```
 
@@ -118,6 +118,9 @@ knitr::include_graphics("images/inferenz/einfluss_pwert-crop.png")
 ```
 
 
+>   Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.
+
+
 Die Verteidigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
 
 
@@ -129,19 +132,35 @@ Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rent
 
 >    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) sicher richtig.
 
-Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
+Falsch. Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
 
->    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwarhscheinlich richtig.
+>    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwahrscheinlich richtig.
 
-Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+Falsch. Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+
+
+>    Wenn der p-Wert kleiner als 5% ist, dann ist die Wahrscheinlichkeit der H0 kleiner als 5%.
+
+Falsch. Der p-Wert gibt *nicht* die Wahrscheinlichkeit einer Hypothese an. Richtig ist: Ist der p-Wert kleiner als 5%, dann sind meine Daten (oder noch extremere) unwahrscheinlich (<5%), *wenn* die H0 gilt.
+
+
 
 >    Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.
 
-Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
+Falsch. Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
 
 >    Wenn der p-Wert kleiner als 5% ist, dann kann ich meine Studie veröffentlichen.
 
-Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie "gut" das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell?
+Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie "gut" das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell? 
+
+
+>    Wenn der p-Wert *größer* als 5% ist, dann ist das ein Beleg *für* die H0.
+
+
+Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel unter der H0 sind. Wenn es draußen regnet, ist es plausibel, dass es Herbst ist. Das heißt aber nicht, dass andere Hypothesen nicht auch plausibel sind. Ein großer p-Wert ist also Abwesenheit von klarer Evidenz -- *nicht* Anwesenheit von klarer Evidenz zugunsten der H0. Schöner ausgedrückt: "No evidence of effect ist not the same as evidence of no effect". Für die Wissenschaft ist das insofern ein großes Problem, als dass sich Zeitschriften weigern, nicht-signifikante Studien aufzunehmen: "Das ist eine unklare Befundlage. Kein Mehrwert." so die Haltung. Das führt dazu, dass die wissenschaftliche Literatur einer großen Verzerrung unterworfen ist.
+
+
+
 
 
 ### Wann welcher Inferenztest?

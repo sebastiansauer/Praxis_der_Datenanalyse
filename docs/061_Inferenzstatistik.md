@@ -3,11 +3,9 @@
 # Der p-Wert, Inferenzstatistik und Alternativen
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
@@ -30,14 +28,10 @@ library(tidyverse)
 ```
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.2\linewidth]{images/inferenz/Ronald_Fisher} 
-
-}
-
-\caption{Der größte Statistiker des 20. Jahrhunderts (p < .05)}(\#fig:sir-fisher)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="20%" />
+<p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
+</div>
 
 ## Der p-Wert sagt nicht das, was viele denken
 
@@ -45,14 +39,10 @@ library(tidyverse)
 Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschenden. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert kommt viel Bedeutung zu bzw. ihm wird viel Bedeutung zugemessen (vgl. Abb. \@ref(fig:who-said)). 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.35\linewidth]{images/inferenz/p_value_who_said} 
-
-}
-
-\caption{Der p-Wert wird oft als wichtig erachtet}(\#fig:who-said)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="35%" />
+<p class="caption">(\#fig:who-said)Der p-Wert wird oft als wichtig erachtet</p>
+</div>
 
 
 Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Hypothesen-Inferenz-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
@@ -88,14 +78,10 @@ $$ P(M|P) \ne P(P|M) $$
 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/maenner_papst-crop} 
-
-}
-
-\caption{Moslem und Terrorist zu sein, ist nicht das gleiche.}(\#fig:moslems-terroristen)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/maenner_papst-crop.png" alt="Mann und Papst zu sein ist nicht das gleiche." width="70%" />
+<p class="caption">(\#fig:moslems-terroristen)Mann und Papst zu sein ist nicht das gleiche.</p>
+</div>
 
 
 Das Bild (Abb. \@ref(fig:moslems-terroristen)) zeigt den Anteil der Männer an den Päpsten (sehr hoch). Und es zeigt den Anteil der Päpsten von allen Männern (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist*. Ein großer Unterschied.
@@ -107,14 +93,13 @@ Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertai
 
 Ein anderer Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das schränkt die praktische Nützlichkeit ein (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/einfluss_pwert-crop.png" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
+<p class="caption">(\#fig:einfluss-pwert)Zwei Haupteinflüsse auf den p-Wert</p>
+</div>
 
-{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/einfluss_pwert-crop} 
 
-}
-
-\caption{Zwei Haupteinflüsse auf den p-Wert}(\#fig:einfluss-pwert)
-\end{figure}
+>   Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.
 
 
 Die Verteidigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
@@ -128,19 +113,35 @@ Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rent
 
 >    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) sicher richtig.
 
-Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
+Falsch. Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
 
->    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwarhscheinlich richtig.
+>    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwahrscheinlich richtig.
 
-Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+Falsch. Richtig ist: Wenn der p-Wert kleiner ist als $alpha$, dann sind die Daten unwahrscheinlich, *falls* die H0 gilt. Ansonsten (wenn H0 nicht gilt) können die Daten sehr wahrscheinlich sein.
+
+
+>    Wenn der p-Wert kleiner als 5% ist, dann ist die Wahrscheinlichkeit der H0 kleiner als 5%.
+
+Falsch. Der p-Wert gibt *nicht* die Wahrscheinlichkeit einer Hypothese an. Richtig ist: Ist der p-Wert kleiner als 5%, dann sind meine Daten (oder noch extremere) unwahrscheinlich (<5%), *wenn* die H0 gilt.
+
+
 
 >    Wenn der p-Wert kleiner als 5% ist, dann habe ich die Ursache eines Phänomens gefunden.
 
-Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
+Falsch. Richtig ist: Keine Statistik kann für sich genommen eine Ursache erkennen. Bestenfalls kann man sagen: hat man alle konkurrierenden Ursachen ausgeschlossen *und* sprechen die Daten für die Ursache *und* sind die Daten eine plausible Erklärung, so erscheint es der beste Schluss, anzunehmen, dass man *eine* Ursache gefunden hat - im Rahmen des Geltungsbereichs einer Studie.
 
 >    Wenn der p-Wert kleiner als 5% ist, dann kann ich meine Studie veröffentlichen.
 
-Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie "gut" das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell?
+Richtig. Leider entscheidet zu oft (nur) der p-Wert über das Wohl und Wehe einer Studie. Wichtiger wäre zu prüfen, wie "gut" das Modell ist - wie präzise sind die Vorhersagen? Wie theoretisch befriedigend ist das Modell? 
+
+
+>    Wenn der p-Wert *größer* als 5% ist, dann ist das ein Beleg *für* die H0.
+
+
+Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel unter der H0 sind. Wenn es draußen regnet, ist es plausibel, dass es Herbst ist. Das heißt aber nicht, dass andere Hypothesen nicht auch plausibel sind. Ein großer p-Wert ist also Abwesenheit von klarer Evidenz -- *nicht* Anwesenheit von klarer Evidenz zugunsten der H0. Schöner ausgedrückt: "No evidence of effect ist not the same as evidence of no effect". Für die Wissenschaft ist das insofern ein großes Problem, als dass sich Zeitschriften weigern, nicht-signifikante Studien aufzunehmen: "Das ist eine unklare Befundlage. Kein Mehrwert." so die Haltung. Das führt dazu, dass die wissenschaftliche Literatur einer großen Verzerrung unterworfen ist.
+
+
+
 
 
 ### Wann welcher Inferenztest?
@@ -166,14 +167,10 @@ Der p-Wert basiert auf der Idee, dass man ein Experiment *unendlich* oft wiederh
 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{061_Inferenzstatistik_files/figure-latex/muenzwurf-1} 
-
-}
-
-\caption{Anteil von 'Kopf' bei wiederholtem Münzwurf}(\#fig:muenzwurf)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="061_Inferenzstatistik_files/figure-html/muenzwurf-1.png" alt="Anteil von 'Kopf' bei wiederholtem Münzwurf" width="70%" />
+<p class="caption">(\#fig:muenzwurf)Anteil von 'Kopf' bei wiederholtem Münzwurf</p>
+</div>
 
 
 Ob es im Universum irgendetwas gibt, das unendlich ist, ist streibar [@ruckerinfinity, @uncertainty]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, ist auch fragwürdig [@uncertainty].
@@ -296,14 +293,10 @@ Jetzt Achtung: Der Test sagt, ich sei krank. Die Gretchen-Frage lautet, wie hoch
 
 Abbildung \@ref(fig:bayes) stellt das Beisipiel in Form eines Baumdiagrammes dar.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/inferenz/bayes-crop} 
-
-}
-
-\caption{Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli}(\#fig:bayes)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/bayes-crop.png" alt="Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli" width="70%" />
+<p class="caption">(\#fig:bayes)Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli</p>
+</div>
 
 In der Medizin ist 'positiv' zumeist eine schlechte Nachricht, es soll sagen, dass der Test der Meinung ist, die getestete Person ist krank (das getestete Kriterium trifft zu).
 
@@ -333,8 +326,7 @@ Alternativen zum p-Wert sind
 
 
 
-
-\begin{center}\includegraphics[width=0.3\linewidth]{images/inferenz/meme_pwert_1iw22a_pvalue_dino} \end{center}
+<img src="images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
 
 
 

@@ -3,11 +3,9 @@
 # Klassifizierende Regression
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -61,14 +59,10 @@ p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_
 p1
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr1-1} 
-
-}
-
-\caption{Streudiagramm von Risikobereitschaft und Aktienkauf}(\#fig:fig-logist-regr1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr1-1.png" alt="Streudiagramm von Risikobereitschaft und Aktienkauf" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr1)Streudiagramm von Risikobereitschaft und Aktienkauf</p>
+</div>
 
 Berechnen wir dann eine normale Regression.
 
@@ -106,14 +100,10 @@ p1 + geom_abline(intercept = .18, slope = .05, color = "red")
 
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/fig-logist-regr2-1} 
-
-}
-
-\caption{Regressionsgerade für Aktien-Modell}(\#fig:fig-logist-regr2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/fig-logist-regr2-1.png" alt="Regressionsgerade für Aktien-Modell" width="70%" />
+<p class="caption">(\#fig:fig-logist-regr2)Regressionsgerade für Aktien-Modell</p>
+</div>
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
@@ -127,14 +117,10 @@ $$p(y=1)=\frac{e^x}{1+e^x}$$
 
 Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/logist-curve-1} 
-
-}
-
-\caption{Die logistische Regression beschreibt eine 's-förmige' Kurve}(\#fig:logist-curve)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/logist-curve-1.png" alt="Die logistische Regression beschreibt eine 's-förmige' Kurve" width="70%" />
+<p class="caption">(\#fig:logist-curve)Die logistische Regression beschreibt eine 's-förmige' Kurve</p>
+</div>
 
 
 ## Die Idee der logistischen Regression
@@ -156,14 +142,10 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft,
 
 Wir schauen uns zunächst den Plot an (Abb. \@ref(fig:aktien-plot).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/aktien-plot-1} 
-
-}
-
-\caption{Modelldiagramm für den Aktien-Datensatz}(\#fig:aktien-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/aktien-plot-1.png" alt="Modelldiagramm für den Aktien-Datensatz" width="70%" />
+<p class="caption">(\#fig:aktien-plot)Modelldiagramm für den Aktien-Datensatz</p>
+</div>
 
 
 > Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
@@ -327,14 +309,10 @@ stats_test %>%
   geom_jitter(width = .1)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/jjitter-stats-logist-1} 
-
-}
-
-\caption{Verwackeltes Streudiagramm ('Jitter')}(\#fig:jjitter-stats-logist)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/jjitter-stats-logist-1.png" alt="Verwackeltes Streudiagramm ('Jitter')" width="70%" />
+<p class="caption">(\#fig:jjitter-stats-logist)Verwackeltes Streudiagramm ('Jitter')</p>
+</div>
 
 Eine Sache sollten wir noch ändern: Auf der Y-Achse (`bestanden`) steht unten "ja" und oben "nein". Für unsere logistische Regression macht es aber genau anders herum Sinn: `bestanden=="ja") soll oben stehen. `bestanden` ist eine Variable vom Typ 'Faktor':
 
@@ -484,22 +462,14 @@ Diese beiden Arten von Klassifikationen können unterschiedlich gut sein. Im Ext
 
 Etwas genauer kann man folgende vier Arten von Ergebnisse aus einem  Test erwarten (s. Tabelle \@ref(tab:class-stats)).
 
-\begin{table}
 
-\caption{(\#tab:class-stats)Vier Arten von Ergebnisse von Klassfikationen}
-\centering
-\begin{tabular}[t]{l|l|l|l}
-\hline
-Wahrheit & Als negativ (-) vorhergesagt & Als positiv (+) vorhergesagt & Summe\\
-\hline
-In Wahrheit negativ (-) & Richtig negativ (RN) & Falsch positiv (FP) & N\\
-\hline
-In Wahrheit positiv (+) & Falsch negativ (FN) & Richtig positiv (RN) & P\\
-\hline
-Summe & N* & P* & N+P\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:class-stats)Vier Arten von Ergebnisse von Klassfikationen
+
+Wahrheit                  Als negativ (-) vorhergesagt   Als positiv (+) vorhergesagt   Summe 
+------------------------  -----------------------------  -----------------------------  ------
+In Wahrheit negativ (-)   Richtig negativ (RN)           Falsch positiv (FP)            N     
+In Wahrheit positiv (+)   Falsch negativ (FN)            Richtig positiv (RN)           P     
+Summe                     N*                             P*                             N+P   
 
 
 Die logistische Regression gibt uns für jeden Fall eine Wahrscheinlichkeit zurück, dass der Fall zum Ereignis $1$ gehört. Wir müssen dann einen Schwellenwert (threshold) auswählen. Einen Wert also, der bestimmt, ob der Fall zum Ereignis $1$ gehört. Häufigt nimmt man  $0.5$. Liegt die Wahrscheinlichkeit unter dem Schwellenwert, so ordnet man den Fall dem Ereignis $0$ zu. 
@@ -527,30 +497,18 @@ Wie häufig hat unser Modell richtig geschätzt? Genauer: Wie viele echte $1$ ha
 
 In der Literatur und Praxis herrscht eine recht wilde Vielfalt an Begriffen dazu, deswegen stellt Tabelle \@ref(tab:class-stats) einen Überblick vor.
 
-\begin{table}
 
-\caption{(\#tab:diag-stats)Geläufige Kennwerte der Klassifikation}
-\centering
-\begin{tabular}[t]{l|l|l}
-\hline
-Name & Definition & Synonyme\\
-\hline
-Falsch-Positiv-Rate (FP-Rate) & FP/N & Alphafehler, Typ-1-Fehler, 1-Spezifität, Fehlalarm\\
-\hline
-Richtig-Positiv-Rate (RP-Rate) & RP/N & Power, Sensitivität, 1-Betafehler, Recall\\
-\hline
-Falsch-Negativ-Rate (FN-Rate) & FN/N & Fehlender Alarm, Befafehler\\
-\hline
-Richtig-Negativ-Rate (RN-Rate) & RN/N & Spezifität, 1-Alphafehler\\
-\hline
-Positiver Vorhersagewert & RP/P* & Präzision, Relevanz\\
-\hline
-Negativer Vorhersagewert & RN/N* & Segreganz\\
-\hline
-Gesamtgenauigkeitsrate & (RP+RN) / (N+P) & Richtigkeit, Korrektklassifikationsrate\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:diag-stats)Geläufige Kennwerte der Klassifikation
+
+Name                             Definition        Synonyme                                           
+-------------------------------  ----------------  ---------------------------------------------------
+Falsch-Positiv-Rate (FP-Rate)    FP/N              Alphafehler, Typ-1-Fehler, 1-Spezifität, Fehlalarm 
+Richtig-Positiv-Rate (RP-Rate)   RP/N              Power, Sensitivität, 1-Betafehler, Recall          
+Falsch-Negativ-Rate (FN-Rate)    FN/N              Fehlender Alarm, Befafehler                        
+Richtig-Negativ-Rate (RN-Rate)   RN/N              Spezifität, 1-Alphafehler                          
+Positiver Vorhersagewert         RP/P*             Präzision, Relevanz                                
+Negativer Vorhersagewert         RN/N*             Segreganz                                          
+Gesamtgenauigkeitsrate           (RP+RN) / (N+P)   Richtigkeit, Korrektklassifikationsrate            
 
 Zu beachten ist, dass die Gesamtgenauigkeit einer Klassifikation an sich wenig aussagekräftig ist: Ist eine Krankheit sehr selten, werde ich durch die einfache Strategie "diagnostiziere alle als gesund" insgesamt kaum Fehler machen. Meine Gesamtgenauigkeit wird beeindruckend genau sein - trotzdem lassen Sie sich davon wohl kaum beeindrucken. Besser ist, die Richtig-Positiv- und die Richtig-Negativ-Raten getrennt zu beurteilen. Aus dieser Kombination leitet sich der *Youden-Index* ab.\index{Youden-Index}. Er berechnet sich als: `RP-Rate + RN-Rate - 1`.
 
@@ -610,27 +568,19 @@ Da die Sensitivität determiniert ist, wenn die Falsch-Positiv-Rate bekannt ist 
 plot(lets_roc)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/roc-stats-1} 
-
-}
-
-\caption{Eine ROC-Kurve}(\#fig:roc-stats)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/roc-stats-1.png" alt="Eine ROC-Kurve" width="70%" />
+<p class="caption">(\#fig:roc-stats)Eine ROC-Kurve</p>
+</div>
 
 
 Die 'Fläche unter der Kurve' (area under curve, AUC) is damit ein Maß für die Güte des Tests. Abbildung \@ref(fig:example-rocs) stellt drei Beispiele von Klassifikationsgüten dar: sehr gute (A), gute (B) und schlechte (C). Ein hohe Klassifikationsgüte zeigt sich daran, dass eine hohe Richtig-Positiv-Rate mit einer kleinen Fehlalarmquote einher geht: Wir finden alle Kranken, aber nur die Kranken. Die AUC-Kurve "hängt oben links an der Decke". Ein schlechter Klassifikator trifft so gut wie ein Münzwurf: Ist das Ereignis selten, hat er eine hohe Falsch-Positiv-Rate und eine geringe Falsch-Negativ-Rate. Ist das Ereignis hingegen häufig, liegen die Fehlerhöhen genau umgekehrt: Eine hohe Richtig-Positiv-Rate wird mit einer hoher Falsch-Positiv-Rate einher.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{072_klassifizierende_Regression_files/figure-latex/example-rocs-1} 
-
-}
-
-\caption{Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation}(\#fig:example-rocs)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="072_klassifizierende_Regression_files/figure-html/example-rocs-1.png" alt="Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation" width="70%" />
+<p class="caption">(\#fig:example-rocs)Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation</p>
+</div>
 
 
 Fragt sich noch, wie man den besten Schwellenwert herausfindet. Den besten Schwellenwert kann man als besten Youden-Index-Wert verstehen. Im Paket `pROC` gibt es dafür den Befehl `coords`, der uns im ROC-Diagramm die Koordinaten des besten Schwellenwert und den Wert dieses besten Schwellenwerts liefert:
@@ -680,6 +630,9 @@ SDMTools::specificity        Berechnet die Spezifität eines
 ROCR::performance            Erstellt Objekte mit            
                              Gütekennzahlen von              
                              Klassifikationsmodellen         
+
+lmtest::lrtest               Berechnet den                   
+                             Likelihood-Ratio-Test           
 
 BaylorEdPsych::PseudoR2      Berechnet                       
                              Pseudo-R-Quadrat-Werte          

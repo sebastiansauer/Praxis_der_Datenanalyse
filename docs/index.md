@@ -2,7 +2,7 @@
 title: "Praxis der Datenanalyse ENTWURF"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke"
-date: "12 June, 2017"
+date: "13 June, 2017"
 lang: de-De
 colorlinks: yes
 thanks: "Danke an Norman Markgraf"
@@ -28,22 +28,20 @@ biblio-style: apalike
 
 
 
-\newpage\setcounter{chapter}{0}\chapter{Vorwort}
+
+# Vorwort {-}
 
 
 
 
+<img src="images/icons/OER_Logo_201706_gruen.png" width="30%" style="display: block; margin: auto;" />
 
-
-\begin{center}\includegraphics[width=0.3\linewidth]{images/icons/OER_Logo_201706_gruen} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 Statistik heute; was ist das? Sicherlich haben sich die Schwerpunkte von "gestern" zu "heute" verschoben. Wenig überraschend spielt der Computer eine immer größere Rolle; die Daten werden vielseitiger und massiger. Entsprechend sind neue Verfahren nötig - und vorhanden, in Teilen - um auf diese neue Situation einzugehen. Einige Verfahren werden daher weniger wichtig, z.B. der p-Wert oder der t-Test. Allerdings wird vielfach, zumeist, noch die Verfahren gelehrt und verwendet, die für die erste Hälfte des 20. Jahrhunderts entwickelt wurden. Eine Zeit, in der kleine Daten, ohne Hilfe von Computern und basierend auf einer kleinen Theoriefamilie im Rampenlicht standen [@cobb2007introductory]. Die Zeiten haben sich geändert!
 
-![](images/vorwort/Forschung_frueher_heute.pdf)<!-- --> 
+<img src="images/vorwort/Forschung_frueher_heute.jpg" width="4108" />
 
 Zu Themen, die heute zu den dynamischten Gebieten der Datenanalyse gehören, die aber früher keine große Rolle spielten, gehören [@hardin2015data]: 
 
@@ -71,8 +69,7 @@ Außerdem spielt in diesem Kurs die Visualisierung von Daten eine große Rolle. 
 Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
 
 
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 

@@ -5,11 +5,9 @@
 # Datenjudo
 
 
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics[width=0.3\linewidth]{images/FOM} \end{center}
-
-
-\begin{center}\includegraphics[width=0.1\linewidth]{images/licence} \end{center}
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
@@ -24,14 +22,10 @@
 </div>\EndKnitrBlock{rmdcaution}
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Aufbereiten} 
-
-}
-
-\caption{Daten aufbereiten}(\#fig:fig-datenjudo)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/Aufbereiten.png" alt="Daten aufbereiten" width="70%" />
+<p class="caption">(\#fig:fig-datenjudo)Daten aufbereiten</p>
+</div>
 
 In diesem Kapitel werden folgende Pakete benötigt: 
 
@@ -82,28 +76,20 @@ Es gibt viele Möglichkeiten, Daten mit R aufzubereiten; `dplyr`^[https://cran.r
 
 Das *erste Prinzip* von `dplyr` ist, dass es nur ein paar *wenige Grundbausteine* geben sollte, die sich gut kombinieren lassen. Sprich: Wenige grundlegende Funktionen mit eng umgrenzter Funktionalität. Der Autor, Hadley Wickham, sprach einmal in einem Forum (citation needed...), dass diese Befehle wenig können, das Wenige aber gut. Ein Nachteil dieser Konzeption kann sein, dass man recht viele dieser Bausteine kombinieren muss, um zum gewünschten Ergebnis zu kommen. Außerdem muss man die Logik des Baukastens gut verstanden habe - die Lernkurve ist also erstmal steiler. Dafür ist man dann nicht darauf angewiesen, dass es irgendwo "Mrs Right" gibt, die genau das kann, was ich will. Außerdem braucht man sich auch nicht viele Funktionen merken. Es reicht einen kleinen Satz an Funktionen zu kennen (die praktischerweise konsistent in Syntax und Methodik sind). Diese Bausteine sind typische Tätigkeiten im Umgang mit Daten; nichts Überraschendes. Wir schauen wir uns diese Bausteine gleich näher an.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/Bausteine_dplyr_crop} 
-
-}
-
-\caption{Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine}(\#fig:bausteine)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/Bausteine_dplyr_crop.png" alt="Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine" width="70%" />
+<p class="caption">(\#fig:bausteine)Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine</p>
+</div>
 
 
 
 Das *zweite Prinzip* von `dplyr` ist es, einen Dataframe von Operation zu Operation *durchzureichen.* `dplyr` arbeitet also *nur* mit Dataframes. Jeder Arbeitsschritt bei `dplyr` erwartet einen Dataframe als Eingabe und gibt im Gegenzug wieder einen Dataframe aus.
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/durchpfeifen_allgemein_crop} 
-
-}
-
-\caption{Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht}(\#fig:durchpfeifen-allgemein)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/durchpfeifen_allgemein_crop.png" alt="Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht" width="70%" />
+<p class="caption">(\#fig:durchpfeifen-allgemein)Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht</p>
+</div>
 
 
 Werfen wir einen Blick auf ein paar typische Bausteine von `dplyr`.
@@ -116,14 +102,10 @@ Häufig will man bestimmte Zeilen aus einer Tabelle filtern; `filter`\index{dply
 
 Abb. \@ref(fig:fig-filter) zeigt ein Sinnbild für `filter`.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/filter} 
-
-}
-
-\caption{Zeilen filtern}(\#fig:fig-filter)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/filter.png" alt="Zeilen filtern" width="70%" />
+<p class="caption">(\#fig:fig-filter)Zeilen filtern</p>
+</div>
 
 Merke:
 
@@ -210,14 +192,10 @@ Der horizontale Strich `|` steht bei R für logisches 'oder'.
 
 Das Gegenstück zu `filter` ist `select`\index{dplyr::select}; dieser Befehl liefert die gewählten Spalten zurück. Das ist häufig praktisch, wenn der Datensatz sehr "breit" ist, also viele Spalten enthält. Dann kann es übersichtlicher sein, sich nur die relevanten auszuwählen. Abb. \@ref(fig:fig-select) zeigt Sinnbild für diesen Befehl:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/select} 
-
-}
-
-\caption{Spalten auswählen}(\#fig:fig-select)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/select.png" alt="Spalten auswählen" width="70%" />
+<p class="caption">(\#fig:fig-select)Spalten auswählen</p>
+</div>
 
 
 Merke:
@@ -294,31 +272,15 @@ arrange(stats_test, interest, score)
 #>   row_number           date_time bestanden study_time self_eval interest
 #> 1        234 23.01.2017 18:13:15      nein          3         1        1
 #> 2          4 06.01.2017 09:58:05      nein          2         3        2
-#> 3        131 19.01.2017 18:03:45      nein          2         3        4
-#> 4        142 19.01.2017 19:02:12      nein          3         4        1
-#> 5         35 12.01.2017 19:04:43      nein          1         2        3
-#> 6         71 15.01.2017 15:03:29      nein          3         3        3
 #>   score
 #> 1    17
 #> 2    18
-#> 3    18
-#> 4    18
-#> 5    19
-#> 6    20
 #>   row_number           date_time bestanden study_time self_eval interest
 #> 1          3 05.01.2017 23:33:47        ja          5        10        6
 #> 2          7 06.01.2017 14:25:49        ja         NA        NA       NA
-#> 3         29 12.01.2017 09:48:16        ja          4        10        3
-#> 4         41 13.01.2017 12:07:29        ja          4        10        3
-#> 5         58 14.01.2017 15:43:01        ja          3         8        2
-#> 6         83 16.01.2017 10:16:52        ja         NA        NA       NA
 #>   score
 #> 1    40
 #> 2    40
-#> 3    40
-#> 4    40
-#> 5    40
-#> 6    40
 #>   row_number           date_time bestanden study_time self_eval interest
 #> 1        234 23.01.2017 18:13:15      nein          3         1        1
 #> 2        142 19.01.2017 19:02:12      nein          3         4        1
@@ -341,14 +303,10 @@ Merke:
 
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/arrange-crop} 
-
-}
-
-\caption{Spalten sortieren}(\#fig:fig-arrange)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/arrange-crop.png" alt="Spalten sortieren" width="70%" />
+<p class="caption">(\#fig:fig-arrange)Spalten sortieren</p>
+</div>
 
 
 
@@ -402,14 +360,10 @@ Einen Datensatz zu gruppieren ist eine häufige Angelegenheit: Was ist der mittl
 
 >   Gruppieren meint, einen Datensatz anhand einer diskreten Variablen (z.B. Geschlecht) so aufzuteilen, dass Teil-Datensätze entstehen - pro Gruppe ein Teil-Datensatz (z.B. ein Datensatz, in dem nur Männer enthalten sind und einer, in dem nur Frauen enthalten sind).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/group_by} 
-
-}
-
-\caption{Datensätze nach Subgruppen aufteilen}(\#fig:fig-groupby)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/group_by.png" alt="Datensätze nach Subgruppen aufteilen" width="70%" />
+<p class="caption">(\#fig:fig-groupby)Datensätze nach Subgruppen aufteilen</p>
+</div>
 
 In Abbildung \@ref(fig:fig-groupby) wurde der Datensatz anhand der Spalte (d.h. Variable) `Fach` in mehrere Gruppen geteilt (Fach A, Fach B...). Wir könnten uns als nächstes z.B. Mittelwerte pro Fach - d.h. pro Gruppe (pro Ausprägung von `Fach`) - ausgeben lassen; in diesem Fall vier Gruppen (Fach A bis D).
 
@@ -445,14 +399,10 @@ Ein paar Hinweise: `Source: local data frame [306 x 6]` will sagen, dass die Aus
 
 Die Idee des "Gruppieren - Zusammenfassen - Kombinieren" ist flexibel; man kann sie häufig brauchen. Es lohnt sich, diese Idee zu lernen (vgl. Abb. \@ref(fig:sac)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/sac_crop} 
-
-}
-
-\caption{Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'}(\#fig:sac)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/sac_crop.png" alt="Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'" width="70%" />
+<p class="caption">(\#fig:sac)Schematische Darstellung des 'Gruppieren - Zusammenfassen - Kombinieren'</p>
+</div>
 
 
 #### Aufgaben^[R, F, R, R]
@@ -477,14 +427,10 @@ Merke:
 
 Vielleicht die wichtigste oder häufigte Tätigkeit in der Analyse von Daten ist es, eine Spalte zu *einem* Wert zusammenzufassen; `summarise`\index{dplyr::summarise} leistet dies. Anders gesagt: Einen Mittelwert berechnen, den größten (kleinsten) Wert heraussuchen, die Korrelation berechnen oder eine beliebige andere Statistik ausgeben lassen. Die Gemeinsamkeit dieser Operaitonen ist, dass sie eine Spalte zu einem Wert zusammenfassen, "aus Spalte mach Zahl", sozusagen. Daher ist der Name des Befehls `summarise` ganz passend. Genauer gesagt fasst dieser Befehl eine Spalte zu einer Zahl zusammen *anhand* einer Funktion wie `mean` oder `max` (vgl. Abb. \@ref(fig:fig-summarise). Hierbei ist jede Funktion erlaubt, die eine Spalte als Input verlangt und eine Zahl zurückgibt; andere Funktionen sind bei `summarise` nicht erlaubt. 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/summarise} 
-
-}
-
-\caption{Spalten zu einer Zahl zusammenfassen}(\#fig:fig-summarise)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/summarise.png" alt="Spalten zu einer Zahl zusammenfassen" width="70%" />
+<p class="caption">(\#fig:fig-summarise)Spalten zu einer Zahl zusammenfassen</p>
+</div>
 
 
 
@@ -648,14 +594,10 @@ dplyr::count(stats_test, interest, study_time)
 
 Allgemeiner formuliert lautet die Syntax: `count(df, Spalte1, ...)`, wobei `df` der Dataframe ist und `Spalte1` die erste (es können mehrere sein) auszuzählende Spalte. Gibt man z.B. zwei Spalten an, so wird pro Wert der 1. Spalte die Häufigkeiten der 2. Spalte ausgegeben (vgl. Abb. \@ref(fig:fig-count)).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/count-crop} 
-
-}
-
-\caption{Sinnbild für 'count'}(\#fig:fig-count)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/count-crop.png" alt="Sinnbild für 'count'" width="70%" />
+<p class="caption">(\#fig:fig-count)Sinnbild für 'count'</p>
+</div>
 
 
 Merke:
@@ -766,27 +708,19 @@ Ah! Der Score `34` ist der häufigste!
 ## Die Pfeife
 Die zweite Idee zentrale Idee von `dplyr` kann man salopp als "Durchpfeifen"\index{Pfeife} oder die "Idee der Pfeife" (Durchpfeifen)\index{Durchpfeifen} bezeichnen; ikonographisch mit einem Pfeifen ähnlichen Symbol dargestellt ` %>% `. Der Begriff "Durchpfeifen" ist frei vom Englischen "to pipe" übernommen. Das berühmte Bild von René Magritte stand dabei Pate (s. Abb. \@ref(fig:cecie-une-pipe); [@m7_savinellis_2004]).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/800px-Pipa_savinelli} 
-
-}
-
-\caption{Das ist keine Pfeife}(\#fig:cecie-une-pipe)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/800px-Pipa_savinelli.jpg" alt="Das ist keine Pfeife" width="70%" />
+<p class="caption">(\#fig:cecie-une-pipe)Das ist keine Pfeife</p>
+</div>
 
 
  Hierbei ist gemeint, einen Datensatz sozusagen auf ein Fließband zu legen und an jedem Arbeitsplatz einen Arbeitsschritt auszuführen. Der springende Punkt ist, dass ein Dataframe als "Rohstoff" eingegeben wird und jeder Arbeitsschritt seinerseits wieder einen Datafram ausgiebt. Damit kann man sehr schön, einen "Flow" an Verarbeitung erreichen, außerdem spart man sich Tipparbeit und die Syntax wird lesbarer. Damit das Durchpfeifen funktioniert, benötigt man Befehle, die als Eingabe einen Dataframe erwarten und wieder einen Dataframe zurückliefern. Das Schaubild verdeutlich beispielhaft eine Abfolge des Durchpfeifens (s. Abb. \@ref(fig:fig-durchpfeifen)).
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/Datenjudo/durchpfeifen} 
-
-}
-
-\caption{Das 'Durchpeifen'}(\#fig:fig-durchpfeifen)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/durchpfeifen.png" alt="Das 'Durchpeifen'" width="80%" />
+<p class="caption">(\#fig:fig-durchpfeifen)Das 'Durchpeifen'</p>
+</div>
 
 Die sog. "Pfeife" (pipe\index{Pfeife}: ` %>% `) in Anspielung an das berühmte Bild von René Magritte, verkettet Befehle hintereinander. Das ist praktisch, da es die Syntax vereinfacht. 
 
@@ -896,14 +830,10 @@ Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte p
 
 Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/Datenjudo/mutate} 
-
-}
-
-\caption{Sinnbild für mutate}(\#fig:fig-mutate)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Datenjudo/mutate.png" alt="Sinnbild für mutate" width="70%" />
+<p class="caption">(\#fig:fig-mutate)Sinnbild für mutate</p>
+</div>
 
 
 
@@ -1102,34 +1032,20 @@ stats_test %>%
 
 Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
 
-\begin{table}
 
-\caption{(\#tab:befehle-datenjudo)Befehle des Kapitels 'Datenjudo'}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-Paket::Funktion & Beschreibung\\
-\hline
-dplyr::arrange & Sortiert Spalten\\
-\hline
-dplyr::filter & Filtert Zeilen\\
-\hline
-dplyr::select & Wählt Spalten\\
-\hline
-dplyr::group\_by & gruppiert einen Dataframe\\
-\hline
-dplyr::n & zählt Zeilen\\
-\hline
-dplyr::count & zählt Zeilen nach Untergruppen\\
-\hline
-\%>\% (dplyr) & verkettet Befehle\\
-\hline
-dplyr::mutate & erzeugt/berechnet Spalten\\
-\hline
-desctable::desctable & Liefert Tabelle mit deskriptiver Statistik zurück\\
-\hline
-\end{tabular}
-\end{table}
+Table: (\#tab:befehle-datenjudo)Befehle des Kapitels 'Datenjudo'
+
+Paket::Funktion        Beschreibung                                      
+---------------------  --------------------------------------------------
+dplyr::arrange         Sortiert Spalten                                  
+dplyr::filter          Filtert Zeilen                                    
+dplyr::select          Wählt Spalten                                     
+dplyr::group_by        gruppiert einen Dataframe                         
+dplyr::n               zählt Zeilen                                      
+dplyr::count           zählt Zeilen nach Untergruppen                    
+%>% (dplyr)            verkettet Befehle                                 
+dplyr::mutate          erzeugt/berechnet Spalten                         
+desctable::desctable   Liefert Tabelle mit deskriptiver Statistik zurück 
 
 
 
