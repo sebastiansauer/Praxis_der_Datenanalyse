@@ -5,4 +5,11 @@
 
 *.md
 docs/
-_bookdown_files/
+*.rds
+*.tex
+*.Rmd
+libs/
+slides/
+rsconnect/
+.Rproj.user
+.Rhistory
