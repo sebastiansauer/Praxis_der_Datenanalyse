@@ -75,7 +75,7 @@ Die (genaue) Definition des p-Werts ist kompliziert; man kann sie leicht missver
 
 > Der p-Wert - P(D|H) - gibt die Wahrscheinlichkeit P unserer Daten D an (und noch extremerer), unter der Annahme, dass die getestete Hypothese H wahr ist (und wenn wir den Versuch unendlich oft wiederholen würden, unter identischen Bedingungen und ansonsten zufällig).
 
-Mit anderen Worten: Je *größer p*, desto *besser* passen die Daten zur *Nullhypothese*. Mit Nullhypothese\index{Nullhypothese} (H0) bezeichnet man die getestete Hypothese. Der Name Nullhypothese rührt vom Begriff 'nullifizieren' (vewerfen) her, da (nach dem Falsifikationismus) eine These immer nur verworfen, nie bestätigt werden kann. Da viele die eigene Hypothese nur ungern verwerfen wollen, wird die 'gegnerische Hypothese', die man loswerden will, getestet. Fällt p unter die magische Zahl von 5%, so proklamiert man Erfolg (*Signifikanz*\index{Signifikanz}) und verwirft die H0.
+Mit anderen Worten: Je *größer p*, desto *besser* passen die Daten zur *Nullhypothese*. Mit Nullhypothese\index{Nullhypothese} (H0) bezeichnet man die getestete Hypothese. Der Name Nullhypothese rührt vom Begriff 'nullifizieren' (verwerfen) her, da (nach dem Falsifikationismus) eine These immer nur verworfen, nie bestätigt werden kann. Da viele die eigene Hypothese nur ungern verwerfen wollen, wird die 'gegnerische Hypothese', die man loswerden will, getestet. Fällt p unter die magische Zahl von 5%, so proklamiert man Erfolg (*Signifikanz*\index{Signifikanz}) und verwirft die H0.
 
 Der p-Wert ist weit verbreitet. Er bietet die Möglichkeit, relativ objektiv zu quantifizieren, wie gut ein Kennwert, mindestens so extrem wie der aktuell vorliegende, zu einer Hypothese passt. Allerdings hat der p-Wert seine Probleme. Vor allem: Er wird missverstanden. Jetzt kann man sagen, dass es dem p-Wert (dem armen) nicht anzulasten, dass andere/ einige ihn missverstehen. Auf der anderen Seite finde ich, dass sich Technologien dem Nutzer anpassen sollten (soweit als möglich) und nicht umgekehrt. 
 
@@ -122,7 +122,7 @@ knitr::include_graphics("images/inferenz/einfluss_pwert-crop.png")
 >   Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.
 
 
-Die Verteidigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunteschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
+Die Verteidigung argumentiert hier, dass das "kein Bug, sondern ein Feature" sei: Wenn man z.B. die Hypothese prüfe, dass der Gewichtsunterschied zwischen Männern und Frauen 0,000000000kg sei und man findet 0,000000123kg Unterschied, ist die getestete Hypothese falsch. Punkt. Der p-Wert gibt demnach das korrekte Ergebnis. Meiner Ansicht nach ist die Antwort zwar richtig, geht aber an den Anforderungen der Praxis vorbei.
 
 
 
@@ -133,7 +133,7 @@ Falsche Lehrmeinungen sterben erst aus, wenn die beteiligten Professoren in Rent
 
 >    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) sicher richtig.
 
-Falsch. Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extereme) unwahrscheinlich, vorausgesetzt die H0 gilt".
+Falsch. Richtig ist: "Wenn der p-Wert kleines ist als 5% (oder allgemeiner: kleiner als $\alpha$, dann sind die Daten (oder noch extremer) unwahrscheinlich, vorausgesetzt die H0 gilt".
 
 >    Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwahrscheinlich richtig.
 
@@ -178,7 +178,7 @@ Die folgende Auflistung gibt einen *kurzen* Überblick zu gebräuchlichen Verfah
 1. Output: 1 ordinal, Input: 1 dichotom: Wilcoxon (Mann-Whitney-U-Test) - `wilcox.test`
 1. Output: 1 ordinal, Input: 1 nominal: Kruskal-Wallis-Test - `kruskal.test`
 1. 1 metrisch (Test auf Normalverteilung): Shapiro-Wilk-Test - `shapiro.test`
-1. Output: 1 dichotom, Input 1 oder mehr nominal oder metrisch: logistische (klassifikatorische) Regression: `glm(..., family = "binomial")
+1. Output: 1 dichotom, Input 1 oder mehr nominal oder metrisch: logistische (klassifikatorische) Regression: `glm(..., family = "binomial")`
 1. 2 ordinal: Spearmans Rangkorrelation - `cor.test(x, y, method = "spearman")`
 
 
@@ -193,7 +193,7 @@ Laden wir den Datensatz `extra`. Ob es wohl einen Zusammenhang gibt zwischen (de
 
 *Forschungsfrage: Gibt es einen Zusammenhang zwischen Geschlecht und extremen Alkoholgenuss?*
 
-Synonym wäre zu fragen, ob sich die Stufen von Geschlecht (die Geschlechter, also Mann und Frau) hinsichtliche ~~Saufen~~extremen Alkoholgenuss unterscheiden.
+Synonym wäre zu fragen, ob sich die Stufen von Geschlecht (die Geschlechter, also Mann und Frau) hinsichtlich ~~Saufen~~extremen Alkoholgenuss unterscheiden.
 
 
 ```{r warning = FALSE}
@@ -204,7 +204,7 @@ extra$viel_saeufer <- extra$n_hangover > 10
 chisq.test(x = extra$sex, extra$viel_saeufer)
 ```
 
-Achtung, falls Ihre Daten in aggregierter Form vorliegen, müssen Sie sie folendermaßen übergeben werden:
+Achtung, falls Ihre Daten in aggregierter Form vorliegen, müssen Sie sie folgendermaßen übergeben werden:
 
 ```{r}
 table(x = extra$sex, extra$viel_saeufer) %>% chisq.test
@@ -242,7 +242,7 @@ Der Punkt `.` meint hier den Datensatz in aktueller Form, so also, wie er aus de
 
 Hinweise:
   - Der t-Test testet im Standard *un*gerichtet.
-  - Wird eine Gruppierungsvariable (wie Geschlecht) vom Typ `factor` angegeben, so muss diese 2 Faktorstufen haben. Allein durch filtern wird man zusätzliche Faktorstufen nicht los (im Gegensatz zu Variablen vom Typ `character`, Text). Man muss die Faktorvariable nue als Faktorvariable definieren. Dann werden nur die existierenden Werte als Faktorstufen herangezogen.
+  - Wird eine Gruppierungsvariable (wie Geschlecht) vom Typ `factor` angegeben, so muss diese 2 Faktorstufen haben. Allein durch filtern wird man zusätzliche Faktorstufen nicht los (im Gegensatz zu Variablen vom Typ `character`, Text). Man muss die Faktorvariable neu als Faktorvariable definieren. Dann werden nur die existierenden Werte als Faktorstufen herangezogen.
   - Bei gerichteten Hypothesen sieht `t.test` zwei Möglichkeiten vor: `less` und `greater`. Woher weiß man, welches von beiden man nehmen muss? Die Antwort lautet: Bei Textvariablen sind die Stufen alphabetisch geordnet. R sagt also sozusagen: `Frau ? Mann`. Und für `?` müssen wir das richtige Ungleichheitszeichen einsetzen (< oder >), so dass es unserer Hypothese entspricht. In diesem Fall glauben wir, dass Frauen weniger (bzw. Männer mehr) trinken, also haben wir `less` gewählt.
   - Liegt der Datensatz nicht tidy vor, also gibt es z.B. eine Spalte mit Extraversionswerten für Männer und eine für Frauen, so darf man *nicht* die Formelsyntax (Kringel, Tilde "~"") nehmen, sondern benennt die Spalten mit X und Y: `t.text(x = df$extra_maenner, y = df$extra_frauen)`.
   
@@ -252,7 +252,7 @@ Hinweise:
 
 *Forschungsfrage: Unterscheiden sich Menschen mit unterschiedlich viel Kundenkontakt in ihrer Extraversion?*
 
-Der Kundenkontakt wurde mit einer Likertskala gemessen, die mehrere Stufen von "weniger als einmal pro Quartal" bis "im Schnitt mehrfrach pro Tag" reichte. Wir gehen nicht davon aus, dass diese Skala Intervallniveau aufweist. Obwohl Ordinalskalenniveau plausibel ist, bleiben wir bei der ANOVA (Varianzanalyse, AOV), die nur nominales Niveau ausschöpft. Beachten Sie, dass die entsprechende Variable von `extra` `client_freq` als Ganzzahl in R definiert ist, obwohl die Abstände nicht sicher gleich sind. Es ist zwar erlaubt, den Stufen einer nominalen Variablen Zahlen zuzuordnen, aber wir sollten nicht vergessen, dass die Zahlen "keine echten Zahlen" sind, also nicht metrisches Niveau aufweisen.
+Der Kundenkontakt wurde mit einer Likertskala gemessen, die mehrere Stufen von "weniger als einmal pro Quartal" bis "im Schnitt mehrfach pro Tag" reichte. Wir gehen nicht davon aus, dass diese Skala Intervallniveau aufweist. Obwohl Ordinalskalenniveau plausibel ist, bleiben wir bei der ANOVA (Varianzanalyse, AOV), die nur nominales Niveau ausschöpft. Beachten Sie, dass die entsprechende Variable von `extra` `client_freq` als Ganzzahl in R definiert ist, obwohl die Abstände nicht sicher gleich sind. Es ist zwar erlaubt, den Stufen einer nominalen Variablen Zahlen zuzuordnen, aber wir sollten nicht vergessen, dass die Zahlen "keine echten Zahlen" sind, also nicht metrisches Niveau aufweisen.
 
 Die verschiedenen Stufen einer Variablen kann man sich so ausgeben lassen:
 
@@ -377,10 +377,10 @@ ggplot(df) +
 ```
 
 
-Ob es im Universum irgendetwas gibt, das unendlich ist, ist streibar [@ruckerinfinity, @uncertainty]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, ist auch fragwürdig [@uncertainty].
+Ob es im Universum irgendetwas gibt, das unendlich ist, ist streitbar [@ruckerinfinity, @uncertainty]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, ist auch fragwürdig [@uncertainty].
 
 
-Die frequentistische Idee der Wahrscheinlichkeit darf Aussagen wie dieser keine Wahrscheinilchkeit zuweisen: "5 von 10 Marsianer trinken gerne Bier und Schorsch ist Marsianer" [vgl. @uncertainty]. Häufigkeitsaussagen a la Frequentismus machen hier offenbar wenig Sinn. Trotzdem fühlen sich manche unter uns geneigt, die Wahrscheinlichkeit, dass Schorsch der Marsianer gern Bier trinkt, auf 50% zu bemessen.
+Die frequentistische Idee der Wahrscheinlichkeit darf Aussagen wie dieser keine Wahrscheinlichkeit zuweisen: "5 von 10 Marsianer trinken gerne Bier und Schorsch ist Marsianer" [vgl. @uncertainty]. Häufigkeitsaussagen a la Frequentismus machen hier offenbar wenig Sinn. Trotzdem fühlen sich manche unter uns geneigt, die Wahrscheinlichkeit, dass Schorsch der Marsianer gern Bier trinkt, auf 50% zu bemessen.
 
 
 ## Alternativen zum p-Wert
@@ -391,7 +391,7 @@ Eine Reihen von Alternativen (oder Ergänzungen zum p-Wert) wurden vorgeschlagen
 
 Konfidenzintervalle\index{Konfidenzintervalle} (Zu) einfach gesagt, gibt ein 95%- Konfidenzintervall an, wie groß der Bereich ist, mit dem der gesuchte Parameter zu 95% Wahrscheinlichkeit liegt (oder allgemeiner das $1-\alpha$ -Konfidenzintervall. Das kennt man aus dem Wetterbericht, wenn es heißt, dass die Höchsttemperatur morgen zwischen 20 und 24 Grad liegen werde. 
 
-Etwas genauer gesagt ist es nach den Urhebern des Konfidenztervalls, Neyman und Pearson, gar nicht möglich, für ein einzelnes Ereignis eine Wahrscheinlichkeit anzugeben. Wenn ich eine Münze hochwerfe und sie auffange, wie groß ist die Wahrscheinlichkeit, dass sie auf Kopf gelandet ist? 50%? Falsch, sagen 'Frequentisten' a la Neyman und Pearson, entweder ist die Münze auf Kopf gelandet, dann kann man höchstens sagen, $p(K)=1$ oder auf Zahl, dann entsprechend $p(Z)=1$. Eine Wahrscheinlichkeit macht nur Sinn nach diesem Verständnis, wenn man den Versuch *oft* (unendlich) wiederholt. Daher lautet  eine genauere Definition: 
+Etwas genauer gesagt ist es nach den Urhebern des Konfidenzintervalls, Neyman und Pearson, gar nicht möglich, für ein einzelnes Ereignis eine Wahrscheinlichkeit anzugeben. Wenn ich eine Münze hochwerfe und sie auffange, wie groß ist die Wahrscheinlichkeit, dass sie auf Kopf gelandet ist? 50%? Falsch, sagen 'Frequentisten' a la Neyman und Pearson, entweder ist die Münze auf Kopf gelandet, dann kann man höchstens sagen, $p(K)=1$ oder auf Zahl, dann entsprechend $p(Z)=1$. Eine Wahrscheinlichkeit macht nur Sinn nach diesem Verständnis, wenn man den Versuch *oft* (unendlich) wiederholt. Daher lautet  eine genauere Definition: 
 
 >   Das 95%-Konfidenzintervall ist der Bereich, in dem der Parameter in 95% der Fälle fallen würde bei sehr häufiger Wiederholung des Versuchs. 
 
@@ -444,7 +444,7 @@ pander::pander(data.frame(df), caption = "Überblick über gängige Effektstärk
 ```
 
 
-Mit dem Paket `pwr` kann man sich Cohens Konventionen der Effektstärkehöhen in Einnerung rufen lassen. Er bietet folgene Optionen:
+Mit dem Paket `pwr` kann man sich Cohens Konventionen der Effektstärkehöhen in Erinnerung rufen lassen. Er bietet folgende Optionen:
 
 ```{r eval = FALSE}
 cohen.ES(test = c("p", "t", "r", "anov", "chisq", "f2"),
@@ -463,11 +463,11 @@ Auch die Vorhersagegüte kann man als eine Effektstärke auffassen.
 
 Bayes' Ansatz verrechnet zwei Komponenten, um die Wahrscheinlichkeit einer Hypothese im Lichte bestimmter Daten zu berechnen. Der Ansatz ist elegant, mathematisch lupenrein und ist überhaupt eine tolle Sache. Bayes' Theorem gibt uns das, was uns eigentlich interessiert: Die Wahrscheinlichkeit der getesteten Hypothese, im Lichte der vorliegenden Daten: $p(H|D)$. Diesen Wert nennt man auch den *Vorhersagewert*. Zur Erinnerung: Der p-Wert gibt die Wahrscheinlichkeit der Daten an, unter Annahme der getesteten Hypothese: $p(D|H)$.
 
-Die Bayes-Statistik zieht zwei Komponenten zur Berechnung von $p(H|D)$ heran. Zum einen die Grundrate einer Hypothese $p(H)$ zum anderen die relative Plausibilität der Daten unter meiner Hypothese im Vergleich zur Plausibilität der Daten unter konkurrienden Hypothesen. Betrachten wir ein Beispiel. Die Hypothese "Ich bin krank" sei unter Betrachtung (jetzt noch keine vorschnellen Einschätzungen). Die Grundrate der fraglichen Krankheit sei 10 von 1000 (1%). Der Test, der zur Diagnose der Krankheit verwendet wird, habe eine Sicherheit von 90%. Von 100 Kranken wird der Test demnach 90 identifizieren (auch *Sensitivität* genannt) und 10 werden übersehen (ein Überseh- oder *Betafehler* von 10%). Umgekehrt wird der Test von 100 Gesunden wiederum 90 als Gesund, und demnach korrekt diagnostizieren (*Spezifität*); 10 werden fälschlich als krank einschätzt (*Fehlalarm*  oder *Alpha-Fehler*). 
+Die Bayes-Statistik zieht zwei Komponenten zur Berechnung von $p(H|D)$ heran. Zum einen die Grundrate einer Hypothese $p(H)$ zum anderen die relative Plausibilität der Daten unter meiner Hypothese im Vergleich zur Plausibilität der Daten unter konkurrierenden Hypothesen. Betrachten wir ein Beispiel. Die Hypothese "Ich bin krank" sei unter Betrachtung (jetzt noch keine vorschnellen Einschätzungen). Die Grundrate der fraglichen Krankheit sei 10 von 1000 (1%). Der Test, der zur Diagnose der Krankheit verwendet wird, habe eine Sicherheit von 90%. Von 100 Kranken wird der Test demnach 90 identifizieren (auch *Sensitivität* genannt) und 10 werden übersehen (ein Überseh- oder *Betafehler* von 10%). Umgekehrt wird der Test von 100 Gesunden wiederum 90 als Gesund, und demnach korrekt diagnostizieren (*Spezifität*); 10 werden fälschlich als krank einschätzt (*Fehlalarm*  oder *Alpha-Fehler*). 
 
 Jetzt Achtung: Der Test sagt, ich sei krank. Die Gretchen-Frage lautet, wie hoch ist die Wahrscheinlichkeit, dass diese Hypothese, basierend auf den vorliegenden Daten, korrekt ist?
 
-Abbildung \@ref(fig:bayes) stellt das Beisipiel in Form eines Baumdiagrammes dar.
+Abbildung \@ref(fig:bayes) stellt das Beispiel in Form eines Baumdiagrammes dar.
 
 ```{r bayes, echo = FALSE, fig.cap = "Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli"}
 
@@ -547,8 +547,8 @@ knitr::include_graphics("images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg")
 
 ## Verweise
 
-- Eine Einführung zur Bayes-Statistk findet man z.B. bei Kruschke [-@kruschke2010bayesian] oder bei @etz2016become. 
+- Eine Einführung zur Bayes-Statistik findet man z.B. bei Kruschke [-@kruschke2010bayesian] oder bei @etz2016become. 
 - Eine ausführliche Darstellung der Inferenzstatistik und des p-Werts findet sich z.B. bei @lubke2014angewandte oder @eid2010statistik.
 
-- Eine vielverprechende, noch recht neue Software ist [JASP](), die nicht nur schöne Diagramme erstellt, sondern auch auf Mausklick eine Reihe von bayesianischer (und frequentistischer) Tests durchrechnet.
+- Eine vielversprechende, noch recht neue Software ist [JASP](), die nicht nur schöne Diagramme erstellt, sondern auch auf Mausklick eine Reihe von bayesianischer (und frequentistischer) Tests durchrechnet.
 

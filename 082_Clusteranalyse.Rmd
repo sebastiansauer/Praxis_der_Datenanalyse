@@ -59,7 +59,7 @@ Lernziele:
 
 ## Einführung
 
-Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhatten" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklischen Abstand konzentrieren.
+Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhattan" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklidischen Abstand konzentrieren.
 
 
 ## Intuitive Darstellung der Clusteranalayse
@@ -82,7 +82,7 @@ p2 <- ggplot(points, aes(x1, x2, color=cluster)) + geom_point() +
   xlab("Lernzeit") + ylab("Klasurpunkte")
 ```
 
-Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wieviel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
+Betrachten Sie das folgende Streudiagramm (die Daten sind frei erfunden; "simuliert", sagt der Statistiker). Es stellt den Zusammenhang von Lernzeit (wie viel ein Student für eine Statistikklausur lernt) und dem Klausurerfolg (wie viele Punkte ein Student in der Klausur erzielt) dar. Sehen Sie Muster? Lassen sich Gruppen von Studierenden mit bloßem Auge abgrenzen (Abb. \@ref(fig:cluster1))?
 
 ```{r cluster1, echo = FALSE, fig.cap = "Ein Streudiagramm - sehen Sie Gruppen (Cluster) ?"}
 p1
@@ -96,7 +96,7 @@ p2
 
 Nach dieser "Färbung", d.h. nach dieser Aufteilung in drei Gruppen, scheint es folgende "Cluster", "Gruppen" oder "Typen" von Studierenden zu geben:
 
- - "Blaue Gruppe": Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausr. Tja.
+ - "Blaue Gruppe": Fälle dieser Gruppe lernen wenig und haben wenig Erfolg in der Klausur. Tja.
  
  - "Rote Gruppe": Fälle dieser Gruppe lernen viel; der Erfolg ist recht durchwachsen.
  
@@ -136,7 +136,7 @@ ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept 
 
 ```
 
-Die vertikale gestrichtelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeihchnet. Fertig!
+Die vertikale gestrichelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeichnet. Fertig!
 
 
 ## Euklidische Distanz
@@ -164,7 +164,7 @@ knitr::include_graphics("images/cluster/pythagoras2_crop.png")
 
 Sie können sich Punkt $A$ als Ecke eines Zimmers vorstellen; Punkt $B$ schwebt dann in der Luft, in einiger Entfernung zu $A$.  
 
-Wieder suchen wir den Abstand zwischen den Punkten $A$ und $B$. Wenn wir die Länge $e$ wüssten, dann hätten wir die Lösung; $e$ ist der Abstand zwischen $A$ und $B$. Im orange farbenen Dreieck gilt wiederum der Satz von Pythagoras: $c^2+d^2=e^2$. Wenn wir also $c$ und $d$ wüssten, so könnten wir $e$ berechnen... $c$ haben wir ja gerade berechnet (5) und $d$ ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also
+Wieder suchen wir den Abstand zwischen den Punkten $A$ und $B$. Wenn wir die Länge $e$ wüssten, dann hätten wir die Lösung; $e$ ist der Abstand zwischen $A$ und $B$. Im orangenen Dreieck gilt wiederum der Satz von Pythagoras: $c^2+d^2=e^2$. Wenn wir also $c$ und $d$ wüssten, so könnten wir $e$ berechnen... $c$ haben wir ja gerade berechnet (5) und $d$ ist einfach der Unterschied in Statistikliebe zwischen Anna und Berta (2)! Also
 
 $$e^2 = c^2 + d^2$$
 $$e^2 = 5^2 + 2^2$$
@@ -186,7 +186,7 @@ knitr::include_graphics("images/cluster/pythagoras_crop.png")
 
 Das geht nicht nur für "zwei Dreiecke hintereinander", sondern der Algebra ist es wurscht, wie viele Dreiecke das sind.
 
->   Um den Abstand zweier Objekte mit *k* Merkmalen zu bestimmen, kann der euklische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann $e^2 = a^2 + b^2 + d^2$. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.
+>   Um den Abstand zweier Objekte mit *k* Merkmalen zu bestimmen, kann der euklidische Abstand berechnet werden mit. Bei k=3 Merkmalen lautet die Formel dann $e^2 = a^2 + b^2 + d^2$. Bei mehr als 3 Merkmalen erweitert sich die Formel entsprechend.
 
 
 Dieser Gedanken ist mächtig! Wir können von allen möglichen Objekten den Unterschied bzw. die (euklidische) Distanz ausrechnen! Betrachten wir drei Professoren, die einschätzen sollten, wir sehr sie bestimmte Filme mögen (1: gar nicht; 10: sehr). Die Filme waren: "Die Sendung mit der Maus", "Bugs Bunny", "Rambo Teil 1", "Vom Winde verweht" und "MacGyver".
@@ -203,7 +203,7 @@ profs <- data_frame(
 
 ```
 
-Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben eingen größeren "Abstand" in ihren Vorlieben? 
+Betrachten Sie die Film-Vorlieben der drei Professoren. Gibt es ähnliche Professoren hinsichtlich der Vorlieben? Welche Professoren haben einen größeren "Abstand" in ihren Vorlieben? 
 
 Wir könnten einen "fünffachen Pythagoras" zu Rate ziehen. Praktischerweise gibt es aber eine R-Funktion, die uns die Rechnerei abnimmt:
 
@@ -216,7 +216,7 @@ Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwis
 
 ## Daten
 
-Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus @Chapman2015 analysieren. Näheres zu den Daetn siehe Kapitel 5 dort.
+Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus @Chapman2015 analysieren. Näheres zu den Daten siehe Kapitel 5 dort.
 
 Sie können ihn von <https://goo.gl/eUm8PI> als `csv`-Datei herunterladen; oder, wenn sich die Datei im Unterordner `data/` (relativ zu ihrem Arbeitsverzeichnis) befindet:
 
@@ -242,7 +242,7 @@ Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`)
 dist(head(segment))
 ```
 
-Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evt. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
+Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evtl. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
 
 Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich auch den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte aus Variablen mit unterschiedlichen Skalenniveaus bestehen
 
@@ -274,7 +274,7 @@ segment.num <- segment %>%
   dplyr::select(-Geschlecht, -Segment)
 ```
 
-Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzene Variablen ausgewählt. Mit der "Pfeife" `%>%` übergeben wir das Ergebnis der vorherigen Funktion an die folgende.
+Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzelne Variablen ausgewählt. Mit der "Pfeife" `%>%` übergeben wir das Ergebnis der vorherigen Funktion an die folgende.
 
 Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion `kmeans()` erfolgt dies durch die Option `nstart =`. Hier mit `k = 4` Clustern:
 

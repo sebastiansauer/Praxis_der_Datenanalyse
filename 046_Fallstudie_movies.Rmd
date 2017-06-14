@@ -102,7 +102,7 @@ Der Befehl `gather` baut einen Dataframe von "breit" nach "lang" um (vgl. Kapite
 
 ## Zusammenhang zwischen Budget und Beurteilung
 
-Werden teuerere Filme (also Filme mit mehr Budget) besser beurteilt im Schnitt? Das würde man erwarten, denn zum Spaß werden die Investoren wohl nicht ihr Geld raus. Schauen wir es uns an.
+Werden teurere Filme (also Filme mit mehr Budget) besser beurteilt im Schnitt? Das würde man erwarten, denn zum Spaß werden die Investoren wohl nicht ihr Geld raus. Schauen wir es uns an.
 
 ```{r}
 movies %>% 
@@ -110,7 +110,7 @@ movies %>%
   correlate 
 ```
 
-Wir haben gerade die drei Spalten `budget`, `rating` und `votes` ausgewählt, dann in der nächsten Zeile die fehlenden Werte eliminiert und schließlich die Korrelation zwischen allen Paaren gebildet. Interessanterweise gibt es keine Korrelation zwischen dem Budget und dem Rating! Teuere Filme sind also mitnichten besser bewertet. Allerdings haben Filme mit mehr Budget eine größere Anzahl an Bewertungen, sind also offenbar bekannter. Vielleicht gehen dann auch entsprechend mehr Leute im Kino - auch wenn diese Filme nicht besser sind. Teuerere Filme sind also bekannter, wenn auch nicht besser (beurteilt); so könnte man die Daten lesen.
+Wir haben gerade die drei Spalten `budget`, `rating` und `votes` ausgewählt, dann in der nächsten Zeile die fehlenden Werte eliminiert und schließlich die Korrelation zwischen allen Paaren gebildet. Interessanterweise gibt es keine Korrelation zwischen dem Budget und dem Rating! Teuere Filme sind also mitnichten besser bewertet. Allerdings haben Filme mit mehr Budget eine größere Anzahl an Bewertungen, sind also offenbar bekannter. Vielleicht gehen dann auch entsprechend mehr Leute im Kino - auch wenn diese Filme nicht besser sind. Teurere Filme sind also bekannter, wenn auch nicht besser (beurteilt); so könnte man die Daten lesen.
 
 ## Wurden die Filme im Lauf der Jahre teurer und/oder "besser"?
 

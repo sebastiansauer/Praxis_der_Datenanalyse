@@ -6,7 +6,7 @@
 
 R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items [@edu_icons].
 
-*R-Pseudo-Syntax*: R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral ist R in diesem Kurs. Zugebenermaßen braucht es etwas Zeit, bis man ein paar Brocken "Errisch" spricht. Um den Einstieg zu erleichern, ist Errisch auf Deutsch übersetzt an einigen Stellen, wo mir dies besonders hilfreich erschien. Diese Stellen sind mit diesem Symbol ![](images/icons/pseudocode.png){ width=5% } gekennzeichnet (für R-Pseudo-Syntax).
+*R-Pseudo-Syntax*: R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral ist R in diesem Kurs. Zugebenermaßen braucht es etwas Zeit, bis man ein paar Brocken "Errisch" spricht. Um den Einstieg zu erleichtern, ist Errisch auf Deutsch übersetzt an einigen Stellen, wo mir dies besonders hilfreich erschien. Diese Stellen sind mit diesem Symbol ![](images/icons/pseudocode.png){ width=5% } gekennzeichnet (für R-Pseudo-Syntax).
 
 *Achtung, Falle*: Schwierige oder fehlerträchtige Stellen sind mit diesem Symbol ![](images/icons/caution.png){ width=5% } markiert.
 
@@ -16,11 +16,11 @@ R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items [@edu_icons].
 
 ## Voraussetzungen
 
-Dieses Skript hat einige *Voraussetzungen*, was das Vorwissen der Leser angeht; folgende Themengebiete werden vorausgsetzt:
+Dieses Skript hat einige *Voraussetzungen*, was das Vorwissen der Leser angeht; folgende Themengebiete werden vorausgesetzt:
 
 - Deskriptive Statistik
 - Grundlagen der Inferenzstatistik
-- Grundagen der Regressionsanalyse
+- Grundlagen der Regressionsanalyse
 - Skalenniveaus
 - Grundlagen von R
 

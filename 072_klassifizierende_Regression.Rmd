@@ -99,7 +99,7 @@ p1 + geom_abline(intercept = .18, slope = .05, color = "red")
 
 Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
 
-Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitsschaft von ca. 16 über 1 liegt?
+Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitschaft von ca. 16 über 1 liegt?
 
 Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 "umbiegt" (die sogenannte *Linkfunktion*). Eine häufig dafür verwendete Funktion ist die *logistische Funktion*\index{logistische Funktion}. Im einfachsten Fall:
 
@@ -169,7 +169,7 @@ Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden.
 
 $\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
 
-Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logistform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
+Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logitform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
 
 `y = intercept + 3*Risikobereitschaft`, also
 
@@ -260,7 +260,7 @@ Bei einer Risikobereitschaft von 7 beträgt die Wahrscheinlichkeit für $y=1$, d
 
 
 ## Kategoriale Prädiktoren
-Wie in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. 
+Wie in der linearen Regression können auch in der logistischen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. 
 
 Betrachten wir als Beispiel die Frage, ob die kategoriale Variable "Interessiert" (genauer: dichotome Variable) einen Einfluss auf das Bestehen in der Klausur hat, also die Wahrscheinlichkeit für Bestehen erhöht.
 
@@ -336,7 +336,7 @@ summary(glm2)
 
 
 
-Alle Schätzer sind signifkant zum 0.1 %-Niveau (`***` in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.
+Alle Schätzer sind signifikant zum 0.1 %-Niveau (`***` in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.
 
 
 ## Modellgüte
@@ -363,7 +363,7 @@ Logistische Regressionsmodelle werden häufig zur *Klassifikation*\index{Klassif
 
 - Ein medizinischer Test soll Kranke als krank und Gesunde als gesund klassifizieren.
 - Ein statistischer Test sollte wahre Hypothesen als wahr und falsche Hypothesen als falsch klassifizieren.
-- Ein Personaler sollte geeignte Bewerber als geeignet und nicht geeignete Bewerber als nicht geeignet einstufen.
+- Ein Personaler sollte geeignete Bewerber als geeignet und nicht geeignete Bewerber als nicht geeignet einstufen.
 
 Diese beiden Arten von Klassifikationen können unterschiedlich gut sein. Im Extremfall könnte ein Test alle Menschen als krank ('positiv') einstufen. Mit Sicherheit wurden dann alle Kranken korrekt als krank diagnostiziert. Dummerweise würde der Test 'auf der anderen Seite' viele Fehler machen: Gesunde als gesund ('negativ') zu klassifizieren.
 
@@ -378,7 +378,7 @@ knitr::kable(df, caption = "Vier Arten von Ergebnisse von Klassfikationen")
 ```
 
 
-Die logistische Regression gibt uns für jeden Fall eine Wahrscheinlichkeit zurück, dass der Fall zum Ereignis $1$ gehört. Wir müssen dann einen Schwellenwert (threshold) auswählen. Einen Wert also, der bestimmt, ob der Fall zum Ereignis $1$ gehört. Häufigt nimmt man  $0.5$. Liegt die Wahrscheinlichkeit unter dem Schwellenwert, so ordnet man den Fall dem Ereignis $0$ zu. 
+Die logistische Regression gibt uns für jeden Fall eine Wahrscheinlichkeit zurück, dass der Fall zum Ereignis $1$ gehört. Wir müssen dann einen Schwellenwert (threshold) auswählen. Einen Wert also, der bestimmt, ob der Fall zum Ereignis $1$ gehört. Häufig nimmt man  $0.5$. Liegt die Wahrscheinlichkeit unter dem Schwellenwert, so ordnet man den Fall dem Ereignis $0$ zu. 
 
 Beispiel: Alois' Wahrscheinlichkeit, die Klausur zu bestehen, wird vom Regressionsmodell auf 51% geschätzt. Unser Schwellenwert sei 50%; wir ordnen Alois der Klasse "bestehen" zu. Alois freut sich. Das Modell sagt also "bestehen" ($1$) für Alois voraus. Man sagt auch, der 'geschätzte Wert' (*fitted value*) von Alois sei $1$. 
 
@@ -434,7 +434,7 @@ Siehe da! Die Sensitivität ist gestiegen, wir haben mehr Käufer als solche ide
 
 
 
-Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Richtig-Positiv-Rate (Sensitivität) gegen die Falsch-Positiv-Rate ($1-$Spezifität) abgetragen. Das Paket `pROC` hilft uns hier weiter. Zuerst berechnen wir für viele verschiedene Schwellenwerte jeweils die beiden Fehler (Falsch-Positiv-Rate und Falsch-Negativ-Rate). Trägt man diese in ein Daigramm ab, so bekommt man Abbildung \@ref(fig:roc-stats), eine sog. *ROC-Kurve*\index{ROC}.
+Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Richtig-Positiv-Rate (Sensitivität) gegen die Falsch-Positiv-Rate ($1-$Spezifität) abgetragen. Das Paket `pROC` hilft uns hier weiter. Zuerst berechnen wir für viele verschiedene Schwellenwerte jeweils die beiden Fehler (Falsch-Positiv-Rate und Falsch-Negativ-Rate). Trägt man diese in ein Diagramm ab, so bekommt man Abbildung \@ref(fig:roc-stats), eine sog. *ROC-Kurve*\index{ROC}.
 
 ```{r}
 lets_roc <- roc(Aktien$Aktienkauf, glm1$fitted.values)
@@ -449,7 +449,7 @@ plot(lets_roc)
 ```
 
 
-Die 'Fläche unter der Kurve' (area under curve, AUC) is damit ein Maß für die Güte des Tests. Abbildung \@ref(fig:example-rocs) stellt drei Beispiele von Klassifikationsgüten dar: sehr gute (A), gute (B) und schlechte (C). Ein hohe Klassifikationsgüte zeigt sich daran, dass eine hohe Richtig-Positiv-Rate mit einer kleinen Fehlalarmquote einher geht: Wir finden alle Kranken, aber nur die Kranken. Die AUC-Kurve "hängt oben links an der Decke". Ein schlechter Klassifikator trifft so gut wie ein Münzwurf: Ist das Ereignis selten, hat er eine hohe Falsch-Positiv-Rate und eine geringe Falsch-Negativ-Rate. Ist das Ereignis hingegen häufig, liegen die Fehlerhöhen genau umgekehrt: Eine hohe Richtig-Positiv-Rate wird mit einer hoher Falsch-Positiv-Rate einher.
+Die 'Fläche unter der Kurve' (area under curve, AUC) ist damit ein Maß für die Güte des Tests. Abbildung \@ref(fig:example-rocs) stellt drei Beispiele von Klassifikationsgüten dar: sehr gute (A), gute (B) und schlechte (C). Ein hohe Klassifikationsgüte zeigt sich daran, dass eine hohe Richtig-Positiv-Rate mit einer kleinen Fehlalarmquote einher geht: Wir finden alle Kranken, aber nur die Kranken. Die AUC-Kurve "hängt oben links an der Decke". Ein schlechter Klassifikator trifft so gut wie ein Münzwurf: Ist das Ereignis selten, hat er eine hohe Falsch-Positiv-Rate und eine geringe Falsch-Negativ-Rate. Ist das Ereignis hingegen häufig, liegen die Fehlerhöhen genau umgekehrt: Eine hohe Richtig-Positiv-Rate wird mit einer hoher Falsch-Positiv-Rate einher.
 
 
 ```{r example-rocs, echo = FALSE, fig.cap = "Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation"}

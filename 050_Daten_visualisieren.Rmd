@@ -69,7 +69,7 @@ knitr::include_graphics("images/visualisieren/anscombe.png")
 
 Offenbar "passieren" in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns... Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden "Natur") passiert. 
 
-Eine coole Variante mit der gleichen Botschaft findet sich [hier](https://www.autodeskresearch.com/publications/samestats) bzw. mit einer Animation [hier](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif); vgl. Matejka & Fitzmaurice [-@matejka2017same].
+Eine coole Variante mit der gleichen Botschaft findet sich [hier](https://www.autodeskresearch.com/publications/samestats) bzw. mit einer Animation [hier](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif); vgl. -@matejka2017same.
 
 
 Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: `ggplot2`^["gg" steht für "grammer of graphics" nach einem Buch von Wilkinson[-@wilkinson2006grammar]; "plot" steht für "to plot", also ein Diagramm erstellen ("plotten"); vgl. https://en.wikipedia.org/wiki/Ggplot2].
@@ -347,7 +347,7 @@ stats_test <- read.csv("data/test_inf_short.csv"
 qplot(x = bestanden, data = stats_test)
 ```
 
-Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Text-Variable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom (es steht uns frei, trotzdem `geom = bar` anzugeben).
+Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Textvariable steht, dann nimmt `qplot` automatisch ein Balkendiagramm als Geom (es steht uns frei, trotzdem `geom = bar` anzugeben).
 
 
 Wir könnten uns jetzt die Frage stellen, wie viele Nicht-Interessierte und Hoch-Interessierte es in der Gruppe, die bestanden hat (`bestanden == "yes"`) gibt; entsprechend für die Gruppe, die nicht bestanden hat. 
@@ -360,7 +360,7 @@ qplot(x = bestanden, fill = factor(interest), data = stats_test)
 ```
 
 
-Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `interest` füllen soll. Damit `qplot` (und `ggplot`) sich bequemt, die Füllung umzusetzen, müssen wir aus `interet` eine nominal-skalierte Variablen machen - `factor` macht das für uns.
+Hier haben wir `qplot` gesagt, dass der die Balken entsprechend der Häufigkeit von `interest` füllen soll. Damit `qplot` (und `ggplot`) sich bequemt, die Füllung umzusetzen, müssen wir aus `interet` eine nominalskalierte Variablen machen - `factor` macht das für uns.
 
 
 Schön wäre noch, wenn die Balken Anteile (Prozentwerte) angeben würden. Das geht mit `qplot` (so) nicht; wir schwenken auf `ggplot` um. Und, um die Story zuzuspitzen, schauen wir uns nur die Extremwerte von `interest` an.
@@ -405,7 +405,7 @@ Wir sehen, dass die Anteile von großen bzw. kleinen Menschen bei den beiden Gru
 
 
 ### Zwei nominale Variablen 
-Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie viele Narzisseten gibt es in welcher Management-Stufe? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse?. Bleiben wir bei letztem Beispiel. 
+Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie viele Narzissten gibt es in welcher Management-Stufe? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse?. Bleiben wir bei letztem Beispiel. 
 
 
 ```{r}
@@ -458,7 +458,7 @@ stats_test_summary %>%
   qplot(x = bestanden, y = interest_mw, data = .)
 ```
 
-Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Bereichern wir das Diagramm um die Frage, wieviel (jeder Student gelernt hat (`study_time`). Schauen wir uns aber der Einfachheit halber nur die Studenten an, die ganz viel oder ganz wenig gelernt haben.
+Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Bereichern wir das Diagramm um die Frage, wie viel (jeder Student gelernt hat (`study_time`). Schauen wir uns aber der Einfachheit halber nur die Studenten an, die ganz viel oder ganz wenig gelernt haben.
 
 ```{r}
 stats_test %>% 
@@ -569,7 +569,7 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 
 1. Erzählen Sie einer vertrauenswürdigen Person jeweils eine "Geschichte", die das Zustandekommen der vier Plots von Anscombe (Abb. \@ref(fig:fig-anscombe)) erklärt!
 
-1. Abb. \@ref(fig:fig-movies-jahrzehnt) stellt das mittlerer Budget von Filmem dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
+1. Abb. \@ref(fig:fig-movies-jahrzehnt) stellt das mittlerer Budget von Filmen dar; als "Geom" wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?
 
 1. Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht `carrier` sondern `origin`.
 
@@ -593,7 +593,7 @@ qplot(x = gender, y = affairs, geom = "boxplot", data = Affairs)
 qplot(x = budget, geom = "histogram", data = movies, facets = ~factor(Jahrzehnt))
 ```
 
-Der Boxplot ist besser geeignet als das Histogramm, um mehrere Verteilungen vergleichend zu präsentieren (vgl. Abb. \@ref(fig:movies-histogram)). Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schönenen Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
+Der Boxplot ist besser geeignet als das Histogramm, um mehrere Verteilungen vergleichend zu präsentieren (vgl. Abb. \@ref(fig:movies-histogram)). Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schöneren Effekt könnte man mit `geom_jitter` anstelle von `geom_point`erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.
 
 
 3. :
@@ -660,7 +660,7 @@ Einen guten Überblick über Geome bietet das Cheatsheet von ggplot2^[https://ww
 
 Verschiedenen Taxonomien von statistischen "Bildchen" sind denkbar; eine einfache ist die folgende; es wird nur ein Teil der verfügbaren Geome dargestellt.
 
-1. Eine kontinuerliche Variable
+1. Eine kontinuierliche Variable
 
 ```{r echo = FALSE}
 p1 <- 

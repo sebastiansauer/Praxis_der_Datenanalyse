@@ -71,7 +71,7 @@ library(png)
 
 ## Was ist ein Modell? Was ist Modellieren? {#Modellieren}
 
-In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
+In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototypisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
 
 ```{r vwmodell, echo = FALSE, fig.cap = "Modell eines VW-Käfers", out.width = "40%"}
 knitr::include_graphics("images/modellieren/vw_modell.JPG")
@@ -102,7 +102,7 @@ Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen Syst
 knitr::include_graphics("images/modellieren/Modellieren_formal_crop.png")
 ```
 
-Etwas spitzfinding könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
+Etwas spitzfindig könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
 
 Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von *Relationen*\index{Relation} $R_E$ (Relationen meint hier nichts mehr als irgendwelche Beziehungen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
 
@@ -189,7 +189,7 @@ Modelle kann man auf vielerlei Arten gliedern; für unsere Zwecke ist folgende T
 
 - Geleitetes Modellieren
     - Prädiktives Modellieren
-    - Explikaties Modellieren
+    - Explikatives Modellieren
 - Ungeleitetes Modellieren
     - Dimensionsreduzierendes Modellieren
     - Fallreduzierendes Modellieren
@@ -199,7 +199,7 @@ Modelle kann man auf vielerlei Arten gliedern; für unsere Zwecke ist folgende T
 Betrachten wir diese vier Ziele des Modellierens genauer.
 
 
-*Geleitetes Modellieren*\index{Geleitetes Modellieren} ist jede Art des Modellierens, wo die Variablen in Prädiktoren und Kriterien unterteilt werden, z.B. Abb. \@ref(fig:mod-beispiel). Man könnte diese Modelle einfach dastellen als "X führt zu Y". 
+*Geleitetes Modellieren*\index{Geleitetes Modellieren} ist jede Art des Modellierens, wo die Variablen in Prädiktoren und Kriterien unterteilt werden, z.B. Abb. \@ref(fig:mod-beispiel). Man könnte diese Modelle einfach darstellen als "X führt zu Y". 
 
 *Prädiktives Modellieren*\index{Prädiktives Modellieren} könnte man kurz als *Vorhersagen*\index{Vorhersagen} bezeichnen. Hier ist das Ziel, eine Black Box geschickt zu wählen, so dass der Vohersagefehler möglichst klein ist. Man zielt also darauf ab, möglichst exakte Vorhersagen zu treffen. Sicherlich wird der Vorhersagefehler kaum jemals Null sein; aber je präziser, desto besser. Das Innenleben der "schwarzen Kiste" interessiert uns hier *nicht*.
 
@@ -208,7 +208,7 @@ Betrachten wir diese vier Ziele des Modellierens genauer.
 Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktioniert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen*\index{angeleitetes Lernen} oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder.
 
 
-Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modelieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
+Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modellieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
 
 ```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
 
@@ -217,7 +217,7 @@ knitr::include_graphics("images/modellieren/ungeleitetes_Modellieren_crop.png")
 ```
 
 
-Fässt man *Fälle* zusammen, so spricht man von *Fallreduzierendem Modellieren*\index{Fallreduzierendes Modellieren}. Zum Beispiel könnte man spektakulärerweise "Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann" zusammen fassen.
+Fasst man *Fälle* zusammen, so spricht man von *Fallreduzierendem Modellieren*\index{Fallreduzierendes Modellieren}. Zum Beispiel könnte man spektakulärerweise "Britta", "Carla" und "Dina" zu "Frau" und "Joachim", "Alois" und "Casper" zu "Mann" zusammen fassen.
 
 Analog spricht man von *Dimensionsreduzierendes Modellieren*\index{Dimensionsreduzierendes Modellieren} wenn Variablen zusammengefasst werden. Hat man z.B. einen Fragebogen zur Mitarbeiterzufriedenheit mit den Items "Mein Chef ist fair", "Mein Chef ist kompetent", "Meinem Chef ist meine Karriere wichtig", so könnte man - wenn die Daten dies unterstützen - die Items zu einer Variable "Zufriedenheit mit Chef" zusammenfassen.
 
@@ -303,7 +303,7 @@ Ah! Das *grüne Modell* scheint das Wesentliche, die "Essenz" der "Punktebewegun
 >    Je komplexer ein Modell ist, desto besser beschreibt es einen bekannten Datensatz (Trainings-Stichprobe). Allerdings ist das Modell, welches den Trainings-Datensatz am besten beschreibt, nicht zwangsläufig das Modell, welches neue, unbekannte Daten am besten beschreibt. Oft im Gegenteil!
 
 
-Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder (vgl. Abb. \@ref(fig:overfitting-schema)! Eine 'mittlere' Komplexität ist daher am besten; die Frage ist nur, wieviel 'mittel' ist.
+Je komplexer das Modell, desto kleiner der Fehler im *Trainings*-Datensatz. Allerdings: Die Fehler-Kurve im *Test-*Datensatz ist *U-förmig*: Mit steigender Komplexität wird der Fehler einige Zeit lang kleiner; ab einer gewissen Komplexität steigt der Fehler im Test-Datensatz wieder (vgl. Abb. \@ref(fig:overfitting-schema)! Eine 'mittlere' Komplexität ist daher am besten; die Frage ist nur, wie viel 'mittel' ist.
 
 ```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe", out.width = "50%"}
 knitr::include_graphics("images/modellieren/overfitting.png")

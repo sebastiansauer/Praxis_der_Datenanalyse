@@ -51,7 +51,7 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 
 8. Eine Abduktion führt zu sicheren Schlüssen.
 
-9. Das CSV-Format ist identisch zum Excel-Format, was sich auch darin zeigt, dass Excel CSV-Datein oft problemlos öffnet.
+9. Das CSV-Format ist identisch zum Excel-Format, was sich auch darin zeigt, dass Excel CSV-Dateien oft problemlos öffnet.
 
 10. Das Arbeitsverzeichnis (engl. *working directory*) ist der Ort, in dem R eine Datei, die Sie aufrufen, vermutet - sofern kein anderer Pfad angegeben ist.
 
@@ -77,9 +77,9 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 
 21. Was zeigt uns "Anscombes Quartett"?
 
-22. `ggplot` unterscheidet drei Bestandtteile eines Diagramms: Daten, Geome und Transformationen.
+22. `ggplot` unterscheidet drei Bestandteile eines Diagramms: Daten, Geome und Transformationen.
 
-23. Um eine kontinuierliche Variable zu plotten, wird häufig ein Histrogramm verwendet.
+23. Um eine kontinuierliche Variable zu plotten, wird häufig ein Histogramm verwendet.
 
 24. Das Geom `tile` zeigt drei Variablen.
 
@@ -105,7 +105,7 @@ Aussagen sind entweder als "richtig" oder als "falsch" zu beantworten. Offene Fr
 
 35. Wendet man die "normale" Regression an, um eine dichotome Variable als Kriterium zu modellieren, so kann man Wahrscheinlichkeiten größer als 1 und kleiner als 0 bekommen.
 
-36. Eine typische Idee der Clusteranalyse lautet, die Vaerianz innerhalb der Cluster jeweils zu maximieren.
+36. Eine typische Idee der Clusteranalyse lautet, die Varianz innerhalb der Cluster jeweils zu maximieren.
 
 37. Bei einer k-means-Clusteranalyse darf man nicht die Anzahl der Cluster vorab festlegen; vielmehr ermittelt der Algorithmus die richtige Anzahl der Cluster.
 

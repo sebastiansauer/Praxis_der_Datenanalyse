@@ -20,13 +20,18 @@ knitr::opts_chunk$set(
 
 ## Außereheliche Affären
 
-Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig? Diese Frage soll anhand des Datensates `Affair` untersucht werden.
+Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig? Diese Frage soll anhand des Datensatzes `Affair` untersucht werden.
 
-Quelle: <http://statsmodels.sourceforge.net/0.5.0/datasets/generated/fair.html>
 
-Der Datensatz findet sich (in ähnlicher Form) auch im R-Paket `COUNT` (https://cran.r-project.org/web/packages/COUNT/index.html).
+In diesem Kapitel werden folgende Pakete benötigt.
 
-Laden wir als erstes den Datensatz in R. Wählen Sie zuerst das Verzeichnis als Arbeitsverzeichnis, in dem die Daten liegen. Dann laden Sie z.B. mit dem R-Commander (s. Skript) oder "per Hand" z.B. bei mir so:
+```{r}
+library(tidyverse)
+```
+
+
+
+Laden wir als erstes den Datensatz in R. Wählen Sie zuerst das Verzeichnis als Arbeitsverzeichnis, in dem die Daten liegen. 
 
 ```{r}
 Affair <- read.csv("data/Affairs.csv")
@@ -112,7 +117,7 @@ Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass wir das
 
 Was machen wir am besten damit?
 
-Diesen Befehl könnten wir für jede Spalte auführen:
+Diesen Befehl könnten wir für jede Spalte ausführen:
 
 ```{r}
 sum(is.na(Affair$affairs))
@@ -261,7 +266,7 @@ Hm, diese Frage klingt nicht so, als ob der Dozent die Antwort selber wüsste...
 names(Affair)
 ```
 
-Z.B. wäre doch interessant, ob Ehen mit Kinder mehr oder weniger Seitensprüngen aufweisen. Und ob die "Kinderfrage" die anderen Zusammenhänge/Einflussgewichte in der Regression verändert. Probieren wir es auch. Wir können wiederum im R-Comamnder ein Regressionsmodell anfordern oder es mit der Syntax probieren:
+Z.B. wäre doch interessant, ob Ehen mit Kinder mehr oder weniger Seitensprüngen aufweisen. Und ob die "Kinderfrage" die anderen Zusammenhänge/Einflussgewichte in der Regression verändert. Probieren wir es auch. Wir können wiederum im R-Commander ein Regressionsmodell anfordern oder es mit der Syntax probieren:
 
 ```{r}
 lm5 <- lm(affairs~ rating + yearsmarried + children, data = Affair)
@@ -269,7 +274,7 @@ summary(lm5)
 r2_lm5 <- summary(lm5)$r.squared
 ```
 
-Das Regressionsgewicht von `childrenyes` ist negativ. Das bedeutet, dass Ehen mit Kindern weniger Affären verbuchen (aber geringe Zufriedenheit, wie wir oben gesehen haben! Hrks!). Allerdings ist der p-Wert nich signifikant, was wir als Zeichen der Unbedeutsamkeit dieses Prädiktors verstehen können. $R^2$ lungert immer noch bei mickrigen `r r2_lm5` herum. Wir haben bisher kaum verstanden, wie es zu Affären kommt. Oder unsere Daten bergen diese Informationen einfach nicht.
+Das Regressionsgewicht von `childrenyes` ist negativ. Das bedeutet, dass Ehen mit Kindern weniger Affären verbuchen (aber geringe Zufriedenheit, wie wir oben gesehen haben! Hrks!). Allerdings ist der p-Wert nicht signifikant, was wir als Zeichen der Unbedeutsamkeit dieses Prädiktors verstehen können. $R^2$ lungert immer noch bei mickrigen `r r2_lm5` herum. Wir haben bisher kaum verstanden, wie es zu Affären kommt. Oder unsere Daten bergen diese Informationen einfach nicht.
 
 Wir könnten auch einfach mal Prädiktoren, die wir haben, ins Feld schicken. Mal sehen, was dann passiert:
 
@@ -281,11 +286,11 @@ r2_lm6 <- round(summary(lm6)$r.squared, 2)
 
 Der "." im Befehl `affairs ~ .` oben soll sagen: nimm "alle Variablen, die noch in der Datenmatrix übrig sind".
 
-Insgesamt bleibt die erklärte Varian in sehr bescheidenem Rahmen: `r r2_lm6`. Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
+Insgesamt bleibt die erklärte Varianz in sehr bescheidenem Rahmen: `r r2_lm6`. Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
 
 ### Unterschied zwischen den Geschlechtern
 
-Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß ist der Unterschied? Sollte hierlieber das d-Maß oder Rohwerte als Effektmaß  angegeben werden?
+Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß ist der Unterschied? Sollte hier lieber das d-Maß oder Rohwerte als Effektmaß  angegeben werden?
 
 Hier bietet sich ein t-Test für unabhängige Gruppen an. Die Frage lässt auf eine ungerichtete Hypothese schließen ($\alpha$ sei .05). Mit dem entsprechenden Menüpunkt im R-Commander oder mit folgender Syntax lässt sich diese Analyse angehen:
 
@@ -317,21 +322,10 @@ Rechnen Sie die Regressionsanalyse getrennt für kinderlose Ehe und Ehen mit Kin
 
 Hier geht es im ersten Schritt darum, die entsprechenden Teil-Mengen der Datenmatrix zu erstellen. Das kann man natürlich mit Excel o.ä. tun. Alternativ könnte man es in R z.B. so machen:
 
+
+
 ```{r}
-Affair2 <- Affair[Affair$children == "yes", ]
-lm7 <- lm(affairs~ rating, data = Affair2)
-summary(lm7)
 
-Affair3 <- Affair[Affair$children == "no", ]
-lm8 <- lm(affairs~ rating, data = Affair3)
-summary(lm8)
-```
-  
-  
-Übrigens, einfacher geht das "Subsetten" so:
-
-```{r, MESSAGE = FALSE}
-library(dplyr)
 Affair4 <- filter(Affair, children == "yes")
 head(Affair4)
 ```
@@ -369,7 +363,7 @@ summary(lm10)
 
 Wenn `if_else` unbekannt ist, lohnt sich ein Blick in die Hilfe mit `?if_else` (`dplyr` muss vorher geladen sein).
 
-Aha, signifikant ist die Ehezufriedenheit: Je größer `rating` desto geringer die Wahrscheinlickeit für `affairs_dichotom`. Macht Sinn!
+Aha, signifikant ist die Ehezufriedenheit: Je größer `rating` desto geringer die Wahrscheinlichkeit für `affairs_dichotom`. Macht Sinn!
 
 
 Übrigens, die Funktion `lm` und `glm` spucken leider keine brave Tabelle in Normalform aus. Aber man leicht eine schöne Tabelle (data.frame) bekommen mit dem Befehl `tidy` aus `broom`:
