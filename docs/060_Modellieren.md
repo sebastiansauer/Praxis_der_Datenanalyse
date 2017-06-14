@@ -77,7 +77,7 @@ Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen Syst
 
 Etwas spitzfinding könnte man behaupten, es gibt keine Modelle - es gibt nur Modelle *von* etwas; dieser Satz soll zeigen, dass zwar ein empirisches System für sich alleine stehen kann, aber ein Modell nicht. Ein Modell verweist immer auf ein empirisches System.
 
-Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von Relationen $R_E$ (Relationen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
+Abb. \@ref(fig:modellieren-formal) stellt diese formalere Sichtweise des Modellierens dar; das empirische System *E* wird dem numerische System *Z* zugeordnet. Dabei besteht E aus einer Menge von Objekten *O* sowie einer Menge von *Relationen*\index{Relation} $R_E$ (Relationen meint hier nichts mehr als irgendwelche Beziehungen zwischen den Elementen von O). Analog besteht Z aus einer Menge von numerischen Objekten *Z* sowie einer Menge von Relationen $R_Z$ (Relationen zwischen den Elementen von Z)^[Diese Sichtweise des Modellierens basiert auf der Repräsentationstheorie des Messens nach Suppes und Zinnes [-@suppes1962basic] zurück; vgl. @gigerenzer1980].
 
 
 

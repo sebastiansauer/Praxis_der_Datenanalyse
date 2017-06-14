@@ -34,22 +34,39 @@ library(psych)  # für z.B. 'alpha'
 
 ## Einführung
 
-Datensätze in den Sozialwissenschaften, und damit auch in der Wirtschaftspsychologie, haben oft viele Variablen - oder auch Dimensionen - und es ist vorteilhaft, diese auf eine kleinere Anzahl von Variablen (oder Dimensionen) zu reduzieren. Zusammenhänge zwischen verschiedenen Dimensionen oder Unterschiede zwischen verschiedenen Gruppen bezüglich einer oder mehrerer Dimensionen (z. B. bei Experimenten) können so klarer und einfacher identifiziert werden. Dimensionen mit konkreten Sachverhalten werden in der Sprache der Wissenschaft häufig als *Konstrukte*\index{Konstrukte} bezeichnet. 
+Häufig möchte man in den Sozialwissenschaften *latente Variablen*\index{latente Konstrukte} messen - z.B. Arbeitszufriedenheit, Extraversion, Schmerz oder Intelligenz. Solche Variablen nennt man *latent*, da man sie nicht direkt messen kann^[ Halt, da vorn läuft ein IQ-Punkt. Schnell, fangt ihn!].
 
-Konstrukte stellen in den Sozialwissenschaften gedankliche bzw. theoretische Sachverhalt dar, die nicht direkt beobachtbar und damit nicht direkt messbar sind. Nehmen wir beispielsweise an, es soll das Konstrukt *Anerkennung* im Rahmen einer sozialwissenschaftlichen Studie gemessen werden. Dabei gibt es zunächst zwei Fragestellungen:
+>    Konstrukte bezeichnen gedankliche bzw. theoretische Sachverhalt dar, die nicht direkt beobachtbar und damit nicht direkt messbar sind.
 
-1. Was bedeutet Anerkennung? 
-2. Wie wird Anerkennung gemessen?
+Komplementär zu latenten Konstrukten spricht man von manifesten Variablen, wie Schuhgröße oder Körpergewicht; Dinge also, die man in gewohntem Sinne beobachtbar messen kann. Messung von manifesten Variablen bezeichnet man auch als *extensives Messen* [@Michell2000].
 
-Liest man bei Wikipediea diesen Begriff nach, kommt folgende Antwort: "Anerkennung bedeutet die Erlaubnis einer Person oder einer Gruppe gegenüber einer anderen Person, Gruppe oder Institution, sich mit ihren derzeitigen spezifischen Eigenschaften an der Kommunikation, an Entscheidungsprozessen oder anderen gesellschaftlichen Prozessen zu beteiligen. Der Begriff Anerkennung wird auch als Synonym für Akzeptanz, Lob oder Respekt verwendet." Gut, wir kennen nun die Bedeutung von Anerkennung, aber wir wissen immer noch nicht, wie wir Anerkennung messen können. Da die Suche nach Anerkennung in der Psychologie kein neues `Konstrukt` darstellt, sondern schon vielfach gemessen wurde, müssen wir nur in bisherigen Forschungsergebnissen nachlesen. Dies führt unweigerlich dazu, dass wir auf bisherige Forschungen stoßen, die das Konstrukt Anerkennung als ein `multidimensionales Konstrukt` definieren und mit mehr als einem *Item (Indikator)*\index{Item} messen. Mehr zur Messung von Anerkennung weiter unten im Datenbeispiel. D. h. der Sachverhalt `Anerkennung` wird aus anderen, messbaren Sachverhalten `(Indikatoren)` messbar gemacht. Der Prozess des *"Messbar machens"* heißt *Operationalisierung*\index{Operationalisierung}. Mehr zur Operationalisierung von Anerkennung und anderen Konstrukten betrachten wir weiter untern im Datenbeispiel. 
+Was ist eigentlich *Messen*\index{Messen}? Sagen wir, ich finde den Urmeter auf der Straße (Details tun nichts zur Sache). Dann betrachte ich intensiv den Weg von meinem Carport bis zu meiner Haustür. Alsdann schaue ich, wie oft ich den Urmeter hintereinander legen muss, um den Weg von Haustür zu Carport zurückzulegen. Voila! Die Länge des Weges ist *gemessen*. Allgemein ist Messen - nach diesem Verständnis - also das Vielfache eines Maßstabes in einer Größe [@Michell2000, aber s. @eid2010statistik für eine andere, verbreitete Definition].
 
-In diesem Kapitel betrachten wir zwei gängige Methoden, um die Komplexität von multivarianten, metrischen Daten zu reduzieren, indem wir die Anzahl der Dimensionen in den Daten reduzieren. 
 
-* Die *Hauptkomponentenanalyse*\index{Hauptkomponentenanalyse} (engl. principal component analysis, PCA) versucht, unkorrelierte Linearkombinationen zu finden, die die maximale Varianz in den Daten erfassen. Die PCA\index{PCA} beinhaltet also das Extrahieren von linearen Zusammenhängen der beobachteten Variablen. 
+Nach einer anderen Art von Messdefinition ist Messen alles, was aus manifesten Variablen eine Zahl erzeugt [@Michell2000]. Das ist das Verständnis von Messen der meisten Sozialwissenschaftler (doch, im Ernst). Bei Lichte betrachtet "misst" man in den Sozialwissenschaften gerne so:
+
+1. Such ein paar Variablen, die mit dem zu messenden Konstrukt zu tun haben könnten (z.B. Extraversion)
+1. Frage ein paar Leute, wie sich selber einschätzen in diesen Variablen
+1. Die Antwortskala denkst Du Dir nach eigenem Gusto aus (z.B. von `1` bis `10`).
+1. Addiere die Punkte aller Variablen auf.
+1. Verkündige, dass Du Dein Konstrukt gemessen hast. Fertig.
+
+
+Natürlich ist das ... nicht ganz richtig. Zumindest kann man nicht sicher sein, dass man Extraversion gemessen hat, oder ausreichend genau gemessen hat. 
+
+
+Da komplexe Phänomene wie Extraversion facettenreich sind, nimmt man häufig mehrere manifeste Variablen und bezeichnet deren Mittelwert dann als Messung von Extraversion. Handelt es sich um Kreuze in einer Befragung, so spricht man von *Items (Indikatoren)*\index{Item}. 
+
+Eine notwendige (aber nicht hinreichende) Voraussetzung, dass eine Reihe von Items sagen wir Extraversion messen, ist, dass sie miteinander stark korrelieren. Wenn sie das tun, so kann man sie auf *eine* Variable zusammenfassen, welche dann als Extraversion bezeichnet wird.
+
+ 
+In diesem Kapitel betrachten wir zwei gängige Methoden solcher Zusammenfassungsmethoden. Da diese Methoden Variablen zusammenfassen, spricht man *Dimensionsreduktion*. Wir setzen voraus, dass es sich um metrische Variablen handelt (wir prüfen das nicht weiter).
+
+* Die *Hauptkomponentenanalyse*\index{Hauptkomponentenanalyse} (engl. principal component analysis, PCA) versucht, unkorrelierte Linearkombinationen zu finden, die die Gesamtvarianz in den Daten erfassen. Die PCA\index{PCA} beinhaltet also das Extrahieren von linearen Zusammenhängen der beobachteten Variablen. 
 * Die *Exploratorische Faktorenanalyse (EFA)*\index{Exploratorische Faktorenanalyse} versucht, die Varianz auf Basis einer kleinen Anzahl von Dimensionen zu modellieren, während sie gleichzeitig versucht, die Dimensionen in Bezug auf die ursprünglichen Variablen interpretierbar zu machen. Es wird davon ausgegangen, dass die Daten einem Faktoren Modell entsprechen, bei der die beobachteten Korrelationen auf `latente` Faktoren zurückführen. Mit der EFA wird *nicht* die gesamte Varianz erklärt.  
 
 
-In der Psychologie werden diese beiden Methoden oft in der Konstruktion von mehrstufigen Tests angewendet, um festzustellen, welche `Items` auf welche Konstrukte laden. Sie ergeben in der Regel ähnliche inhaltliche Schlussfolgerungen. Dies erklärt, warum einige Statistik-Software-Programme beide Methoden zusammenpacken. So wird die PCA als Standard-Extraktionsmethode in den SPSS-Faktoranalyse-Routinen verwendet. Dies führt zweifellos zu einer gewissen Verwirrung über die Unterscheidung zwischen den beiden Methoden. Die EFA wird oft als *Common Factor Analysis* oder *principal axis analysis (Hauptachsenanalyse)* bezeichnet\index{Hauptachsenanalyse}. Die EFA verwendet eine Vielzahl von Optimierungsroutinen und das Ergebnis, im Gegensatz zu PCA, hängt von der verwendeten Optimierungsroutine und Ausgangspunkten für diese Routinen ab. Es gibt also *keine einzigartige* Lösung bei der EFA.
+Die EFA wird oft als *Common Factor Analysis* oder *principal axis analysis (Hauptachsenanalyse)* bezeichnet\index{Hauptachsenanalyse}. Die EFA eröffnet dem Nutzer eine Menge an analytischen Varianten, so dass  das Ergebnis, im Gegensatz zu PCA, recht unterschiedlich ausfallen kann. Es gibt also *keine einzige* Lösung bei der EFA. Wichtig ist, genau zu berichten, welche Details man verwendet hat.
 
 Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 
@@ -57,7 +74,7 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 * Führe die EFA durch, wenn ein theoretisches Modell von latenten Faktoren zugrunde liegt, dass die beobachtete Variablen verursacht. 
 
 
-## Gründe für die Notwendigkeit der Datenreduktion
+## Warum Datenreduktion wichtig ist
 
 * *Dimensionen reduzieren*: Im technischen Sinne der Dimensionsreduktion können wir statt Variablen-Sets die Faktor-/ Komponentenwerte verwenden (z. B. für Mittelwertvergleiche zwischen Experimental- und Kontrollgruppe, Regressionsanalyse und Clusteranalyse).
 * *Unsicherheit verringern*: Wenn wir glauben, dass ein Konstrukt nicht eindeutig messbar ist, dann kann mit einem Variablen-Set die Unsicherheit reduziert werden. 
@@ -66,7 +83,7 @@ Eine einfache Faustregel für die Entscheidung zwischen diesen beiden Methoden:
 
 ## Intuition zur Dimensionsreduktion
 
-Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalten) in Abbildung \@ref(fig:fig-scatter3d)). Man braucht nicht viel Phantasie, um einen Pfeil (Vektor) in der Punktewolke zu sehen. Um jeden Punkt einigermaßen genau zu bestimmen, reicht es, seine "Pfeil-Koordinate" zu wissen. Praktischerweise geben in Abbildung \@ref(fig:fig-scatter3d) die Farben (in etwa) die Koordinaten auf dem Pfeil an^[genau genommen ist hier die Regressionsgerade gezeichnet, es müsste aber der größte Eigenvektor sein. Geschenkt.]. Damit können wir die Anzahl der Variablen (Dimensionen), die es braucht, um einen Punkt zu beschreiben von 3 auf 1 reduzieren; 2/3 der Komplexität eingespart. Wir verlieren etwas Genauigkeit, aber nicht viel. Dieser Pfeil, der mitten durch den Punkteschwarm geht, nennt man auch die 1. Hauptkomponente.
+Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalten) in Abbildung \@ref(fig:fig-scatter3d)). Man braucht nicht viel Phantasie, um einen Pfeil (Vektor) in der Punktewolke zu sehen. Um jeden Punkt einigermaßen genau zu bestimmen, reicht es, seine "Pfeil-Koordinate" zu wissen. Praktischerweise geben in Abbildung \@ref(fig:fig-scatter3d) die Farben (in etwa) die Koordinaten auf dem Pfeil an^[genau genommen ist hier die Regressionsgerade gezeichnet, es müsste aber der größte Eigenvektor sein. Geschenkt.]. Damit können wir die Anzahl der Variablen (Dimensionen), die es braucht, um einen Punkt zu beschreiben von 3 auf 1 reduzieren; 2/3 der Komplexität eingespart. Wir verlieren etwas Genauigkeit, aber nicht viel. Dieser Pfeil, der mitten durch den Punkteschwarm geht, nennt man auch die 1. *Hauptkomponente*\index{Hauptkomponente}.
 
 <div class="figure" style="text-align: center">
 <img src="083_Dimensionsreduktion_files/figure-html/fig-scatter3d-1.png" alt="Der Pfeil ist eindimensional; reduziert also die drei Dimensionen auf eine" width="70%" />
@@ -74,12 +91,14 @@ Betrachten Sie die die Visualisierung eines Datensatzes mit 3 Dimensionen (Spalt
 </div>
 
 
-Beachten Sie, dass hoch korrelierte Variablen eng an der Regressionsgeraden liegen; entsprechend sind in Abbildung \@ref(fig:ig-scatter3d) die drei Variablen stark korreliert. Sehen Sie auch, dass die Hauptkomponente Varianz erklärt: Jede Variable für sich genommen, hat recht viel Streuung. Die Streuung der Punkte zur Hauptkomponente ist aber relativ gering. Daher sagt man, die Streuung (Varianz) wurde reduziert durch die Hauptkomponente.
+Beachten Sie, dass hoch korrelierte Variablen eng an der Regressionsgeraden liegen; entsprechend sind in Abbildung \@ref(fig:fig-scatter3d) die drei Variablen stark korreliert. Sehen Sie auch, dass die Hauptkomponente Varianz erklärt: Jede Variable für sich genommen, hat recht viel Streuung. Die Streuung der Punkte zur Hauptkomponente ist aber relativ gering. Daher sagt man, die Streuung (Varianz) wurde reduziert durch die Hauptkomponente.
 
 
 >   Der längste Vektor, den man in die Punktewolke legen kann, bezeichnet man als den 1. Eigenvektor oder die 1. Hauptkomponente.
 
-In Abbildung \@ref(fig:fig-scatter3d) ist dieser als Pfeil eingezeichnet^[die Hauptkomponente ist hier ähnlich zur Regressionslinie, aber nicht identisch]. Weitere Hauptkomponenten kann man nach dem gleichen Muster bestimmen mit der Auflage, dass sie im rechten Winkel zu bestehenden Hauptkomponenten liegen. Damit kann man in einer 3D-Raum nicht mehr als 3 Hauptkomponenten bestehen (in einem $n$-dimensionalen Raum also maximal $n$ Hauptkomponenten). 
+In Abbildung \@ref(fig:fig-scatter3d) ist dieser als Pfeil eingezeichnet^[die Hauptkomponente ist hier ähnlich zur Regressionslinie, aber nicht identisch]. Weitere Hauptkomponenten kann man nach dem gleichen Muster bestimmen mit der Auflage, dass sie im *rechten Winkel* zu bestehenden Hauptkomponenten liegen. Damit kann man in einer 3D-Raum nicht mehr als 3 Hauptkomponenten bestehen (in einem $n$-dimensionalen Raum also maximal $n$ Hauptkomponenten). 
+
+>   Hauptkomponenten liegen stets im rechten Winkel zueinander ('orthogonal'). Das bedeutet, dass Werte, die auf verschiedenen Hauptkomponenten liegen, unkorreliert sind.
 
 
 
@@ -137,7 +156,7 @@ summary(Werte.sc)
 
 \BeginKnitrBlock{rmdpseudocode}<div class="rmdpseudocode">
 `<-`: Das Objekt `Werte.sc` soll wie folgt definiert sein  
-Nimm das Objekt (ein Dataframe) `Werte` UND DANN 
+Nimm das Objekt (ein Dataframe) `Werte` UND DANN   
 z-skaliere das Objekt UND DANN  
 definiere es als Dataframe (genauer: tibble). FERTIG.  
 
@@ -228,7 +247,7 @@ Werte.pc$sdev[1]^2 / Gesamtvarianz
 
 ### Scree-Plot
 
-Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Geröll"], Dieser zeigt uns in Reihenfolge der Hauptkomponenten jeweils die durch diese Hauptkomponente erfasste Streuung (Varianz). Wir plotten ein Liniendiagramm mit dem Argument `type = "l"` (`l` für Linie), s. Abb. \@ref(fig:pca-scree)).
+Der Standard-Plot `plot()` für die PCA ist ein *Scree-Plot*^[scree: engl. "Geröll"], Dieser zeigt uns die jeweils durch eine Hauptkomponente erfasste Streuung (Varianz). Wir plotten ein Liniendiagramm mit dem Argument `type = "l"` (`l` für Linie), s. Abb. \@ref(fig:pca-scree)).
 
 
 ```r
@@ -240,6 +259,7 @@ plot(Werte.pc, type="l")
 <p class="caption">(\#fig:pca-scree)Screeplot</p>
 </div>
 
+>    Die Höhe der Varianz entspricht der Länge der Pfeile (Eigenvektoren) in Abbildung \@ref(fig:fig-scatter3d): Längere Pfeile bedeuten größere erklärte Varianz. Die Länge der Eigenvektoren bezeichnet man auch als Eigenwert.
 
 Wir sehen in Abb. \@ref(fig:pca-scree), dass bei den Werte-Daten der Anteil der Streuung nach der fünften Komponente nicht mehr wesentlich abnimmt. Es soll die Stelle gefunden werden, ab der die Varianzen der Hauptkomponenten deutlich kleiner sind. Je kleiner die Varianzen, desto weniger Streuung erklärt diese Hauptkomponente. 
 
@@ -273,7 +293,8 @@ VSS.scree(Werte)
 
 ### Biplot
 
-Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein *Biplot*\index{Biplot}. Ein Biplot zeigt die Ausprägungen der Fälle auf den ersten beiden Hauptkomponenten. Häufig sind die beiden ersten Hauptkomponenten schon recht aussagekräftig, vereinen also einen Gutteil der Streuung auf sich. Dazu verwenden wir `biplot()` (s. Abbildung \@ref(fig:fig-biplot))
+Eine gute Möglichkeit die Ergebnisse der PCA zu analysieren, besteht darin, die ersten Komponenten zuzuordnen, die es uns ermöglichen, die Daten in einem niedrigdimensionalen Raum zu visualisieren. Eine gemeinsame Visualisierung ist ein *Biplot*\index{Biplot}. Ein Biplot zeigt die Ausprägungen der Fälle auf den ersten beiden Hauptkomponenten. Häufig sind die beiden ersten Hauptkomponenten schon recht aussagekräftig, vereinen also einen Gutteil der Streuung auf sich. Dazu verwenden wir `biplot()` (s. Abbildung \@ref(fig:fig-biplot)).
+
 
 
 ```r
@@ -287,7 +308,7 @@ biplot(Werte.pc)
 
 Die einzelnen Ausgangsvariablen sind in Abbildung Abbildung \@ref(fig:fig-biplot) durch rote Pfeile (Vektoren) gekennzeichnet. 
 
->   Je paralleler der Vektor einer Ausgangsvariable zur X-Achse (1. Hauptkomponente) ist, umso identischer sind sich die entsprechende Variable und die Hauptkomponente. Das hilft uns, die Hauptkomponente inhatlich zu interpretieren. Hauptkomponenten (oder Faktoren) sollten stets inhaltlich interpretiert werden - auch wenn eine subjektive Komponente mitschwingt. 
+>   Je paralleler der Vektor einer Ausgangsvariable zur X-Achse (1. Hauptkomponente) ist, umso identischer sind sich die entsprechende Variable und die Hauptkomponente (für die Y-Achse gilt entsprechendes). Das hilft uns, die Hauptkomponente inhatlich zu interpretieren. Hauptkomponenten (oder Faktoren) sollten stets inhaltlich interpretiert werden - auch wenn eine subjektive Komponente mitschwingt. 
 
 Die 1. Hauptkomponente wird offenbar stark geprägt duch die Ausgangsvariablen `W6`, `W7`, `W9` und `W11`. Die 2. Hauptkomponente primär durch `W18` und `W19`. 
 
@@ -474,7 +495,7 @@ heatmap.2(Werte.fa$loadings,
 </div>
 
 
-Das Ergebnis aus der Heatmap zeigt eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
+Die Heatma stellt ähnliche Objekte - hier: Variablen, die hoch auf einer Hauptkomponenten laden - räumlich nahe (nebeneinander) dar. Im Ergebnis zeigt die Heatmap  eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
 
 
 ### Berechnung der Faktor-Scores
@@ -560,6 +581,32 @@ psych::alpha(df, check.keys = TRUE)
 Bei dem Konstrukt `Sicherheit` können wir durch Elimination von `W15` das Cronbachs Alpha von 0,64 auf einen fast akzeptablen Wert von 0,68 erhöhen.
 
 Das Argument `check.keys=TRUE` gibt uns eine Warnung aus, sollte die Ladung eines oder mehrerer Items negativ sein. Dies ist hier nicht der Fall, somit müssen auch keine Items recodiert werden. 
+
+
+
+
+## Aufgaben^[F, F, R, R, R, R, R]
+
+
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">
+Richtig oder Falsch!?
+
+1. Addiert man Antwortpunkte einer Reihe von Items zu Aggression, so hat (sicher) man Aggression gemessen.
+
+1. Die Hauptkomponentenanalyse ist eine Methode zur Verringerung der Anzahl der Fälle eines Datensatzes.
+
+3. Hauptkomponenten sind stets orthogonal zueinander (in einem Datesatz).
+
+4. Ein Screeplot ist ein Diagramm, welches die Eigenwerte darstellt.
+
+5. Längere Eigenvektoren sind durch größere Eigenwerte gekennzeichnet.
+
+6. Bei einer rechtwinkligen Rotation bleiben die Faktoren rechtwinklig.
+
+7. Die interne Konsistenz einer Skala ist ein Maß dafür, wie stark die Items miteinander korrelieren.
+</div>\EndKnitrBlock{rmdexercises}
+
 
 
 ## Befehlsübersicht

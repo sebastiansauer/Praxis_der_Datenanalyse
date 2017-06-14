@@ -115,7 +115,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 df <- readr::read_csv("../includes/Termin_Themen.csv")
 
-knitr::kable(df)
+kable(df)
 
 ```
 
@@ -1047,7 +1047,7 @@ stats_test %>%
   group_by(interessiert) %>% 
   summarise(score = mean(score)) -> score_interesse
 
-score_interesse %>% knitr::kable
+score_interesse %>% kable
 ```
 
 
@@ -1361,7 +1361,7 @@ sensitivity(cm); specificity(cm)
 
 df <- readr::read_csv("../includes/diag_stats.csv")
 
-knitr::kable(df[-3], caption = "Geläufige Kennwerte der Klassifikation")
+kable(df[-3], caption = "Geläufige Kennwerte der Klassifikation")
 ```
 
 
@@ -1648,7 +1648,7 @@ Werte %>% scale %>% as_tibble -> Werte.sc
 Werte.sc %>% 
   dplyr::select(1:5) %>% 
   slice(1:5) %>% 
-  knitr::kable()
+  kable()
 
 ```
 
@@ -1824,7 +1824,7 @@ text_df <- data_frame(Zeile = 1:4,
 text_df %>%
   unnest_tokens(output = wort, input = text) -> tidytext_df
 
-tidytext_df %>% head %>% knitr::kable
+tidytext_df %>% head %>% kable
 ```
 
 >   In einem 'tidy text Dataframe'  steht in jeder Zeile ein Wort (token) und die Häufigkeit des Worts
@@ -1862,7 +1862,7 @@ count(afd_df)
 ```{r}
 afd_df %>%
   na.omit() %>%  # fehlende Werte löschen
-  count(token, sort = TRUE) %>%
+  dplyr::count(token, sort = TRUE) %>%
   head
 ```
 
@@ -1872,17 +1872,16 @@ afd_df %>%
 ```{r echo = FALSE}
 stopwords_de <- data_frame(word = stopwords_de)
 
-stopwords_de %>% head %>% knitr::kable
+stopwords_de %>% head %>% kable
 ```
 
 
 ```{r include = FALSE}
-data(stopwords_de)
+data(stopwords_de) 
 
+stopwords_de <- data_frame(stopwords_de)
 
-
-stopwords_de <- stopwords_de %>%
-  rename(token = word)
+colnames(stopwords_de) <- "token"
 
 afd_df %>%
   anti_join(stopwords_de) -> afd_df
@@ -1897,7 +1896,7 @@ afd_df %>%
 ```{r echo = FALSE}
 afd_count %>%
   top_n(5) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -1911,7 +1910,7 @@ afd_df %>%
 
 afd_count %>% 
   top_n(3) %>% 
-  knitr::kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
+  kable(caption = "Die häufigsten Wörter im AfD-Parteiprogramm mit 'stemming'")
 ```
 
 

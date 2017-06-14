@@ -232,9 +232,9 @@ Lösung:
 
 ```{r exp_coef_glm1_2}
 # aus Koeffizient abgeschätzt
-wskt1 <- predict(glm1, data.frame(Risikobereitschaft = 1), type = "reponse")
+wskt1 <- predict(glm1, data.frame(Risikobereitschaft = 1), type = "response")
 
-wskt2 <- predict(glm1, data.frame(Risikobereitschaft = 2), type = "reponse")
+wskt2 <- predict(glm1, data.frame(Risikobereitschaft = 2), type = "response")
 
 wskt2 - wskt1
 

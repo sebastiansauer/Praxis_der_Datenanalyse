@@ -87,7 +87,7 @@ schreibe, sind es fast schon 10.000! Genauer: 9937 nach dieser Quelle:
 
 ### R und RStudio installieren
 
-![](images/Rahmen/Rlogo.png){ width=20% } ![](images/Rahmen/rstudiologo.png){ width=20% }
+![](images/Rahmen/Rlogo.png){ width=10% } ![](images/Rahmen/rstudiologo.png){ width=20% }
 
 Sie können R unter 
 <https://cran.r-project.org> herunterladen und installieren (für Windows, Mac 
@@ -96,17 +96,14 @@ oder Linux). RStudio finden Sie auf der gleichnamigen Homepage:
 Betriebssystem herunter.
 
 
-Die Oberfläche von R, die "Console", sieht so aus:
-
-<!-- ![](images/R-small.jpg) ![](images/R-Mac-small.png) -->
-
-
-
 
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
-aus:
+aus wie in Abbildung \@ref(rig:rstudio-screenshot) dargestellt.
 
-<img src="images/Rahmen/RStudio-Screenshot.png" width="70%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/RStudio-Screenshot.png" alt="RStudio" width="70%" />
+<p class="caption">(\#fig:rstudio-screenshot)RStudio</p>
+</div>
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -140,12 +137,15 @@ Sie RStudio gestartet haben, *nicht* noch extra R. Damit hätten Sie sonst zwei
 Instanzen von R laufen, was zu Verwirrungen (bei R und beim Nutzer) führen kann.
 
 
-### Sonstiges Material für dieses Skript
+### Sonstiges Material für dieses Skript {#gh-repo}
 
-Bitte laden Sie sich auch das sonstige Material aus diesem [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter:
+Bitte laden Sie sich diesen Ordner [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages) herunter. Dazu klicken Sie auf den grünen Button "Clone or Download", wählen Sie dann "Download Zip". Daraufhin wird dieser Ordner heruntergeladen. Sie finden u.a. folgende Materialien
 
-- Daten (Ordner `data`)
-- Liste der benötigten R-Pakete (Datei `Pakete_fuer_PraDa.txt`)
+
+- `index.html` - Diese Datei öffnet die HTML-Version des Skripts
+- `data/` - Ordner mit Daten
+- `Pakete_fuer_PraDa.txt` - Liste mit allen Paketen, die in diesem Skript verwendet werden
+
 
 Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustate/Kontextmenü und dann "Dateien extrahieren" o.ä., sonst Googeln.]. 
 
@@ -407,7 +407,7 @@ Wenn der Haken im Reiter 'Packages' gesetzt ist (s. Abbildung \@ref(fig:pakete-h
 
 ### Datensätze {#daten}
 
-Die folgenden Datensätze liegen [hier](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/tree/gh-pages/data). Bitte laden Sie den Ordner Ordner herunter.
+Die folgenden Datensätze liegen im Ordner `data/`. Laden Sie dazu den kompletten Materialordner vom [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunter (s. Abschnitt \@ref(gh-repo)).
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
@@ -661,43 +661,6 @@ Sie z.B. `?mean`.
 
 
 
-### Aufgaben 
-
-
-1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
-
-2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
-
-
-3. Führen Sie diese Syntax aus:
-
-
-```r
-meine_coole_variable <- 10
-meine_coole_var1able 
-```
-
-Woher rührt der Fehler?
-
-4. Korrigieren Sie die Syntax:
-
-
-```r
-install.packages(dplyer)
-```
-
-
-`y <- Hallo R!`
-
-
-`Hallo R <- 1`
-
-
-
-```r
-Hallo_R < - 1
-```
-
 
 ## Was ist Statistik? Wozu ist sie gut?
 
@@ -773,6 +736,67 @@ Natürlich ist es keineswegs sicher, *dass* das Modell gilt. Darüber macht die 
 >   Statistische Modelle beantworten i.d.R. nicht, wie wahrscheinlich es ist, dass ein Modell gilt. Statistische Modelle beurteilen, wie gut Daten zu einem Modell passen.
 
 Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gemacht werden, aber die klar sein sollten. Z.B. sind die Münzwürfe unabhängig voneinander? Oder kann es sein, dass sich die Münze "einschießt" auf eine Seite? Dann wären die Münzwürfe nicht unabhängig voneinander. In diesem Fall klingt das reichlich unplausibel; in anderen Fällen kann dies eher der Fall sein[^447]. Auch wenn die Münzwürfe unabhängig voneinander sind, ist die Wahrscheinlichkeit für Zahl jedes Mal gleich? Hier ist es wiederum unwahrscheinlich, dass sich die Münze verändert, ihre Masse verlagert, so dass eine Seite Unwucht bekommt. In anderen Situationen können sich Untersuchungsobjekte verändern (Menschen lernen manchmal etwas, sagt man), so dass die Wahrscheinlichkeiten für ein Ereignis unterschiedlich sein können, man dies aber nicht berücksichtigt. 
+
+
+
+## Aufgaben 
+
+
+1. Öffnen Sie das Cheatsheet für RStudio und machen Sie sich mit dem Cheatsheet vertraut.
+
+2. Sichten Sie kurz die übrigen Cheatsheets; später werden die Ihnen vielleicht von Nutzen sein.
+
+
+3. Führen Sie diese Syntax aus:
+
+
+```r
+meine_coole_variable <- 10
+meine_coole_var1able 
+```
+
+Woher rührt der Fehler?
+
+4. Korrigieren Sie die Syntax:
+
+
+```r
+install.packages(dplyer)
+```
+
+
+`y <- Hallo R!`
+
+
+`Hallo R <- 1`
+
+
+
+```r
+Hallo_R < - 1
+```
+
+
+
+
+
+## Aufgaben^[R, F: die Daten müssen sinnvoll zusammengefasst werden, F, F, F: Wenn er ehrlich sein sollte, dann ist das Ereignis '10 von 10' selten]
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
+
+1. Statistik wird gemeinhin in zwei Bereiche unterteilt: Deskriptivstatistik und Inferenzstatistik.
+
+1. Unter Deskriptivstatistik versteht man, Daten zu beschreiben. Dazu ist jede Art von Beschreibung sinnvoll, vorausgesetzt es wird eine konsistente Regel eingesetzt.
+
+1. Unter Abduktion versteht man den Schluss vom Allgemeinen auf das Konkrete.
+
+4. Wirft jemand bei 10 von 10 Münzwürfen 'Kopf', so muss er ein Betrüger sein.
+
+1. Wirft jemand bei 10 von 10 Münzwürfen 'Kopf', so ist die Wahrscheinlichkeit groß, dass er ein Betrüger ist.
+
+</div>\EndKnitrBlock{rmdexercises}
+
+
 
 
 ## Befehlsübersicht

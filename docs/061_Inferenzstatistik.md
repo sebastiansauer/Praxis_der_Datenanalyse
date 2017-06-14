@@ -146,7 +146,9 @@ Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel 
 
 ### Wann welcher Inferenztest?
 
-In der Praxis ist es eine häufige Frage, wann man welchen statistischen Test verwenden soll. Bei @eid2010statistik findet man eine umfangreiche Tabelle dazu; auch online wird man schnell fündig. Die folgende Auflistung gibt einen Überblick zu gebräuchlichen Verfahren. Entscheidungskriterium ist hier (etwas vereinfacht) das Skalenniveau der Variablen (unterschieden in Input- und Outputvariablen).
+In der Praxis ist es eine häufige Frage, wann man welchen statistischen Test verwenden soll. Bei @eid2010statistik findet man eine umfangreiche Tabelle dazu; auch online wird man schnell fündig (z.B. bei der [Methodenberatung der Uni Zürich](http://www.methodenberatung.uzh.ch/de/datenanalyse.html) oder beim [Ärzteblatt](https://www.aerzteblatt.de/archiv/74880/Auswahl-statistischer-Testverfahren), @welchertest). 
+
+Die folgende Auflistung gibt einen *kurzen* Überblick zu gebräuchlichen Verfahren. Entscheidungskriterium ist hier (etwas vereinfacht) das Skalenniveau der Variablen (unterschieden in Input- und Outputvariablen).
 
 1. 2 nominale Variablen: $\chi^2$-Test - `chisq.test`
 1. Output: 1 metrisch, Input: 1 dichotom: t-Test - `t.test`
@@ -302,7 +304,41 @@ In der Medizin ist 'positiv' zumeist eine schlechte Nachricht, es soll sagen, da
 
 Wie man leicht nachrechnen kann, beträgt die Wahrscheinlichkeit, *in Wirklichkeit krank* zu sein, wenn der positiv ist, ~8%: $9 / (99+9) = \frac{9}{108} \approx 8\%$. Das überrascht auf den ersten Blick, ist doch der Test so überaus zufällig (jedenfalls zu 90%)! Aber die Wahrscheinlichkeit, dass die Hypothese 'krank' zutrifft, ist eben nicht nur abhängig von der Sicherheit des Tests, sondern auch von der Grundrate. Beide Komponenten sind nötig, um den Vorhersagewert zu berechnen. Der p-Wert begnügt sich mit der Aussage, ob der Test positiv oder negativ ist. Die Grundrate wird nicht berücksichtigt.
 
+
+>    Die Bayes-Statistik liefert die Wahrscheinlichkeit einer Hypothese H, wenn wir die Daten D (d.h. ein gewisses Stichprobenergebnis) gefunden habe: p(H|D). Damit gibt die Bayes-Statistik die Antwort, die sich die meisten Anwedner wünschen.
+
 Fairerweise muss man hinzufügen, dass die Grundrate für die Wissenschaft oft nicht einfach zu bestimmen ist. Wer kennt schon die Grundrate der 'guten Ideen'? Vielleicht der liebe Gott, aber [der hilft uns nicht](https://twitter.com/TheTweetOfGod/status/688035049187454976) [@god_i_2016]. Wir werden also eine Einschätzung treffen müssen, die subjektiv sein kann. Diese Subjektivität ist von Kritikern moniert worden.
+
+Auf der anderen Seite kann man diese Subjektivität umgehen, indem man nur angibt, um welchen Faktor die H1 wahrscheinlicher ist als die H0, durch die Daten der Studie. Das wird durch den sog. *Bayes-Faktor* $B$ ausgedrückt. Liegt $B$ bei 10, so eine gängige Konvention, so ist dies "starke" Evidenz für H1 (da H1 dann 10 mal wahrscheinlicher als die H0).
+
+
+## Aufgaben^[F, F, R, F, F, F, F, R, R, R]
+
+
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
+
+1. Der p-Wert gibt die Wahrscheinlichkeit der H0 an unter der Annahme der Daten.
+
+1. p(D|H) = p(H|D)
+
+1. Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
+
+1. Bei sehr großen Stichproben werden nur sehr große Effekte signifikant.
+
+5. Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.
+
+1. Wenn der p-Wert kleiner als 5% ist, dann ist meine Hypothese (H1) höchstwahrscheinlich richtig.
+
+1. Wenn der p-Wert größer als 5% ist, dann ist das ein Beleg für die H0.
+
+1. Der p-Wert basiert auf der Idee, dass man ein Experiment unendlich oft wiederholt; und das unter zufälligen aber ansonsten komplett gleichen Bedingungen.
+
+1. Das 95%-Konfidenzintervall ist der Bereich, in dem der Parameter in 95% der Fälle fallen würde bei sehr häufiger Wiederholung des Versuchs.
+
+1. Der Vorhersagewert ist definiert als p(H|D).
+
+</div>\EndKnitrBlock{rmdexercises}
 
 
 

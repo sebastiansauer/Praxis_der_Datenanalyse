@@ -180,12 +180,12 @@ summary(glm1)
 #> Number of Fisher Scoring iterations: 4
 ```
 
-Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit -1.47 geschätzt, die Steigung in Richtung `Risikobereitschaft` mit 0.26. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} L:
+Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit -1.47 geschätzt, die Steigung in Richtung `Risikobereitschaft` mit 0.26. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} $\mathfrak{L}$^[ein schnödes L wie in Ludwig]:
 
 
 $\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
 
-Zugeben, dass klingt erstmal opaque. Das praktische ist, dass wir die Koeffizienten in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
+Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logistform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
 
 `y = intercept + 3*Risikobereitschaft`, also
 
@@ -196,7 +196,9 @@ Zugeben, dass klingt erstmal opaque. Das praktische ist, dass wir die Koeffizien
 ```
 
 
-Einfach, oder? Aber beachten Sie, dass das Ergebnis in *Logits* angegeben ist. Was ein Logit ist? Naja, der Logarithmus der Chancen (Wahrscheinlichkeit zu Gegenwahrscheinlichkeit, auch *Odds* genant). Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
+Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein Logit ist? Naja, das ist der Logarithmus der Chancen; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
+
+Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
 
 
 ```r
@@ -228,7 +230,7 @@ predict(glm1, newdata = data.frame(Risikobereitschaft = 3), type = "response")
 
 
 ## Kein $R^2$, dafür AIC
-Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je **kleiner**, desto **besser**. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.) Richtlinien, was ein "guter" AIC-Wert ist, gibt es nicht. Diese Werte helfen nur beim Vergleichen von Modellen.
+Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je *kleiner*, desto *besser*. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.) Richtlinien, was ein "guter" AIC-Wert ist, gibt es nicht. Diese Werte helfen nur beim Vergleichen von Modellen.
 
 
 
@@ -247,7 +249,7 @@ Für $\beta_i>0$ gilt, dass mit zunehmenden $x_i$ die Wahrscheinlichkeit für da
 
 ### Aufgabe
 
-Berechnen Sie das relative Risiko für unser Beispielmodell, wenn sich die `Risikobereitschaft` um 1 erhöht (Funktion `exp()`). Vergleichen Sie das Ergebnis mit der Punktprognose für `Risikobereitschaft `$=7$ im Vergleich zu `Risikobereitschaft `$=8$. 
+Berechnen Sie den Zuwachs an Wahrscheinlichkeit für unser Beispielmodell, wenn sich die `Risikobereitschaft` von 1 auf 2 erhöht. Vergleichen Sie das Ergebnis mit der Punktprognose für `Risikobereitschaft `$=7$ im Vergleich zu `Risikobereitschaft `$=8$. 
 
 
 Lösung:
@@ -256,12 +258,16 @@ Lösung:
 
 ```r
 # aus Koeffizient abgeschätzt
-exp(coef(glm1)[2])
-#> Risikobereitschaft 
-#>               1.29
+wskt1 <- predict(glm1, data.frame(Risikobereitschaft = 1), type = "response")
+
+wskt2 <- predict(glm1, data.frame(Risikobereitschaft = 2), type = "response")
+
+wskt2 - wskt1
+#>      1 
+#> 0.0486
 ```
 
-In Worten: "Mit jedem Punkt mehr Risikobereitschaft steigen die Chancen (das OR) für Aktienkauf um 1.293".
+Anders gesagt: "Mit jedem Punkt mehr Risikobereitschaft steigt der Logit (die logarithmierten Chancen) für Aktienkauf um 0.257".
 
 
 
@@ -279,10 +285,9 @@ predict(glm1, data.frame(Risikobereitschaft = 8),
 #> 0.643
 ```
 
-Bei einer Risikobereitschaft von 1 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis "Aktienkauf", 0.23. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei 0.64.
+Bei einer Risikobereitschaft von 7 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis "Aktienkauf", 0.58. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei 0.64.
 
 
-Sie sehen also, die ungefähr abgeschätzte Änderung der Wahrscheinlichkeit weicht hier doch deutlich von der genau berechneten Änderung ab. Der Anteil der Datensätze mit `Risikobereitschaft`$=1$ liegt allerdings auch bei 0.26.
 
 ## Kategoriale Prädiktoren
 Wie in der linearen Regression können auch in der logistschen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. 
@@ -591,6 +596,29 @@ coords(lets_roc, "best")
 #>   threshold specificity sensitivity 
 #>       0.229       0.603       0.623
 ```
+
+
+
+
+## Aufgaben^[R, R, R, R, F, R, R]
+
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
+
+1. Die logistische Regression ist eine Regression für dichotome Kriterien.
+
+1. Unter einer ~~Olive~~Ogive versteht man eine eine "s-förmige" Kurve.
+
+1. Berechnet man eine "normale" (OLS-)Regression bei einem dichotomen Kriterium, so kann man Wahrscheinlichkeiten < 0 oder > 1 erhalten, was keinen Sinn macht.
+
+1. Ein Logit ist definiert als der Einfluss eines Prädiktors in der logistischen Regression. Der Koeffizient berechnet sich als Logarithmus des Wettquotienten.
+
+1. Das AIC ein Gütemaß, welches man bei der logistischten Regression generell vermeidet.
+
+1. Eine Klassifikation kann 4 Arten von Ergebnissen bringen - gemessen an der Richtigkeit des Ergebnisses.
+
+1. Der 'positive Vorhersagewert'  ist definiert als der Anteil aller richtig-positiven Klassifikationen an allen als positiv klassifizierten Objekten. 
+</div>\EndKnitrBlock{rmdexercises}
 
 
 

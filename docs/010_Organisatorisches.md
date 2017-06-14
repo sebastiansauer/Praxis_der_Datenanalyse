@@ -87,7 +87,7 @@ Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
   - Fallstudien (nur für Klausuren nicht prüfungslevant),
   - die Inhalte von Links,
   - die Inhalte von Fußnoten,
-  - die Kpaitel *Vorwort*, *Organisatorisches* und *Anhang*.  
+  - die Kapitel *Vorwort*, *Organisatorisches* und *Anhang*.  
   
 
 Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt.  
@@ -117,6 +117,8 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 ### Datenanalyse
 
+#### Hinweise
+
 - Wenden Sie die passenden, im Modul eingeführten statistischen Verfahren an.
 
 - Werten Sie die Daten mit R aus; R-Syntax soll verwendet und im Hauptteil dokumentiert werden.
@@ -129,9 +131,9 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 - Hat sich jemand schon für einen Datensatz angemeldet, so darf dieser Datensatz nicht mehr gewählt werden ("first come, first serve").
 
-- Fundorte für Datensätze sind z.B. [hier](http://www.stat.ufl.edu/~winner/datasets.html), [hier](http://archive.ics.uci.edu/ml/datasets.html) und [hier](http://vincentarelbundock.github.io/Rdatasets/datasets.html); im Internet finden sich viele Datensätze^[Googeln Sie mal nach "open datasets" o.ä.].
+- Fundorte für Datensätze sind z.B. [hier](http://www.stat.ufl.edu/~winner/datasets.html), [hier](http://archive.ics.uci.edu/ml/datasets.html), [hier](https://www.kaggle.com/datasets) und [hier](http://vincentarelbundock.github.io/Rdatasets/datasets.html); im Internet finden sich viele Datensätze^[Googeln Sie mal nach "open datasets" o.ä.].
 
-- Schreiben Sie Ihre Ergebnisse in einer Ausarbeitung zusammen; der Umfang der Ausarbeitung umfasst ca. *1000-1500 Wörter* (nur Hauptteil; d.h. exklusive Deckblatt, Verzeichnisse, Anhang etc.).
+- Schreiben Sie Ihre Ergebnisse in einer Ausarbeitung zusammen; der Umfang der Ausarbeitung umfasst ca. *1500 Wörter* (nur Hauptteil; d.h. exklusive Deckblatt, Verzeichnisse, Anhang etc.).
 
 - Untersuchen Sie 2-3 Hypothesen.
 
@@ -140,7 +142,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 - Fügen Sie keine Erklärungen oder Definitionen von statistischen Verfahren an.
 
 
-### Gliederungsvorschlag zur Datenanalyse
+#### Gliederungsvorschlag zur Datenanalyse
 
 
 1. Datensatz

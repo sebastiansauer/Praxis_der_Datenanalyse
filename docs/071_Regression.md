@@ -213,7 +213,8 @@ Hier steht `obs` für beobachtete Werte und `pred` für die vorhergesagten Werte
 
 
 
-\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Man sollte in der Regel die Korrelation (r) nicht als Gütekriterium verwenden. Der Grund ist, dass die Korrelation sich nicht verändert, wenn man die Variablen skaliert. Die Korrelation zieht allein auf das Muster der Zusammenhänge - nicht die Größe der Abstände - ab. In der Regel ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert.
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Verwendet man die Korrelation (r) oder $R^2$ als Gütekriterium, so sollte man sich über folgenden Punkt klar sein. Bei Skalierung der Variablen ändert sich die Korrelation nicht; das gilt auch für $R^2$. Beide Koeffizienten ziehen allein auf das *Muster* der Zusammenhänge ab - nicht die Größe der Abstände. Aber häufig ist die Größe der Abstände zwischen beobachteten und vorhergesagten Werten das, was uns interessiert. In dem Fall wäre der MSE vorzuziehen.
 </div>\EndKnitrBlock{rmdcaution}
 
 
@@ -665,6 +666,30 @@ Die Funktion `postResample` aus dem Paket `caret` liefert uns zentrale Gütekenn
 
 
 >   Die Modellgüte im in der Test-Stichprobe ist meist schlechter als in der Trainings-Stichprobe. Das warnt uns vor Befunden, die naiv nur die Werte aus der Trainings-Stichprobe berichten.
+
+
+## Aufgaben^[F, R, R, F, F, F, F, F, R]
+
+
+
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
+
+1. X-Wert: Kriterium; Y-Wert: Prädiktor.
+
+1. Der Y-Wert in der einfachen Regression wird berechnet als Achsenabschnitt plus *x* mal die Geradensteigung.
+
+1. $R^2$ liefert einen *relativen* Vorhersagefehler und MSE einen *absoluten* (relativ im Sinne eines Anteils).
+
+1. Unter 'Ordinary Least Squares' versteht man eine abschätzige Haltung gegenüber Statistik.
+
+5. Zu den Annahmen der Regression gehört Normalverteilung der *Kriteriumswerte*.
+
+1. Die Regression darf nicht bei kategorialen Prädiktoren verwendet werden.
+
+1. Mehrere bivariate Regressionsanalysen (1 Prädiktor, 1 Kriterium) sind einer multivariaten Regression i.d.R. vorzuziehen.
+
+1. Interaktionen erkennt man daran, dass die Regressionsgeraden *nicht* parallel sind.
+</div>\EndKnitrBlock{rmdexercises}
 
 
 ## Befehlsübersicht

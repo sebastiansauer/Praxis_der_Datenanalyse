@@ -341,7 +341,7 @@ grid.arrange(p1, p2, ncol = 2)
 Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktierten Wörtern. Mit `reorder` ordnen wir die Spalte `token` nach der Spalte `n`. `coord_flip` dreht die Abbildung um 90°, d.h. die Achsen sind vertauscht. `grid.arrange` packt beide Plots in eine Abbildung, welche 2 Spalten (`ncol`) hat.
 
 
-## Aufgaben^[F, R, F, F, R, R]
+## Aufgaben^[F, R, F, F, R, R, F, F]
 
 
 
@@ -353,6 +353,8 @@ Die beiden Diagramme vergleichen die trunkierten Wörter mit den nicht trunktier
 1. Gibt es 'Stop-Wörter' in einem Dataframe, dessen Text analysiert wird, so kommt es - per definitionem - zu einem Stop.
 1. Mit dem Befehl `unnest_tokens` kann man einen tidytext Dataframe erstellen.
 1. Balkendiagramme sind sinnvolle und auch häufige Diagrammtypen, um die häufigsten Wörter (oder auch Tokens) in einem Corpus darzustellen.
+1. In einem 'tidy text Dataframe' steht in jeder Zeile ein Wort (token) *aber nicht* die Häufigkeit des Worts im Dokument.
+1. Unter 'Stemming' versteht man (bei der Textanalyse), die Etymologie eines Wort (Herkunft) zu erkunden.
 
 
 </div>\EndKnitrBlock{rmdexercises}
@@ -394,6 +396,8 @@ ggplot2::coord_flip       Dreht die Achsen um 90 Grad
 ----------------------------------------------------------
 
 Table: Befehle des Kapitels 'Textmining'
+
+
 
 
 ## Verweise

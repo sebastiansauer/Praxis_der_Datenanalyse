@@ -152,6 +152,18 @@ df_nosmoke_nodrinks <- filter(profiles, smokes == "no" | drinks == "not at all")
 Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefiltert (also behalten bzw. zurückgeliefert), für die das Filterkriterium `TRUE` ist. 
 
 
+`filter` ist deutlich einfacher (und klarer) als Standard-R. Vergleichen Sie mal:
+
+```{r eval = FALSE} 
+filter(profiles, age > 70, sex == "f", drugs == "sometimes")
+
+# base-R:
+
+profiles[df$age > 70 & df$sex == "f" & df$drugs == "sometimes", ]
+
+```
+
+
 
 ```{block2, fcntn-dublicates, type='rmdcaution', echo = TRUE}
 Manche Befehle wie `filter` haben einen Allerweltsnamen; gut möglich, dass ein Befehl mit gleichem Namen in einem anderen (geladenen) Paket existiert. Das kann dann zu Verwirrungen führen - und kryptischen Fehlern. Im Zweifel den Namen des richtigen Pakets ergänzen, und zwar zum Beispiel so: `dplyr::filter(...)`.
