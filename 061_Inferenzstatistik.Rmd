@@ -44,9 +44,10 @@ Lernziele:
 In diesem Kapitel werden folgende Pakete benötigt:
 
 ```{r}
-library(pwr)
-library(compute.es)
-library(tidyverse)
+library(pwr)  # Powerberechnung
+library(compute.es)  # Effektstärken
+library(tidyverse)  # Datenjudo
+library(broom)  # Anova-Ergebnisse aufräumen
 ```
 
 
@@ -163,7 +164,7 @@ Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel 
 
 
 
-## Wann welcher Inferenztest?
+## Wann welcher Inferenztest? {#wannwelcher}
 
 In der Praxis ist es eine häufige Frage, wann man welchen statistischen Test verwenden soll. Bei @eid2010statistik findet man eine umfangreiche Tabelle dazu; auch online wird man schnell fündig (z.B. bei der [Methodenberatung der Uni Zürich](http://www.methodenberatung.uzh.ch/de/datenanalyse.html) oder beim [Ärzteblatt](https://www.aerzteblatt.de/archiv/74880/Auswahl-statistischer-Testverfahren), @welchertest). 
 
@@ -178,21 +179,174 @@ Die folgende Auflistung gibt einen *kurzen* Überblick zu gebräuchlichen Verfah
 1. Output: 1 ordinal, Input: 1 nominal: Kruskal-Wallis-Test - `kruskal.test`
 1. 1 metrisch (Test auf Normalverteilung): Shapiro-Wilk-Test - `shapiro.test`
 1. Output: 1 dichotom, Input 1 oder mehr nominal oder metrisch: logistische (klassifikatorische) Regression: `glm(..., family = "binomial")
-1. 2 ordinal: Spearmans Rangkorrelation - `cor.test(x, y, = method = "spearman")`
+1. 2 ordinal: Spearmans Rangkorrelation - `cor.test(x, y, method = "spearman")`
 
 
-Schauen wir uns für jeden Test ein Anwendungsbeispiel an.
+## Vertiefung: Beispiele für häufige Inferenztests
+
+Schauen wir uns für jeden Test aus Kapitel \@ref(wannwelcher) ein Anwendungsbeispiel an.
 
 ### $\chi^2$-Test
 
-Laden wir den Datensatz `extra`. Ob es wohl einen Zusammenhang gibt zwischen (der Anzahl von) Katern und Partybesuchen? Genauer: gibt es einen statistisch signifikanten Zusammenhang zwischen diesen beiden Variablen?
+Laden wir den Datensatz `extra`. Ob es wohl einen Zusammenhang gibt zwischen (der Anzahl von) Geschlecht und extremen Alkoholgenuss? Definieren wir 'extrem' durch mehr als 10 Kater.
 
-```{r}
+
+*Forschungsfrage: Gibt es einen Zusammenhang zwischen Geschlecht und extremen Alkoholgenuss?*
+
+Synonym wäre zu fragen, ob sich die Stufen von Geschlecht (die Geschlechter, also Mann und Frau) hinsichtliche ~~Saufen~~extremen Alkoholgenuss unterscheiden.
+
+
+```{r warning = FALSE}
 extra <- read.csv("data/extra.csv")
 
-chisq.test(x = extra$n_hangover, extra$n_party)
+extra$viel_saeufer <- extra$n_hangover > 10
+
+chisq.test(x = extra$sex, extra$viel_saeufer)
+```
+
+Achtung, falls Ihre Daten in aggregierter Form vorliegen, müssen Sie sie folendermaßen übergeben werden:
+
+```{r}
+table(x = extra$sex, extra$viel_saeufer) %>% chisq.test
+```
+
+### t-Test
+
+*Forschungsfrage: Sind Männer im Schnitt extrovertierter als Frauen?*
 
 
+```{r}
+extra %>% 
+ filter(sex %in% c("Frau", "Mann")) %>% 
+  mutate(sex = factor(.$sex)) %>% 
+  t.test(extra_mean ~ sex, data = ., alternative = "less")
+
+```
+
+Auf Deutsch liest sich der letzte Befehlsblock so:
+
+```{block2, ttest-syntax, type='rmdpseudocode', echo = TRUE} 
+
+Nimm den Datensatz `extra` UND DANN  
+filtere nur Zeilen heraus, in denen bei Geschlecht 'Mann' oder 'Frau' steht (es gibt Zeilen mit '""' als Wert)  UND DANN  
+definiere `sex` als Faktor und zwar so, dass es nur Faktorstufen gibt, die es auch in den Daten gibt ('Frau oder 'Mann') UND DANN 
+führe einen gerichteten t-Test durch mit ´extra_mean` als Output-Variable und `sex` als Gruppierungsvariable.
+
+```
+
+
+Der Punkt `.` meint hier den Datensatz in aktueller Form, so also, wie er aus der letzten (vorherigen) Zeile herausgekommen ist.
+
+
+
+
+Hinweise:
+  - Der t-Test testet im Standard *un*gerichtet.
+  - Wird eine Gruppierungsvariable (wie Geschlecht) vom Typ `factor` angegeben, so muss diese 2 Faktorstufen haben. Allein durch filtern wird man zusätzliche Faktorstufen nicht los (im Gegensatz zu Variablen vom Typ `character`, Text). Man muss die Faktorvariable nue als Faktorvariable definieren. Dann werden nur die existierenden Werte als Faktorstufen herangezogen.
+  - Bei gerichteten Hypothesen sieht `t.test` zwei Möglichkeiten vor: `less` und `greater`. Woher weiß man, welches von beiden man nehmen muss? Die Antwort lautet: Bei Textvariablen sind die Stufen alphabetisch geordnet. R sagt also sozusagen: `Frau ? Mann`. Und für `?` müssen wir das richtige Ungleichheitszeichen einsetzen (< oder >), so dass es unserer Hypothese entspricht. In diesem Fall glauben wir, dass Frauen weniger (bzw. Männer mehr) trinken, also haben wir `less` gewählt.
+  - Liegt der Datensatz nicht tidy vor, also gibt es z.B. eine Spalte mit Extraversionswerten für Männer und eine für Frauen, so darf man *nicht* die Formelsyntax (Kringel, Tilde "~"") nehmen, sondern benennt die Spalten mit X und Y: `t.text(x = df$extra_maenner, y = df$extra_frauen)`.
+  
+  
+
+### Varianzanalyse 
+
+*Forschungsfrage: Unterscheiden sich Menschen mit unterschiedlich viel Kundenkontakt in ihrer Extraversion?*
+
+Der Kundenkontakt wurde mit einer Likertskala gemessen, die mehrere Stufen von "weniger als einmal pro Quartal" bis "im Schnitt mehrfrach pro Tag" reichte. Wir gehen nicht davon aus, dass diese Skala Intervallniveau aufweist. Obwohl Ordinalskalenniveau plausibel ist, bleiben wir bei der ANOVA (Varianzanalyse, AOV), die nur nominales Niveau ausschöpft. Beachten Sie, dass die entsprechende Variable von `extra` `client_freq` als Ganzzahl in R definiert ist, obwohl die Abstände nicht sicher gleich sind. Es ist zwar erlaubt, den Stufen einer nominalen Variablen Zahlen zuzuordnen, aber wir sollten nicht vergessen, dass die Zahlen "keine echten Zahlen" sind, also nicht metrisches Niveau aufweisen.
+
+Die verschiedenen Stufen einer Variablen kann man sich so ausgeben lassen:
+
+```{r}
+extra %>% distinct(client_freq)
+```
+
+
+Jetzt die ANOVA:
+
+```{r}
+aov(extra_mean ~ client_freq, data = extra) %>% glance
+```
+
+`glance` räumt das Ergebnis der ANOVA etwas auf, so dass die Ausgabe ein Dataframe ist und die "Überblick-Koeffizienten" (daher 'glance', engl. 'Blick') ausgegeben werden. Ganz interessantes Ergebnis: statistisch signifikant (p<.05), aber $R^2$ ist sehr klein.
+
+### Korrelationen auf Signifikanz prüfen
+
+*Forschungsfrage: Ist der Extraversion-Mittelwert und die Anzahl der Facebook-Freunde korreliert?*
+
+Der Test prüft, ob diese Korrelation 0 ist.
+
+```{r}
+cor.test(extra$extra_mean, extra$n_facebook_friends)
+```
+
+Man kann auch - wie beim t-Test - gerichtet testen mit der gleichen Syntax, vgl. `?cor.test`.
+
+### Regression
+
+*Forschungsfrage: Wie groß ist der Einfluss von der Anzahl von Parties auf die Anzahl der Kater?*
+
+```{r}
+lm(n_hangover ~ n_party, data = extra) %>% tidy
+lm(n_hangover ~ n_party, data = extra) %>% glance
+```
+
+`statistic` ist bei dieser Ausgabe übrigens der F-Wert und `sigma` die SD der Residualstreuung. `estimate ist die Steigung der Regressionsgeraden`.
+
+### Wilcoxon-Test
+
+*Forschungsfrage: Unterscheiden sich die Geschlechter in ihrer mittleren Extraversion?*
+
+Hier nehmen wir nicht an, dass Extraversion metrisch ist, sondern begnügen uns mit der schwächeren Annahme eines ordinalen Niveaus.
+
+```{r}
+extra %>% 
+ filter(sex %in% c("Frau", "Mann")) %>% 
+  mutate(sex = factor(.$sex)) %>% 
+  wilcox.test(extra_mean ~ sex, data = .)
+```
+
+
+### Kruskal-Wallis-Test
+
+*Forschungsfrage: Unterscheiden sich Menschen mit unterschiedlich viel Kundenkontakt in ihrer Extraversion?*
+
+Genau wie beim Wilcoxon-Test gehen wir wieder nur von ordinalem Niveau bei Extraversion aus.
+
+```{r}
+extra %>% 
+ filter(sex %in% c("Frau", "Mann")) %>% 
+  mutate(sex = factor(.$sex)) %>% 
+  kruskal.test(extra_mean ~ sex, data = .)
+```
+
+
+### Shapiro-Test
+
+*Forschungsfrage: Ist Extraversion normalverteilt?*
+
+Wahrscheinlich ist es sinnvoller, diese Frage mit einem Histogramm (oder QQ-Plot) zu beantworten, weil der Test bei großen Stichproben (zu) schnell signifikant wird. Aber machen wir es mal:
+
+```{r}
+shapiro.test(extra$extra_mean)
+```
+
+Signifikant. Die Variable ist also *nicht* (exakt) normalverteilt. Böse Zungen behaupten, die Normalverteilung sei ungefähr so häufig wie Einhörner [@Micceri1989]. Trotzdem setzen viele Verfahren sie voraus. Glücklicherweise reicht es häufig, wenn eine Variable *einigermaßen*  normalverteilt ist (wobei es hier keine klaren Grenzen gibt).
+
+### Logistische Regression 
+
+*Forschungsfrage: Kann man anhand der Extraversion vorhersagen, ob eine Person Extremtrinker ist?*
+
+```{r}
+glm(viel_saeufer ~ extra_mean, data = extra, family = "binomial") %>% tidy
+```
+
+
+### Spearmans Korrelation
+
+*Forschungsfrage: Ist die Extraversion assoziiert mit der Anzahl der Kundenbesuche?*
+
+```{r warning = FALSE}
+cor.test(extra$extra_single_item, extra$client_freq, method = "spearman")
 ```
 
 

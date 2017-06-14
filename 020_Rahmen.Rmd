@@ -121,7 +121,7 @@ Betriebssystem herunter.
 
 
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
-aus wie in Abbildung \@ref(rig:rstudio-screenshot) dargestellt.
+aus wie in Abbildung \@ref(fig:rstudio-screenshot) dargestellt.
 
 ```{r rstudio-screenshot, echo = FALSE, fig.cap = "RStudio"} 
 knitr::include_graphics("images/Rahmen/RStudio-Screenshot.png")
@@ -170,7 +170,7 @@ Bitte laden Sie sich diesen Ordner [Github-Repositorium](https://github.com/seba
 - `Pakete_fuer_PraDa.txt` - Liste mit allen Paketen, die in diesem Skript verwendet werden
 
 
-Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustate/Kontextmenü und dann "Dateien extrahieren" o.ä., sonst Googeln.]. 
+Praktischerweise lädt man im Standard ganze Ordner von Github herunter, so dass man nicht alle Dateien einzeln anpacken muss. Um Download-Zeit zu sparen, sind diese Ordner gezippt. Bevor Sie mit den Dateien arbeiten können, müssen Sie diese erst entzippen^[auf vielen Computern zu bewerkstelligen mit rechter Maustaste/Kontextmenü und dann "Dateien extrahieren" o.ä., sonst Googeln.]. 
 
 
 
@@ -364,7 +364,7 @@ load("div/Pakete_fuer_PraDa.Rda")
 install.packages(packages)
 ```
 
-Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu diesem Skript zugrifen, davon ausgehen, dass das Arbeitsverzeichnis passend gesetzt ist (vgl. Kapitel \@ref(wd)). Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu laden sind. 
+Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu diesem Skript zugreifen, davon ausgehen, dass das Arbeitsverzeichnis passend gesetzt ist (vgl. Kapitel \@ref(wd)). Für jedes Kapitel ist angegeben, welches Kapitels jeweils benötigt d.h. zu laden sind. 
 
 
 ### Vertiefung: Zuordnung von Paketen zu Befehlen
@@ -821,7 +821,7 @@ Datenanalyse hilfreich sind: https://bookdown.org/chesterismay/rbasics/.
 - Roger Peng und Kollegen bieten hier einen Einstieg in Data Science mit R: 
 https://bookdown.org/rdpeng/artofdatascience/
 
-- Wickam und Grolemund [-@r4ds] geben einen hervorragenden Überblick in das 
+- Wickham und Grolemund [-@r4ds] geben einen hervorragenden Überblick in das 
 Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 
 - Wer einen stärker an der Statistik orientierten Zugang sucht, aber 

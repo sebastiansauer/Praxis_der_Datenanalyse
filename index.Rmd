@@ -36,7 +36,7 @@ biblio-style: apalike
 
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+```{r echo = FALSE, out.width = "70%", fig.align = "center"}
 knitr::include_graphics("images/icons/OER_Logo_201706_gruen.png")
 ```
 

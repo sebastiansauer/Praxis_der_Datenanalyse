@@ -55,7 +55,7 @@ Für dieses Modul sind 44 UE für Lehre eingeplant, aufgeteilt in 11 Termine (vg
 Folgende Abfolge von Themen sind pro Termin vorgeschlagen:
 
 
-Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Therminen (1-11) zu.
+Tabelle \@ref(tab:termin-themen) ordnet die Themen des Moduls den Terminen (1-11) zu.
 
 ```{r termin-themen, echo = FALSE}
 
@@ -108,7 +108,7 @@ Bei den Studierenden werden folgende Themen als bekannt vorausgesetzt:
 
   - Inhalte/Abschnitte, die als "nicht klausurrelevant" gekennzeichnet sind,
   - Inhalte/Abschnitte, die als "Vertiefung" gekennzeichnet sind,
-  - Fallstudien (nur für Klausuren nicht prüfungslevant),
+  - Fallstudien (nur für Klausuren nicht prüfungsrelevant),
   - die Inhalte von Links,
   - die Inhalte von Fußnoten,
   - die Kapitel *Vorwort*, *Organisatorisches* und *Anhang*.  
@@ -206,7 +206,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 3. Explorative Analyse
 
-  - Eörtern Sie interessante Einblicke, die über Ihre vorab getroffenen Hypothesen hinausgehen.
+  - Erörtern Sie interessante Einblicke, die über Ihre vorab getroffenen Hypothesen hinausgehen.
   - Diagramme können hier eine zentrale Rolle spielen.
 
 4. Diskussion
@@ -224,7 +224,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 ## Literatur
 
 Zum Bestehen der Prüfung ist keine weitere Literatur formal notwendig; allerdings ist es hilfreich, den Stoff aus unterschiedlichen Blickwinkeln aufzuarbeiten. 
-Dazu ist am ehesten das Buch von Wickham und Grolemund [@r4ds] hilreich, 
+Dazu ist am ehesten das Buch von Wickham und Grolemund [@r4ds] hilfreich, 
 obwohl es deutlich tiefer geht als dieses Skript. 
 
 

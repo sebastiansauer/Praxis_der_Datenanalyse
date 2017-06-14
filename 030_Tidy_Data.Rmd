@@ -120,7 +120,7 @@ daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
 
 Dabei steht `sep` (separator) für das Trennzeichen zwischen den Spalten und `dec` für das Dezimaltrennzeichen. R bietet eine Kurzfassung für `read.csv` mit diesen Parametern: `read.csv2("daten_deutsch.csv")`.
 
-Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Import Dataset" (für CSV-Dateien) gibt es den Auswahlpunkt "Delimiter" (Trennzeichen). Dort kann man das Komma durch einen Strichkpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.
+Man kommt hier auch mit "Klicken statt Tippen" zum Ziel; in der Maske von "Import Dataset" (für CSV-Dateien) gibt es den Auswahlpunkt "Delimiter" (Trennzeichen). Dort kann man das Komma durch einen Strichpunkt (oder was auch immer) ersetzen. Es hilft, im Zweifel, die Textdatei vorab mit einem Texteditor zu öffnen.
 
 ```{r rstudio-delimiter, echo = FALSE, fig.cap = "Trennzeichen einer CSV-Datei in RStudio einstellen"}
 knitr::include_graphics("images/tidy/delimiter.png")
@@ -188,7 +188,7 @@ knitr::include_graphics("images/tidy/bsp_diagramm-crop.png")
 ```
 
 
-Um von der breiten Form zur langen Form zu kommen, kann man den Befehl `tidyr::gather` nehmen. Von der langen Form zur breiten From gibt es `tidyr::spread`. Also etwa:
+Um von der breiten Form zur langen Form zu kommen, kann man den Befehl `tidyr::gather` nehmen. Von der langen Form zur breiten Form gibt es `tidyr::spread`. Also etwa:
 
 ```
 library(tidyr)
