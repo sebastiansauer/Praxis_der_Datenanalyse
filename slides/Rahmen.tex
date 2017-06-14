@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Hinweis:
+%%%% Pfad zu Logo in Z. 17 & 24 anpassen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+\usepackage{wasysym}
+\usepackage{amsmath}
+\usepackage{pstricks}
+\usepackage{tikz}
+
+\setbeamertemplate{navigation symbols}{}
+\titlegraphic{\includegraphics[width=0.2\paperwidth]{/Users/sebastiansauer/Documents/Vorlagen/Markdown_Pandoc/FOM_markdown_beamer/logo.jpg}}
+
+
+
+
+\setbeamertemplate{title page}[empty]
+
+\addtobeamertemplate{frametitle}{}{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=2pt] at (current page.north east) {\includegraphics[height=0.8cm]{/Users/sebastiansauer/Documents/Vorlagen/Markdown_Pandoc/FOM_markdown_beamer/logo.jpg}};
+\end{tikzpicture}}
+
+
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+\useoutertheme{infolines}
+
+\definecolor{dgray}{gray}{.4}   
+\definecolor{FOMgreen}{rgb}{.00,.60,.54}
+\definecolor{FOMlightgreen}{rgb}{.75,.90,.89}
+\usecolortheme[rgb={.00,.60,.54}]{structure}
+
+\setbeamercolor{frametitle}{fg=FOMgreen,bg=white}
+\setbeamercolor{title}{fg=FOMgreen,bg=white}
+\setbeamercolor{local structure}{fg=FOMgreen}
+\setbeamercolor{section in toc}{fg=FOMgreen,bg=white}
+\setbeamercolor{item projected}{fg=FOMgreen,bg=white}
+\setbeamertemplate{itemize item}{\color{FOMgreen}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{FOMgreen}\scriptsize{$\bullet$}}
+\let\Tiny=\tiny
+
+
+
+
+
+%
+%\AtBeginPart{}
+%\AtBeginSection{}
+%\AtBeginSubsection{}
+%\AtBeginSubsubsection{}
+%\setlength{\emergencystretch}{0em}
+%\setlength{\parskip}{0pt}
+

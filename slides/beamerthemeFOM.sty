@@ -1,0 +1,47 @@
+\ProvidesPackage{beamerthemeFOM}[2016/11/25 v2.0 Beamer Theme FOM]
+% Copyright 2011-16 by Norman Markgraf
+% based on the work of Stefan Etschberger form 2005
+%
+% $Id: beamerthemeFOM.sty 245 2012-04-11 14:57:16Z  $
+%
+
+\mode<presentation>
+
+\definecolor{fomgreen}{rgb}{0.58,0.77,0.75}
+\def\softness{0.8}
+\definecolor{softred}{rgb}{1,\softness,\softness}
+\definecolor{softgreen}{rgb}{\softness,1,\softness}
+\definecolor{softblue}{rgb}{\softness,\softness,1}
+\setbeamercolor*{structure}{fg=fomgreen,bg=softgreen}
+\definecolor{FOM}{rgb}{0,0.67,0.6}
+\definecolor{FOMTitelColor}{RGB}{0,153,138}
+\setbeamercolor{structure}{fg=FOM}
+
+\usetheme{Boadilla}
+%\useoutertheme{FOM}
+\useinnertheme{rounded}
+\setbeamertemplate{items}[triangle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{navigation symbols}{}
+
+%\usecolortheme{orchid}         % innercolortheme
+%\usecolortheme{FOM}            % outercolortheme
+
+% font settings
+\usefonttheme[onlymath]{serif}
+\setbeamerfont{block title}{size={}}
+\usepackage{eulervm}
+\usepackage{dsfont}    % provides $\mathds{N,Z,Q,R,C}$
+\usepackage[T1]{fontenc} % sonst wird OT1 coding ausgegeben und dann funktioniert Myriad (pmy) nicht mehr
+\usepackage{textcomp} % sonst wird OT1 coding ausgegeben und dann funktioniert Myriad (pmy) nicht mehr
+
+%\renewcommand{\sfdefault}{pmy}
+%\renewcommand{\sfdefault}{pcr}
+
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\sfdefault}{cmss}
+
+\setbeamerfont{frametitle}{shape=\upshape,family=\sffamily,series=\mdseries}
+
+
+\mode<all>
