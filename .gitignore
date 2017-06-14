@@ -1,11 +1,11 @@
 *.DS_Store
 .DS_Store
 .Rdata
-.Rproj.user
-.Rproj.user/**
+**/.Rproj.user
+**/.Rproj.user/**
 .Rhistory
 docs/**
-docs/
+**/docs/
 Praxis_der_Datenanalyse.log
 Praxis_der_Datenanalyse.ilg
 Praxis_der_Datenanalyse.lof
