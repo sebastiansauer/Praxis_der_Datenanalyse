@@ -4,12 +4,12 @@
 # ignore all except what is needed for the gitbook
 
 *.md
-docs/
 *.rds
 *.tex
 *.Rmd
-libs/
 slides/
+slides
 rsconnect/
+rconnet
 .Rproj.user
 .Rhistory
