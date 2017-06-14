@@ -1,7 +1,0 @@
-
-\appendix
-
-
-
-\renewcommand{\section}{\chapter}
-
