@@ -8,7 +8,7 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{backgrounds}
-\usepackage{pgfplots} 
+\usepackage{pgfplots}
 \pgfplotsset{compat=1.3}
 \usepackage{xspace}
 \usepackage{array}
@@ -41,14 +41,17 @@
    		     		\includegraphics[width=1cm,height=1cm]{images/logo_FOM_kurz}%
     	};%
 		\node[anchor=south east,xshift=1cm,yshift=2cm] at (current page.south east){%
-					\begin{tabular}{b{8cm}}
-						\textcolor{FOMTitelColor}{\Large\bf \inserttitle} \\
-						\textcolor{lightgray}{\large\bf \insertinstitute ~\xspace -- \insertdate} \\
-						\\
-						\textcolor{darkgray}{\bf \insertauthor}
-					\end{tabular}%
+          \begin{tabular}{b{0.6\myPaperWidth}}
+            {\usebeamercolor[fg]{title in titlepage}%
+             \usebeamerfont{title in titlepage} \inserttitle} \\
+            {\usebeamercolor[fg]{institute in titlepage}%
+             \usebeamerfont{institute in titlepage} \insertinstitute ~\xspace -- \insertdate} \\
+            \\
+            {\usebeamercolor[fg]{author in titlepage}%
+             \usebeamerfont{author in titlepage} \insertauthor}
+          \end{tabular}%
 		};%
-	\end{tikzpicture}%	
+	\end{tikzpicture}%
 }
 %
 % Frame title template:
@@ -57,23 +60,38 @@
 {
   \leavevmode
   \hbox{%
-  \begin{beamercolorbox}[ht=4ex,leftskip=.2cm,wd=\paperwidth]{frametitle}%
-  % \insertscetion \newline
-	\vbox{}\vskip-2ex%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
+%        \strut%
+        {\small%
+          \ifthenelse{\equal{\thesubsection}{0}}{% then:
+            {\usebeamercolor[fg]{section in head}%
+             \usebeamerfont{section in head}%
+             \thesection.~\insertsection}\\\vspace*{-1.1ex}%
+            {\usebeamercolor[fg]{frametitle in head}%
+             \usebeamerfont{frametitle in head}%
+              ~\phantom{\thesection.}\Large\insertframetitle}%
+          }{% else:
+%         \vspace*{-1em}%
+          {\usebeamercolor[fg]{subsection in head}%
+           \usebeamerfont{subsection in head}%
+           \thesection.\thesubsection.~\insertsubsection}\\\vspace*{-1.1ex}%
+          {\usebeamercolor[fg]{frametitle in head}%
+           \usebeamerfont{frametitle in head}%
+           ~\phantom{\thesection.\thesubsection.}\Large\insertframetitle}%
+          }
+        }
         \strut
-        {\sffamily\insertsection}%{\sffamily\thesection.~\insertsection}
-        \insertframetitle\strut
-		\vspace*{-0.8em}
-	\includegraphics[%
-	  		width=0.9\paperwidth%
-			]{%
+    \vspace*{-0.8em}
+  \includegraphics[%
+        width=0.9\paperwidth%
+      ]{%
 	  		images/FOMLinie%
 		}%
-	
-	\vspace*{-1.8em}\hspace*{0.91\paperwidth}%
-	\includegraphics[%
-		width=0.8cm%
-	]{% 
+
+  \vspace*{-2.4em}\hspace*{0.89\paperwidth}%
+  \includegraphics[%
+    width=0.99cm%
+  ]{%
 		images/logo_FOM_kurz%
 	}
 
@@ -101,16 +119,16 @@
 	\vspace{0.1cm}
     \newline
    	{%
-   	    
-		\hspace*{0.2cm}\insertdate} % 
+
+		\hspace*{0.2cm}\insertdate} %
     	\hfil
-   		\insertshortauthor  \, $|$ \,  \inserttitle % 
-    
+   		\insertshortauthor  \, $|$ \,  \inserttitle %
+
     	\vspace*{-0.9em}%
      	\raggedleft{\insertframenumber \hspace*{0.3cm}}%
    \end{beamercolorbox}
    \vspace*{0.2cm}
 }
-} 
+}
 %
 \definecolor{shadecolor}{RGB}{225,220,215}
