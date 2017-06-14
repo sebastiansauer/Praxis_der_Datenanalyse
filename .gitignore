@@ -3,8 +3,8 @@
 .Rproj.user
 .Rproj.user/**
 .Rhistory
-#docs/**
-#docs/
+docs/**
+docs/
 div/
 archive/
 _bookdown_files
@@ -28,5 +28,6 @@ Praxis_der_Datenanalyse.fdb_latexmk
 *.RData
 *.knit.*
 *.utf8.md
-slides/
-*.md
+slides/docs/**
+slides/docs
+???_*.md
