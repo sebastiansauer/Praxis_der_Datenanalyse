@@ -1,58 +1,37 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-```
 
 # Der p-Wert, Inferenzstatistik und Alternativen
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
 
 
-```{block2, ziele-inferenz, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Den p-Wert erläutern können.
 - Den p-Wert kritisieren können.
 - Alternativen zum p-Wert kennen.
 - Inferenzstatistische Verfahren für häufige Fragestellungen kennen.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Kapitel werden folgende Pakete benötigt:
 
-```{r}
+
+```r
 library(pwr)
 library(compute.es)
 library(tidyverse)
 ```
 
 
-```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "20%", fig.align = "center"}
-knitr::include_graphics("images/inferenz/Ronald_Fisher.jpg")
-```
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/Ronald_Fisher.jpg" alt="Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)" width="20%" />
+<p class="caption">(\#fig:sir-fisher)Der größte Statistiker des 20. Jahrhunderts (p < .05)</p>
+</div>
 
 ## Der p-Wert sagt nicht das, was viele denken
 
@@ -60,9 +39,10 @@ knitr::include_graphics("images/inferenz/Ronald_Fisher.jpg")
 Der p-Wert\index{p-Wert}, entwickelt von Sir Ronald Fisher (Abb. \@ref(fig:sir-fisher)), ist die heilige Kuh der Forschenden. Das ist nicht normativ, sondern deskriptiv gemeint. Der p-Wert entscheidet (häufig) darüber, was publiziert wird, und damit, was als Wissenschaft sichtbar ist - und damit, was Wissenschaft ist (wiederum deskriptiv, nicht normativ gemeint). Kurz: Dem p-Wert kommt viel Bedeutung zu bzw. ihm wird viel Bedeutung zugemessen (vgl. Abb. \@ref(fig:who-said)). 
 
 
-```{r who-said, echo = FALSE, out.width = "35%", fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
-knitr::include_graphics("images/inferenz/p_value_who_said.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/p_value_who_said.png" alt="Der p-Wert wird oft als wichtig erachtet" width="35%" />
+<p class="caption">(\#fig:who-said)Der p-Wert wird oft als wichtig erachtet</p>
+</div>
 
 
 Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als *Nullhypothesen-Signifikanztesten*\index{Nullhypothesen-Signifikanztesten} (NHST^[Der Term 'Signifikanz-Hypothesen-Inferenz-Testen' hat sich nicht durchgesetzt]) bezeichnet wird. Oder kurz als 'Inferenzstatistik' bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:
@@ -98,9 +78,10 @@ $$ P(M|P) \ne P(P|M) $$
 
 
 
-```{r moslems-terroristen, echo = FALSE, fig.cap = "Mann und Papst zu sein ist nicht das gleiche."}
-knitr::include_graphics("images/inferenz/maenner_papst-crop.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/maenner_papst-crop.png" alt="Mann und Papst zu sein ist nicht das gleiche." width="70%" />
+<p class="caption">(\#fig:moslems-terroristen)Mann und Papst zu sein ist nicht das gleiche.</p>
+</div>
 
 
 Das Bild (Abb. \@ref(fig:moslems-terroristen)) zeigt den Anteil der Männer an den Päpsten (sehr hoch). Und es zeigt den Anteil der Päpsten von allen Männern (sehr gering). Dabei können wir uns Anteil mit Wahrscheinlichkeit übersetzen. Kurz: Die beiden Anteile (Wahrscheinlichkeiten) sind nicht gleich. Man denkt leicht, der p-Wert sei die *Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist*. Das ist falsch. Der p-Wert ist die *Wahrscheinlichkeit, Papst zu sein, wenn man Mann ist*. Ein großer Unterschied.
@@ -112,10 +93,10 @@ Der p-Wert ist für weitere Dinge kritisiert worden [@Wagenmakers2007, @uncertai
 
 Ein anderer Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das schränkt die praktische Nützlichkeit ein (vgl. Abb. \@ref(fig:einfluss-pwert). Die Details der Simulation, die hinter Abb. \@ref(fig:einfluss-pwert) sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben^[s. hier für Details: https://sebastiansauer.github.io/pvalue_sample_size/].
 
-```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
-
-knitr::include_graphics("images/inferenz/einfluss_pwert-crop.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/einfluss_pwert-crop.png" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
+<p class="caption">(\#fig:einfluss-pwert)Zwei Haupteinflüsse auf den p-Wert</p>
+</div>
 
 
 >   Egal wie klein die Effektstärke ist, es existiert eine Stichprobengröße, die diesen Effekt beliebig signifikant werden lässt.
@@ -178,49 +159,20 @@ Die folgende Auflistung gibt einen *kurzen* Überblick zu gebräuchlichen Verfah
 1. Output: 1 ordinal, Input: 1 nominal: Kruskal-Wallis-Test - `kruskal.test`
 1. 1 metrisch (Test auf Normalverteilung): Shapiro-Wilk-Test - `shapiro.test`
 1. Output: 1 dichotom, Input 1 oder mehr nominal oder metrisch: logistische (klassifikatorische) Regression: `glm(..., family = "binomial")
-1. 2 ordinal: Spearmans Rangkorrelation - `cor.test(x, y, = method = "spearman")`
-
-
-Schauen wir uns für jeden Test ein Anwendungsbeispiel an.
-
-### $\chi^2$-Test
-
-Laden wir den Datensatz `extra`. Ob es wohl einen Zusammenhang gibt zwischen (der Anzahl von) Katern und Partybesuchen? Genauer: gibt es einen statistisch signifikanten Zusammenhang zwischen diesen beiden Variablen?
-
-```{r}
-extra <- read.csv("data/extra.csv")
-
-chisq.test(x = extra$n_hangover, extra$n_party)
-
-
-```
-
+1. 2 ordinal: Spearmans Rangkorrelation - `cor.test(x, y, = method = "spearman")
 
 
 ## Zur Philosophie des p-Werts: Frequentismus
 
 Der p-Wert basiert auf der Idee, dass man ein Experiment *unendlich* oft wiederholen könnte (wer die Zeit hat, nicht wahr); und das unter *zufälligen* aber *ansonsten komplett gleichen* Bedingungen; das ist eine Kernidee des sog. 'Frequentismus'. Diese Philosophie betrachtet Wahrscheinlichkeit als der Anteil, der sich bei unendlich häufiger Wiederholung eines Experiments ergibt. Ein Münzwurf hingegen ist das klassische Modell der frequentistischen Idee der Wahrscheinlichkeit (vgl. Abb. \@ref(fig:muenzwurf)). Wirft man eine faire Münze oft, so nähert sich der relative Anteil von 'Kopf' an 50% an.
 
-```{r echo = FALSE}
-df <- data_frame(
-  i = 1:500,
-  flip = sample(x = c(0,1), size = 500, replace = TRUE),
-  prop = cumsum(flip) / i
-)
-```
 
 
-```{r muenzwurf, echo = FALSE, fig.cap = "Anteil von 'Kopf' bei wiederholtem Münzwurf"}
 
-ggplot(df) +
-  aes(x = i, y = prop) +
-  geom_line() +
-  geom_point(color = "grey40") +
-  ylim(c(0,1)) +
-  labs(x = "Anzahl der Würfe",
-       y = "Anteil von 'Kopf'")
-
-```
+<div class="figure" style="text-align: center">
+<img src="061_Inferenzstatistik_files/figure-html/muenzwurf-1.png" alt="Anteil von 'Kopf' bei wiederholtem Münzwurf" width="70%" />
+<p class="caption">(\#fig:muenzwurf)Anteil von 'Kopf' bei wiederholtem Münzwurf</p>
+</div>
 
 
 Ob es im Universum irgendetwas gibt, das unendlich ist, ist streibar [@ruckerinfinity, @uncertainty]. Jedenfalls ist die Vorstellung, das Experiment unendlich oft zu wiederholen, unrealistisch. Inwieweit Zufälligkeit und Vergleichbarkeit hergestellt werden kann, ist auch fragwürdig [@uncertainty].
@@ -274,25 +226,53 @@ Nicht-standardisierte Effektstärken haben den Vorteil der Anschaulichkeit. Stan
 
 Tabelle \@ref(tab:effectsizes) gibt einen groben Überblick über Effektstärken (nach Cohen [-@cohen_statistical_1988] und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
 
-```{r effectsizes, echo = FALSE}
 
-df <- read_csv("includes/effectsizes.csv")
+-------------------------------------------------------------------
+Name              Test                             kleiner.Effekt  
+----------------- -------------------------------- ----------------
+Cohens d          Unterschied zwischen zwei        .2-.5           
+                  Mittelwerten                                     
 
+r                 Zusammenhang zweier metrischer   0.1             
+                  Größen                                           
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Überblick über gängige Effektstärkemaße")
+p                 Unterschied in zwei Anteilen     NA              
 
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+$R^2$, $\eta^2$   Anteil aufgeklärter Varianz      0.01            
+                  (Varianzanalyse,                                 
+                  Regressionsanalyse)                              
 
+$f^2$             Verhältnis von erklärter zu      0.02            
+                  nicht erklärter Varianz                          
+                  (signal-to-noise ratio)                          
 
-```
+$\omega$          Häufigkeitsunterschiede          0.1             
+-------------------------------------------------------------------
+
+Table: Überblick über gängige Effektstärkemaße (continued below)
+
+ 
+----------------------------------
+mittlerer.Effekt   großer.Effekt  
+------------------ ---------------
+.5-.8              >.8            
+
+0.3                0.5            
+
+NA                 NA             
+
+0.06               0.14           
+
+0.15               0.35           
+
+0.3                0.5            
+----------------------------------
 
 
 Mit dem Paket `pwr` kann man sich Cohens Konventionen der Effektstärkehöhen in Einnerung rufen lassen. Er bietet folgene Optionen:
 
-```{r eval = FALSE}
+
+```r
 cohen.ES(test = c("p", "t", "r", "anov", "chisq", "f2"),
     size = c("small", "medium", "large"))
 
@@ -315,11 +295,10 @@ Jetzt Achtung: Der Test sagt, ich sei krank. Die Gretchen-Frage lautet, wie hoch
 
 Abbildung \@ref(fig:bayes) stellt das Beisipiel in Form eines Baumdiagrammes dar.
 
-```{r bayes, echo = FALSE, fig.cap = "Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli"}
-
-knitr::include_graphics("images/inferenz/bayes-crop.png")
-
-```
+<div class="figure" style="text-align: center">
+<img src="images/inferenz/bayes-crop.png" alt="Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli" width="70%" />
+<p class="caption">(\#fig:bayes)Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli</p>
+</div>
 
 In der Medizin ist 'positiv' zumeist eine schlechte Nachricht, es soll sagen, dass der Test der Meinung ist, die getestete Person ist krank (das getestete Kriterium trifft zu).
 
@@ -337,8 +316,7 @@ Auf der anderen Seite kann man diese Subjektivität umgehen, indem man nur angib
 
 
 
-```{block2, exercises-inferenz, type='rmdexercises', echo = TRUE} 
-Richtig oder Falsch!?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
 1. Der p-Wert gibt die Wahrscheinlichkeit der H0 an unter der Annahme der Daten.
 
@@ -360,8 +338,7 @@ Richtig oder Falsch!?
 
 1. Der Vorhersagewert ist definiert als p(H|D).
 
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -385,9 +362,7 @@ Alternativen zum p-Wert sind
 
 
 
-```{r fig-dino, echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg")
-```
+<img src="images/inferenz/meme_pwert_1iw22a_pvalue_dino.jpg" width="30%" style="display: block; margin: auto;" />
 
 
 

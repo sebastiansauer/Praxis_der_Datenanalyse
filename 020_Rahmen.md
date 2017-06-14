@@ -1,22 +1,4 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-width.cutoff=60
-```
 
 
 
@@ -34,16 +16,11 @@ width.cutoff=60
 
 
 
-```{r echo = FALSE, out.width = "30%", fig.align = "center"}
-knitr::include_graphics("images/FOM.jpg")
-```
+<img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" />
 
-```{r echo = FALSE, out.width = "10%", fig.align = "center"}
-knitr::include_graphics("images/licence.png")
-```
+<img src="images/licence.png" width="10%" style="display: block; margin: auto;" />
 
-```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
-Lernziele:
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Lernziele:
 
 - Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
 - R und RStudio installieren können.
@@ -52,8 +29,7 @@ Lernziele:
 - Einige grundlegende R-Funktionalitäten verstehen.
 - Auf die Frage "Was ist Statistik?" eine Antwort geben können.
 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das 
@@ -61,9 +37,10 @@ In diesem Skript geht es um die Praxis der Datenanalyse. Mit Rahmen ist das
 einige praktische Vorbereitungen und ein paar Überlegungen. Zum Beispiel 
 brauchen wir einen Überblick über das Thema. Voilà (Abb. \@ref(fig:fig-prozess)):
 
-```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
-knitr::include_graphics("images/Rahmen/Prozess_Datenanalyse.png") 
-```
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/Prozess_Datenanalyse.png" alt="Der Prozess der Datenanalyse" width="70%" />
+<p class="caption">(\#fig:fig-prozess)Der Prozess der Datenanalyse</p>
+</div>
 
 
 Datenanalyse, praktisch betrachtet, kann man in fünf Schritte einteilen [@r4ds].
@@ -123,10 +100,10 @@ Betriebssystem herunter.
 Die Oberfläche von RStudio sieht (unter allen Betriebssystemen etwa gleich) so 
 aus wie in Abbildung \@ref(rig:rstudio-screenshot) dargestellt.
 
-```{r rstudio-screenshot, echo = FALSE, fig.cap = "RStudio"} 
-knitr::include_graphics("images/Rahmen/RStudio-Screenshot.png")
-
-```
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/RStudio-Screenshot.png" alt="RStudio" width="70%" />
+<p class="caption">(\#fig:rstudio-screenshot)RStudio</p>
+</div>
 
 
 Das *Skript-Fenster*\index{Skript-Fenster} ähnelt einem normalem Text-Editor; 
@@ -200,8 +177,7 @@ Sorry für die schnoddrigen Tipps. Aber: Es passiert allzu leicht, dass man
 
 
 
-```{block2, typ-fehler, type='rmdcaution', echo = TRUE} 
-
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
 OH NO:
 
 - install.packages(dplyr) 
@@ -215,8 +191,7 @@ OH NO:
 - Keine Internet-Verbindung 
 
 - library(dplyr)  # ohne vorher zu installieren
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -273,34 +248,32 @@ Ein Großteil der Neuentwicklungen bei R passiert in sog. 'Paketen' (engl. *pack
 
 Am einfachsten installiert man R-Pakete in RStudio über den Button "Install" im Reiter "Packages" (s. Abb. \@ref(fig:fig-install-packages)).
 
-```{r fig-install-packages, echo = FALSE, fig.cap = "So installiert man Pakete in RStudio"}
-
-knitr::include_graphics("images/Rahmen/install_packages.png")
-
-```
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/install_packages.png" alt="So installiert man Pakete in RStudio" width="70%" />
+<p class="caption">(\#fig:fig-install-packages)So installiert man Pakete in RStudio</p>
+</div>
 
 
 Ein R-Paket, welches für die praktische Datenanalyse praktisch ist, heißt 
 `tidyverse`. Wir werden viel mit diesem Paket arbeiten. Bitte installieren Sie es 
 schon einmal, sofern noch nicht geschehen. Sie können auch folgenden Befehl verwenden, um Pakete zu installieren.
 
-```{r eval = FALSE} 
+
+```r
 install.packages("tidyverse", dependencies = TRUE) 
 ```
 
 
 Sofern Sie online sind, sollte das Paket `tidyverse` jetzt installiert sein.
 
-```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} 
-Beim Installieren von 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Beim Installieren von 
 R-Paketen könnten Sie gefragt werden, welchen "Mirror" Sie verwenden möchten. 
 Das hat folgenden Hintergrund: R-Pakete sind in einer Art "App-Store", mit Namen
 CRAN (Comprehense R Archive Network) gespeichert. Damit nicht ein armer, kleiner
 Server überlastet wird, wenn alle Studis dieser Welt just gerade beschließen, 
 ein Paket herunterzuladen, gibt es viele Kopien dieses Servers - seine Spiegelbilder (engl. "mirrors"). 
 Suchen Sie sich einfach einen aus, der in der Nähe ist.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 Bei der Installation von Paketen mit `install.packages("name_des_pakets")` 
@@ -316,7 +289,8 @@ Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten*
 (laden) muss man sie jedes Mal, wenn man sie vorher geschlossen hat und wieder 
 nutzen möchte:
 
-```{r eval = FALSE} 
+
+```r
 library(dplyr) 
 ```
 
@@ -324,16 +298,14 @@ Der Befehl bedeutet sinngemäß: "Hey R, geh in die Bücherei (library) und hole
 das Buch (package) dplyr!".
 
 
-```{block2, quotation_marks, type='rmdcaution', echo = TRUE} 
-Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Wann benutzt man bei R Anführungszeichen? Das ist etwas verwirrend im Detail, aber die Grundegel 
 lautet: wenn man Text anspricht. Im Beispiel oben "library(dplyr)" ist "dplyr" 
 hier erst mal für R nichts Bekanntes, weil noch nicht geladen. Demnach müssten 
 *eigentlich* Anführungsstriche stehen. Allerdings meinte ein Programmierer, dass
 es doch so bequemer ist. Hat er Recht. Aber bedenken Sie, dass es sich um die 
 Ausnahme einer Regel handelt. Sie können also auch schreiben: library("dplyr") 
 oder library('dplyr'); geht beides.
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -348,18 +320,25 @@ In diesem Skript verwenden wir die folgenden
 R-Pakete; diese müssen installiert sein und geladen. Ggf. benötigen Sie Administrator-Rechte, um Pakete zu installieren. Virenscanner müssen evtl. ausgestaltet sein. 
 
 
-```{r source_packages, include = FALSE, message = FALSE, warning = FALSE} 
-source("includes/Pakete.R") 
+
+
+
+
 ```
-
-
-```{r Paketliste, echo = FALSE} 
-packages[-1]
+#>  [1] "BaylorEdPsych" "broom"         "car"           "caret"        
+#>  [5] "cluster"       "corrplot"      "corrr"         "downloader"   
+#>  [9] "dplyr"         "GGally"        "ggplot2"       "grid"         
+#> [13] "knitr"         "lmtest"        "lsa"           "MBESS"        
+#> [17] "modelr"        "nycflights13"  "okcupiddata"   "pdftools"     
+#> [21] "png"           "psych"         "ROCR"          "SDMTools"     
+#> [25] "SnowballC"     "stringr"       "tidyr"         "tidytext"     
+#> [29] "tidyverse"     "wordcloud"
 ```
 
 Mit folgenden Befehlen installieren Sie alle Pakete für diesen Kurs auf einmal. Das ist ganz praktisch, weil Sie ggf. Aktualisierungen bereits installierter Pakete bekommen.
 
-```{r install-packages, eval = FALSE}
+
+```r
 load("div/Pakete_fuer_PraDa.Rda")
 install.packages(packages)
 ```
@@ -374,10 +353,10 @@ Denken Sie daran, dass dieser Befehl - und alle anderen, die auf Dateien zu dies
 
 Eine einfache Möglichkeit ist es, beim Reiter 'Pakete' auf den Namen eines der installierten Pakete zu klicken. Daraufhin öffnet sich die Dokumentation des Pakets und man sieht dort alle Befehle und Daten aufgeführt (s. Abbildung \@ref(fig:pakete-hilfe)). Übrigens sehen Sie dort auch die Version eines Pakets (vielleicht sagt jemand mal zu Ihnen, "Sie sind ja outdated", dann schauen Sie mal auf die die Paket-Versionen).
 
-```{r pakete-hilfe, echo = FALSE, fig.cap = "Hier werden Sie geholfen: Die Dokumentation der R-Pakete", out.width = "50%"}
-
-knitr::include_graphics("images/Rahmen/hilfe_pakete.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/hilfe_pakete.png" alt="Hier werden Sie geholfen: Die Dokumentation der R-Pakete" width="50%" />
+<p class="caption">(\#fig:pakete-hilfe)Hier werden Sie geholfen: Die Dokumentation der R-Pakete</p>
+</div>
 
 
 Für geladenen Pakete kann man auch den Befehl `help` nutzen, z.B. `help(ggplot2)`.
@@ -390,9 +369,18 @@ Probieren Sie den Befehl `help.search("qplot")`, wenn Sie wissen möchten, in we
 
 Sie können auch diesen selbstgestrickten Befehl nutzen, den Sie zuerst laden müssen:
 
-```{r}
+
+```r
 source("https://sebastiansauer.github.io/Rcode/find_funs.R")
 find_funs("select")
+#> # A tibble: 5 x 3
+#>   package_name builtin_pckage loaded
+#>          <chr>          <lgl>  <lgl>
+#> 1        dplyr          FALSE   TRUE
+#> 2         MASS           TRUE  FALSE
+#> 3       plotly          FALSE  FALSE
+#> 4       raster          FALSE  FALSE
+#> 5         VGAM          FALSE  FALSE
 ```
 
 
@@ -401,10 +389,8 @@ In diesem Skript sind am Ende jedes Kapitels die jeweils besprochenen (neuen) Be
 
 
 
-```{block2, ziele-double-colon, type='rmdcaution', echo = TRUE} 
-
-Manche Befehle haben Allerweltsnamen (z.B. 'filter'). Manchmal gibt es Befehle mit gleichem Namen in verschiedenen Paketen; besonders Befehle mit Allerweltsnamen (wie 'filter') sind betroffen ('mosaic::filter' vs. 'dplyr::filter'). Falls Sie von wirre Ausgaben bekommen oder diffuse Fehlermeldung kann es sein, kann es sein, dass R einen Befehl mit dem richtigen Namen aber aus dem 'falschen' Paket zieht. Geben Sie im Zweifel lieber den Namen des Pakets vor dem Paketnamen an, z.B. so `dplyr::filter`.
-```
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
+Manche Befehle haben Allerweltsnamen (z.B. 'filter'). Manchmal gibt es Befehle mit gleichem Namen in verschiedenen Paketen; besonders Befehle mit Allerweltsnamen (wie 'filter') sind betroffen ('mosaic::filter' vs. 'dplyr::filter'). Falls Sie von wirre Ausgaben bekommen oder diffuse Fehlermeldung kann es sein, kann es sein, dass R einen Befehl mit dem richtigen Namen aber aus dem 'falschen' Paket zieht. Geben Sie im Zweifel lieber den Namen des Pakets vor dem Paketnamen an, z.B. so `dplyr::filter`.</div>\EndKnitrBlock{rmdcaution}
 
 
 Außerdem sind zu Beginn jedes Kapitels die in diesem Kapitel benötigten Pakete angegeben. Wenn sie diese Pakete laden, werden alle Befehle dieses Kapitels funktionieren^[es sei denn, sie tun es nicht].
@@ -425,7 +411,7 @@ Die folgenden Datensätze liegen im Ordner `data/`. Laden Sie dazu den komplette
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `Wage` aus dem R-Paket {ISLR} [@introstatlearning]; es handelt sich um Gehaltsdaten von US-amerikanischen Männern 
-- Datensatz `inf_test_short`, URL: <https://osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur (einer Probeklausur)
+- Datensatz `inf_test_short`, URL: <https://osf.io/sjhu> [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur 
 - Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
 - Datensatz 'wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
@@ -461,11 +447,19 @@ praktische Funktionen wie den "Run-Button".
 
 Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
 
-```{r datentypen, echo = FALSE}
-df <- readr::read_csv("includes/Datentypen.csv")
 
-knitr::kable(df, caption = "Wichtige Datentypen in R")
-```
+Table: (\#tab:datentypen)Wichtige Datentypen in R
+
+Name        Synonyme           Beschreibung                                                                                                     R-Befehl       Beispiel                         Restriktionen                                       
+----------  -----------------  ---------------------------------------------------------------------------------------------------------------  -------------  -------------------------------  ----------------------------------------------------
+numeric     num, double, dbl   Reelle Zahl (mit Nachkommastellen)                                                                               as.numeric     x <- c(2.71, 3.14)               grundlegend                                         
+integer     int, L             Ganze Zahl                                                                                                       as.integer     y <- c(42,7)                     grundlegend                                         
+character   chr, string        Text                                                                                                             as.character   der_name <- "Joachim"            grundlegend                                         
+logical     lgl, logi          logisch; gibt an, ob ein Ausdruck wahr (TRUE; T) oder falsch (FALSE, F) ist                                      as.logical     c(TRUE, FALSE)                   grundlegend                                         
+factor      fctr               Nominal skalierte Variable mit vorab definierten Ausprägungen; z.B. um Gruppen (Männer vs. Frauen) zu benennen   factor         der_name <- factor(der_name)     grundlegend                                         
+vector      -                  Mehrere Elemente eines grundlegenden Typs                                                                        c              x <- c(2.71, 3.14)               sortenrein                                          
+dataframe   tibble, df         Tabelle aus einem oder mehr Vektoren, die jeweils einen Namen haben                                              data.frame     df <- data.frame(x,y)            rechteckig: Vektoren müssen von gleicher Länge sein 
+list        -                  Kombination beliebigiger Vektoren                                                                                list           liste <- list(x, der_name, df)   keine besonderen Restriktionen                      
 
 Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle, wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
 
@@ -505,32 +499,39 @@ auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der
 Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. 
 `Enter`. 
 
-```{r} 
+
+```r
 4+2 
-``` 
+#> [1] 6
+```
 Das Ergebnis wird direkt angezeigt. Bei 
-```{r} 
+
+```r
 x <- 4+2 
-``` 
+```
 
 erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert 
 `4+2` zugewiesen. Wenn Sie jetzt 
-```{r eval=FALSE} 
+
+```r
 x 
-``` 
+```
 
 eingeben, wird das 
 Ergebnis 
-```{r echo=FALSE} 
-x
-``` 
+
+```
+#> [1] 6
+```
 
 angezeigt. Sie können jetzt auch mit `x` 
 weiterrechnen, z.B.: 
 
-```{r} 
+
+```r
 x/4 
-``` 
+#> [1] 1.5
+```
 
 Vielleicht fragen Sie sich was die `[1]` vor dem 
 Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es 
@@ -541,14 +542,16 @@ sich um das erste (und hier auch letzte) Element des Vektors handelt.
 
 Man kann einer Variablen auch Text zuweisen (im Gegensatz zu Zahlen):
 
-```{r hallo, eval = FALSE}
+
+```r
 y <- "Hallo R!"
 ```
 
 
 Man kann auch einer Variablen eine andere zuweisen:
 
-```{r eval = FALSE}
+
+```r
 y <- x
 ```
 
@@ -557,7 +560,8 @@ Wird jetzt y mit dem Inhalt von x überschrieben oder umgekehrt? Der Zuweisungsp
 
 Man kann auch einer Variablen *mehr als* einen Wert zuweisen:
 
-```{r}
+
+```r
 x <- c(1, 2, 3)
 ```
 
@@ -571,7 +575,8 @@ Dieser Befehl erzeugt eine "Spalte" (einen Vektor). Will man einer Variablen *me
 
 Um einen *Befehl*\index{Befehl, Funktion} (präziser aber synonym hier: eine Funktion) aufzurufen, geben wir ihren Namen an und definieren sog. *Parameter*\index{Parameter eines R-Befehls} in einer runden Klammer, z.B. so:
 
-```{r eval = FALSE}
+
+```r
 wo_men <- read.csv("data/wo_men.csv")
 ```
 
@@ -585,7 +590,8 @@ Die drei Punkte `...` sollen andeuten, dass evtl. weitere Parameter zu übergebe
 Die Reihenfolge der Parameter ist *egal* - wenn man die Parameternamen anführt. 
 Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:
 
-```{r read-csv-example, eval = FALSE}
+
+```r
 #ok:
 wo_men <- read.csv(file = "data/wo_men.csv", header = TRUE, sep = ",")
 wo_men <- read.csv("data/wo_men.csv", TRUE, ",")
@@ -605,15 +611,16 @@ In der Hilfe zu einem Befehl findet man die Standard-Syntax inklusive der mögli
 
 Das aktuelle Verzeichnis (Arbeitsverzeichnis; "working directory") kann man mit `getwd()` erfragen und mit `setwd()` einstellen. Komfortabler ist es aber, das aktuelle Verzeichnis per Menü zu ändern (vgl. Abb. \@ref(fig:Arbeitsverzeichnis). In RStudio: `Session > Set Working Directory > Choose Directory ...` (oder per Shortcut, der dort angezeigt wird).
 
-```{r Arbeitsverzeichnis, echo = FALSE, fig.cap = "Das Arbeitsverzeichnis mit RStudio auswählen", out.width = "50%"}
-
-knitr::include_graphics("images/tidy/Arbeitsverzeichnis.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/tidy/Arbeitsverzeichnis.png" alt="Das Arbeitsverzeichnis mit RStudio auswählen" width="50%" />
+<p class="caption">(\#fig:Arbeitsverzeichnis)Das Arbeitsverzeichnis mit RStudio auswählen</p>
+</div>
 
 
 Es ist praktisch, das Arbeitsverzeichnis festzulegen, denn dann kann man z.B. eine Datendatei einlesen, ohne den Pfad eingeben zu müssen:
 
-```{r eval = FALSE}
+
+```r
 # nicht ausführen:
 daten_deutsch <- read.csv("daten_deutsch.csv", sep = ";", dec = ".")
 ```
@@ -624,11 +631,9 @@ R geht dann davon aus, dass sich die Datei `daten_deutsch.csv` im Arbeitsverzeic
 Für diesen Kurs ist es sinnvoll, das Arbeitsverzeichnis in einen "Hauptordner" zu legen (z.B. "Praxis_der_Datenanalyse"), in dem Daten und sonstiges Material als Unterordner abgelegt sind.
 
 
-```{block2, working-directory, type='rmdcaution', echo = TRUE} 
-
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">
 Übrigens: Wenn Sie keinen Pfad angeben, so geht R davon aus, dass die Daten im aktuellen Verzeichnis (dem *working directory*) liegen. 
-
-```
+</div>\EndKnitrBlock{rmdcaution}
 
 
 
@@ -675,10 +680,10 @@ eine zugrunde liegende Grundmenge (Population). Dabei spielt die
 Wahrscheinlichkeitsrechnung (Stochastik) eine große 
 Rolle.
 
-```{r desk-vs-inf, echo = FALSE, fig.cap  ="Sinnbild für die Deskriptiv- und die Inferenzstatistik"}
-
-knitr::include_graphics("images/Rahmen/desk_vs_inf-crop.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/Rahmen/desk_vs_inf-crop.png" alt="Sinnbild für die Deskriptiv- und die Inferenzstatistik" width="70%" />
+<p class="caption">(\#fig:desk-vs-inf)Sinnbild für die Deskriptiv- und die Inferenzstatistik</p>
+</div>
 
 
 
@@ -744,7 +749,8 @@ Häufig trifft ein Modell eine Reihe von Annahmen, die nicht immer explizit gema
 
 3. Führen Sie diese Syntax aus:
 
-```{r eval = FALSE}
+
+```r
 meine_coole_variable <- 10
 meine_coole_var1able 
 ```
@@ -753,7 +759,8 @@ Woher rührt der Fehler?
 
 4. Korrigieren Sie die Syntax:
 
-```{r eval = FALSE}
+
+```r
 install.packages(dplyer)
 ```
 
@@ -764,7 +771,8 @@ install.packages(dplyer)
 `Hallo R <- 1`
 
 
-```{r eval = FALSE}
+
+```r
 Hallo_R < - 1
 ```
 
@@ -774,8 +782,7 @@ Hallo_R < - 1
 
 ## Aufgaben^[R, F: die Daten müssen sinnvoll zusammengefasst werden, F, F, F: Wenn er ehrlich sein sollte, dann ist das Ereignis '10 von 10' selten]
 
-```{block2, exercises-rahmen, type='rmdexercises', echo = TRUE} 
-Richtig oder Falsch!?
+\BeginKnitrBlock{rmdexercises}<div class="rmdexercises">Richtig oder Falsch!?
 
 1. Statistik wird gemeinhin in zwei Bereiche unterteilt: Deskriptivstatistik und Inferenzstatistik.
 
@@ -787,8 +794,7 @@ Richtig oder Falsch!?
 
 1. Wirft jemand bei 10 von 10 Münzwürfen 'Kopf', so ist die Wahrscheinlichkeit groß, dass er ein Betrüger ist.
 
-
-```
+</div>\EndKnitrBlock{rmdexercises}
 
 
 
@@ -797,13 +803,15 @@ Richtig oder Falsch!?
 
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 
-```{r befehle-rahmen, echo = FALSE}
 
-df <- readr::read_csv("includes/Befehle_Rahmen.csv")
+Table: (\#tab:befehle-rahmen)Befehle des Kapitels 'Rahmen'
 
-knitr::kable(df, caption = "Befehle des Kapitels 'Rahmen'")
-
-```
+Paket::Funktion         Beschreibung                             
+----------------------  -----------------------------------------
+install.packages("x")   Installiert Paket "x" (nicht: Paket "X") 
+library                 lädt ein Paket                           
+<-                      Weist einer Variablen einen Wert zu      
+c                       erstellt eine Spalte/ einen Vektor       
 
 
 
