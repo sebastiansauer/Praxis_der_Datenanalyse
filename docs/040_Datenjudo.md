@@ -40,6 +40,9 @@ library(lsr)  # für Befehl `aad`
 
 
 
+
+
+
 Das Paket `tidyverse` lädt `dplyr`, `ggplot2` und weitere Pakete^[für eine Liste s. `tidyverse_packages(include_self = TRUE)`]. Daher ist es komfortabler, `tidyverse` zu laden, damit spart man sich Tipparbeit. Die eigentliche Funktionalität, die wir in diesem Kapitel nutzen, kommt aus dem Paket `dplyr`.
 
 
@@ -131,6 +134,19 @@ df_nosmoke_nodrinks <- filter(profiles, smokes == "no" | drinks == "not at all")
 ```
 
 Gar nicht so schwer, oder? Allgemeiner gesprochen werden diejenigen Zeilen gefiltert (also behalten bzw. zurückgeliefert), für die das Filterkriterium `TRUE` ist. 
+
+
+`filter` ist deutlich einfacher (und klarer) als Standard-R. Vergleichen Sie mal:
+
+
+```r
+filter(profiles, age > 70, sex == "f", drugs == "sometimes")
+
+# base-R:
+
+profiles[df$age > 70 & df$sex == "f" & df$drugs == "sometimes", ]
+
+```
 
 
 

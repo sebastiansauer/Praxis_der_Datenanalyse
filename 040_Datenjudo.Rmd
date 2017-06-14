@@ -60,6 +60,11 @@ library(lsr)  # für Befehl `aad`
 ```
 
 
+```{r echo = FALSE}
+library(methods)  # wird aus irgendeinem Grund nicht automatisch geladen, obwohl built-in
+```
+
+
 ```{r hidden-libs, echo = FALSE}
 library(methods)
 ```

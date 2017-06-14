@@ -144,7 +144,7 @@ Falsch. Richtig ist: Ein großer p-Wert ist ein Beleg, dass die Daten plausibel 
 
 
 
-### Wann welcher Inferenztest?
+## Wann welcher Inferenztest?
 
 In der Praxis ist es eine häufige Frage, wann man welchen statistischen Test verwenden soll. Bei @eid2010statistik findet man eine umfangreiche Tabelle dazu; auch online wird man schnell fündig (z.B. bei der [Methodenberatung der Uni Zürich](http://www.methodenberatung.uzh.ch/de/datenanalyse.html) oder beim [Ärzteblatt](https://www.aerzteblatt.de/archiv/74880/Auswahl-statistischer-Testverfahren), @welchertest). 
 
