@@ -31,3 +31,7 @@ Praxis_der_Datenanalyse.fdb_latexmk
 slides/docs/**
 slides/docs
 ???_*.md
+index.*.*
+index.log
+index.tex
+*.fls
