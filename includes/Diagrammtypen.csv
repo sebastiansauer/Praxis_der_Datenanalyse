@@ -1,0 +1,7 @@
+X-Achse,Y-Achse,Diagrammtyp
+kontinuierliche Variable,-,"Histogramm, Dichtediagramm"
+kontinuierliche Variable,kontinuierliche Variable,"Punkte, Schachbrett-Diagramme"
+nominale Variable,-,Balkendiagramm
+nominale Variable,nominale Variable,Mosaicplot (Fliesendiagramm)
+nominale Variable,metrische Variable,Punktediagramm für Zusammenfassungen
+nominale Variable,metrische Variable,Boxplots (besser)

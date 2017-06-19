@@ -1,0 +1,14 @@
+Output-Variable,Input-Variable,Name des Tests,Anmerkung,R-Befehl
+,2 nominal,Chi-Quadrat Test,Das Odds Ratio (für 2 dichotome Variablen) kann über den Chi-Wert mit `compute.es::chies()` ermittelt werden.,"chisq.test
+library(compute.es)
+chies(chi_wert, n)"
+1 metrisch,1 dichotom,t-Test,"Test des Mittelwerts, Varianten für Ein- und Zweistichproben, gerichtet und ungerichtet, verbundene und unverbundenen Stichproben; auch für Veränderungshypothesen geeignet: Dabei werden die Veränderungswerte pro Person verglichen (t-Test für unverbundene Stichproben)",t.test
+1 oder mehr metrisch,1 nominal,Varianzanalyse,Test auf Gleichheit des arithmetischen bei 2 oder mehr Gruppen; auch für Veränderungshypothesen geeignet (wie t-Test),aov
+,2 oder mehr metrisch,Korrelation,linearer Zusammenhang zwischen metrischen Merkmalen,"cor.test(x, y)"
+1 metrisch,"1 oder mehr nominal, metrisch",Regression,lineare Modellierung einer metrischen Zielvariablen durch eine oder mehrere Einflussgrößen,lm
+1 ordinal,1 dichotom,"Wilcoxon (Mann-Whitney-U-Test)","Test der zentralen Tendenz auf ordinalem Niveau (Ranggleichheit), Varianten für verbundene und unverbundenen Stichproben",wilcox.test
+1 ordinal,2 oder mehr Gruppen (nominal),Kruskal-Wallis-Test,"Test auf Rangleichheit bei mehr als 2 Gruppen
+Auch für Veränderungshypothesen geeignet (wie t-Test",kruskal.test
+ ,1 metrisch,Shapiro-Wilk-Test,Test auf Normalverteilung,shapiro.test
+1 dichotom,"1 oder mehr nominal, metrisch",logistische Regression,lineare Modellierung einer dichotomen Zielvariablen durch eine oder mehrere Einflussgrößen,"glm(modell, family = ""binomial"")"
+,2 ordinal,ordinale (Rang-)Regression,Spearman's Korrelation für zwei ordinale Variablen (z.B. Ranglisten),"cor.test(x, y, method=""spearman"")"
