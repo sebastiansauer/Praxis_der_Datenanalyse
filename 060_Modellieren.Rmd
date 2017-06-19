@@ -520,11 +520,9 @@ Tabelle \@ref(tab:befehle-modellieren) fasst die R-Funktionen dieses Kapitels zu
 df <- read_csv("includes/Befehle_Modellieren.csv")
 
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Modellieren'")
-# tibbles sind halt keine data.frames ;-) (NM)
+
+knitr::kable(data.frame(df), caption = "Befehle des Kapitels 'Modellieren'")
+# tibbles sind halt keine data.frames ;-) (NM) (doch :-), sie sind nicht *nur* data.frames ;) SeS
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 
 

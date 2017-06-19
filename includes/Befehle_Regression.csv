@@ -1,13 +1,13 @@
 Paket::Funktion,Beschreibung
-lm,"Berechnet eine Regression (""lm"" steht für ""lineares Modell"")"
+lm,"Berechnet eine Regression
 sqrt,Zieht die Quadratwurzel
 caret::postResample,Berechnet Gütekriterien für das Testsample
 summary,Fasst zentrale Informationen zu einem Objekt zusammen
-modelr::add_residuals,Fügt eine Spalte mit den Residuen zu einem Dataframe hinzu
-modelr::add_predictions,Fügt eine Spalte mit den vorhergesagten Werten zu einem Dataframe hinzu
+modelr::add_residuals,Erstellt eine Spalte mit Residuen
+modelr::add_predictions,Erstellt eine Spalte mit den vorhergesagten Werten
 levels,Zeigt oder ändert die Stufen eines Faktors
 factor,Erstellt einen Faktor (nominalskalierte Variable)
-coef,"Zeigt die Koeffizienten eines Objekts z.B. vom typ ""lm"" an."
-step,Führt iene Schrittweise-Rückwärtsselektion auf Basis des Akaike-Informationskriteriums für ein Regressionsmodell durch
+coef,"Zeigt die Koeffizienten eines Objekts an."
+step,Führt eine Schrittweise-Rückwärtsselektion durch
 sample_frac,Sampelt einen Prozentsatz aus einem Datensatz
-anti_join,Fügt nicht-matchende Zeilen eines Datensatzes zu einem anderen Datensatz hinzu
+anti_join,Fügt Vereint nicht-gleiche Zeilen zweier Datensätze

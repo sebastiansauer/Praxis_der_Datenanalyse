@@ -334,10 +334,10 @@ df <- readr::read_csv("includes/Befehle_text.csv")
 
 
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Textmining'")
+# library(pander)
+# pander::cache.off()
+# panderOptions("table.alignment.default", "left")
+knitr::kable(data.frame(df), caption = "Befehle des Kapitels 'Textmining'")
 
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 

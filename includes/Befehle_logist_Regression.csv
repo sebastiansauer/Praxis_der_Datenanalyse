@@ -1,7 +1,7 @@
 "Paket::Funktion","Beschreibung"
-ggplot2::geom_abline,"Fügt das Geom ""abline"" (normale Gerade) zu einem ggplot2-Plot hinzu"
-glm,"Berechnet ein ""generalisiertes lineares Modell"", z.B. eine logistische Regression"
-exp,"Berechnet die e-Funktion für den angegeben Ausdruck (synonym: ""delogarithmiert"" den Ausdruck)"
+ggplot2::geom_abline,"Fügt das Geom ""abline"" (normale Gerade) hinzu"
+glm,"Berechnet eine logistische Regression"
+exp,"Berechnet die e-Funktion "
 SDMTools::confusion.matrix,Berechnet eine Konfusionsmatrix
 SDMTools::sensitivity,Berechnet die Sensitivität eines Klassifikationsmodells
 SDMTools::specificity,Berechnet die Spezifität eines Klassifikationsmodells
