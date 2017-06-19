@@ -1,0 +1,52 @@
+\ProvidesPackage{beamerthemeSC}[2017/02/04 v2.1 Beamer Theme FOM]
+% ===========================================================================
+% beamercolorthemeSC.sty
+% =======================----------------------------------------------------
+% 
+% (C) in 2011-2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
+%
+% Sefiroth Consulting theme
+%
+% ---------------------------------------------------------------------------
+%
+\mode<presentation>
+
+\def\imagepath{images/FOM/}
+
+% ---------------------------------------------------------------------------
+\definecolor{fomgreen}{rgb}{0.58,0.77,0.75}
+\definecolor{FOM}{rgb}{0,0.67,0.6}
+\definecolor{FOMTitelColor}{RGB}{0,153,138}
+
+% ---------------------------------------------------------------------------
+\setbeamercolor*{structure}{fg=fomgreen,bg=softgreen}
+\setbeamercolor{structure}{fg=FOM}
+
+% ---------------------------------------------------------------------------
+% title
+% ---------------------------------------------------------------------------
+\setbeamercolor{title in titlepage}{fg=FOMTitelColor}
+\setbeamercolor{institute in titlepage}{fg=lightgray}
+\setbeamercolor{author in titlepage}{fg=darkgray}
+
+% ---------------------------------------------------------------------------
+% header
+% ---------------------------------------------------------------------------
+\setbeamercolor{myheader}{fg=darkgray}
+\setbeamercolor{section in head}{parent=myheader}
+\setbeamercolor{subsection in head}{parent=myheader}
+\setbeamercolor{frametitle in head}{parent=myheader, fg=FOMTitelColor}
+
+% ---------------------------------------------------------------------------
+% footer
+% ---------------------------------------------------------------------------
+\setbeamercolor{footer}{fg=normal text.fg}
+\setbeamercolor{author in footer}{parent=footer}
+\setbeamercolor{date in footer}{parent=footer}
+\setbeamercolor{title in footer}{parent=footer}
+\setbeamercolor{framenumber in footer}{parent=footer}
+
+\mode<all>
+%
+% ===========================================================================
+%

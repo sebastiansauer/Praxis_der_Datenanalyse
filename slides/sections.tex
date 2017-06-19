@@ -1,0 +1,209 @@
+% ===========================================================================
+% sections.tex
+% ============---------------------------------------------------------------
+%
+% (C) in 2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
+%
+% ---------------------------------------------------------------------------
+%
+%
+% ---------------------------------------------------------------------------
+%
+\def\imagepath{images/}
+\def\backgroundimage{\imagepath./hintergrund}
+\def\lineimage{\imagepath./linie}
+\def\logoimage{\imagepath./logo}
+\def\logowidth{1cm}
+\def\logoheight{1cm}
+\def\logoxshift{-0.7cm}
+\def\logoyshift{-0.7cm}
+%\def\titleboxwidth{0.6\myPaperWidth}
+\def\titleboxwidth{0.5\linewidth}
+\def\sectionpagewidth{0.5\myPaperWidth}
+\def\sectionpageheight{0.25\myPaperHeight}
+\def\subsectionpagewidth{0.5\myPaperWidth}
+\def\subsectionpageheight{0.25\myPaperHeight}
+
+% ---------------------------------------------------------------------------
+\usepackage{ragged2e} % Liefert FlushRight-Umgebung
+% ---------------------------------------------------------------------------
+\usepackage{ifthen}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{backgrounds}
+\usepackage{pgfplots} 
+\pgfplotsset{compat=1.3}
+\usepackage{xspace}
+\usepackage{array}
+\ifthenelse{\equal{\insertinstitute}{}}{%
+  \institute{Standort Köln}%
+}{}
+% ---------------------------------------------------------------------------
+%
+% title page:
+%
+\setbeamertemplate{title page}
+{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0pt] at (current page.center){%
+              \includegraphics[width=\myPaperWidth,height=\myPaperHeight]{\backgroundimage}%
+      };%
+      \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+      };%
+    \node[anchor=south east,xshift=-1cm,yshift=2cm] at (current page.south east){%
+          \begin{tabular}{b{\titleboxwidth}}
+            {\usebeamercolor[fg]{title in titlepage}%
+             \usebeamerfont{title in titlepage} \inserttitle} \\
+            {\usebeamercolor[fg]{institute in titlepage}%
+             \usebeamerfont{institute in titlepage} \insertinstitute ~\xspace -- \insertdate} \\
+            \\
+            {\usebeamercolor[fg]{author in titlepage}%
+             \usebeamerfont{author in titlepage} \insertauthor}
+          \end{tabular}%
+    };%
+  \end{tikzpicture}%  
+}
+% ---------------------------------------------------------------------------
+%
+% Frame title template:
+%
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
+%        \strut%
+        {\small%
+%          \ifthenelse[\equal{\thesection}{0}]{% then:
+%             {%
+%                \usebeamercolor[fg]{section in head}%
+%                \usebeamerfont{section in head}%
+%                \phantom{\thesection.}~\insertsection%
+%             }\\\vspace*{-1.1ex}% 
+%             {%
+%                \usebeamercolor[fg]{frametitle in head}%
+%                \usebeamerfont{frametitle in head}%
+%                ~\phantom{\thesection.}\Large\insertframetitle%
+%             }%
+%          }{%else:
+            \ifthenelse{\equal{\thesubsection}{0}}{% then:
+                {%
+                    \usebeamercolor[fg]{section in head}%
+                    \usebeamerfont{section in head}%
+                    \thesection.~\insertsection%
+                }\\\vspace*{-1.1ex}% 
+                {%
+                    \usebeamercolor[fg]{frametitle in head}%
+                    \usebeamerfont{frametitle in head}%
+                    ~\phantom{\thesection.}\Large\insertframetitle%
+                }%
+            }{% else: 
+                \vspace*{-1em}%
+                {%
+                    \usebeamercolor[fg]{subsection in head}%
+                    \usebeamerfont{subsection in head}%
+                    \thesection.\thesubsection.~\insertsubsection%
+                }\\\vspace*{-1.1ex}%
+                {%
+                    \usebeamercolor[fg]{frametitle in head}%
+                    \usebeamerfont{frametitle in head}%
+                    ~\phantom{\thesection.\thesubsection.}\Large\insertframetitle%
+                }%
+%            }%     
+          }%
+        }%
+        \strut
+        \vspace*{-0.8em}
+        \includegraphics[%
+            width=0.9\paperwidth%
+          ]{%
+             \lineimage%
+            }%
+        \begin{tikzpicture}[remember picture, overlay]
+          \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+        };%
+        \end{tikzpicture}%
+  \end{beamercolorbox}%
+  }%
+}
+% ---------------------------------------------------------------------------
+%
+% Set color for author in footliine and header to darkgray on white:
+%
+\setbeamercolor{author in head/foot}{fg=darkgray, bg=white}
+% ---------------------------------------------------------------------------
+%
+% Footline template
+%
+\setbeamertemplate{footline}{% Skip first frame == Title frame !!!
+    \ifthenelse{\equal{\insertframenumber}{1}}{%
+}{%
+   \begin{beamercolorbox}[ht=4ex,leftskip=.2cm,rightskip=.3cm]{author in head/foot}
+    \footlinesize\bf
+  \includegraphics[%
+      width=0.9\paperwidth%
+    ]{%
+      \lineimage%
+  }%
+  \newline
+  \vspace{0.1cm}
+    \newline
+    {%
+        
+    \hspace*{0.2cm}\insertdate} % 
+      \hfil
+      \insertshortauthor  \, $|$ \,  \inserttitle % 
+    
+      \vspace*{-0.9em}%
+      \raggedleft{\insertframenumber \hspace*{0.3cm}}%
+   \end{beamercolorbox}
+   \vspace*{0.2cm}
+}
+} 
+% ---------------------------------------------------------------------------
+%
+% Section page template
+%
+%\setbeamertemplate{section page}
+%{
+%    \begin{centering}
+%    \begin{beamercolorbox}[sep=12pt,center]{section title}
+%      \usebeamerfont{section title}\insertsection\par
+%    \end{beamercolorbox}
+%    \end{centering}
+%}
+\setbeamertemplate{section page}
+{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=south east,xshift=-1cm,yshift=1.5cm] at (current page.south east){%
+        \begin{minipage}[b][\sectionpageheight][t]{\sectionpagewidth}
+          \begin{FlushRight}
+              \usebeamercolor{section title}%
+              \usebeamerfont{section title}\insertsection\par
+          \end{FlushRight}
+        \end{minipage}
+    };%
+  \end{tikzpicture}
+}
+% ---------------------------------------------------------------------------
+%
+% Subsection page template
+%
+\setbeamertemplate{subsection page}{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=south east,xshift=-1cm,yshift=1.5cm] at (current page.south east){%
+        \begin{minipage}[b][\subsectionpageheight][t]{\subsectionpagewidth}
+          \begin{flushright}
+              \usebeamercolor{subsection title}%
+              \usebeamerfont{subsection title}\insertsubsection\par
+          \end{flushright}
+        \end{minipage}
+    };%
+  \end{tikzpicture}
+}
+%
+% ===========================================================================
+%

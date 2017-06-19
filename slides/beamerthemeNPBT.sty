@@ -1,0 +1,121 @@
+\ProvidesPackage{beamerthemeNPBT}[2017/02/04 v2.1 Beamer Theme FOM]
+% ===========================================================================
+% beamerthemeNPBT.sty
+% ===================---------------------------------------------------------
+% 
+% (C) in 2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
+%
+% NPBT <-> Norman's Pandoc Beamer Theme -> NPBT 
+% ----     =        =      =      =
+%
+%
+% ---------------------------------------------------------------------------
+%
+\mode<presentation>
+% ---------------------------------------------------------------------------
+\usepackage{ifthen}
+% ---------------------------------------------------------------------------
+
+\def\softness{0.8}
+
+\definecolor{softred}{rgb}{1,\softness,\softness}
+\definecolor{softgreen}{rgb}{\softness,1,\softness}
+\definecolor{softblue}{rgb}{\softness,\softness,1}
+% ---------------------------------------------------------------------------
+\definecolor{NPBTblue}{rgb}{0.77,0.58,0.75}
+\definecolor{NPBT}{rgb}{0,0.67,0.6}
+\definecolor{NPBTTitelColor}{RGB}{0,38,153}
+
+% ---------------------------------------------------------------------------
+\setbeamercolor*{structure}{fg=NPBTblue, bg=softblue}
+\setbeamercolor{structure}{fg=NPBT}
+
+% ---------------------------------------------------------------------------
+% title page
+% ---------------------------------------------------------------------------
+\setbeamercolor{title in titlepage}{fg=NPBTTitelColor}
+\setbeamercolor{institute in titlepage}{fg=lightgray}
+\setbeamercolor{author in titlepage}{fg=darkgray}
+
+% ---------------------------------------------------------------------------
+\setbeamerfont{title in titlepage}{size=\Large, series=\bfseries}
+\setbeamerfont{institute in titlepage}{size=\large, series=\bfseries}
+\setbeamerfont{author in titlepage}{series=\bfseries}
+
+% ---------------------------------------------------------------------------
+% part title page
+% ---------------------------------------------------------------------------
+\setbeamercolor{part title}{fg=NPBTTitelColor}
+
+% ---------------------------------------------------------------------------
+% section title page
+% ---------------------------------------------------------------------------
+\setbeamercolor{section name}{fg=NPBTTitelColor}
+\setbeamercolor{section title}{fg=NPBTTitelColor}
+
+% ---------------------------------------------------------------------------
+\setbeamerfont{section name}{size=\Large, family=\sffamily, series=\bfseries}
+
+% ---------------------------------------------------------------------------
+% subsection title page
+% ---------------------------------------------------------------------------
+\setbeamercolor{subsection name}{fg=NPBTTitelColor}
+\setbeamercolor{subsection title}{fg=NPBTTitelColor}
+
+% ---------------------------------------------------------------------------
+\setbeamerfont{subsection name}{size=\large, family=\sffamily, series=\bfseries}
+
+% ---------------------------------------------------------------------------
+% header
+% ---------------------------------------------------------------------------
+\setbeamercolor{myheader}{fg=darkgray}
+\setbeamercolor{section in head}{parent=myheader}
+\setbeamercolor{subsection in head}{parent=myheader}
+\setbeamercolor{frametitle in head}{parent=myheader, fg=NPBTTitelColor}
+
+% ---------------------------------------------------------------------------
+\setbeamerfont{myheader}{}
+\setbeamerfont{section in head}{parent=myheader}
+\setbeamerfont{subsection in head}{parent=myheader}
+\setbeamerfont{frametitle in head}{parent=myheader}
+
+% ---------------------------------------------------------------------------
+\setbeamercolor{footer}{fg=normal text.fg}
+\setbeamercolor{author in footer}{parent=footer}
+\setbeamercolor{date in footer}{parent=footer}
+\setbeamercolor{title in footer}{parent=footer}
+\setbeamercolor{framenumber in footer}{parent=footer}
+
+\usetheme{Boadilla}
+
+\useinnertheme{rounded}
+
+\setbeamertemplate{items}[triangle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{navigation symbols}{}
+
+% font settings
+\usefonttheme[onlymath]{serif}
+\setbeamerfont{block title}{size={}}
+\usepackage{eulervm}
+\usepackage{dsfont}    		% Liefert $\mathds{N,Z,Q,R,C}$
+\usepackage[T1]{fontenc} 	% sonst wird OT1 coding ausgegeben 
+%							% und dann funktioniert Myriad (pmy) nicht mehr
+\usepackage{textcomp} 		% sonst wird OT1 coding ausgegeben 
+%							% und dann funktioniert Myriad (pmy) nicht mehr
+
+%\renewcommand{\sfdefault}{pmy}
+%\renewcommand{\sfdefault}{pcr}
+
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\sfdefault}{cmss}
+
+\setbeamerfont{frametitle}{shape=\upshape,family=\sffamily,series=\mdseries}
+
+
+\mode<all>
+\input{mygeometry.tex}
+\input{sections.tex}
+%
+% ========================================================================
+%
