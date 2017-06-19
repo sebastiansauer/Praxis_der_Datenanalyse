@@ -1871,14 +1871,16 @@ afd_df %>%
 ## Stopwörter entfernen
 
 
-```{r echo = FALSE}
+```{r echo = TRUE}
 stopwords_de <- data_frame(word = stopwords_de)
 
 stopwords_de %>% head %>% knitr::kable()
 ```
 
 
-```{r include = FALSE}
+## Häufige Wörter im AfD-Parteiprogramm
+
+```{r echo = FALSE}
 # data(stopwords_de)
 
 stopwords_de %>%
@@ -1891,10 +1893,6 @@ afd_df %>%
   count(token, sort = TRUE) -> afd_count
 
 
-```
-
-
-```{r echo = FALSE}
 afd_count %>%
   top_n(5) %>%
   knitr::kable()
