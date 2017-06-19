@@ -426,21 +426,22 @@ Eine weitere Alternative sind Maße der *Effektstärke*\index{Effektstärke} [@C
 
 Nicht-standardisierte Effektstärken haben den Vorteil der Anschaulichkeit. Standardisierte Effektgrößen sind präziser, aber unanschaulicher. So wäre ein Unterschied von 5€ bei Sportwagen gering und bei Eiskugeln groß. Ein unstandardisierter Kennwert berücksichtigt dies nicht. Um zwei Mittelwerte zu vergleichen, ist *Cohens d*\index{Cohens d} gebräuchlich. Es gibt den Unterschied der Mittelwert standardisiert an der Standardabweichung an [@cohen_statistical_1988].
 
-Tabelle \@ref(tab:effectsizes) gibt einen groben Überblick über Effektstärken (nach Cohen [-@cohen_statistical_1988] und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
+Tabelle \@ref(tab:effectsizes) und Tabelle \@ref(tab:effsizes2) geben einen groben Überblick über Effektstärken (nach Cohen [-@cohen_statistical_1988] und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
 
 ```{r effectsizes, echo = FALSE}
 
 df <- read_csv("includes/effectsizes.csv")
 
+knitr::kable(select(df, 1, 2), caption = "Überblick über gängige Effektstärkemaße")
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Überblick über gängige Effektstärkemaße")
-
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+```
 
 
+
+```{r effectsizes2, echo = FALSE}
+df <- read_csv("includes/effectsizes.csv")
+
+knitr::kable(select(df, 1, 3,4), caption = "Überblick über gängige Effektstärkemaße")
 ```
 
 

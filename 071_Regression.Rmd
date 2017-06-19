@@ -707,13 +707,8 @@ Tabelle \@ref(tab:befehle-regression) stellt die Befehle dieses Kapitels dar.
 df <- readr::read_csv("includes/Befehle_Regression.csv")
 
 
+knitr::kable(data.frame(df), caption = "Befehle des Kapitels 'Regression'")
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Regression'")
-
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
 
 
 
