@@ -13,7 +13,7 @@ output:
     includes:
       in_header: 
         - header-fom.tex
-    keep_tex: yes
+    keep_tex: no
     pandoc_args:
     - -V
     - papersize=A4
@@ -29,8 +29,6 @@ output:
     - theme=FOM
     - -V
     - colortheme=FOM
-    # - -V
-    # - institute=Standort Köln
     #- --filter=./splitblockold.py
 ---
 
@@ -41,9 +39,8 @@ library(knitr)
 knitr::opts_chunk$set(
     echo = TRUE,
     background='#E0E0E0',
-#   fig.keep="none",
     out.width="80%",
-#   cache = TRUE,
+    cache = TRUE,
     tidy = FALSE,
     fig.align = "center",
     width.cutoff=70,
@@ -56,6 +53,33 @@ options(width = 73)
 
 
 ```
+
+
+```{r libs, include = FALSE, echo = FALSE}
+#library(mosaic)
+library(tidyverse)
+library(formatR)
+library(knitr)
+library(gridExtra)
+library(broom)
+library(grid)
+library(modelr)
+library(viridis)
+library(SDMTools)  # Güte von Klassifikationsmodellen
+library(pROC)  # für ROC- und AUC-Berechnung
+library(BaylorEdPsych)  # Pseudo-R-Quadrat
+library(pander)
+library(cluster)
+library(psych)
+library(stringr)  # Textverarbeitung
+library(tidytext)  # Textmining
+library(pdftools)  # PDF einlesen
+library(downloader)  # Daten herunterladen
+library(lsa)  # Stopwörter 
+library(SnowballC)  # Wörter trunkieren
+library(wordcloud)  # Wordcloud anzeigen
+```
+
 
 
 # Orga
@@ -74,6 +98,37 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft,
 
 # Kap sdjlfk
 
+## Themen pro Termin (insgesamt 44UE Lehre)
+
+
+
+
+```{r termin-themen, echo = FALSE}
+
+df <- readr::read_csv("../includes/Termin_Themen.csv")
+
+knitr::kable(df)
+
+```
+
+
+
+## Prüfung - Allgemeine Hinweise
+
+
+- Die Prüfung besteht aus zwei Teilen
+    - einer Klausur (50% der Teilnote)
+    - einer Datenanalyse (50% der Teilnote).
+   
+   
+   
+*Prüfungsrelevant* ist der gesamte Stoff aus dem Skript und dem Unterricht mit [einigen Ausnahmen](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html#prufung)
+
+
+Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgelegt. 
+
+
+
 ## Lernziele
 
 - Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
@@ -84,4 +139,32 @@ glm1 <- glm(Aktienkauf ~ Risikobereitschaft,
 - Auf die Frage "Was ist Statistik?" eine Antwort geben können.
 
 
+## Datensätze {#daten}
+
+
+Alle Datensätze liegen im Ordner `data/`, den Sie vom [Github-Repositorium](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunterladen können.
+
+
+
+## R und RStudio installieren
+
+![](../images/Rahmen/Rlogo.png){ width=10% } ![](../images/Rahmen/rstudiologo.png){ width=10% }
+
+
+
+
+```{r echo = FALSE, fig.cap = "RStudio", out.width = "50%"} 
+knitr::include_graphics("../images/Rahmen/RStudio-Screenshot.png")
+
+```
+
+
+
+## Zeilen zählen mit `n` und `count`
+
+
+```{r fig-count, echo = FALSE, fig.cap = "Sinnbild für 'count'"}
+
+knitr::include_graphics("../images/Datenjudo/count-crop.png")
+```
 

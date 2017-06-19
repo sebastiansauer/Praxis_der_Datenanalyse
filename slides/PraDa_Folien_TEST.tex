@@ -82,6 +82,21 @@
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
 % Prevent slide breaks in the middle of a paragraph:
 \widowpenalties 1 10000
@@ -139,8 +154,8 @@
 \every@verbatim={\verbfontsize}%
 \makeatother%
 %
-\newcommand*{\smallverb}{\renewcommand*{\verbfontsize}{\normalsize}}
-\newcommand*{\tinyverb}{\renewcommand*{\verbfontsize}{\normalsize}}
+\newcommand*{\smallverb}{\renewcommand*{\verbfontsize}{\small}}
+\newcommand*{\tinyverb}{\renewcommand*{\verbfontsize}{\tiny}}
 %\newcommand{\tinyverb}{\makeatletter\every@verbatim={\tiny}\makeatother}
 %\newcommand{\normalverb}{\makeatletter\every@verbatim={\normalsize}\makeatother}
 %
@@ -272,6 +287,59 @@ Die Funktion \texttt{glm} führt die logistische Regression durch.
 
 \section{Kap sdjlfk}\label{kap-sdjlfk}
 
+\begin{frame}{Themen pro Termin (insgesamt 44UE Lehre)}
+
+\begin{longtable}[]{@{}rl@{}}
+\toprule
+Termin & Thema / Kapitel\tabularnewline
+\midrule
+\endhead
+1 & Organisatorisches\tabularnewline
+1 & Einführung\tabularnewline
+1 & Rahmen\tabularnewline
+1 & Daten einlesen\tabularnewline
+2 & Datenjudo\tabularnewline
+3 & Daten visualisieren\tabularnewline
+4 & Fallstudie (z.B. zu `movies')\tabularnewline
+5 & Daten modellieren\tabularnewline
+5 & Der p-Wert\tabularnewline
+6 & Lineare Regression - metrisch\tabularnewline
+7 & Lineare Regression - kategorial\tabularnewline
+8 & Fallstudie (z.B. zu `titanic' und `affairs')\tabularnewline
+9 & Vertiefung 1: Textmining oder Clusteranalyse\tabularnewline
+10 & Vertiefung 2: Dimensionsreduktion\tabularnewline
+11 & Wiederholung\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Prüfung - Allgemeine Hinweise}
+
+\begin{itemize}
+\tightlist
+\item
+  Die Prüfung besteht aus zwei Teilen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    einer Klausur (50\% der Teilnote)
+  \item
+    einer Datenanalyse (50\% der Teilnote).
+  \end{itemize}
+\end{itemize}
+
+\emph{Prüfungsrelevant} ist der gesamte Stoff aus dem Skript und dem
+Unterricht mit
+\href{https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html\#prufung}{einigen
+Ausnahmen}
+
+Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten
+festgelegt.
+
+\end{frame}
+
 \begin{frame}{Lernziele}
 
 \begin{itemize}
@@ -290,6 +358,43 @@ Die Funktion \texttt{glm} führt die logistische Regression durch.
 \item
   Auf die Frage ``Was ist Statistik?'' eine Antwort geben können.
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Datensätze}
+
+Alle Datensätze liegen im Ordner \texttt{data/}, den Sie vom
+\href{https://github.com/sebastiansauer/Praxis_der_Datenanalyse}{Github-Repositorium}
+herunterladen können.
+
+\end{frame}
+
+\begin{frame}{R und RStudio installieren}
+
+\includegraphics[width=0.10000\textwidth]{../images/Rahmen/Rlogo.png}
+\includegraphics[width=0.10000\textwidth]{../images/Rahmen/rstudiologo.png}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{../images/Rahmen/RStudio-Screenshot} 
+
+}
+
+\caption{RStudio}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Zeilen zählen mit \texttt{n} und \texttt{count}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{../images/Datenjudo/count-crop} 
+
+}
+
+\caption{Sinnbild für 'count'}\label{fig:fig-count}
+\end{figure}
 
 \end{frame}
 
