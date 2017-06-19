@@ -1,0 +1,87 @@
+---
+title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
+#author: "ses"
+institute: "FOM" 
+date: "WS17"
+linkcolor: blue
+urlcolor: blue
+lang: de-De
+output:
+  beamer_presentation:
+    fig_caption: no
+    highlight: tango
+    includes:
+      in_header: 
+        - header-fom.tex
+    keep_tex: yes
+    pandoc_args:
+    - -V
+    - papersize=A4
+    - -V
+    - fontsize=10pt
+    - -V
+    - lang=de
+    - -V
+    - linkcolor=blue
+    - -V
+    - urlcolor=blue
+    - -V
+    - theme=FOM
+    - -V
+    - colortheme=FOM
+    # - -V
+    # - institute=Standort Köln
+    #- --filter=./splitblockold.py
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    echo = TRUE,
+    background='#E0E0E0',
+#   fig.keep="none",
+    out.width="80%",
+#   cache = TRUE,
+    tidy = FALSE,
+    fig.align = "center",
+    width.cutoff=70,
+    fig.asp = .618,
+    message = FALSE,
+    warning = FALSE
+)
+
+options(width = 73)
+
+
+```
+
+
+# Orga
+
+## R-Befehl zur logistischen Regression
+
+
+Die Funktion `glm` führt die logistische Regression durch. 
+```{r eval = FALSE}
+
+glm1 <- glm(Aktienkauf ~ Risikobereitschaft, 
+            family = binomial("logit"),
+            data = Aktien)
+```
+
+
+# Kap sdjlfk
+
+## Lernziele
+
+- Einen Überblick über die fünf wesentliche Schritte der Datenanalyse gewinnen.
+- R und RStudio installieren können.
+- Einige häufige technische Probleme zu lösen wissen.
+- R-Pakete installieren können.
+- Einige grundlegende R-Funktionalitäten verstehen.
+- Auf die Frage "Was ist Statistik?" eine Antwort geben können.
+
+
+

@@ -1,0 +1,296 @@
+\documentclass[10pt,ngerman,dvipsnames,ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+\usetheme[]{FOM}
+\usecolortheme{FOM}
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,main=ngerman]{babel}
+\else
+  \usepackage{polyglossia}
+  \setmainlanguage[]{german}
+\fi
+\newif\ifbibliography
+\hypersetup{
+            pdftitle={Folien für das Modul Praxis der Datenanalyse},
+            colorlinks=true,
+            linkcolor=blue,
+            citecolor=Blue,
+            urlcolor=blue,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \let\insertsectionnumber\relax
+    \let\sectionname\relax
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+%
+% Copyright 2016,17 by Norman Markgraf
+%
+\input{mygeometry.tex}
+%
+\usepackage{ifthen}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\usepackage{xspace}
+\usepackage{array}
+\ifthenelse{\equal{\insertinstitute}{}}{%
+	\institute{Standort Köln}%
+}{}
+%
+%
+%
+\usepackage{verbatim}
+\newcommand{\verbfontsize}{\relax}
+%
+\makeatletter%
+\every@verbatim={\verbfontsize}%
+\makeatother%
+%
+\newcommand*{\smallverb}{\renewcommand*{\verbfontsize}{\normalsize}}
+\newcommand*{\tinyverb}{\renewcommand*{\verbfontsize}{\normalsize}}
+%\newcommand{\tinyverb}{\makeatletter\every@verbatim={\tiny}\makeatother}
+%\newcommand{\normalverb}{\makeatletter\every@verbatim={\normalsize}\makeatother}
+%
+%
+\setbeamertemplate{title page}
+{
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[inner sep=0pt] at (current page.center){%
+        			\includegraphics[width=\myPaperWidth,height=\myPaperHeight]{images/hintergrund}%
+    	};%
+   		\node[shift={(-0.7cm,-0.7cm)},inner sep=0pt] at (current page.north east){%
+   		     		\includegraphics[width=1cm,height=1cm]{images/logo_FOM_kurz}%
+    	};%
+		\node[anchor=south east,xshift=1cm,yshift=2cm] at (current page.south east){%
+          \begin{tabular}{b{0.9\myPaperWidth}}  % title comes here:
+            {\usebeamercolor[fg]{title in titlepage}%
+             \usebeamerfont{title in titlepage} \inserttitle} \\
+            {\usebeamercolor[fg]{institute in titlepage}%
+             \usebeamerfont{institute in titlepage} \insertinstitute ~\xspace -- \insertdate} \\
+            \\
+            {\usebeamercolor[fg]{author in titlepage}%
+             \usebeamerfont{author in titlepage} \insertauthor}
+          \end{tabular}%
+		};%
+	\end{tikzpicture}%
+}
+%
+% Frame title template:
+%
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
+%        \strut%
+        {\normalsize%
+          \ifthenelse{\equal{\thesubsection}{0}}{% then:
+            {\usebeamercolor[fg]{section in head}%
+             \usebeamerfont{section in head}%
+             \thesection.~\insertsection}\\\vspace*{-1.1ex}%
+            {\usebeamercolor[fg]{frametitle in head}%
+             \usebeamerfont{frametitle in head}%
+              ~\phantom{\thesection.}\Large\insertframetitle}%
+          }{% else:
+%         \vspace*{-1em}%
+          {\usebeamercolor[fg]{subsection in head}%
+           \usebeamerfont{subsection in head}%
+           \thesection.\thesubsection.~\insertsubsection}\\\vspace*{-1.1ex}%
+          {\usebeamercolor[fg]{frametitle in head}%
+           \usebeamerfont{frametitle in head}%
+           ~\phantom{\thesection.\thesubsection.}\Large\insertframetitle}%
+          }
+        }
+        \strut
+    \vspace*{-0.8em}
+  \includegraphics[%
+        width=0.9\paperwidth%
+      ]{%
+	  		images/FOMLinie%
+		}%
+
+  \vspace*{-2.4em}\hspace*{0.89\paperwidth}%
+  \includegraphics[%
+    width=0.99cm%
+  ]{%
+		images/logo_FOM_kurz%
+	}
+
+  \end{beamercolorbox}
+  }%
+}
+%
+% Set color for author in footline and header to darkgray on white:
+%
+\setbeamercolor{author in head/foot}{fg=darkgray, bg=white}
+%
+% Footline template
+%
+\setbeamertemplate{footline}{% Skip first frame == Title frame !!!
+    \ifthenelse{\equal{\insertframenumber}{1}}{%
+}{%
+   \begin{beamercolorbox}[ht=4ex,leftskip=.2cm,rightskip=.3cm]{author in head/foot}
+   	\footlinesize\bf
+	\includegraphics[%
+	  	width=0.9\paperwidth%
+		]{%
+	  	images/FOMLinie%
+	}%
+	\newline
+	\vspace{0.1cm}
+    \newline
+   %	{%
+
+%		\hspace*{0.2cm}\insertdate} %
+  %  	\hfil
+  % 		\insertshortauthor  \, $|$ \,  \inserttitle %
+
+    	\vspace*{-0.9em}%
+     	\raggedleft{\insertframenumber \hspace*{0.3cm}}%
+   \end{beamercolorbox}
+   \vspace*{0.2cm}
+}
+}
+%
+\definecolor{shadecolor}{RGB}{225,220,215}
+
+\title{Folien für das Modul \newline `Praxis der Datenanalyse'}
+\institute{FOM}
+\date{WS17}
+
+\begin{document}
+\frame{\titlepage}
+
+\section{Orga}\label{orga}
+
+\begin{frame}[fragile]{R-Befehl zur logistischen Regression}
+
+Die Funktion \texttt{glm} führt die logistische Regression durch.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm1 <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(Aktienkauf }\OperatorTok{~}\StringTok{ }\NormalTok{Risikobereitschaft, }
+            \DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{),}
+            \DataTypeTok{data =}\NormalTok{ Aktien)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\section{Kap sdjlfk}\label{kap-sdjlfk}
+
+\begin{frame}{Lernziele}
+
+\begin{itemize}
+\tightlist
+\item
+  Einen Überblick über die fünf wesentliche Schritte der Datenanalyse
+  gewinnen.
+\item
+  R und RStudio installieren können.
+\item
+  Einige häufige technische Probleme zu lösen wissen.
+\item
+  R-Pakete installieren können.
+\item
+  Einige grundlegende R-Funktionalitäten verstehen.
+\item
+  Auf die Frage ``Was ist Statistik?'' eine Antwort geben können.
+\end{itemize}
+
+\end{frame}
+
+\end{document}

@@ -41,7 +41,7 @@
    		     		\includegraphics[width=1cm,height=1cm]{images/logo_FOM_kurz}%
     	};%
 		\node[anchor=south east,xshift=1cm,yshift=2cm] at (current page.south east){%
-          \begin{tabular}{b{0.6\myPaperWidth}}
+          \begin{tabular}{b{0.9\myPaperWidth}}  % title comes here:
             {\usebeamercolor[fg]{title in titlepage}%
              \usebeamerfont{title in titlepage} \inserttitle} \\
             {\usebeamercolor[fg]{institute in titlepage}%
@@ -62,7 +62,7 @@
   \hbox{%
   \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
 %        \strut%
-        {\small%
+        {\normalsize%
           \ifthenelse{\equal{\thesubsection}{0}}{% then:
             {\usebeamercolor[fg]{section in head}%
              \usebeamerfont{section in head}%
@@ -99,7 +99,7 @@
   }%
 }
 %
-% Set color for author in footliine and header to darkgray on white:
+% Set color for author in footline and header to darkgray on white:
 %
 \setbeamercolor{author in head/foot}{fg=darkgray, bg=white}
 %
@@ -118,11 +118,11 @@
 	\newline
 	\vspace{0.1cm}
     \newline
-   	{%
+   %	{%
 
-		\hspace*{0.2cm}\insertdate} %
-    	\hfil
-   		\insertshortauthor  \, $|$ \,  \inserttitle %
+%		\hspace*{0.2cm}\insertdate} %
+  %  	\hfil
+  % 		\insertshortauthor  \, $|$ \,  \inserttitle %
 
     	\vspace*{-0.9em}%
      	\raggedleft{\insertframenumber \hspace*{0.3cm}}%

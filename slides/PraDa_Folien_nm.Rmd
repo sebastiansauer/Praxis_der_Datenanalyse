@@ -1,7 +1,7 @@
 ---
-title: "Folien für das Modul 'Praxis der Datenanalyse'"
+title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
 #author: "ses"
-#institute: "FOM" 
+institute: "FOM" 
 date: "WS17"
 linkcolor: blue
 urlcolor: blue
@@ -29,9 +29,7 @@ output:
     - theme=FOM
     - -V
     - colortheme=FOM
-    - -V
-    - institute=Standort Köln
-    - --filter=./splitblockold.py
+    #- --filter=./splitblockold.py
 ---
 
 
@@ -41,13 +39,13 @@ library(knitr)
 knitr::opts_chunk$set(
     echo = TRUE,
     background='#E0E0E0',
-#   fig.keep="none",
+    fig.keep="none",
     out.width="80%",
-#   cache = TRUE,
-    tidy=TRUE,
+    cache = TRUE,
+    tidy = FALSE,
     fig.align = "center",
     width.cutoff=70,
-    fig.asp = .61,
+    fig.asp = .618,
     message = FALSE,
     warning = FALSE
 )
@@ -1247,8 +1245,7 @@ p1
 ```
 
 
-## R-Befehl
-
+## R-Befehl zur logistischen Regression
 
 
 Die Funktion `glm` führt die logistische Regression durch. 
