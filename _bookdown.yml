@@ -39,3 +39,6 @@ language:
   ui:
     edit: "Bearbeiten "
     chapter_name: "Kapitel "
+
+
+before_chapter_script: "_common.R"

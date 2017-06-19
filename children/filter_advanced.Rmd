@@ -1,0 +1,34 @@
+
+#### Fortgeschrittene Beispiele für `filter`
+
+Einige fortgeschrittene Beispiele für `filter`:
+
+Man kann alle Elemente (Zeilen) filtern, die zu einer Menge gehören und zwar mit diesem Operator: `%in%`:
+
+```{r eval = FALSE}
+filter(profiles, body_type %in% c("a little extra", "average"))
+```
+
+Besonders Textdaten laden zu einigen Extra-Überlegungen ein; sagen wir, wir wollen alle Personen filtern, die Katzen bei den Haustieren erwähnen. Es soll reichen, wenn `cat` ein Teil des Textes ist; also `likes dogs and likes cats` wäre OK (soll gefiltert werden). Dazu nutzen wir ein Paket zur Bearbeitung von Strings (Textdaten):
+
+```{r eval = FALSE}
+
+filter(profiles, str_detect(pets, "cats"))
+```
+
+
+Ein häufiger Fall ist, Zeilen *ohne* fehlende Werte (`NA`s) zu filtern. Das geht einfach:
+
+```{r eval = FALSE}
+profiles_keine_nas <- na.omit(profiles)
+
+```
+
+Aber was ist, wenn wir nur bei bestimmten Spalten wegen fehlender Werte besorgt sind? Sagen wir bei `income` und bei `sex`:
+
+```{r eval = FALSE}
+filter(profiles, !is.na(income) | !is.na(sex))
+```
+
+Der horizontale Strich `|` steht bei R für logisches 'oder'.
+

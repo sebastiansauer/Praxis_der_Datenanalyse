@@ -1,22 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold",
-  size = "tiny"
-)
-
-```
 
 
 
@@ -175,7 +156,13 @@ Manche Befehle wie `filter` haben einen Allerweltsnamen; gut möglich, dass ein 
 
 ```
 
+
+`r if(!(script == TRUE)) knitr::knit_child("children/filter-advanced.Rmd")`
+<!-- Vertiefung. Nur für Buch, nicht Skript -->
+
+
 #### Aufgaben^[F, R, F, F, R]
+
 
 ```{block2, exercises-filter, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?
@@ -191,38 +178,10 @@ Richtig oder Falsch!?
 ```
 
 
-#### Vertiefung: Fortgeschrittene Beispiele für `filter`
-
-Einige fortgeschrittene Beispiele für `filter`:
-
-Man kann alle Elemente (Zeilen) filtern, die zu einer Menge gehören und zwar mit diesem Operator: `%in%`:
-
-```{r eval = FALSE}
-filter(profiles, body_type %in% c("a little extra", "average"))
-```
-
-Besonders Textdaten laden zu einigen Extra-Überlegungen ein; sagen wir, wir wollen alle Personen filtern, die Katzen bei den Haustieren erwähnen. Es soll reichen, wenn `cat` ein Teil des Textes ist; also `likes dogs and likes cats` wäre OK (soll gefiltert werden). Dazu nutzen wir ein Paket zur Bearbeitung von Strings (Textdaten):
-
-```{r eval = FALSE}
-
-filter(profiles, str_detect(pets, "cats"))
-```
 
 
-Ein häufiger Fall ist, Zeilen *ohne* fehlende Werte (`NA`s) zu filtern. Das geht einfach:
 
-```{r eval = FALSE}
-profiles_keine_nas <- na.omit(profiles)
 
-```
-
-Aber was ist, wenn wir nur bei bestimmten Spalten wegen fehlender Werte besorgt sind? Sagen wir bei `income` und bei `sex`:
-
-```{r eval = FALSE}
-filter(profiles, !is.na(income) | !is.na(sex))
-```
-
-Der horizontale Strich `|` steht bei R für logisches 'oder'.
 
 ### Spalten wählen mit `select`
 
@@ -710,7 +669,7 @@ knitr::include_graphics("images/Datenjudo/mutate.png")
 
 1. Entschlüsseln Sie dieses Ungetüm! Übersetzen Sie diese Syntax auf Deutsch:
 
-```{r ungetuem}
+```{r ungetuem, eval = FALSE}
 
 bestanden_gruppen <-
   filter(
@@ -722,7 +681,7 @@ bestanden_gruppen <-
 
 2. Entschlüsseln Sie jetzt diese Syntax bzw. übersetzen Sie sie ins Deutsche:
 
-```{r ungetuem_easy}
+```{r ungetuem_easy, eval = FALSE}
 
 stats_test %>% 
   select(-row_number, -date_time) %>% 
@@ -750,7 +709,7 @@ bilde davon den Mittelwert.
 
 Lösung:
 
-```{r}
+```{r eval = FALSE}
 stats_test %>% 
   select(score) %>% 
   mutate(score_delta = score - mean(.$score)) %>% 
@@ -784,7 +743,7 @@ Ein weiterer zentraler Gedanken der Deskriptivstatistik ist es, dass es beim Zus
 
 Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
 
-```{r}
+```{r summarise-test1}
 summarise(stats_test, mean(score))
 summarise(stats_test, sd(score))
 summarise(stats_test, aad(score))  # aus Paket 'lsr'
@@ -792,7 +751,7 @@ summarise(stats_test, aad(score))  # aus Paket 'lsr'
 
 Natürlich könnte man auch einfacher schreiben:
 
-```{r}
+```{r summarise-test2}
 mean(stats_test$score)
 median(stats_test$score)
 aad(stats_test$score)
@@ -811,45 +770,9 @@ Tipp: Mit dem Befehl `df <- na.omit(df)` entfernen Sie alle fehlenden Werte aus 
 `summarise` liefert aber im Unterschied zu `mean` etc. immer einen Dataframe zurück. Da der Dataframe die typische Datenstruktur ist, ist es häufig praktisch, wenn man einen Dataframe zurückbekommt, mit dem man weiterarbeiten kann. Außerdem lassen `mean` etc. keine Gruppierungsoperationen zu; über `group_by` kann man dies aber bei `dplyr` erreichen.
 
 
-Möchte man die "üblichen Verdächtigen" an deskriptiven Statistiken mit einem Befehl bekommen, so ist der Befehl `desctable` hilfreich:
 
-```{r}
-stats_test2 <- select(stats_test, -date_time) 
-desctable(stats_test2)
-```
-
-
-Die Variable `date_time` wurde deswegen entfernt, weil sie vom Typ `factor` ist. Wenn es Faktorvariablen gibt, werden die metrischen Werte von `desctable` für jede Faktorstufe getrennt ausgewiesen. Das wäre hier aber nicht sinnvoll. `desctable` wählt die passenden Statistiken selber aus. Bei metrischen Variablen wird zum Beispiel nur dann der Mittelwert und die SD angezeigt, wenn die Variablen normalverteilt sind. Man kann die Auswahl der Statistiken mit dem Parameter `stats` steuern; folgende Möglichkeiten stehen zur Verfügung: `stats_auto`, `stats_normal`, `stats_nonnormal`, `stats_default`.
-
-
-```{r}
-stats_test2 <- select(stats_test, -date_time) 
-desctable(stats_test2, stats = stats_normal)
-```
-
-`stats_normal` gibt Statistiken unter der Annahme von Normalverteilung an.
-
-#### Vertiefung - eigene Statistikauswahl bei `desctable`
-
-Möchte man Statistiken nach eigenem Gusto präsentiert bekommen bei `desctable`, so kann man dies so einstellen^[Die Idee kommt von Norman Markgraf]:
-
-```{r}
-stats_yeah = function(data) {
-  list(N=length, 'Mean/%' = is.factor ~ percent | mean, sd = is.factor ~ NA | sd, Med = median, IQR = is.factor ~ NA | IQR)
-}
-
-desctable(stats_test2, stats = stats_yeah)
-```
-
-
-Natürlich kann man auch Subgruppen so vergleichen:
-
-```{r eval = FALSE}
-stats_test %>% 
-  select(-c(row_number, date_time)) %>% 
-  group_by(bestanden) %>% 
-  desctable
-```
+`r if(!(script == TRUE)) knitr::knit_child("children/desctable.Rmd")`
+<!-- Vertiefung. Nur für Buch, nicht Skript -->
 
 
 ## Befehlsübersicht

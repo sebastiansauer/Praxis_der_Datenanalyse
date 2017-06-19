@@ -1,5 +1,5 @@
 Paket::Funktion,Beschreibung
-lm,"Berechnet eine Regression
+lm,Berechnet eine Regression
 sqrt,Zieht die Quadratwurzel
 caret::postResample,Berechnet Gütekriterien für das Testsample
 summary,Fasst zentrale Informationen zu einem Objekt zusammen
