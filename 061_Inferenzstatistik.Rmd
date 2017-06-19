@@ -31,6 +31,7 @@ library(pwr)  # Powerberechnung
 library(compute.es)  # Effektstärken
 library(tidyverse)  # Datenjudo
 library(broom)  # Anova-Ergebnisse aufräumen
+library(BayesFactor)  # Bayes-Faktor berechnen
 ```
 
 
@@ -472,7 +473,24 @@ Wie man leicht nachrechnen kann, beträgt die Wahrscheinlichkeit, *in Wirklichke
 
 Fairerweise muss man hinzufügen, dass die Grundrate für die Wissenschaft oft nicht einfach zu bestimmen ist. Wer kennt schon die Grundrate der 'guten Ideen'? Vielleicht der liebe Gott, aber [der hilft uns nicht](https://twitter.com/TheTweetOfGod/status/688035049187454976) [@god_i_2016]. Wir werden also eine Einschätzung treffen müssen, die subjektiv sein kann. Diese Subjektivität ist von Kritikern moniert worden.
 
-Auf der anderen Seite kann man diese Subjektivität umgehen, indem man nur angibt, um welchen Faktor die H1 wahrscheinlicher ist als die H0, durch die Daten der Studie. Das wird durch den sog. *Bayes-Faktor* $B$ ausgedrückt. Liegt $B$ bei 10, so eine gängige Konvention, so ist dies "starke" Evidenz für H1 (da H1 dann 10 mal wahrscheinlicher als die H0). Gängige Software (s. Abschnitt \@ref(verweise-inferenz)) geben den Bayes-Faktor aus.
+Auf der anderen Seite kann man diese Subjektivität umgehen, indem man nur angibt, um welchen Faktor die H1 wahrscheinlicher ist als die H0, durch die Daten der Studie. Das wird durch den sog. *Bayes-Faktor* $BF$ ausgedrückt. Liegt $BF$ bei 10, so eine gängige Konvention, so ist dies "starke" Evidenz für H1 (da H1 dann 10 mal wahrscheinlicher als die H0); entsprechend stark ist ein $BF$ von 0.1 (1/10) - zugunsten H0. Gängige Software (s. Abschnitt \@ref(verweise-inferenz)) geben den Bayes-Faktor aus.
+
+
+Ein t-Test a la Bayes kann z.B. so berechnet werden:
+
+```{r}
+
+
+extra %>% 
+  filter(sex %in% c("Mann", "Frau")) %>% 
+  mutate(sex = factor(sex)) -> extra
+
+ttestBF(formula = extra_mean ~ sex,
+        data = extra)
+```
+
+
+Hey, Sie haben gerade einen Bayes-Test gerechnet! Wow! Das Ergebnis zeigt einen $BF$ von 0.24; Evidenz *zugunsten* der H0. Nicht stark; sondern schwach. Keine überzeugende Evidenz für H1. Man beachte, dass der Befehl hier "indifferent" gegenüber der H0 und der H1 war. A priori wurden hier beide Hypothesen als gleich wahrscheinlich angesehen. Jetzt ist unsere Überzeugung für die H1 gesunken bzw. für die H0 gestiegen und zwar etwa um den Faktor 1/4 auf 0.24.
 
 
 ## Aufgaben^[F, F, R, F, F, F, F, R, R, R]
