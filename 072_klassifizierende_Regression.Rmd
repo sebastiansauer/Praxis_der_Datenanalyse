@@ -31,6 +31,7 @@ library(SDMTools)  # Güte von Klassifikationsmodellen
 library(pROC)  # für ROC- und AUC-Berechnung
 library(tidyverse)  # Datenjudo
 library(BaylorEdPsych)  # Pseudo-R-Quadrat
+library(broom)  # lm-Ergebnisse ausräumen
 ```
 
 
@@ -48,7 +49,7 @@ Hier werden wir den Datensatz *Aktienkauf* der Universität Zürich ([Universit�
 Importieren Sie zunächst die Daten.
 
 ```{r load-data-Aktien}
-Aktien <- readr::read_csv("data/Aktien.csv") %>% na.omit
+Aktien <- read.csv("data/Aktien.csv") %>% na.omit
 
 ```
 
@@ -56,22 +57,26 @@ Um uns das Leben leichter zu machen, haben wir fehlende Werte (`NA`s) mit `na.om
 
 
 ## Problemstellung
-Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. \@ref(fig:fig-logist-regr1)).
+Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. \@ref(fig:fig-logist-regr1)). 
 
 ```{r fig-logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf"}
 p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_point()
 p1
 ```
 
+
+Dem Ereignis 'Aktienkauf' haben wir die Zahl 1 zugeorndet und dem Ereignis 'Nicht-Aktienkauf' die Zahl 0. Werte dazwischen können wir als Wahrscheinlichkeit zugunsten von 'Aktienkauf' interpretieren.
+
+
 Berechnen wir dann eine normale Regression.
 
 ```{r logist-regr1}
 lm1 <- lm(Aktienkauf ~ Risikobereitschaft, data = Aktien)
-summary(lm1)
+tidy(lm1)
 ```
 
 
-Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Lassen Sie uns dennoch ein lineare Regression durchführen und das Ergebnis auswerten und graphisch darstellen.
+Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Stellen wir das Ergebnis grafisch dar (vgl. Abbildung \@ref(fig:fig-logist-regr2)).
 
 ```{r fig-logist-regr2, fig.cap = "Regressionsgerade für Aktien-Modell"}
 
@@ -86,11 +91,11 @@ Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitschaft vo
 
 Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 "umbiegt" (die sogenannte *Linkfunktion*). Eine häufig dafür verwendete Funktion ist die *logistische Funktion*\index{logistische Funktion}. Im einfachsten Fall:
 
-$$p(y=1)=\frac{e^x}{1+e^x}$$
+$$p(y=1)=\frac{e^x}{1+e^x} = \frac{e^x}{e^x(\frac{1}{e^x}+1)}=\frac{1}{\frac{1}{e^x}+1}=\frac{1}{e^{-x}+1}$$
 
 
 
-Exemplarisch können wir die logistische Funktion für einen Bereich von $\eta=-10$ bis $+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
+Exemplarisch können wir die logistische Funktion für einen Bereich von $x=-10$ bis $x=+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
 
 ```{r logist-curve, echo = FALSE, fig.cap = "Die logistische Regression beschreibt eine 's-förmige' Kurve"}
 # eta-Werte von -10 bis +10 erzeugen
@@ -144,7 +149,7 @@ Aktien %>%
 Die Zusammenfassung des Modells zeigt folgendes:
 
 ```{r}
-summary(glm1)
+tidy(glm1)
 ```
 
 Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit `r round(coef(glm1)[1],2)` geschätzt, die Steigung in Richtung `Risikobereitschaft` mit `r round(coef(glm1)[2],2)`. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} $\mathfrak{L}$^[ein schnödes L wie in Ludwig]:
@@ -257,7 +262,7 @@ stats_test$interessiert <- stats_test$interest > 3
 
 Zunächst ein Plot (Abb. \@ref(fig:jitter-stats-logist)).
 
-```{r jjitter-stats-logist, fig.cap = "Verwackeltes Streudiagramm ('Jitter')"}
+```{r jitter-stats-logist, fig.cap = "Verwackeltes Streudiagramm ('Jitter')"}
 
 stats_test %>% 
   na.omit %>% 
@@ -287,7 +292,7 @@ Los geht's, probieren wir die logistische Regression aus:
 log_stats <- glm(bestanden ~ interessiert, 
                family = binomial("logit"),
                data = stats_test)
-summary(log_stats)
+tidy(log_stats)
 ```
 
 Der Einflusswert (die Steigung) von `interessiert` ist positiv: Wenn man interessiert ist, steigt die Wahrscheinlichkeit zu bestehen. Gut. Aber wie groß ist die Wahrscheinlichkeit für jede Gruppe? Am einfachsten lässt man sich das von R ausrechnen:
@@ -314,7 +319,7 @@ glm2 <- glm(Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse,
             family = binomial("logit"), 
             data = Aktien)
 
-summary(glm2)
+tidy(glm2)
 ```
 
 
@@ -352,7 +357,7 @@ Diese beiden Arten von Klassifikationen können unterschiedlich gut sein. Im Ext
 
 >   Ein Test, der alle positiven Fälle korrekt als positiv klassifiziert muss deshalb noch lange nicht alle negativen Fälle als negativ klassifizieren. Die beiden Werte können unterschiedlich sein.
 
-Etwas genauer kann man folgende vier Arten von Ergebnisse aus einem  Test erwarten (s. Tabelle \@ref(tab:class-stats)).
+Etwas genauer kann man folgende vier Arten von Ergebnisse aus einem  Test erwarten (s. Tabelle \@ref(tab:class-stats), vgl. @introstatlearning).
 
 ```{r class-stats, echo = FALSE}
 df <- readr::read_csv("includes/class_results.csv")

@@ -80,7 +80,15 @@ stats_test %>%
   head 
 ```
 
+
+
+
+```{block2, dplyr-punkt, type='rmdcaution', echo = TRUE} 
+
 Man beachte, dass der Punkt `.` für den Datensatz steht, wie er vom letzten Schritt weitergegeben wurde. Innerhalb einer dplyr-Befehls-Kette können wir den Datensatz, wie er im letzten Schritt beschaffen war, stets mit `.` ansprechen; ganz praktisch, weil schnell zu tippen. Natürlich könnten wir diesen Datensatz jetzt als neues Objekt speichern und damit weiter arbeiten. Das Ausrufezeichen `!` steht für logisches "Nicht". Mit `head` bekommt man nur die ersten paar Fälle (6 im Standard) angezeigt, was oft reicht für einen Überblick.
+```
+
+
 
 In Pseudo-Syntax liest es sich so:
 
@@ -89,6 +97,26 @@ Nehme den Datensatz `stats_test` UND DANN...
 filtere die nicht-kompletten Fälle 
 
 ```
+
+### Fehlende Werte zählen
+
+Wie viele fehlende Wert weist eine Spalte auf? 
+
+
+```{r}
+stats_test$self_eval %>% is.na %>% sum
+```
+
+
+
+```{block2, summarise-all-example, type='rmdpseudocode', echo = TRUE}
+Nimm die Spalte `self_eval` aus der Tabelle "stats_test" UND DANN  
+finde die fehlenden Werte (NAs) in dieser Spalten UND DANN 
+summiere alle Treffer auf.  
+
+```
+
+
 
 
 ### Fehlende Werte ggf. ersetzen  
@@ -102,6 +130,11 @@ sum(is.na(stats_test$interest))
 ```
 
 `replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `stats_test$interest` alle Werte, für die `is.na(stats_test$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
+
+
+
+`r if(!(script == TRUE)) knitr::knit_child("children/na_advanced.Rmd")`
+<!-- Vertiefung. Nur für Buch, nicht Skript -->
 
 
 

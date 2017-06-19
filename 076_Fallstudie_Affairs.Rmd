@@ -9,7 +9,9 @@ Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig? Dies
 In diesem Kapitel werden folgende Pakete benötigt.
 
 ```{r}
-library(tidyverse)
+library(tidyverse)  # Datenjudo
+library(psych)  # Befehl 'describe'
+library(broom)  # lm-Ergebnisse aufpolieren
 ```
 
 
@@ -96,7 +98,7 @@ Affair %>%
 
 Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass wir das geklärt haben.
 
-### Wie viele fehlende Werte gibt es? 
+### Vertiefung: Wie viele fehlende Werte gibt es? 
 
 Was machen wir am besten damit?
 
@@ -110,7 +112,7 @@ Oder lieber alle auf einmal:
 
 ```{r}
 Affair %>% 
-  summarise_each(funs(sum(is.na(.))))
+  summarise_all(funs(sum(is.na(.))))
 ```
 
 
@@ -172,7 +174,7 @@ Affair %>%
 d <- (4.4 - 4.1)/(1)
 ```
 
-Die Effektstärke beträgt etwa `r d`.
+Die Effektstärke beträgt etwa `r round(d,2)`.
 
 
 ### Korrelationen
@@ -201,18 +203,20 @@ Dazu sagen wir R: "Hey R, rechne mal ein lineares Modell", also eine normale
 
 ```{r}
 lm1 <- lm(affairs ~ yearsmarried, data = Affair)
-summary(lm1)  # Ergebnisse der Regression zeigen
+tidy(lm1)  # Ergebnisse der Regression zeigen
+glance(lm1)
 lm2 <- lm(affairs ~ rating, data = Affair)
-summary(lm2)
+tidy(lm2)
+glance(lm2)
 ```
 
 Also: `yearsmarried` und `rating` sind beide statistisch signifikante Prädiktoren für die Häufigkeit von Affären. Das adjustierte $R^2$ ist allerdings in beiden Fällen nicht so groß.
 
 ### Ehezufriedenheit als Prädiktor
 
-Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?
+Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?^[Output im Folgenden nicht abgedruckt.]
 
-```{r}
+```{r results = hide}
 lm3 <- lm(affairs ~ rating + yearsmarried, data = Affair)
 lm4 <- lm(affairs ~ yearsmarried + rating, data = Affair)
 summary(lm3)
@@ -251,7 +255,7 @@ names(Affair)
 
 Z.B. wäre doch interessant, ob Ehen mit Kinder mehr oder weniger Seitensprüngen aufweisen. Und ob die "Kinderfrage" die anderen Zusammenhänge/Einflussgewichte in der Regression verändert. Probieren wir es auch. Wir können wiederum im R-Commander ein Regressionsmodell anfordern oder es mit der Syntax probieren:
 
-```{r}
+```{r results = "hide"}
 lm5 <- lm(affairs~ rating + yearsmarried + children, data = Affair)
 summary(lm5)
 r2_lm5 <- summary(lm5)$r.squared
@@ -261,15 +265,14 @@ Das Regressionsgewicht von `childrenyes` ist negativ. Das bedeutet, dass Ehen mi
 
 Wir könnten auch einfach mal Prädiktoren, die wir haben, ins Feld schicken. Mal sehen, was dann passiert:
 
-```{r}
+```{r results = "hide"}
 lm6 <- lm(affairs ~ ., data = Affair)
 summary(lm6)
-r2_lm6 <- round(summary(lm6)$r.squared, 2)
 ```
 
 Der "." im Befehl `affairs ~ .` oben soll sagen: nimm "alle Variablen, die noch in der Datenmatrix übrig sind".
 
-Insgesamt bleibt die erklärte Varianz in sehr bescheidenem Rahmen: `r r2_lm6`. Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
+Insgesamt bleibt die erklärte Varianz in sehr bescheidenem Rahmen: `r round(summary(lm6)$r.squared, 2)`. Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
 
 ### Unterschied zwischen den Geschlechtern
 
@@ -278,8 +281,7 @@ Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß ist der U
 Hier bietet sich ein t-Test für unabhängige Gruppen an. Die Frage lässt auf eine ungerichtete Hypothese schließen ($\alpha$ sei .05). Mit dem entsprechenden Menüpunkt im R-Commander oder mit folgender Syntax lässt sich diese Analyse angehen:
 
 ```{r}
-t1 <- t.test(affairs ~ gender, data = Affair)
-t1
+t.test(affairs ~ gender, data = Affair) %>% tidy
 ```
 
 
@@ -321,7 +323,7 @@ Rechnen Sie die Regression nur für "Halodries"; d.h. für Menschen mit Seitensp
 
 Also, rechnen wir nochmal die Standardregression (`lm1`). Probieren wir den Befehl `filter` dazu nochmal aus:
 
-```{r}
+```{r results = "hide"}
 Affair5 <- filter(Affair, affairs != 0)
 lm9 <- lm(affairs ~ rating, data = Affair5)
 summary(lm9)
@@ -332,15 +334,15 @@ summary(lm9)
 
 Berechnen Sie für eine logistische Regression mit "Affäre ja vs. nein" als Kriterium, wie stark der Einfluss von Geschlecht, Kinderstatus, Ehezufriedenheit und Ehedauer ist!
 
-```{r}
+```{r resuls = "hide"}
 
 Affair %>% 
-  mutate(affairs_dichotom = if_else(affairs == 0, 0, 1)) %>% 
+  mutate(affairs_dichotom = affairs == 0) %>% 
   glm(affairs_dichotom ~ gender + children + rating + yearsmarried,
       data = ., 
       family = "binomial") -> lm10
 
-summary(lm10)
+tidy(lm10)
 
 ```
 
@@ -401,10 +403,10 @@ Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zu
 
 df <- readr::read_csv("includes/Befehle_fallstudien.csv")
 
-library(pander)
-pander::cache.off()
-panderOptions("table.alignment.default", "left")
-pander::pander(data.frame(df), caption = "Befehle des Kapitels 'Fallstudien'")
+# library(pander)
+# pander::cache.off()
+# panderOptions("table.alignment.default", "left")
+knitr::kable(data.frame(df), caption = "Befehle des Kapitels 'Fallstudien'")
 
 # hier `pander`, weil `kable` keine breiten Zellen umbricht.
 

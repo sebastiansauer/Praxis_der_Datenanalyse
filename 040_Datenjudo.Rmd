@@ -46,10 +46,6 @@ library(methods)  # wird aus irgendeinem Grund nicht automatisch geladen, obwohl
 ```
 
 
-```{r hidden-libs, echo = FALSE}
-library(methods)
-```
-
 Das Paket `tidyverse` lädt `dplyr`, `ggplot2` und weitere Pakete^[für eine Liste s. `tidyverse_packages(include_self = TRUE)`]. Daher ist es komfortabler, `tidyverse` zu laden, damit spart man sich Tipparbeit. Die eigentliche Funktionalität, die wir in diesem Kapitel nutzen, kommt aus dem Paket `dplyr`.
 
 
@@ -772,6 +768,9 @@ Tipp: Mit dem Befehl `df <- na.omit(df)` entfernen Sie alle fehlenden Werte aus 
 
 
 `r if(!(script == TRUE)) knitr::knit_child("children/desctable.Rmd")`
+<!-- Vertiefung. Nur für Buch, nicht Skript -->
+
+`r if(!(script == TRUE)) knitr::knit_child("children/dplyr-suffixes.Rmd")`
 <!-- Vertiefung. Nur für Buch, nicht Skript -->
 
 

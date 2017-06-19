@@ -1,0 +1,86 @@
+
+## Bedingte Analysen mit den Suffixen von `dplyr`
+
+
+Seit der Version 0.7 haben alle Hauptverben von dplyr eine Reihe von Suffixen:
+
+
+- _if
+_ _all
+- _at
+
+Einige Beispiele machen den Nutzen klar: `summarise_all` fässt alle Spalten zusammen (daher 'all'). `mutate_at` formt nur bestimmte Variablen um. `summarise_if` fässt nur Spalten zusammen, für die eine bestimmte Bedingung zutrifft. In einigen Fällen sind diese Suffixe praktisch:
+
+
+
+### Suffix `_if`
+
+```{r}
+stats_test <- read.csv("data/test_inf_short.csv")
+```
+
+
+```{r}
+stats_test %>% 
+  summarise_if(is.numeric, mean)
+```
+
+Diese Syntax lässt sich fast wortwörtlich in Pseudocode übersetzen:
+
+
+```{block2, summarise-if-example, type='rmdpseudocode', echo = TRUE}
+Nimm die Tabelle "stats_test" UND DANN  
+fasse eine jede Spalte zusammen WENN  
+die Spalte numerisch ist ACH JA  
+fasse diese Spalten mithilfe des Mittelwerts zusammen.  
+
+```
+
+
+### Suffix `_all`
+
+Recht elegant lassen sich mit dem Suffix `_all` die Anzahl der fehlenden Werte pro Spalte zusammenfassen.
+
+```{r}
+stats_test %>% 
+  summarise_all(funs(is.na(.) %>% sum))
+```
+
+Wir übersetzen wieder:
+
+
+```{block2, summarise-all-example, type='rmdpseudocode', echo = TRUE}
+Nimm die Tabelle "stats_test" UND DANN  
+fasse JEDE Spalte zusammen UND ZWAR  
+mit dieser Funktion ('funs') UND ZWAR  
+mit dem Ergebnis dieser zwei Schritte: (Finde alle NAs und summiere sie).
+
+```
+
+### Suffix `_at`
+
+Beim Suffix `_at` gibt man Spaltennamen an. Wie immer bei dplyr kann man die Spaltennummer oder ihren Namen angeben.
+
+
+Sagen wir, wir möchten eine Spalte erzeugen für jede Selbsteinschätzungsvariable; in diesen neuen Spalte soll jeweils der maximale Wert der zugrundeliegenden Selbsteinschätzungsvariablen stehen. Das könnte so aussehen:
+
+```{r}
+stats_test %>% 
+  mutate_at(.vars = vars(study_time, self_eval, interest), max, na.rm = TRUE) %>% head
+```
+
+
+Als ersten Parameter (nach dem Dataframe, der implizit über die Pfeife übergeben wird) erwarten dplyr-Verben mit dem Suffix `_at` den Parameter `.vars`,  also den Hinweis, welche Variablen wir einbeziehen wollen. Wie immer, wenn wir die Standard-Reihenfolge beachten, brauchen wir die Parameter nicht zu benennen (wir könnten als `.vars = ` weglassen). Hingegen brauchen wir `vars()`, um `dplyr` zu sagen, von wo bis wo die Liste der relevanten Spalten geht. Der nächste Parameter ist dann der oder die Befehle, die wir nutzen möchten, um die Spalte zu transformieren, z.B. `max`. Etwaige Parameter, wie `na.rm = TRUE`, werden einfach ganz hinten angefügt.
+
+
+Schauen wir uns ein realististischeres Beispiel an. Sagen wir, wir möchten die Umfrage-Items auf eine Skale von 0 bis 1 standardisieren. Dazu können wir jeden Wert durch den (theoretischen) Maximalwert der Skala teilen. Mit `dplyr` kann das so aussehen:
+
+
+```{r}
+stats_test %>% 
+  drop_na %>% 
+  mutate_at(.vars = vars(study_time, self_eval, interest), .funs = funs(prop = ./max(.))) %>% head
+```
+
+
+Die Funktion `funs` erzeugt benannte Funktionen; dieser Namen werden dann den zu erstellenden Spalten als Suffix angefügt.

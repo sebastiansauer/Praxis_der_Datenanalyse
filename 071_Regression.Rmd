@@ -68,9 +68,9 @@ Schauen wir uns zunächst die Syntax genauer an.
 Lade die CSV-Datei mit den Daten als `stats_test`.
   
 Nehme `stats_test` UND DANN...  
-starte ein neues Diagramm mit ggplot  
-definiere das Diagramm (X-Achse, Y-Achse)  
-zeichne das Geom "Jitter" (verwackeltes Punktediagramm)  
+starte ein neues Diagramm mit ggplot UND      
+definiere das Diagramm (X-Achse, Y-Achse) UND DANN  
+zeichne das Geom "Jitter" (verwackeltes Punktediagramm) UND DANN  
 und zeichne danach eine Gerade ("abline" in rot). 
 
 
@@ -102,9 +102,7 @@ gridExtra::grid.arrange(p1, p2, ncol = 2)
 
 Eine Regression lädt förmlich dazu ein, Vorhersagen zu treffen: Hat man erstmal eine Gerade, so kann man für jeden X-Wert ("Prädiktor") eine Vorhersage für den Y-Wert ("Kriterium") treffen. Anhand des Diagramms kann man also für jede Person (d.h. jeden Wert innerhalb des Wertebereichs von `study_time` oder einem anderen Prädiktor) einen Wert für `score` vorhersagen. Wie gut die Vorhersage ist, steht erstmal auf einen anderen Blatt.
 
-Man beachte, dass eine Gerade über ihre *Steigung* und ihren *Achsenabschnitt* festgelegt ist; in Abb. \@ref(fig:bsp-regression) ist die Steigung 2.3 und der Achsenabschnitt 24.
-
-Der Achsenabschnitt zeigt also an, wie viele Klausurpunkte man "bekommt", wenn man gar nicht lernt (Gott bewahre); die Steigung gibt eine Art "Wechselkurs" an: Wie viele Klausurpunkte bekomme ich pro Stunde, die ich lerne. 
+Man beachte, dass eine Gerade über ihre *Steigung* und ihren *Achsenabschnitt* festgelegt ist; in Abb. \@ref(fig:bsp-regression) ist die Steigung 2.3 und der Achsenabschnitt 24. Der Achsenabschnitt zeigt also an, wie viele Klausurpunkte man "bekommt", wenn man gar nicht lernt (Gott bewahre); die Steigung gibt eine Art "Wechselkurs" an: Wie viele Klausurpunkte bekomme ich pro Stunde, die ich lerne. 
 
 Unser Modell ist übrigens einfach gehalten: Man könnte argumentieren, dass der Zusatznutzen der 393. Stunde lernen geringer ist als der Zusatznutzen der ersten paar Stunden. Aber dann müssten wir anstelle der Gerade eine andere Funktion nutzen, um die Daten zu modellieren. Lassen wir es erst einmal einfach hier.
 
@@ -130,12 +128,12 @@ lm(score ~ study_time, data = stats_test)
 lm(kriterium ~ praediktor, data = meine_datentabelle)
 ```
 
-Um ausführlichere Informationen über das Regressionsmodell zu bekommen, kann man die Funktion `summary` nutzen:
+Um ausführlichere Informationen über das Regressionsmodell zu bekommen, kann man die Funktion `broom::tidy` nutzen:
 
 
 ```{r eval = FALSE}
 mein_lm <- lm(kriterium ~ praediktor, data = meine_datentabelle)
-summary(mein_lm)
+tidy(mein_lm)
 ```
 
 
@@ -247,7 +245,7 @@ Praktischerweise gibt es einige R-Pakete, z.B. `caret`, die diese Berechnung fü
 postResample(obs = obs, pred = pred)
 ```
 
-Hier steht `obs` für beobachtete Werte und `pred` für die vorhergesagten Werte (beides numerische Vektoren). Dieser Befehl gibt sowohl RMSE als auch $R^2$ wieder.
+Hier steht `obs` für beobachtete Werte und `pred` für die vorhergesagten Werte (beides numerische Vektoren). Dieser Befehl gibt sowohl RMSE als auch $R^2$ wieder. Wir betrachten gleich ein Beispiel an echten Daten.
 
 
 
@@ -279,7 +277,7 @@ Hey R - berechne uns die "Trendlinie"! Dazu nimmt man den Befehl `lm`:
 
 ```{r}
 mein_lm <- lm(score ~ study_time, data = stats_test)
-summary(mein_lm)
+tidy(mein_lm)
 
 ```
 
@@ -319,10 +317,10 @@ predict(mein_lm, data.frame(study_time = 4))
 
 
 
-Berechnen wir noch die Vorversagegüte des Modells.
+Berechnen wir noch die Vorversagegüte des Modells. Dazu kann man den Befehl `summary` nehmen, oder auch `broom::glance`. `glance` gibt Informationen zur Modellgüte zurück und das in Form eines Dateframes. Summary liefert eine Menge Informationen mit einem infomrationen Ausdruck, aber nicht in Form eines Dataframes (sondern in Form einer Liste).
 
 ```{r}
-summary(mein_lm)
+glance(mein_lm)
 ```
 
 
@@ -424,13 +422,24 @@ stats_test %>%
   geom_line(data = score_interesse, group = 1, color = "red")
 ```
 
-Mit `group=1` bekommt man eine Linie, die alle Punkte verbindet. Wir haben in dem Fall nur zwei Punkte, die entsprechend verbunden werden.
+Mit `group=1` bekommt man eine Linie, die alle Punkte verbindet (im Datensatz `score_interesse` sind es dieser zwei). Wir haben in dem Fall nur zwei Punkte, die entsprechend verbunden werden.
 
 
-Visualisieren Sie den Gruppenunterschied auch mit einem Boxplot.
+###  Aufgaben
+1. Visualisieren Sie den Gruppenunterschied auch mit einem Boxplot!
 
 
-Und als Lineares Modell:
+2. Berechnen Sie ein lineares Modell dazu!
+
+
+*Lösung:*
+
+1. Boxplot: `qplot(x = interessiert, y = score, data = stats_test, geom = "boxplot")`
+
+
+2. Lineares Modell:
+
+
 ```{r}
 lm2 <- lm(score ~ interessiert, data = stats_test)
 summary(lm2)
@@ -580,7 +589,8 @@ p2 <- stats_test %>%
   geom_jitter(aes(y = score), width = .1) +
   geom_line(data = df2, aes(y = pred, color = factor(study_time))) +
   scale_color_viridis(discrete = TRUE) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  ggtitle("B")
   
 
 

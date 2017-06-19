@@ -7,4 +7,3 @@ dplyr::n     ,zählt Zeilen
 dplyr::count       ,zählt Zeilen nach Untergruppen
 %>% (dplyr)        ,verkettet Befehle
 dplyr::mutate      ,erzeugt/berechnet Spalten
-desctable::desctable,Liefert Tabelle mit deskriptiver Statistik zurück

@@ -357,7 +357,7 @@ train <- slice(stats_test, 1:200)
 test <- slice(stats_test, 201:306)
 ```
 
-`dplyr::slice` schneidet eine 'Scheibe' aus einem Datensatz. 
+`dplyr::slice` schneidet eine 'Scheibe' aus einem Datensatz. Mit `anti_join` kann man einen generellen Ansatz wählen: `anti_join´ vereinigt die *nicht-gleichen Zeilen* zweier Datensätze. Die Gleichheit wird geprüft anhand aller Spalten mit identischem Namen in beiden Datensätzen.
 
 
 ```{r}
