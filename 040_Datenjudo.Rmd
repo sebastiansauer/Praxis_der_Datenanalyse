@@ -774,6 +774,8 @@ Tipp: Mit dem Befehl `df <- na.omit(df)` entfernen Sie alle fehlenden Werte aus 
 <!-- Vertiefung. Nur für Buch, nicht Skript -->
 
 
+
+
 ## Befehlsübersicht
 
 Tabelle \@ref(tab:befehle-datenjudo) fasst die R-Funktionen dieses Kapitels zusammen.
