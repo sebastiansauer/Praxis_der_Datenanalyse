@@ -53,13 +53,15 @@ library(png)
 
 ## Was ist ein Modell? Was ist Modellieren? {#Modellieren}
 
-In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein verkleinertes Muster, Abbild oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototypisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
+In diesem Kapitel geht es um *Modelle* und *Modellieren*; aber was ist das eigentlich? Seit dem 16. Jahrhundert wird mit dem italienischen Begriff *modelle* ein *verkleinertes Muster*, *Abbild* oder Vorbild für ein Handwerksstück benannt [@gigerenzer1980]. Prototypisch für ein Modell ist - wer hätt's gedacht - ein Modellauto (s. Abb. \@ref(fig:vwmodell); [@spurzem_vw_2017]).
 
-```{r vwmodell, echo = FALSE, fig.cap = "Modell eines VW-Käfers", out.width = "40%"}
+```{r vwmodell, echo = FALSE, fig.cap = "Ein Modell eines VW-Käfers als Prototyp eines Modells", out.width = "40%"}
 knitr::include_graphics("images/modellieren/vw_modell.JPG")
 ```
 
-In die Wissenschaft kam der Begriff in der Zeit nach Kant, als man sich klar wurde, dass (physikalische) Theorien nicht die Wirklichkeit als solche zeigen, sondern ein *Modell* davon. Modellieren ist eine grundlegenden Tätigkeit, derer sich Menschen fortlaufend bedienen, um die Welt zu *verstehen*. Denn das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es daher sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen. Modelle sind häufig vereinfachend: es wird nur ein Ausschnitt der Wirklichkeit berücksichtigt.
+In die Wissenschaft kam der Begriff in der Zeit nach Kant, als man sich klar wurde, dass (physikalische) Theorien nicht die Wirklichkeit als solche zeigen, sondern ein *Modell* davon. Modellieren ist eine grundlegenden Tätigkeit, derer sich Menschen fortlaufend bedienen, um die Welt zu *verstehen*. Denn das Leben ist schwer... oder sagen wir: komplex. Um einen Ausschnitt der Wirklichkeit zu verstehen, erscheint es daher sinnvoll, sich einige als wesentlich erachteten Aspekte "herauszugreifen" bzw. auszusuchen und sich nur noch deren Zusammenspiel näher anzuschauen. Modelle sind häufig vereinfachend: es wird nur ein Ausschnitt der Wirklichkeit in einfacher Form berücksichtigt.
+
+>   Da wir die Natur bzw. die Wirklichkeit oft nicht komplett erfassen, erschaffen wir uns ein Abbild von der Wirklichkeit, ein Modell.
 
 Manche Aspekte der Wirklichkeit sind wirklicher als andere: Interessiert man sich für den Zusammenhang von Temperatur und Grundwasserspiegel, so sind diese Dinge direkt beobachtbar. Interessiert man sich hingegen für Lebensqualität und Zufriedenheit, so muss man diese Untersuchungsgegenstände erst konstruieren, da Lebensqualität nicht direkt beobachtbar ist. Sprechen wir daher von Wirklichkeit lieber vorsichtiger vom *Gegenstandsbereich*, also den *konstruierten Auszug der Wirklichkeit* für den sich die forschende Person interessiert. Bestenfalls (er)findet man eine *Annäherung* an die Wirklichkeit, schlechterenfalls eine *verzerrte*, gar *grob falsche* Darstellung . Da keine Wiedergabe der Wirklichkeit perfekt ist, sind streng genommen alle Modelle "falsch" in diesem Sinne.
 
@@ -71,11 +73,11 @@ knitr::include_graphics("images/modellieren/Modell.png")
 ```
 
 
-Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine mathematische Struktur zu übersetzen. 
+Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine *mathematische Struktur* zu übersetzen. 
 
 Wirklichkeit kann dabei als *empirisches System* bezeichnet werden, welches aus einer oder mehr Mengen von Objekten besteht, die zu einander in bestimmten Beziehungen stehen. Ein Bespiel wäre eine Reihe von Personen, die in bestimmten Größe-Relationen zueinander stehen oder eine Reihe von Menschen, bei denen die Füße tendenziell größer werden, je größer die Körpergröße ist. 
 
-Mit *mathematische Struktur* ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Auch hier gibt es eine Reihe von (mathematischen) Objekten wie Zahlen oder Vektoren. Diese mathematischen Objekten stehen ebenfalls in gewissen Relationen zueinander. Der springende Punkt ist: Im Modell sollen  die Beziehungen zwischen den mathematischen Objekten die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Stellen wir uns vor, der Klausurerfolg steigt mit der Lernzeit^[wieder ein typisches Dozentenbeispiel]. Fragen wir das Modell, welchen Klausurerfolg Alois hat (er hat sehr viel gelernt), so sollte das Modell erwidern, dass Alois einen hohen Klausurerfolg hat (Modelle geben in diesem Fall gerne eine im Verhältnis große Zahl von sich). Damit würde das Modell korrekt die Empirie widerspiegeln.
+Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Im Gegensatz zur empirisischen System ist das numerische System rein theoretisch, also ausgedacht, nicht empirisch. Auch hier gibt es eine Reihe von Objekten, aber mathematischer Art, also z.B. Zahlen oder Vektoren. Diese mathematischen Objekten stehen wiederum in gewissen Relationen zueinander. Der springende Punkt ist: Im Modell sollen  die Beziehungen zwischen den mathematischen Objekten die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Stellen wir uns vor, der Klausurerfolg steigt mit der Lernzeit^[wieder ein typisches Dozentenbeispiel]. Fragen wir das Modell, welchen Klausurerfolg Alois hat (er hat sehr viel gelernt), so sollte das Modell erwidern, dass Alois einen hohen Klausurerfolg hat (Modelle geben in diesem Fall gerne eine im Verhältnis große Zahl von sich). Damit würde das Modell korrekt die Empirie widerspiegeln.
 
 
 >   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
@@ -101,9 +103,10 @@ stats_test <- read_csv("data/test_inf_short.csv")
 
 stats_test %>% 
 ggplot(aes(y = score, x = self_eval)) +
-geom_jitter() -> p1
+geom_jitter() +
+ggtitle("A") -> p1
 
-p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
+p2 <- p1 + geom_smooth(method = "lm", se = FALSE) + ggtitle("B")
 ```
 
 
@@ -116,9 +119,9 @@ grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-Im ersten Plot von Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
+Im linken Plot (A; Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
 
-Im nächsten Plot (Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
+Im rechten Plot (B; Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
 
 
 ```{r mod-beispiel, fig.cap = "Ein Beispiel für ein Pfadmodell", echo = FALSE}
@@ -141,12 +144,12 @@ Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Ein
 
 ```{block2, einfluss-nicht-kausal, type='rmdcaution', echo = TRUE} 
 
-*Einfluss* ist hier *nicht* kausal gemeint, auch wenn es das Wort so vermuten lässt. Stattdessen ist nur ein statistischer Einfluss gemeint; letztlich nichts anderes als ein Zusammenhang. In diesem Sinne könnte man postulieren, dass die Größe des Autos, das man fährt einen "Einfluss" auf das Vermögen des Fahrers habe. Empirisch ist es gut möglich, dass man Belege für dieses Modell findet. Jedoch wird dieser Einfluss nicht kausal sein (man informiere mich, wenn es anders sein sollte).
+Einfluss ist hier nicht (notwendig) kausal gemeint, auch wenn es das Wort so vermuten lässt. Stattdessen ist nur ein statistischer Einfluss gemeint; letztlich nichts anderes als ein Zusammenhang. In diesem Sinne könnte man postulieren, dass die Größe des Autos, das man fährt einen "Einfluss" auf das Vermögen des Fahrers habe. Empirisch ist es gut möglich, dass man Belege für dieses Modell findet. Jedoch wird dieser Einfluss nicht kausal sein (man informiere mich, wenn es anders sein sollte).
 
 ```
 
 
-Modelle, wie wir sie betrachten werden, berechnen eine quantitativen Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien.  Damit lassen sich unsere Modelle in drei Aspekte gliedern.
+Modelle, wie wir sie betrachten werden, berechnen eine quantitativen Zusammenhang zwischen diesen beiden Arten von Größen - Prädiktoren und Kriterien. Damit lassen sich unsere Modelle in drei Aspekte gliedern.
 
 ```{r fig-blackbox, echo = FALSE, fig.cap = "Modelle mit schwarzer Kiste"}
 knitr::include_graphics("images/modellieren/Modell_Blackbox.png")
@@ -183,7 +186,7 @@ Betrachten wir diese vier Ziele des Modellierens genauer.
 
 *Geleitetes Modellieren*\index{Geleitetes Modellieren} ist jede Art des Modellierens, wo die Variablen in Prädiktoren und Kriterien unterteilt werden, z.B. Abb. \@ref(fig:mod-beispiel). Man könnte diese Modelle einfach darstellen als "X führt zu Y". 
 
-*Prädiktives Modellieren*\index{Prädiktives Modellieren} könnte man kurz als *Vorhersagen*\index{Vorhersagen} bezeichnen. Hier ist das Ziel, eine Black Box geschickt zu wählen, so dass der Vohersagefehler möglichst klein ist. Man zielt also darauf ab, möglichst exakte Vorhersagen zu treffen. Sicherlich wird der Vorhersagefehler kaum jemals Null sein; aber je präziser, desto besser. Das Innenleben der "schwarzen Kiste" interessiert uns hier *nicht*.
+*Prädiktives Modellieren*\index{Prädiktives Modellieren} könnte man kurz als *Vorhersagen*\index{Vorhersagen} bezeichnen. Hier ist das Ziel, eine Black Box geschickt zu wählen, so dass der Vohersagefehler möglichst klein ist. Man zielt also darauf ab, möglichst exakte Vorhersagen zu treffen. Sicherlich wird der Vorhersagefehler kaum jemals Null sein; aber je präziser, desto besser. Das Innenleben der "schwarzen Kiste" interessiert uns hier *nicht*. Wir machen keine Aussagen über Ursache-Wirkungs-Beziehungen. Ein Besie
 
 *Explikatives Modellieren*\index{Explikatives Modellieren} oder kurz *Erklären*\index{Erklären} bedeutet, verstehen zu wollen, *wie* oder *warum* sich ein Kriteriumswert so verändert, wie er es tut. Auf *welche Art* werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Prädikatoren sind dabei (besonders) wichtig? Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die *Beschaffenheit* der schwarzen Kiste; die Güte der Vorhersage ist zweitrangig.
 
