@@ -1,0 +1,7 @@
+Name,Test,kleiner Effekt,mittlerer Effekt,großer Effekt
+Cohens d,Unterschied zwischen zwei Mittelwerten,.2-.5,.5-.8,>.8
+r,Zusammenhang zweier metrischer Größen,0.1,0.3,0.5
+p,Unterschied in zwei Anteilen,,,
+"$R^2$, $\eta^2$","Anteil aufgeklärter Varianz (Varianzanalyse, Regressionsanalyse)",0.01,0.06,0.14
+$f^2$,Verhältnis von erklärter zu nicht erklärter Varianz (signal-to-noise ratio),0.02,0.15,0.35
+$\omega$,Häufigkeitsunterschiede,0.1,0.3,0.5

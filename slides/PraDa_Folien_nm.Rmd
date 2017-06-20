@@ -1,7 +1,7 @@
 ---
-title: "Folien für das Modul 'Praxis der Datenanalyse'"
+title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
 #author: "ses"
-#institute: "FOM" 
+institute: "FOM" 
 date: "WS17"
 linkcolor: blue
 urlcolor: blue
@@ -29,9 +29,7 @@ output:
     - theme=FOM
     - -V
     - colortheme=FOM
-    - -V
-    - institute=Standort Köln
-    - --filter=./splitblockold.py
+    #- --filter=./splitblockold.py
 ---
 
 
@@ -41,13 +39,12 @@ library(knitr)
 knitr::opts_chunk$set(
     echo = TRUE,
     background='#E0E0E0',
-#   fig.keep="none",
     out.width="80%",
-#   cache = TRUE,
-    tidy=TRUE,
+    cache = TRUE,
+    tidy = FALSE,
     fig.align = "center",
     width.cutoff=70,
-    fig.asp = .61,
+    fig.asp = .618,
     message = FALSE,
     warning = FALSE
 )
@@ -59,7 +56,6 @@ options(width = 73)
 
 
 ```{r libs, include = FALSE, echo = FALSE}
-#library(mosaic)
 library(tidyverse)
 library(formatR)
 library(knitr)
@@ -101,13 +97,6 @@ library(wordcloud)  # Wordcloud anzeigen
 - [Textmining](#Textmining)
 - [Anhang](#Anhang)
 
-# Vorwort 
-
-## Hinweise
-
-- Diese Folien vermitteln *nicht* den Stoff. Sie visualisieren nur einige zentrale Ideen.
-
-- Der Stoff wird vom [Skript](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/) vermittelt. Nutzen Sie das Skript zum eigentlichen Arbeiten.
 
 
 # Organisatorisches
@@ -129,7 +118,7 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 
 
 
-\footnotesize
+
 ```{r termin-themen, echo = FALSE}
 
 df <- readr::read_csv("../includes/Termin_Themen.csv")
@@ -215,15 +204,10 @@ Beliebte Fehler beim Installieren von Paketen:
 
 ```
 - install.packages(dplyr) 
-
 - install.packages("dliar")
-
 - install.packages("derpyler") 
 - Keine Internet-Verbindung 
-
 - install.packages("dplyr")  # dependencies vergessen 
-
-
 - library(dplyr)  # ohne vorher zu installieren
 ```
 
@@ -724,7 +708,7 @@ knitr::include_graphics("../images/modellieren/Modell_Blackbox.png")
 
 - Geleitetes Modellieren
     - Prädiktives Modellieren
-    - Explikaties Modellieren
+    - Explikatives Modellieren
 - Ungeleitetes Modellieren
     - Dimensionsreduzierendes Modellieren
     - Fallreduzierendes Modellieren
@@ -1073,7 +1057,7 @@ score_interesse %>% knitr::kable()
 ## Kategoriale Prädiktoren
 
 
-```{r}
+```{r echo = FALSE}
 stats_test %>% 
   na.omit %>% 
   ggplot() +
@@ -1247,8 +1231,7 @@ p1
 ```
 
 
-## R-Befehl
-
+## R-Befehl zur logistischen Regression
 
 
 Die Funktion `glm` führt die logistische Regression durch. 

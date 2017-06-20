@@ -1,0 +1,9 @@
+Paket::Befehl,Beschreibung
+tidytext::unnest_tokens,Jedes Token (Wort) einer Spalte bekommt eine eigene Zeile in einem Dataframe
+stringr::str_detect,Sucht nach einem String (Text)
+downloader:: download,lädt eine Datei aus dem Internet herunter
+dplyr::rename,Benennt Spalten um
+anti_join,"Führt Dataframes zusammen, so dass nicht matchende Einträge übernommen werden"
+wordcloud::wordcloud,Erstellt eine Wordcloud
+ggplot2::labs,Fügt Titel oder andere Hinweise einem ggplot2-Objekt hinzu
+ggplot2::coord_flip,Dreht die Achsen um 90 Grad

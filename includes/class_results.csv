@@ -1,0 +1,4 @@
+Wahrheit,Als negativ (-) vorhergesagt,Als positiv (+) vorhergesagt,Summe
+In Wahrheit negativ (-),Richtig negativ (RN),Falsch positiv (FP),N
+In Wahrheit positiv (+),Falsch negativ (FN),Richtig positiv (RN),P
+Summe,N*,P*,N+P
