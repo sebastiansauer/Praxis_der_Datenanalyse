@@ -1,4 +1,4 @@
-\ProvidesPackage{beamerthemeNPBT}[2017/02/04 v2.1 Beamer Theme FOM]
+\ProvidesPackage{beamerthemeNPBT}[2017/06/20 v2.2 Main Beamer Theme of NPBT]
 % ===========================================================================
 % beamerthemeNPBT.sty
 % ===================---------------------------------------------------------
@@ -114,10 +114,18 @@
 
 
 \mode<all>
-\input{mygeometry.tex}
-\input{customize_geom.tex}
-\input{sections.tex}
-\input{customize_theme.tex}
+\InputIfFileExists{mygeometry.tex}{%
+	  %⟨true⟩
+		\InputIfFileExists{customize_geom.tex}{\relax}{\relax}
+	}{%⟨false⟩
+		\relax
+	}
+\InputIfFileExists{sections.tex}{%
+	  %⟨true⟩
+		\InputIfFileExists{customize_theme.tex}{\relax}{\relax}
+	}{%⟨false⟩
+		\relax
+	}
 %
 % ========================================================================
 %

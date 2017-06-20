@@ -1,5 +1,5 @@
 ---
-title: "Folien für das Modul 'Praxis der Datenanalyse'"
+title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
 #author: "ses"
 #institute: "FOM" 
 date: "WS17"
