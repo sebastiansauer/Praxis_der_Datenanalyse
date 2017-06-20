@@ -192,7 +192,7 @@ knitr::include_graphics(paste0(path_to_images, "Rahmen/Prozess_Datenanalyse.png"
 
 ## R und RStudio installieren
 
-![](./images/Rahmen/Rlogo.png){ width=10% } ![](./images/Rahmen/rstudiologo.png){ width=10% }
+![](../images/Rahmen/Rlogo.png){ width=10% } ![](../images/Rahmen/rstudiologo.png){ width=10% }
 
 
 

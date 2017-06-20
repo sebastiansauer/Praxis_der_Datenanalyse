@@ -1,0 +1,105 @@
+% ===========================================================================
+% customize_theme.tex
+% ===================--------------------------------------------------------
+%
+% (C) in 2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
+%
+% Hier kommen Änderungen an den Themes rein!
+% Bitte nicht an den .sty - Dateien oder mygeometry.tex bzw sections.tex
+% umspielen!
+%
+% ---------------------------------------------------------------------------
+%
+
+
+%
+% Änderungen von SES:
+%
+\def\titleboxwidth{0.8\myPaperWidth}
+
+\setbeamerfont{title in titlepage}{size=\Huge, family=\sffamily, series=\bfseries}
+\setbeamerfont{author in titlepage}{size=\large, family=\sffamily, series=\mdseries}
+\setbeamerfont{institute in titlepage}{size=\LARGE, family=\sffamily, series=\mdseries}
+
+\setbeamerfont{section name}{size=\small, family=\sffamily, series=\bfseries}
+\setbeamerfont{subsection name}{size=\small, family=\sffamily, series=\bfseries}
+
+\setbeamerfont{section in head}{size=\large, family=\sffamily, series=\mdseries}
+\setbeamerfont{subsection in head}{size=\tiny, family=\sffamily, series=\mdseries}
+\setbeamerfont{frametitle in head}{size=\tiny, family=\sffamily, series=\mdseries}
+\setbeamerfont{myheader in head}{size=\tiny, family=\sffamily, series=\mdseries}
+
+
+% Set color for author in footline and header to darkgray on white:
+\setbeamercolor{author in head/foot}{fg=darkgray, bg=white}
+
+% ------------------------------------------------------------------------
+%
+% Frame title template:
+%
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
+%        \strut%
+        {\small%\normalsize% Why? --- NM to SES ...
+          \ifthenelse{\equal{\thesubsection}{0}}{% then:
+            {\usebeamercolor[fg]{section in head}%
+             \usebeamerfont{section in head}%
+             \thesection.~\insertsection}\\\vspace*{-1.1ex}%
+            {\usebeamercolor[fg]{frametitle in head}%
+             \usebeamerfont{frametitle in head}%
+              ~\phantom{\thesection.}\Large\insertframetitle}%
+          }{% else:
+%         \vspace*{-1em}%
+          {\usebeamercolor[fg]{subsection in head}%
+           \usebeamerfont{subsection in head}%
+           \thesection.\thesubsection.~\insertsubsection}\\\vspace*{-1.1ex}%
+          {\usebeamercolor[fg]{frametitle in head}%
+           \usebeamerfont{frametitle in head}%
+           ~\phantom{\thesection.\thesubsection.}\Large\insertframetitle}%
+          }
+        }
+        \strut
+    \vspace*{-0.8em}
+     \includegraphics[%
+            width=0.9\paperwidth%
+          ]{%
+             \lineimage%
+            }%
+        \begin{tikzpicture}[remember picture, overlay]
+          \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+        };%
+        \end{tikzpicture}%
+  \end{beamercolorbox}
+  }%
+}
+
+% ------------------------------------------------------------------------
+%
+% Footline template
+%
+\setbeamertemplate{footline}{% Skip first frame == Title frame !!!
+    \ifthenelse{\equal{\insertframenumber}{1}}{%
+}{%
+   \begin{beamercolorbox}[ht=4ex,leftskip=.2cm,rightskip=.3cm]{author in head/foot}
+    \footlinesize\bf
+      \includegraphics[%
+          width=0.9\paperwidth%
+        ]{%
+          \lineimage%
+    }%
+	\newline
+	\vspace{0.2cm}
+    	\vspace*{-0.4em}%
+     	\raggedleft{\insertframenumber \hspace*{0.3cm}}%
+   \end{beamercolorbox}
+   \vspace*{0.3cm}
+}
+}
+
+%
+% ===========================================================================
+%
