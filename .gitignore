@@ -4,8 +4,7 @@
 **/.Rproj.user
 **/.Rproj.user/**
 .Rhistory
-docs/**
-**/docs/
+docs/
 Praxis_der_Datenanalyse.log
 Praxis_der_Datenanalyse.ilg
 Praxis_der_Datenanalyse.lof
@@ -26,3 +25,5 @@ Praxis_der_Datenanalyse.fdb_latexmk
 *.knit.*
 *.utf8.md
 .Rproj.user
+_bookdown_files/
+rsconnect/
