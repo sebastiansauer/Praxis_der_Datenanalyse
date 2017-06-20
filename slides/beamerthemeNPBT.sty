@@ -114,14 +114,16 @@
 
 
 \mode<all>
-\InputIfFileExists{mygeometry.tex}{%
+\IfFileExists{mygeometry.tex}{%
 	  %⟨true⟩
+	  \input{mygeometry.tex}
 		\InputIfFileExists{customize_geom.tex}{\relax}{\relax}
 	}{%⟨false⟩
 		\relax
 	}
-\InputIfFileExists{sections.tex}{%
+\IfFileExists{sections.tex}{%
 	  %⟨true⟩
+	    \input{sections.tex}
 		\InputIfFileExists{customize_theme.tex}{\relax}{\relax}
 	}{%⟨false⟩
 		\relax
