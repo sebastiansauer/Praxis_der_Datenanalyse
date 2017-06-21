@@ -10,10 +10,7 @@ output:
   beamer_presentation:
     fig_caption: no
     highlight: tango
-    includes:
-      in_header: 
-        - header-fom.tex
-    keep_tex: no
+    keep_tex: yes
     pandoc_args:
     - -V
     - papersize=A4
@@ -26,10 +23,9 @@ output:
     - -V
     - urlcolor=blue
     - -V
-    - theme=FOM
+    - theme=NPBT
     - -V
     - colortheme=FOM
-    #- --filter=./splitblockold.py
 ---
 
 

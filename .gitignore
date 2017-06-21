@@ -24,6 +24,7 @@ Praxis_der_Datenanalyse.fdb_latexmk
 *.RData
 *.knit.*
 *.utf8.md
+.Rproj.user
 _bookdown_files/
 rsconnect/
 *.log
