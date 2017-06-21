@@ -10,7 +10,7 @@ output:
   beamer_presentation:
     fig_caption: no
     highlight: tango
-    keep_tex: no
+    keep_tex: yes
     pandoc_args:
     - -V
     - papersize=A4

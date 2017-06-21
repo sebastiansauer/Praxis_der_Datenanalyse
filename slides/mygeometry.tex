@@ -16,19 +16,19 @@
 \setlength{\myPaperWidth}{140mm}
 \setlength{\myPaperHeight}{105mm}
 
-\ifthenelse{\equal{#1}{4x3}}{%
-	%% 4:3 -> 160 x 120 
+\ifstrequal{#1}{4x3}{%
+	%% 4:3 -> 160 x 120
 	\setlength{\myPaperWidth}{160mm}
 	\setlength{\myPaperHeight}{120mm}
 	\typeout{Set ScreenRatio to 4:3 (160x120)}
 }{
-	\ifthenelse{\equal{#1}{16x9}}{%
-		%% 16:9 ->  224 x 126 
+	\ifstrequal{#1}{16x9}{%
+		%% 16:9 ->  224 x 126
 		\setlength{\myPaperWidth}{224mm}
 		\setlength{\myPaperHeight}{126mm}
 	\typeout{Set ScreenRatio to 16:9 (224x126)}
 	}{%
-		% Default:
+		%% Default:
 		\setlength{\myPaperWidth}{140mm}
 		\setlength{\myPaperHeight}{105mm}
 		\typeout{Set ScreenRatio to default (140x105)}
@@ -40,8 +40,6 @@
 \setScreenRatio{4x3}
 
 \def\footlinesize{\scriptsize} % \tiny\footnotesize\scriptsize
-%
-\geometry{paperwidth=\myPaperWidth,paperheight=\myPaperHeight}
 %
 % ===========================================================================
 %

@@ -13,7 +13,8 @@
 %
 \mode<presentation>
 % ---------------------------------------------------------------------------
-\usepackage{ifthen}
+%\usepackage{ifthen} % Old Stuff! - Replaced by:
+\usepackage{etoolbox}
 % ---------------------------------------------------------------------------
 
 \def\softness{0.8}
@@ -115,17 +116,15 @@
 
 \mode<all>
 \IfFileExists{mygeometry.tex}{%
-	  %⟨true⟩
-	  \input{mygeometry.tex}
-		\InputIfFileExists{customize_geom.tex}{\relax}{\relax}
-	}{%⟨false⟩
-		\relax
+	    \input{mygeometry.tex}
+	    \InputIfFileExists{customize_geom.tex}{\relax}{\relax}
+	}{
+	    \relax
 	}
 \IfFileExists{sections.tex}{%
-	  %⟨true⟩
-	    \input{sections.tex}
+        \input{sections.tex}
 		\InputIfFileExists{customize_theme.tex}{\relax}{\relax}
-	}{%⟨false⟩
+	}{
 		\relax
 	}
 %
