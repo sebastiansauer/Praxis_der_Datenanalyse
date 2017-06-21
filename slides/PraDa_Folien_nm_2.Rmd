@@ -37,10 +37,9 @@ library(knitr)
 knitr::opts_chunk$set(
     echo = TRUE,
     background='#E0E0E0',
-#   fig.keep="none",
     out.width="80%",
-#   cache = TRUE,
-    tidy=TRUE,
+   cache = TRUE,
+    tidy = FALSE,
     fig.align = "center",
     width.cutoff=70,
     fig.asp = .61,
