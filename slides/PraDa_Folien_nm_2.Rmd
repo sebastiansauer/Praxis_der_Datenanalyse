@@ -11,7 +11,7 @@ output:
     fig_caption: no
     slide_level: 2
     highlight: tango
-    keep_tex: no
+    keep_tex: yes
     pandoc_args:
     - -V
     - papersize=A4
@@ -86,19 +86,7 @@ library(wordcloud)  # Wordcloud anzeigen
 
 ## Grobgliederung
 
-- [Vorwort](#vorwort)
-- [Rahmen](#rahmen)
-- [Daten einlesen](#tidy)
-- [Datenjudo](#datenjudo)
-- [Daten visualisieren](#vis)
-- [Grundlagen des Modellierens](#mod)
-- [Der p-Wert](#p-wert)
-- [Lineare Regression](#lineare-regression)
-- [Klassifizierende (logistische) Regression](#klassifizierende-logistische-regression)
-- [Clusteranalyse](#clusteranalyse)
-- [Dimensionsreduktion](#dimensionsreduktion)
-- [Textmining](#textmining)
-- [Anhang](#anhang)
+`r if (TRUE) '\\tableofcontents'`
 
 # Vorwort 
 
