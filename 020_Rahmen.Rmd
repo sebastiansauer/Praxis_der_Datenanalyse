@@ -439,7 +439,7 @@ praktische Funktionen wie den "Run-Button".
 
 ### Datentypen in R
 
-Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt.
+Die (für diesen Kurs) wichtigsten Datentypen von R sind in Tabelle \@ref(tab:datentypen) aufgeführt (vgl. @ligges).
 
 ```{r datentypen, echo = FALSE}
 df <- readr::read_csv("includes/Datentypen.csv")
@@ -447,7 +447,10 @@ df <- readr::read_csv("includes/Datentypen.csv")
 knitr::kable(df, caption = "Wichtige Datentypen in R")
 ```
 
-Für die praktische Datenanalyse ist der `dataframe` (Dataframe) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle, wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind 'tibbles', die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen.
+All diese Datentypen (mit Ausnahme der leeren Menge) sind als *Vektoren*\index{Vektoren} angelegt, also mehreren Elementen (z.B. Zahlen), die zu einem Ganzen (wie in einer Liste) verknüpft sind. *Faktoren* sind ganz interessant, weil die einzelnen Ausprägungen (*Faktorstufen*\index{Faktorstufen} genannt) für R als Zahlen gespeichert sind (z.B. "Frau Müller und Herr Schorsch" = 1). Wenn ein Vektor aus 100 Mal diesem Text ("Frau Müller...") besteht, muss R nur 100 mal 1 speichern und einmal die Zuordnung, was die 1 bedeutet. Spart Speicher. Außerdem kann man definieren, was alles eine Faktorstufe ist (z.B. nur "Mann" und "Frau"). Andere Eingaben sind dann nicht möglich; das kann praktisch sein, wenn man von vornerein nur bestimmte Ausprägungen zulassen möchte. Textvariablen sind da entspannter: Jeglicher Art von Text ist erlaubt. Text ist in R immer in Anführungszeichen (einfach oder doppelt) zu setzen.
+
+
+Für die praktische Datenanalyse ist der `dataframe` (*Dataframe*\index{Dataframe}; auch Datentabelle\index{Dataframe} oder Datensatz\index{Dataframe}) am wichtigsten. Grob gesagt handelt es sich dabei um eine Tabelle, wie man sie aus Excel kennt. Etwas genauer ist eine Kombination von Vektoren mit gleicher Länge, so dass eine 'rechteckige' Datenstruktur entsteht. Alle Spalten (d.h. Vektoren) haben einen Namen, so dass es 'Spaltenköpfe' gibt. Eine neuere Variante von Dataframes sind *tibbles* (Tibbles)\index{Tibbles}, die *auch* Dataframes sind, aber ein paar praktische Zusatzeigenschaften aufweisen (normale Dataframes können sich manchmal in einfache Vektoren auflösen; Tibbles tun dies nie).
 
 
 ### Hinweise
@@ -460,8 +463,8 @@ zwei verschiedene Dinge für R!
 Dezimaltrennzeichen.
 - Fehlende Werte werden in R durch `NA` kodiert.
 - Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert. 
-- *Variablennamen*\index{Variablen} in R müssen mit Buchstaben beginnen; ansonsten dürfen nur Zahlen, Unterstriche `-` und Minuszeichen `-` enthalten sein. Leerzeichen sollte man meiden.
-- Variablen einen Namen zu geben, ist nicht leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.
+- *Variablennamen*\index{Variablen} in R sollten mit Buchstaben beginnen; ansonsten dürfen nur Zahlen und Unterstriche `-` enthalten sein. Leerzeichen sollte man meiden.
+- Variablen einen treffenden Namen zu geben, ist nicht immer leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.
 
 ```
 # so nicht:
@@ -807,6 +810,10 @@ Thema dieses Buches; ihr Buch ist sehr zu empfehlen.
 - Wer einen stärker an der Statistik orientierten Zugang sucht, aber 
 "mathematisch sanft" behandelt werden möchte, wird bei James et al. 
 [-@introstatlearning] glücklich oder zumindest fündig werden.
+
+- Uwe Ligges -@ligges 'Programmieren mit R' gibt einen tieferen Einstieg in die Grundlagen von R.
+
+- Wer ganz tief ein- und abtauchen möchte in R, dem sei - solide Grundkenntnisse vorausgesetzt - Hadley Wickhams -@wickham2014advanced 'Advanced R' ans Herz gelegt.
 
 
 

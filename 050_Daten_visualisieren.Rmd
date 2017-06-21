@@ -28,8 +28,13 @@ Lernziele:
 In diesem Kapitel werden folgende Pakete benötigt:
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
-
 ```
+
+
+```{r libs-hidden-vis}
+library(gridExtra)
+```
+
 
 
 ```{r plot-vis, echo = FALSE}
@@ -490,7 +495,7 @@ Das `factor(interest)` brauchen wir, weil `ggplot2` nur dann mehrere Boxplots ma
 
 ### Überblick zu häufigen Diagrammtypen
 
-Die Tabelle \@ref(tab:diagrammtypen) fasst die gerade besprochenen Diagrammtypen zusammen.
+Die Tabelle \@ref(tab:diagrammtypen) und bbildung \@ref(fig:fig-diagrammtypen) fassen die gerade besprochenen Diagrammtypen zusammen.
 
 ```{r diagrammtypen, echo = FALSE}
 
@@ -503,9 +508,34 @@ df <- read_csv("includes/Diagrammtypen.csv")
 # pander::pander(df, caption = "Häufige Diagrammtypen")
 knitr::kable(df, caption = "Häufige Diagrammtypen")
 
-# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+
 
 ```
+
+
+```{r fig-diagrammtypen, echo = FALSE, fig.cap = "Überblick zu häufigen Diagrammtypen"}
+
+p1 <- qplot(x = score, geom = "histogram", data = stats_test, main = "Histogramm")
+p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichtediagramm")
+p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streudiagramm")
+p4 <- qplot(y = score, x = self_eval, fill = bestanden, geom = "tile", data = stats_test, main = "Fliesendiagramm")
+p5 <- qplot(x = bestanden, geom = "bar", data = stats_test, main = "Balkendiagramm (Säulendiagramm")
+p6 <- stats_test %>% 
+  mutate(interessiert = stats_test$interest > 3) %>% 
+  count(bestanden, interessiert) %>% 
+  qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesendiagramm") 
+p7 <- stats_test %>% 
+  group_by(bestanden, interessiert) %>% 
+  summarise(score_median_gruppe = median(score)) %>% 
+  qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punktediagramm")
+p8 <- qplot(x = bestanden, y = score, geom = "boxplot", data = stats_test, main = "Boxplot")
+
+
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 2)
+
+```
+
+
 
 
 ## Die Gefühlswelt von `ggplot2`

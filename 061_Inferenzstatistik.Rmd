@@ -414,23 +414,28 @@ Eine weitere Alternative sind Maße der *Effektstärke*\index{Effektstärke} [@C
 
 Nicht-standardisierte Effektstärken haben den Vorteil der Anschaulichkeit. Standardisierte Effektgrößen sind präziser, aber unanschaulicher. So wäre ein Unterschied von 5€ bei Sportwagen gering und bei Eiskugeln groß. Ein unstandardisierter Kennwert berücksichtigt dies nicht. Um zwei Mittelwerte zu vergleichen, ist *Cohens d*\index{Cohens d} gebräuchlich. Es gibt den Unterschied der Mittelwert standardisiert an der Standardabweichung an [@cohen_statistical_1988].
 
-Tabelle \@ref(tab:effectsizes) und Tabelle \@ref(tab:effectsizes2) geben einen groben Überblick über Effektstärken (nach Cohen [-@cohen_statistical_1988] und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
+Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. @eid2010statistik):
+
+- $d$ (Cohens d) wird zur Bemessung des Unterschieds der Überlappung zweier Verteilungen verwendet, z.B. um die Effektstärke eines t-Werts zu quantifizieren. $d$ berechnet sich im einfachsten Fall als: $d = \frac{\mu_1 - \mu_2}{sd}$.
+- $r$	Pearsons R ist ein Klassiker, um die Stärke des linearen Zusammenhangs zweier metrischen Größen zu quantifizieren. $r$ berechnet sich als: $r = mw(\sum z_x z_y)$, wobei $mw$ für den Mittelwert steht und $z$ für einen z-Wert.
+- $R^2$, $\eta^2$ sind Maße für den Anteil aufgeklärter Varianz; sie finden in der Varianzanalyse oder der Regressionsanalyse Verwendung. $R^2$ wird u.a. so berechnet: $R^2 = \frac{QS_F}{QS_T}$, wobei $QS$ für die Quadratsummen stehen und $QS_F$ für die Varianz, die auf den Faktor (uanbhängige Variable) zurückgeht und $QS_T$ für die Gesamtvarianz. 
+- $f^2$ ist ein Maß, dass aus der erklärten Varianz abgeleitet ist. Es gibt das Verhältnis von erklärter zu nicht-erklärter Varianz wieder (auch 'signal-noise-ratio' genannt). Es berechnet sich als $f^2 = \frac{R^2}{1-R^2}$.
+- $\omega$ (Cohens Omega) ist ein Maß für die Stärke des Zusammenhangs zweier nominales Variablen, abgeleitet vom $\chi^2$-Test. Es berechnet sich als $\omega = \sqrt{\chi^2}$.
+- $OR$ (Odds Ratio) ist ebenfalls ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, allerdings *binärer* (zweistufige) Variablen. Es berechnet sich als $OR = \frac{c}{1-c}$, wobei $c$ die Chancen für ein Ereignis $E$ angeben (z.B. 9:1). $OR$ kann aus $\omega$ abgleitet werden.
+
+
+Tabelle \@ref(tab:effectsizes) gibt einen groben Überblick über Effektstärken (nach  -@cohen_statistical_1988 und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
 
 ```{r effectsizes, echo = FALSE}
 
 df <- read_csv("includes/effectsizes.csv")
 
-knitr::kable(select(df, 1, 2), caption = "Überblick über gängige Effektstärkemaße")
+knitr::kable(df, caption = "Überblick über gängige Effektstärkemaße")
 
 ```
 
 
-
-```{r effectsizes2, echo = FALSE}
-df <- read_csv("includes/effectsizes.csv")
-
-knitr::kable(select(df, 1, 3, 4, 5), caption = "Überblick über gängige Effektstärkemaße")
-```
+>   Was ein "kleiner" oder "großer" Effekt ist, sollte im Einzelfall entschieden werden.
 
 
 Mit dem Paket `pwr` kann man sich Cohens Konventionen der Effektstärkehöhen in Erinnerung rufen lassen. Er bietet folgende Optionen:

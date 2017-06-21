@@ -1,6 +1,5 @@
-PaketFunktion,Beschreibung
+Paket::Funktion,Beschreibung
 dplyr::sample_frac,Zielt eine Stichprobe von x% aus einem Dataframe
 dplyr::anti_join,"Behält alle Zeilen von df1, die *nicht* in df2 vorkommen"
-dplyr::slice,"Schneidet eine 'Scheibe' aus einem Datensatz (filter Zeilen nach angegebener Start- und Endposition)
+dplyr::slice,"Schneidet eine 'Scheibe' aus einem Datensatz
 "
-

@@ -1,0 +1,713 @@
+
+
+# Fallstudien zum geleiteten Modellieren
+
+
+In diesem Kapitel werden folgende Pakete benötigt.
+```{r libs-affairs}
+library(tidyverse)  # Datenjudo
+library(psych)  # Befehl 'describe'
+library(broom)  # lm-Ergebnisse aufpolieren
+library(corrplot)  # Korrelationstabellen visualisieren
+library("titanic")  # Für Datensatz 'titanic'
+```
+
+
+## Überleben auf der Titanic
+In dieser YACSDA^[Yet-another-case-study-on-data-analysis] geht es um die beispielhafte Analyse nominaler Daten anhand des "klassischen" Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der der Passagiers reist, ab?
+
+
+
+### Daten laden
+
+Mit dem Befehl `data` kann man Daten aus Paketen laden; lässt man den Paramter `package` weg, so werden alle geladenen Pakete nach diesem Datensatz durchsucht. Spezifiziert man den Parameter, so kann man auch nicht geladene Pakete damit ansteuern.
+
+```{r}
+data(titanic_train)
+```
+
+Es ist wichtig zu wissen, dass das Laden eines Pakets nicht automatisch die Datensätze aus dem Paket lädt. Man muss das oder die gewünschten Pakete selber (mit `data(...)`) laden. Und: Der Name eines Pakets (z.B. `titanic`) muss nicht identisch sein mit dem oder den Datensätzen des Pakets (z.B. `titanic_train`).
+
+
+
+### Erster Blick
+Werfen wir einen ersten Blick in die Daten:
+  
+```{r glimpse-data}
+glimpse(titanic_train)
+```
+
+### Welche Variablen sind interessant?
+Von 12 Variablen des Datensatzes interessieren uns offenbar `Pclass` und `Survived`; Hilfe zum Datensatz kann man übrigens mit `help(titanic_train)` bekommen. Diese beiden Variablen sind kategorial (nicht-metrisch), wobei sie in der Tabelle mit Zahlen kodiert sind. Natürlich ändert die Art der Codierung (hier als Zahl) nichts am eigentlichen Skalenniveau. Genauso könnte man "Mann" mit `1` und "Frau" mit `2` kodieren; ein Mittelwert bliebe genauso (wenig) aussagekräftig. Zu beachten ist hier nur, dass sich manche R-Befehle verunsichern lassen, wenn nominale Variablen mit Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit Text-Werten zu benennen (wie "survived" vs. "drowned" etc.). Wir kommen später auf diesen Punkt zurück.
+
+### Univariate Häufigkeiten
+Bevor wir uns in kompliziertere Fragestellungen stürzen, halten wir fest: Wir untersuchen zwei nominale Variablen. Sprich: wir werden Häufigkeiten auszählen. Häufigkeiten (und relative Häufigkeiten, also Anteile oder Quoten) sind das, was uns hier beschäftigt.
+
+Zählen wir zuerst die univariaten Häufigkeiten aus: Wie viele Passagiere gab es pro Klasse? Wie viele Passagiere gab es pro Wert von `Survived` (also die überlebten bzw. nicht überlebten)?
+
+```{r count-titanic}
+c1 <- dplyr::count(titanic_train, Pclass)
+c1
+```
+
+
+```{block2, name_clash, type='rmdcaution', echo = TRUE}
+Achtung - Namenskollision! Sowohl im Paket `mosaic` als auch im Paket `dplyr` gibt es einen Befehl `count`. Für `select` gilt Ähnliches - und für eine Reihe anderer Befehle auch. Das arme R weiß nicht, welchen von beiden wir meinen und entscheidet sich im Zweifel für den falschen. Da hilft, zu sagen, aus welchem Paket wir den Befehl beziehen wollen. Das macht der Operator `::`. Probieren Sie die Funktion `find_funs` aus Kapitel \@ref(funs-pckgs), um herauszufinden, welche Pakete z.B. den Befehl `count` beherbergen.
+
+```
+
+
+
+Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm dazu malen). 
+
+```{r plot-titanic1}
+qplot(x = Pclass, y = n, data = c1)
+```
+
+Der Befehl `qplot` zeichnet automatisch Punkte, wenn auf beiden Achsen "Zahlen-Variablen" stehen (also Variablen, die keinen "Text", sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ `int` (integer), also Ganze Zahlen oder vom Typ `num` (numeric), also reelle Zahlen).
+
+```{r}
+
+c2 <- dplyr::count(titanic_train, Survived)
+c2
+```
+
+Man beachte, dass der Befehl `count` stehts eine Tabelle (data.frame bzw. `tibble`) verlangt und zurückliefert.
+
+
+### Bivariate Häufigkeiten
+OK, gut. Jetzt wissen wir die Häufigkeiten pro Wert von `Survived` (dasselbe gilt für `Pclass`). Eigentlich interessiert uns aber die Frage, ob sich die relativen Häufigkeiten der Stufen von `Pclass` innerhalb der Stufen von `Survived` unterscheiden. Einfacher gesagt: Ist der Anteil der Überlebenden in der 1. Klasse größer als in der 3. Klasse?
+
+Zählen wir zuerst die Häufigkeiten für alle Kombinationen von `Survived` und `Pclass`:
+  
+```{r count-titanic2}
+c3 <- dplyr::count(titanic_train, Survived, Pclass)
+c3
+```
+
+Da `Pclass` 3 Stufen hat (1., 2. und 3. Klasse) und innerhalb jeder dieser 3 Klassen es die Gruppe der Überlebenden und der Nicht-Überlebenden gibt, haben wir insgesamt 3*2=6 Gruppen.
+
+Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; wir nehmen den gleichen Befehl wie oben.
+
+```{r}
+qplot(x = Pclass, y = n, data = c3)
+```
+
+Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen:
+  
+```{r}
+qplot(x = Pclass, y = n, color = Survived, data = c3)
+
+```
+
+Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt:
+  
+```{r}
+qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
+
+```
+
+Viel besser. Jetzt noch ein bisschen Schnickschnack:
+  
+  
+```{r}
+qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) + 
+  labs(x = "Klasse", 
+       title = "Überleben auf der Titanic",
+       colour = "Überlebt?")
+
+```
+
+
+### Signifikanztest
+
+Manche Leute mögen Signifikanztests. Ich persönlich stehe ihnen kritisch gegenüber, da ein p-Wert eine Funktion der Stichprobengröße ist und außerdem zumeist missverstanden wird (er gibt *nicht* die Wahrscheinlichkeit der getesteten Hypothese an, was die Frage aufwirft, warum er mich dann interessieren sollte). Aber seisdrum, berechnen wir mal einen p-Wert. Es gibt mehrere statistische Tests, die sich hier potenziell anböten (was die Frage nach der Objektivität von statistischen Tests in ein ungünstiges Licht rückt). Nehmen wir den $\chi^2$-Test.
+
+```{r titanic-chi}
+chisq.test(titanic_train$Survived, titanic_train$Pclass)
+
+```
+
+Der p-Wert ist kleiner als 5%, daher entscheiden wir uns, entsprechend der üblichen Gepflogenheit, gegen die H0 und für die H1: "Es gibt einen Zusammenhang von Überlebensrate und Passagierklasse".
+
+
+### Effektstärke
+Abgesehen von der Signifikanz, und interessanter, ist die Frage, wie sehr die Variablen zusammenhängen. Für Häufigkeitsanalysen mit 2*2-Feldern bietet sich das "Odds Ratio" (OR), das Chancenverhältnis an. Das Chancen-Verhältnis beantwortet die Frage: "Um welchen Faktor ist die Überlebenschance in der einen Klasse größer als in der anderen Klasse?". Eine interessante Frage, als schauen wir es uns an. 
+
+Das OR ist nur definiert für 2*2-Häufigkeitstabellen, daher müssen wir die Anzahl der Passagierklassen von 3 auf 2 verringern. Nehmen wir nur 1. und 3. Klasse, um den vermuteten Effekt deutlich herauszuschälen:
+  
+```{r t2-filter}
+t2 <- filter(titanic_train, Pclass != 2)  # "!=" heißt "nicht"
+```
+
+Alternativ (synonym) könnten wir auch schreiben:
+  
+```{r t2-filter-2}
+t2 <- filter(titanic_train, Pclass == 1 | Pclass == 3)  # "|" heißt "oder"
+```
+
+Und dann zählen wir wieder die Häufigkeiten aus pro Gruppe:
+  
+```{r count-c4}
+c4 <- dplyr::count(t2, Pclass)
+c4
+```
+
+
+Schauen wir nochmal den p-Wert an, da wir jetzt ja mit einer veränderten Datentabelle operieren:
+  
+```{r titanic-chi-2}
+chisq.test(t2$Survived, t2$Pclass)
+
+```
+
+Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
+
+Dann berechnen wir die Effektstärke (OR) mit dem Paket `compute.es` (muss ebenfalls installiert sein).
+```{r}
+library(compute.es)
+chies(chi.sq = 96, n = 707)
+```
+
+Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you life...
+
+
+### Logististische Regression
+Berechnen wir noch das Odds Ratio mit Hilfe der logistischen Regression. Zum Einstieg: Ignorieren Sie die folgende Syntax und schauen Sie sich das Diagramm an. Hier sehen wir die (geschätzten) Überlebens-Wahrscheinlichkeiten für Passagiere der 1. Klasse vs. Passagiere der 3. Klasse.
+
+```{r glm1-titanic}
+titanic2 <- titanic_train %>% 
+  filter(Pclass %in% c(1,3)) %>% 
+  mutate(Pclass = factor(Pclass))
+
+glm1 <- glm(data = titanic2, 
+            formula = Survived ~ Pclass, 
+            family = "binomial")
+
+exp(coef(glm1))
+
+titanic2$pred_prob <- predict(glm1, type = "response")
+```
+
+
+```{r fig-titanic, echo = FALSE}
+titanic2 %>% 
+  dplyr::select(Pclass, Survived, pred_prob) %>% 
+  mutate(Survived = as.numeric(Survived),
+         Pclass = as.numeric(as.character(Pclass))) %>% 
+  ggplot() +
+  aes(x = Pclass, y = Survived) +
+  geom_jitter(width = .1, alpha = .3) +
+  stat_smooth(aes(y = Survived, x = Pclass), method="glm", method.args=list(family="binomial")) +
+  scale_x_continuous(breaks = c(1,3)) +
+  scale_y_continuous(breaks = c(0, .2, .4, .6, .8, 1))
+```
+
+Wir sehen, dass die Überlebens-Wahrscheinlichkeit in der 1. Klasse höher ist als in der 3. Klasse. Optisch grob geschätzt, ~60% in der 1. Klasse und ~25% in der 3. Klasse.
+
+Schauen wir uns die logistische Regression an: Zuerst haben wir den Datensatz auf die Zeilen beschränkt, in denen Personen aus der 1. und 3. Klasse vermerkt sind (zwecks Vergleichbarkeit zu oben). Dann haben wir mit `glm` und `family = "binomial"` eine *logistische* Regression angefordert. Man beachte, dass der Befehl sehr ähnlich zur normalen Regression (`lm(...)`) ist.
+
+Da die Koeffizienten in der Logit-Form zurückgegeben werden, haben wir sie mit der Exponential-Funktion in die "normale" Odds-Form gebracht (delogarithmiert, boa). Wir sehen, dass die Überlebens-*Chance* (Odds) 1.7 zu 1 betrug - bei der *ersten* Stufe von `Pclass` (`1`)^[Darum haben wir `Pclass` in eine Faktor-Variable umgewandelt. Die "erste Klasse" ist jetzt die Referenzklasse, also sozusagen x = 0. Hätten wir `Pclass` als numerische Variable beibehalten, so würde der Achsenabschnitt die Überlebensrate für die "nullte" Klasse geben, was wenig Sinn macht.]. Auf 17 Menschen, die überlebten, kommen 10, die nicht überlebten. Anders gesagt: von 27 Menschen überlebten in dieser Gruppe also 17 (17/27 = .63 Überlebens-*Wahrscheinlichkeit*); s. `Intercept`; der Achsenabschnitt gibt den Odds an, wenn die Prädiktor-Variable(n) den Wert "Null" hat/ haben, bzw. die erste Ausprägung, hier 1. 
+
+Im Vergleich dazu wird die Überlebens-Chance deutlich schlechter, wenn man die nächste Gruppe von `Pclass` (3) betrachtet. Die Odds verändern sich um den Faktor ~0.2. Da der Faktor *kleiner* als 1 ist, ist das kein gutes Zeichen. Die Überlebens-Chance *sinkt*; etwas genauer auf: $1.7 * 0.2 \approx 0.34$. Das heißt, die Überlebens-Chance ist in der 3. Klasse nur noch ca. 1 zu 3 (Überlebens-Wahrscheinlichkeit: ~25% bzw. etwa 1 von 4).
+
+Komfortabler können wir uns die Überlebens-*Wahrscheinlichkeiten* mit der Funktion `predict` ausgeben lassen.
+
+```{r predict-glm1-titanic}
+predict(glm1, newdata = data.frame(Pclass = factor("1")), type = "response")
+predict(glm1, newdata = data.frame(Pclass = factor("3")), type = "response")
+
+```
+
+Alternativ kann man die Häufigkeiten auch noch "per Hand" bestimmen: 
+  
+```{r}
+titanic_train %>% 
+  filter(Pclass %in% c(1,3)) %>% 
+  dplyr::select(Survived, Pclass) %>% 
+  group_by(Pclass, Survived) %>% 
+  summarise(n = n() ) %>% 
+  mutate(Anteil = n / sum(n))
+```
+
+
+Übersetzen wir dies Syntax auf Deutsch:
+
+
+```{block2, pseudo_titanic, type='rmdpseudocode', echo = TRUE}
+Nehme den Datensatz "titanic_train" UND DANN  
+Filtere nur die 1. und die 3. Klasse heraus UND DANN  
+wähle nur die Spalten "Survived" und "Pclass" UND DANN  
+gruppiere nach "Pclass" und "Survived" UND DANN  
+zähle die Häufigkeiten für jede dieser Gruppen aus UND DANN  
+berechne den Anteil an Überlebenden bzw. Nicht-Überlebenden  
+für jede der beiden Passagierklassen. FERTIG.  
+ 
+
+```
+
+
+   
+
+
+
+### Effektstärken visualieren
+Zum Abschluss schauen wir uns die Stärke des Zusammenhangs noch einmal graphisch an. Wir berechnen dafür die relativen Häufigkeiten pro Gruppe (im Datensatz ohne 2. Klasse, der Einfachheit halber).
+
+```{r c5-count}
+c5 <- dplyr::count(t2, Pclass, Survived)
+c5$prop <- c5$n / 707
+c5
+```
+
+Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf. 
+
+Das visualisieren wir wieder
+
+```{r}
+qplot(x = factor(Pclass), 
+      y = prop, 
+      fill = factor(Survived), 
+      data = c5, 
+      geom = "col")
+
+```
+
+Das `geom = "col"` heißt, dass als "geometrisches Objekt" dieses Mal keine Punkte, sondern Säulen (columns) verwendet werden sollen.
+
+```{r}
+qplot(x = factor(Pclass), y = prop, fill = factor(Survived), data = c5, geom = "col")
+```
+
+Ganz nett, aber die Häufigkeitsunterscheide von `Survived` zwischen den beiden Werten von `Pclass` stechen noch nicht so ins Auge. Wir sollten es anders darstellen.
+
+Hier kommt der Punkt, wo wir von `qplot` auf seinen großen Bruder, `ggplot` wechseln sollten. `qplot` ist in Wirklichkeit nur eine vereinfachte Form von `ggplot`; die Einfachheit wird mit geringeren Möglichkeiten bezahlt. Satteln wir zum Schluss dieser Fallstudie also um:
+  
+```{r}
+ggplot(data = c5) +
+  aes(x = factor(Pclass), y = n, fill = factor(Survived)) + 
+  geom_col(position = "fill") +
+  labs(x = "Passagierklasse", 
+       fill = "Überlebt?", 
+       caption = "Nur Passagiere, keine Besatzung")
+```
+
+Jeden sehen wir die Häufigkeiten des Überlebens bedingt auf die Passagierklasse besser. Wir sehen auf den ersten Blick, dass sich die Überlebensraten deutlich unterscheiden: Im linken Balken überleben die meisten; im rechten Balken ertrinken die meisten. 
+
+Diese letzte Analyse zeigt deutlich die Kraft von (Daten-)Visualisierungen auf. Der zu untersuchende Effekt tritt hier am stärken zu Tage; außerdem ist die Analyse relativ einfach.
+
+Eine alternative Darstellung ist diese:
+  
+```{r}
+c5 %>% 
+  ggplot +
+  aes(x = factor(Pclass), y = factor(Survived), fill = n) +
+  geom_tile()
+```
+
+Hier werden die vier "Fliesen" gleich groß dargestellt; die Fallzahl wird durch die Füllfarbe besorgt.
+
+
+### Fazit
+In der Datenanalyse (mit R) kommt man mit wenigen Befehlen schon sehr weit; `dplyr` und `ggplot2` zählen (zu Recht) zu den am häufigsten verwendeten Paketen. Beide sind flexibel, konsistent und spielen gerne miteinander. Die besten Einblicke haben wir aus deskriptiver bzw. explorativer Analyse (Diagramme) gewonnen. Signifikanztests oder komplizierte Modelle waren nicht zentral. In vielen Studien/Projekten der Datenanalyse gilt ähnliches: Daten umformen und verstehen bzw. "veranschaulichen" sind zentrale Punkte, die häufig viel Zeit und Wissen fordern. Bei der Analyse von nominalskalierten sind Häufigkeitsauswertungen ideal.
+
+
+
+
+
+## Außereheliche Affären
+
+Wovon ist die Häufigkeit von Affären (Seitensprüngen) in Ehen abhängig? Diese Frage soll anhand des Datensatzes `Affair` untersucht werden. Laden wir als erstes den Datensatz in R. Wählen Sie zuerst das Verzeichnis als Arbeitsverzeichnis, in dem die Daten liegen. 
+
+```{r data-affairs}
+Affair <- read.csv("data/Affairs.csv")
+```
+
+Schauen wir mal, ob es funktioniert hat ("Datenmatrix betrachten"):
+
+```{r head-affairs}
+head(Affair)
+```
+
+
+Ok scheint zu passen. Was jetzt?
+
+
+### Zentrale Statistiken
+
+Geben Sie zentrale deskriptive Statistiken an für Affärenhäufigkeit und Ehezufriedenheit!
+
+```{r desc-affairs}
+# nicht robust:
+mean(Affair$affairs, na.rm = T)
+sd(Affair$affairs, na.rm = T)
+# robust:
+median(Affair$affair, na.rm = T)
+IQR(Affair$affair, na.rm = T)
+```
+
+Es scheint, die meisten Leute haben keine Affären:
+
+```{r count-affairs}
+count(Affair, affairs)
+```
+
+
+Man kann sich viele Statistiken mit dem Befehl `describe` aus `psych` ausgeben lassen, das ist etwas praktischer:
+
+```{r describe-affairs, eval = TRUE, echo = TRUE}
+library(psych)
+                 
+describe(Affair$affairs)
+describe(Affair$rating)
+```
+
+Dazu muss das Paket `psych` natürlich vorher installiert sein. Beachten Sie, dass man ein Paket nur *einmal* installieren muss , aber jedes Mal, wenn Sie R starten, auch starten muss (mit `library`; vgl. Kapitel \@ref(Rahmen)).
+
+
+### Visualisieren
+
+Visualisieren Sie zentrale Variablen!
+
+Sicherlich sind Diagramme auch hilfreich. Dies geht wiederum mit dem R-Commander oder z.B. mit folgenden Befehlen:
+
+```{r plot-affairs1}
+
+library(ggplot2)
+qplot(x = affairs, data = Affair)
+qplot(x = rating, data = Affair)
+```
+
+Die meisten Menschen (dieser Stichprobe) scheinen mit Ihrer Beziehung sehr zufrieden zu sein.
+
+
+### Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?
+
+Nehmen wir dazu mal ein paar `dplyr`-Befehle:
+
+```{r summarise-affairs}
+library(dplyr)
+Affair %>% 
+  group_by(children) %>% 
+  summarise(rating_children = 
+              mean(rating, na.rm = T))
+```
+
+Ah! Kinder sind also ein Risikofaktor für eine Partnerschaft! Gut, dass wir das geklärt haben.
+
+### Vertiefung: Wie viele fehlende Werte gibt es? 
+
+Was machen wir am besten damit?
+
+Diesen Befehl könnten wir für jede Spalte ausführen:
+
+```{r affairs-na1}
+sum(is.na(Affair$affairs))
+```
+
+Oder lieber alle auf einmal:
+
+```{r affairs-na2}
+Affair %>% 
+  summarise_all(funs(sum(is.na(.))))
+```
+
+
+Übrigens gibt es ein gutes [Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) für `dplyr`.
+
+Ah, gut, keine fehlenden Werte. Das macht uns das Leben leichter.
+
+
+### Wer ist glücklicher: Männer oder Frauen?
+
+```{r summarise-rating}
+Affair %>% 
+  group_by(gender) %>% 
+  summarise(rating_gender = mean(rating))
+```
+
+Praktisch kein Unterschied. Heißt das auch, es gibt keinen Unterschied in der Häufigkeit der Affären?
+
+```{r summarise-affairs2}
+Affair %>% 
+  group_by(gender) %>% 
+  summarise(affairs_gender = mean(affairs))
+```
+
+Scheint auch kein Unterschied zu sein...
+
+Und zum Abschluss noch mal etwas genauer: Teilen wir mal nach Geschlecht und nach Kinderstatus auf, also in 4 Gruppen. Theoretisch dürfte es hier auch keine Unterschiede/Zusammenhänge geben. Zumindest fällt mir kein sinnvoller Grund ein; zumal die vorherige eindimensionale Analyse keine Unterschiede zu Tage gefördert hat.
+
+
+```{r summarise2}
+Affair %>% 
+  group_by(gender, children) %>% 
+  summarise(affairs_mean = mean(affairs),
+            rating_mean = mean(rating))
+
+Affair %>% 
+  group_by(children, gender) %>% 
+  summarise(affairs_mean = mean(affairs),
+            rating_mean = mean(rating))
+```
+
+
+### Effektstärken
+
+Berichten Sie eine relevante Effektstärke!
+
+Hm, auch keine gewaltigen Unterschiede. Höchstens für die Zufriedenheit mit der Partnerschaft bei kinderlosen Personen scheinen sich Männer und Frauen etwas zu unterscheiden. Hier stellt sich die Frage nach der Größe des Effekts, z.B. anhand Cohen's d. Dafür müssen wir noch die SD pro Gruppe wissen:
+
+
+```{r summarise-affairs3}
+Affair %>% 
+  group_by(children, gender) %>% 
+  summarise(rating_mean = mean(rating),
+            rating_sd = sd(rating))
+```
+
+
+```{r}
+d <- (4.4 - 4.1)/(1)
+```
+
+Die Effektstärke beträgt etwa `r round(d,2)`.
+
+
+### Korrelationen
+
+Berechnen und visualisieren Sie zentrale Korrelationen!
+
+```{r affairs-cortab}
+Affair %>% 
+  select_if(is.numeric) %>% 
+  cor -> cor_tab
+
+corrplot(cor_tab)
+```
+
+
+
+### Ehejahre und Affären
+
+Wie groß ist der Einfluss (das Einflussgewicht) der Ehejahre bzw. Ehezufriedenheit auf die Anzahl der Affären?
+
+Dazu sagen wir R: "Hey R, rechne mal ein lineares Modell", also eine normale 
+(lineare) Regression. Dazu können wir entweder das entsprechende Menü im R-Commander auswählen, oder folgende R-Befehle ausführen:
+
+```{r lm1-lm2}
+lm1 <- lm(affairs ~ yearsmarried, data = Affair)
+tidy(lm1)  # Ergebnisse der Regression zeigen
+glance(lm1)
+lm2 <- lm(affairs ~ rating, data = Affair)
+tidy(lm2)
+glance(lm2)
+```
+
+Also: `yearsmarried` und `rating` sind beide statistisch signifikante Prädiktoren für die Häufigkeit von Affären. Das adjustierte $R^2$ ist allerdings in beiden Fällen nicht so groß.
+
+### Ehezufriedenheit als Prädiktor
+
+Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?^[Output im Folgenden nicht abgedruckt.]
+
+```{r lm3-lm4, results = "hide"}
+lm3 <- lm(affairs ~ rating + yearsmarried, data = Affair)
+lm4 <- lm(affairs ~ yearsmarried + rating, data = Affair)
+summary(lm3)
+summary(lm4)
+```
+
+Ok. Macht eigentlich die Reihenfolge der Prädiktoren in der Regression einen 
+Unterschied? Der Vergleich von Modell 3 vs. Modell 4 beantwortet diese Frage.
+
+
+```{r lm-r2, echo = FALSE}
+r2_lm2 <- summary(lm2)$r.squared
+r2_lm1 <- summary(lm1)$r.squared
+r2_lm3 <- summary(lm3)$r.squared
+r2_lm4 <- summary(lm4)$r.squared
+r2_diff <- round(r2_lm3 - r2_lm1, 2)
+
+```
+
+Wir sehen, dass beim 1. Regressionsmodell das R^2 `r round(r2_lm1, 2)` war; beim 2. Modell `r round(r2_lm2, 2)` und beim 3. Modell liegt R^2 bei `r round(r2_lm3, 2)`. Die Differenz zwischen Modell 1 und 3 liegt bei (gerundet) `r r2_diff`; wenig.
+  
+  
+
+
+
+
+### Weitere Prädiktoren der Affärenhäufigkeit
+
+Welche Prädiktoren würden Sie noch in die Regressionsanalyse aufnehmen?
+
+Hm, diese Frage klingt nicht so, als ob der Dozent die Antwort selber wüsste... Naja, welche Variablen gibt es denn alles:
+
+```{r names-affair, echo = FALSE}
+names(Affair)
+```
+
+Z.B. wäre doch interessant, ob Ehen mit Kinder mehr oder weniger Seitensprüngen aufweisen. Und ob die "Kinderfrage" die anderen Zusammenhänge/Einflussgewichte in der Regression verändert. Probieren wir es auch. Wir können wiederum im R-Commander ein Regressionsmodell anfordern oder es mit der Syntax probieren:
+
+```{r lm5, results = "hide"}
+lm5 <- lm(affairs~ rating + yearsmarried + children, data = Affair)
+summary(lm5)
+r2_lm5 <- summary(lm5)$r.squared
+```
+
+Das Regressionsgewicht von `childrenyes` ist negativ. Das bedeutet, dass Ehen mit Kindern weniger Affären verbuchen (aber geringe Zufriedenheit, wie wir oben gesehen haben! Hrks!). Allerdings ist der p-Wert nicht signifikant, was wir als Zeichen der Unbedeutsamkeit dieses Prädiktors verstehen können. $R^2$ lungert immer noch bei mickrigen `r r2_lm5` herum. Wir haben bisher kaum verstanden, wie es zu Affären kommt. Oder unsere Daten bergen diese Informationen einfach nicht.
+
+Wir könnten auch einfach mal Prädiktoren, die wir haben, ins Feld schicken. Mal sehen, was dann passiert:
+
+```{r lm6, results = "hide"}
+lm6 <- lm(affairs ~ ., data = Affair)
+summary(lm6)
+```
+
+Der "." im Befehl `affairs ~ .` oben soll sagen: nimm "alle Variablen, die noch in der Datenmatrix übrig sind".
+
+Insgesamt bleibt die erklärte Varianz in sehr bescheidenem Rahmen: `r round(summary(lm6)$r.squared, 2)`. Das zeigt uns, dass es immer noch nur schlecht verstanden ist -- im Rahmen dieser Analyse -- welche Faktoren die Affärenhäufigkeit erklärt.
+
+### Unterschied zwischen den Geschlechtern
+
+Unterscheiden sich die Geschlechter statistisch signifikant? Wie groß ist der Unterschied? Sollte hier lieber das d-Maß oder Rohwerte als Effektmaß  angegeben werden?
+
+Hier bietet sich ein t-Test für unabhängige Gruppen an. Die Frage lässt auf eine ungerichtete Hypothese schließen ($\alpha$ sei .05). Mit dem entsprechenden Menüpunkt im R-Commander oder mit folgender Syntax lässt sich diese Analyse angehen:
+
+```{r affairs-ttest}
+t.test(affairs ~ gender, data = Affair) -> t1
+
+t1 %>% tidy
+```
+
+
+Der p-Wert ist größer als $\alpha$. Daher wird die $H_0$ beibehalten. Auf Basis der Stichprobendaten entscheiden wir uns für die $H_0$. Entsprechend umschließt das 95%-KI die Null.
+
+Da die Differenz nicht signifikant ist, kann argumentiert werden, dass wir `d` auf 0 schätzen müssen. Man kann sich den d-Wert auch z.B. von {MBESS} schätzen lassen.
+
+Dafür brauchen wir die Anzahl an Männer und Frauen: `r table(Affair$gender)`.
+
+
+```{r affairs-smd}
+library(MBESS)
+ci.smd(ncp = t1$statistic,
+    n.1 = 315,
+    n.2 = 286)
+```
+
+Das Konfidenzintervall ist zwar relativ klein (die Schätzung also aufgrund der recht großen Stichprobe relativ präzise), aber der Schätzwert für d `smd` liegt sehr nahe bei Null. Das stärkt unsere Entscheidung, von einer Gleichheit der Populationen (Männer vs. Frauen) auszugehen.
+
+### Kinderlose Ehe vs. Ehen mit Kindern
+
+Rechnen Sie die Regressionsanalyse getrennt für kinderlose Ehe und Ehen mit Kindern!
+
+Hier geht es im ersten Schritt darum, die entsprechenden Teil-Mengen der Datenmatrix zu erstellen. Das kann man natürlich mit Excel o.ä. tun. Alternativ könnte man es in R z.B. so machen:
+
+
+
+```{r eval = FALSE}
+
+Affair4 <- filter(Affair, children == "yes")
+head(Affair4)
+```
+
+
+### Halodries
+
+Rechnen Sie die Regression nur für "Halodries"; d.h. für Menschen mit Seitensprüngen. Dafür müssen Sie alle Menschen ohne Affären aus den Datensatz entfernen.
+
+
+Also, rechnen wir nochmal die Standardregression (`lm1`). Probieren wir den Befehl `filter` dazu nochmal aus:
+
+```{r affairs-halodries, results = "hide"}
+Affair5 <- filter(Affair, affairs != 0)
+lm9 <- lm(affairs ~ rating, data = Affair5)
+summary(lm9)
+```
+
+
+### logistische Regression
+
+Berechnen Sie für eine logistische Regression mit "Affäre ja vs. nein" als Kriterium, wie stark der Einfluss von Geschlecht, Kinderstatus, Ehezufriedenheit und Ehedauer ist!
+
+```{r lm10, results = "hide"}
+
+Affair %>% 
+  mutate(affairs_dichotom = affairs == 0) %>% 
+  glm(affairs_dichotom ~ gender + children + rating + yearsmarried,
+      data = ., 
+      family = "binomial") -> lm10
+
+tidy(lm10)
+
+```
+
+Wenn `if_else` unbekannt ist, lohnt sich ein Blick in die Hilfe mit `?if_else` (`dplyr` muss vorher geladen sein).
+
+Aha, signifikant ist die Ehezufriedenheit: Je größer `rating` desto geringer die Wahrscheinlichkeit für `affairs_dichotom`. Macht Sinn!
+
+
+Übrigens, die Funktion `lm` und `glm` spucken leider keine brave Tabelle in Normalform aus. Aber man leicht eine schöne Tabelle (data.frame) bekommen mit dem Befehl `tidy` aus `broom`:
+
+```{r}
+tidy(lm10) 
+```
+
+
+
+### Zum Abschluss
+
+Visualisieren wir mal was! Ok, wie wäre es mit einem Jitter-Diagramm (vgl. Abbildungen \@ref(fig:affairs-jitter) und \@ref(fig:affairs-smooth)).
+
+```{r affairs-jitter, fig.cap = "Affären, mit Jitter"}
+Affair %>% 
+   select(affairs, gender, children, rating) %>%
+  ggplot(aes(x = affairs, y = rating)) + 
+  geom_jitter(aes(color = gender, shape = children)) 
+```
+
+
+```{r affairs-smooth, fig.cap = "Affären, mit Smooth"}
+Affair %>% 
+  mutate(rating_dichotom = ntile(rating, 2)) %>% 
+  ggplot(aes(x = yearsmarried, y = affairs)) +
+  geom_jitter(aes(color = gender)) +
+  geom_smooth()
+```
+
+
+Puh. Geschafft!
+
+
+## Befehlsübersicht
+
+
+
+Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zusammen.
+
+```{r befehle-fallstudien, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_Fallstudien.csv")
+
+# library(pander)
+# pander::cache.off()
+# panderOptions("table.alignment.default", "left")
+knitr::kable(data.frame(df), caption = "Befehle des Kapitels 'Fallstudien titanic und affairs'")
+
+# hier `pander`, weil `kable` keine breiten Zellen umbricht.
+
+```
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+

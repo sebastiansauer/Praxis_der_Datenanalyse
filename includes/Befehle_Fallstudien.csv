@@ -2,11 +2,11 @@ Paket::Funktion,Beschreibung
 data,Lädt Daten aus einem Datensatz
 chisq.test,Rechnet einen Chi-Quadrat-Test
 compute.es::chies,Liefert Effektstärkemaße für einen Chi-Quadrat-Test
-predict,Macht eine Vorhersage für ein Objekt des Typs lm oder glm
+predict,Macht eine Vorhersage
 psych::describe,Liefert eine Reihe zentraler Statistiken
 is.na,"Zeigt an, ob ein Vektor fehlende Werte beinhaltet"
 dplyr::summarise_each,Führt summarise für jede Spalte aus
 t.test,Rechnet einen t-Test
 MBESS:ci.smd,Berechnet Cohens d
 dplyr::ntile,Teilt einen Vektor in n Teile mit jeweils gleich viel Werten
-broom::tidy,"Wandelt ein Modellobjekt (z.B. von ""lm"") in einen Dataframe um."
+broom::tidy,"Wandelt ein Objekt vom Typ 'lm' in einen Dataframe um."

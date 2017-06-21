@@ -35,3 +35,6 @@ index.*.*
 index.log
 index.tex
 *.fls
+
+index.*
+!index.Rmd
