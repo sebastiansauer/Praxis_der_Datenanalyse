@@ -386,7 +386,7 @@ Tabelle \@ref(tab:befehle-fallstudien) fasst die R-Funktionen dieses Kapitels zu
 
 ```{r befehle-fallstudien, echo = FALSE}
 
-df <- readr::read_csv("includes/Befehle_fallstudien.csv")
+df <- readr::read_csv("includes/Befehle_Fallstudien.csv")
 
 # library(pander)
 # pander::cache.off()

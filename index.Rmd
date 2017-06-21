@@ -20,7 +20,7 @@ nocite: |
   @*
 site: bookdown::bookdown_site
 github-repo: "sebastiansauer/Praxis_der_Datenanalyse"
-cover-image: "cover.png"
+cover-image: "cover.jpg"
 url: 'https\://bookdown.org/sebastiansauer1/Praxis_der_Datenanalyse/'
 biblio-style: apalike
 params:
