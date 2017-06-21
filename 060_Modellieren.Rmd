@@ -16,7 +16,7 @@ knitr::include_graphics("images/licence.png")
 
 
 
-```{block2, ziele-modellieren, type='rmdcaution', echo = TRUE} 
+```{block2, ziele-modellieren, type='rmdcaution', echo = TRUE}
 Lernziele:
 
 - Erläutern können, was man unter einem Modell versteht.
@@ -73,11 +73,11 @@ knitr::include_graphics("images/modellieren/Modell.png")
 ```
 
 
-Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine *mathematische Struktur* zu übersetzen. 
+Damit verstehen wir *Modellieren als eine typische Aktivität von Menschen* [@gigerenzer1980], genauer *eines Menschen* mit einem *bestimmten Ziel*. Wir können gar nicht anders, als uns ein Modell unserer Umwelt zu machen; entsprechend kann (und muss man) von *mentalen Modellen* sprechen. Vielfältige Medien kommen dazu in Frage: Bilder, Geschichten, Logik, Gleichungen. Wir werden uns hier auf eine bestimmte Art formalisierter Modelle, *numerische* Modelle, konzentrieren, weil es dort am einfachsten ist, die Informationen auf präzise Art und Weise herauszuziehen. Allgemein gesprochen ist hier unter Modellieren der Vorgang gemeint, ein Stück Wirklichkeit ("Empirie") in eine *mathematische Struktur* zu übersetzen.
 
-Wirklichkeit kann dabei als *empirisches System* bezeichnet werden, welches aus einer oder mehr Mengen von Objekten besteht, die zu einander in bestimmten Beziehungen stehen. Ein Bespiel wäre eine Reihe von Personen, die in bestimmten Größe-Relationen zueinander stehen oder eine Reihe von Menschen, bei denen die Füße tendenziell größer werden, je größer die Körpergröße ist. 
+Wirklichkeit kann dabei als *empirisches System* bezeichnet werden, welches aus einer oder mehr Mengen von Objekten besteht, die zu einander in bestimmten Beziehungen stehen. Ein Bespiel wäre eine Reihe von Personen, die in bestimmten Größe-Relationen zueinander stehen oder eine Reihe von Menschen, bei denen die Füße tendenziell größer werden, je größer die Körpergröße ist.
 
-Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Im Gegensatz zur empirisischen System ist das numerische System rein theoretisch, also ausgedacht, nicht empirisch. Auch hier gibt es eine Reihe von Objekten, aber mathematischer Art, also z.B. Zahlen oder Vektoren. Diese mathematischen Objekten stehen wiederum in gewissen Relationen zueinander. Der springende Punkt ist: Im Modell sollen  die Beziehungen zwischen den mathematischen Objekten die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Stellen wir uns vor, der Klausurerfolg steigt mit der Lernzeit^[wieder ein typisches Dozentenbeispiel]. Fragen wir das Modell, welchen Klausurerfolg Alois hat (er hat sehr viel gelernt), so sollte das Modell erwidern, dass Alois einen hohen Klausurerfolg hat (Modelle geben in diesem Fall gerne eine im Verhältnis große Zahl von sich). Damit würde das Modell korrekt die Empirie widerspiegeln.
+Mit mathematische Struktur ist ein formalisiertes Pendant zum empirischen System gemeint, daher spricht man von einem *numerischen System*. Im Gegensatz zur empirischen System ist das numerische System rein theoretisch, also ausgedacht, nicht empirisch. Auch hier gibt es eine Reihe von Objekten, aber mathematischer Art, also z.B. Zahlen oder Vektoren. Diese mathematischen Objekten stehen wiederum in gewissen Relationen zueinander. Der springende Punkt ist: Im Modell sollen  die Beziehungen zwischen den mathematischen Objekten die Beziehungen zwischen den empirischen Objekten widerspiegeln. Was heißt das? Stellen wir uns vor, der Klausurerfolg steigt mit der Lernzeit^[wieder ein typisches Dozentenbeispiel]. Fragen wir das Modell, welchen Klausurerfolg Alois hat (er hat sehr viel gelernt), so sollte das Modell erwidern, dass Alois einen hohen Klausurerfolg hat (Modelle geben in diesem Fall gerne eine im Verhältnis große Zahl von sich). Damit würde das Modell korrekt die Empirie widerspiegeln.
 
 
 >   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
@@ -101,7 +101,7 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 ```{r plot-stats-smooth, echo = FALSE}
 stats_test <- read_csv("data/test_inf_short.csv")
 
-stats_test %>% 
+stats_test %>%
 ggplot(aes(y = score, x = self_eval)) +
 geom_jitter() +
 ggtitle("A") -> p1
@@ -119,7 +119,7 @@ grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-Im linken Plot (A; Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt. 
+Im linken Plot (A; Abb. \@ref(fig:plot-stats) sehen wir - schon übersetzt in eine Datenvisualisierung - den Gegenstandsbereich. Dort sind einige Objekte zusammen mit ihren Relationen abgebildet (Körpergröße und Schuhgröße). Der rechte Plot spezifiziert nun diesen Einfluss: Es wird ein *linearer Zusammenhang* (eine Gerade) zwischen Körpergröße und Schuhgröße unterstellt.
 
 Im rechten Plot (B; Abb. \@ref(fig:mod-beispiel)) sehen wir ein Schema dazu, ein sog. *Pfadmodell*. Noch ist das Modell recht unspezifisch; es wird nur postuliert, dass Körpergröße auf Schuhgröße einen linearen Einfluss habe. Linear heißt hier, dass der Einfluss von Körpergröße auf Schuhgröße immer gleich groß ist, also unabhängig vom Wert der Körpergröße.
 
@@ -142,7 +142,7 @@ knitr::include_graphics("images/modellieren/Modellieren_Bsp2.png")
 Allgemeiner formuliert, haben wir einen oder mehrere *Eingabegrößen*\index{Einflussgrößen} bzw. *Prädiktoren*\index{Prädiktoren}, von denen wir annehmen, dass sie einen Einfluss haben auf genau eine *Zielgröße* (*Ausgabegröße*) bzw. *Kriterium*\index{Kriterium}.
 
 
-```{block2, einfluss-nicht-kausal, type='rmdcaution', echo = TRUE} 
+```{block2, einfluss-nicht-kausal, type='rmdcaution', echo = TRUE}
 
 Einfluss ist hier nicht (notwendig) kausal gemeint, auch wenn es das Wort so vermuten lässt. Stattdessen ist nur ein statistischer Einfluss gemeint; letztlich nichts anderes als ein Zusammenhang. In diesem Sinne könnte man postulieren, dass die Größe des Autos, das man fährt einen "Einfluss" auf das Vermögen des Fahrers habe. Empirisch ist es gut möglich, dass man Belege für dieses Modell findet. Jedoch wird dieser Einfluss nicht kausal sein (man informiere mich, wenn es anders sein sollte).
 
@@ -178,19 +178,24 @@ Modelle kann man auf vielerlei Arten gliedern; für unsere Zwecke ist folgende T
 - Ungeleitetes Modellieren
     - Dimensionsreduzierendes Modellieren
     - Fallreduzierendes Modellieren
-  
+
 ---
 
 Betrachten wir diese vier Ziele des Modellierens genauer.
 
 
-*Geleitetes Modellieren*\index{Geleitetes Modellieren} ist jede Art des Modellierens, wo die Variablen in Prädiktoren und Kriterien unterteilt werden, z.B. Abb. \@ref(fig:mod-beispiel). Man könnte diese Modelle einfach darstellen als "X führt zu Y". 
+*Geleitetes Modellieren*\index{Geleitetes Modellieren} ist jede Art des Modellierens, wo die Variablen in Prädiktoren und Kriterien unterteilt werden, z.B. Abb. \@ref(fig:mod-beispiel). Man könnte diese Modelle einfach darstellen als "X führt zu Y".
 
-*Prädiktives Modellieren*\index{Prädiktives Modellieren} könnte man kurz als *Vorhersagen*\index{Vorhersagen} bezeichnen. Hier ist das Ziel, eine Black Box geschickt zu wählen, so dass der Vohersagefehler möglichst klein ist. Man zielt also darauf ab, möglichst exakte Vorhersagen zu treffen. Sicherlich wird der Vorhersagefehler kaum jemals Null sein; aber je präziser, desto besser. Das Innenleben der "schwarzen Kiste" interessiert uns hier *nicht*. Wir machen keine Aussagen über Ursache-Wirkungs-Beziehungen. Ein Besie
+*Prädiktives Modellieren*\index{Prädiktives Modellieren} könnte man kurz als *Vorhersagen*\index{Vorhersagen} bezeichnen. Hier ist das Ziel, eine Black Box geschickt zu wählen, so dass der Vohersagefehler möglichst klein ist. Man zielt also darauf ab, möglichst exakte Vorhersagen zu treffen. Sicherlich wird der Vorhersagefehler kaum jemals Null sein; aber je präziser, desto besser. Das Innenleben der "schwarzen Kiste" interessiert uns hier *nicht*. Wir machen keine Aussagen über Ursache-Wirkungs-Beziehungen. Ein Beispiel für ein prädiktives Modell: "Je größer das Auto, desto höher das Gehalt". Dabei werden wir wohl nicht annehmen, dass die Größe des Auto die Ursache für die Höhe des Gehalts ist^[bitte mir Bescheid geben, falls ich hier etwas übersehen haben sollte]. Wir sind - in diesem Beispiel - lediglich daran interessiert, das Gehalt möglichst präzise zu schätzen; die Größe des Autos dient uns dabei als Prädiktor, wir verstehen sie nicht als Ursache. Ein altbekanntes Lamento der Statistiklehrer lautet "Korrelation heißt noch nicht Kausation!". OK.        
 
-*Explikatives Modellieren*\index{Explikatives Modellieren} oder kurz *Erklären*\index{Erklären} bedeutet, verstehen zu wollen, *wie* oder *warum* sich ein Kriteriumswert so verändert, wie er es tut. Auf *welche Art* werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Prädikatoren sind dabei (besonders) wichtig? Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die *Beschaffenheit* der schwarzen Kiste; die Güte der Vorhersage ist zweitrangig.
 
-Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktioniert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen*\index{angeleitetes Lernen} oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder.
+
+
+*Explikatives Modellieren*\index{Explikatives Modellieren} oder kurz *Erklären*\index{Erklären} bedeutet, verstehen zu wollen, *wie* oder *warum* sich ein Kriteriumswert so verändert, wie er es tut. Auf *welche Art* werden die Prädiktoren verrechnet, so dass eine bestimmter Kriteriumswert resultiert? Welche Prädikatoren sind dabei (besonders) wichtig? Ist die Art der Verrechnung abhängig von den Werten der Prädiktoren? Hierbei interessiert uns vor allem die *Beschaffenheit* der schwarzen Kiste; die Güte der Vorhersage ist zweitrangig. Oft, aber nicht immer, steht ein Interesse an den Ursache hinter dieser Art der Modellierung. Ursache-Wirkungs-Beziehungen gehören sicherlich zu den interessantesten und wichtigsten Dinge, die man untersuchen kann. Die Wissenschaft ist (bzw. viele Wissenschaftler sind) primär an Fragestellungen zur kausalen Beschaffenheit interessiert [@Shmueli2010]. Ein Beispiel für diese Art von Modellierung wäre, ob Achtsamkeit zu weiniger intensiven emotionalen Reaktionen führt [@sauer2010gray]. Übrigens: Es ist erlaubt, eine kausale Theorie zu vertreten, auch wenn eine Studie solche Schlussfolgerungen nur eingeschränkt oder gar nicht erlaubt [@Shmueli2010]. Häufig werden Beobachtungsstudien auf Korrelationsbasis angeführt, um kausale Theorien zu testen. Natürlich ist der Preis für eine einfachere Studie, dass man weniger  Evidenz für eine Theorie mit Kausalanspruch einstreichen kann. Aber irgendwo muss man ja anfangen (aber man sollte nicht bei einfachen Studien stehen bleiben).
+
+
+
+Vorhersagen und Erklären haben gemein, dass Eingabegrößen genutzt werden, um Aussagen über einen Ausgabegröße zu treffen. Anders gesagt: Es liegt eine Zielgröße mit bekannten Ausprägungen vor, zumindest für eine Reihe von Fällen. Hat man einen Datensatz, so kann man prüfen, *wie gut* das Modell funktioniert, also wie genau man die Ausgabewerte vorhergesagt hat. Das ist also eine Art "Lernen mit Anleitung" oder *angeleitetes Lernen*\index{angeleitetes Lernen} oder *geleitetes Modellieren* (engl. *supervised learning*). Abbildung \@ref(fig:fig-blackbox) gibt diesen Fall wieder.
 
 
 Beim *ungeleiteten Modellieren*\index{Ungeleiteten Modellieren} entfällt die Unterteilung zwischen Prädiktor und Kriterium. Ungeleitetes Modellieren (*Reduzieren*\index{Reduzieren}) meint, dass man die Fülle des Datenmaterials verringert, in dem man ähnliche Dinge zusammenfasst (vgl. Abb. \@ref(fig:ungeleitetes-modellieren)).
@@ -208,7 +213,7 @@ Analog spricht man von *Dimensionsreduzierendes Modellieren*\index{Dimensionsred
 
 
 
-Wenn also das Ziel des Modellieren lautet, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders als beim geleiteten Modellieren: Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" von Herrn Casper Bussi-Ness ist. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen (noch mehr) in Dunkeln, was die "Wahrheit" ist. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
+Wenn also das Ziel des Modellieren lautet, die Daten zu reduzieren, also z.B. Kunden nach Persönlichkeit zu gruppieren, so ist die Lage anders als beim geleiteten Modellieren: Es gibt keine Zielgröße. Wir wissen nicht, was die "wahre Kundengruppe" ist, zu der Herrn Casper Bussi-Ness gehört. Wir sagen eher, "OK, die drei Typen sind sich irgendwie ähnlich, sie werden wohl zum selben Typen von Kunden gehören". Wir tappen (noch mehr) in Dunkeln, was die "Wahrheit" ist im Vergleich zum angeleiteten Modellieren. Unser Modell muss ohne Hinweise darauf, was richtig ist auskommen. Man spricht daher in diesem Fall von *Lernen ohne Anleitung*\index{Lernen ohne Anleitung} oder *ungeleitetes Modellieren* (engl. *unsupervised learning*\index{unsupervised learning}).
 
 
 ## Die vier Schritte des statistischen Modellierens
@@ -235,7 +240,7 @@ y <- sin(x) + rnorm(n = length(x), mean = 0, sd = .3)
 daten <- data_frame(x, y)
 
 ggplot(daten) +
-  aes(x = x, y = y) + 
+  aes(x = x, y = y) +
   coord_fixed(ratio = 5/1) +
   labs(y = "") +
   geom_point() +
@@ -243,7 +248,7 @@ ggplot(daten) +
 
 ggplot(daten) +
   aes(x = x, y = y) +
-  geom_point() + 
+  geom_point() +
   coord_fixed(ratio = 5/1) +
   labs(y = "") +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
@@ -252,7 +257,7 @@ ggplot(daten) +
 
 ggplot(daten) +
   aes(x = x, y = y) +
-  geom_point() + 
+  geom_point() +
   coord_fixed(ratio = 5/1) +
   labs(y = "") +
   geom_line(color = "blue") +
@@ -260,7 +265,7 @@ ggplot(daten) +
 
 ggplot(daten) +
   aes(x = x, y = y) +
-  geom_point() + 
+  geom_point() +
   coord_fixed(ratio = 5/1) +
   labs(y = "") +
   stat_function(n = 99, fun = sin, color = "darkgreen") +
@@ -276,9 +281,9 @@ grid.arrange(p1, p2, p3, p4, ncol = 4)
 
 Der Plot A (links) von Abb. \@ref(fig:overfitting-4-plots) zeigt den Datensatz ohne Modell; Plot B legt ein lineares Modell (rote Gerade) in die Daten.  Plot C zeigt ein Modell, welches die Daten exakt erklärt - die (blaue) Linie geht durch alle Punkte. Der 4. Plot zeigt ein Modell (grüne Linie), welches die Punkte gut beschreibt, aber nicht exakt trifft.
 
-Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue Modell" beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen. 
+Welchem Modell würden Sie (am meisten) vertrauen? Das "blaue Modell" beschreibt die Daten sehr gut, aber hat das Modell überhaupt eine "Idee" vom Gegenstandsbereich, eine "Ahnung", wie Y und X zusammenhängen, bzw. wie X einen Einfluss auf Y ausübt? Offenbar nicht. Das Modell ist "übergenau" oder zu komplex. Man spricht von *Überanpassung*\index{Überanpassung} (engl. *overfitting*\index{overfitting}). Das Modell scheint zufälliges, bedeutungsloses Rauschen zu ernst zu nehmen. Das Resultat ist eine zu wackelige Linie - ein schlechtes Modell, da wir wenig Anleitung haben, auf welche Y-Werte wir tippen müssten, wenn wir neue, unbekannte X-Werte bekämen.
 
->   Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, heißt das noch *nicht*, dass es auch zukünftige (und vergleichbare) Stichproben gut beschreiben wird.  Die Güte (Vorhersagegenauigkeit) eines Modells sollte sich daher stets auf eine neue Stichprobe beziehen (Test-Stichprobe), die nicht in der Stichprobe beim Anpassen des Modells (Trainings-Stichprobe) enthalten war. 
+>   Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, heißt das noch *nicht*, dass es auch zukünftige (und vergleichbare) Stichproben gut beschreiben wird.  Die Güte (Vorhersagegenauigkeit) eines Modells sollte sich daher stets auf eine neue Stichprobe beziehen (Test-Stichprobe), die nicht in der Stichprobe beim Anpassen des Modells (Trainings-Stichprobe) enthalten war.
 
 Was das "blaue Modell" zu detailverliebt ist, ist das "rote Modell" zu simpel. Die Gerade beschreibt die Y-Werte nur sehr schlecht. Man hätte gleich den Mittelwert von Y als Schätzwert für jedes einzelne $Y_i$ hernehmen können. Dieses lineare Modell ist *unterangepasst*\index{Unteranpassung}, könnte man sagen (engl. *underfittting*\index{underfitting}). Auch dieses Modell wird uns wenig helfen können, wenn es darum geht, zukünftige Y-Werte vorherzusagen (gegeben jeweils einen bestimmten X-Wert).
 
@@ -304,8 +309,8 @@ Ist das Modell aber zu reichhaltig ("komplex"), bildet es alle Details des Train
 
 >    Einfache Modelle: Viel Bias, wenig Varianz.
      Komplexe Modelle: Wenig Bias, viel Varianz.
-     
-     
+
+
 Dieser Sachverhalt ist in folgendem Diagramm dargestellt (vgl. Abb. \@ref(fig:plot-bias-variance); vgl. Kuhn & Johnson [-@kuhn2013applied]).
 
 
@@ -314,9 +319,9 @@ poly_degree = 15
 df <- data_frame(x = seq(from = 1, to = 10, by = .3),
                  y = sin(x) + rnorm(n = length(x), mean = 0, sd = .3))
 
-df %>% 
-  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
-  group_by(binned) %>% 
+df %>%
+  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>%
+  group_by(binned) %>%
   mutate(y_group_md = median(y)) -> df
 
 
@@ -330,8 +335,8 @@ p1 <- ggplot(df) +
 p2 <-  ggplot(df) +
   aes(x = x) +
   geom_point(aes(y = y)) +
-  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
-  coord_fixed(ratio = 5/1) 
+  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") +
+  coord_fixed(ratio = 5/1)
 
 
 grid.arrange(p1, p2, ncol = 2)
@@ -343,7 +348,7 @@ Der Plot auf der rechten Seiten hingegen ist sehr einfach und robust. Änderunge
 
 
 ## Training- vs. Test-Stichprobe
-Wie wir gerade gesehen haben, kann man *immer* ein Modell finden, welches die *vorhandenen* Daten sehr gut beschreibt. Das gleicht der Tatsache, dass man im Nachhinein (also bei vorhandenen Daten) leicht eine Erklärung findet. Ob diese Erklärung sich in der Zukunft, bei unbekannten Daten bewahrheitet, steht auf einem ganz anderen Blatt. 
+Wie wir gerade gesehen haben, kann man *immer* ein Modell finden, welches die *vorhandenen* Daten sehr gut beschreibt. Das gleicht der Tatsache, dass man im Nachhinein (also bei vorhandenen Daten) leicht eine Erklärung findet. Ob diese Erklärung sich in der Zukunft, bei unbekannten Daten bewahrheitet, steht auf einem ganz anderen Blatt.
 
 Daher sollte man *immer* sein Modell an einer Stichprobe *entwickeln* ("trainieren" oder "üben") und an einer zweiten Stichprobe *testen*. Die erste Stichprobe nennt man auch *training sample* (Trainings-Stichprobe) und die zweite *test sample* (Test-Stichprobe). Entscheidend ist, dass das Test-Sample beim Entwickeln des Modells unbekannt war bzw. nicht verwendet wurde.
 
@@ -364,10 +369,10 @@ test <- slice(stats_test, 201:306)
 
 
 ```{r}
-train <- stats_test %>% 
+train <- stats_test %>%
   sample_frac(.8, replace = FALSE)  # Stichprobe von 80%, ohne Zurücklegen
 
-test <- stats_test %>% 
+test <- stats_test %>%
   anti_join(train)  # Alle Zeilen von "stats_test", die nicht in "train" vorkommen
 
 ```
@@ -375,7 +380,7 @@ test <- stats_test %>%
 
 
 
-Damit haben wir ein Trainings-Sample (`train`), in dem wir ein oder besser mehrere Modelle entwickeln können. 
+Damit haben wir ein Trainings-Sample (`train`), in dem wir ein oder besser mehrere Modelle entwickeln können.
 
 So schön wie dieses Vorgehen auch ist, es ist nicht perfekt. Ein Nachteil ist, dass unsere Modellgüte wohl *anders* wäre, hätten wir andere Fälle im Test-Sample erwischt. Würden wir also ein neues Trainings-Sample und ein neues Test-Sample aus diesen Datensatz ziehen, so hätten wir wohl andere Ergebnisse. Was wenn diese Ergebnisse nun deutlich von den ersten abweichen? Dann würde unser Vertrauen in die die Modellgüte sinken. Wir bräuchten also noch ein Verfahren, welches *Variabilität* in der Modellgüte widerspiegelt.
 
@@ -453,9 +458,9 @@ poly_degree = 5
 df <- data_frame(x = seq(from = 1, to = 10, by = .3),
                  y = cos(x) + rnorm(n = length(x), mean = 0, sd = .5))
 
-df %>% 
-  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>% 
-  group_by(binned) %>% 
+df %>%
+  mutate(binned = cut(.$x, breaks = c(-Inf, 5.5, +Inf))) %>%
+  group_by(binned) %>%
   mutate(y_group_md = mean(y)) -> df
 
 
@@ -469,8 +474,8 @@ p1 <- ggplot(df) +
 p2 <-  ggplot(df) +
   aes(x = x) +
   geom_point(aes(y = y)) +
-  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") + 
-  coord_fixed(ratio = 5/1) 
+  geom_line(aes(y = y_group_md, group = binned), color = "firebrick") +
+  coord_fixed(ratio = 5/1)
 
 
 grid.arrange(p1, p2, ncol = 2)
@@ -480,7 +485,7 @@ grid.arrange(p1, p2, ncol = 2)
 4. Richtig oder falsch?^[R, F, F, F, R]
 
 
-```{block2, exercises-modellieren, type='rmdexercises', echo = TRUE} 
+```{block2, exercises-modellieren, type='rmdexercises', echo = TRUE}
 Richtig oder Falsch!?
 
 1. Die Aussage "Pro Kilo Schoki steigt der Hüftumfang um einen Zentimeter" kann als Beispiel für ein deterministisches Modell herhalten.
