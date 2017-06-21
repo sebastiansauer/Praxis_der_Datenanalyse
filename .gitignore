@@ -26,3 +26,6 @@ Praxis_der_Datenanalyse.fdb_latexmk
 *.utf8.md
 _bookdown_files/
 rsconnect/
+*.log
+*.fls
+index.tex
