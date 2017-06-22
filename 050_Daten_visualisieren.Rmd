@@ -514,7 +514,6 @@ knitr::kable(df, caption = "Häufige Diagrammtypen")
 
 
 ```{r fig-diagrammtypen, echo = FALSE, fig.cap = "Überblick zu häufigen Diagrammtypen"}
-
 p1 <- qplot(x = score, geom = "histogram", data = stats_test, main = "Histogramm")
 p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichtediagramm")
 p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streudiagramm")
@@ -525,6 +524,7 @@ p6 <- stats_test %>%
   count(bestanden, interessiert) %>% 
   qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesendiagramm") 
 p7 <- stats_test %>% 
+  mutate(interessiert = stats_test$interest > 3) %>%
   group_by(bestanden, interessiert) %>% 
   summarise(score_median_gruppe = median(score)) %>% 
   qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punktediagramm")
