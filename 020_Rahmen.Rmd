@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 
 
@@ -781,14 +786,9 @@ Richtig oder Falsch!?
 Tabelle \@ref(tab:befehle-rahmen) stellt die Befehle dieses Kapitels dar. 
 
 ```{r befehle-rahmen, echo = FALSE}
-library(tidyverse)
-library(xtable)
 df <- readr::read_csv("includes/Befehle_Rahmen.csv")
 
-#knitr::kable(df, caption = "Befehle des Kapitels 'Rahmen'")
-tli <- xtable(df, floating = FALSE, latex.environments = "center",  booktabs = TRUE)
-align(tli) <- "rlp{0.6\\linewidth}"
-print(tli)
+knitr::kable(df, caption = "Befehle des Kapitels 'Rahmen'")
 ```
 
 
