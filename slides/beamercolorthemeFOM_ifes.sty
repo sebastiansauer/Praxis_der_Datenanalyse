@@ -2,7 +2,7 @@
 % ===========================================================================
 % beamercolorthemeFOM_ifes.sty
 % ============================-----------------------------------------------
-% 
+%
 % (C) in 2011-2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
 %
 % based on the work of Stefan Etschberger from 2005
@@ -12,15 +12,20 @@
 \mode<presentation>
 
 \def\imagepath{images/FOM_ifes/}
-\def\logowidth{2cm}
-\def\logoheight{1cm}
-\def\logoxshift{-1.2cm}
-\def\logoyshift{-0.7cm}
+\def\logowidth{2.52cm}
+%\def\logowidth{2.8cm} % alt
+%\def\logoheight{1.8cm} % alt
+\def\logoheight{1.65cm}
+\def\logoxshift{-1.6cm}
+\def\logoyshift{-0.87cm}
 
 % ---------------------------------------------------------------------------
 \definecolor{fomgreen}{rgb}{0.58,0.77,0.75}
+\definecolor{fomcyan}{rgb}{.00,.60,.54}
 \definecolor{FOM}{rgb}{0,0.67,0.6}
 \definecolor{FOMTitelColor}{RGB}{0,153,138}
+\definecolor{FOMSubTitelColor}{RGB}{0,153,138}
+\definecolor{FOMFirmColor}{RGB}{172,172,172}
 
 % ---------------------------------------------------------------------------
 \setbeamercolor*{structure}{fg=fomgreen,bg=softgreen}
@@ -30,8 +35,17 @@
 % title
 % ---------------------------------------------------------------------------
 \setbeamercolor{title in titlepage}{fg=FOMTitelColor}
-\setbeamercolor{institute in titlepage}{fg=lightgray}
-\setbeamercolor{author in titlepage}{fg=darkgray}
+\setbeamercolor{subtitle in titlepage}{fg=FOMSubTitelColor}
+\setbeamercolor{institute in titlepage}{fg=black}
+\setbeamercolor{firm in titlepage}{fg=FOMFirmColor}
+\setbeamercolor{author in titlepage}{fg=FOMFirmColor}
+
+% ---------------------------------------------------------------------------
+\setbeamerfont{institute in titlepage}{size=\large, family=\sffamily, series=\bfseries}
+\setbeamerfont{firm in titlepage}{size=\large, family=\sffamily, series=\bfseries}
+\setbeamerfont{title in titlepage}{size=\Large, family=\sffamily, series=\bfseries}
+\setbeamerfont{subtitle in titlepage}{size=\Large, family=\sffamily, series=\bfseries}
+\setbeamerfont{author in titlepage}{size=\large, family=\sffamily, series=\bfseries}
 
 % ---------------------------------------------------------------------------
 % part title page
@@ -61,6 +75,8 @@
 \setbeamercolor{section in head}{parent=myheader}
 \setbeamercolor{subsection in head}{parent=myheader}
 \setbeamercolor{frametitle in head}{parent=myheader, fg=FOMTitelColor}
+% ---------------------------------------------------------------------------
+\setbeamerfont{frametitle in head}{size=\large, family=\sffamily, series=\bfseries}
 
 % ---------------------------------------------------------------------------
 % footer
@@ -68,8 +84,12 @@
 \setbeamercolor{footer}{fg=normal text.fg}
 \setbeamercolor{author in footer}{parent=footer}
 \setbeamercolor{date in footer}{parent=footer}
+\setbeamercolor{copyright in footer}{parent=footer}
 \setbeamercolor{title in footer}{parent=footer}
 \setbeamercolor{framenumber in footer}{parent=footer}
+\setbeamerfont{copyright in footer}{size=\normalsize, family=\sffamily, series=\mdseries}
+\setbeamerfont{title in footer}{size=\normalsize, family=\sffamily, series=\mdseries}
+\setbeamerfont{framenumber in footer}{size=\normalsize, family=\sffamily, series=\mdseries}
 
 \mode<all>
 %

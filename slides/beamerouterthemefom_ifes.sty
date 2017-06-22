@@ -1,0 +1,137 @@
+
+\mode<presentation>
+
+% ---------------------------------------------------------------------------
+%
+% title page: in FOM ifes Design
+%
+\setbeamertemplate{title page}
+{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0pt] at (current page.center){%
+              \includegraphics[width=\myPaperWidth,height=\myPaperHeight]{\backgroundimage}%
+      };%
+      \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+      };%
+    % Überschrift
+    \node[anchor=west, inner sep=5pt] at (current page.west){%
+    	\begin{tabular}{b{\titleboxwidth}}
+    	{%
+    		\usebeamercolor[fg]{title in titlepage}%
+    		\usebeamerfont{title in titlepage}%
+    		\inserttitle %
+    	}\\
+    	\end{tabular}
+    };%
+    % ifes informationen hardcoded!
+    \node[anchor=west, yshift=-1.5cm,inner sep=5pt] at (current page.west){%
+    	\begin{tabular}{b{\titleboxwidth}}
+    	{%
+    		\usebeamercolor[fg]{institute in titlepage}%
+             \usebeamerfont{institute in titlepage}
+    		ifes Institut für Empirie \& Statistik%
+    	}\\
+     	{%
+    		\usebeamercolor[fg]{firm in titlepage}%
+             \usebeamerfont{firm in titlepage}
+    		FOM Hochschule für Oekonomie \& Management%
+    	}\\
+    	\end{tabular}
+    };%
+    % Linie
+    \node[anchor=west, inner sep=12pt, yshift=-2.5cm] at (current page.west){
+     \includegraphics[%
+            width=0.9\paperwidth%
+            ]{%
+                \lineimage%
+            }%
+    };
+    \node[anchor=east, xshift=0cm, yshift=-1cm, inner sep=40pt] at (current page.south east){%
+    \begin{minipage}[b][0.6\paperheight][t]{\linewidth}
+          \begin{FlushRight}
+            {%
+             \usebeamercolor[fg]{author in titlepage}%
+             \usebeamerfont{author in titlepage}%
+             \insertauthor \par%
+             }
+
+            \vspace*{1.5em}
+            \par
+
+             {%
+     		      \usebeamercolor[fg]{subtitle in titlepage}%
+    	      	\usebeamerfont{subtitle in titlepage}%
+    	      	\insertsubtitle %
+             }
+          \end{FlushRight}
+        \end{minipage}
+    };%
+  \end{tikzpicture}%
+}
+
+% ---------------------------------------------------------------------------
+%
+% Frame title template:
+%
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.25cm,wd=\paperwidth]{frametitle}%
+        {
+          {%
+            \usebeamercolor[fg]{frametitle in head}%
+            \usebeamerfont{frametitle in head}%
+            \insertframetitle
+            \vspace{0.1em}
+          }%
+        }
+        \begin{tikzpicture}[remember picture, overlay]
+          \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[%
+                  width=\logowidth,%
+                  height=\logoheight%
+                ]{\logoimage}%
+          };%
+          \node[anchor=west, inner sep=8pt, yshift=-\logoheight+6] at (current page.north west){
+                \includegraphics[%
+                  width=0.78\paperwidth%
+                ]{\lineimage}%
+    };
+        \end{tikzpicture}%
+  \end{beamercolorbox}%
+  }%
+}
+% ---------------------------------------------------------------------------
+%
+% Footline template
+%
+\setbeamertemplate{footline}{% Skip first frame == Title frame !!!
+  \ifthenelse{\equal{\insertframenumber}{1}}{%
+  }{%
+        \includegraphics[%
+           width=0.9\paperwidth%
+        ]{%
+           \lineimage%
+        }
+
+        \vspace*{1em}
+
+        \leavevmode%
+        \hbox{%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{copyright in footer}%
+                \usebeamerfont{copyright in footer}~© ifes 2017  $|$  www.fom-ifes.de \hspace*{2em}
+            \end{beamercolorbox}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in footer}%
+                \usebeamerfont{title in footer}\insertshorttitle \phantom{©}
+            \end{beamercolorbox}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{framenumber in footer}%
+                \usebeamerfont{framenumber in footer}\phantom{©}\insertframenumber{} \hspace*{2ex}
+            \end{beamercolorbox}%
+         }%
+        \vspace*{1em}
+  }
+}
+
+\mode<all>
