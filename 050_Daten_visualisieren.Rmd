@@ -495,7 +495,7 @@ Das `factor(interest)` brauchen wir, weil `ggplot2` nur dann mehrere Boxplots ma
 
 ### Überblick zu häufigen Diagrammtypen
 
-Die Tabelle \@ref(tab:diagrammtypen) und bbildung \@ref(fig:fig-diagrammtypen) fassen die gerade besprochenen Diagrammtypen zusammen.
+Die Tabelle \@ref(tab:diagrammtypen) und Abbildung \@ref(fig:fig-diagrammtypen) fassen die gerade besprochenen Diagrammtypen zusammen.
 
 ```{r diagrammtypen, echo = FALSE}
 
