@@ -1,7 +1,6 @@
 ---
 title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
-subtitle: "Ein Entwurf der Schule macht"
-author: "John Doe III."
+subtitle: "Ein Entwurf, der Schule macht"
 institute: "FOM" 
 date: "WS17"
 linkcolor: blue
@@ -26,9 +25,9 @@ output:
     - -V
     - theme=NPBT
     - -V
-    - colortheme=FOM_ifes
+    - colortheme=FOM_prada
     - -V
-    - outertheme=FOM_ifes
+    - outertheme=FOM_prada
 ---
 
 
