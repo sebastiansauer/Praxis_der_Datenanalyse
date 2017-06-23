@@ -1,5 +1,11 @@
+\edef\showNormalTitle{true}   %
 
 \mode<presentation>
+
+\def\titleboxwidth{0.90\linewidth}
+
+\def\titlebackgroundimage{\imagepath./titlehintergrund}
+
 
 % ---------------------------------------------------------------------------
 %
@@ -74,35 +80,84 @@
 %
 % Frame title template:
 %
-\setbeamertemplate{frametitle}
+\defbeamertemplate*{frametitle}{mydefault}
 {
   \leavevmode
   \hbox{%
   \begin{beamercolorbox}[ht=6ex,leftskip=.25cm,wd=\paperwidth]{frametitle}%
-        {
-          {%
+        \begin{tikzpicture}[remember picture, overlay]
+         % Sectiontitle
+          \node[anchor=west, yshift=-0.55cm, inner sep=10pt] at (current page.north west){%
+            {%
+            \usebeamercolor[fg]{section in head}%
+            \usebeamerfont{section in head}%
+            \hypersetup{hidelinks}%
+            \insertsection
+            }%
+          };
+         % Frametitle
+          \node[anchor=west, yshift=-1.1cm, inner sep=10pt] at (current page.north west){%
+            {%
             \usebeamercolor[fg]{frametitle in head}%
             \usebeamerfont{frametitle in head}%
             \insertframetitle
-            \vspace{0.1em}
-          }%
-        }
-        \begin{tikzpicture}[remember picture, overlay]
+            }%
+          };
           \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
               \includegraphics[%
                   width=\logowidth,%
                   height=\logoheight%
                 ]{\logoimage}%
           };%
-          \node[anchor=west, inner sep=8pt, yshift=-\logoheight+6] at (current page.north west){
+          \node[anchor=west, inner sep=8pt, yshift=-\logoheight-3pt] at (current page.north west){
                 \includegraphics[%
                   width=0.78\paperwidth%
                 ]{\lineimage}%
-    };
+          };
         \end{tikzpicture}%
   \end{beamercolorbox}%
   }%
 }
+\defbeamertemplate{frametitle}{inverse}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.25cm,wd=\paperwidth]{frametitle}%
+        \begin{tikzpicture}[remember picture, overlay]
+         % Sectiontitle
+          \node[anchor=west, yshift=-0.55cm, inner sep=10pt] at (current page.north west){%
+            {%
+            \usebeamercolor[fg]{section in head}%
+            \usebeamerfont{section in head}%
+            \hypersetup{hidelinks}%
+            \insertsection
+            }%
+          };
+          \node[anchor=west, inner sep=8pt, yshift=-\logoheight+3pt] at (current page.north west){
+                \includegraphics[%
+                  width=0.80\paperwidth%
+                ]{\titlebackgroundimage}%
+          };
+         % Frametitle
+          \node[anchor=west, yshift=-1.25cm, inner sep=10pt] at (current page.north west){%
+            {%
+            \usebeamercolor[fg]{whiteframetitle in head}%
+            \usebeamerfont{frametitle in head}%
+            \insertframetitle
+            }%
+          };
+          \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[%
+                  width=\logowidth,%
+                  height=\logoheight%
+                ]{\logoimage}%
+          };%
+        \end{tikzpicture}%
+  \end{beamercolorbox}%
+  }%
+}
+
+
 % ---------------------------------------------------------------------------
 %
 % Footline template
@@ -120,13 +175,13 @@
 
         \leavevmode%
         \hbox{%
-            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{copyright in footer}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.5ex,dp=1ex,center]{copyright in footer}%
                 \usebeamerfont{copyright in footer}~© ifes 2017  $|$  www.fom-ifes.de \hspace*{2em}
             \end{beamercolorbox}%
-            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in footer}%
-                \usebeamerfont{title in footer}\insertshorttitle \phantom{©}
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.5ex,dp=1ex,center]{title in footer}%
+                \usebeamerfont{title in footer}\hypersetup{hidelinks}\insertshorttitle \phantom{©}
             \end{beamercolorbox}%
-            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{framenumber in footer}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.5ex,dp=1ex,right]{framenumber in footer}%
                 \usebeamerfont{framenumber in footer}\phantom{©}\insertframenumber{} \hspace*{2ex}
             \end{beamercolorbox}%
          }%
@@ -134,8 +189,11 @@
   }
 }
 
-\newcommand*{\setframetype}[1]{
+\setbeamertemplate{section page}{}
+\setbeamertemplate{subsection page}{}
 
-}
+
+\newcommand{\setnormaltitle}{\setbeamertemplate{frametitle}[mydefault]}
+\newcommand{\setinversetitle}{\setbeamertemplate{frametitle}[inverse]}
 
 \mode<all>

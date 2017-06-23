@@ -1,15 +1,21 @@
 ---
 title: "Sommerumfrage 2017 – Wahlverhalten der Deutschen 2017"
 subtitle: "Ergebnisdiagramme"
+institute: "FOM" 
+date: "WS17"
 author: "Prof. Dr. Oliver Gansser"
 linkcolor: blue
 urlcolor: blue
 lang: de-De
 output:
   beamer_presentation:
+    md_extensions: +raw_tex
     fig_caption: no
     highlight: tango
-    keep_tex: no
+    keep_tex: yes
+    slide_level: 2
+    includes:
+      in_header: header.tex
     pandoc_args:
     - -V
     - papersize=A4
@@ -52,10 +58,15 @@ options(width = 73)
 ```
 
 
-\section*{Factsheet}
-\setframetype{2}
+# Factsheet
+
+\mode<all>
+\setinversetitle
+\mode*
 
 ## Sommerumfrage 2017
+
+
 
 **Zielsetzung des Umfrageprojekts:**
 
@@ -93,13 +104,21 @@ n = 20.895
 Die Darstellungen sind ausschließlich als Diskussionsgrundlage konzipiert und sind ohne die mündlichen Erläuterungen zur Präsentation unvollständig. Diese Unterlage kann daher nur im Zusammenhang mit einer Präsentation gesehen werden.
 
 
-\section*{sommerumfrage}
-\setframetype{1}
+# Sommerumfrage 
+
+\mode<all>
+\setnormaltitle
+\mode*
 
 ## Befragte Personen nach Alter und Geschlecht
 
-\section*{~}
-\setframetype{2}
+# 
+
+\mode<all>
+\setinversetitle
+\mode*
+
+
 
 ## Kontakt
 

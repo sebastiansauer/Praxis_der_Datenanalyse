@@ -11,6 +11,7 @@ output:
     fig_caption: no
     highlight: tango
     keep_tex: no
+    slide_level: 2
     pandoc_args:
     - -V
     - papersize=A4
