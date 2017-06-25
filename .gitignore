@@ -7,8 +7,7 @@
 *.rds
 *.tex
 *.Rmd
-slides/
-slides
+slides/**
 rsconnect/
 rconnect
 .Rproj.user
