@@ -81,12 +81,14 @@ Damit haben wir es schon! Jetzt wird gemalt.
 
 ## Diagramme für Anteile
 
-Wir nutzen `ggplot2`, wie gesagt, und davon die Funktion `qplot` (q wie quick, nehme ich an.).
+Stellen wir die Anteile der Antworten anhand von farbig gefüllten Balken dar (s. Abbildung \@ref(fig:vis1)). Beachten Sie, dass die Balken alle auf 1 (100%) skaliert sind; es werden also *relative* Häufigkeiten dargestellt. Absolute Häufigkeiten bleiben hier außen vor.
 
-```{r}
-ggplot(data = extra_long) +
+```{r vis1, fig.cap = "Relative Häufigkeiten dargestellt anhand von Balkendiagrammen"}
+p1 <- ggplot(data = extra_long) +
   aes(x = items)  +
   geom_bar(aes(fill = Antwort), position = "fill") 
+
+p1
 ```
 
 Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
@@ -103,10 +105,10 @@ Vielleicht ist es schöner, die NAs erst zu entfernen.
 extra_long <- na.omit(extra_long)
 ```
 
-Und dann noch mal plotten:
+Plotten Sie das Diagramm dann noch mal:
 
 
-```{r}
+```{r eval = FALSE}
 ggplot(data = extra_long) +
   aes(x = items)  +
   geom_bar(aes(fill = Antwort), position = "fill") 
@@ -114,13 +116,12 @@ ggplot(data = extra_long) +
 
 
 
-## Um 90° drehen
+## Rotierte Balkendiagramme
 
-Dazu nehmen wir `+ coord_flip()`, also "flippe das Koordinatensystem".
-```{r}
-ggplot(data = extra_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") +
+Dazu ergänzen wir die Zeile `+ coord_flip()`; das heißt so viel wie "flippe das Koordinatensystem".
+
+```{r vis2, eval = FALSE, fig.cap = "Rotiertes Balkendiagramm"}
+p1 +
   coord_flip()
 ```
 
@@ -136,12 +137,10 @@ item_labels <- c("Ich bin das erste Item",
 "i5 asf", "i6 sdf", "adfjks", "sfjlkd", "sdfkjl", "sdfjkl")
 ```
 
-Jetzt hängen wir die Labels an die Items im Diagramm:
+Jetzt hängen wir die Labels an die Items im Diagramm (s. Abbildung \@ref(fig:vis3)).
 
-```{r}
-ggplot(data = extra_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "fill") +
+```{r vis3, fig.cap = "Rotiertes Balkendiagramm mit Item-Label"}
+p1 +
   coord_flip() +
   scale_x_discrete(labels = item_labels)
 ```
@@ -158,10 +157,10 @@ item_labels <- c("Ich bin das erste Item",
 ```
 
 
-Und wieder plotten:
+Plotten Sie das dann wieder: 
 
 
-```{r}
+```{r vis4, eval = FALSE}
 ggplot(data = extra_long) +
   aes(x = items)  +
   geom_bar(aes(fill = Antwort), position = "fill") +
@@ -172,26 +171,31 @@ ggplot(data = extra_long) +
 
 
 ## Diagramm mit Häufigkeiten
-Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit `position = "fill"` wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien "aufeinander stapeln"
+Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit `position = "fill"` wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien "aufeinander stapeln". Probieren Sie dazu die folgende Syntax.
 
 
-```{r}
-ggplot(data = extra_long) +
+```{r vis5, results = "hide"}
+p2 <- ggplot(data = extra_long) +
   aes(x = items)  +
   geom_bar(aes(fill = Antwort), position = "stack") +
   coord_flip() +
   scale_x_discrete(labels = item_labels) 
+
+p2
 ```
 
-## Farbschema
-Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema:
+## Farbschemata
+Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema (s. Abbildung \ref{fig:vis6}).
 
-```{r}
-ggplot(data = extra_long) +
-  aes(x = items)  +
-  geom_bar(aes(fill = Antwort), position = "stack") +
-  coord_flip() +
-  scale_x_discrete(labels = item_labels) +
+```{r vis6, fig.cap = "... Mit der Brewer-Palette 17"}
+p1 +
   scale_fill_brewer(palette = 17)
+```
+
+Das Paket `viridris` hat ein gutes Farbschema. Probieren Sie es mal aus:
+
+```{r eval = FALSE}
+p1 +
+  scale_fill_viridis(discrete = TRUE)
 ```
 
