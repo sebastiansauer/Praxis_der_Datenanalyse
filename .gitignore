@@ -18,6 +18,5 @@ rconnect
 .Rproj.user
 *.fls
 *.log
-images/
 includes/
 _bookdown_files/
