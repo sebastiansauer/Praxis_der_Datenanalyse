@@ -13,3 +13,12 @@ rsconnect/
 rconnect
 .Rproj.user
 .Rhistory
+**/.DS_Store
+.DS_Store
+*.DS_Store
+.Rproj.user
+*.fls
+*.log
+images/
+includes/
+_bookdown_files/
