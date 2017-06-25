@@ -375,25 +375,24 @@ Wenn der Haken im Reiter 'Packages' gesetzt ist (s. Abbildung \@ref(fig:pakete-h
 
 ### Datensätze {#daten}
 
-Die folgenden Datensätze sind entweder im Paket `prada` enthalten oder können aus anderen Paketen geladen werden. Um Daten aus einem Paket zu laden, gibt es den Befehl `data`: `data("name_datenobjekt", package = "Paketname")`. Also zum Beispiel:
+Die folgenden Datensätze sind entweder im Paket `prada` enthalten oder können aus anderen Paketen geladen werden: Alle Pakete, die wir für Daten benötigen, werden automatisch installiert, wenn Sie das Paket `prada` installieren. Um Daten aus einem Paket zu laden, gibt es den Befehl `data`: `data("name_datenobjekt", package = "Paketname")`. Also zum Beispiel:
 
 ```{r}
 data("stats_test", package = "prada")
 ```
 
-Wenn das Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, da geladene Pakete automatisch durchsucht werden. Außerden können Sie sich die Daten von [Github](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunter laden (s. Abschnitt \@ref(gh-repo)).
+
+Wenn ein bestimmtes Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, wenn ihr Datensatz in jedem Paket wohnt: Geladene Pakete werden vom Befehl `data`automatisch durchsucht. 
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `stats_test` aus dem R-Paket {prada} [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur (einer Probeklausur)
 - Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
-- Datensatz 'wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
-- Datensatz `tips` aus dem R-Paket {reshape2} [@bryant1995practical]; es handelt sich um Trinkgelder in einem Restaurant 
+- Datensatz `wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `extra`  aus dem R-Paket {prada} [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
-- Datensatz `Werte` URL: <https://osf.io/zg89r/> [@Gansser_2017]; es handelt sich um Werte von Studierenden
+- Datensatz `titanic_train` aus dem Paket {titanic} von [kaggle](https://www.kaggle.com/c/titanic/data); es handelt sich um Überlebensraten vom Titanic-Unglück.
+- Datensatz `affairs` aus dem Paket {AER} [@fair1978theory]; es handelt sich um eine Umfrage zu außerehehlichen Affären.
 
-
-Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen).
-
+Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen). Übrigens können Sie sich die Daten von [Github](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunter laden (s. Abschnitt \@ref(gh-repo)).
 
 
 
