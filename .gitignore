@@ -26,13 +26,15 @@ Praxis_der_Datenanalyse.fdb_latexmk
 *.RData
 *.knit.*
 *.utf8.md
+
 slides/**
 slides/docs/**
 slides/docs
 ???_*.md
 index.*.*
-index.logx
-index.tex
+index.*
+!index.Rmd
+
 *.fls
 ???_*.utf8.md
 ???_*.knitr.md
@@ -41,5 +43,3 @@ index_cache
 ???_*_cache/**
 ???_*_files
 ???_*_files/**
-index.*
-!index.Rmd
