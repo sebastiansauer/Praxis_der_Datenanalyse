@@ -425,7 +425,11 @@ row_number,date_time,study_time,self_eval,interest,score
 
 \NormalTok{df_breit <-}\StringTok{ }\KeywordTok{spread}\NormalTok{(df_lang, Quartal, Umsatz)}
 
+<<<<<<< Updated upstream
 \NormalTok{df_lang <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(df_breit, }\DataTypeTok{key =} \StringTok{"Quartal"}\NormalTok{, }\DataTypeTok{value =} \StringTok{"Umsatz"}\NormalTok{, }\OperatorTok{-}\NormalTok{ID)}
+=======
+\NormalTok{df_lang <-}\StringTok{ }\KeywordTok{gather}\NormalTok{(df_breit, }\DataTypeTok{key =} \StringTok{"Quartal"}\NormalTok{, }\DataTypeTok{value =} \StringTok{"Umsatz"}\NormalTok{, -ID)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -643,8 +647,13 @@ Vergleichen Sie mal diese Syntax
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \KeywordTok{filter}\NormalTok{(}\KeywordTok{summarise}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(}\KeywordTok{filter}\NormalTok{(stats_test, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(score)), interest), }\DataTypeTok{mw =} \KeywordTok{mean}\NormalTok{(score)), }
 \NormalTok{    mw }\OperatorTok{>}\StringTok{ }\DecValTok{30}\NormalTok{)}
+=======
+\KeywordTok{filter}\NormalTok{(}\KeywordTok{summarise}\NormalTok{(}\KeywordTok{group_by}\NormalTok{(}\KeywordTok{filter}\NormalTok{(stats_test, !}\KeywordTok{is.na}\NormalTok{(score)), interest), }\DataTypeTok{mw =} \KeywordTok{mean}\NormalTok{(score)), }
+    \NormalTok{mw >}\StringTok{ }\DecValTok{30}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -652,8 +661,13 @@ mit dieser
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{stats_test }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(score)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(interest) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mw =} \KeywordTok{mean}\NormalTok{(score)) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{    }\KeywordTok{filter}\NormalTok{(mw }\OperatorTok{>}\StringTok{ }\DecValTok{30}\NormalTok{)}
+=======
+\NormalTok{stats_test %>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(!}\KeywordTok{is.na}\NormalTok{(score)) %>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(interest) %>%}\StringTok{ }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mw =} \KeywordTok{mean}\NormalTok{(score)) %>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(mw >}\StringTok{ }\DecValTok{30}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -699,7 +713,11 @@ Die Syntax von oben auf Deutsch:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{stats_test }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Streber =}\NormalTok{ score }\OperatorTok{>}\StringTok{ }\DecValTok{38}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{()}
+=======
+\NormalTok{stats_test %>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Streber =} \NormalTok{score >}\StringTok{ }\DecValTok{38}\NormalTok{) %>%}\StringTok{ }\KeywordTok{head}\NormalTok{()}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -709,7 +727,11 @@ Die Syntax von oben auf Deutsch:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{stats_test2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(stats_test, }\OperatorTok{-}\NormalTok{date_time)}
+=======
+\NormalTok{stats_test2 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(stats_test, -date_time)}
+>>>>>>> Stashed changes
 \KeywordTok{desctable}\NormalTok{(stats_test2l)}
 \end{Highlighting}
 \end{Shaded}
@@ -766,7 +788,11 @@ Die Syntax von oben auf Deutsch:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ budget, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ movies)}
+=======
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{year, }\DataTypeTok{y =} \NormalTok{budget, }\DataTypeTok{geom =} \StringTok{"point"}\NormalTok{, }\DataTypeTok{data =} \NormalTok{movies)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -810,7 +836,11 @@ Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X_Achse, }\DataTypeTok{y =}\NormalTok{ Y_Achse, }\DataTypeTok{data =}\NormalTok{ mein_dataframe, }\DataTypeTok{geom =} \StringTok{"ein_geom"}\NormalTok{)}
+=======
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{x =} \NormalTok{X_Achse, }\DataTypeTok{y =} \NormalTok{Y_Achse, }\DataTypeTok{data =} \NormalTok{mein_dataframe, }\DataTypeTok{geom =} \StringTok{"ein_geom"}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1270,8 +1300,13 @@ NA & 33.08824\tabularnewline
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{stats_test }\OperatorTok{%>%}\StringTok{ }\NormalTok{na.omit }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ interessiert, }\DataTypeTok{y =}\NormalTok{ score) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ score_interesse, }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ score_interesse, }
+=======
+\NormalTok{stats_test %>%}\StringTok{ }\NormalTok{na.omit %>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() +}\StringTok{ }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{interessiert, }\DataTypeTok{y =} \NormalTok{score) +}\StringTok{ }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =} \NormalTok{score_interesse, }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{) +}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =} \NormalTok{score_interesse, }
+>>>>>>> Stashed changes
     \DataTypeTok{group =} \DecValTok{1}\NormalTok{, }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1326,7 +1361,11 @@ Interaktionseffekt.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{caret}\OperatorTok{::}\KeywordTok{postResample}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ lm2_predict, }\DataTypeTok{obs =}\NormalTok{ test}\OperatorTok{$}\NormalTok{score)}
+=======
+\NormalTok{caret::}\KeywordTok{postResample}\NormalTok{(}\DataTypeTok{pred =} \NormalTok{lm2_predict, }\DataTypeTok{obs =} \NormalTok{test$score)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1379,7 +1418,11 @@ Die Funktion \texttt{glm} führt die logistische Regression durch.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{glm1 <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(Aktienkauf }\OperatorTok{~}\StringTok{ }\NormalTok{Risikobereitschaft, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ Aktien)}
+=======
+\NormalTok{glm1 <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(Aktienkauf ~}\StringTok{ }\NormalTok{Risikobereitschaft, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =} \NormalTok{Aktien)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1436,7 +1479,11 @@ Wahrscheinlichkeit größer als 50\% (und umgekehrt.)
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{(y <-}\StringTok{ }\OperatorTok{-}\FloatTok{1.469} \OperatorTok{+}\StringTok{ }\DecValTok{3} \OperatorTok{*}\StringTok{ }\FloatTok{0.257}\NormalTok{)}
+=======
+\NormalTok{(y <-}\StringTok{ }\NormalTok{-}\FloatTok{1.469} \NormalTok{+}\StringTok{ }\DecValTok{3} \NormalTok{*}\StringTok{ }\FloatTok{0.257}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1467,9 +1514,15 @@ Also y = -0.698 \emph{Logits} (\(\mathfrak{L}\)).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \KeywordTok{str}\NormalTok{(stats_test}\OperatorTok{$}\NormalTok{bestanden)}
 \NormalTok{stats_test}\OperatorTok{$}\NormalTok{bestanden <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(stats_test}\OperatorTok{$}\NormalTok{bestanden, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"nein"}\NormalTok{, }\StringTok{"ja"}\NormalTok{))}
 \NormalTok{log_stats <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(bestanden }\OperatorTok{~}\StringTok{ }\NormalTok{interessiert, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ stats_test)}
+=======
+\KeywordTok{str}\NormalTok{(stats_test$bestanden)}
+\NormalTok{stats_test$bestanden <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(stats_test$bestanden, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"nein"}\NormalTok{, }\StringTok{"ja"}\NormalTok{))}
+\NormalTok{log_stats <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(bestanden ~}\StringTok{ }\NormalTok{interessiert, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =} \NormalTok{stats_test)}
+>>>>>>> Stashed changes
 \KeywordTok{summary}\NormalTok{(log_stats)}
 \end{Highlighting}
 \end{Shaded}
@@ -1482,7 +1535,11 @@ Also y = -0.698 \emph{Logits} (\(\mathfrak{L}\)).
 \caption{Vier Arten von Ergebnisse von Klassfikationen (continued
 below)}\tabularnewline
 \toprule
+<<<<<<< Updated upstream
 \begin{minipage}[b]{0.34\columnwidth}\centering\strut
+=======
+\begin{minipage}[b]{0.31\columnwidth}\centering\strut
+>>>>>>> Stashed changes
 Wahrheit\strut
 \end{minipage} & \begin{minipage}[b]{0.39\columnwidth}\centering\strut
 Als.negativ\ldots{}..vorhergesagt\strut
@@ -1490,24 +1547,40 @@ Als.negativ\ldots{}..vorhergesagt\strut
 \midrule
 \endfirsthead
 \toprule
+<<<<<<< Updated upstream
 \begin{minipage}[b]{0.34\columnwidth}\centering\strut
+=======
+\begin{minipage}[b]{0.31\columnwidth}\centering\strut
+>>>>>>> Stashed changes
 Wahrheit\strut
 \end{minipage} & \begin{minipage}[b]{0.39\columnwidth}\centering\strut
 Als.negativ\ldots{}..vorhergesagt\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
+<<<<<<< Updated upstream
 \begin{minipage}[t]{0.34\columnwidth}\centering\strut
+=======
+\begin{minipage}[t]{0.31\columnwidth}\centering\strut
+>>>>>>> Stashed changes
 In Wahrheit negativ (-)\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\centering\strut
 Richtig negativ (RN)\strut
 \end{minipage}\tabularnewline
+<<<<<<< Updated upstream
 \begin{minipage}[t]{0.34\columnwidth}\centering\strut
+=======
+\begin{minipage}[t]{0.31\columnwidth}\centering\strut
+>>>>>>> Stashed changes
 In Wahrheit positiv (+)\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\centering\strut
 Falsch negativ (FN)\strut
 \end{minipage}\tabularnewline
+<<<<<<< Updated upstream
 \begin{minipage}[t]{0.34\columnwidth}\centering\strut
+=======
+\begin{minipage}[t]{0.31\columnwidth}\centering\strut
+>>>>>>> Stashed changes
 Summe\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\centering\strut
 N*\strut
@@ -1593,7 +1666,11 @@ Gesamtgenauigkeitsrate & (RP+RN) / (N+P)\tabularnewline
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{lets_roc <-}\StringTok{ }\KeywordTok{roc}\NormalTok{(Aktien}\OperatorTok{$}\NormalTok{Aktienkauf, glm1}\OperatorTok{$}\NormalTok{fitted.values)}
+=======
+\NormalTok{lets_roc <-}\StringTok{ }\KeywordTok{roc}\NormalTok{(Aktien$Aktienkauf, glm1$fitted.values)}
+>>>>>>> Stashed changes
 \KeywordTok{plot}\NormalTok{(lets_roc)}
 \end{Highlighting}
 \end{Shaded}
@@ -1841,7 +1918,11 @@ W1 & W3 & W4 & W6 & W7\tabularnewline
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{corrplot}\OperatorTok{::}\KeywordTok{corrplot}\NormalTok{(}\KeywordTok{cor}\NormalTok{(Werte.sc), }\DataTypeTok{order =} \StringTok{"hclust"}\NormalTok{)}
+=======
+\NormalTok{corrplot::}\KeywordTok{corrplot}\NormalTok{(}\KeywordTok{cor}\NormalTok{(Werte.sc), }\DataTypeTok{order =} \StringTok{"hclust"}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1856,10 +1937,17 @@ W1 & W3 & W4 & W6 & W7\tabularnewline
 \NormalTok{Werte.pc <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(Werte.sc)  }\CommentTok{# Principal Components berechnen}
 \KeywordTok{summary}\NormalTok{(Werte.pc)}
 
+<<<<<<< Updated upstream
 \NormalTok{Gesamtvarianz <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(Werte.pc}\OperatorTok{$}\NormalTok{sdev}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
 
 \CommentTok{# Varianzanteil der ersten Hauptkomponente}
 \NormalTok{Werte.pc}\OperatorTok{$}\NormalTok{sdev[}\DecValTok{1}\NormalTok{]}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{Gesamtvarianz}
+=======
+\NormalTok{Gesamtvarianz <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(Werte.pc$sdev^}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{# Varianzanteil der ersten Hauptkomponente}
+\NormalTok{Werte.pc$sdev[}\DecValTok{1}\NormalTok{]^}\DecValTok{2}\NormalTok{/Gesamtvarianz}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -1997,9 +2085,15 @@ man alle Items (paarweise) miteinander korreliert: I1-I2, I1-I3,\ldots{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{df <-}\StringTok{ }\NormalTok{Werte }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(W12, W13, W14, W15)}
 
 \NormalTok{psych}\OperatorTok{::}\KeywordTok{alpha}\NormalTok{(df, }\DataTypeTok{check.keys =} \OtherTok{TRUE}\NormalTok{)}
+=======
+\NormalTok{df <-}\StringTok{ }\NormalTok{Werte %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(W12, W13, W14, W15)}
+
+\NormalTok{psych::}\KeywordTok{alpha}\NormalTok{(df, }\DataTypeTok{check.keys =} \OtherTok{TRUE}\NormalTok{)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -2062,7 +2156,11 @@ größer 0,5 & schlecht\tabularnewline
 \begin{Highlighting}[]
 \NormalTok{text <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Wir haben die Frauen zu Bett gebracht,"}\NormalTok{, }\StringTok{"als die Männer in Frankreich standen."}\NormalTok{, }
     \StringTok{"Wir hatten uns das viel schöner gedacht."}\NormalTok{, }\StringTok{"Wir waren nur Konfirmanden."}\NormalTok{)}
+<<<<<<< Updated upstream
 \NormalTok{text_df <-}\StringTok{ }\KeywordTok{data_frame}\NormalTok{(}\DataTypeTok{Zeile =} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{text =}\NormalTok{ text)}
+=======
+\NormalTok{text_df <-}\StringTok{ }\KeywordTok{data_frame}\NormalTok{(}\DataTypeTok{Zeile =} \DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{text =} \NormalTok{text)}
+>>>>>>> Stashed changes
 \end{Highlighting}
 \end{Shaded}
 
@@ -2102,9 +2200,15 @@ die Häufigkeit des Worts im Dokument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \NormalTok{afd_df }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{  }\CommentTok{# fehlende Werte löschen}
 \StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{count}\NormalTok{(token, }\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}
+=======
+\NormalTok{afd_df %>%}
+\StringTok{  }\KeywordTok{na.omit}\NormalTok{() %>%}\StringTok{  }\CommentTok{# fehlende Werte löschen}
+\StringTok{  }\NormalTok{dplyr::}\KeywordTok{count}\NormalTok{(token, }\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) %>%}
+>>>>>>> Stashed changes
 \StringTok{  }\NormalTok{head}
 \end{Highlighting}
 \end{Shaded}
@@ -2175,7 +2279,11 @@ deutsch & 119\tabularnewline
 
 \begin{Shaded}
 \begin{Highlighting}[]
+<<<<<<< Updated upstream
 \KeywordTok{wordcloud}\NormalTok{(}\DataTypeTok{words =}\NormalTok{ afd_count}\OperatorTok{$}\NormalTok{token_stem, }\DataTypeTok{freq =}\NormalTok{ afd_count}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{max.words =} \DecValTok{100}\NormalTok{, }
+=======
+\KeywordTok{wordcloud}\NormalTok{(}\DataTypeTok{words =} \NormalTok{afd_count$token_stem, }\DataTypeTok{freq =} \NormalTok{afd_count$n, }\DataTypeTok{max.words =} \DecValTok{100}\NormalTok{, }
+>>>>>>> Stashed changes
     \DataTypeTok{scale =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\DataTypeTok{colors =} \KeywordTok{brewer.pal}\NormalTok{(}\DecValTok{6}\NormalTok{, }\StringTok{"Dark2"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}

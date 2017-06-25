@@ -1,0 +1,125 @@
+---
+title: "Sommerumfrage 2017 – Wahlverhalten der Deutschen 2017"
+subtitle: "Ergebnisdiagramme"
+institute: "FOM" 
+date: "WS17"
+author: "Prof. Dr. Oliver Gansser"
+linkcolor: blue
+urlcolor: blue
+lang: de-De
+output:
+  beamer_presentation:
+    md_extensions: +raw_tex
+    fig_caption: no
+    highlight: tango
+    keep_tex: yes
+    slide_level: 2
+    includes:
+      in_header: header.tex
+    pandoc_args:
+    - -V
+    - papersize=A4
+    - -V
+    - fontsize=10pt
+    - -V
+    - lang=de
+    - -V
+    - linkcolor=blue
+    - -V
+    - urlcolor=blue
+    - -V
+    - theme=NPBT
+    - -V
+    - colortheme=FOM_ifes
+    - -V
+    - outertheme=FOM_ifes
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    echo = TRUE,
+    background='#E0E0E0',
+#    out.width="80%",
+    cache = TRUE,
+    tidy = FALSE,
+    fig.align = "center",
+    width.cutoff=70,
+#    fig.asp = .618,
+    message = FALSE,
+    warning = FALSE
+)
+
+options(width = 73)
+
+
+```
+
+
+# Factsheet
+
+\mode<all>
+\setinversetitle
+\mode*
+
+## Sommerumfrage 2017
+
+
+
+**Zielsetzung des Umfrageprojekts:**
+
+Untersuchung der wichtigen Themen für die Bundestagswahl
+
+**Feldzugang:**
+
+Face-to-face Interviews mit standardisiertem Fragebogen
+
+**Zielgruppe/Teilnehmer:**
+
+Auskunftspersonen im Alter ab 16 Jahren, quotiert nach Alter und Geschlecht, Verteilung der Quotenmerkmale gemäß der Bevölkerungsvorausberechnung des Statistischen Bundesamtes für 2017.
+
+**Dauer der Feldphase:**
+
+01.03.2017 bis 14.05.2017
+
+**Wissenschaftliche Leitung:**
+
+Prof. Dr. Oliver Gansser
+
+
+**Wissenschaftliche Mitarbeit:**
+
+Dipl.-Hdl. Christina Reich 
+
+
+**Anzahl der ausgewerteten Interviews:**
+
+n = 20.895
+
+
+
+### 
+Die Darstellungen sind ausschließlich als Diskussionsgrundlage konzipiert und sind ohne die mündlichen Erläuterungen zur Präsentation unvollständig. Diese Unterlage kann daher nur im Zusammenhang mit einer Präsentation gesehen werden.
+
+
+# Sommerumfrage 
+
+\mode<all>
+\setnormaltitle
+\mode*
+
+## Befragte Personen nach Alter und Geschlecht
+
+# 
+
+\mode<all>
+\setinversetitle
+\mode*
+
+
+
+## Kontakt
+
+

@@ -1,6 +1,6 @@
 ---
 title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
-#author: "ses"
+subtitle: "Ein Entwurf, der Schule macht"
 institute: "FOM" 
 date: "WS17"
 linkcolor: blue
@@ -10,7 +10,8 @@ output:
   beamer_presentation:
     fig_caption: no
     highlight: tango
-    keep_tex: yes
+    keep_tex: no
+    slide_level: 2
     pandoc_args:
     - -V
     - papersize=A4
@@ -25,7 +26,9 @@ output:
     - -V
     - theme=NPBT
     - -V
-    - colortheme=FOM
+    - colortheme=FOM_prada
+    - -V
+    - outertheme=FOM_prada
 ---
 
 
