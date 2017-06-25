@@ -41,12 +41,12 @@ Lernziele:
 ```
 
 
-## Einführung
+## Grundlagen
 
 Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhattan" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklidischen Abstand konzentrieren.
 
 
-## Intuitive Darstellung der Clusteranalayse
+### Intuitive Darstellung der Clusteranalayse
 
 
 
@@ -123,7 +123,7 @@ ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept 
 Die vertikale gestrichelte Linie zeigt an, wo die Einsparung an Varianz auf einmal "sprunghaft" weniger wird - just an jedem Knick bei x=3; dieser "Knick" wird auch "Ellbogen" genannt (da sage einer, Statistiker haben keine Phantasie). Man kann jetzt sagen, dass 3 Cluster eine gute Lösung seien, weil mehr Cluster die Varianz innerhalb der Cluster nur noch wenig verringern. Diese Art von Diagramm wird als "Screeplot" bezeichnet. Fertig!
 
 
-## Euklidische Distanz
+### Euklidische Distanz
 
 Aber wie weit liegen zwei Punkte entfernt? Betrachten wir ein Beispiel. Anna und Berta sind zwei Studentinnen, die eine Statistikklausur ~~geschrieben haben~~schreiben mussten (bedauernswert). Die beiden unterscheiden sich sowohl in Lernzeit als auch in Klausurerfolg. Aber wie sehr unterscheiden sie sich? Wie groß ist der "Abstand" zwischen Anna und Berta (vgl. Abb. \@ref(fig:distanz))?
 
@@ -198,44 +198,8 @@ dist(profs)
 
 Offenbar ist der (euklidische) Abstand zwischen Prof. 1 und 2 groß (13.2); zwischen Prof 2 und 3 auch recht groß (10.8). Aber der Abstand zwischen Prof. 1 und 3 ist relativ klein! Endlich hätten wir diese Frage auch geklärt. Sprechen Sie Ihre Professoren auf deren Filmvorlieben an...
 
-## Daten
 
-Schauen wir uns eine Clusteranalyse praktisch an. Wir werden einen *simulierten* Datensatz  aus @Chapman2015 analysieren. Näheres zu den Daten siehe Kapitel 5 dort.
-
-Sie können ihn von <https://goo.gl/eUm8PI> als `csv`-Datei herunterladen; oder, wenn sich die Datei im Unterordner `data/` (relativ zu ihrem Arbeitsverzeichnis) befindet:
-
-```{r read-data-segment}
-segment <- read.csv2("data/segment.csv")
-```
-
-
-Wir verwenden die Variante `read.csv2`, da es sich um eine "deutsche" CSV-Datei handelt.
-
-
-Ein Überblick über die Daten verschafft uns die Funktion `glimpse`.
-```{r glimpse-segment}
-glimpse(segment)
-```
-
-
-## Distanzmaße mit R berechnen
-
-
-Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`) ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
-```{r dist-segment}
-dist(head(segment))
-```
-
-Sie können erkennen, dass die Beobachtungen `5` und `3` den kleinsten Abstand haben, während `5` und `4` den größten haben. Allerdings zeigen die Rohdaten auch, dass die euklidischen Abstände von der Skalierung der Variablen abhängen (`Einkommen` streut stärker als `Kinder`). Daher kann es evtl. sinnvoll sein, die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
-
-Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich auch den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte aus Variablen mit unterschiedlichen Skalenniveaus bestehen
-
-```{r eval = FALSE}
-daisy(head(segment))
-```
-
-
-## k-Means Clusteranalyse
+### k-Means Clusteranalyse
 
 Beim k-Means Clusterverfahren handelt es sich um eine bestimmte Form von Clusteranalysen; zahlreiche Alternativen existieren, aber die k-Means Clusteranalyse ist recht verbreitet. Im Gegensatz zur z.B. der hierarchischen Clusteranalyse um ein partitionierendes Verfahren. Die Daten werde in $k$ Cluster aufgeteilt -- dabei muss die Anzahl der Cluster im vorhinein feststehen. Ziel ist es, dass die Quadratsumme der Abweichungen der Beobachtungen im Cluster zum Clusterzentrum minimiert wird. 
 
@@ -245,39 +209,123 @@ Der Ablauf des Verfahrens ist wie folgt:
 2.  Zuordnung der Beobachtungen zum nächsten Clusterzentrum (Ähnlichkeit, z. B. über die euklidische Distanz)
 3.  Neuberechnung der Clusterzentren als Mittelwert der dem Cluster zugeordneten Beobachtungen
 
-Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung der Zuordnung mehr ergibt -- oder eine maximale Anzahl an Iterationen erreicht wurde.
+Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung der Zuordnung mehr ergibt -- oder eine maximale Anzahl an Iterationen erreicht wurde. Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden (mit `set.seed`). Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. In der Funktion `kmeans()` erfolgt dies durch die Option `nstart =`.
 
 
+## Beispiel für eine einfache Clusteranalyse
 
-Zur Vorbereitung überführen wir die nominalen Merkmale in logische, d. h. binäre Merkmale und löschen die Segmente sowie das Ergebnis der hierarchischen Clusteranalyse:
-```{r}
-segment.num <- segment %>%
-  mutate(Frau = Geschlecht == "Frau") %>%
-  mutate(Eigenheim = Eigenheim == "Ja") %>%
-  mutate(Mitgliedschaft = Mitgliedschaft == "Ja") %>%
-  dplyr::select(-Geschlecht, -Segment)
+### Daten
+
+Nehmen wir uns noch einmal den Extraversionsdatensatz vor. Kann man die Personen clustern anhand von Ähnlichkeiten wie Facebook-Freunde, Partyfrequenz und Katerhäufigkeit? Probieren wir es aus!
+
+```{r read-data-segment}
+data("extra", package = "prada")
 ```
 
-Über die Funktion `mutate()` werden Variablen im Datensatz erzeugt oder verändert. Über `select()` werden einzelne Variablen ausgewählt. Mit der "Pfeife" `%>%` übergeben wir das Ergebnis der vorherigen Funktion an die folgende.
+Verschaffen Sie sich einen Überblick mit der Funktion `glimpse`.
 
-Aufgrund von (1.) hängt das Ergebnis einer k-Means Clusteranalyse vom Zufall ab. Aus Gründen der Reproduzierbarkeit sollte daher der Zufallszahlengenerator gesetzt werden. Außerdem bietet es sich an verschiedene Startkonfigurationen zu versuchen. in der Funktion `kmeans()` erfolgt dies durch die Option `nstart =`. Hier mit `k = 4` Clustern:
+
+### Distanzmaße berechnen
+
+Auf Basis der drei metrischen Merkmale (d. h. `Alter`, `Einkommen` und `Kinder`), die wir hier aufs Geratewohl auswählen, ergeben sich für die ersten sechs Beobachtungen folgende Abstände:
+```{r dist-segment}
+
+extra %>% 
+  dplyr::select(n_facebook_friends, n_hangover, extra_single_item) %>% 
+  head %>% 
+  dist(.)
+```
+
+Sie können erkennen, dass die Beobachtungen `1` und `3` den kleinsten Abstand haben, während `1` und `5` den größten haben.
+
+Allerdings hängen die Abstände von der Skalierung der Variablen ab (`n_facebook_friends` streut stärker als `extra_single_item`). Daher sollten wir die Variablen vor der Analyse zu standardisieren (z. B. über `scale()`). 
+
+Mit der Funktion `daisy()` aus dem Paket `cluster` kann man sich auch den Abstand zwischen den Objekten ausgeben lassen. Die Funktion errechnet auch Abstandsmaße, wenn die Objekte aus Variablen mit unterschiedlichen Skalenniveaus bestehen. Allerdings mag `daisy` Variablen vom Typ `chr` nicht, daher sollten wir `sex` zuerst in eine Faktorvariable umwandeln.
+
+```{r eval = FALSE}
+extra %>% 
+  dplyr::select(n_facebook_friends, sex, extra_single_item) %>% 
+  mutate(sex = factor(sex)) %>% 
+  head %>% 
+  cluster::daisy(.)
+```
+
+
+
+### kmeans für den Extraversionsdatensatz
+
+Versuchen wir, einige Variablen mit `centers = 4` Clustern mithilfe einer kmeans-Clusteranalyse zu clustern.
 
 ```{r}
 set.seed(1896)
 
-seg.k <- kmeans(segment.num, centers = 4, nstart = 10)
-seg.k
+extra %>% 
+  mutate(Frau = sex == "Frau") %>% 
+  dplyr::select(n_facebook_friends, Frau, extra_single_item) %>% 
+  na.omit %>% 
+  scale -> extra_cluster
+
+kmeans_extra_4 <- kmeans(extra_cluster, centers = 4, nstart = 10)
 ```
-Neben der Anzahl Beobachtungen im Cluster (z. B. `r seg.k$size[2]` in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Sie sehen z. B., dass das Durchschnittsalter in Cluster `r which.min(seg.k$centers[,"Alter"])` mit `r round(min(seg.k$centers[,"Alter"]))` am geringsten ist. Der Anteil der Eigenheimbesitzer ist mit `r round(max(seg.k$centers[,"Eigenheim"]*100))` \% in Cluster `r which.max(seg.k$centers[,"Eigenheim"])` am höchsten.
 
-In zwei Dimensionen kann man Cluster gut visualisieren (Abbildung \@ref(fig:cluster3)).; in drei Dimensionen wird es schon unübersichtlich. Mehr Dimensionen sind schwierig. Daher ist es oft sinnvoll, die Anzahl der Dimensionen durch Verfahren der Dimensionsreduktion zu verringern. Die Hauptkomponentenanalyse oder die Faktorenanalyse bieten sich dafür an.
+Lassen Sie sich das Objekt `extra_cluster` ausgeben und betrachten Sie die Ausgabe; auch `str(kmeans_extra_4)` ist interessant. Neben der Anzahl Beobachtungen pro Cluster (z. B. `r kmeans_extra_4$size[2]` in Cluster 2) werden auch die Clusterzentren ausgegeben. Diese können dann direkt verglichen werden. Schauen wir mal, in welchem Cluster die Anzahl der Facebookfreunde im Schnitt am kleinsten ist:
 
-Einen Plot der Scores auf den beiden ersten Hauptkomponenten können Sie über die Funktion `clusplot()` aus dem Paket `cluster` erhalten.
 ```{r}
-clusplot(segment.num, seg.k$cluster, 
-         color = TRUE, shade = TRUE, labels = 4)
+kmeans_extra_4$centers
 ```
-Wie schon im deskriptiven Ergebnis: Die Cluster `1` und `4` unterscheiden sich (in den ersten beiden Hauptkomponenten) nicht wirklich. Vielleicht sollten dies noch zusammengefasst werden, d. h., mit `centers=3` die Analyse wiederholt werden?
+
+Betrachten Sie auch die Mittelwerte der anderen Variablen, die in die Clusteranalyse eingegangen sind. Wie 'gut' ist diese Clusterlösung? Vielleicht wäre ja eine andere Anzahl von Clustern besser? Eine Antwort darauf liefert die Varianz (Streung) innerhalb der Cluster: Sind die Summen der quadrierten Abweichungen vom Clusterzentrum gering, so ist die Varianz 'innerhalb' der Cluster gering; die Cluster sind homogen und die Clusterlösung ist 'gut' (vgl. Abbildung \@ref(fig:cluster-bsp)). 
+
+>   Je größer die Varianz innerhalb der Cluster, um schlechter ist die Clusterlösung.
+
+```{r cluster-bsp, echo = FALSE, fig.cap = "Schematische Darstellung zweier einfacher Clusterlösungen; links: geringe Varianz innerhalb der Cluster; rechts: hohe Varianz innerhalb der Cluster"}
+
+knitr::include_graphics("images/cluster/cluster_bsp-crop.png")
+
+```
+
+
+
+In zwei Dimensionen kann man Cluster gut visualisieren (Abbildung \@ref(fig:cluster3)); in drei Dimensionen wird es schon unübersichtlich. Mehr Dimensionen sind schwierig. Daher ist es oft sinnvoll, die Anzahl der Dimensionen durch Verfahren der Dimensionsreduktion zu verringern. Die Hauptkomponentenanalyse oder die Faktorenanalyse bieten sich dafür an.
+
+
+Vergleichen wir ein paar verschiedene Lösungen, um zu sehen, welche Lösung am besten zu sein scheint.
+
+```{r}
+kmeans_extra_2 <- kmeans(extra_cluster, centers = 2, nstart = 10)
+kmeans_extra_3 <- kmeans(extra_cluster, centers = 3, nstart = 10)
+kmeans_extra_5 <- kmeans(extra_cluster, centers = 5, nstart = 10)
+kmeans_extra_6 <- kmeans(extra_cluster, centers = 6, nstart = 10)
+
+```
+
+Dann nehmen wir die Gesamtstreuung jeder Lösung und erstellen daraus erst eine Liste und dann einen Dataframe:
+
+```{r}
+streuung_innerhalb <- c(kmeans_extra_2$tot.withinss,
+                        kmeans_extra_3$tot.withinss,
+                        kmeans_extra_4$tot.withinss,
+                        kmeans_extra_5$tot.withinss,
+                        kmeans_extra_6$tot.withinss)
+
+streuung_df <- data_frame(
+  streuung_innerhalb,
+  anzahl_cluster = 2:6
+)
+```
+
+
+Jetzt plotten wir die Höhe der Streuung pro Clusteranalyse um einen Hinweis zu bekommen, welche Lösung am besten passen könnte.
+
+```{r}
+ggplot(streuung_df) +
+  aes(x = anzahl_cluster,
+      y = streuung_innerhalb) +
+  geom_col() +
+  geom_line()
+```
+
+Nach der Lösung mit 4 Clustern kann man (vage) einen Knick ausmachen: Noch mehr Cluster verbessern die Streuung innerhalb der Cluster (und damit ihre Homogenität) nur noch unwesentlich oder zumindest deutlich weniger. Daher entscheiden wir uns für eine Lösung mit 4 Clustern.
 
 
 
@@ -305,9 +353,7 @@ Laden Sie den Datensatz `extra` zur Extraversion.
 
 1. Berücksichtigen Sie den Extraversionsmittelwert und einige andere Variablen aus dem Datensatz (aber nicht die Items). Welche Gruppen ergeben sich? Versuchen Sie die Gruppen zu interpretieren!
 
-1. Suchen Sie sich zwei Variablen aus dem Datensatz und führen Sie auf dieser Basis eine Clusteranalyse durch. Visualisieren Sie das Ergebnis anhand eines Streudiagrammes oder ähnlichen Datensatzes!
-
-
+1. Suchen Sie sich zwei Variablen aus dem Datensatz und führen Sie auf dieser Basis eine Clusteranalyse durch. Visualisieren Sie das Ergebnis anhand eines Streudiagrammes!
 
 
 
