@@ -47,7 +47,7 @@ library(broom)  # Regressionswerte geordnet ausgeben lassen
 Regression\index{Regression} ist eine bestimmte Art der *Modellierung* von Daten. Wir legen eine Gerade 'schön mittig' in die Daten; damit haben wir ein einfaches Modell der Daten (vgl. Abb. \@ref(fig:bsp-regression)). Die Gerade 'erklärt' die Daten: Für jeden X-Wert liefert sie einen Y-Wert als Vorhersage zurück.
 
 ```{r bsp-regression, fig.cap = "Beispiel für eine Regression"}
-stats_test <- read.csv("data/test_inf_short.csv")
+data(stats_test, package = "prada")
 
 stats_test %>% 
   ggplot +

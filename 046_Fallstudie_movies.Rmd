@@ -39,7 +39,7 @@ library(corrr)
 Zunächst laden wir die Daten und werfen einen Blick in den Datensatz:
 
 ```{r}
-movies <- read.csv("data/movies.csv")
+data(movies, package = "ggplot2movies")
 glimpse(movies)
 ```
 

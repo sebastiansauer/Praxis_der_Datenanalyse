@@ -195,19 +195,11 @@ Merke:
 Laden wir als ersten einen Datensatz.
 
 ```{r eval = FALSE}
-stats_test <- read.csv("data/test_inf_short.csv")
+data(stats_test, package = "prada")
 ```
 
 Dieser Datensatz beinhaltet Daten zu einer Statistikklausur.
 
-Beachten Sie, dass diese Syntax davon ausgeht, dass sich die Daten in einem Unterordner mit dem Namen `data` befinden, welcher sich im Arbeitsverzeichnis befindet^[der angegebene Pfad ist also *relativ*  zum aktuellen Verzeichnis.].
-
-
-```{r read-test-inf-short}
-
-stats_test <- read.csv("data/test_inf_short.csv")
-
-```
 
 
 
@@ -220,7 +212,7 @@ select(stats_test, score:study_time) # dito
 select(stats_test, 5:6)  # Spalten 5 bis 6 auswählen
 ```
 
-Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet findet sich ein guter Überblick dazu.
+Tatsächlich ist der Befehl `select` sehr flexibel; es gibt viele Möglichkeiten, Spalten auszuwählen. Im `dplyr`-Cheatsheet^[<https://www.rstudio.com/resources/cheatsheets/>] findet sich ein guter Überblick dazu.
 
 
 #### Aufgaben^[F, F, R, R, F]

@@ -181,7 +181,7 @@ Synonym wäre zu fragen, ob sich die Stufen von Geschlecht (die Geschlechter, al
 
 
 ```{r warning = FALSE}
-extra <- read.csv("data/extra.csv")
+data(extra, package = "prada")
 
 extra$viel_saeufer <- extra$n_hangover > 10
 

@@ -34,12 +34,12 @@ Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitu
 
 
 ### Auf fehlende Werte prüfen 
-Das geht recht einfach mit `summarise(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
+Das geht recht einfach mit `summary(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
 
 ```{r read-stats-data}
-stats_test <- read.csv("data/test_inf_short.csv")
-summarise(stats_test)
+data(stats_test, package = "prada")
+summary(stats_test)
 ```
 
 

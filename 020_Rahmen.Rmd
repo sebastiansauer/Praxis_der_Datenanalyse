@@ -195,7 +195,6 @@ OH NO:
 
 
 
-
 Wenn R oder RStudio dann immer noch nicht starten oder nicht richtig laufen, 
 probieren Sie dieses:
 
@@ -603,11 +602,6 @@ Wie sollte so ein ERBie aussehen? Ich empfehle, folgende Eckpunkte zu beachten^[
 
 
 Natürlich sollte man immer erst selbst nach einer Lösung recherchieren, bevor man jemanden um Hilfe bittet. Viele Fragen wurden schon einmal diskutiert und oft auch gelöst.
-
-
-
-
-
 
 
 

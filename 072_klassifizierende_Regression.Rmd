@@ -31,65 +31,65 @@ library(SDMTools)  # Güte von Klassifikationsmodellen
 library(pROC)  # für ROC- und AUC-Berechnung
 library(tidyverse)  # Datenjudo
 library(BaylorEdPsych)  # Pseudo-R-Quadrat
-library(broom)  # lm-Ergebnisse ausräumen
+library(broom)  # lm-Ergebnisse aufräumen
 ```
 
 
 
 
-## Vorbereitung
-Hier werden wir den Datensatz *Aktienkauf* der Universität Zürich ([Universität Zürich, Methodenberatung](http://www.methodenberatung.uzh.ch/de/datenanalyse/zusammenhaenge/lreg.html)) analysieren. Es handelt es sich  um eine finanzpsychologische Fragestellung. Es wurde untersucht, welche Variablen mit der Wahrscheinlichkeit, dass jemand Aktien erwirbt, zusammenhängen. Insgesamt wurden 700 Personen befragt. Folgende Daten wurden erhoben: 
+## Daten laden
 
-- Aktienkauf (0 = nein, 1 = ja)
-- Jahreseinkommen (in Tausend CHF), 
-- Risikobereitschaft (Skala von 0 bis 25) 
-- Interesse an der aktuellen Marktlage (Skala von 0 bis 45).
+Hilft Lernen, eine Statistkklausur zu bestehen? Kommmt es auf Interesse an? Versuchen wir vorherzusagen, wer eine Statistikklausur besteht. Etwas genauer gesagt, sagen wir ein *binäres* (dichotomes) Ereignis - Bestehen der Klausur - vorher anhand von einer mehr Variablen mit beliebigen Skalenniveau.
 
+Laden wir die Klausurdaten.
 
-Importieren Sie zunächst die Daten.
 
 ```{r load-data-Aktien}
-Aktien <- read.csv("data/Aktien.csv") %>% na.omit
-
+data(stats_test, package = "prada")
+stats_test <- na.omit(stats_test)
 ```
 
 Um uns das Leben leichter zu machen, haben wir fehlende Werte (`NA`s) mit `na.omit` gelöscht.
 
 
-## Problemstellung
-Können wir anhand der Risikobereitschaft abschätzen, ob die Wahrscheinlichkeit für einen Aktienkauf steigt? Schauen wir uns zunächst ein Streudiagramm an (Abb. \@ref(fig:fig-logist-regr1)). 
+## Normale Regression für ein binäres Kriterium
 
-```{r fig-logist-regr1, fig.cap = "Streudiagramm von Risikobereitschaft und Aktienkauf"}
-p1 <- ggplot(aes(y = Aktienkauf, x = Risikobereitschaft), data = Aktien) + geom_point()
-p1
-```
-
-
-Dem Ereignis 'Aktienkauf' haben wir die Zahl 1 zugeorndet und dem Ereignis 'Nicht-Aktienkauf' die Zahl 0. Werte dazwischen können wir als Wahrscheinlichkeit zugunsten von 'Aktienkauf' interpretieren.
-
-
-Berechnen wir dann eine normale Regression.
+In gewohnter Manier nutzen wir die normale Regression um das Kriterium 'Bestehen' anhand der Vorbreitungszeit vorherzusagen. Mit einem kleinen Trick könenn wir die binäre Variable `bestanden` in eine Art metrische Variable umwandeln, damit sie wieder in unser Regressions-Handwerk passt: Wenn `bestanden=="ja"` dann sei `bestanden_num = 1`; ansonsten `bestanden_num = 0`. Dieses 'wenn-dann' leistet der Befehl `if_else`: `if_else(bedingung, wenn_erfüllt, ansonsten)`. In unserem Fall sieht das so aus:
 
 ```{r logist-regr1}
-lm1 <- lm(Aktienkauf ~ Risikobereitschaft, data = Aktien)
+stats_test %>% 
+  mutate(bestanden_num = if_else(bestanden == "ja", 1, 0)) -> stats_test
+```
+
+Rechnen wir jetzt unsere Regression:
+
+```{r}
+lm1 <- lm(bestanden_num ~ study_time, data = stats_test)
 tidy(lm1)
 ```
 
 
-Der Zusammenhang scheint nicht sehr ausgeprägt zu sein. Stellen wir das Ergebnis grafisch dar (vgl. Abbildung \@ref(fig:fig-logist-regr2)).
+Hm. Stellen wir das Ergebnis grafisch dar (vgl. Abbildung \@ref(fig:fig-logist-regr2)).
 
-```{r fig-logist-regr2, fig.cap = "Regressionsgerade für Aktien-Modell"}
+```{r fig-logist-regr2, fig.cap = "Regressionsgerade für das Bestehen-Modell"}
 
-p1 + geom_abline(intercept = .18, slope = .05, color = "red")
+ggplot(stats_test) +
+  aes(x = study_time, y = bestanden_num) +
+  geom_jitter() +
+  geom_abline(slope = .07, intercept = .65, color = "red")
 
 
 ```
 
-Der Schätzer für die Steigung für `Risikobereitschaft` ist signifikant. Das Bestimmtheitsmaß $R^2$ ist allerdings sehr niedrig, aber wir haben bisher ja auch nur eine unabhängige Variable für die Erklärung der abhängigen Variable herangezogen.
+Ah! Mehr Lernen hilft offenbar: Die Regressionsgerade steigt.
 
-Doch was bedeutet es, dass die Wahrscheinlichkeit ab einer Risikobereitschaft von ca. 16 über 1 liegt?
+Betrachten Sie diese praktische Eigenschaft der Regression: Obwohl die Kriteriumsvariable (Y-Achse) nur zwei Ausprägungen aufweißt (0 und 1), sagt sich die Regression: "Hey, 0 und 1 sind normale reelle Zahlen und zwischen jedem solcher Zahlenpaare gibt es Zahlen dazwischen. Also kann ich meine Regressiongerade ohne abzusetzen durchmalen". Damit können wir die Werte zwischen 0 und 1 wie Wahrscheinlichkeiten interpretieren: Sagt die Regressionsgerade für bestimmte Prädiktorwerte hohe Kriteriumswerte voraus, so können wir sagen, die Wahrscheinlichkeit, die Klausur zu bestehen, ist hoch.
 
-Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 "umbiegt" (die sogenannte *Linkfunktion*). Eine häufig dafür verwendete Funktion ist die *logistische Funktion*\index{logistische Funktion}. Im einfachsten Fall:
+Soweit, so gut. Aber Moment. Was bedeutet es, wenn die Wahrscheinlichkeit größer 1 ist? Dass der Professor vorher einen eidesstattliche Erklärung für Bestehen geschickt hat? Von so etwas hat man noch nicht gehört... Kurz gesagt: Wahrscheinlichkeiten größer 1 und kleiner 0 sind Quatsch. Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. 
+
+## Die logistische Funktion
+
+Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 "umbiegt" (die sogenannte *Linkfunktion*). Eine häufig dafür verwendete Funktion ist die *logistische Funktion*\index{logistische Funktion}. Im einfachsten Fall:
 
 $$p(y=1)=\frac{e^x}{1+e^x} = \frac{e^x}{e^x(\frac{1}{e^x}+1)}=\frac{1}{\frac{1}{e^x}+1}=\frac{1}{e^{-x}+1}$$
 
@@ -123,28 +123,28 @@ $p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\ep
 
 Die Funktion `glm` führt die logistische Regression durch. 
 ```{r}
-glm1 <- glm(Aktienkauf ~ Risikobereitschaft, 
-            family = binomial("logit"),
-            data = Aktien)
+glm1 <- glm(bestanden_num ~ study_time, 
+            family = "binomial",
+            data = stats_test)
 ```
 
 Wir schauen uns zunächst den Plot an (Abb. \@ref(fig:aktien-plot).
 
-```{r aktien-plot, echo = FALSE, fig.cap = "Modelldiagramm für den Aktien-Datensatz"}
+```{r aktien-plot, echo = FALSE, fig.cap = "Modelldiagramm mit logistischer Regression"}
 
-Aktien %>% 
+stats_test %>% 
   mutate(pred = stats::predict(glm1, 
-                              data = data.frame(Aktienkauf = Aktien$Aktienkauf), 
+                              data = data.frame(bestanden_num = stats_test$bestanden_num), 
                                type = "response")) %>% 
   ggplot() +
-  aes(x = Risikobereitschaft) +
-  geom_point(aes(y = Aktienkauf)) +
+  aes(x = study_time) +
+  geom_jitter(aes(y = bestanden_num)) +
   geom_line(aes(y = pred), color = "red")
 
 ```
 
 
-> Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass ab einer Risikobereitschaft von etwa 7 die Wahrscheinlichkeit für einen Aktienkauf nach unserem Modell bei mehr als 50 % liegt.
+> Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass mit einer Lernzeit von 5 die Wahrscheinlichkeit für Bestehen bei knapp 100% liegt; viel zu einfach...
 
 Die Zusammenfassung des Modells zeigt folgendes:
 
@@ -152,21 +152,21 @@ Die Zusammenfassung des Modells zeigt folgendes:
 tidy(glm1)
 ```
 
-Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit `r round(coef(glm1)[1],2)` geschätzt, die Steigung in Richtung `Risikobereitschaft` mit `r round(coef(glm1)[2],2)`. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} $\mathfrak{L}$^[ein schnödes L wie in Ludwig]:
+Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit `r round(coef(glm1)[1],2)` geschätzt, die Steigung in Richtung `study_time` mit `r round(coef(glm1)[2],2)`. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} $\mathfrak{L}$^[ein schnödes L wie in Ludwig]:
 
 
 $\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
 
-Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logitform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, welche Wahrscheinlichkeit für Aktienkauf eine Person mit einer Risikobereitschaft von 3 hat, können wir einfach rechnen:
+Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logitform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, wie wahrscheinlich das Ereignis 'Bestehen' für  eine Person mit einer Lernzeit von 3 ist, können wir einfach rechnen:
 
-`y = intercept + 3*Risikobereitschaft`, also
+`y = intercept + 3*study_time`, also
 
 ```{r}
-(y <- -1.469 + 3 * 0.257)
+(y <- .27 + 3 * 0.51)
 ```
 
 
-Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein Logit ist? Naja, das ist der Logarithmus der Chancen; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
+Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein *Logit* ist? Naja, das ist der *Logarithmus der Chancen*; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
 
 Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
 
@@ -177,16 +177,16 @@ Jetzt haben wir wir also Chancen. Wie rechnet man Chancen in Wahrscheinlichkeite
 
 `wskt = 9 / (9+1) = 9/10 = .9`.
 
-In unserem Fall sind die Chancen 0.322; also lautet die Umrechnung:
+In unserem Fall sind die Chancen etwa 6:1; also lautet die Umrechnung:
 
 ```{r}
-(wskt <- .498 / (.498+1))
+(wskt <- 6 / (6+1))
 ```
 
 Diesen Ritt kann man sich merklich kommoder bereiten, wenn man diesen Befehl kennt:
 
 ```{r}
-predict(glm1, newdata = data.frame(Risikobereitschaft = 3), type = "response")
+predict(glm1, newdata = data.frame(study_time = 3), type = "response")
 ```
 
 
@@ -212,7 +212,7 @@ Für $\beta_i>0$ gilt, dass mit zunehmenden $x_i$ die Wahrscheinlichkeit für da
 
 ### Aufgabe
 
-Berechnen Sie den Zuwachs an Wahrscheinlichkeit für unser Beispielmodell, wenn sich die `Risikobereitschaft` von 1 auf 2 erhöht. Vergleichen Sie das Ergebnis mit der Punktprognose für `Risikobereitschaft `$=7$ im Vergleich zu `Risikobereitschaft `$=8$. 
+Berechnen Sie den Zuwachs an Wahrscheinlichkeit für unser Beispielmodell, wenn sich die `study_time` von 1 auf 2 erhöht. Vergleichen Sie das Ergebnis mit der Punktprognose für `study_time `$=7$ im Vergleich zu `study_time `$=8$. 
 
 
 Lösung:
@@ -220,30 +220,30 @@ Lösung:
 
 ```{r exp_coef_glm1_2}
 # aus Koeffizient abgeschätzt
-wskt1 <- predict(glm1, data.frame(Risikobereitschaft = 1), type = "response")
+wskt1 <- predict(glm1, data.frame(study_time = 1), type = "response")
 
-wskt2 <- predict(glm1, data.frame(Risikobereitschaft = 2), type = "response")
+wskt2 <- predict(glm1, data.frame(study_time = 2), type = "response")
 
 wskt2 - wskt1
 
 ```
 
-Anders gesagt: "Mit jedem Punkt mehr Risikobereitschaft steigt der Logit (die logarithmierten Chancen) für Aktienkauf um `r round(coef(glm1)[2], 3)`".
+Anders gesagt: "Mit jedem Punkt mehr 'study_time' steigt der Logit (die logarithmierten Chancen) für Bestehen um `r round(coef(glm1)[2], 3)`".
 
 
 ```{r}
 
 # mit dem vollständigen Modell berechnet
-predict(glm1, data.frame(Risikobereitschaft = 1), 
+predict(glm1, data.frame(study_time = 1), 
         type = "response")
 
-predict(glm1, data.frame(Risikobereitschaft = 8), 
+predict(glm1, data.frame(study_time = 8), 
         type = "response")
 
 
 ```
 
-Bei einer Risikobereitschaft von 7 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis "Aktienkauf", `r round(predict(glm1, data.frame(Risikobereitschaft = 7), type = "response"),2)`. Bei einer Risikobereitschaft von 8 liegt diese Wahrscheinlichkeit bei `r round(predict(glm1, data.frame(Risikobereitschaft = 8), type = "response"),2)`.
+Bei einer study_time von 4 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis 'Bestehen', `r round(predict(glm1, data.frame(study_time = 4), type = "response"),2)`. Bei einer study_time von 58 liegt diese Wahrscheinlichkeit bei `r round(predict(glm1, data.frame(study_time = 5), type = "response"),2)`.
 
 
 
@@ -252,84 +252,64 @@ Wie in der linearen Regression können auch in der logistischen Regression kateg
 
 Betrachten wir als Beispiel die Frage, ob die kategoriale Variable "Interessiert" (genauer: dichotome Variable) einen Einfluss auf das Bestehen in der Klausur hat, also die Wahrscheinlichkeit für Bestehen erhöht.
 
-```{r read_stats-klass_regr}
-stats_test <- read.csv("data/test_inf_short.csv")
-
+```{r interessiert-logist}
 stats_test$interessiert <- stats_test$interest > 3
-
 ```
 
 
-Zunächst ein Plot (Abb. \@ref(fig:jitter-stats-logist)).
+Erstellen Sie zum Aufwärmen ein passendes Diagramm!
 
-```{r jitter-stats-logist, fig.cap = "Verwackeltes Streudiagramm ('Jitter')"}
+<!-- ```{r jitter-stats-logist, fig.cap = "Verwackeltes Streudiagramm ('Jitter')"} -->
 
-stats_test %>% 
-  na.omit %>% 
-  ggplot() +
-  aes(x = interessiert, y = bestanden) +
-  geom_jitter(width = .1)
-```
+<!-- stats_test %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = interessiert, y = bestanden) + -->
+<!--   geom_jitter(width = .1) -->
+<!-- ``` -->
 
-Eine Sache sollten wir noch ändern: Auf der Y-Achse (`bestanden`) steht unten "ja" und oben "nein". Für unsere logistische Regression macht es aber genau anders herum Sinn: `bestanden=="ja") soll oben stehen. `bestanden` ist eine Variable vom Typ 'Faktor':
-
-```{r}
-str(stats_test$bestanden)
-```
-
-Wir sehen, dass `bestanden` offenbar zwei Stufen hat ("ja" und "nein"). Die Reihenfolge der Stufen können wir so ändern:
-
-```{r}
-stats_test$bestanden <- factor(stats_test$bestanden, levels = c("nein", "ja"))
-```
-
-Die neue Reihenfolge ist nicht nur optisch ansprechender, sondern auch für die logistische Regression sinnvoll: R berechnet die Wahrscheinlichkeit für die zweite Stufe (also die "obere" auf der Y-Achse); für R entspricht die erste Stufe 0 und die zweite Stufe 1. Außerdem sollten Achsen stets von wenig (nichts/nein) zu viel (ja) gehen.
 
 
 Los geht's, probieren wir die logistische Regression aus:
 
 ```{r}
-log_stats <- glm(bestanden ~ interessiert, 
-               family = binomial("logit"),
+glm2 <- glm(bestanden_num ~ interessiert, 
+               family = "binomial",
                data = stats_test)
-tidy(log_stats)
+tidy(glm2)
 ```
 
 Der Einflusswert (die Steigung) von `interessiert` ist positiv: Wenn man interessiert ist, steigt die Wahrscheinlichkeit zu bestehen. Gut. Aber wie groß ist die Wahrscheinlichkeit für jede Gruppe? Am einfachsten lässt man sich das von R ausrechnen:
 
 ```{r}
-predict(log_stats, newdata = data.frame(interessiert = FALSE), 
+predict(glm2, newdata = data.frame(interessiert = FALSE), 
         type = "response")
-predict(log_stats, newdata = data.frame(interessiert = TRUE), 
+predict(glm2, newdata = data.frame(interessiert = TRUE), 
         type = "response")
 ```
 
-Also 82% bzw. 87%; kein gewaltig großer Unterschied.
-
+Also 82% bzw. 87%; kein gewaltig großer Unterschied, aber immerhin...
 
 
 
 
 ## Multiple logistische Regression
-Wir kehren wieder zurück zu dem Datensatz *Aktienkauf*. Können wir unser Model `glm1` mit nur einer erklärenden Variable verbessern, indem weitere unabhängige Variablen hinzugefügt werden?
+Können wir unser Model `glm1` mit nur einer erklärenden Variable verbessern, indem weiterer Prädiktoren hinzugefügt werden? Verbessern heißt hier: Können wir die Präzision der Vorhersage verbessern durch Hinzunahme weiterer Prädiktoren?
 
 
 ```{r glm2_stats}
-glm2 <- glm(Aktienkauf ~ Risikobereitschaft + Einkommen + Interesse, 
-            family = binomial("logit"), 
-            data = Aktien)
+glm3 <- glm(bestanden_num ~ study_time + interest + self_eval, 
+            family = binomial, 
+            data = stats_test)
 
-tidy(glm2)
+tidy(glm3)
 ```
 
-
-
-Alle Schätzer sind signifikant zum 0.1 %-Niveau (`***` in der Ausgabe). Zunehmende Risikobereitschaft (der Einfluss ist im Vergleich zum einfachen Modell stärker geworden) und zunehmendes Interesse erhöhen die Wahrscheinlichkeit für einen Aktienkauf. Steigendes Einkommen hingegen senkt die Wahrscheinlichkeit.
+Hm, die Interessierten schneiden jetzt - unter Konstanthalten anderer Einflussfaktoren - *schlechter* ab als die Nicht-Interessierten. Als Stastistik-Dozent bin ich der Meinung, dieses Ergebnis sollte in der Schubladen verschwinden (wie es geläufige Praxis ist in vielen Laboren...).
 
 
 ## Modellgüte
 
-Aber wie gut ist das Modell? Und welches Modell von beiden ist besser? R hat uns kein $R^2$ ausgegeben. R hat uns deswegen kein $R^2$ ausgegeben, weil die Regressionsfunktion nicht über Abweichungsquadrate bestimmt wird. Stattdessen wird das Maximum Likelihood-Verfahren eingesetzt. Man kann also kein $R^2$ ausrechnen, zumindest nicht ohne Tricks. Einige findige Statistiker haben sich aber Umrechungswege einfallen lassen, wie man auch ohne Abweichungsquadrate ein $R^2$ berechnen kann; weil es kein 'echtes' $R^2$ ist, nennt man es auch *Pseudo-*$R^2$.
+Aber wie gut ist das Modell? Und welches Modell von beiden ist besser? R hat uns kein $R^2$ ausgegeben. R hat uns deswegen kein $R^2$ ausgegeben, weil die Regressionsfunktion nicht über Abweichungsquadrate bestimmt wird. Stattdessen wird das Maximum Likelihood-Verfahren eingesetzt. Man kann also kein $R^2$ ausrechnen, zumindest nicht ohne Tricks. Einige findige Statistiker haben sich aber Umrechungswege einfallen lassen, wie man auch ohne Abweichungsquadrate ein $R^2$ berechnen kann; weil es kein 'echtes' $R^2$ ist, nennt man es auch *Pseudo-*$R^2$. Es gibt ein paar Varianten, wir bleiben bei der Variante von Herrn McFadden (s. Ausgabe).
 
 Eine Reihe von R-Paketen bieten die Berechnung a:
 
@@ -337,9 +317,11 @@ Eine Reihe von R-Paketen bieten die Berechnung a:
 library(BaylorEdPsych)
 PseudoR2(glm1)
 PseudoR2(glm2)
+PseudoR2(glm3)
+
 ```
 
-Die Ausgabe zeigt uns, dass `glm2` die Daten besser erklärt als `glm1`.
+Die Ausgabe zeigt uns, dass das erste Modell schon schlecht ist, dass zweite praktisch keinen Erkärungwert und das dritte einen zumindest kleinen bis mittleren Erklärungswert bietet: $f^2 = \frac{R^2}{1-R^2}\approx \frac{.1}{.9} = .11$.
 
 
 
@@ -373,7 +355,7 @@ Beispiel: Alois' Wahrscheinlichkeit, die Klausur zu bestehen, wird vom Regressio
 Die aus dem Modell ermittelten Wahrscheinlichkeiten werden dann in einer sogenannten Konfusionsmatrix\index{Konfusionsmatrix} (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen:
 
 ```{r me}
-(cm <- confusion.matrix(Aktien$Aktienkauf, glm1$fitted.values)) 
+(cm <- confusion.matrix(stats_test$bestanden_num, glm3$fitted.values)) 
 ```
 
 Dabei stehen `obs` (observed) für die wahren, also tatsächlich beobachteten Werte und `pred` (predicted) für die geschätzten (vorhergesagten) Werte.
@@ -401,31 +383,29 @@ sensitivity(cm)
 specificity(cm)
 ```
 
+Unser Modell hat es sich recht leicht gemacht: Es hat immer auf 'bestanden' getippt: Damit wurden alle 'Besteher' korrekt identifiziert (Sensitivität = 1); allerdings wurden auch alle 'Nicht-Besteher' übersehen (Spezifität = 0).
 
-Wir haben die Aktienkäufer ($1$) also nur schlecht identifiziert; die Nichtkäufer ($0$) haben wir hingegen fast alle gefunden.
-
-Wir könnten jetzt sagen, dass wir im Zweifel lieber eine Person als Käufer einschätzen (um ja keinen Kunden zu verlieren). Dazu würden wir den Schwellenwert (threshold) von 50% auf z.B. 30%$ herabsetzen:
+Wir könnten jetzt sagen, dass wir im Zweifel lieber eine Person als Nicht-Besteher einschätzen (um die Lernschwachen noch unterstützen zu können). Dazu würden wir den Schwellenwert (threshold) von 50% auf z.B. 80%$ heraufsetzen. Erst bei Erreichen des Schwellenwerts klassifizieren wir die Beobachtung als 'bestanden'  (1):
 
 ```{r}
-(cm <- confusion.matrix(Aktien$Aktienkauf, glm1$fitted.values, threshold = .3))
+(cm <- confusion.matrix(stats_test$bestanden_num, glm3$fitted.values, threshold = .8))
 sensitivity(cm)
 specificity(cm)
 ```
 
 
 ### ROC-Kurven
-Siehe da! Die Sensitivität ist gestiegen, wir haben mehr Käufer als solche identifiziert. Unsere liberalere Strategie hat aber mehr falsch-positive Fälle produziert. So können wir jetzt viele verschiedene Schwellenwerte vergleichen. 
+Siehe da! Die Spezifität ist gestiegen, wir haben mehr Nicht-Lerner als solche identifiziert. Unsere liberalere Strategie hat aber mehr Falsch-Negative Fälle produziert (geringere Sensitivität). So können wir jetzt viele verschiedene Schwellenwerte vergleichen. 
 
 
 >   Ein Test ist dann gut, wenn wir für alle möglichen Schwellenwert ingesamt wenig Fehler produziert.
 
 
 
-
 Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Richtig-Positiv-Rate (Sensitivität) gegen die Falsch-Positiv-Rate ($1-$Spezifität) abgetragen. Das Paket `pROC` hilft uns hier weiter. Zuerst berechnen wir für viele verschiedene Schwellenwerte jeweils die beiden Fehler (Falsch-Positiv-Rate und Falsch-Negativ-Rate). Trägt man diese in ein Diagramm ab, so bekommt man Abbildung \@ref(fig:roc-stats), eine sog. *ROC-Kurve*\index{ROC}.
 
 ```{r}
-lets_roc <- roc(Aktien$Aktienkauf, glm1$fitted.values)
+lets_roc <- roc(stats_test$bestanden_num, glm3$fitted.values)
 
 ```
 

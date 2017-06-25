@@ -15,6 +15,7 @@ knitr::include_graphics("images/licence.png")
 ```{block2, ziele-tidy-data, type='rmdcaution', echo = TRUE} 
 Lernziele:
 
+- Wissen, auf welchen Wegen man Daten in R hineinbekommt.
 - Wissen, was eine CSV-Datei ist.
 - Wissen, was UTF-8 bedeutet.
 - Erläutern können, was R unter dem "working directory" versteht.
@@ -65,6 +66,21 @@ Es ist für bestimmte Zwecke sinnvoll, nicht zu klicken, sondern die Syntax einz
 Daten (CSV, Excel,...)  können Sie *nicht* öffnen über `File > Open File ...`. Dieser Weg ist Skript-Dateien und R-Daten-Objekten vorbehalten. 
 
 ```
+
+
+### Daten aus R-Paketen importieren
+
+In R-Paketen wohnen nicht nur Funktionen, sondern auch Daten. Diese Daten kann man mit dem Befehl `data` laden, dem man den Namen des zu ladenen Datensatzes `dataset` und seines Heimatpakets `paket` übergibt: `data(dataset, package = "paket")`. Natürlich muss das Paket installiert sein. Zum Beispiel:
+
+```{r eval = FALSE}
+data(stats_test, package = "prada")
+data(movies, package = "ggplot2movies")
+```
+
+### Daten im R-Format laden
+
+Das R-Datenformat erkennt man an der R-Endung `.rda` oder `RData`. Dateien mit diesem Format kann man in RStudio über `File > Open File...` öffnen. Oder mit dem Befehl `load(file)`, wobei `file` der Dateiname ist, also z.B. `extra.RData`. Mit dem Schwesterbefehl `save` können Sie ein Objekt im R-Datenformat speichern, z.B. `save(stats_test, file = "stats_test.RData").
+
 
 
 ### CSV-Dateien importieren

@@ -99,7 +99,7 @@ Schauen wir uns ein Beispiel aus der Datenanalyse an; laden Sie dazu zuerst den 
 
 
 ```{r plot-stats-smooth, echo = FALSE}
-stats_test <- read_csv("data/test_inf_short.csv")
+data(stats_test, package = "prada")
 
 stats_test %>%
 ggplot(aes(y = score, x = self_eval)) +
