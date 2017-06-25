@@ -486,43 +486,6 @@ lm1
 
 Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).
 
-### R als Taschenrechner
-
-Auch wenn Statistik nicht Mathe ist, so kann man mit R 
-auch rechnen. Geben Sie zum Üben die Befehle in der R Konsole hinter der 
-Eingabeaufforderung `>` ein und beenden Sie die Eingabe mit `Return` bzw. 
-`Enter`. 
-
-```{r} 
-4+2 
-``` 
-Das Ergebnis wird direkt angezeigt. Bei 
-```{r} 
-x <- 4+2 
-``` 
-
-erscheint zunächst kein Ergebnis. Über `<-` wird der Variable `x` der Wert 
-`4+2` zugewiesen. Wenn Sie jetzt 
-```{r eval=FALSE} 
-x 
-``` 
-
-eingeben, wird das 
-Ergebnis 
-```{r echo=FALSE} 
-x
-``` 
-
-angezeigt. Sie können jetzt auch mit `x` 
-weiterrechnen, z.B.: 
-
-```{r} 
-x/4 
-``` 
-
-Vielleicht fragen Sie sich was die `[1]` vor dem 
-Ergebnis bedeutet. R arbeitet vektororientiert, und die `[1]` zeigt an, dass es 
-sich um das erste (und hier auch letzte) Element des Vektors handelt.
 
 
 ### Text und Variablen zuweisen
@@ -620,7 +583,10 @@ Für diesen Kurs ist es sinnvoll, das Arbeitsverzeichnis in einen "Hauptordner" 
 
 
 
-### Hier werden Sie geholfen
+## Hier werden Sie geholfen
+
+
+### Wo finde ich Hilfe?
 
 Es ist keine Schande, nicht alle Befehle der ca. 10,000 R-Pakete auswendig zu 
 wissen. Schlauer ist, zu wissen, wo man Antworten findet. Hier eine Auswahl:
@@ -632,15 +598,47 @@ RMarkdown, dplyr, tidyr. Klicken Sie dazu in RStudio auf *Help > Cheatsheets >
 - In RStudio gibt es eine Reihe (viele) von Tastaturkürzeln (Shortcuts), die Sie
 hier finden: *Tools > Keyboard Shortcuts Help*.
 
-- Für jeden Befehl (d.i. Funktion) können Sie mit `?` Hilfe erhalten; probieren 
-Sie z.B. `?mean`.
+- Für jeden Befehl aus einem *geladenen* Paket können Sie mit `help()` die Hilfe-Dokumentation anschauen, also z.B. `help("qplot")`.
 
 - Im Internet finden sich zuhauf Tutorials.
 
 - Der Reiter "Help" bei RStudio verweist auf die Hilfe-Seite des jeweiligen Pakets bzw. Befehls.
 
-- Die bekannteste Seite, um Fragen rund um R zu diskutieren ist 
+- Die bekannteste Seite um Fragen rund um R zu diskutieren ist 
 <http://stackoverflow.com>.
+
+
+### Einfache reproduzierbare Beispiele (ERBies)
+
+Sagen wir, Sie haben ein Problem. Mit R. Bevor Sie jemanden bitten, Ihr Problem zu lösen, haben Sie schon ~~drei~~ ~~dreizehn~~ ~~dreißig~~ Minuten recherchiert, ohne Erfolg. Sie entschließen sich, bei [Stackoverflow](www.stackoverflow.com) Ihr Problem zu posten. Außerdem kann sicher eine Mail zu einem Bekannten, einem Dozenten oder sonstwem, der sich auskennen sollte, nicht schaden. Sie formulieren also Ihr Problem: "Hallo, mein R startet nicht, und wenn es startet, dann macht es nicht, was ich soll, außerdem funktioniert der Befehl 'mean' bei mir nicht. Bitte lös mein Problem!". Seltsamerweise reagieren die Empfänger Ihrer Nachricht nicht alle begeistert. Stattdessen verlangt jemand (dreist) nach einer genauen Beschreibung Ihres Problems, mit dem Hinweis, dass "Ferndiagnosen" schwierig sein. Genauer gesagt möchte ihr potenzieller Helfer ein 'minimal reproducible example' (MRE) oder, Deutsch, ein *einfaches reproduzierbares Beispiel*\index{einfaches reproduzierbares Beispiel} (ERBie).
+
+>   Wenn Sie jemanden um R-Hilfe bitten, dann sollten Sie Ihr Problem prägnant beschreiben.
+
+Was sollte alles in einem ERBie enthalten sein?
+
+>   Ein ERBie besteht aus vier Teilen: Syntax, Daten, Paketen und Infos zum laufenden System (R Version etc.)
+
+
+Wie sollte so ein ERBie aussehen? Ich empfehle, folgende Eckpunkte zu beachten^[Hier finden Sie weitere Hinweise zu ERBies: <https://stackoverflow.com/help/mcve> oder <https://gist.github.com/hadley/270442>]:
+
+- Syntax: Stellen Sie die R-Syntax bereit, die ein Problem bereit (d.h. die einen Fehler liefert).
+- Einfach: Geben Sie sowenig Syntax wie möglich an. Es bereitet Ihrem Helfer nur wenig Spaß, sich durch 2000 Zeilen Code zu wühlen, wenn es 10 Zeilen auch getan hätten.
+- Reproduzierbar Geben Sie soviel Syntax wie nötig, um den Fehler zu erzeugen (aber nicht mehr).
+- Schreiben Sie Ihre Syntax übersichtlich, veständlich und kommentiert; z.B. sollten die Variablennamen informativ sein.
+- Beschreiben Sie den Fehler genau ("läuft nicht" reicht nicht); z.B. ist es hilfreich, den Wortlaut einer Fehlermeldung bereitzustellen.
+- Zu Beginn der Syntax sollten die benötigten Pakete geladen werden.
+- Zu Ende des ERBie sollte der Output von `sessionInfo()` einkopiert werden; damit werden Informationen zum laufenden System (wie Version von R, Betriebssystem etc.) bereitgestellt.
+- Beziehen Sie sich möglichst auf Daten, die in R schon "eingebaut sind" wie die Datensätze `iris` oder `mtcars`.
+
+
+Natürlich sollte man immer erst selbst nach einer Lösung recherchieren, bevor man jemanden um Hilfe bittet. Viele Fragen wurden schon einmal diskutiert und oft auch gelöst.
+
+
+
+
+
+
+
 
 
 
