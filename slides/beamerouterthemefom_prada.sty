@@ -1,0 +1,129 @@
+
+\mode<presentation>
+
+% ---------------------------------------------------------------------------
+%
+% title page:
+%
+\setbeamertemplate{title page}
+{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0pt] at (current page.center){%
+              \includegraphics[width=\myPaperWidth,height=\myPaperHeight]{\backgroundimage}%
+      };%
+      \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+      };%
+    \node[anchor=south east,xshift=-1cm,yshift=2cm] at (current page.south east){%
+          \begin{tabular}{b{\titleboxwidth}}
+            {\usebeamercolor[fg]{title in titlepage}%
+             \usebeamerfont{title in titlepage} \inserttitle} \\
+            {\usebeamercolor[fg]{institute in titlepage}%
+             \usebeamerfont{institute in titlepage} \insertinstitute ~\xspace -- \insertdate} \\
+            \\
+            {\usebeamercolor[fg]{author in titlepage}%
+             \usebeamerfont{author in titlepage} \insertauthor}
+          \end{tabular}%
+    };%
+  \end{tikzpicture}%
+}
+% ---------------------------------------------------------------------------
+%
+% Frame title template:
+%
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[ht=6ex,leftskip=.4cm,wd=\paperwidth]{frametitle}%
+%        \strut%
+        {\small%
+          \ifthenelse{\equal{\thesection}{0}}{% then:
+             {%
+                \usebeamercolor[fg]{section in head}%
+                \usebeamerfont{section in head}%
+                \phantom{\thesection.}~\insertsection%
+              }\\\vspace*{-1.1ex}%
+              {%
+                \usebeamercolor[fg]{frametitle in head}%
+                \usebeamerfont{section in head}%
+                ~\phantom{\thesection.}%
+                \usebeamerfont{frametitle in head}%
+                \Large\insertframetitle%
+             }%
+          }{%else:
+            \ifthenelse{\equal{\thesubsection}{0}}{% then:
+              {%
+                \usebeamercolor[fg]{section in head}%
+                \usebeamerfont{section in head}%
+                \thesection.~\insertsection%
+              }\\\vspace*{-1.1ex}%
+              {%
+                \usebeamercolor[fg]{frametitle in head}%
+                \usebeamerfont{section in head}%
+                ~\phantom{\thesection.}%
+                \usebeamerfont{frametitle in head}%
+                \Large\insertframetitle%
+              }%
+            }{% else:
+             {%
+                \usebeamercolor[fg]{subsection in head}%
+                \usebeamerfont{subsection in head}%
+                \thesection.\thesubsection.~\insertsubsection%
+             }\\\vspace*{-1.1ex}%
+             {%
+                \usebeamercolor[fg]{frametitle in head}%
+                \usebeamerfont{subsection in head}%
+                ~\phantom{\thesection.\thesubsection.}
+                \usebeamerfont{frametitle in head}%
+                \Large\insertframetitle}%
+             }
+          }%
+        }%
+        \strut
+        \vspace*{-0.8em}
+        \includegraphics[%
+            width=0.9\paperwidth%
+          ]{%
+             \lineimage%
+            }%
+        \begin{tikzpicture}[remember picture, overlay]
+          \node[shift={(\logoxshift,\logoyshift)},inner sep=0pt] at (current page.north east){%
+              \includegraphics[width=\logowidth,height=\logoheight]{\logoimage}%
+          };%
+        \end{tikzpicture}%
+  \end{beamercolorbox}%
+  }%
+}
+% ---------------------------------------------------------------------------
+%
+% Footline template
+%
+\setbeamertemplate{footline}{% Skip first frame == Title frame !!!
+\ifthenelse{\equal{\insertframenumber}{1}}{%
+}{%
+      \begin{beamercolorbox}[ht=4ex,leftskip=.2cm,rightskip=.3cm]{author in head/foot}
+        \footlinesize\bf
+        \includegraphics[%
+           width=0.9\paperwidth%
+        ]{%
+           \lineimage%
+        }%
+        \newline
+        \vspace{0.1cm}
+        \newline
+        {%
+        ~
+        \hspace*{0.2cm}\ifbool{showDateInFootline}{\insertdate }{ }}%
+        \hfil
+        {\phantom{\insertshortauthor $|$} }{ \phantom{\inserttitle} }%
+
+        \vspace*{-0.9em}%
+        \raggedleft{\insertframenumber \hspace*{0.3cm}}%
+      \end{beamercolorbox}
+      \vspace*{0.2cm}
+    }
+}
+
+
+\mode<all>
