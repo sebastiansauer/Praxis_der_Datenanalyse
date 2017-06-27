@@ -5,6 +5,9 @@
 .Rhistory
 div/
 archive/
+
+docs/**
+
 _bookdown_files
 _bookdown_files/**
 Praxis_der_Datenanalyse.log

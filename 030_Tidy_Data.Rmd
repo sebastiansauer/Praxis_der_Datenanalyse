@@ -150,7 +150,7 @@ knitr::include_graphics("images/tidy/tidy-1.png")
 
 
 
-Der Punkt *Jede Zeile eine Beobachtung, jede Spalte eine Variable, jede Zelle ein Wert* verdient besondere Beachtung. Betrachten Sie dieses Beispiel:
+Der Punkt *Jede Zeile eine Beobachtung, jede Spalte eine Variable, jede Zelle ein Wert* verdient besondere Beachtung. Betrachten Sie das Beispiel in Abbildung \@ref(fig:lang-breit).
 
 ```{r lang-breit, echo = FALSE, fig.cap = "Dieselben Daten - einmal breit, einmal lang"}
 knitr::include_graphics("images/tidy/breit_lang.png")
@@ -159,10 +159,6 @@ knitr::include_graphics("images/tidy/breit_lang.png")
 
 In der rechten Tabelle sind die Variablen `Quartal` und `Umsatz` klar getrennt; jede hat ihre eigene Spalte. In der linken Tabelle hingegen sind die beiden Variablen vermischt. Sie haben nicht mehr ihre eigene Spalte, sondern sind über vier Spalten verteilt. Die rechte Tabelle ist ein Beispiel für eine Tabelle in Normalform, die linke nicht.
 
-
-```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform"}
-knitr::include_graphics("images/tidy/Normalform.png")
-```
 
 
 ## Tabelle in Normalform bringen {#normalform}

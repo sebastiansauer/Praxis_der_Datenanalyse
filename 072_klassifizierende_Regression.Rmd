@@ -166,7 +166,7 @@ Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizien
 ```
 
 
-Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein *Logit* ist? Naja, das ist der *Logarithmus der Chancen*; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
+Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein *Logit* ist? Naja, das ist der *Logarithmus der Chancen*; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit, $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
 
 Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
 
