@@ -1,0 +1,38 @@
+---
+title: "Hinweiszettel für Dozenten"
+subtitle: "Modul 'Praxis der Datenanalyse"
+author: "Sebastian Sauer"
+date: "Ws 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      out.width = "50%",
+                      fig.align = "center")
+```
+
+
+Liebe Kolleginnen und Kollegen,
+
+Herzlich willkommen bei "PraDa" -- schön, dass Sie als Dozent^[Alle Geschlechter sind mittels generischem Maskulinum gleichermaßen angepsprochen (genau genommen müssten das mehr als sein). Das generische Maskulinum wird laut dem Duden traditionell dann gewählt, 'wenn das natürliche Geschlecht unwichtig ist oder männliche und weibliche Personen gleichermaßen gemeint sind. Das Maskulinum ist hier neutralisierend bzw. verallgemeinernd ("generisch"").'] an Bord sind!
+
+Dieser Hinweiszettel soll Ihnen helfen, das Modul erfolgreich und mit Freude zu lehren. Gerade bei neuen Modulen ist es nicht immer leicht, sich zurecht zufinden. Gerade wenn die Materie anspruchsvoll, neu oder umfangreich ist. 
+
+# Ein schlankes Folienskript, ein umfangreiches Skript
+
+Eine Besonderheit dieses Moduls ist es, dass es kein "normales" Powerpoint-Skript gibt. Wie, höre ich Sie gerade sagen, soll ich bitteschön unterrichten? Die gute Nachricht ist: Sie bekommen ausführliches, ausgeschriebenes Material, in weit größerem Umfang als dies normalerweise der Fall ist. Allerdings wird dieses Textmaterial in dem Format geliefert, in dem Texte vemittelt werden sollte: Als Textdokument ("Buch"), nicht als Powerpoint-Folie. Aber wie, so könnten Sie entgegnen, soll ich das präsentieren im Unterricht? Schwerlich kann ich ein Buch an die Wand projizieren. Für den Zweck des Visualisierens (Präsentierens) gibt es einen Foliensatz (bewusst nicht "Skript" geannt). Allerdings ist der Foliensatz schlank; es beinhaltet im Wesentlichen Dinge, die sich zum Visualisieren eignen: Bilder und Kernaussagen. 
+
+Gemeinhin wird ein anderer Gebrauch von Folien gemacht: ~~Über~~voll geladene Powerpoint-Folien, die den Spagat versuchen zwischen ein Buch zu sein und Wesentliches zu präsentieren. Und dabei keinem von beidem gerecht werden. Zum einen: Auf einer Folie ist einfach viel weniger Platz als auf einer Buchseite. Zum anderen: Übervolle Folien sind zum Verdeutlichen ungeeignet, da die Teilnehmer mit Lesen beschäftigt sind und Ihnen nicht zuhören. Viel besser ist es, Verdeutlichen (Visualisieren, Präsentieren) vom Dokumentieren der Detail-Informationen zu trennen. Das ist in diesem Skript umgesetzt. Es gibt also ein umfangreiches Skript (ein "Rumpfbuch") und einen schlanken Foliensatz Sie haben außerdem einfachen Zugriff auf alle Bilder, R-Code, Tabellen und Text. Damit können Sie sich einfach einen eigenen Foliensatz bauen. Das geht natürlich nur dann einfach, wenn Sie die Methode dieses Moduls umsetzen, und den Foliensatz schlank halten. Dann (und nur dann) ist es sehr einfach, einen Foliensatz selber zu erstellen. 
+
+Schließlich bleibt noch die Frage: "Hey, ich brauche die Folien auch als Stichwortgeber. Natürlich kann ich meinen Stoff, aber die Folie hilft mir, alles zu sagen, was wichtig ist". Dazu: Alles Wichtige ist im Textdokument nachzulesen. Und: valider Punkt; aber dieser berechtigte Hinweis ist besser umgesetzt mit einem Stichwortzettel - ähnlich zu den Karteikarten, die Studierende gerne bei Referaten verwenden. 
+
+An Dokumenten für eine Vorlesung braucht man also dreierlei Dokumente (s. Abbildung \@ref(fig:text_slides)).
+
+```{r test_slides, echo = FALSE, fig.cap = "Dreierlei Dokumente für eine Vorlesung"}
+knitr::include_graphics("../images/Archiv/text_slides-crop.png")
+
+```
+
+
+
