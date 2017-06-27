@@ -7,6 +7,8 @@ author: "Prof. Dr. Oliver Gansser"
 linkcolor: blue
 urlcolor: blue
 lang: de-De
+header-includes:
+   - \usepackage{csquotes}
 output:
   beamer_presentation:
     md_extensions: +raw_tex
@@ -74,7 +76,7 @@ Untersuchung der wichtigen Themen für die Bundestagswahl
 
 **Feldzugang:**
 
-Face-to-face Interviews mit standardisiertem Fragebogen
+"Face-to-face-Interviews" mit standardisiertem Fragebogen
 
 **Zielgruppe/Teilnehmer:**
 

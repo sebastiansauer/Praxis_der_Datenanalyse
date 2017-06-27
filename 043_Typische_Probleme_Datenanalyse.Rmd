@@ -1,3 +1,26 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 
@@ -164,13 +187,13 @@ Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wi
 Nehmen wir dazu den Datensatz `extra` her.
 
 ```{r}
-extra <- read.csv("data/extra.csv")
+data(extra, package = "prada")
 ```
 
 
 ```{r}
 extra %>% 
-  select(i01:i10) %>% # Wähle die Variablen von i01 bis i10 aus
+  select(i01:i10) %>% # Wähle die Variablen von i1 bis i10 aus
   correlate() -> km   # Korrelationsmatrix berechnen
 km  
 ```
@@ -266,7 +289,6 @@ Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen 
 
 ```{r}
 
-stats_test <- read.csv("data/test_inf_short.csv")
 
 stats_test$score_fac <- car::recode(stats_test$study_time, 
                         "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
@@ -364,7 +386,6 @@ Eine numerische Variable ...
 Nehmen wir an, wir möchten die numerische Variable "Körpergröße" in drei Gruppen einteilen: "klein", "mittel" und "groß". Der Range von Körpergröße soll gleichmäßig auf die drei Gruppen aufgeteilt werden, d.h. der Range (Intervall) der drei Gruppen soll gleich groß sein. Dazu kann man `cut_interval` aus `ggplot2` nehmen^[d.h. `ggplot2` muss geladen sein; wenn man `tidyverse` lädt, wird `ggplot2` automatisch auch geladen].
 
 ```{r}
-stats_test <- read.csv("data/test_inf_short.csv")
 
 
 temp <- cut_interval(x = stats_test$score, n = 3)
@@ -411,7 +432,6 @@ count(stats_test, punkte_gruppe)
 Um Umfragedaten auszuwerten, will man häufig einen Mittelwert *pro Zeile* berechnen. Normalerweise fasst man eine *Spalte* zu einer Zahl zusammen; aber jetzt, fassen wir eine *Zeile* zu einer Zahl zusammen. Der häufigste Fall ist, wie gesagt, einen Mittelwert zu bilden für jede Person. Nehmen wir an, wir haben eine Befragung zur Extraversion durchgeführt und möchten jetzt den mittleren Extraversionswert pro Person (d.h. pro Zeile) berechnen.
 
 ```{r}
-extra <- read.csv("data/extra.csv")
 
 extra_items <- extra %>% 
   select(i01:i10)  # `select` ist aus `dplyr`

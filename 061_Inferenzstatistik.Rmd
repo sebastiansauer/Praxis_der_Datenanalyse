@@ -1,3 +1,26 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 # Der p-Wert, Inferenzstatistik und Alternativen
@@ -226,10 +249,10 @@ Der Punkt `.` meint hier den Datensatz in aktueller Form, so also, wie er aus de
 
 Hinweise:
 
-  - Der t-Test testet im Standard *un*gerichtet.
-  - Wird eine Gruppierungsvariable (wie Geschlecht) vom Typ `factor` angegeben, so muss diese 2 Faktorstufen haben. Allein durch filtern wird man zusätzliche Faktorstufen nicht los (im Gegensatz zu Variablen vom Typ `character`, Text). Man muss die Faktorvariable neu als Faktorvariable definieren. Dann werden nur die existierenden Werte als Faktorstufen herangezogen.
-  - Bei gerichteten Hypothesen sieht `t.test` zwei Möglichkeiten vor: `less` und `greater`. Woher weiß man, welches von beiden man nehmen muss? Die Antwort lautet: Bei Textvariablen sind die Stufen alphabetisch geordnet. R sagt also sozusagen: `Frau ? Mann`. Und für `?` müssen wir das richtige Ungleichheitszeichen einsetzen (< oder >), so dass es unserer Hypothese entspricht. In diesem Fall glauben wir, dass Frauen weniger (bzw. Männer mehr) trinken, also haben wir `less` gewählt.
-  - Liegt der Datensatz nicht tidy vor, also gibt es z.B. eine Spalte mit Extraversionswerten für Männer und eine für Frauen, so darf man *nicht* die Formelsyntax (Kringel, Tilde "~"") nehmen, sondern benennt die Spalten mit X und Y: `t.text(x = df$extra_maenner, y = df$extra_frauen)`.
+- Der t-Test testet im Standard *un*gerichtet.
+- Wird eine Gruppierungsvariable (wie Geschlecht) vom Typ `factor` angegeben, so muss diese 2 Faktorstufen haben. Allein durch filtern wird man zusätzliche Faktorstufen nicht los (im Gegensatz zu Variablen vom Typ `character`, Text). Man muss die Faktorvariable neu als Faktorvariable definieren. Dann werden nur die existierenden Werte als Faktorstufen herangezogen.
+- Bei gerichteten Hypothesen sieht `t.test` zwei Möglichkeiten vor: `less` und `greater`. Woher weiß man, welches von beiden man nehmen muss? Die Antwort lautet: Bei Textvariablen sind die Stufen alphabetisch geordnet. R sagt also sozusagen: `Frau ? Mann`. Und für `?` müssen wir das richtige Ungleichheitszeichen einsetzen (< oder >), so dass es unserer Hypothese entspricht. In diesem Fall glauben wir, dass Frauen weniger (bzw. Männer mehr) trinken, also haben wir `less` gewählt.
+- Liegt der Datensatz nicht tidy vor, also gibt es z.B. eine Spalte mit Extraversionswerten für Männer und eine für Frauen, so darf man *nicht* die Formelsyntax (Kringel, Tilde "~"") nehmen, sondern benennt die Spalten mit X und Y: `t.text(x = df$extra_maenner, y = df$extra_frauen)`.
   
   
 
@@ -237,19 +260,19 @@ Hinweise:
 
 *Forschungsfrage: Unterscheiden sich Menschen mit unterschiedlich viel Kundenkontakt in ihrer Extraversion?*
 
-Der Kundenkontakt wurde mit einer Likertskala gemessen, die mehrere Stufen von "weniger als einmal pro Quartal" bis "im Schnitt mehrfach pro Tag" reichte. Wir gehen nicht davon aus, dass diese Skala Intervallniveau aufweist. Obwohl Ordinalskalenniveau plausibel ist, bleiben wir bei der ANOVA (Varianzanalyse, AOV), die nur nominales Niveau ausschöpft. Beachten Sie, dass die entsprechende Variable `client_freq` als Ganzzahl in R definiert ist, obwohl die Abstände nicht sicher gleich sind. Es ist zwar erlaubt, den Stufen einer nominalen Variablen Zahlen zuzuordnen, aber wir sollten nicht vergessen, dass die Zahlen "keine echten Zahlen" sind, also nicht metrisches Niveau aufweisen (zumindest ist das nicht sicher).
+Der Kundenkontakt wurde mit einer Likertskala gemessen, die mehrere Stufen von "weniger als einmal pro Quartal" bis "im Schnitt mehrfach pro Tag" reichte. Wir gehen nicht davon aus, dass diese Skala Intervallniveau aufweist. Obwohl Ordinalskalenniveau plausibel ist, bleiben wir bei der ANOVA (Varianzanalyse, AOV), die nur nominales Niveau ausschöpft. Beachten Sie, dass die entsprechende Variable `clients_freq` als Ganzzahl in R definiert ist, obwohl die Abstände nicht sicher gleich sind. Es ist zwar erlaubt, den Stufen einer nominalen Variablen Zahlen zuzuordnen, aber wir sollten nicht vergessen, dass die Zahlen "keine echten Zahlen" sind, also nicht metrisches Niveau aufweisen (zumindest ist das nicht sicher).
 
 Die verschiedenen Stufen einer Variablen kann man sich so ausgeben lassen:
 
-```{r}
-extra %>% distinct(client_freq)
+```{r eval = FALSE}
+extra %>% distinct(clients_freq)
 ```
 
 
 Jetzt die ANOVA:
 
 ```{r}
-aov(extra_mean ~ client_freq, data = extra) %>% glance
+aov(extra_mean ~ sex, data = extra) %>% glance
 ```
 
 `glance` räumt das Ergebnis der ANOVA etwas auf, so dass die Ausgabe ein Dataframe ist und die "Überblick-Koeffizienten" (daher 'glance', engl. 'Blick') ausgegeben werden. Ganz interessantes Ergebnis: statistisch signifikant (p<.05), aber $R^2$ ist sehr klein.
@@ -330,8 +353,8 @@ glm(viel_saeufer ~ extra_mean, data = extra, family = "binomial") %>% tidy
 
 *Forschungsfrage: Ist die Extraversion assoziiert mit der Anzahl der Kundenbesuche?*
 
-```{r warning = FALSE}
-cor.test(extra$extra_single_item, extra$client_freq, method = "spearman")
+```{r warning = FALSE, eval = FALSE}
+cor.test(extra$extra_single_item, extra$clients_freq, method = "spearman")
 ```
 
 
@@ -485,13 +508,17 @@ Ein t-Test a la Bayes kann z.B. so berechnet werden:
 
 ```{r}
 
+extra %>% 
+  group_by(sex) %>% 
+  summarise(mean(extra_mean, na.rm = TRUE))
 
 extra %>% 
   filter(sex %in% c("Mann", "Frau")) %>% 
-  mutate(sex = factor(sex)) -> extra
+  mutate(sex = factor(sex)) %>% 
+  ttestBF(formula = extra_mean ~ sex,
+        data = .)
 
-ttestBF(formula = extra_mean ~ sex,
-        data = extra)
+
 ```
 
 

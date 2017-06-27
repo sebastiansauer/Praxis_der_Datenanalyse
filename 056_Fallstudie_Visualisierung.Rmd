@@ -59,7 +59,7 @@ Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur *eine* 
 Also, los geht's: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversionsitems, in diesem Fall.
 
 ```{r}
-extra_items <- select(extra, i1:i10)
+extra_items <- select(extra, i01:i10)
 ```
 
 Dann stellen wir die Daten von "breit" nach "lang" um, so dass die Items eine Variable bilden und damit für `ggplot2` gut zu verarbeiten sind.

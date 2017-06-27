@@ -1,9 +1,19 @@
 ---
 title: "Hinweiszettel für Dozenten"
-subtitle: "Modul 'Praxis der Datenanalyse"
+subtitle: "Modul 'Praxis der Datenanalyse'"
 author: "Sebastian Sauer"
-date: "Ws 2017"
-output: pdf_document
+date: "WS 2017"
+lang: de-De
+figPrefix:
+  - "Abb."
+  - "Abbs."
+header-includes:
+   - \usepackage{csquotes}
+output: 
+  pdf_document:
+    pandoc_args: [
+    --filter=pandoc-crossref
+    ]
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Liebe Kolleginnen und Kollegen,
 
-Herzlich willkommen bei "PraDa" -- schön, dass Sie als Dozent^[Alle Geschlechter sind mittels generischem Maskulinum gleichermaßen angepsprochen (genau genommen müssten das mehr als sein). Das generische Maskulinum wird laut dem Duden traditionell dann gewählt, 'wenn das natürliche Geschlecht unwichtig ist oder männliche und weibliche Personen gleichermaßen gemeint sind. Das Maskulinum ist hier neutralisierend bzw. verallgemeinernd ("generisch"").'] an Bord sind!
+Herzlich willkommen bei "PraDa" -- schön, dass Sie als Dozent^[Alle Geschlechter sind mittels generischem Maskulinum gleichermaßen angepsprochen (genau genommen müssten das mehr als sein). Das generische Maskulinum wird laut dem Duden traditionell dann gewählt, 'wenn das natürliche Geschlecht unwichtig ist oder männliche und weibliche Personen gleichermaßen gemeint sind. Das Maskulinum ist hier neutralisierend bzw. verallgemeinernd ("generisch").'] an Bord sind!
 
 Dieser Hinweiszettel soll Ihnen helfen, das Modul erfolgreich und mit Freude zu lehren. Gerade bei neuen Modulen ist es nicht immer leicht, sich zurecht zufinden. Gerade wenn die Materie anspruchsvoll, neu oder umfangreich ist. 
 
@@ -27,12 +37,51 @@ Gemeinhin wird ein anderer Gebrauch von Folien gemacht: ~~Über~~voll geladene P
 
 Schließlich bleibt noch die Frage: "Hey, ich brauche die Folien auch als Stichwortgeber. Natürlich kann ich meinen Stoff, aber die Folie hilft mir, alles zu sagen, was wichtig ist". Dazu: Alles Wichtige ist im Textdokument nachzulesen. Und: valider Punkt; aber dieser berechtigte Hinweis ist besser umgesetzt mit einem Stichwortzettel - ähnlich zu den Karteikarten, die Studierende gerne bei Referaten verwenden. 
 
-An Dokumenten für eine Vorlesung braucht man also dreierlei Dokumente (s. Abbildung \@ref(fig:text_slides)).
+An Dokumenten für einen Vortrag braucht man also dreierlei Dokumente [s. Abb. @fig:fig1].
 
-```{r test_slides, echo = FALSE, fig.cap = "Dreierlei Dokumente für eine Vorlesung"}
-knitr::include_graphics("../images/Archiv/text_slides-crop.png")
-
-```
+![Für einen Vortrag braucht man dreierlei Dokumente](../images/Archiv/text_slides-crop.png){#fig:fig1 width=50%}
 
 
+Jedes dieser drei Dokument-Formate (Text, Folie, Stichwortzettel) hat ein anderes Ziel:
 
+- Text -- Vollständigkeit
+- Folie -- Prägnante Darstellung: einen Sachverhalt auf den Punkt bringen
+- Stichwort-Zettel -- Merkhilfe für das eigene Vortragen
+
+
+Anstelle eines Kompromis (der mit weniger Entwicklungsaufwand verbunden wäre), ist hier die Lösung gewält, alle drei Formate  zu nutzen. "Halt, wo ist jetzt mein Stichwort-Zettel?", tja, den müssen Sie sich selber erstellen, da nur Sie wissen, welche und wie viele Stichworte Sie benötigen.
+
+
+# Fokus auf praktische Aspekte der modernen Datenanalyse
+
+Inhaltlich ist der wesentliche Punkt dieses Moduls, dass es sich auf *praktische* Aspekte der *modernen* Datenanalyse bezieht. Was heißt praktisch? Praktisch heißt, dass das Tun bzw. "Selber-Tun-Können" einen prominenten Platz in der Didaktik dieses Moduls einnimmt. Die Studierenden sollen die Analysen selber ausführen können - im Gegensatz zu "nur" wissen, was die Theorie solcher Methoden ist. Selber ausführen können bedeutet heutzutage in hohem Maße: Software bedienen können. In diesem Fall wird $R$ als Analysesoftware verwendet. Um den Selber-Tun Rechnung zu tragen, findet R in großem Umfang Verwendung in diesem Skript. R verlangt einiges an Aufwand, um sich einigermaßen sicher zu fühlen. Entsprechend werden Dozenten und Studenten einen substanziellen Teil der Lernzeit mit Arbeit (und Erlernen von) R verbringen.
+
+Das Selber-Tun-Können bringt zu einem weiteren, verwandten Punkt: *Moderne Methoden*. Modern heißt einerseits, mit R zu arbeiten. R ist eine oder die führende Plattform für statistische Analysen; eine Eintrittskarte in das Datenzeitalter. Für SPSS oder Excel gilt das nicht. Innerhalb von R werden neuere Ansätze verwendet - ein Schwerpunkt bildet die Arbeiten um Hadley Wickham und besonders gilt das für das "Durchpfeifen" ("to pipe"; s. Kapitel "Datenjudo"). Das Durchpfeifen wurde von einigen als eine der Innovation (in R) der letzten Jahre begrüßt.
+
+Moderne Methoden der Datenanalyse zeichnen sich auch durch die Orientierung zu Prinzipien des 'statistischen Lernens' aus. So überschätzt man die Güte der Vorhersage zukünftiger Fälle, wenn man die Vorhersagegüte am Datensatz misst, anhand dessen das Modell erstellt wurde. Aus diesem Grund sind einige grundlegende Ideen des statistischen Lernens aufgeführt.
+
+# Hilfen für die Dozenten
+
+Folgende Hilfestellungen stehen für Dozenten bereit:
+
+- Ausführliches Skript (PDF)
+- [HTML-Version des Skripts](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/) zur einfachen Navigation innerhalb des Skripts
+- Alle Bilder und Tabellen stehen zum Zugriff bereit
+- Foliensatz
+- Übungsklausur (im Skript)
+- Übungsaufgaben für jedes Kapitel (im Skript)
+- Ausführliche Verweise auf weiterführendes Material (im Skript)
+- Literaturhinweise (im Skript)
+- [Strukturiertes Fehlersystem](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues): Fehler im Skript oder Wünsche zum Skript können auf speziellem Internetformular aufgegeben und ihr Status nachverfolgt werden. Klicken Sie auf der Seite des Links auf den Button "New Issue", wenn Sie einen neuen "Issue" aufgeben möchten.
+
+
+Workshops und eine Telefonhotline sind als weitere Unterstützung geplant auch in Abhängigkeit vom Bedarf.
+
+
+# Organisatorisches
+
+Die wichtigsten organisatorischen Punkte sind im Skript im Kapitel [Organisatorisches](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html) festgehalten, z.B. Modulziele, Zuordnung von Themen zu Terminen etc.
+
+# Freiheit der Lehre
+
+Die Freieheit der Lehre ist gewährt. Wie in jedem Modul gilt: Wir sollen die Modulziele erfüllen und sind im Übrigen frei. Nutzen Sie diese Freiheit: Falls Ihnen ein Kapitel nicht zusagt, lassen Sie es aus oder begrenzen Sie den Stoff indem Sie z.B. ein Teilkapitel auslassen.
