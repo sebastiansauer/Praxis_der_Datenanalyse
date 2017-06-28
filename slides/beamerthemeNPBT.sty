@@ -1,4 +1,4 @@
-\ProvidesPackage{beamerthemeNPBT}[2017/06/20 v2.2 Main Beamer Theme of NPBT]
+\ProvidesPackage{beamerthemeNPBT}[2017/06/28 v3.0 Main Beamer Theme of NPBT]
 % ===========================================================================
 % beamerthemeNPBT.sty
 % ===================---------------------------------------------------------
@@ -13,8 +13,10 @@
 %
 \mode<presentation>
 % ---------------------------------------------------------------------------
-%\usepackage{ifthen} % Old Stuff! - Replaced by:
-\usepackage{etoolbox}
+% Used Packages:
+% ---------------------------------------------------------------------------
+\RequirePackage{ifthen} 
+
 % ---------------------------------------------------------------------------
 
 \def\softness{0.8}
@@ -114,19 +116,21 @@
 \setbeamerfont{frametitle}{shape=\upshape,family=\sffamily,series=\mdseries}
 
 
-\mode<all>
 \IfFileExists{mygeometry.tex}{%
-	    \input{mygeometry.tex}
-	    \InputIfFileExists{customize_geom.tex}{\relax}{\relax}
-	}{
-	    \relax
-	}
+    \input{mygeometry.tex}
+	\InputIfFileExists{customize_geom.tex}{\relax}{\relax}
+}{% else
+    \relax
+}
 \IfFileExists{sections.tex}{%
-        \input{sections.tex}
-		\InputIfFileExists{customize_theme.tex}{\relax}{\relax}
-	}{
-		\relax
-	}
+    \input{sections.tex}
+    \InputIfFileExists{customize_theme.tex}{\relax}{\relax}
+}{ % else
+    \relax
+}
+
+% ---------------------------------------------------------------------------
+\mode<all>
 %
 % ========================================================================
 %
