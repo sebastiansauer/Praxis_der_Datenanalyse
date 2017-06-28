@@ -6,7 +6,9 @@
 div/
 archive/
 
+docs/
 docs/**
+
 
 _bookdown_files
 _bookdown_files/**
