@@ -102,7 +102,7 @@ qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)
 Viel besser. Jetzt fügen Sie noch noch ein bisschen Schnickschnack hinzu:
   
   
-```{r echo = FALSE}
+```{r titanic-schnickschnack, eval = FALSE}
 qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3) + 
   labs(x = "Klasse", 
        title = "Überleben auf der Titanic",
@@ -157,10 +157,10 @@ Ein $\chi^2$-Wert von ~96 bei einem *n* von 707.
 
 Dann berechnen wir die Effektstärke (OR) mit dem Paket `compute.es` (muss ebenfalls installiert sein)
 ```{r eval = FALSE}
-chies(chi.sq = 96, n = 707) 
+compute.es::chies(chi.sq = 96, n = 707) 
 ```
 
-Das OR beträgt also etwa `r round(chies(chi.sq = 96, n = 707, verbose = FALSE)$OR, 2)`. Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you life...
+Das OR beträgt also etwa `r round(compute.es::chies(chi.sq = 96, n = 707, verbose = FALSE)$OR, 2)`. Die Chance zu überleben ist also in der 1. Klasse mehr als 4 mal so hoch wie in der 3. Klasse. Es scheint: Money buys you life...
 
 
 ### Logististische Regression

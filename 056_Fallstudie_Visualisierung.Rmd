@@ -1,4 +1,4 @@
-
+        
 
 
 
@@ -56,10 +56,10 @@ Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die Items stehe
 Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur *eine* Variable steht. `ggplot2`, das wir hier verwenden, ist da keine Ausnahme. Wir müssen also die "breite" Tabelle (10 Spalten, pro Item eine) in eine "lange Spalte" umbauen: Eine Spalte heißt dann "Itemnummer" und die zweite "Wert des Items" oder so ähnlich.
 
 
-Also, los geht's: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversionsitems, in diesem Fall.
+Also, los geht's: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversionsitems, in diesem Fall (Spalten 3 bis 12).
 
 ```{r}
-extra_items <- select(extra, i01:i10)
+extra_items <- dplyr::select(extra, 3:12)
 ```
 
 Dann stellen wir die Daten von "breit" nach "lang" um, so dass die Items eine Variable bilden und damit für `ggplot2` gut zu verarbeiten sind.

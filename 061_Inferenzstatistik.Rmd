@@ -515,8 +515,9 @@ extra %>%
 extra %>% 
   filter(sex %in% c("Mann", "Frau")) %>% 
   mutate(sex = factor(sex)) %>% 
+  as.data.frame %>%  # 'ttestBF' verkraftet nur althergebrachte data.frames!
   ttestBF(formula = extra_mean ~ sex,
-        data = .)
+        data = .)  # 'formula' musst hingeschrieben sein, sonst droht Fehlermeldung
 
 
 ```
