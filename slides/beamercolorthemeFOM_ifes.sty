@@ -1,15 +1,14 @@
-\ProvidesPackage{beamerthemeFOM}[2017/02/04 v2.1 Beamer Theme FOM]
+\ProvidesPackage{beamercolorthemeFOM_ifes}[2017/06/28 v3.0 Beamer Color Theme FOM ifes-Version]
 % ===========================================================================
 % beamercolorthemeFOM_ifes.sty
 % ============================-----------------------------------------------
 %
 % (C) in 2011-2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
 %
-% based on the work of Stefan Etschberger from 2005
-%
 % ---------------------------------------------------------------------------
 %
 \mode<presentation>
+% ---------------------------------------------------------------------------
 
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
@@ -103,7 +102,17 @@
 \setbeamerfont{title in footer}{size=\normalsize, family=\sffamily, series=\mdseries}
 \setbeamerfont{framenumber in footer}{size=\normalsize, family=\sffamily, series=\mdseries}
 
+%
+%
+%
+\let\oldtextbf\textbf
+\renewcommand{\textbf}[1]{%
+\small
+\textcolor{FOMBoldColor}%
+{\oldtextbf{#1}}
+}
 
+% ---------------------------------------------------------------------------
 \mode<all>
 %
 % ===========================================================================
