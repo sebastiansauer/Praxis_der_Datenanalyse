@@ -1,3 +1,26 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 
@@ -481,8 +504,8 @@ größer 0,5 |   schlecht
 
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
 ```{r}
-Werte %>% 
-  dplyr::select_("Unabhängigkeit", "Zuhören",  "Umweltbewusstsein", "Interesse") -> df
+Werte %>%
+  dplyr::select(Unabhaengigkeit, Zuhoeren, Umweltbewusstsein, Interesse) -> df
 
 psych::alpha(df, check.keys = TRUE)
 ```
