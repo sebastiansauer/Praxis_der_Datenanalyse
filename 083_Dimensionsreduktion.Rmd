@@ -482,7 +482,7 @@ größer 0,5 |   schlecht
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
 ```{r}
 Werte %>% 
-  select("Unabhängigkeit", "Zuhören",  "Umweltbewusstsein", "Interesse") -> df
+  dplyr::select_("Unabhängigkeit", "Zuhören",  "Umweltbewusstsein", "Interesse") -> df
 
 psych::alpha(df, check.keys = TRUE)
 ```
