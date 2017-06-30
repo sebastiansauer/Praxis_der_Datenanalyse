@@ -39,5 +39,6 @@ bookdown::gitbook:
         <li><img src="images/FOM.jpg"
         title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 
-bookdown::epub_book: default
+bookdown::epub_book:
+  stylesheet: style.css
 
