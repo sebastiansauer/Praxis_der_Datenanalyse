@@ -223,11 +223,11 @@ corrplot(cor(Werte.sc), order = "hclust")
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
 
-* ("W1", "W3", "W4")
-* ("W12", "W13", "W14", "W15")
-* ("W16", "W17", "W18")
-* ("W6", "W7")
-* ("W9", "W10", "W11")
+* ("Führung", "Entscheidung")
+* ("Aufregung", "Spaß", "Freude")
+* ("Umweltbewusstsein", "Zuhören", "Interesse")
+* ("Ordentlichkeit", "Gefahrenvermeidung", "Sicherheit")
+* ("Respekt", "Religiösität", "Demut")
 
 ## Daten mit fehlende Werten
 
@@ -356,27 +356,9 @@ Mit `h2` (Kommunalität) ist der Anteil eines Items bezeichnet, der durch die Ko
 
 Es gibt keine Items die auf mehr als einer Komponente hoch laden. Die Ladungen sind Korrelationskoeffizienten zwischen den Items und den Hauptkomponenten. In der Zeile *SS loadings* finden wir die Eigenwerte der fünf Hauptkomponenten (berechnet als Summe der quadrierten Ladungen). Den Anteil an der Gesamtvarianz, den sie erklären, findet man in der Zeile *Proportion Var*. Aufsummiert sind die Anteile in der Zeile *Cumlative Var*. Insgesamt werden durch die fünf Hauptkomponenten 64% der Gesamtvarianz erklärt. Die stärke Hauptkomponente hat einen Eigenwert von 2.08 und erklärt 14% der Varianz.
 
-Einzig das Item W15 lädt auf keine der Hauptkomponenten hoch. 
+Einzig das Item "Unabhängigkeit" lädt auf keine der Hauptkomponenten hoch. 
 
 Um die inhaltliche Bedeutung der Komponenten zu interpretieren, schauen wir uns die Inhalte der jeweiligen Items an und versuchen hierfür einen inhaltlichen Gesamtbegriff zu finden. Die Erste Komponenten könnte mit **Genuss**, die zweite mit **Sicherheit**, die dritte mit **Bewusstsein**, die vierte mit **Konformismus** und die fünfte mit **Anerkennung** bezeichnet werden. 
-
-| Item | Inhalt des Items                                                        |
-|------|-------------------------------------------------------------------------|
-| W1:  | Spaß haben und Dinge tun, die Freude bereiten.                          |
-| W3:  | Freuden des Lebens genießen und sich selbst verwöhnen.                  |
-| W4:  | Überraschungen mögen und aufregendes Leben führen.                      |
-| W12: | Im sicheren Umfeld leben und Gefahren meiden.                           |
-| W13: | Interne und externe Sicherheit im Land.                                 |
-| W14: | Wertschätzen von Ordentlichkeit, Sauberkeit und ablehnen von Unordnung. |
-| W16: | Andersartigen Menschen zuhören und Meinung verstehen.                   |
-| W17: | Für die Natur einsetzen und um die Umwelt kümmern.                      |
-| W18: | Interessieren, neugierig sein und versuchen Dinge verstehen.            |
-| W9:  | Religiös sein und auch danach leben.                                    |
-| W10: | Eltern und ältere Menschen respektieren und gehorsam sein.              |
-| W11: | Demütig und bescheiden sein, keine Aufmerksamkeit anziehen.             |
-| W6:  | Führung übernehmen.                                                     |
-| W7:  | Entscheidungen treffen.                                                 |
-
 
 Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden.
 
@@ -500,12 +482,12 @@ größer 0,5 |   schlecht
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
 ```{r}
 Werte %>% 
-  select(W12, W13, W14, W15) -> df
+  select("Unabhängigkeit", "Zuhören",  "Umweltbewusstsein", "Interesse") -> df
 
 psych::alpha(df, check.keys = TRUE)
 ```
 
-Bei dem Konstrukt `Sicherheit` können wir durch Elimination von `W15` das Cronbachs Alpha von 0,64 auf einen fast akzeptablen Wert von 0,68 erhöhen.
+Bei dem Konstrukt `Sicherheit` können wir durch Elimination von `Unabhängigkeit` das Cronbachs Alpha von 0,63 auf einen fast akzeptablen Wert von 0,69 erhöhen.
 
 Das Argument `check.keys=TRUE` gibt uns eine Warnung aus, sollte die Ladung eines oder mehrerer Items negativ sein. Dies ist hier nicht der Fall, somit müssen auch keine Items recodiert werden. 
 
