@@ -41,7 +41,7 @@ Lernziele:
 ```
 
 
-## Grundlagen
+## Grundlagen der Clusteranalyse
 
 Das Ziel einer Clusteranalyse ist es, Gruppen von Beobachtungen (d. h. *Cluster*) zu finden, die innerhalb der Cluster möglichst homogen, zwischen den Clustern möglichst heterogen sind. Um die Ähnlichkeit von Beobachtungen zu bestimmen, können verschiedene Distanzmaße herangezogen werden. Für metrische Merkmale wird z. B. häufig die euklidische Metrik verwendet, d. h., Ähnlichkeit und Distanz werden auf Basis des euklidischen Abstands bestimmt. Aber auch andere Abstände wie "Manhattan" oder "Gower" sind möglich. Letztere haben den Vorteil, dass sie nicht nur für metrische Daten sondern auch für gemischte Variablentypen verwendet werden können. Wir werden uns hier auf den euklidischen Abstand konzentrieren.
 
@@ -214,12 +214,12 @@ Dabei werden die Schritte 2. und 3. solange wiederholt, bis sich keine Änderung
 
 ## Beispiel für eine einfache Clusteranalyse
 
-### Daten
+
 
 Nehmen wir uns noch einmal den Extraversionsdatensatz vor. Kann man die Personen clustern anhand von Ähnlichkeiten wie Facebook-Freunde, Partyfrequenz und Katerhäufigkeit? Probieren wir es aus!
 
 ```{r read-data-segment}
-data("extra", package = "prada")
+extra <- read.csv("data/extra.csv")
 ```
 
 Verschaffen Sie sich einen Überblick mit der Funktion `glimpse`.

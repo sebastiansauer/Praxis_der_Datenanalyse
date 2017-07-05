@@ -261,14 +261,15 @@ install.packages("devtools", dependencies = TRUE)
 
 Aber einfacher geht es über die RStudio-Oberfläche.
 
-Alle Pakete außer `devtools`, die wir hier benötigen, werden über das R-Paket `prada` installiert. Sie müssen also nur noch das Paket `prada`installieren. `prada` installiert dann von sich aus eine Reihe weiterer Pakete. Allerdings wohnt `prada` nicht im R-Appstore (CRAN), sondern bei [Github](www.github.com)^[einer Online-Plattform, auf der man Dateien bereistellen und ihre Veränderungen nachverfolgen kann]. Um Pakete von Github zu installieren, nutzen wir diesen Befehl (Sie müssen natürlich online sein):
+Alle Pakete außer `devtools`, die wir hier benötigen, können über das R-Paket `prada` installiert werden. Sie müssen also nur noch das Paket `prada`installieren. Mit dem Befehl `install_prada_pckgs` (aus dem Paket `prada`) werdenn dann ggf. eine Reihe weiterer Pakete installiert. Allerdings wohnt `prada` nicht im R-Appstore (CRAN), sondern bei [Github](www.github.com)^[einer Online-Plattform, auf der man Dateien bereistellen und ihre Veränderungen nachverfolgen kann]. Um Pakete von Github zu installieren, nutzen wir diesen Befehl (Sie müssen natürlich online sein):
 
-```{r}
+```{r eval = FALSE}
 devtools::install_github("sebastiansauer/prada")
+library(prada)
 ```
 
 
-Sofern Sie online sind, sollte das Paket `prada` jetzt installiert sein.
+Sofern Sie online sind, sollte das Paket `prada` jetzt installiert sein. Installieren Sie jetzt alle Pakete, die für diesen Kurs benötigt werden mit dem Befehl `install_prada_pckgs()`.
 
 ```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} 
 Beim Installieren von 
@@ -342,11 +343,10 @@ Für geladenen Pakete kann man auch den Befehl `help` nutzen, z.B. `help(ggplot2
 Probieren Sie den Befehl `help.search("qplot")`, wenn Sie wissen möchten, in welchem Paket `qplot` zuhause ist. `help.search` sucht alle Hilfeseiten von *installierten* Paketen, in der der Suchbegriff irgendwie vorkommt. Um das Paket eines *geladenen* Befehl zu finden, hilft der Befehl `find`: `find("qplot")`.
 
 
-Sie können auch diesen Befehl aus dem Paket `prada` nutzen:
+Sie können auch den Befehl `find_fun`s aus dem Paket `prada` nutzen:
 
 ```{r}
-library(prada)
-find_funs("select")
+prada::find_funs("select")
 ```
 
 
@@ -371,18 +371,22 @@ Wenn der Haken im Reiter 'Packages' gesetzt ist (s. Abbildung \@ref(fig:pakete-h
 
 
 
-
-
 ### Datensätze {#daten}
 
-Die folgenden Datensätze sind entweder im Paket `prada` enthalten oder können aus anderen Paketen geladen werden: Alle Pakete, die wir für Daten benötigen, werden automatisch installiert, wenn Sie das Paket `prada` installieren. Um Daten aus einem Paket zu laden, gibt es den Befehl `data`: `data("name_datenobjekt", package = "Paketname")`. Also zum Beispiel:
+Die folgenden Datensätze sind entweder im Paket `prada` enthalten oder können aus anderen Paketen geladen werden. Um Daten aus einem Paket zu laden, gibt es den Befehl `data`: `data("name_datenobjekt", package = "Paketname")`. Also zum Beispiel:
 
-```{r}
+```{r eval = FALSE}
 data("stats_test", package = "prada")
 ```
 
 
-Wenn ein bestimmtes Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, wenn ihr Datensatz in jedem Paket wohnt: Geladene Pakete werden vom Befehl `data`automatisch durchsucht. 
+Wenn ein bestimmtes Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, wenn ihr Datensatz in jedem Paket wohnt: Geladene Pakete werden vom Befehl `data` automatisch durchsucht.
+
+
+Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium herunterladen. Gehen Sie auf die Github-Seite dieses Kurses^[<https://github.com/sebastiansauer/Praxis_der_Datenanalyse>], klicken Sie auf den großen grünen Button "Clone or download", wählen Sie dann "Download ZIP", um alle Dateien herunterzuladen. Nach dem Entzippen können Sie dann auf alle Dateien, inklusive Daten, zugreifen. 
+
+>    Die Daten dieses Kurses liegen im Ordner 'data'.
+
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `stats_test` aus dem R-Paket {prada} [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur (einer Probeklausur)

@@ -45,7 +45,7 @@ Laden wir die Klausurdaten.
 
 
 ```{r load-data-Aktien}
-data(stats_test, package = "prada")
+stats_test <- read.csv("data/stats_test.csv")
 stats_test <- na.omit(stats_test)
 ```
 
@@ -307,7 +307,7 @@ tidy(glm3)
 Hm, die Interessierten schneiden jetzt - unter Konstanthalten anderer Einflussfaktoren - *schlechter* ab als die Nicht-Interessierten. Als Stastistik-Dozent bin ich der Meinung, dieses Ergebnis sollte in der Schubladen verschwinden (wie es geläufige Praxis ist in vielen Laboren...).
 
 
-## Modellgüte
+## Modellgüte {#Modellguete}
 
 Aber wie gut ist das Modell? Und welches Modell von beiden ist besser? R hat uns kein $R^2$ ausgegeben. R hat uns deswegen kein $R^2$ ausgegeben, weil die Regressionsfunktion nicht über Abweichungsquadrate bestimmt wird. Stattdessen wird das Maximum Likelihood-Verfahren eingesetzt. Man kann also kein $R^2$ ausrechnen, zumindest nicht ohne Tricks. Einige findige Statistiker haben sich aber Umrechungswege einfallen lassen, wie man auch ohne Abweichungsquadrate ein $R^2$ berechnen kann; weil es kein 'echtes' $R^2$ ist, nennt man es auch *Pseudo-*$R^2$. Es gibt ein paar Varianten, wir bleiben bei der Variante von Herrn McFadden (s. Ausgabe).
 

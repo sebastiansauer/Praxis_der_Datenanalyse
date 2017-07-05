@@ -73,7 +73,6 @@ Daten (CSV, Excel,...)  können Sie *nicht* öffnen über `File > Open File ...`
 In R-Paketen wohnen nicht nur Funktionen, sondern auch Daten. Diese Daten kann man mit dem Befehl `data` laden, dem man den Namen des zu ladenen Datensatzes `dataset` und seines Heimatpakets `paket` übergibt: `data(dataset, package = "paket")`. Natürlich muss das Paket installiert sein. Zum Beispiel:
 
 ```{r eval = FALSE}
-data(stats_test, package = "prada")
 data(movies, package = "ggplot2movies")
 ```
 

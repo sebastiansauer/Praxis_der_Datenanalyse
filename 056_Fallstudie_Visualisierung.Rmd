@@ -35,7 +35,7 @@ Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der B
 Hier laden wir einen Datensatz von einer Online-Umfrage:
 
 ```{r}
-data(extra, package = "prada")
+extra <- read.csv("data/extra.csv")
 ```
 
 

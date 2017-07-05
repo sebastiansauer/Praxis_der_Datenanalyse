@@ -218,7 +218,7 @@ Merke:
 Laden wir als ersten einen Datensatz.
 
 ```{r}
-data(stats_test, package = "prada")
+stats_test <- read.csv("data/stats_test.csv")
 ```
 
 Dieser Datensatz beinhaltet Daten zu einer Statistikklausur.

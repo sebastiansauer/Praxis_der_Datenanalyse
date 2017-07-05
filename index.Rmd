@@ -1,5 +1,5 @@
 --- 
-title: "Praxis der Datenanalyse ENTWURF"
+title: "Praxis der Datenanalyse"
 subtitle: "Skript zum Modul"
 author: "Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -28,18 +28,13 @@ params:
     value: TRUE
 ---
 
-
-```{r sourcelibs, echo = FALSE, include = FALSE, warning = FALSE, message = FALSE, eval = FALSE}
-# source("includes/libs.R")
-```
-
 `r if (knitr:::is_latex_output()) '\\newpage\\setcounter{chapter}{0}\\chapter{Vorwort}'`
 `r if (!(knitr:::is_latex_output())) '# Vorwort {-}'`
 
 
 
 
-```{r echo = FALSE, out.width = "70%", fig.align = "center"}
+```{r echo = FALSE, out.width = "50%", fig.align = "center"}
 knitr::include_graphics("images/icons/OER_Logo_201706_gruen.png")
 ```
 

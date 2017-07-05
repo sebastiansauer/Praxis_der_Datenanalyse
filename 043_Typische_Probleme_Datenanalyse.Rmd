@@ -61,7 +61,7 @@ Das geht recht einfach mit `summary(mein_dataframe)`. Der Befehl liefert für je
 
 
 ```{r read-stats-data}
-data(stats_test, package = "prada")
+stats_test <- read.csv("data/stats_test.csv")
 summary(stats_test)
 ```
 
@@ -187,7 +187,7 @@ Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wi
 Nehmen wir dazu den Datensatz `extra` her.
 
 ```{r}
-data(extra, package = "prada")
+extra <- read.csv("data/extra.csv")
 ```
 
 

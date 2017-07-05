@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r include=FALSE, cache=FALSE}
 set.seed(1014)
 options(digits = 3)
@@ -204,7 +209,7 @@ Synonym wäre zu fragen, ob sich die Stufen von Geschlecht (die Geschlechter, al
 
 
 ```{r warning = FALSE}
-data(extra, package = "prada")
+extra <- read.csv("data/extra.csv")
 
 extra$viel_saeufer <- extra$n_hangover > 10
 
@@ -275,7 +280,7 @@ Jetzt die ANOVA:
 aov(extra_mean ~ sex, data = extra) %>% glance
 ```
 
-`glance` räumt das Ergebnis der ANOVA etwas auf, so dass die Ausgabe ein Dataframe ist und die "Überblick-Koeffizienten" (daher 'glance', engl. 'Blick') ausgegeben werden. Ganz interessantes Ergebnis: statistisch signifikant (p<.05), aber $R^2$ ist sehr klein.
+`glance` räumt das Ergebnis der ANOVA etwas auf, so dass die Ausgabe ein Dataframe ist und die "Überblick-Koeffizienten" (daher 'glance', engl. 'Blick') ausgegeben werden. Ganz interessantes Ergebnis: statistisch signifikant (p<.05), aber $R^2$ ist sehr klein. Der F-Wert ist als `stastistic` bezeichnet.
 
 ### Korrelationen auf Signifikanz prüfen
 
@@ -435,7 +440,16 @@ Aussagen 1, 2, 3 und 4 behaupten, der Hypothese bzw. dem Parameter eine Wahrsche
 
 Eine weitere Alternative sind Maße der *Effektstärke*\index{Effektstärke} [@Cohen1992]. Effektstärkemaße geben an, wie sehr sich zwei Parameter unterscheiden: "Deutsche Männer sind im Schnitt 13cm größer als Frauen" [@wiki:groesse]. Oder: "In Deutschland ist die Korrelation von Gewicht und Größe um 0,12 Punkte höher als in den USA" (frei erfunden). Im Gegensatz zu p-Werten wird keine Art von Wahrscheinlichkeitsaussage angestrebt, sondern die Größe von Parameter(unterschieden) quantifiziert. Effektstärken sind, im Gegensatz zum p-Wert, auch nicht abhängig von der Stichprobengröße. Man kann Effektstärken in nicht-standardisierte (wie Unterschiede in der Größe) oder standardisierte (wie Unterschiede in der Korrelation) einteilen. 
 
-Nicht-standardisierte Effektstärken haben den Vorteil der Anschaulichkeit. Standardisierte Effektgrößen sind präziser, aber unanschaulicher. So wäre ein Unterschied von 5€ bei Sportwagen gering und bei Eiskugeln groß. Ein unstandardisierter Kennwert berücksichtigt dies nicht. Um zwei Mittelwerte zu vergleichen, ist *Cohens d*\index{Cohens d} gebräuchlich. Es gibt den Unterschied der Mittelwert standardisiert an der Standardabweichung an [@cohen_statistical_1988].
+Nicht-standardisierte Effektstärken haben den Vorteil der Anschaulichkeit. Standardisierte Effektgrößen sind präziser, aber unanschaulicher. Bei Variablen mit unanschaulichen Metriken (wie psychologische Variablen und Umfragen) ist ein standardisiertes Maß häufig nützlicher. 
+
+>   Anschauliche Variablen sind oft mit unstandardisiertes Effektstärken adäquat dargestellt. Variablen mit wenig anschaulichen Metriken profitieren von standardisierten Effektstärkemaßen.
+
+
+
+Um zwei Mittelwerte zu vergleichen, ist *Cohens d*\index{Cohens d} gebräuchlich. Es gibt den Unterschied der Mittelwert standardisiert an der Standardabweichung an [@cohen_statistical_1988]. Das ist oft sinnvoll, denn 5$ Preisunterschied können viel oder weniger sein: Bei Eiskugeln wäre der Unterschied enorm (die Streuung ist viel weniger als 5€), bei Sportwagen wäre der Unterschied gering (die Streuung ist viel höher als 5€).
+
+
+#### Typische Effektstärkemaße
 
 Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. @eid2010statistik):
 
@@ -470,7 +484,28 @@ cohen.ES(test = c("p", "t", "r", "anov", "chisq", "f2"),
 ```
 
 
-Möchte man sich Effektstärken berechnen lassen, ist das Paket `compute.es` hilfreich. Um beispielsweise Mittelwertsunterschiede in Cohens d umzurechnen, steht der Befehl `mes` (m wie 'mean' und es wie 'effect size) zur Verfügung. Mit `help(mes)` kann man sich die Parameter anzeigen lassen.
+#### Effektstärken berechnen
+
+Möchte man sich Effektstärken berechnen lassen, ist das Paket `compute.es` hilfreich. Im Folgenden sind Effektstärkeberechnungen für gängige Inferenztests vorgestellt, in Fortsetzung zu den Beispielen oben.
+
+
+- $\chi^2$-Test. `compute.es::chies(30, n  = 826)`
+- t-Test: `compute.es::tes(t = 1, n.1 = 529, n.2 = 286)`
+- Varianzanalyse (F-Test): `glance` gibt $R^2$ aus; mit `etaSquared(mein_aov)` ebenfalls. Möchte man $f^2$ berechnen, so tut man das am besten per Hand, z.B. `0.002/ (1-0.002)`.
+- Korrelation: Der Korrelationswert $r$ ist schon ein Maß der Effekstärke. Yeah.
+- Regression: Die Steigung der Regressionsgeraden ($b$) ist ein (unstandardisiertes) Maß für die Stärke des ("Netto"-)Einflusses eines Prädiktors. $R^2$ hingegen ein Maß für die relative Varianzaufklärung aller Prädiktoren gemeinsam.
+- Logistische Regression: Mit `BaylorEdPsych::PseudoR2(mein_glm_objekt)` kann man eine Art $R^2$ bekommen (s. Kapitel \@ref(Modellguete)).
+  
+```
+
+
+
+
+
+
+
+
+Um beispielsweise Mittelwertsunterschiede in Cohens d umzurechnen, steht der Befehl `mes` (m wie 'mean' und es wie 'effect size) zur Verfügung. Mit `help(mes)` kann man sich die Parameter anzeigen lassen.
 
 
 Auch die Vorhersagegüte kann man als eine Effektstärke auffassen.

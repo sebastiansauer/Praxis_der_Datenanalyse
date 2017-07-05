@@ -21,6 +21,29 @@ script <- TRUE
 
 library(methods)  # sometimes not loaded, although built-in, appears like a bug
 ```
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 
@@ -184,14 +207,14 @@ cor(corvars3d)
 >   Je stärker die Korrelation zwischen Variablen, desto besser kann man sie zusammenfassen. 
 
 
-## Daten
+## Datensatz 'Werte'  
 
 Wir untersuchen die Dimensionalität mittels einer auf 1000 Fälle reduzierten Zufallsauswahl von 15 Variablen zur Messung der grundlegenden Wertorientierungen von Menschen. Die Daten wurden im Sommersemester 2017 von FOM Studierenden im ersten Semester an der FOM bundesweit erhoben. Die Variablen zu Wertorientierungen wurden ursprüngliche aus dem 40-Item-Set des Portraits Value Questionnaire» (PVQ) von @Schmidt2007 adaptiert und durch Studien an der FOM seit 2014 stufenweise bis auf 15 relevante Variablen reduziert. Alle Variablen wurden auf einer Skala von 1 bis 7 (wobei 1 am wenigsten und 7 am meisten zutrifft) abgefragt. 
 
 Laden wir zunächst den Datensatz:
 
 ```{r}
-data(Werte, package = "prada")
+Werte <- read.csv("data/Werte.csv")
 ```
 
 
