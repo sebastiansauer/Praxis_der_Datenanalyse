@@ -343,7 +343,7 @@ Die einzelnen Ausgangsvariablen sind in Abbildung Abbildung \@ref(fig:fig-biplot
 
 >   Je paralleler der Vektor einer Ausgangsvariable zur X-Achse (1. Hauptkomponente) ist, umso identischer sind sich die entsprechende Variable und die Hauptkomponente (für die Y-Achse gilt entsprechendes). Das hilft uns, die Hauptkomponente inhatlich zu interpretieren. Hauptkomponenten (oder Faktoren) sollten stets inhaltlich interpretiert werden - auch wenn eine subjektive Komponente mitschwingt. 
 
-Die 1. Hauptkomponente wird offenbar stark geprägt durch die Ausgangsvariablen `W6`, `W7`, `W9` und `W11`. Die 2. Hauptkomponente primär durch `W18` und `W19`. 
+Die 1. Hauptkomponente wird offenbar stark geprägt durch die Ausgangsvariablen `??`, `??`, `??` und `??`. Die 2. Hauptkomponente primär durch `??` und `??`. 
 
 Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten): Gruppen von Punkten entsprechen ähnlichen Fällen (ähnlich hinsichtlich ihrer Werte in den ersten zwei Hauptkomponenten). Der Biplot ist hier durch die große Anzahl an Beobachtung allerdings recht unübersichtlich. 
 
@@ -502,7 +502,7 @@ größer 0,6 |   fragwürdig
 größer 0,5 |   schlecht     
 
 
-Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `W15` mit in die Analyse auf.
+Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `Unabhängigkeit` mit in die Analyse auf.
 ```{r}
 Werte %>%
   dplyr::select(Unabhaengigkeit, Zuhoeren, Umweltbewusstsein, Interesse) -> df
