@@ -129,18 +129,16 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
-Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
-
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.afd.de/wp-content/uploads/sites/111/2017/01/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
 
 ```{r}
-afd_url <- paste0("https://www.alternativefuer.de",
-"/wp-content/uploads/sites/7/2016/05/",
+afd_url <- paste0("https://www.afd.de/",
+"/wp-content/uploads/sites/111/2017/01/",
 "2016-06-27_afd-grundsatzprogramm_web-version.pdf")
 
 afd_pfad <- "data/afd_programm.pdf"
 
-download(afd_url, afd_pfad)
-
+download(afd_url, afd_pfad, mode="wb")
 afd_raw <- pdf_text(afd_pfad)
 
 
@@ -238,7 +236,7 @@ Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen 
 Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
-```{r}
+```{r eval=FALSE}
 wordcloud(words = afd_count$token_stem, 
           freq = afd_count$n, 
           max.words = 100, 

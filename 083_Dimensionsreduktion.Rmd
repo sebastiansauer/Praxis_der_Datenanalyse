@@ -57,7 +57,6 @@ library(gplots)  # für `heatmap.2`
 library(nFactors)  # PCA und EFA
 library(tidyverse)  # Datenjudo
 library(psych)  # für z.B. 'alpha'
-
 ```
 
 
@@ -408,9 +407,8 @@ Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu 
 
 Durch das Paket `nFactors` bekommen wir eine ausgefuchstere Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()` - es werden noch weitere, sophistiziertere Methoden zur Berechnung der 'richtigen' Anzahl von Faktoren eingesetzt. Wir sparen uns hier die Details.
 
-```{r}
+```{r nFactors-nScree-Werte,eval=FALSE}
 nScree(Werte)
-
 ```
 
 `nScree` gibt vier methodische Schätzungen für die Anzahl an Faktoren durch den Scree-Plot aus. Wir sehen, dass drei von vier Methoden fünf Faktoren vorschlagen. Nach kurzer Überlegung und Blick aus dem Fenster entscheiden wir uns für 5 Faktoren.
@@ -426,6 +424,7 @@ Werte.fa
 ```
 
 Eine übersichtlichere Ausgabe bekommen wir mit dem `print` Befehl, in dem wir zusätzlich noch die Dezimalstellen kürzen mit `digits = 2`, alle Ladungen kleiner als 0,5 ausblenden mit `cutoff = .4` und die Ladungen mit `sort = TRUE` so sortieren, dass die Ladungen, die auf einen Faktor laden, untereinander stehen.
+
 ```{r out.width = "100%", eval = FALSE}
 print(Werte.fa, digits = 2, cutoff = .4, sort = TRUE)
 ```
