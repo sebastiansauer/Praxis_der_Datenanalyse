@@ -1,3 +1,49 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 
@@ -156,6 +202,7 @@ filtere die Spalte "wort", so dass nur noch Kleinbuchstaben übrig bleiben. FERT
 
 ### Text-Daten einlesen
 
+<<<<<<< HEAD
 Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <geladen am 1. März 2017 von https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
 
 
@@ -164,10 +211,24 @@ afd_pfad <- "data/afd_programm.pdf"
 
 afd_raw <- pdf_text(afd_pfad)
 
+=======
+Nun lesen wir Text-Daten ein; das können beliebige Daten sein^[Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.]. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD^[ <https://www.afd.de/wp-content/uploads/sites/111/2017/01/2016-06-27_afd-grundsatzprogramm_web-version.pdf>]. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - ~~verdient~~erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung. 
+
+```{r}
+afd_url <- paste0("https://www.afd.de/",
+"/wp-content/uploads/sites/111/2017/01/",
+"2016-06-27_afd-grundsatzprogramm_web-version.pdf")
+
+afd_pfad <- "data/afd_programm.pdf"
+
+download(afd_url, afd_pfad, mode="wb")
+afd_raw <- pdf_text(afd_pfad)
+head(afd_raw, 1)
+>>>>>>> c0f93bf3cefa3757a2d61e034400a24ca309d627
 ```
 
 
-Mit `head(afd_raw)`können Sie sich den Beginn dieses Textvektor anzeigen lassen.
+Mit `head(afd_raw)` können Sie sich den Beginn dieses Textvektor anzeigen lassen.
 
 Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest. `head(afd_raw, 1)` liest das 1. Element (und nur das erste) aus `afd_raw` aus.
 
@@ -208,7 +269,7 @@ afd_df %>%
 Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... Solche sogenannten "Stopwörter" sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket `lsa`.
 
 ```{r}
-data(stopwords_de)
+data(stopwords_de, package="lsa")
 
 stopwords_de <- data_frame(word = stopwords_de)
 
@@ -218,7 +279,6 @@ stopwords_de <- stopwords_de %>%
 
 afd_df %>% 
   anti_join(stopwords_de) -> afd_df
-
 ```
 
 
@@ -258,7 +318,14 @@ Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen 
 Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
-```{r}
+```{r debug-workcloud, eval=FALSE}
+myword <-na.omit(afd_count$token_stem)
+head(myword, 10)
+myfreq <- na.omit(afd_count$n)
+head(myfreq, 10)
+```
+
+```{r show-wordcloud}
 wordcloud(words = afd_count$token_stem, 
           freq = afd_count$n, 
           max.words = 100, 

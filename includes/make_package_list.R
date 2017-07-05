@@ -25,6 +25,7 @@ output <- c()
 
 output <- c(output, "# Diese Datei wird automatisch erzeugt! Bitte nicht von Hand ändern!")
 output <- c(output, "# (w) in 2017 by Norman Markgraf")
+output <- c(output, paste("# Diese Liste stammt vom", Sys.time()))
 output <- c(output,"packages <- c()")
 
 
@@ -39,4 +40,4 @@ output <- c(output,"packages <- sort(unique(packages)[-1])")
 
 write(output, file=my_packages_list, sep="\n")
 
-print(output)
+#print(output)
