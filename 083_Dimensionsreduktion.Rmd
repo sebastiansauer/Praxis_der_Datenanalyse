@@ -491,16 +491,7 @@ Das einfachste Maß für die *interne Konsistenz*\index{interne Konsistenz} ist 
 
 Der Koeffizient *Alpha* ist der Mittelwert aller möglichen Split-Half-Koeffizienten, die sich aus verschiedenen Arten der Aufteilung der Items ergeben. Dieser Koeffizient variiert von 0 bis 1. Inhaltlich ist Alpha eine Art mittlere Korrelation, die sich ergibt wenn man alle Items (paarweise) miteinander korreliert: I1-I2, I1-I3,...
 
-Faustregeln für die Bewertung von Cronbachs Alpha:
-
-Alpha      |   Bedeutung    
------------|--------------
-größer 0,9 |   exzellent     
-größer 0,8 |   gut     
-größer 0,7 |   akzeptabel     
-größer 0,6 |   fragwürdig     
-größer 0,5 |   schlecht     
-
+Zufriedenstellende Reliabilität wird bei einem Alpha-Wert von 0.7 erreicht. Werte unter 0.5 gelten als nicht akzeptabel, Werte ab 0.8 als gut.
 
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `Unabhängigkeit` mit in die Analyse auf.
 ```{r}
