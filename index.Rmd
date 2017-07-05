@@ -1,7 +1,7 @@
 --- 
 title: "Praxis der Datenanalyse"
 subtitle: "Skript zum Modul"
-author: "Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke"
+author: "Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke, Karsten Lübke und Norman Markgraf"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 lang: de-De
 colorlinks: yes
