@@ -1,3 +1,49 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+script <- TRUE
+
+
+library(methods)  # sometimes not loaded, although built-in, appears like a bug
+```
 
 
 
@@ -140,12 +186,11 @@ afd_pfad <- "data/afd_programm.pdf"
 
 download(afd_url, afd_pfad, mode="wb")
 afd_raw <- pdf_text(afd_pfad)
-
-
+head(afd_raw, 1)
 ```
 
 
-Mit `head(afd_raw)`können Sie sich den Beginn dieses Textvektor anzeigen lassen.
+Mit `head(afd_raw)` können Sie sich den Beginn dieses Textvektor anzeigen lassen.
 
 Mit `download` haben wir die Datei mit der URL `afd_url` heruntergeladen und als `afd_pfad` gespeichert. Für uns ist `pdf_text` sehr praktisch, da diese Funktion Text aus einer beliebige PDF-Datei in einen Text-Vektor einliest. `head(afd_raw, 1)` liest das 1. Element (und nur das erste) aus `afd_raw` aus.
 
@@ -186,7 +231,7 @@ afd_df %>%
 Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... Solche sogenannten "Stopwörter" sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket `lsa`.
 
 ```{r}
-data(stopwords_de)
+data(stopwords_de, package="lsa")
 
 stopwords_de <- data_frame(word = stopwords_de)
 
@@ -196,7 +241,6 @@ stopwords_de <- stopwords_de %>%
 
 afd_df %>% 
   anti_join(stopwords_de) -> afd_df
-
 ```
 
 
@@ -236,7 +280,14 @@ Das ist schon informativer. Dem Befehl `SnowballC::wordStem` füttert man einen 
 Zum Abschluss noch eine Visualisierung mit einer "Wordcloud" dazu.
 
 
-```{r eval=FALSE}
+```{r debug-workcloud, eval=FALSE}
+myword <-na.omit(afd_count$token_stem)
+head(myword, 10)
+myfreq <- na.omit(afd_count$n)
+head(myfreq, 10)
+```
+
+```{r show-wordcloud}
 wordcloud(words = afd_count$token_stem, 
           freq = afd_count$n, 
           max.words = 100, 
