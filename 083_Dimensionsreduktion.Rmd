@@ -188,9 +188,10 @@ cor(corvars3d)
 
 Wir untersuchen die Dimensionalität mittels einer auf 1000 Fälle reduzierten Zufallsauswahl von 15 Variablen zur Messung der grundlegenden Wertorientierungen von Menschen. Die Daten wurden im Sommersemester 2017 von FOM Studierenden im ersten Semester an der FOM bundesweit erhoben. Die Variablen zu Wertorientierungen wurden ursprüngliche aus dem 40-Item-Set des Portraits Value Questionnaire» (PVQ) von @Schmidt2007 adaptiert und durch Studien an der FOM seit 2014 stufenweise bis auf 15 relevante Variablen reduziert. Alle Variablen wurden auf einer Skala von 1 bis 7 (wobei 1 am wenigsten und 7 am meisten zutrifft) abgefragt. 
 
-Das Einlesen der Daten erfolgt mit dem Befehl read.csv2.
+Laden wir zunächst den Datensatz:
+
 ```{r}
-Werte <- read.csv2("data/Werte.csv")
+data(Werte, package = "prada")
 ```
 
 
