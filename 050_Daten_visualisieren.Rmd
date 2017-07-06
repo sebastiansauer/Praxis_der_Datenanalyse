@@ -91,20 +91,17 @@ Los geht's! Laden wir zuerst den Datensatz `movies`.
 data(movies, package = "ggplot2movies")
 ```
 
-Betrachten Sie zum Einstieg das Diagramm \@ref(fig:fig-movies). 
-
-```{block2, exercises-fig-movies-einstieg, type='rmdexercises', echo = TRUE} 
+Betrachten Sie zum Einstieg das Diagramm \@ref(fig:figmovies):
 
 1. Welche Variable steht auf der X-Achse?
 2. Welche Variable steht auf der Y-Achse?
 3. Was wird gemalt? Linien, Boxplots, Punkte?
 4. Wie heißt der Datensatz, aus dem die Daten gezogen werden?
-  
-```
+
 
 Der Befehl, der dieses Diagramm erzeugte, heißt `qplot`. Es ist ziemlich genau die Antwort auf die Übungsfragen von gerade eben:
 
-```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
+```{r figmovies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
 qplot(x = year, 
       y = budget, 
       geom = "point", 
