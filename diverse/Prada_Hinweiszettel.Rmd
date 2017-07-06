@@ -31,7 +31,7 @@ Dieser Hinweiszettel soll Ihnen helfen, das Modul erfolgreich und mit Freude zu 
 
 # Ein schlankes Folienskript, ein umfangreiches Skript
 
-Eine Besonderheit dieses Moduls ist es, dass es kein "normales" Powerpoint-Skript gibt. Wie, höre ich Sie gerade sagen, soll ich bitteschön unterrichten? Die gute Nachricht ist: Sie bekommen ausführliches, ausgeschriebenes Material, in weit größerem Umfang als dies normalerweise der Fall ist. Allerdings wird dieses Textmaterial in dem Format geliefert, in dem Texte vemittelt werden sollte: Als Textdokument ("Buch"), nicht als Powerpoint-Folie. Aber wie, so könnten Sie entgegnen, soll ich das präsentieren im Unterricht? Schwerlich kann ich ein Buch an die Wand projizieren. Für den Zweck des Visualisierens (Präsentierens) gibt es einen Foliensatz (bewusst nicht "Skript" geannt). Allerdings ist der Foliensatz schlank; es beinhaltet im Wesentlichen Dinge, die sich zum Visualisieren eignen: Bilder und Kernaussagen. 
+Eine Besonderheit dieses Moduls ist es, dass es kein "normales" Powerpoint-Skript gibt. Wie, höre ich Sie gerade sagen, soll ich bitteschön unterrichten? Die gute Nachricht ist: Sie bekommen ausführliches, ausgeschriebenes Material, in weit größerem Umfang als dies normalerweise der Fall ist. Allerdings wird dieses Textmaterial in dem Format geliefert, in dem Texte vemittelt werden sollte: Als Textdokument ("Buch"), nicht (primär) als Powerpoint-Folie. Aber wie, so könnten Sie entgegnen, soll ich das präsentieren im Unterricht? Schwerlich kann ich ein Buch an die Wand projizieren. Für den Zweck des Visualisierens (Präsentierens) gibt es einen Foliensatz (bewusst nicht "Skript" geannt). Allerdings ist der Foliensatz schlank; es beinhaltet im Wesentlichen Dinge, die sich zum Visualisieren eignen: Bilder und Kernaussagen. 
 
 Gemeinhin wird ein anderer Gebrauch von Folien gemacht: ~~Über~~voll geladene Powerpoint-Folien, die den Spagat versuchen zwischen ein Buch zu sein und Wesentliches zu präsentieren. Und dabei keinem von beidem gerecht werden. Zum einen: Auf einer Folie ist einfach viel weniger Platz als auf einer Buchseite. Zum anderen: Übervolle Folien sind zum Verdeutlichen ungeeignet, da die Teilnehmer mit Lesen beschäftigt sind und Ihnen nicht zuhören. Viel besser ist es, Verdeutlichen (Visualisieren, Präsentieren) vom Dokumentieren der Detail-Informationen zu trennen. Das ist in diesem Skript umgesetzt. Es gibt also ein umfangreiches Skript (ein "Rumpfbuch") und einen schlanken Foliensatz Sie haben außerdem einfachen Zugriff auf alle Bilder, R-Code, Tabellen und Text. Damit können Sie sich einfach einen eigenen Foliensatz bauen. Das geht natürlich nur dann einfach, wenn Sie die Methode dieses Moduls umsetzen, und den Foliensatz schlank halten. Dann (und nur dann) ist es sehr einfach, einen Foliensatz selber zu erstellen. 
 
@@ -39,7 +39,7 @@ Schließlich bleibt noch die Frage: "Hey, ich brauche die Folien auch als Stichw
 
 An Dokumenten für einen Vortrag braucht man also dreierlei Dokumente [s. Abb. @fig:fig1].
 
-![Für einen Vortrag braucht man dreierlei Dokumente](../images/Archiv/text_slides-crop.png){#fig:fig1 width=50%}
+![Für einen Vortrag braucht man dreierlei Dokumente](../images/Archiv/text_slides-crop.png){#fig:fig1 width=90%}
 
 
 Jedes dieser drei Dokument-Formate (Text, Folie, Stichwortzettel) hat ein anderes Ziel:
@@ -71,7 +71,7 @@ Folgende Hilfestellungen stehen für Dozenten bereit:
 - Übungsklausur (im Skript)
 - Übungsaufgaben für jedes Kapitel (im Skript)
 - Ausführliche Verweise auf weiterführendes Material (im Skript)
-- Literaturhinweise (im Skript)
+- Literaturhinweise (im Skript); besonders hilfreich ist das Buch [R for Data Science](http://r4ds.had.co.nz/).
 - [Strukturiertes Fehlersystem](https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues): Fehler im Skript oder Wünsche zum Skript können auf speziellem Internetformular aufgegeben und ihr Status nachverfolgt werden. Klicken Sie auf der Seite des Links auf den Button "New Issue", wenn Sie einen neuen "Issue" aufgeben möchten.
 
 
@@ -85,3 +85,8 @@ Die wichtigsten organisatorischen Punkte sind im Skript im Kapitel [Organisatori
 # Freiheit der Lehre
 
 Die Freieheit der Lehre ist gewährt. Wie in jedem Modul gilt: Wir sollen die Modulziele erfüllen und sind im Übrigen frei. Nutzen Sie diese Freiheit: Falls Ihnen ein Kapitel nicht zusagt, lassen Sie es aus oder begrenzen Sie den Stoff indem Sie z.B. ein Teilkapitel auslassen.
+
+
+# Themen
+
+Die Themen pro Kapitel sind im Skript dargestellt, s. Kapitel [Organisatorisches](https://sebastiansauer.github.io/Praxis_der_Datenanalyse/organisatorisches.html). Sehen Sie Sie als Richtwert; setzen Sie Schwerpunkte nach eigenem Ermessen. Es ist auch nicht unbedingt nötig, den kompletten Stoff jedes Kapitels zu erarbeiten. Auch hier gilt es, eigene Schwerpunkte zu setzen.

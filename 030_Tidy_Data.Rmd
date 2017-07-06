@@ -112,7 +112,12 @@ df <- read.csv("data/stats_test.csv")
 
 Übrigens, Sie können die Daten (als CSV) für diesen Kurs auch über diese URL importieren. Z.B. den Datensatz `stats_test`:
 ```{r eval = FALSE}
-prada_stats_test_url <- "https://raw.github.com/sebastiansauer/Praxis_der_Datenanalyse/master/data/stats_test.csv"
+prada_stats_test_url <-
+  paste0("https://raw.github.com/",  # Webseite
+         "sebastiansauer/",  # Nutzer
+         "Praxis_der_Datenanalyse/",  # Projekt/Repositorium
+         "master/",  # Variante
+         "data/stats_test.csv")  # Ordner und Dateinamen
 
 stats_test <- read.csv(prada_stats_test_url)
 
@@ -217,7 +222,7 @@ In Kapitel \@ref(case-movies) werden wir dazu ein Fallstudie einüben.
 ## Textkodierung
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht man... Text und sonst nichts, also keine Formatierung etc. Eine Textdatei besteht aus Text und sonst nichts (daher der Name...). Auch eine R-Skript-Datei (`Coole_Syntax.R`) ist eine Textdatei.
-Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Jetzt steht in der Textdatei der Code "42" für den nächsten Buchstaben. Ja, ist das jetzt ein "A", oder ein "Ä" oder vielleicht ein "ξ"? Woher weiß der Computer das eigentlich? Die Antwort ist: Er braucht eine Art Übersetzungstabelle oder Kodierungstafel. Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, Ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
+Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Jetzt steht in der Textdatei der Code "42" für den nächsten Buchstaben. Ja, ist das jetzt ein "A", oder ein "Ä" oder vielleicht ein griechischer Buchstabe? Woher weiß der Computer das eigentlich? Die Antwort ist: Er braucht eine Art Übersetzungstabelle oder Kodierungstafel. Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, Ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
 
 >    Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
 

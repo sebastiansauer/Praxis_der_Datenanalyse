@@ -15,7 +15,7 @@ output:
 \part{Grundlagen}
 
 
-# Rahmen
+# Rahmen{#Rahmen}
 
 
 
@@ -397,8 +397,7 @@ Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium he
 - Datensatz `titanic_train` aus dem Paket {titanic} von [kaggle](https://www.kaggle.com/c/titanic/data); es handelt sich um Überlebensraten vom Titanic-Unglück.
 - Datensatz `Affairs` aus dem Paket {AER} [@fair1978theory]; es handelt sich um eine Umfrage zu außerehehlichen Affären.
 
-Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen). Übrigens können Sie sich die Daten von [Github](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunter laden (s. Abschnitt \@ref(gh-repo)).
-
+Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen). 
 
 
 

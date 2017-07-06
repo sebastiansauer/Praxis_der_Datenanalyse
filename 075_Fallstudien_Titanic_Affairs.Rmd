@@ -239,7 +239,7 @@ c5$prop <- c5$n / 707
 c5
 ```
 
-Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf. Das visualisieren wir wieder, s. Abbildung \@ref(fig-titanic2).
+Genauer gesagt haben die Häufigkeiten pro Gruppe in Bezug auf die Gesamtzahl aller Passagiere berechnet; die vier Anteile addieren sich also zu 1 auf. Das visualisieren wir wieder, s. Abbildung \@ref(fig:titanic2).
 
 ```{r titanic2, fig.cap = "Absolute Überlebenshäufigkeiten"}
 qplot(x = factor(Pclass), 

@@ -41,7 +41,14 @@ extra <- read.csv("data/extra.csv")
 Alternativ können Sie den Datensatz aus dem Paket `prada` laden (mit `data(extra, package = "prada")`) oder aus dem Internet herunterladen:
 
 ```{r eval = FALSE}
-extra <- read.csv("https://raw.github.com/sebastiansauer/Praxis_der_Datenanalyse/master/data/extra.csv")
+prada_extra_url <-
+  paste0("https://raw.github.com/",  # Webseite
+         "sebastiansauer/",  # Nutzer
+         "Praxis_der_Datenanalyse/",  # Projekt/Repositorium
+         "master/",  # Variante
+         "data/extra.csv")  # Ordner und Dateinamen
+
+extra <- read.csv(prada_extra_url)
 ```
 
 

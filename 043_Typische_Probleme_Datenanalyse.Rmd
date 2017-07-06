@@ -47,6 +47,7 @@ library(tidyverse)
 library(corrr)
 library(gridExtra)
 library(car)
+library(prada)  # optional: Daten 'extra' und 'stats_test'
 ```
 
 

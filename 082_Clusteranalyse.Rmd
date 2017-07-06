@@ -334,7 +334,7 @@ Nach der Lösung mit 4 Clustern kann man (vage) einen Knick ausmachen: Noch mehr
 ```{block2, exercises-cluster, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?
 
-1. Die Clusteranalyse wird gemeinhin dazu verwenden, *Objekte* nach Ähnlichkeit zu Gruppen zuammenzufassen.
+1. Die Clusteranalyse wird gemeinhin dazu verwenden, Objekte nach Ähnlichkeit zu Gruppen zuammenzufassen.
 
 1. Die Varianz innerhalb eines Clusters kann als Maß für die Anzahl der zu extrahierenden Cluster herangezogen werden.
 

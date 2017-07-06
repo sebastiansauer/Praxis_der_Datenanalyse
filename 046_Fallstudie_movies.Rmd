@@ -32,7 +32,8 @@ Für dieses Kapitel werden folgende Pakete benötigt:
 
 ```{r}
 library(tidyverse)  # Datenjudo und Visualisierung
-library(corrr)
+library(corrr)  # Korrelation
+library(ggplot2movies)  # Daten
 ```
 
 

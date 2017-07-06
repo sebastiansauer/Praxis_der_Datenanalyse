@@ -36,9 +36,6 @@ library(broom)  # lm-Ergebnisse aufräumen
 
 
 
-
-## Daten laden
-
 Hilft Lernen, eine Statistkklausur zu bestehen? Kommmt es auf Interesse an? Versuchen wir vorherzusagen, wer eine Statistikklausur besteht. Etwas genauer gesagt, sagen wir ein *binäres* (dichotomes) Ereignis - Bestehen der Klausur - vorher anhand von einer mehr Variablen mit beliebigen Skalenniveau.
 
 Laden wir die Klausurdaten.
@@ -470,7 +467,7 @@ Richtig oder Falsch!?
 
 1. Eine Klassifikation kann 4 Arten von Ergebnissen bringen - gemessen an der Richtigkeit des Ergebnisses.
 
-1. Der 'positive Vorhersagewert'  ist definiert als der Anteil aller richtig-positiven Klassifikationen an allen als positiv klassifizierten Objekten. 
+1. Der 'positive Vorhersagewert' ist definiert als der Anteil aller richtig-positiven Klassifikationen an allen als positiv klassifizierten Objekten. 
 
 ```
 

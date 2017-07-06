@@ -24,7 +24,7 @@ library(methods)  # sometimes not loaded, although built-in, appears to be a bug
 
 
 
-# Datenjudo
+# Datenjudo{#Datenjudo}
 
 
 ```{r echo = FALSE, out.width = "30%", fig.align = "center"}
