@@ -37,7 +37,7 @@ library(nycflights13)  # für die Daten
 Dann laden wir die Daten aus dem Paket `nycflights13` mit `data` und werfen eine Blick hinein ("to glimpse") mit `glimpse`; `glimpse` zeigt uns einen Überblick über den Dataframe.
 
 ```{r}
-data(flights)
+data(flights, package = "nycflights13")
 glimpse(flights)
 ```
 

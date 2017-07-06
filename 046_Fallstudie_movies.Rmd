@@ -38,7 +38,7 @@ library(corrr)
 
 Zunächst laden wir die Daten und werfen einen Blick in den Datensatz:
 
-```{r}
+```{r results = "hide"}
 data(movies, package = "ggplot2movies")
 glimpse(movies)
 ```
@@ -78,7 +78,7 @@ movies %>%
   select(Action:Short) %>% 
   summarise_all(funs(sum)) %>% 
   gather() %>% 
-  arrange()
+  arrange(-value)
 ```
 
 Der Befehl `gather` baut einen Dataframe von "breit" nach "lang" um (vgl. Kapitel \@ref(normalform)). Ah, ~~Schmunzetten~~ Dramen sind also am häufigsten (wie der Befehl `arrange` dann zeigt). Welcome to Hollywood. :tada:

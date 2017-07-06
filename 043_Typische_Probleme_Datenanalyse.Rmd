@@ -146,13 +146,16 @@ summiere alle Treffer auf.
 Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten, die Zeilen zu löschen, so können wir die fehlenden Werte ersetzen. Allein, das ist ein weites Feld und übersteigt den Anspruch dieses Kurses^[Das sagen Autoren, wenn sie nicht genau wissen, wie etwas funktioniert.]. Eine einfache, aber nicht die beste Möglichkeit, besteht darin, die fehlenden Werte durch einen repräsentativen Wert, z.B. den Mittelwert der Spalte, zu ersetzen.
 
 ```{r}
-stats_test$interest <- replace(stats_test$interest, is.na(stats_test$interest),
-                         mean(stats_test$interest, na.rm = TRUE))
+stats_test %>% 
+  mutate(interest = replace(.$interest,
+                            is.na(stats_test$interest),
+                            mean(stats_test$interest, 
+                                 na.rm = TRUE))) -> stats_test
 
 sum(is.na(stats_test$interest))
 ```
 
-`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `stats_test$interest` alle Werte, für die `is.na(stats_test$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html].
+`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `stats_test$interest` alle Werte, für die `is.na(stats_test$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html]. Der Punkt `.` ersetzt den Daten der Tabelle (wir hätten aber auch den Namen der Tabelle ausschreiben können).
 
 
 
@@ -166,10 +169,21 @@ Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prü
 
 ```{r}
 stats_test %>% 
-  count(interest) 
+  count(interest, sort = TRUE) %>% head
 ```
 
 Da in der Umfrage nur ganze Zahlen von 1 bis 5 abgefragt wurden, ist die `3.21...` auf den ersten Blick suspekt. In diesem Fall ist aber alles ok, da wir diesen Wert selber erzeugt haben.
+
+Findet man 'merkwürdige' (unplausible) Werte, so kann es sinnvoll sein, diese Werte herauszunehmen (im Detail eine schwierige Entscheidung). Besser als die Zeilen zu löschen, ist es oft, diese Werte in `NA` umzuwandeln. Sagen wir, wir möchten alle Fälle mit `score < 21` entfernen bzw. in `NA` umwandeln.
+
+```{r}
+stats_test %>% 
+  mutate(score_bereinigt = replace(.$score, 
+                                   .$score < 21, 
+                                   NA)) -> stats_test
+```
+
+
 
 ### Ausreißer identifizieren
 

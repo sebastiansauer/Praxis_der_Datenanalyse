@@ -29,6 +29,7 @@ Lernziele:
 In diesem Kapitel werden folgende Pakete benötigt: 
 ```{r}
 library(readr)  # Daten einlesen
+library(tidyverse) # Datenjudo und Visualisierung
 ```
 
 
@@ -78,7 +79,7 @@ data(movies, package = "ggplot2movies")
 
 ### Daten im R-Format laden
 
-Das R-Datenformat erkennt man an der R-Endung `.rda` oder `RData`. Dateien mit diesem Format kann man in RStudio über `File > Open File...` öffnen. Oder mit dem Befehl `load(file)`, wobei `file` der Dateiname ist, also z.B. `extra.RData`. Mit dem Schwesterbefehl `save` können Sie ein Objekt im R-Datenformat speichern, z.B. `save(stats_test, file = "stats_test.RData").
+Das R-Datenformat erkennt man an der R-Endung `.rda` oder `RData`. Dateien mit diesem Format kann man in RStudio über `File > Open File...` öffnen. Oder mit dem Befehl `load(file)`, wobei `file` der Dateiname ist, also z.B. `extra.RData`. Mit dem Schwesterbefehl `save` können Sie ein Objekt im R-Datenformat speichern, z.B. `save(stats_test, file = "stats_test.RData")`.
 
 
 
@@ -105,8 +106,20 @@ Lesen wir diese Daten jetzt ein:
 
 
 ```{r, eval=FALSE}
-df <- read.csv("data/test_inf_short.csv")
+df <- read.csv("data/stats_test.csv")
 ```
+
+
+Übrigens, Sie können die Daten (als CSV) für diesen Kurs auch über diese URL importieren. Z.B. den Datensatz `stats_test`:
+```{r eval = FALSE}
+prada_stats_test_url <- "https://raw.github.com/sebastiansauer/Praxis_der_Datenanalyse/master/data/stats_test.csv"
+
+stats_test <- read.csv(prada_stats_test_url)
+
+```
+
+Analog gehen Sie für die anderen PraDa-Datensätze vor (vgl. Kapitel \@ref(daten)).
+
 
 #### Vorsicht bei nicht-amerikanisch kodierten Textdateien
 
@@ -204,7 +217,7 @@ In Kapitel \@ref(case-movies) werden wir dazu ein Fallstudie einüben.
 ## Textkodierung
 
 Öffnet man eine Textdatei mit einem Texteditor seiner Wahl, so sieht man... Text und sonst nichts, also keine Formatierung etc. Eine Textdatei besteht aus Text und sonst nichts (daher der Name...). Auch eine R-Skript-Datei (`Coole_Syntax.R`) ist eine Textdatei.
-Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Ein bestimmtes Zeichen wie "A" bekommt einen bestimmten Code wie "41". Mit etwas Glück weiß der Computer jetzt, dass er das Zeichen "41" auf den Bildschirm ausgeben soll. Es stellt sich jetzt die Frage, welche Code-Tabelle der Computer nutzt? Welchem Code wird "A" (bzw. ein beliebiges Zeichen) zugeordnet? Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, Ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
+Technisch gesprochen werden nur die Textzeichen gespeichert, sonst nichts; im Gegensatz dazu speichert eine Word-Datei noch mehr, z.B. Formatierung. Jetzt steht in der Textdatei der Code "42" für den nächsten Buchstaben. Ja, ist das jetzt ein "A", oder ein "Ä" oder vielleicht ein "ξ"? Woher weiß der Computer das eigentlich? Die Antwort ist: Er braucht eine Art Übersetzungstabelle oder Kodierungstafel. Mehrere solcher Kodierungstafeln existieren. Die gebräuchlichste im Internet heißt *UTF-8*^[https://de.wikipedia.org/wiki/UTF-8]. Leider benutzen unterschiedliche Betriebssysteme unterschiedliche Kodierungstafeln, was zu Verwirrung führt. Ich empfehle, Ihre Textdateien als UTF-8 zu kodieren. RStudio fragt sie, wie eine Textdatei kodiert werden soll. Sie können auch unter `File > Save with Encoding...` die Kodierung einer Textdatei festlegen.
 
 >    Speichern Sie R-Textdateien wie Skripte stets mit UTF-8-Kodierung ab.
 

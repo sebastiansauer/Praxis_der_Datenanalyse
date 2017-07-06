@@ -388,13 +388,14 @@ Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium he
 >    Die Daten dieses Kurses liegen im Ordner 'data'.
 
 
+
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
 - Datensatz `stats_test` aus dem R-Paket {prada} [@Sauer_2017]; es handelt sich um Ergebnisse einer Statistikklausur (einer Probeklausur)
 - Datensatz `flights` aus dem R-Paket {nycflights13} [@nycflights13]; es handelt sich um Abflüge von den New Yorker Flughäfen 
 - Datensatz `wo_men`, URL: <https://osf.io/ja9dw> [@Sauer_2017a]; es handelt sich um Körper- und Schuhgröße von Studierenden
 - Datensatz `extra`  aus dem R-Paket {prada} [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
 - Datensatz `titanic_train` aus dem Paket {titanic} von [kaggle](https://www.kaggle.com/c/titanic/data); es handelt sich um Überlebensraten vom Titanic-Unglück.
-- Datensatz `affairs` aus dem Paket {AER} [@fair1978theory]; es handelt sich um eine Umfrage zu außerehehlichen Affären.
+- Datensatz `Affairs` aus dem Paket {AER} [@fair1978theory]; es handelt sich um eine Umfrage zu außerehehlichen Affären.
 
 Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen). Übrigens können Sie sich die Daten von [Github](https://github.com/sebastiansauer/Praxis_der_Datenanalyse) herunter laden (s. Abschnitt \@ref(gh-repo)).
 
@@ -406,7 +407,7 @@ Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), bespr
 
 ### R-Skript-Dateien
 
-- Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen... R-Skripte können Sie speichern (unter `File-Save`) und öffnen. R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
+Ein neues *R-Skript*\index{R-Skript} im RStudio können Sie z.B. öffnen mit `File-New File-R Script`. Schreiben Sie dort Ihre R-Befehle; Sie können die Skriptdatei speichern, öffnen, ausdrucken, übers Bett hängen... R-Skripte können Sie speichern (unter `File-Save`) und öffnen. R-Skripte sind einfache Textdateien, die jeder Texteditor verarbeiten kann. 
 Nur statt der Endung `.txt`, sind R-Skripte stolzer Träger der Endung `.R`. Es 
 bleibt aber eine schnöde Textdatei. Geben Sie Ihren R-Skript-Dateien die Endung ".R",
 damit erkennt RStudio, dass es sich um ein R-Skript handelt und bietet ein paar 
@@ -441,7 +442,9 @@ zwei verschiedene Dinge für R!
 Dezimaltrennzeichen.
 - Fehlende Werte werden in R durch `NA` kodiert.
 - Kommentare werden mit dem Rautezeichen `#` eingeleitet; der Rest der Zeile von von R dann ignoriert. 
-- *Variablennamen*\index{Variablen} in R sollten mit Buchstaben beginnen; ansonsten dürfen nur Zahlen und Unterstriche `-` enthalten sein. Leerzeichen sollte man meiden.
+- *Variablennamen*\index{Variablen} in R sollten mit Buchstaben beginnen; ansonsten dürfen nur Zahlen und Unterstriche (`_`) enthalten sein. Leerzeichen sollte man meiden. Das gilt auch für Spaltennamen.
+- Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).
+- Bleiben Sie konsistent, in der Art und Weise, wie Sie Ihre Syntax schreiben. Ein Vorschlag zum 'Syntax-Stil' finden Sie [hier](http://adv-r.had.co.nz/Style.html).
 - Variablen einen treffenden Namen zu geben, ist nicht immer leicht, aber wichtig. Namen sollten knapp, aber aussagekräftig sein.
 
 ```
@@ -457,7 +460,6 @@ tips_mw
 lm1
 ```
 
-Um den Inhalt einer Variablen auszulesen, geben wir einfach den Namen des Objekts ein (und schicken den Befehl ab).
 
 
 
@@ -724,9 +726,7 @@ Hallo_R < - 1
 
 
 
-
-
-## Aufgaben^[R, F: die Daten müssen sinnvoll zusammengefasst werden, F, F, F: Wenn er ehrlich sein sollte, dann ist das Ereignis '10 von 10' selten]
+Richtig oder Falsch???^[R, F: die Daten müssen sinnvoll zusammengefasst werden, F, F, F: Wenn er ehrlich sein sollte, dann ist das Ereignis '10 von 10' selten]
 
 ```{block2, exercises-rahmen, type='rmdexercises', echo = TRUE} 
 Richtig oder Falsch!?

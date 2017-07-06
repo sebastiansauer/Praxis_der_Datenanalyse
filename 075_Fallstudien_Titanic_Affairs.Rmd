@@ -24,18 +24,15 @@ In dieser YACSDA^[Yet-another-case-study-on-data-analysis] geht es um die beispi
 Mit dem Befehl `data` kann man Daten aus Paketen laden; lässt man den Paramter `package` weg, so werden alle geladenen Pakete nach diesem Datensatz durchsucht. Benennt man den Parameter, so kann man auch *nicht* geladene Pakete damit ansteuern.
 
 ```{r}
-data(titanic_train)
+data(titanic_train, package = "titanic")
 titanic_train <- na.omit(titanic_train)
 ```
 
 
 
 ### Erster Blick
-Werfen wir einen ersten Blick in die Daten:
-  
-```{r glimpse-data}
-glimpse(titanic_train)
-```
+Werfen Sie einen ersten Blick in die Daten mit `glimpse(titanic_train)`. Lassen Sie sich dann einige deskriptive Statistiken ausgeben^[z.B. mit `titanic_train %>% count(Survived)` oder `titanic_train %>% summarise(Ticketpreis = mean(Fare, na.rm = TRUE))`]
+
 
 ### Welche Variablen sind interessant?
 Von 12 Variablen des Datensatzes interessieren uns offenbar `Pclass` und `Survived`; Hilfe zum Datensatz kann man übrigens mit `help(titanic_train)` bekommen. Diese beiden Variablen sind kategorial (nicht-metrisch), wobei sie in der Tabelle mit Zahlen kodiert sind. Natürlich ändert die Art der Codierung (hier als Zahl) nichts am eigentlichen Skalenniveau. Genauso könnte man "Mann" mit `1` und "Frau" mit `2` kodieren; ein Mittelwert bliebe genauso (wenig) aussagekräftig. Zu beachten ist hier nur, dass sich manche R-Befehle verunsichern lassen, wenn nominale Variablen mit Zahlen kodiert sind. Daher ist es oft besser, nominale Variablen mit Text-Werten zu benennen (wie "survived" vs. "drowned" etc.). Wir kommen später auf diesen Punkt zurück.
@@ -58,16 +55,12 @@ Achtung - Namenskollision! Sowohl im Paket `mosaic` als auch im Paket `dplyr` gi
 
 
 
-Aha. Zur besseren Anschaulichkeit können wir das auch plotten (ein Diagramm dazu malen). 
+Aha. Zur besseren Anschaulichkeit können Sie das auch plotten (ein Diagramm dazu malen). Wie?^[`qplot(x = Pclass, y = n, data = c1)`]
 
-```{r plot-titanic1}
-qplot(x = Pclass, y = n, data = c1)
-```
 
 Der Befehl `qplot` zeichnet automatisch Punkte, wenn auf beiden Achsen "Zahlen-Variablen" stehen (also Variablen, die keinen "Text", sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ `int` (integer), also Ganze Zahlen oder vom Typ `num` (numeric), also reelle Zahlen).
 
 ```{r}
-
 c2 <- dplyr::count(titanic_train, Survived)
 c2
 ```
@@ -92,7 +85,7 @@ Es ist hilfreich, sich diese Häufigkeiten wiederum zu plotten; probieren Sie `q
 
 Hm, nicht so hilfreich. Schöner wäre, wenn wir (farblich) erkennen könnten, welcher Punkt für "Überlebt" und welcher Punkt für "Nicht-Überlebt" steht. Mit `qplot` geht das recht einfach: Wir sagen der Funktion `qplot`, dass die Farbe (`color`) der Punkte den Stufen von `Survived` zugeordnet werden sollen: `qplot(x = Pclass, y = n, color = Survived, data = c3)`.
 
-Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt (s. Abbildung \@ref(fig-titanic1)).
+Viel besser. Was noch stört, ist, dass `Survived` als metrische Variable verstanden wird. Das Farbschema lässt Nuancen, feine Farbschattierungen, zu. Für nominale Variablen macht das keinen Sinn; es gibt da keine Zwischentöne. Tot ist tot, lebendig ist lebendig. Wir sollten daher der Funktion sagen, dass es sich um nominale Variablen handelt (s. Abbildung \@ref(fig:titanic1)).
   
 ```{r titanic1, fig.cap = "Überlebensraten auf der Titanic, in Abhängigkeit von der Passagierklasse"}
 qplot(x = factor(Pclass), y = n, color = factor(Survived), data = c3)

@@ -21,17 +21,20 @@ Lernziele:
 - Häufige Arten von Diagrammen erstellen können.
 - Diagramme bestimmten Zwecken zuordnen können.
 
-
 ```
 
 
 In diesem Kapitel werden folgende Pakete benötigt:
 ```{r libs_visualisieren}
 library(tidyverse)  # Zum Plotten
+library(ggplot2movies)  # Daten 'movies'
+# library(prada)  # optional: Daten 'wo_men', 'stats'test'
+# library(AER)  # optional: Daten 'Affairs'
+# library(okcupiddata)  # optional: Daten 'profiles'
 ```
 
 
-```{r libs-hidden-vis}
+```{r libs-hidden-vis, echo = FALSE}
 library(gridExtra)
 ```
 
@@ -85,12 +88,27 @@ Bei *Daten* muss ein Dataframe angegeben werden. Zu den *abbildenden Aspekte* (i
 Los geht's! Laden wir zuerst den Datensatz `movies`.
 
 ```{r}
-movies <- read.csv("data/movies.csv")
+data(movies, package = "ggplot2movies")
 ```
 
 
+```{block2, exercises-read-data, type='rmdexercises', echo = TRUE} 
+Betrachten Sie zum Einstieg das Diagramm \@ref(fig:fig-movies). 
+
+1. Welche Variable steht auf der X-Achse?
+2. Welche Variable steht auf der Y-Achse?
+3. Was wird 'gemalt'? Linien, Boxplots, Punkte...?
+4. Wie heißt der Datensatz, aus dem die Daten gezogen werden?
+  
+```
+
+Der Befehl, der dieses Diagramm erzeugte, heißt `qplot`. Es ist ziemlich genau die Antwort auf die Übungsfragen von gerade eben:
+
 ```{r fig-movies, message = FALSE, fig.cap = "Mittleres Budget pro Jahr"}
-qplot(x = year, y = budget, geom = "point", data = movies)
+qplot(x = year, 
+      y = budget, 
+      geom = "point", 
+      data = movies)
 ```
 
 Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
@@ -110,26 +128,36 @@ Schauen wir uns den Befehl `qplot` etwas näher an. Wie ist er aufgebaut?
 Offenbar geht die Schwere in den Budgets auseinander; außerdem scheint das Budget größer zu werden. Genau kann man es aber schlecht erkennen in diesem Diagramm. Besser ist es vielleicht die Daten pro Jahr zusammenzufassen in einem Geom und dann diese Geome zu vergleichen:
 
 ```{r}
-qplot(x = factor(year), y = budget, geom = "boxplot", data = movies)
+qplot(x = factor(year), 
+      y = budget, 
+      geom = "boxplot", 
+      data = movies)
 ```
 
-Übrigens: `factor(year)` wird benötigt, um aus `year` eine nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen auf der X-Achse zeichnet `qplot` mehrere Boxplots nebeneinander.
+Übrigens: `factor(year)` wird benötigt, um aus `year` eine nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen auf der X-Achse zeichnet `qplot` mehrere Boxplots nebeneinander. `qplot` bzw. `ggplot2` denkt sich: "Hey, nur wenn es mehrere Gruppen gibt, macht es Sinn, die Gruppen anhand von Boxplots zu vergleichen. Also brauchst du eine Gruppierungsvariable - Faktor oder Text - auf der X-Achse!".
 
-Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser wäre es, Jahrzehnte dazustellen:
+Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser wäre es, Jahrzehnte dazustellen. Ein Jahrzehnt ist so etwas wie eine Jahreszahl, von der die letzte Ziffer abgeschnitten (d.h. durch 10 teilen und runden) und dann durch eine Null ersetzt wurde (d.h. mit 10 multiplizieren):
 
 ```{r}
-movies$Jahrzehnt <- (movies$year / 10) %>% trunc 
+movies %>%  
+  mutate(Jahrzehnt = year / 10) %>% 
+  mutate(Jahrzehnt = trunc(Jahrzehnt)) %>%  # trunkieren, abrunden
+  mutate(Jahrzehnt = Jahrzehnt * 10) -> movies
 
-movies$Jahrzehnt <- movies$Jahrzehnt * 10
 ```
 
-Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer "abhacken": "1978" wird zu "178". Das erreichen wir in dem wir die Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen lassen (trunkieren, `trunc`). 
+Schauen Sie sich die ersten Werte von `Jahrzehnt` mal an: 
+`movies %>% select(Jahrzehnt) %>% head`.
 
-Ok, auf ein Neues (Abb. \@ref(fig:fig-movies-jahrzehnt)):
+
+Ok, auf ein neues Bild (Abb. \@ref(fig:fig-movies-jahrzehnt)):
 
 ```{r fig-movies-jahrzehnt, fig.cap = "Film-Budgets über die die Jahrzehnte"}
 
-qplot(x = factor(Jahrzehnt), y = budget, geom = "boxplot", data = movies)
+qplot(x = factor(Jahrzehnt), 
+      y = budget, 
+      geom = "boxplot", 
+      data = movies) 
 ```
 
 Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauschen.
@@ -140,7 +168,10 @@ Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; d
 Diese Syntax des letzten Beispiels ist recht einfach, nämlich:
 
 ```{r, eval = FALSE}
-qplot (x = X_Achse, y = Y_Achse, data = mein_dataframe, geom = "ein_geom")
+qplot (x = X_Achse, 
+       y = Y_Achse, 
+       data = mein_dataframe, 
+       geom = "ein_geom")
 ```
 
 Wir definieren mit `x`, welche Variable der X-Achse des Diagramms zugewiesen werden soll, z.B. `month`; analog mit Y-Achse. Mit `data` sagen wir, in welchem Dataframe die Spalten "wohnen" und als "geom" ist die Art des statistischen "*geom*etrischen Objects" gemeint, also Punkte, Linien, Boxplots, Balken...
@@ -197,7 +228,8 @@ Wünsche sind ein Fass ohne Boden... Wäre es nicht interessant, einzelne Zeitr�
 ```{r}
 movies2 <- filter(movies, Jahrzehnt > 1980)
 
-movies2$Jahrzehnt <- factor(movies2$Jahrzehnt)
+movies2 %>% 
+  mutate(Jahrzehnt = factor(.$Jahrzehnt)) -> movies2
 
 qplot(x = budget, 
       data = movies2, 
@@ -270,6 +302,8 @@ Da `ggplot` als *ersten* Parameter die Daten erwartet, kann die Pfeife hier prob
 
 Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken ("overplotting"). Ein Abhilfe ist es, die Punkte nur "schwach" zu färben. Dazu stellt man die "Füllstärke" der Punkte über `alpha` ein: `geom_point(alpha = 1/100)`. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn `ggplot` viele (>100.000) Punkte malen soll.
 
+Probieren Sie auch Folgendes aus: Fügen Sie bei `aes` den Parameter `color = sex` hinzu.
+
 Bei noch größeren Datenmengen bietet sich an, den Scatterplot als "Schachbrett" aufzufassen, und das Raster einzufärben, je nach Anzahl der Punkte pro Schachfeld; zwei Geome dafür sind `geom_hex()` und `geom_bin2d()`.
 
 ```{r flights_hexbin}
@@ -304,34 +338,12 @@ wo_men %>%
 
 Man beachte die Tilde `~`, die vor die "Gruppierungsvariable" `sex` zu setzen ist.
 
-#### Vertiefung zu Facetten
-
-Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:
-
-```{r wo-men-facetten-bsp}
-wo_men %>% 
-  dplyr::filter(height > 150, height < 210, shoe_size < 55) %>% 
-  dplyr::select(-sex) -> wo_men4
-
-wo_men4 %>% 
-  ggplot(ggplot2::aes(x = height, y = shoe_size)) +
-  geom_point(color = "grey80") +
-  # facet_wrap(~sex) +
-  geom_point(data = wo_men2, ggplot2::aes(color = sex))
-  
-```
-
-
-Der "ggplot-Trick" ist, zuerst die Punkte *ohne* Gruppierungsinformation (hier: `sex`) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.
-
 
 ### Eine nominale Variable
 Bei nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Ein Klassiker: Wie viele Männer und Frauen finden sich in dem Datensatz? Wie viele Studenten haben (nicht) bestanden?
 
 ```{r}
-
-stats_test <- read.csv("data/test_inf_short.csv"
-                       )
+stats_test <- read.csv("data/stats_test.csv")
 qplot(x = bestanden, data = stats_test)
 ```
 
@@ -367,17 +379,15 @@ Schauen wir uns die Struktur des Befehls `ggplot` näher an.
 
 ```{block2, ggplot-syntax, type='rmdpseudocode', echo = TRUE}
 
-`stats_teste`:  Hey R, nimm den Datensatz `stats_test` UND DANN...  
+`stats_test`:  Hey R, nimm den Datensatz `stats_test` UND DANN... 
 `ggplot()` : Hey R, male ein Diagramm von Typ `ggplo`t (mit dem Datensatz aus dem vorherigen Pfeifen-Schritt, d.h. aus der vorherigen Zeile, also `stats_test`)!    
 `filter`: wir wollen nur Zeilen (Studenten), für die gilt `interest == 1` oder `interest == 6`. Der horizontale Strich heißt 'oder'.   
 `+`:  Das Pluszeichen grenzt die Teile eines ggplot-Befehls voneinander ab.  
 `aes`:  von "aethetics", also welche Variablen des Datensatzes den sichtbaren Aspekten (v.a. Achsen, Farben) zugeordnet werden.  
 `x`: Der X-Achse (Achtung, `x` wird klein geschrieben hier) wird die Variable `bestanden` zugeordnet.   
 `y`: gibt es nicht??? Wenn in einem ggplot-Diagramm *keine* Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).  
-`fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `interest` darin widerspiegelt.  
-
+`fill` Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von `interest` darin widerspiegelt. 
 `geom_XYZ`: Als "Geom" soll ein Balken ("bar") gezeichnet werden.  Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit `geom_bar`, `geom_boxplot`, geom_point` etc. gewählt.  
-
 `position = fill`: `position_fill` will sagen, dass die Balken alle eine Höhe von 100% (1) haben, d.h. gleich hoch sind. Die Balken zeigen also nur die Anteile der Werte der `fill`-Variablen. 
 
 ```
@@ -513,21 +523,21 @@ knitr::kable(df, caption = "Häufige Diagrammtypen")
 ```
 
 
-```{r fig-diagrammtypen, echo = FALSE, fig.cap = "Überblick zu häufigen Diagrammtypen"}
+```{r fig-diagrammtypen, echo = FALSE, fig.cap = "Überblick zu häufigen Diagrammtypen", out.width = "100%"}
 p1 <- qplot(x = score, geom = "histogram", data = stats_test, main = "Histogramm")
-p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichtediagramm")
-p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streudiagramm")
-p4 <- qplot(y = score, x = self_eval, fill = bestanden, geom = "tile", data = stats_test, main = "Fliesendiagramm")
-p5 <- qplot(x = bestanden, geom = "bar", data = stats_test, main = "Balkendiagramm (Säulendiagramm")
+p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichte-D.")
+p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streu-D.")
+p4 <- qplot(y = score, x = self_eval, fill = bestanden, geom = "tile", data = stats_test, main = "Fliesen-D.")
+p5 <- qplot(x = bestanden, geom = "bar", data = stats_test, main = "Balken-D.")
 p6 <- stats_test %>% 
   mutate(interessiert = stats_test$interest > 3) %>% 
   count(bestanden, interessiert) %>% 
-  qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesendiagramm") 
+  qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesen-D.") 
 p7 <- stats_test %>% 
   mutate(interessiert = stats_test$interest > 3) %>%
   group_by(bestanden, interessiert) %>% 
   summarise(score_median_gruppe = median(score)) %>% 
-  qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punktediagramm")
+  qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punkte-D.")
 p8 <- qplot(x = bestanden, y = score, geom = "boxplot", data = stats_test, main = "Boxplot")
 
 

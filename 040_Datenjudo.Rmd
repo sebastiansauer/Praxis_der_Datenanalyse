@@ -149,6 +149,8 @@ df_frauen <- filter(profiles, sex == "f")  # nur die Frauen
 df_alt <- filter(profiles, age > 70)  # nur die alten Menschen
 df_alte_frauen <- filter(profiles, age > 70, sex == "f") 
 # nur die alten Frauen, d.h. UND-Verknüpfung
+df_mittelalt <- filter(profiles, between(age, 35, 60))
+# zwischen 35 und 60
 
 df_nosmoke_nodrinks <- filter(profiles, smokes == "no" | drinks == "not at all") 
 # liefert alle Personen, die Nicht-Raucher *oder* Nicht-Trinker sind
@@ -180,7 +182,7 @@ Manche Befehle wie `filter` haben einen Allerweltsnamen; gut möglich, dass ein 
 <!-- Vertiefung. Nur für Buch, nicht Skript -->
 
 
-#### Aufgaben^[F, R, F, F, R]
+#### Aufgaben^[F, R, F, F, R, R]
 
 
 ```{block2, exercises-filter, type='rmdexercises', echo = TRUE} 
@@ -191,7 +193,7 @@ Richtig oder Falsch!?
 1. `filter` erwartet als ersten Parameter das Filterkriterium.
 1. `filter` lässt nur ein Filterkriterium zu.
 1. Möchte man aus dem Datensatz `profiles` (`okcupiddata`) die Frauen filtern, so ist folgende Syntax korrekt: `filter(profiles, sex == "f")`.
-
+1. `filter(profiles, age > 35 | age > 60)` filtert die mittelalten Frauen (zwischen 35 und 60)
 
 
 ```

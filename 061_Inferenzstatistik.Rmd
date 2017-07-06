@@ -457,7 +457,7 @@ Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. @eid2010statist
 - $r$	Pearsons R ist ein Klassiker, um die Stärke des linearen Zusammenhangs zweier metrischen Größen zu quantifizieren. $r$ berechnet sich als: $r = mw(\sum z_x z_y)$, wobei $mw$ für den Mittelwert steht und $z$ für einen z-Wert.
 - $R^2$, $\eta^2$ sind Maße für den Anteil aufgeklärter Varianz; sie finden in der Varianzanalyse oder der Regressionsanalyse Verwendung. $R^2$ wird u.a. so berechnet: $R^2 = \frac{QS_F}{QS_T}$, wobei $QS$ für die Quadratsummen stehen und $QS_F$ für die Varianz, die auf den Faktor (uanbhängige Variable) zurückgeht und $QS_T$ für die Gesamtvarianz. 
 - $f^2$ ist ein Maß, dass aus der erklärten Varianz abgeleitet ist. Es gibt das Verhältnis von erklärter zu nicht-erklärter Varianz wieder (auch 'signal-noise-ratio' genannt). Es berechnet sich als $f^2 = \frac{R^2}{1-R^2}$.
-- $\omega$ (Cohens Omega) ist ein Maß für die Stärke des Zusammenhangs zweier nominales Variablen, abgeleitet vom $\chi^2$-Test. Es berechnet sich als $\omega = \sqrt{\chi^2}$.
+- $\omega$ (Cohens Omega) ist ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, abgeleitet vom $\chi^2$-Test. Es berechnet sich als $\omega = \sqrt{\chi^2}$.
 - $OR$ (Odds Ratio) ist ebenfalls ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, allerdings *binärer* (zweistufige) Variablen. Es berechnet sich als $OR = \frac{c}{1-c}$, wobei $c$ die Chancen für ein Ereignis $E$ angeben (z.B. 9:1). $OR$ kann aus $\omega$ abgleitet werden.
 
 
@@ -489,26 +489,17 @@ cohen.ES(test = c("p", "t", "r", "anov", "chisq", "f2"),
 Möchte man sich Effektstärken berechnen lassen, ist das Paket `compute.es` hilfreich. Im Folgenden sind Effektstärkeberechnungen für gängige Inferenztests vorgestellt, in Fortsetzung zu den Beispielen oben.
 
 
-- $\chi^2$-Test. `compute.es::chies(30, n  = 826)`
+- $\chi^2$-Test: `compute.es::chies(30, n  = 826)`
 - t-Test: `compute.es::tes(t = 1, n.1 = 529, n.2 = 286)`
-- Varianzanalyse (F-Test): `glance` gibt $R^2$ aus; mit `etaSquared(mein_aov)` ebenfalls. Möchte man $f^2$ berechnen, so tut man das am besten per Hand, z.B. `0.002/ (1-0.002)`.
+- Varianzanalyse (F-Test): `glance` gibt $R^2$ aus; mit `etaSquared(mein_aov)` ebenfalls. Möchte man $f^2$ berechnen, so tut man das am besten per Hand, z.B. `0.002 / (1-0.002)`.
 - Korrelation: Der Korrelationswert $r$ ist schon ein Maß der Effekstärke. Yeah.
 - Regression: Die Steigung der Regressionsgeraden ($b$) ist ein (unstandardisiertes) Maß für die Stärke des ("Netto"-)Einflusses eines Prädiktors. $R^2$ hingegen ein Maß für die relative Varianzaufklärung aller Prädiktoren gemeinsam.
 - Logistische Regression: Mit `BaylorEdPsych::PseudoR2(mein_glm_objekt)` kann man eine Art $R^2$ bekommen (s. Kapitel \@ref(Modellguete)).
-  
-```
+- Wilcoxon-Test/ Mann-Whitney-U-Test: Anteil der paarweisen Vergleiche, die hypothesenkonform sind [vgl. @Kerby2014]. Dazu kann man z.B. die Funktion `prop_fav` aus dem Paket `prada` nutzen (vgl. `help(prop_fav)`).
 
 
 
 
-
-
-
-
-Um beispielsweise Mittelwertsunterschiede in Cohens d umzurechnen, steht der Befehl `mes` (m wie 'mean' und es wie 'effect size) zur Verfügung. Mit `help(mes)` kann man sich die Parameter anzeigen lassen.
-
-
-Auch die Vorhersagegüte kann man als eine Effektstärke auffassen.
 
 
 ### Bayes-Statistik

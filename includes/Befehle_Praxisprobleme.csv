@@ -3,6 +3,7 @@ na.omit,"Löscht Zeilen, die fehlende Werte enthalten"
 nrow,Liefert die Anzahl der Zeilen des Dataframes zurück
 complete.cases,Zeigt die Zeilen ohne fehlenden Werte
 car::recode,Kodiert Werte um
+replace, Ersetzt Werte
 cut,Schneidet eine kontinuierliche Variable in Wertebereiche
 rowMeans,Berechnet Zeilen-Mittelwerte
 dplyr::rowwise,Gruppiert nach Zeilen

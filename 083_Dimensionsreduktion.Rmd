@@ -63,7 +63,7 @@ knitr::include_graphics("images/licence.png")
 ```{block2, ziele-dimred, type='rmdcaution', echo = TRUE} 
 Lernziele:
 
-- Den Unterschied zwischen einer Hauptkomponentenanalyse und einer Exploratorische Faktorenanalyse kennen
+- Den Unterschied zwischen einer Hauptkomponentenanalyse und einer Exploratorischen Faktorenanalyse kennen
 - Methoden kennen, um die Anzahl von Dimensionen zu bestimmen
 - Methoden der Visualisierung anwenden können
 - Umsetzungsmethoden in R anwenden können
@@ -232,24 +232,23 @@ In vielen Fällen ist es sinnvoll, Rohdaten neu zu skalieren - auch bei der Dime
 
 Dies wird üblicherweise als *Standardisierung*, *Normierung*, oder *Z-Transformation* bezeichnet. Als Ergebnis ist der Mittelwert aller Variablen über alle Beobachtungen dann 0 und die Standardabweichung (SD) 1. Da wir hier gleiche Skalenstufen haben, ist ein Skalieren nicht unbedingt notwendig, wir führen es aber trotzdem durch. 
 
-Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.sc` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
+Ein einfacher Weg, alle Variablen im Datensatz auf einmal zu skalieren ist der Befehl `scale()`. Da wir die Rohdaten nie ändern wollen, weisen wir die Rohwerte zuerst einem neuen Dataframe `Werte.skaliert` zu und skalieren anschließend die Daten. Wir skalieren in unserem Datensatz alle Variablen.
 
 
 
 
 
 ```{r show-z-scaled, results = "hide"}
-Werte.sc <- Werte %>% scale %>% as_tibble
-summary(Werte.sc)
+Werte %>% scale %>% as_tibble -> Werte.skaliert
+summary(Werte.skaliert)
 ```
 
 
 ```{block2, qplot-syntax, type='rmdpseudocode', echo = TRUE}
-
-`<-`: Das Objekt `Werte.sc` soll wie folgt definiert sein  
 Nimm das Objekt (ein Dataframe) `Werte` UND DANN   
 z-skaliere das Objekt UND DANN  
-definiere es als Dataframe (genauer: tibble). FERTIG.  
+definiere es als Dataframe (genauer: tibble) UND
+speichere dies unter dem Namen `Werte_skaliert`. FERTIG.  
 
 Ach ja, dann zeig noch ein `summary` von diesem Objekt.
 
@@ -264,7 +263,7 @@ Die Daten wurden richtig skaliert, da der Mittelwert aller Variablen über alle 
 Wir verwenden den Befehl `corrplot()` für die Erstinspektion von bivariaten Beziehungen zwischen den Variablen. Das Argument `order = "hclust"` ordnet die Zeilen und Spalten entsprechend der Ähnlichkeit der Variablen in einer hierarchischen Cluster-Lösung der Variablen (mehr dazu im Kapitel \@ref(cluster)) neu an.
 
 ```{r}
-corrplot(cor(Werte.sc), order = "hclust")
+corrplot(cor(Werte.skaliert), order = "hclust")
 ```
 
 Die Visualisierung der Korrelation der Variablen scheint fünf Cluster zu zeigen:
@@ -281,10 +280,8 @@ Wenn in den Daten leere Zellen, also fehlende Werte, vorhanden sind, dann kann e
 
 Beispiel: 
 ```{r, eval=FALSE}
-
-Werte.sc <- na.omit(Werte.sc)
-
-corrplot(cor(Werte.sc), order = "hclust")
+Werte.skaliert <- na.omit(Werte.skaliert)
+corrplot(cor(Werte.skaliert), order = "hclust")
 ```
 
 Da wir in unserem Datensatz vollständige Daten verwenden, gibt es auch keine Leerzellen. 
@@ -304,7 +301,7 @@ Betrachten wir in einem ersten Schritt die wichtigsten Komponenten für die Wert
 
 
 ```{r}
-Werte.pc <- prcomp(Werte.sc)  # Principal Components berechnen
+Werte.pc <- prcomp(Werte.skaliert)  # Principal Components berechnen
 summary(Werte.pc)
 
 ```
@@ -366,7 +363,7 @@ Die einzelnen Ausgangsvariablen sind in Abbildung Abbildung \@ref(fig:fig-biplot
 
 >   Je paralleler der Vektor einer Ausgangsvariable zur X-Achse (1. Hauptkomponente) ist, umso identischer sind sich die entsprechende Variable und die Hauptkomponente (für die Y-Achse gilt entsprechendes). Das hilft uns, die Hauptkomponente inhatlich zu interpretieren. Hauptkomponenten (oder Faktoren) sollten stets inhaltlich interpretiert werden - auch wenn eine subjektive Komponente mitschwingt. 
 
-Die 1. Hauptkomponente wird offenbar stark geprägt durch die Ausgangsvariablen `??`, `??`, `??` und `??`. Die 2. Hauptkomponente primär durch `??` und `??`. 
+Die 1. Hauptkomponente wird offenbar stark geprägt durch die Ausgangsvariablen 'Freude' und 'Spaß'. Bei der 2. Hauptkomponente analog durch 'Demut' und 'Gefahrenvermeidung'. 
 
 Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Bereiche von Beobachtungspunkten): Gruppen von Punkten entsprechen ähnlichen Fällen (ähnlich hinsichtlich ihrer Werte in den ersten zwei Hauptkomponenten). Der Biplot ist hier durch die große Anzahl an Beobachtung allerdings recht unübersichtlich. 
 
@@ -383,7 +380,7 @@ Zusätzlich erhalten wir einen Einblick in die Bewertungscluster (als dichte Ber
 
 Am einfachsten lassen sich die Komponenten extrahieren mit dem `principal`-Befehl aus dem Paket `psych`:
 
-```{r}
+```{r Werte.pca.chunk, results = "hide"}
 Werte.pca <- principal(Werte, nfactors = 5, rotate = "none")
 print(Werte.pca, cut = 0.5, sort = TRUE, digits = 2)
 
@@ -406,12 +403,7 @@ Einzig das Item "Unabhängigkeit" lädt auf keine der Hauptkomponenten hoch.
 
 Um die inhaltliche Bedeutung der Komponenten zu interpretieren, schauen wir uns die Inhalte der jeweiligen Items an und versuchen hierfür einen inhaltlichen Gesamtbegriff zu finden. Die Erste Komponenten könnte mit **Genuss**, die zweite mit **Sicherheit**, die dritte mit **Bewusstsein**, die vierte mit **Konformismus** und die fünfte mit **Anerkennung** bezeichnet werden. 
 
-Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden.
-
-```{r}
-fa.diagram(Werte.pca)
-```
-
+Mit der Funktion `fa.diagram` kann das Ergebnis auch grafisch dargestellt werden: `fa.diagram(Werte.pca)`.
 
 
 
@@ -430,7 +422,7 @@ Als erstes muss die Anzahl der zu schätzenden Faktoren bestimmt werden. Hierzu 
 
 Durch das Paket `nFactors` bekommen wir eine ausgefuchstere Berechnung der Scree-Plot Lösung mit dem Befehl `nScree()` - es werden noch weitere, sophistiziertere Methoden zur Berechnung der 'richtigen' Anzahl von Faktoren eingesetzt. Wir sparen uns hier die Details.
 
-```{r nFactors-nScree-Werte,eval=FALSE}
+```{r nFactors-nScree-Werte, eval = FALSE}
 nScree(Werte)
 ```
 
@@ -499,9 +491,9 @@ Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Fak
 
 ```{r}
 Werte.ob <- factanal(Werte, factors = 5, scores = "Bartlett")
-Werte.scores <- data.frame(Werte.ob$scores)
-names(Werte.scores) <- c("Anerkennung", "Genuss", "Sicherheit", "Bewusstsein", "Konformismus") 
-head(Werte.scores)
+Werte.skaliertores <- data.frame(Werte.ob$scores)
+names(Werte.skaliertores) <- c("Anerkennung", "Genuss", "Sicherheit", "Bewusstsein", "Konformismus") 
+head(Werte.skaliertores)
 ```
 
 
@@ -517,7 +509,7 @@ Der Koeffizient *Alpha* ist der Mittelwert aller möglichen Split-Half-Koeffizie
 Zufriedenstellende Reliabilität wird bei einem Alpha-Wert von 0.7 erreicht. Werte unter 0.5 gelten als nicht akzeptabel, Werte ab 0.8 als gut.
 
 Wir bewerten nun die interne Konsistent der Items Beispielhaft für das Konstrukt `Sicherheit` und nehmen zur Demonstration das Item `Unabhängigkeit` mit in die Analyse auf.
-```{r}
+```{r psych.alpha, results = "hide"}
 Werte %>%
   dplyr::select(Unabhaengigkeit, Zuhoeren, Umweltbewusstsein, Interesse) -> df
 

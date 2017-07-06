@@ -38,6 +38,12 @@ Hier laden wir einen Datensatz von einer Online-Umfrage:
 extra <- read.csv("data/extra.csv")
 ```
 
+Alternativ können Sie den Datensatz aus dem Paket `prada` laden (mit `data(extra, package = "prada")`) oder aus dem Internet herunterladen:
+
+```{r eval = FALSE}
+extra <- read.csv("https://raw.github.com/sebastiansauer/Praxis_der_Datenanalyse/master/data/extra.csv")
+```
+
 
 Der Datensatz besteht aus 10 Extraversionsitems (B5T nach Satow^[https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversionsitems, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
 

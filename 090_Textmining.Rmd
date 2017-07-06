@@ -149,7 +149,7 @@ knitr::kable(text_df)
 text <- read_lines("data/Brecht.txt")
 ```
 
-Der Befehl `read_lines` (aus `readr`) liest Zeilen, Zeile für Zeile, aus einer Textdatei.
+Der Befehl `read_lines` (aus `readr`^[Teil der Tidyverse-Familie]) liest Zeilen (Zeile für Zeile) aus einer Textdatei.
 
 
 Dann "dehnen" wir den Dataframe zu einem *tidy text* Dataframe (s. Abb. \@ref(fig:tidytextdf)); das besorgt die Funktion `unnest_tokens`. 'unnest' heißt dabei so viel wie 'Entschachteln', also von breit auf lang dehnen. Mit 'tokens' sind hier einfach die Wörter gemeint (es könnten aber auch andere Analyseeinheiten sein, Sätze zum Beispiel).
@@ -157,7 +157,7 @@ Dann "dehnen" wir den Dataframe zu einem *tidy text* Dataframe (s. Abb. \@ref(fi
 
 ```{r tidytextdf, echo = FALSE, fig.cap = "Illustration eines Tidy Text Dataframe"}
 
-knitr::knit("images/textmining/tidytext-crop.png")
+knitr::include_graphics("images/textmining/tidytext-crop.png")
 
 ```
 
@@ -249,7 +249,7 @@ afd_df %>%
 Die häufigsten Wörter sind inhaltsleere Partikel, Präpositionen, Artikel... Solche sogenannten "Stopwörter" sollten wir besser herausfischen, um zu den inhaltlich tragenden Wörtern zu kommen. Praktischerweise gibt es frei verfügbare Listen von Stopwörtern, z.B. im Paket `lsa`.
 
 ```{r}
-data(stopwords_de, package="lsa")
+data(stopwords_de, package = "lsa")
 
 stopwords_de <- data_frame(word = stopwords_de)
 
