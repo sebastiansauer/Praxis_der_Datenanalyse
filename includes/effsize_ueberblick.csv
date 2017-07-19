@@ -1,0 +1,8 @@
+Test, Effektstärkemaß, R-Befehl
+`t.Test`, Cohens d, `compute.es::tes`
+`aov`, $R^2$, `lsr::etaSquared`
+`lm`, $R^2$, `broom::glance` oder `summary`
+`glm`, Pseudo-$R^2$, `BaylorEdPsych::PseudoR2`
+`chisq.test`, $\omega$, `sqrt(chisq_wert)`
+`chisq.test`, OR, `computes.es::chies`
+`wilcox.test`, Simple Difference, `prada::prop_fav`

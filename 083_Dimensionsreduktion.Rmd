@@ -481,7 +481,7 @@ heatmap.2(Werte.fa$loadings,
 ```
 
 
-Die Heatmap stellt ähnliche Objekte - hier: Variablen, die hoch auf einer Hauptkomponenten laden - räumlich nahe (nebeneinander) dar. Im Ergebnis zeigt die Heatmap  eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
+Die Heatmap stellt ähnliche Objekte - hier: Variablen, die hoch auf einer Hauptkomponenten laden - räumlich nahe (nebeneinander) dar. Im Ergebnis zeigt die Heatmap eine deutliche Trennung der Items in 5 Faktoren, die interpretierbar sind als *Anerkennung*, *Genuss*, *Sicherheit*, *Bewusstsein* und *Konformismus*. 
 
 
 ### Berechnung der Faktor-Scores
@@ -490,10 +490,14 @@ Zusätzlich zur Schätzung der Faktorstruktur kann die EFA auch die latenten Fak
 
 
 ```{r}
-Werte.ob <- factanal(Werte, factors = 5, scores = "Bartlett")
-Werte.skaliertores <- data.frame(Werte.ob$scores)
-names(Werte.skaliertores) <- c("Anerkennung", "Genuss", "Sicherheit", "Bewusstsein", "Konformismus") 
-head(Werte.skaliertores)
+Werte.fa <- factanal(Werte, factors = 5, scores = "Bartlett")
+Werte.fa.scores <- data.frame(Werte.fa$scores)
+names(Werte.fa.scores) <- c("Anerkennung", 
+                            "Genuss", 
+                            "Sicherheit", 
+                            "Bewusstsein", 
+                            "Konformismus") 
+head(Werte.fa.scores)
 ```
 
 

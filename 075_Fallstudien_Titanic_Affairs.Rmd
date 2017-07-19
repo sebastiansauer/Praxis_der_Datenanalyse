@@ -442,12 +442,11 @@ d <- (4.4 - 4.1)/(1)
 
 Die Effektstärke beträgt etwa `r round(d,2)`.
 
-
 ### Korrelationen
 
 Berechnen und visualisieren Sie zentrale Korrelationen!
 
-```{r affairs-cortab}
+```{r affairs-cortab, results = "hide"}
 Affairs %>% 
   select_if(is.numeric) %>% 
   cor -> cor_tab

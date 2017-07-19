@@ -3,3 +3,4 @@ Paket::Funktion,Beschreibung
 library,lädt ein Paket
 <-             ,Weist einer Variablen einen Wert zu
 c,erstellt eine Spalte/ einen Vektor
+data, lädt Daten aus einem Paket

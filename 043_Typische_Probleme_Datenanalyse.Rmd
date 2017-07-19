@@ -42,13 +42,14 @@ Lernziele:
 
 Laden wir zuerst die benötigten Pakete; v.a. ist das `dplyr` and friends. Das geht mit dem Paket `tidyverse`. 
 
-```{r}
-library(tidyverse)
-library(corrr)
-library(gridExtra)
-library(car)
+```{r libs-typische-probleme}
+library(corrr)  # Korrelationsmatrix
+library(car)  # Umkodieren
 library(prada)  # optional: Daten 'extra' und 'stats_test'
+library(tidyverse)  # Datenjudo
 ```
+
+
 
 
 Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitung) zusammen. Probleme heißt hier nicht, dass es etwas Schlimmes passiert ist, sondern es ist gemeint, wir schauen uns ein paar typische Aufgabenstellungen an, die im Rahmen der Datenaufbereitung häufig anfallen. 
@@ -61,7 +62,7 @@ Stellen wir einige typische Probleme des Datenjudo (genauer: der Datenaufbereitu
 Das geht recht einfach mit `summary(mein_dataframe)`. Der Befehl liefert für jede Spalte des Dataframe `mein_dataframe` die Anzahl der fehlenden Werte zurück.
 
 
-```{r read-stats-data}
+```{r read-stats-data, results = "hide"}
 stats_test <- read.csv("data/stats_test.csv")
 summary(stats_test)
 ```
@@ -98,7 +99,7 @@ Bei mit der Pfeife verketteten Befehlen darf man für Funktionen die runden Klam
 Hier verlieren wir `r nrow(stats_test) - nrow(stats_test_na_omit)` Zeilen, das verschmerzen wir.
 
 Welche Zeilen verlieren wir eigentlich? Lassen wir uns nur die *nicht-*kompletten Fälle anzeigen (und davon nur die ersten paar):
-```{r}
+```{r demo-complete-cases, results = "hide"}
 stats_test %>% 
    filter(!complete.cases(.)) %>% 
   head 
@@ -128,15 +129,18 @@ Wie viele fehlende Wert weist eine Spalte auf?
 
 
 ```{r}
-stats_test$self_eval %>% is.na %>% sum
+stats_test %>% 
+  mutate(self_eval_NA = is.na(self_eval)) %>% 
+  summarise(self_eval_NA_sum = sum(self_eval_NA))
 ```
 
 
 
 ```{block2, summarise-all-example, type='rmdpseudocode', echo = TRUE}
-Nimm die Spalte `self_eval` aus der Tabelle "stats_test" UND DANN  
-finde die fehlenden Werte (NAs) in dieser Spalten UND DANN 
-summiere alle Treffer auf.  
+Nimm die Tablle `stats_test` UND DANN  
+berechne eine Spalte `self_eval_NA` in der steht, ob bei `self_eval` ein `NA` steht UND DANN  
+zähle die `NA`s zusammen. FERTIG. 
+ 
 
 ```
 
@@ -149,14 +153,14 @@ Ist die Anzahl der fehlenden Werte zu groß, als dass wir es verkraften könnten
 ```{r}
 stats_test %>% 
   mutate(interest = replace(.$interest,
-                            is.na(stats_test$interest),
-                            mean(stats_test$interest, 
+                            is.na(.$interest),
+                            mean(.$interest, 
                                  na.rm = TRUE))) -> stats_test
 
 sum(is.na(stats_test$interest))
 ```
 
-`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `stats_test$interest` alle Werte, für die `is.na(stats_test$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html]. Der Punkt `.` ersetzt den Daten der Tabelle (wir hätten aber auch den Namen der Tabelle ausschreiben können).
+`replace`^[aus dem "Standard-R", d.h. Paket "base".] ersetzt Werte aus dem Vektor `.$interest` alle Werte, für die `is.na(.$interest)` wahr ist, bei Zeilen mit fehlenden Werten in dieser Spalte also. Der Punkt `.` steht für den Datensatz (so wie er aus dem letzten Pfeifenschritt hervorkam). Diese Werte werden durch den Mittelwert der Spalte ersetzt^[Hier findet sich eine ausführlichere Darstellung: https://sebastiansauer.github.io/checklist_data_cleansing/index.html]. Der Punkt `.` ersetzt den Daten der Tabelle (wir hätten aber auch den Namen der Tabelle ausschreiben können).
 
 
 
@@ -170,7 +174,7 @@ Leicht schleichen sich Tippfehler oder andere Fehler ein. Man sollte darauf prü
 
 ```{r}
 stats_test %>% 
-  count(interest, sort = TRUE) %>% head
+  dplyr::count(interest, sort = TRUE) %>% head
 ```
 
 Da in der Umfrage nur ganze Zahlen von 1 bis 5 abgefragt wurden, ist die `3.21...` auf den ersten Blick suspekt. In diesem Fall ist aber alles ok, da wir diesen Wert selber erzeugt haben.
@@ -199,21 +203,20 @@ Mit `binwidth = 1` sagen wir, dass jeder Balken (bin) eine Breite (width) von 1 
 ### Hochkorrelierte Variablen finden
 Haben zwei Leute die gleiche Meinung, so ist einer von beiden überflüssig - wird behauptet. Ähnlich bei Variablen; sind zwei Variablen sehr hoch korreliert (>.9, als grober (!) Richtwert), so bringt die zweite kaum Informationszuwachs zur ersten. Und kann z.B. ausgeschlossen werden. 
 
-Nehmen wir dazu den Datensatz `extra` her.
+Nehmen wir dazu den Datensatz `extra` her und berechnen wir eine Korrelationsmatrix, d.h. wir korrelieren alle Variablen paarweise miteinander:
 
-```{r}
+```{r extra-correlate}
 extra <- read.csv("data/extra.csv")
-```
 
-
-```{r}
 extra %>% 
-  select(i01:i10) %>% # Wähle die Variablen von i1 bis i10 aus
-  correlate() -> km   # Korrelationsmatrix berechnen
-km  
+  dplyr::select(i01:i10) %>% # Wähle die Variablen von i1 bis i10 aus
+  corrr::correlate() -> km   # Korrelationsmatrix berechnen
 ```
 
-In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten keine weiteren Schritte ein, abgesehen von einer Visualisierung.
+
+Betrachten Sie die Korrelationstabelle, was fällt Ihnen auf?[Sie ist quadratisch, auf der Hauptdiagonalen steht `NA`, und gespiegelt an der Hauptdiagonalen, d.h. das obere Dreieck der Matrix ist redundant.]
+
+In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten keine weiteren Schritte ein, abgesehen von einer Visualisierung (s. Abb. \@ref(fig:fig-corr)).
 
 ```{r fig-corrr, fig.cap = "Ein Korrelationsplot"}
 
@@ -230,7 +233,7 @@ Für eine Reihe von Analysen ist es wichtig, die Skalierung der Variablen zur ve
 
 ```{r}
 extra %>% 
-  select(i01, i02r) %>%  
+  dplyr::select(i01, i02r) %>%  
   scale() %>%  # z-standardisieren
   head()  # nur die ersten paar Zeilen abdrucken
 ```
@@ -239,11 +242,10 @@ Dieser Befehl liefert z-standardisierte Spalten zurück. Kommoder ist es aber, a
 
 ```{r eval = FALSE}
 extra %>% 
-  mutate_if(is.numeric, funs("z" = scale)) %>% 
-  head
+  mutate_if(is.numeric, funs("z" = scale)) -> extra
 ```
 
-Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies nur, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können.
+Der Befehl `mutate` berechnet eine neue Spalte; `mutate_if` tut dies nur, wenn die Spalte numerisch ist. Die neue Spalte wird berechnet als z-Transformierung der alten Spalte; zum Spaltenname wird ein "_z" hinzugefügt. Natürlich hätten wir auch mit `select` "händisch" die relevanten Spalten auswählen können. Betrachten Sie die ersten paar Zeilen der neu erstellte Tabelle!^[`head(extra)`]
 
 
 ### Quasi-Konstante finden
@@ -263,6 +265,8 @@ Einige statistische Verfahren gehen von normalverteilten Variablen aus, daher ma
 
 ```{r fig-norm-check, echo = FALSE, fig.cap = "Visuelles Prüfen der Normalverteilung"}
 extra %>% 
+  dplyr::select(n_facebook_friends) %>% 
+  dplyr::filter(n_facebook_friends <= 500) %>%  # nicht größer als Q3
   ggplot() +
   aes(x = n_facebook_friends) +
   geom_density() -> p1
@@ -272,7 +276,7 @@ extra %>%
   aes(x = extra_mean) +
   geom_density() -> p2
 
-grid.arrange(p1, p2, ncol = 2)
+gridExtra::grid.arrange(p1, p2, ncol = 2)
 ```
 
 Während die der mittlere Extraversionswert recht gut normalverteilt ist, ist die Anzahl der Facebookfreunde ordentlich (rechts-)schief. Bei schiefen Verteilung können Transformationen Abhilfe schaffen; ein Thema, auf das wir hier nicht weiter eingehen.
@@ -302,22 +306,24 @@ knitr::include_graphics("images/typ_prob/cut_schere_crop.png")
 Manchmal möchte man z.B. negativ gepolte Items umdrehen oder bei kategoriellen Variablen kryptische Bezeichnungen in sprechendere umwandeln. Hier gibt es eine Reihe praktischer Befehle, z.B. `recode` aus dem Paket `car`. Schauen wir uns ein paar Beispiele zum Umkodieren an.
 
 
-```{r}
+```{r stats_test_recode, results = "hide"}
 
+stats_test %>% 
+  mutate(study_binned = car::recode(.$study_time, 
+"5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
+as.factor.result = TRUE)) -> stats_test
+         
+stats_test %>% 
+  mutate(study_binned = car::recode(.$study_time, 
+"5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
+as.factor.result = FALSE)) -> stats_test
 
-stats_test$score_fac <- car::recode(stats_test$study_time, 
-                        "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
-                        as.factor.result = TRUE)
-stats_test$score_fac <- car::recode(stats_test$study_time, 
-                        "5 = 'sehr viel'; 2:4 = 'mittel'; 1 = 'wenig'",
-                        as.factor.result = FALSE)
+stats_test %>% 
+  mutate(score_binned = car::recode(.$score,
+"40:38 = 'sehr gut'; 37:35 = 'gut'; else = 'Weiterlernen'",
+as.factor.result = TRUE)) -> stats_test
 
-stats_test$study_time_2 <- car::recode(stats_test$study_time, 
-                                       "5 = 'sehr viel'; 4 = 'wenig'; 
-                                       else = 'Hilfe'", 
-                                       as.factor.result = TRUE)
-
-head(stats_test$study_time_2)
+stats_test %>% select(score_binned, study_binned) %>% head
 ```
 
 Der Befehle `recode` ist praktisch; mit `:` kann man "von bis" ansprechen (das ginge mit `c()` übrigens auch); `else` für "ansonsten" ist möglich und mit `as.factor.result` kann man entweder einen Faktor oder eine Text-Variable zurückgeliefert bekommen. Der ganze "Wechselterm" steht in Anführungsstrichen (`"`). Einzelne Teile des Wechselterms sind mit einem Strichpunkt (`;`) voneinander getrennt.
@@ -326,9 +332,10 @@ Der Befehle `recode` ist praktisch; mit `:` kann man "von bis" ansprechen (das g
 Das klassische Umkodieren von Items aus Fragebögen kann man so anstellen; sagen wir `interest` soll umkodiert werden:
 
 ```{r}
-stats_test$no_interest <- car::recode(stats_test$interest, 
-                                      "1 = 6; 2 = 5; 3 = 4; 4 = 3; 
-                                      5 = 2; 6 = 1; else = NA")
+stats_test %>% 
+  mutate(no_interest = car::recode(.$interest,
+"1 = 6; 2 = 5; 3 = 4; 4 = 3; 5 = 2; 6 = 1; else = NA")) -> stats_test
+
 glimpse(stats_test$no_interest)
 
 ```
@@ -337,18 +344,20 @@ Bei dem Wechselterm muss man aufpassen, nichts zu verwechseln; die Zahlen sehen 
 
 Testen kann man den Erfolg des Umpolens mit
 
-```{r}
+```{r eval = FALSE}
 dplyr::count(stats_test, interest)
 dplyr::count(stats_test, no_interest)
 ```
 
-Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann ("binnen"):
+Scheint zu passen. Noch praktischer ist, dass man so auch numerische Variablen in Bereiche aufteilen kann ("binnen"). Hier das Binnen von Prof. Schnaggeldi:
 
 
 ```{r}
-stats_test$Ergebnis <- car::recode(stats_test$score, 
-                                   "1:38 = 'durchgefallen'; 
-                                   else = 'bestanden'")
+stats_test %>% 
+  mutate(bestanden = 
+           car::recode(.$score,
+                       "1:38 = 'durchgefallen'; 
+                       else = 'bestanden'")) -> stats_test
 ```
 
 
@@ -360,17 +369,28 @@ Natürlich gibt es auch eine Pfeifen kompatible Version, um Variablen umzukodier
 Nehmen wir an, wir möchten die Anzahl der Punkte in einer Statistikklausur (`score`) umkodieren in eine Variable "bestanden" mit den zwei Ausprägungen "ja" und "nein"; der griesgrämige Professor beschließt, dass die Klausur ab 25 Punkten (von 40) bestanden sei. Die Umkodierung ist also von der Art "viele Ausprägungen in zwei Ausprägungen umkodieren". Das kann man z.B. so erledigen:
 
 ```{r}
-stats_test$bestanden <- stats_test$score > 24
+stats_test %>% 
+  mutate(bestanden = score > 24) -> stats_test
 
 head(stats_test$bestanden)
 ```
+
+
+
+```{block2, wann-punkt, type='rmdcaution', echo = TRUE} 
+Wann braucht man einen Punkt `.` in einer dpylr-Pfeifenkette? Man braucht ihn nur dann, wenn man innerhalb der Pfeifenkette Nicht-dplyr-Befehle verwendet wie `mean` oder `recode`. Diese Befehle wissen nicht, dass sie gerade in einer Pfeifenkette stehen, daher müssen wir ihnen den Namen der Tabelle explizit erzählen. Genau genommen steht der Punkt für die Tabelle, so wie sie aus dem letzten Pfeifenschritt herausgekommen ist (z.B. schon mit einigen Zeilen weggefiltert).
+
+
+```
+
+
 
 Genauso könnte man sich die "Grenzfälle" - die Bemitleidenswerten mit 24 Punkten - anschauen (knapp daneben ist auch vorbei, so der griesgrämige Professor weiter):
 
 ```{r}
 stats_test$Grenzfall <- stats_test$score == 24
 
-count(stats_test, Grenzfall)
+dplyr::count(stats_test, Grenzfall)
 ```
 
 Natürlich könnte man auch hier "Durchpfeifen":
@@ -380,7 +400,7 @@ stats_test <-
 stats_test %>% 
   mutate(Grenzfall = score == 24)
 
-count(stats_test, Grenzfall)
+dplyr::count(stats_test, Grenzfall)
 ```
 
 
@@ -427,11 +447,12 @@ Mit `cut_number` (aus ggplot2) kann man einen Vektor in `n` Gruppen mit (etwa) g
 ##### In beliebige Klassen gruppieren
 
 ```{r}
-stats_test$punkte_gruppe <- cut(stats_test$score, 
-                             breaks = c(-Inf, 25, 29, 33, 37, 40),
-                             labels = c("5", "4", "3", "2", "1"))
+stats_test %>% 
+  mutate(punkte_gruppe = cut(stats_test$score,
+         breaks = c(-Inf, 25, 29, 33, 37, 40),
+         labels = c("5", "4", "3", "2", "1"))) -> stats_test
 
-count(stats_test, punkte_gruppe)
+dplyr::count(stats_test, punkte_gruppe)
 ```
 
 `cut` ist im Standard-R (Paket "base") enthalten. Mit `breaks` gibt man die Intervallgrenzen an. Zu beachten ist, dass man eine Unter- bzw. Obergrenze angeben muss. D.h. der kleinste Wert in der Stichprobe wird nicht automatisch als unterste Intervallgrenze herangezogen. Anschaulich gesprochen ist `cut` ein Messer, das ein Seil (die kontinuierliche Variable) mit einem oder mehreren Schnitten zerschneidet (vgl. Abb. \@ref(fig:cut-schere)). Wenn wir 6 Schnitte (`breaks`) tun, haben wir 5 Teile, wie Abb. \@ref(fig:cut-schere) zeigt. Darum müssen wir auch nur 5 (6-1) `labels` für die Teile vergeben.
@@ -449,12 +470,10 @@ Um Umfragedaten auszuwerten, will man häufig einen Mittelwert *pro Zeile* berec
 ```{r}
 
 extra_items <- extra %>% 
-  select(i01:i10)  # `select` ist aus `dplyr`
+  dplyr::select(i01:i10)  
 
-# oder:
-# select(extra_items, i01:i10)
-
-extra$extra_mw <- rowMeans(extra_items)
+extra %>% 
+  mutate(extra_mean = rowMeans(extra_items)) -> extra
 
 ```
 

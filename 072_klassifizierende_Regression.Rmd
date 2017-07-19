@@ -352,7 +352,8 @@ Beispiel: Alois' Wahrscheinlichkeit, die Klausur zu bestehen, wird vom Regressio
 Die aus dem Modell ermittelten Wahrscheinlichkeiten werden dann in einer sogenannten Konfusionsmatrix\index{Konfusionsmatrix} (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen:
 
 ```{r me}
-(cm <- confusion.matrix(stats_test$bestanden_num, glm3$fitted.values)) 
+(cm <- confusion.matrix(stats_test$bestanden_num,
+                        glm3$fitted.values)) 
 ```
 
 Dabei stehen `obs` (observed) für die wahren, also tatsächlich beobachteten Werte und `pred` (predicted) für die geschätzten (vorhergesagten) Werte.
@@ -367,7 +368,7 @@ In der Literatur und Praxis herrscht eine recht wilde Vielfalt an Begriffen dazu
 
 df <- readr::read_csv("includes/diag_stats.csv")
 
-knitr::kable(df, caption = "Geläufige Kennwerte der Klassifikation")
+knitr::kable(df, caption = "Geläufige Kennwerte der Klassifikation. Anmerkungen: F: Falsch. R: Richtig. P: Positiv. N: Negativ.")
 ```
 
 Zu beachten ist, dass die Gesamtgenauigkeit einer Klassifikation an sich wenig aussagekräftig ist: Ist eine Krankheit sehr selten, werde ich durch die einfache Strategie "diagnostiziere alle als gesund" insgesamt kaum Fehler machen. Meine Gesamtgenauigkeit wird beeindruckend genau sein - trotzdem lassen Sie sich davon wohl kaum beeindrucken. Besser ist, die Richtig-Positiv- und die Richtig-Negativ-Raten getrennt zu beurteilen. Aus dieser Kombination leitet sich der *Youden-Index* ab.\index{Youden-Index}. Er berechnet sich als: `RP-Rate + RN-Rate - 1`.
@@ -385,7 +386,8 @@ Unser Modell hat es sich recht leicht gemacht: Es hat immer auf 'bestanden' geti
 Wir könnten jetzt sagen, dass wir im Zweifel lieber eine Person als Nicht-Besteher einschätzen (um die Lernschwachen noch unterstützen zu können). Dazu würden wir den Schwellenwert (threshold) von 50% auf z.B. 80%$ heraufsetzen. Erst bei Erreichen des Schwellenwerts klassifizieren wir die Beobachtung als 'bestanden'  (1):
 
 ```{r}
-(cm <- confusion.matrix(stats_test$bestanden_num, glm3$fitted.values, threshold = .8))
+(cm <- confusion.matrix(stats_test$bestanden_num,
+                        glm3$fitted.values, threshold = .8))
 sensitivity(cm)
 specificity(cm)
 ```

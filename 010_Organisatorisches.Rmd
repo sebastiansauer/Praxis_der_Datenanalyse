@@ -165,7 +165,7 @@ Werden in Aussagen Zahlen abgefragt, so sind Antworten auch dann richtig, wenn d
 
 - Werten Sie die Daten mit R aus; R-Syntax soll verwendet und im Hauptteil dokumentiert werden.
 
-- In der Wahl des Datensatzes sind Sie frei, mit folgender Ausnahme: Im Unterricht besprochene Datensätze dürfen nicht als Prüfungsleistung eingereicht werden (vgl. Abschnitt \@ref(daten)).
+- In der Wahl des Datensatzes sind Sie frei, mit folgender Ausnahme: Im Unterricht besprochene Datensätze dürfen nicht als Prüfungsleistung eingereicht werden (vgl. Abschnitt \@ref(Daten)).
 
 - Der (Original-)Name des Datensatzes (sowie ggf. Link) ist bei der Anmeldung anzugeben. 
 

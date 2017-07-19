@@ -123,7 +123,7 @@ stats_test <- read.csv(prada_stats_test_url)
 
 ```
 
-Analog gehen Sie für die anderen PraDa-Datensätze vor (vgl. Kapitel \@ref(daten)).
+Analog gehen Sie für die anderen PraDa-Datensätze vor (vgl. Kapitel \@ref(Daten)).
 
 
 #### Vorsicht bei nicht-amerikanisch kodierten Textdateien

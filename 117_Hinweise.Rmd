@@ -58,13 +58,13 @@ Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen ~~angemahnt~~ v
 
 Bitte zitieren Sie das Skript so:
 
-Sauer, S. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.580649.
+Sauer, S. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.824131.
 
 `r if (!(knitr:::is_latex_output())) '![](https://zenodo.org/badge/81811975.svg)'`
 
 
 
-Mehr Infos zum DOI hier: <https://zenodo.org/badge/latestdoi/81811975>
+Mehr Infos zum DOI hier: <https://zenodo.org/badge/latestdoi/824131>
 
 Ein Bib-File um dieses Skript zu zitieren finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
 

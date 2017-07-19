@@ -286,7 +286,7 @@ aov(extra_mean ~ sex, data = extra) %>% glance
 
 *Forschungsfrage: Ist der Extraversion-Mittelwert und die Anzahl der Facebook-Freunde korreliert?*
 
-Der Test prüft, ob diese Korrelation 0 ist.
+Der Test prüft, ob diese Korrelation 0 ist^[genauer gesagt prüft so ein Inferenztest, wie wahrscheinlich eine Datenlage ist, die mindestens so extrem ist wie unsere -- unter der Annahme, dass die H0 (zumeist: r=0) gilt].
 
 ```{r}
 cor.test(extra$extra_mean, extra$n_facebook_friends)
@@ -451,7 +451,7 @@ Um zwei Mittelwerte zu vergleichen, ist *Cohens d*\index{Cohens d} gebräuchlich
 
 #### Typische Effektstärkemaße
 
-Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. @eid2010statistik):
+Einige ypischen Effektstärkemaße sind im Folgenden aufgelistet (vgl. @eid2010statistik). Eine einfache Faustregel ist, dass man für einen bestimmten Test meist ein "zugehöriges" Effektstärkemaß angibt.
 
 - $d$ (Cohens d) wird zur Bemessung des Unterschieds der Überlappung zweier Verteilungen verwendet, z.B. um die Effektstärke eines t-Werts zu quantifizieren. $d$ berechnet sich im einfachsten Fall als: $d = \frac{\mu_1 - \mu_2}{sd}$.
 - $r$	Pearsons R ist ein Klassiker, um die Stärke des linearen Zusammenhangs zweier metrischen Größen zu quantifizieren. $r$ berechnet sich als: $r = mw(\sum z_x z_y)$, wobei $mw$ für den Mittelwert steht und $z$ für einen z-Wert.
@@ -459,6 +459,8 @@ Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. @eid2010statist
 - $f^2$ ist ein Maß, dass aus der erklärten Varianz abgeleitet ist. Es gibt das Verhältnis von erklärter zu nicht-erklärter Varianz wieder (auch 'signal-noise-ratio' genannt). Es berechnet sich als $f^2 = \frac{R^2}{1-R^2}$.
 - $\omega$ (Cohens Omega) ist ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, abgeleitet vom $\chi^2$-Test. Es berechnet sich als $\omega = \sqrt{\chi^2}$.
 - $OR$ (Odds Ratio) ist ebenfalls ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, allerdings *binärer* (zweistufige) Variablen. Es berechnet sich als $OR = \frac{c}{1-c}$, wobei $c$ die Chancen für ein Ereignis $E$ angeben (z.B. 9:1). $OR$ kann aus $\omega$ abgleitet werden.
+- *Simple Difference* ist eine einfachere Variante zum $OR$. Ein Beispiel: Bei Prof. Feistersack fallen 90% der Kandidaten durch die Prüfung. Bei Prof. Schnaggeldi hingegen nur 50%. Der Wert für *Simple Difference* liegt dann bei 90%-50%=40%. Doch, so einfach ist das [@Kerby2014].
+- *Anteil konformer Paarvergleiche* ist ein Effektstärkemaß für den Wilcoxon- bzw. den Mann-Whitney-U-Test. Ein Beispiel: Studierende zweier Gruppen ~~müssen~~ wollen sich zu ihrem Statistikwissen testen lassen (Gruppe Prof. F. und Prof. S.). Für jeden Studenten aus Gruppe F wird nun geprüft, gegen wie viele Studenten aus Gruppe S er oder sie 'gewinnt'. Dann wird ausgezählt, wie viele solcher Paarvergleiche insgesamt von Gruppe F gewonnen wurden. Der Anteil der hypothesenkonformen Paarvergleiche ist dann das Effektstärkemaß [@Kerby2014].
 
 
 Tabelle \@ref(tab:effectsizes) gibt einen groben Überblick über Effektstärken (nach  -@cohen_statistical_1988 und Eid, Schmitt und Gollwitzer [-@eid2010statistik]. Zu beachten ist, dass die Einschätzung was ein 'großer' oder 'kleiner' Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der  Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.
@@ -491,12 +493,20 @@ Möchte man sich Effektstärken berechnen lassen, ist das Paket `compute.es` hil
 
 - $\chi^2$-Test: `compute.es::chies(30, n  = 826)`
 - t-Test: `compute.es::tes(t = 1, n.1 = 529, n.2 = 286)`
-- Varianzanalyse (F-Test): `glance` gibt $R^2$ aus; mit `etaSquared(mein_aov)` ebenfalls. Möchte man $f^2$ berechnen, so tut man das am besten per Hand, z.B. `0.002 / (1-0.002)`.
+- Varianzanalyse (F-Test): `broom::glance` gibt $R^2$ aus; mit `lsr::etaSquared(mein_aov)` ebenfalls. Möchte man $f^2$ berechnen, so tut man das am besten per Hand, z.B. `0.002 / (1-0.002)`.
 - Korrelation: Der Korrelationswert $r$ ist schon ein Maß der Effekstärke. Yeah.
 - Regression: Die Steigung der Regressionsgeraden ($b$) ist ein (unstandardisiertes) Maß für die Stärke des ("Netto"-)Einflusses eines Prädiktors. $R^2$ hingegen ein Maß für die relative Varianzaufklärung aller Prädiktoren gemeinsam.
 - Logistische Regression: Mit `BaylorEdPsych::PseudoR2(mein_glm_objekt)` kann man eine Art $R^2$ bekommen (s. Kapitel \@ref(Modellguete)).
 - Wilcoxon-Test/ Mann-Whitney-U-Test: Anteil der paarweisen Vergleiche, die hypothesenkonform sind [vgl. @Kerby2014]. Dazu kann man z.B. die Funktion `prop_fav` aus dem Paket `prada` nutzen (vgl. `help(prop_fav)`).
 
+Die R-Befehle für gängige Effektstärkemaße sind in Tabelle \@ref(tab:effsize-functions) im Überblick dargestellt.
+
+```{r effsize-functions, echo = FALSE}
+
+df <- read.csv("includes/effsize_ueberblick.csv")
+
+knitr::kable(df, caption = "R-Befehle für gängige Effektstärkemaße")
+```
 
 
 

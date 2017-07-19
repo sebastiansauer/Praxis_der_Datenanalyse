@@ -521,24 +521,24 @@ knitr::kable(df, caption = "Häufige Diagrammtypen")
 
 
 ```{r fig-diagrammtypen, echo = FALSE, fig.cap = "Überblick zu häufigen Diagrammtypen", out.width = "100%"}
-p1 <- qplot(x = score, geom = "histogram", data = stats_test, main = "Histogramm")
-p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichte-D.")
-p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streu-D.")
-p4 <- qplot(y = score, x = self_eval, fill = bestanden, geom = "tile", data = stats_test, main = "Fliesen-D.")
-p5 <- qplot(x = bestanden, geom = "bar", data = stats_test, main = "Balken-D.")
+p1 <- qplot(x = score, geom = "histogram", data = stats_test, main = "Histogramm") + theme(legend.position = "none")
+p2 <- qplot(x = score, geom = "density", data = stats_test, main = "Dichte-D.") + theme(legend.position = "none")
+p3 <- qplot(y = score, x = self_eval, geom = "point", data = stats_test, main = "Streu-D.") + theme(legend.position = "none")
+p4 <- qplot(y = score, x = self_eval, fill = bestanden, geom = "tile", data = stats_test, main = "Fliesen-D.") + theme(legend.position = "none")
+p5 <- qplot(x = bestanden, geom = "bar", data = stats_test, main = "Balken-D.") + theme(legend.position = "none")
 p6 <- stats_test %>% 
   mutate(interessiert = stats_test$interest > 3) %>% 
   count(bestanden, interessiert) %>% 
-  qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesen-D.") 
+  qplot(x = bestanden, y = interessiert, fill = n, geom = "tile", data = ., main = "Fliesen-D.") + theme(legend.position = "none")
 p7 <- stats_test %>% 
   mutate(interessiert = stats_test$interest > 3) %>%
   group_by(bestanden, interessiert) %>% 
   summarise(score_median_gruppe = median(score)) %>% 
-  qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punkte-D.")
-p8 <- qplot(x = bestanden, y = score, geom = "boxplot", data = stats_test, main = "Boxplot")
+  qplot(data = ., x = bestanden, y = score_median_gruppe, color = interessiert, size = I(4), shape = interessiert, main = "Punkte-D.") + theme(legend.position = "none")
+p8 <- qplot(x = bestanden, y = score, geom = "boxplot", data = stats_test, main = "Boxplot") + theme(legend.position = "none")
 
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 2)
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 3)
 
 ```
 

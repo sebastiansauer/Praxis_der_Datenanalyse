@@ -467,7 +467,11 @@ Praktischer ist der Befehl `count`\index{dplyr::count}, der nichts anderes ist a
 
 ```{r}
 dplyr::count(stats_test, interest)
-dplyr::count(stats_test, study_time)
+```
+
+Probieren Sie auch diese Varianten:
+```{r eval = FALSE}
+dplyr::count(stats_test, study_time, sort = TRUE)
 dplyr::count(stats_test, interest, study_time)
 ```
 
@@ -621,7 +625,7 @@ Wenn Sie Befehle verketten mit der Pfeife, sind nur Befehle erlaubt, die einen D
 
 ### Spalten berechnen mit `mutate`
 
-Wenn man die Pfeife benutzt, ist der Befehl `mutate`\index{dplyr::mutate} ganz praktisch: Er berechnet eine Spalte. Normalerweise kann man einfach eine Spalte berechnen mit dem Zuweisungsoperator:
+Wenn man die Pfeife benutzt, ist der Befehl `mutate`\index{dplyr::mutate} ganz praktisch: Er berechnet eine Spalte. Im 'Standard-R' kann man  eine Spalte berechnen mit dem Zuweisungsoperator und dem $-Operator:
 
 Zum Beispiel so:
 
@@ -629,7 +633,7 @@ Zum Beispiel so:
 df$neue_spalte <- df$spalte1 + df$spalte2
 ```
 
-Innerhalb einer Pfeifen-Syntax geht das aber nicht (so gut). Da ist man mit der Funktion `mutate` besser beraten; `mutate` leistest just dasselbe wie die Pseudo-Syntax oben:
+Innerhalb einer Pfeifen-Syntax geht das aber nicht (so gut). Da ist man mit der Funktion `mutate` besser beraten; `mutate` leistet just dasselbe wie die Pseudo-Syntax oben:
 
 ```
 df %>% 
@@ -661,7 +665,7 @@ stats_test %>%
 Diese Syntax erzeugt eine neue Spalte innerhalb von `stats_test`; diese Spalte prüft pro Person, ob `score` > 38 ist. Falls ja (TRUE), dann ist `Streber` TRUE, ansonsten ist `Streber` FALSE (tja). `head` zeigt die ersten 6 Zeilen des resultierenden Dataframes an.
 
 
-Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`:
+Abb. \@ref(fig:fig-mutate) zeigt Sinnbild für `mutate`; beachten Sie, dass aus einer Spalte eine neue Spalte erzeugt wird. Man könnte also sagen, die alten Werte werden zu neuen *transformiert*\index{Transformieren}.
 
 ```{r fig-mutate, echo = FALSE, fig.cap = "Sinnbild für mutate"}
 knitr::include_graphics("images/Datenjudo/mutate.png")
@@ -687,7 +691,9 @@ knitr::include_graphics("images/Datenjudo/mutate.png")
 bestanden_gruppen <-
   filter(
     summarise(
-      group_by(filter(select(stats_test, -c(row_number, date_time)) , bestanden == "ja"), interest), 
+      group_by(filter(select(stats_test, 
+                             -c(row_number, date_time)),
+                      bestanden == "ja"), interest),
       Punkte = mean(score), n = n()))
 ```
 
