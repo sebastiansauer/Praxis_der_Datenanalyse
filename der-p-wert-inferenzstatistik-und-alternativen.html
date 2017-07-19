@@ -118,10 +118,10 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="2" data-path="Rahmen.html"><a href="Rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
 <li class="chapter" data-level="2.1" data-path="Rahmen.html"><a href="Rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="Rahmen.html"><a href="Rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
-<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R startet nicht!</a></li>
-<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.3</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.2</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.3</b> Hilfe! R startet nicht!</a></li>
 <li class="chapter" data-level="2.1.4" data-path="Rahmen.html"><a href="Rahmen.html#funs-pckgs"><i class="fa fa-check"></i><b>2.1.4</b> Vertiefung: Zuordnung von Paketen zu Befehlen</a></li>
-<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Daten</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="Rahmen.html"><a href="Rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="Rahmen.html"><a href="Rahmen.html#r-skript-dateien"><i class="fa fa-check"></i><b>2.2.1</b> R-Skript-Dateien</a></li>
@@ -468,7 +468,7 @@ Abbildung 10.1: Der größte Statistiker des 20. Jahrhunderts (p &lt; .05)
 Abbildung 10.2: Der p-Wert wird oft als wichtig erachtet
 </p>
 </div>
-<p>Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als <em>Nullhypothesen-Signifikanztesten</em> (NHST<a href="#fn56" class="footnoteRef" id="fnref56"><sup>56</sup></a>) bezeichnet wird. Oder kurz als ‘Inferenzstatistik’ bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:</p>
+<p>Der p-Wert ist der tragende Ziegelstein in einem Theoriegebäude, das als <em>Nullhypothesen-Signifikanztesten</em> (NHST<a href="#fn58" class="footnoteRef" id="fnref58"><sup>58</sup></a>) bezeichnet wird. Oder kurz als ‘Inferenzstatistik’ bezeichnet. Was sagt uns der p-Wert? Eine gute intuitive Definition ist:</p>
 <blockquote>
 <p>Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.</p>
 </blockquote>
@@ -500,7 +500,7 @@ Abbildung 10.3: Mann und Papst zu sein ist nicht das gleiche.
 <div id="der-p-wert-ist-eine-funktion-der-stichprobengroe" class="section level2">
 <h2><span class="header-section-number">10.2</span> Der p-Wert ist eine Funktion der Stichprobengröße</h2>
 <p>Der p-Wert ist für weitere Dinge kritisiert worden <span class="citation">(Wagenmakers <a href="#ref-Wagenmakers2007">2007</a>, <span class="citation">Briggs (<a href="#ref-uncertainty">2016</a>)</span>)</span>; z.B. dass die “5%-Hürde” einen zu schwachen Test für die getestete Hypothese bedeutet. Letzterer Kritikpunkt ist aber nicht dem p-Wert anzulasten, denn dieses Kriterium ist beliebig, könnte konservativer gesetzt werden und jegliche mechanisierte Entscheidungsmethode kann ausgenutzt werden. Ähnliches kann man zum Thema “P-Hacking” argumentieren <span class="citation">(Head u. a. <a href="#ref-Head2015">2015</a>, <span class="citation">Wicherts u. a. (<a href="#ref-Wicherts2016">2016</a>)</span>)</span>: andere statistische Verfahren können auch gehackt werden. “Hacken” soll hier sagen, dass man - Kreativität und Wille vorausgesetzt - immer Wege finden kann, um einen Kennwert in die gewünschte Richtung zu drängen.</p>
-<p>Ein anderer Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das schränkt die praktische Nützlichkeit ein (vgl. Abb. <a href="der-p-wert-inferenzstatistik-und-alternativen.html#fig:einfluss-pwert">10.4</a>. Die Details der Simulation, die hinter Abb. <a href="der-p-wert-inferenzstatistik-und-alternativen.html#fig:einfluss-pwert">10.4</a> sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben<a href="#fn57" class="footnoteRef" id="fnref57"><sup>57</sup></a>.</p>
+<p>Ein anderer Anklagepunkt lautet, dass der p-Wert nicht nur eine Funktion der Effektgröße sei, sondern auch der Stichprobengröße. Sprich: Bei großen Stichproben wird jede Hypothese signifikant. Das ist richtig. Das schränkt die praktische Nützlichkeit ein (vgl. Abb. <a href="der-p-wert-inferenzstatistik-und-alternativen.html#fig:einfluss-pwert">10.4</a>. Die Details der Simulation, die hinter Abb. <a href="der-p-wert-inferenzstatistik-und-alternativen.html#fig:einfluss-pwert">10.4</a> sind etwas umfangreicher und hier nicht so wichtig, daher nicht angegeben<a href="#fn59" class="footnoteRef" id="fnref59"><sup>59</sup></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:einfluss-pwert"></span>
 <img src="images/inferenz/einfluss_pwert-crop.png" alt="Zwei Haupteinflüsse auf den p-Wert" width="70%" />
 <p class="caption">
@@ -635,7 +635,7 @@ definiere <code>sex</code> als Faktor und zwar so, dass es nur Faktorstufen gibt
 <div id="korrelationen-auf-signifikanz-prufen" class="section level3">
 <h3><span class="header-section-number">10.5.4</span> Korrelationen auf Signifikanz prüfen</h3>
 <p><em>Forschungsfrage: Ist der Extraversion-Mittelwert und die Anzahl der Facebook-Freunde korreliert?</em></p>
-<p>Der Test prüft, ob diese Korrelation 0 ist.</p>
+<p>Der Test prüft, ob diese Korrelation 0 ist<a href="#fn60" class="footnoteRef" id="fnref60"><sup>60</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(extra<span class="op">$</span>extra_mean, extra<span class="op">$</span>n_facebook_friends)
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  Pearson&#39;s product-moment correlation</span>
@@ -743,7 +743,7 @@ Abbildung 10.5: Anteil von ‘Kopf’ bei wiederholtem Münzwurf
 </blockquote>
 <p>Mit Parameter ist hier der Mittelwert der Population gemeint (auch bezeichnet als ‘wahrer Mittelwert’). Das Konfidenzintervall macht also Aussagen zur <em>über ein Verfahren</em> (einen Bereich berechnen auf Basis von Stichprobendaten), <em>nicht über den wahren Mittelwert</em>.</p>
 <p>Hier findet sich eine schöne <a href="http://rpsychologist.com/d3/CI/">Visualisierung zum Konfidenzintervall</a>.</p>
-<p>Genau wie der p-Wert werden Konfidenzintervalle häufig missverstanden (sie sind Blutsbrüder im Geiste). Die Studie von Hoekstra, Morey, Rouder und Wagenmakerks <span class="citation">(<a href="#ref-hoekstra2014robust">2014</a>)</span> zeigt das auf amüsante Weise. In der Studie legten die Autoren einigen Studenten und Wissenschaftlern sechs Fragen zum Wissens-Konfidenzintervall vor, die beantwortet werden sollten. Es wurde ein Kontext vorgestellt, etwa so “Professor Bumbledorf führt ein Experiment durch. Das Ergebnis fasst er in einem 95%-Konfidenzintervall für den Mittelwert zusammen, welches von 0,1 bis 0,4 reicht”. Dann folgten sechs Aussagen, die mit <em>stimmt</em> oder <em>stimmt nicht</em> zu beantworten waren. Beurteilen auch Sie diese Aussagen<a href="#fn58" class="footnoteRef" id="fnref58"><sup>58</sup></a>.</p>
+<p>Genau wie der p-Wert werden Konfidenzintervalle häufig missverstanden (sie sind Blutsbrüder im Geiste). Die Studie von Hoekstra, Morey, Rouder und Wagenmakerks <span class="citation">(<a href="#ref-hoekstra2014robust">2014</a>)</span> zeigt das auf amüsante Weise. In der Studie legten die Autoren einigen Studenten und Wissenschaftlern sechs Fragen zum Wissens-Konfidenzintervall vor, die beantwortet werden sollten. Es wurde ein Kontext vorgestellt, etwa so “Professor Bumbledorf führt ein Experiment durch. Das Ergebnis fasst er in einem 95%-Konfidenzintervall für den Mittelwert zusammen, welches von 0,1 bis 0,4 reicht”. Dann folgten sechs Aussagen, die mit <em>stimmt</em> oder <em>stimmt nicht</em> zu beantworten waren. Beurteilen auch Sie diese Aussagen<a href="#fn61" class="footnoteRef" id="fnref61"><sup>61</sup></a>.</p>
 <hr />
 <ol style="list-style-type: decimal">
 <li>Die Wahrscheinlichkeit, dass der wahre Mittelwert größer als 0 ist, liegt bei mindestens 95%.</li>
@@ -766,7 +766,7 @@ Abbildung 10.5: Anteil von ‘Kopf’ bei wiederholtem Münzwurf
 <p>Um zwei Mittelwerte zu vergleichen, ist <em>Cohens d</em> gebräuchlich. Es gibt den Unterschied der Mittelwert standardisiert an der Standardabweichung an <span class="citation">(Cohen <a href="#ref-cohen_statistical_1988">1988</a>)</span>. Das ist oft sinnvoll, denn 5$ Preisunterschied können viel oder weniger sein: Bei Eiskugeln wäre der Unterschied enorm (die Streuung ist viel weniger als 5€), bei Sportwagen wäre der Unterschied gering (die Streuung ist viel höher als 5€).</p>
 <div id="typische-effektstarkemae" class="section level4">
 <h4><span class="header-section-number">10.7.2.1</span> Typische Effektstärkemaße</h4>
-<p>Zu den typischen Effektstärkemaßen zählen die folgenden (vgl. <span class="citation">Eid, Gollwitzer, und Schmitt (<a href="#ref-eid2010statistik">2010</a>)</span>):</p>
+<p>Einige ypischen Effektstärkemaße sind im Folgenden aufgelistet (vgl. <span class="citation">Eid, Gollwitzer, und Schmitt (<a href="#ref-eid2010statistik">2010</a>)</span>). Eine einfache Faustregel ist, dass man für einen bestimmten Test meist ein “zugehöriges” Effektstärkemaß angibt.</p>
 <ul>
 <li><span class="math inline">\(d\)</span> (Cohens d) wird zur Bemessung des Unterschieds der Überlappung zweier Verteilungen verwendet, z.B. um die Effektstärke eines t-Werts zu quantifizieren. <span class="math inline">\(d\)</span> berechnet sich im einfachsten Fall als: <span class="math inline">\(d = \frac{\mu_1 - \mu_2}{sd}\)</span>.</li>
 <li><span class="math inline">\(r\)</span> Pearsons R ist ein Klassiker, um die Stärke des linearen Zusammenhangs zweier metrischen Größen zu quantifizieren. <span class="math inline">\(r\)</span> berechnet sich als: <span class="math inline">\(r = mw(\sum z_x z_y)\)</span>, wobei <span class="math inline">\(mw\)</span> für den Mittelwert steht und <span class="math inline">\(z\)</span> für einen z-Wert.</li>
@@ -774,6 +774,8 @@ Abbildung 10.5: Anteil von ‘Kopf’ bei wiederholtem Münzwurf
 <li><span class="math inline">\(f^2\)</span> ist ein Maß, dass aus der erklärten Varianz abgeleitet ist. Es gibt das Verhältnis von erklärter zu nicht-erklärter Varianz wieder (auch ‘signal-noise-ratio’ genannt). Es berechnet sich als <span class="math inline">\(f^2 = \frac{R^2}{1-R^2}\)</span>.</li>
 <li><span class="math inline">\(\omega\)</span> (Cohens Omega) ist ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, abgeleitet vom <span class="math inline">\(\chi^2\)</span>-Test. Es berechnet sich als <span class="math inline">\(\omega = \sqrt{\chi^2}\)</span>.</li>
 <li><span class="math inline">\(OR\)</span> (Odds Ratio) ist ebenfalls ein Maß für die Stärke des Zusammenhangs zweier nominaler Variablen, allerdings <em>binärer</em> (zweistufige) Variablen. Es berechnet sich als <span class="math inline">\(OR = \frac{c}{1-c}\)</span>, wobei <span class="math inline">\(c\)</span> die Chancen für ein Ereignis <span class="math inline">\(E\)</span> angeben (z.B. 9:1). <span class="math inline">\(OR\)</span> kann aus <span class="math inline">\(\omega\)</span> abgleitet werden.</li>
+<li><em>Simple Difference</em> ist eine einfachere Variante zum <span class="math inline">\(OR\)</span>. Ein Beispiel: Bei Prof. Feistersack fallen 90% der Kandidaten durch die Prüfung. Bei Prof. Schnaggeldi hingegen nur 50%. Der Wert für <em>Simple Difference</em> liegt dann bei 90%-50%=40%. Doch, so einfach ist das <span class="citation">(Kerby <a href="#ref-Kerby2014">2014</a>)</span>.</li>
+<li><em>Anteil konformer Paarvergleiche</em> ist ein Effektstärkemaß für den Wilcoxon- bzw. den Mann-Whitney-U-Test. Ein Beispiel: Studierende zweier Gruppen <del>müssen</del> wollen sich zu ihrem Statistikwissen testen lassen (Gruppe Prof. F. und Prof. S.). Für jeden Studenten aus Gruppe F wird nun geprüft, gegen wie viele Studenten aus Gruppe S er oder sie ‘gewinnt’. Dann wird ausgezählt, wie viele solcher Paarvergleiche insgesamt von Gruppe F gewonnen wurden. Der Anteil der hypothesenkonformen Paarvergleiche ist dann das Effektstärkemaß <span class="citation">(Kerby <a href="#ref-Kerby2014">2014</a>)</span>.</li>
 </ul>
 <p>Tabelle <a href="der-p-wert-inferenzstatistik-und-alternativen.html#tab:effectsizes">10.1</a> gibt einen groben Überblick über Effektstärken (nach <span class="citation">Cohen (<a href="#ref-cohen_statistical_1988">1988</a>)</span> und Eid, Schmitt und Gollwitzer <span class="citation">(<a href="#ref-eid2010statistik">2010</a>)</span>. Zu beachten ist, dass die Einschätzung was ein ‘großer’ oder ‘kleiner’ Effekt ist, nicht pauschal übers Knie gebrochen werden sollte. Besser ist es, die Höhe der Effektstärke im eigenen Datensatz mit relevanten anderen Datensätzen zu vergleichen.</p>
 <table>
@@ -838,12 +840,60 @@ Abbildung 10.5: Anteil von ‘Kopf’ bei wiederholtem Münzwurf
 <ul>
 <li><span class="math inline">\(\chi^2\)</span>-Test: <code>compute.es::chies(30, n  = 826)</code></li>
 <li>t-Test: <code>compute.es::tes(t = 1, n.1 = 529, n.2 = 286)</code></li>
-<li>Varianzanalyse (F-Test): <code>glance</code> gibt <span class="math inline">\(R^2\)</span> aus; mit <code>etaSquared(mein_aov)</code> ebenfalls. Möchte man <span class="math inline">\(f^2\)</span> berechnen, so tut man das am besten per Hand, z.B. <code>0.002 / (1-0.002)</code>.</li>
+<li>Varianzanalyse (F-Test): <code>broom::glance</code> gibt <span class="math inline">\(R^2\)</span> aus; mit <code>lsr::etaSquared(mein_aov)</code> ebenfalls. Möchte man <span class="math inline">\(f^2\)</span> berechnen, so tut man das am besten per Hand, z.B. <code>0.002 / (1-0.002)</code>.</li>
 <li>Korrelation: Der Korrelationswert <span class="math inline">\(r\)</span> ist schon ein Maß der Effekstärke. Yeah.</li>
 <li>Regression: Die Steigung der Regressionsgeraden (<span class="math inline">\(b\)</span>) ist ein (unstandardisiertes) Maß für die Stärke des (“Netto”-)Einflusses eines Prädiktors. <span class="math inline">\(R^2\)</span> hingegen ein Maß für die relative Varianzaufklärung aller Prädiktoren gemeinsam.</li>
 <li>Logistische Regression: Mit <code>BaylorEdPsych::PseudoR2(mein_glm_objekt)</code> kann man eine Art <span class="math inline">\(R^2\)</span> bekommen (s. Kapitel <a href="klassifizierende-regression.html#Modellguete">12.8</a>).</li>
 <li>Wilcoxon-Test/ Mann-Whitney-U-Test: Anteil der paarweisen Vergleiche, die hypothesenkonform sind <span class="citation">(vgl. Kerby <a href="#ref-Kerby2014">2014</a>)</span>. Dazu kann man z.B. die Funktion <code>prop_fav</code> aus dem Paket <code>prada</code> nutzen (vgl. <code>help(prop_fav)</code>).</li>
 </ul>
+<p>Die R-Befehle für gängige Effektstärkemaße sind in Tabelle <a href="der-p-wert-inferenzstatistik-und-alternativen.html#tab:effsize-functions">10.2</a> im Überblick dargestellt.</p>
+<table>
+<caption><span id="tab:effsize-functions">Tabelle 10.2: </span>R-Befehle für gängige Effektstärkemaße</caption>
+<thead>
+<tr class="header">
+<th align="left">Test</th>
+<th align="left">Effektstärkemaß</th>
+<th align="left">R.Befehl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>t.Test</code></td>
+<td align="left">Cohens d</td>
+<td align="left"><code>compute.es::tes</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>aov</code></td>
+<td align="left"><span class="math inline">\(R^2\)</span></td>
+<td align="left"><code>lsr::etaSquared</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>lm</code></td>
+<td align="left"><span class="math inline">\(R^2\)</span></td>
+<td align="left"><code>broom::glance</code> oder <code>summary</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>glm</code></td>
+<td align="left">Pseudo-<span class="math inline">\(R^2\)</span></td>
+<td align="left"><code>BaylorEdPsych::PseudoR2</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>chisq.test</code></td>
+<td align="left"><span class="math inline">\(\omega\)</span></td>
+<td align="left">`sqrt(chisq_wert)``</td>
+</tr>
+<tr class="even">
+<td align="left"><code>chisq.test</code></td>
+<td align="left">OR</td>
+<td align="left"><code>computes.es::chies</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>wilcox.test</code></td>
+<td align="left">Simple Difference</td>
+<td align="left"><code>prada::prop_fav</code></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="bayes-statistik" class="section level3">
@@ -895,7 +945,7 @@ extra <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 </div>
 <div id="aufgaben-11" class="section level2">
-<h2><span class="header-section-number">10.8</span> Aufgaben<a href="#fn59" class="footnoteRef" id="fnref59"><sup>59</sup></a></h2>
+<h2><span class="header-section-number">10.8</span> Aufgaben<a href="#fn62" class="footnoteRef" id="fnref62"><sup>62</sup></a></h2>
 
 <div class="rmdexercises">
 <p>Richtig oder Falsch!?</p>
@@ -1011,11 +1061,12 @@ extra <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="56">
-<li id="fn56"><p>Der Term ‘Signifikanz-Hypothesen-Inferenz-Testen’ hat sich nicht durchgesetzt<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref56">↩</a></p></li>
-<li id="fn57"><p>s. hier für Details: <a href="https://sebastiansauer.github.io/pvalue_sample_size/" class="uri">https://sebastiansauer.github.io/pvalue_sample_size/</a><a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref57">↩</a></p></li>
-<li id="fn58"><p>alle sechs sind falsch<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref58">↩</a></p></li>
-<li id="fn59"><p>F, F, R, F, F, F, F, R, R, R<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref59">↩</a></p></li>
+<ol start="58">
+<li id="fn58"><p>Der Term ‘Signifikanz-Hypothesen-Inferenz-Testen’ hat sich nicht durchgesetzt<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref58">↩</a></p></li>
+<li id="fn59"><p>s. hier für Details: <a href="https://sebastiansauer.github.io/pvalue_sample_size/" class="uri">https://sebastiansauer.github.io/pvalue_sample_size/</a><a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref59">↩</a></p></li>
+<li id="fn60"><p>genauer gesagt prüft so ein Inferenztest, wie wahrscheinlich eine Datenlage ist, die mindestens so extrem ist wie unsere – unter der Annahme, dass die H0 (zumeist: r=0) gilt<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref60">↩</a></p></li>
+<li id="fn61"><p>alle sechs sind falsch<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref61">↩</a></p></li>
+<li id="fn62"><p>F, F, R, F, F, F, F, R, R, R<a href="der-p-wert-inferenzstatistik-und-alternativen.html#fnref62">↩</a></p></li>
 </ol>
 </div>
             </section>

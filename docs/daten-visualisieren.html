@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html  lang="de-De">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Praxis der Datenanalyse ENTWURF</title>
+  <meta name="description" content="Eine Einführung in moderne Statistik für Praktiker">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Praxis der Datenanalyse ENTWURF" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://bookdown.org/sebastiansauer1/Praxis_der_Datenanalyse/" />
+  <meta property="og:image" content="https://bookdown.org/sebastiansauer1/Praxis_der_Datenanalyse/cover.jpg" />
+  <meta property="og:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="github-repo" content="sebastiansauer/Praxis_der_Datenanalyse" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Praxis der Datenanalyse ENTWURF" />
+  
+  <meta name="twitter:description" content="Eine Einführung in moderne Statistik für Praktiker" />
+  <meta name="twitter:image" content="https://bookdown.org/sebastiansauer1/Praxis_der_Datenanalyse/cover.jpg" />
+
+<meta name="author" content="Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+<link rel="prev" href="case-movies.html">
+<link rel="next" href="fallstudie-zur-visualisierung.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><img src="images/FOM.jpg"
+title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Vorwort</a></li>
+<li class="chapter" data-level="1" data-path="organisatorisches.html"><a href="organisatorisches.html"><i class="fa fa-check"></i><b>1</b> Organisatorisches</a><ul>
+<li class="chapter" data-level="1.1" data-path="organisatorisches.html"><a href="organisatorisches.html#modulziele"><i class="fa fa-check"></i><b>1.1</b> Modulziele</a></li>
+<li class="chapter" data-level="1.2" data-path="organisatorisches.html"><a href="organisatorisches.html#themen-pro-termin"><i class="fa fa-check"></i><b>1.2</b> Themen pro Termin</a></li>
+<li class="chapter" data-level="1.3" data-path="organisatorisches.html"><a href="organisatorisches.html#vorerfahrung"><i class="fa fa-check"></i><b>1.3</b> Vorerfahrung</a></li>
+<li class="chapter" data-level="1.4" data-path="organisatorisches.html"><a href="organisatorisches.html#prufung"><i class="fa fa-check"></i><b>1.4</b> Prüfung</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="organisatorisches.html"><a href="organisatorisches.html#prufungshinweise"><i class="fa fa-check"></i><b>1.4.1</b> Prüfungshinweise</a></li>
+<li class="chapter" data-level="1.4.2" data-path="organisatorisches.html"><a href="organisatorisches.html#klausur"><i class="fa fa-check"></i><b>1.4.2</b> Klausur</a></li>
+<li class="chapter" data-level="1.4.3" data-path="organisatorisches.html"><a href="organisatorisches.html#datenanalyse"><i class="fa fa-check"></i><b>1.4.3</b> Datenanalyse</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organisatorisches.html"><a href="organisatorisches.html#literatur"><i class="fa fa-check"></i><b>1.5</b> Literatur</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rahmen.html"><a href="rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
+<li class="chapter" data-level="2.1" data-path="rahmen.html"><a href="rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="rahmen.html"><a href="rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
+<li class="chapter" data-level="2.1.2" data-path="rahmen.html"><a href="rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R startet nicht!</a></li>
+<li class="chapter" data-level="2.1.3" data-path="rahmen.html"><a href="rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.3</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.4" data-path="rahmen.html"><a href="rahmen.html#funs-pckgs"><i class="fa fa-check"></i><b>2.1.4</b> Vertiefung: Zuordnung von Paketen zu Befehlen</a></li>
+<li class="chapter" data-level="2.1.5" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Datensätze</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rahmen.html"><a href="rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="rahmen.html"><a href="rahmen.html#r-skript-dateien"><i class="fa fa-check"></i><b>2.2.1</b> R-Skript-Dateien</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rahmen.html"><a href="rahmen.html#datentypen-in-r"><i class="fa fa-check"></i><b>2.2.2</b> Datentypen in R</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rahmen.html"><a href="rahmen.html#hinweise-1"><i class="fa fa-check"></i><b>2.2.3</b> Hinweise</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rahmen.html"><a href="rahmen.html#text-und-variablen-zuweisen"><i class="fa fa-check"></i><b>2.2.4</b> Text und Variablen zuweisen</a></li>
+<li class="chapter" data-level="2.2.5" data-path="rahmen.html"><a href="rahmen.html#funktionen-aufrufen"><i class="fa fa-check"></i><b>2.2.5</b> Funktionen aufrufen</a></li>
+<li class="chapter" data-level="2.2.6" data-path="rahmen.html"><a href="rahmen.html#wd"><i class="fa fa-check"></i><b>2.2.6</b> Das Arbeitsverzeichnis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="rahmen.html"><a href="rahmen.html#hier-werden-sie-geholfen"><i class="fa fa-check"></i><b>2.3</b> Hier werden Sie geholfen</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="rahmen.html"><a href="rahmen.html#wo-finde-ich-hilfe"><i class="fa fa-check"></i><b>2.3.1</b> Wo finde ich Hilfe?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rahmen.html"><a href="rahmen.html#einfache-reproduzierbare-beispiele-erbies"><i class="fa fa-check"></i><b>2.3.2</b> Einfache reproduzierbare Beispiele (ERBies)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="rahmen.html"><a href="rahmen.html#was-ist-statistik-wozu-ist-sie-gut"><i class="fa fa-check"></i><b>2.4</b> Was ist Statistik? Wozu ist sie gut?</a></li>
+<li class="chapter" data-level="2.5" data-path="rahmen.html"><a href="rahmen.html#aufgaben"><i class="fa fa-check"></i><b>2.5</b> Aufgaben</a></li>
+<li class="chapter" data-level="2.6" data-path="rahmen.html"><a href="rahmen.html#aufgaben-1"><i class="fa fa-check"></i><b>2.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="2.7" data-path="rahmen.html"><a href="rahmen.html#befehlsubersicht"><i class="fa fa-check"></i><b>2.7</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="2.8" data-path="rahmen.html"><a href="rahmen.html#verweise"><i class="fa fa-check"></i><b>2.8</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="daten-einlesen.html"><a href="daten-einlesen.html"><i class="fa fa-check"></i><b>3</b> Daten einlesen</a><ul>
+<li class="chapter" data-level="3.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-in-r-importieren"><i class="fa fa-check"></i><b>3.1</b> Daten in R importieren</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#excel-dateien-importieren"><i class="fa fa-check"></i><b>3.1.1</b> Excel-Dateien importieren</a></li>
+<li class="chapter" data-level="3.1.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-aus-r-paketen-importieren"><i class="fa fa-check"></i><b>3.1.2</b> Daten aus R-Paketen importieren</a></li>
+<li class="chapter" data-level="3.1.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-im-r-format-laden"><i class="fa fa-check"></i><b>3.1.3</b> Daten im R-Format laden</a></li>
+<li class="chapter" data-level="3.1.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#csv-dateien-importieren"><i class="fa fa-check"></i><b>3.1.4</b> CSV-Dateien importieren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform-einer-tabelle"><i class="fa fa-check"></i><b>3.2</b> Normalform einer Tabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="daten-einlesen.html"><a href="daten-einlesen.html#normalform"><i class="fa fa-check"></i><b>3.3</b> Tabelle in Normalform bringen</a></li>
+<li class="chapter" data-level="3.4" data-path="daten-einlesen.html"><a href="daten-einlesen.html#textkodierung"><i class="fa fa-check"></i><b>3.4</b> Textkodierung</a></li>
+<li class="chapter" data-level="3.5" data-path="daten-einlesen.html"><a href="daten-einlesen.html#befehlsubersicht-1"><i class="fa fa-check"></i><b>3.5</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="3.6" data-path="daten-einlesen.html"><a href="daten-einlesen.html#aufgaben-2"><i class="fa fa-check"></i><b>3.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="3.7" data-path="daten-einlesen.html"><a href="daten-einlesen.html#verweise-1"><i class="fa fa-check"></i><b>3.7</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="datenjudo.html"><a href="datenjudo.html"><i class="fa fa-check"></i><b>4</b> Datenjudo</a><ul>
+<li class="chapter" data-level="4.1" data-path="datenjudo.html"><a href="datenjudo.html#typische-probleme-der-datenaufbereitung"><i class="fa fa-check"></i><b>4.1</b> Typische Probleme der Datenaufbereitung</a></li>
+<li class="chapter" data-level="4.2" data-path="datenjudo.html"><a href="datenjudo.html#daten-aufbereiten-mit-dplyr"><i class="fa fa-check"></i><b>4.2</b> Daten aufbereiten mit <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datenjudo.html"><a href="datenjudo.html#die-zwei-prinzipien-von-dplyr"><i class="fa fa-check"></i><b>4.2.1</b> Die zwei Prinzipien von <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="datenjudo.html"><a href="datenjudo.html#zentrale-bausteine-von-dplyr"><i class="fa fa-check"></i><b>4.3</b> Zentrale Bausteine von <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-filtern-mit-filter"><i class="fa fa-check"></i><b>4.3.1</b> Zeilen filtern mit <code>filter</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="datenjudo.html"><a href="datenjudo.html#spalten-wahlen-mit-select"><i class="fa fa-check"></i><b>4.3.2</b> Spalten wählen mit <code>select</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-sortieren-mit-arrange"><i class="fa fa-check"></i><b>4.3.3</b> Zeilen sortieren mit <code>arrange</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="datenjudo.html"><a href="datenjudo.html#datensatz-gruppieren-mit-group_by"><i class="fa fa-check"></i><b>4.3.4</b> Datensatz gruppieren mit <code>group_by</code></a></li>
+<li class="chapter" data-level="4.3.5" data-path="datenjudo.html"><a href="datenjudo.html#eine-spalte-zusammenfassen-mit-summarise"><i class="fa fa-check"></i><b>4.3.5</b> Eine Spalte zusammenfassen mit <code>summarise</code></a></li>
+<li class="chapter" data-level="4.3.6" data-path="datenjudo.html"><a href="datenjudo.html#zeilen-zahlen-mit-n-und-count"><i class="fa fa-check"></i><b>4.3.6</b> Zeilen zählen mit <code>n</code> und <code>count</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="datenjudo.html"><a href="datenjudo.html#die-pfeife"><i class="fa fa-check"></i><b>4.4</b> Die Pfeife</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="datenjudo.html"><a href="datenjudo.html#spalten-berechnen-mit-mutate"><i class="fa fa-check"></i><b>4.4.1</b> Spalten berechnen mit <code>mutate</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="datenjudo.html"><a href="datenjudo.html#aufgaben-9"><i class="fa fa-check"></i><b>4.4.2</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="datenjudo.html"><a href="datenjudo.html#deskriptive-statistik"><i class="fa fa-check"></i><b>4.5</b> Deskriptive Statistik</a></li>
+<li class="chapter" data-level="4.6" data-path="datenjudo.html"><a href="datenjudo.html#befehlsubersicht-2"><i class="fa fa-check"></i><b>4.6</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="4.7" data-path="datenjudo.html"><a href="datenjudo.html#verweise-2"><i class="fa fa-check"></i><b>4.7</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html"><i class="fa fa-check"></i><b>5</b> Praxisprobleme der Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#datenaufbereitung"><i class="fa fa-check"></i><b>5.1</b> Datenaufbereitung</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-fehlende-werte-prufen"><i class="fa fa-check"></i><b>5.1.1</b> Auf fehlende Werte prüfen</a></li>
+<li class="chapter" data-level="5.1.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#falle-mit-fehlenden-werte-loschen"><i class="fa fa-check"></i><b>5.1.2</b> Fälle mit fehlenden Werte löschen</a></li>
+<li class="chapter" data-level="5.1.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#fehlende-werte-zahlen"><i class="fa fa-check"></i><b>5.1.3</b> Fehlende Werte zählen</a></li>
+<li class="chapter" data-level="5.1.4" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#fehlende-werte-ggf.-ersetzen"><i class="fa fa-check"></i><b>5.1.4</b> Fehlende Werte ggf. ersetzen</a></li>
+<li class="chapter" data-level="5.1.5" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#nach-fehlern-suchen"><i class="fa fa-check"></i><b>5.1.5</b> Nach Fehlern suchen</a></li>
+<li class="chapter" data-level="5.1.6" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#ausreier-identifizieren"><i class="fa fa-check"></i><b>5.1.6</b> Ausreißer identifizieren</a></li>
+<li class="chapter" data-level="5.1.7" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#hochkorrelierte-variablen-finden"><i class="fa fa-check"></i><b>5.1.7</b> Hochkorrelierte Variablen finden</a></li>
+<li class="chapter" data-level="5.1.8" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#z-standardisieren"><i class="fa fa-check"></i><b>5.1.8</b> z-Standardisieren</a></li>
+<li class="chapter" data-level="5.1.9" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#quasi-konstante-finden"><i class="fa fa-check"></i><b>5.1.9</b> Quasi-Konstante finden</a></li>
+<li class="chapter" data-level="5.1.10" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#auf-normalverteilung-prufen"><i class="fa fa-check"></i><b>5.1.10</b> Auf Normalverteilung prüfen</a></li>
+<li class="chapter" data-level="5.1.11" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#werte-umkodieren-und-partionieren-binnen"><i class="fa fa-check"></i><b>5.1.11</b> Werte umkodieren und partionieren (“binnen”)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#deskriptive-statistiken-berechnen"><i class="fa fa-check"></i><b>5.2</b> Deskriptive Statistiken berechnen</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-zeile-berechnen"><i class="fa fa-check"></i><b>5.2.1</b> Mittelwerte pro Zeile berechnen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#mittelwerte-pro-spalte-berechnen"><i class="fa fa-check"></i><b>5.2.2</b> Mittelwerte pro Spalte berechnen</a></li>
+<li class="chapter" data-level="5.2.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#korrelationstabellen-berechnen"><i class="fa fa-check"></i><b>5.2.3</b> Korrelationstabellen berechnen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="praxisprobleme-der-datenaufbereitung.html"><a href="praxisprobleme-der-datenaufbereitung.html#befehlsubersicht-3"><i class="fa fa-check"></i><b>5.3</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="case-movies.html"><a href="case-movies.html"><i class="fa fa-check"></i><b>6</b> Fallstudie ‘movies’</a><ul>
+<li class="chapter" data-level="6.1" data-path="case-movies.html"><a href="case-movies.html#wie-viele-filme-gibt-es-pro-genre"><i class="fa fa-check"></i><b>6.1</b> Wie viele Filme gibt es pro Genre?</a></li>
+<li class="chapter" data-level="6.2" data-path="case-movies.html"><a href="case-movies.html#welches-genre-ist-am-haufigsten"><i class="fa fa-check"></i><b>6.2</b> Welches Genre ist am häufigsten?</a></li>
+<li class="chapter" data-level="6.3" data-path="case-movies.html"><a href="case-movies.html#zusammenhang-zwischen-budget-und-beurteilung"><i class="fa fa-check"></i><b>6.3</b> Zusammenhang zwischen Budget und Beurteilung</a></li>
+<li class="chapter" data-level="6.4" data-path="case-movies.html"><a href="case-movies.html#wurden-die-filme-im-lauf-der-jahre-teurer-undoder-besser"><i class="fa fa-check"></i><b>6.4</b> Wurden die Filme im Lauf der Jahre teurer und/oder “besser”?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html"><i class="fa fa-check"></i><b>7</b> Daten visualisieren</a><ul>
+<li class="chapter" data-level="7.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#ein-bild-sagt-mehr-als-1000-worte"><i class="fa fa-check"></i><b>7.1</b> Ein Bild sagt mehr als 1000 Worte</a></li>
+<li class="chapter" data-level="7.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-anatomie-eines-diagramms"><i class="fa fa-check"></i><b>7.2</b> Die Anatomie eines Diagramms</a></li>
+<li class="chapter" data-level="7.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#einstieg-in-ggplot2---qplot"><i class="fa fa-check"></i><b>7.3</b> Einstieg in <code>ggplot2</code> - <code>qplot</code></a></li>
+<li class="chapter" data-level="7.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#haufige-arten-von-diagrammen"><i class="fa fa-check"></i><b>7.4</b> Häufige Arten von Diagrammen</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-kontinuierliche-variable"><i class="fa fa-check"></i><b>7.4.1</b> Eine kontinuierliche Variable</a></li>
+<li class="chapter" data-level="7.4.2" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-kontinuierliche-variablen"><i class="fa fa-check"></i><b>7.4.2</b> Zwei kontinuierliche Variablen</a></li>
+<li class="chapter" data-level="7.4.3" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#eine-nominale-variable"><i class="fa fa-check"></i><b>7.4.3</b> Eine nominale Variable</a></li>
+<li class="chapter" data-level="7.4.4" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zwei-nominale-variablen"><i class="fa fa-check"></i><b>7.4.4</b> Zwei nominale Variablen</a></li>
+<li class="chapter" data-level="7.4.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#zusammenfassungen-zeigen"><i class="fa fa-check"></i><b>7.4.5</b> Zusammenfassungen zeigen</a></li>
+<li class="chapter" data-level="7.4.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#uberblick-zu-haufigen-diagrammtypen"><i class="fa fa-check"></i><b>7.4.6</b> Überblick zu häufigen Diagrammtypen</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#die-gefuhlswelt-von-ggplot2"><i class="fa fa-check"></i><b>7.5</b> Die Gefühlswelt von <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.6" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#aufgaben-10"><i class="fa fa-check"></i><b>7.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="7.7" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#losungen"><i class="fa fa-check"></i><b>7.7</b> Lösungen</a></li>
+<li class="chapter" data-level="7.8" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#richtig-oder-falsch"><i class="fa fa-check"></i><b>7.8</b> Richtig oder Falsch</a></li>
+<li class="chapter" data-level="7.9" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#befehlsubersicht-4"><i class="fa fa-check"></i><b>7.9</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="7.10" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#geome"><i class="fa fa-check"></i><b>7.10</b> Vertiefung: Geome bei ggplot2</a></li>
+<li class="chapter" data-level="7.11" data-path="daten-visualisieren.html"><a href="daten-visualisieren.html#verweise-3"><i class="fa fa-check"></i><b>7.11</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html"><i class="fa fa-check"></i><b>8</b> Fallstudie zur Visualisierung</a><ul>
+<li class="chapter" data-level="8.1" data-path="daten-einlesen.html"><a href="daten-einlesen.html#daten-einlesen"><i class="fa fa-check"></i><b>8.1</b> Daten einlesen</a></li>
+<li class="chapter" data-level="8.2" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#daten-umstellen"><i class="fa fa-check"></i><b>8.2</b> Daten umstellen</a></li>
+<li class="chapter" data-level="8.3" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramme-fur-anteile"><i class="fa fa-check"></i><b>8.3</b> Diagramme für Anteile</a></li>
+<li class="chapter" data-level="8.4" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#rotierte-balkendiagramme"><i class="fa fa-check"></i><b>8.4</b> Rotierte Balkendiagramme</a></li>
+<li class="chapter" data-level="8.5" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#text-labels-fur-die-items"><i class="fa fa-check"></i><b>8.5</b> Text-Labels für die Items</a></li>
+<li class="chapter" data-level="8.6" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#diagramm-mit-haufigkeiten"><i class="fa fa-check"></i><b>8.6</b> Diagramm mit Häufigkeiten</a></li>
+<li class="chapter" data-level="8.7" data-path="fallstudie-zur-visualisierung.html"><a href="fallstudie-zur-visualisierung.html#farbschemata"><i class="fa fa-check"></i><b>8.7</b> Farbschemata</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="mod1.html"><a href="mod1.html"><i class="fa fa-check"></i><b>9</b> Grundlagen des Modellierens</a><ul>
+<li class="chapter" data-level="9.1" data-path="mod1.html"><a href="mod1.html#Modellieren"><i class="fa fa-check"></i><b>9.1</b> Was ist ein Modell? Was ist Modellieren?</a></li>
+<li class="chapter" data-level="9.2" data-path="mod1.html"><a href="mod1.html#ein-beispiel-zum-modellieren-in-der-datenanalyse"><i class="fa fa-check"></i><b>9.2</b> Ein Beispiel zum Modellieren in der Datenanalyse</a></li>
+<li class="chapter" data-level="9.3" data-path="mod1.html"><a href="mod1.html#Ziele"><i class="fa fa-check"></i><b>9.3</b> Taxonomie der Ziele des Modellierens</a></li>
+<li class="chapter" data-level="9.4" data-path="mod1.html"><a href="mod1.html#die-vier-schritte-des-statistischen-modellierens"><i class="fa fa-check"></i><b>9.4</b> Die vier Schritte des statistischen Modellierens</a></li>
+<li class="chapter" data-level="9.5" data-path="mod1.html"><a href="mod1.html#einfache-vs.komplexe-modelle-unter--vs.uberanpassung"><i class="fa fa-check"></i><b>9.5</b> Einfache vs. komplexe Modelle: Unter- vs. Überanpassung</a></li>
+<li class="chapter" data-level="9.6" data-path="mod1.html"><a href="mod1.html#bias-varianz-abwagung"><i class="fa fa-check"></i><b>9.6</b> Bias-Varianz-Abwägung</a></li>
+<li class="chapter" data-level="9.7" data-path="mod1.html"><a href="mod1.html#training--vs.test-stichprobe"><i class="fa fa-check"></i><b>9.7</b> Training- vs. Test-Stichprobe</a></li>
+<li class="chapter" data-level="9.8" data-path="mod1.html"><a href="mod1.html#wann-welches-modell"><i class="fa fa-check"></i><b>9.8</b> Wann welches Modell?</a></li>
+<li class="chapter" data-level="9.9" data-path="mod1.html"><a href="mod1.html#modellgute"><i class="fa fa-check"></i><b>9.9</b> Modellgüte</a></li>
+<li class="chapter" data-level="9.10" data-path="mod1.html"><a href="mod1.html#auswahl-von-pradiktoren"><i class="fa fa-check"></i><b>9.10</b> Auswahl von Prädiktoren</a></li>
+<li class="chapter" data-level="9.11" data-path="mod1.html"><a href="mod1.html#aufgaben-11"><i class="fa fa-check"></i><b>9.11</b> Aufgaben</a></li>
+<li class="chapter" data-level="9.12" data-path="mod1.html"><a href="mod1.html#befehlsubersicht-5"><i class="fa fa-check"></i><b>9.12</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="9.13" data-path="mod1.html"><a href="mod1.html#verweise-4"><i class="fa fa-check"></i><b>9.13</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html"><i class="fa fa-check"></i><b>10</b> Der p-Wert, Inferenzstatistik und Alternativen</a><ul>
+<li class="chapter" data-level="10.1" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#der-p-wert-sagt-nicht-das-was-viele-denken"><i class="fa fa-check"></i><b>10.1</b> Der p-Wert sagt nicht das, was viele denken</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#von-mannern-und-papsten"><i class="fa fa-check"></i><b>10.1.1</b> Von Männern und Päpsten</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#der-p-wert-ist-eine-funktion-der-stichprobengroe"><i class="fa fa-check"></i><b>10.2</b> Der p-Wert ist eine Funktion der Stichprobengröße</a></li>
+<li class="chapter" data-level="10.3" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#mythen-zum-p-wert"><i class="fa fa-check"></i><b>10.3</b> Mythen zum p-Wert</a></li>
+<li class="chapter" data-level="10.4" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#wannwelcher"><i class="fa fa-check"></i><b>10.4</b> Wann welcher Inferenztest?</a></li>
+<li class="chapter" data-level="10.5" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#vertiefung-beispiele-fur-haufige-inferenztests"><i class="fa fa-check"></i><b>10.5</b> Vertiefung: Beispiele für häufige Inferenztests</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#chi2-test"><i class="fa fa-check"></i><b>10.5.1</b> <span class="math inline">\(\chi^2\)</span>-Test</a></li>
+<li class="chapter" data-level="10.5.2" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#t-test"><i class="fa fa-check"></i><b>10.5.2</b> t-Test</a></li>
+<li class="chapter" data-level="10.5.3" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#varianzanalyse"><i class="fa fa-check"></i><b>10.5.3</b> Varianzanalyse</a></li>
+<li class="chapter" data-level="10.5.4" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#korrelationen-auf-signifikanz-prufen"><i class="fa fa-check"></i><b>10.5.4</b> Korrelationen auf Signifikanz prüfen</a></li>
+<li class="chapter" data-level="10.5.5" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#regression"><i class="fa fa-check"></i><b>10.5.5</b> Regression</a></li>
+<li class="chapter" data-level="10.5.6" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#wilcoxon-test"><i class="fa fa-check"></i><b>10.5.6</b> Wilcoxon-Test</a></li>
+<li class="chapter" data-level="10.5.7" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>10.5.7</b> Kruskal-Wallis-Test</a></li>
+<li class="chapter" data-level="10.5.8" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#shapiro-test"><i class="fa fa-check"></i><b>10.5.8</b> Shapiro-Test</a></li>
+<li class="chapter" data-level="10.5.9" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#logistische-regression"><i class="fa fa-check"></i><b>10.5.9</b> Logistische Regression</a></li>
+<li class="chapter" data-level="10.5.10" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#spearmans-korrelation"><i class="fa fa-check"></i><b>10.5.10</b> Spearmans Korrelation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#zur-philosophie-des-p-werts-frequentismus"><i class="fa fa-check"></i><b>10.6</b> Zur Philosophie des p-Werts: Frequentismus</a></li>
+<li class="chapter" data-level="10.7" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#alternativen-zum-p-wert"><i class="fa fa-check"></i><b>10.7</b> Alternativen zum p-Wert</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#konfidenzintervalle"><i class="fa fa-check"></i><b>10.7.1</b> Konfidenzintervalle</a></li>
+<li class="chapter" data-level="10.7.2" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#effektstarke"><i class="fa fa-check"></i><b>10.7.2</b> Effektstärke</a></li>
+<li class="chapter" data-level="10.7.3" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#bayes-statistik"><i class="fa fa-check"></i><b>10.7.3</b> Bayes-Statistik</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#aufgaben-12"><i class="fa fa-check"></i><b>10.8</b> Aufgaben</a></li>
+<li class="chapter" data-level="10.9" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#fazit"><i class="fa fa-check"></i><b>10.9</b> Fazit</a></li>
+<li class="chapter" data-level="10.10" data-path="der-p-wert-inferenzstatistik-und-alternativen.html"><a href="der-p-wert-inferenzstatistik-und-alternativen.html#verweise-inferenz"><i class="fa fa-check"></i><b>10.10</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lineare-regression.html"><a href="lineare-regression.html"><i class="fa fa-check"></i><b>11</b> Lineare Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lineare-regression.html"><a href="lineare-regression.html#die-idee-der-klassischen-regression"><i class="fa fa-check"></i><b>11.1</b> Die Idee der klassischen Regression</a></li>
+<li class="chapter" data-level="11.2" data-path="lineare-regression.html"><a href="lineare-regression.html#vorhersagegute"><i class="fa fa-check"></i><b>11.2</b> Vorhersagegüte</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="lineare-regression.html"><a href="lineare-regression.html#mittlere-quadratfehler"><i class="fa fa-check"></i><b>11.2.1</b> Mittlere Quadratfehler</a></li>
+<li class="chapter" data-level="11.2.2" data-path="lineare-regression.html"><a href="lineare-regression.html#r-quadrat-r2"><i class="fa fa-check"></i><b>11.2.2</b> R-Quadrat (<span class="math inline">\(R^2\)</span>)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="lineare-regression.html"><a href="lineare-regression.html#die-regression-an-einem-beispiel-erlautert"><i class="fa fa-check"></i><b>11.3</b> Die Regression an einem Beispiel erläutert</a></li>
+<li class="chapter" data-level="11.4" data-path="lineare-regression.html"><a href="lineare-regression.html#uberprufung-der-annahmen-der-linearen-regression"><i class="fa fa-check"></i><b>11.4</b> Überprüfung der Annahmen der linearen Regression</a></li>
+<li class="chapter" data-level="11.5" data-path="lineare-regression.html"><a href="lineare-regression.html#regression-mit-kategorialen-pradiktoren"><i class="fa fa-check"></i><b>11.5</b> Regression mit kategorialen Prädiktoren</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="lineare-regression.html"><a href="lineare-regression.html#aufgaben-13"><i class="fa fa-check"></i><b>11.5.1</b> Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="lineare-regression.html"><a href="lineare-regression.html#multiple-regression"><i class="fa fa-check"></i><b>11.6</b> Multiple Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="lineare-regression.html"><a href="lineare-regression.html#interaktionen"><i class="fa fa-check"></i><b>11.7</b> Interaktionen</a></li>
+<li class="chapter" data-level="11.8" data-path="lineare-regression.html"><a href="lineare-regression.html#overfitting-casestudy"><i class="fa fa-check"></i><b>11.8</b> Fallstudie zu Overfitting</a></li>
+<li class="chapter" data-level="11.9" data-path="lineare-regression.html"><a href="lineare-regression.html#aufgaben-14"><i class="fa fa-check"></i><b>11.9</b> Aufgaben</a></li>
+<li class="chapter" data-level="11.10" data-path="lineare-regression.html"><a href="lineare-regression.html#befehlsubersicht-6"><i class="fa fa-check"></i><b>11.10</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html"><i class="fa fa-check"></i><b>12</b> Klassifizierende Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#daten-laden"><i class="fa fa-check"></i><b>12.1</b> Daten laden</a></li>
+<li class="chapter" data-level="12.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#normale-regression-fur-ein-binares-kriterium"><i class="fa fa-check"></i><b>12.2</b> Normale Regression für ein binäres Kriterium</a></li>
+<li class="chapter" data-level="12.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-logistische-funktion"><i class="fa fa-check"></i><b>12.3</b> Die logistische Funktion</a></li>
+<li class="chapter" data-level="12.4" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#die-idee-der-logistischen-regression"><i class="fa fa-check"></i><b>12.4</b> Die Idee der logistischen Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kein-r2-dafur-aic"><i class="fa fa-check"></i><b>12.5</b> Kein <span class="math inline">\(R^2\)</span>, dafür AIC</a></li>
+<li class="chapter" data-level="12.6" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#interpretation-der-koeffizienten"><i class="fa fa-check"></i><b>12.6</b> Interpretation der Koeffizienten</a><ul>
+<li class="chapter" data-level="12.6.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#y-achsenabschnitt-intercept-beta_0"><i class="fa fa-check"></i><b>12.6.1</b> y-Achsenabschnitt (<code>Intercept</code>) <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="12.6.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#steigung-beta_i-mit-i12...k"><i class="fa fa-check"></i><b>12.6.2</b> Steigung <span class="math inline">\(\beta_i\)</span> mit <span class="math inline">\(i=1,2,...,K\)</span></a></li>
+<li class="chapter" data-level="12.6.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#aufgabe"><i class="fa fa-check"></i><b>12.6.3</b> Aufgabe</a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#kategoriale-pradiktoren"><i class="fa fa-check"></i><b>12.7</b> Kategoriale Prädiktoren</a></li>
+<li class="chapter" data-level="12.8" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#multiple-logistische-regression"><i class="fa fa-check"></i><b>12.8</b> Multiple logistische Regression</a></li>
+<li class="chapter" data-level="12.9" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#modellgute-1"><i class="fa fa-check"></i><b>12.9</b> Modellgüte</a></li>
+<li class="chapter" data-level="12.10" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#klassifikationskennzahlen"><i class="fa fa-check"></i><b>12.10</b> Klassifikationskennzahlen</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#vier-arten-von-ergebnissen-einer-klassifikation"><i class="fa fa-check"></i><b>12.10.1</b> Vier Arten von Ergebnissen einer Klassifikation</a></li>
+<li class="chapter" data-level="12.10.2" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#klassifikationsgutekennzahlen"><i class="fa fa-check"></i><b>12.10.2</b> Klassifikationsgütekennzahlen</a></li>
+<li class="chapter" data-level="12.10.3" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#roc-kurven"><i class="fa fa-check"></i><b>12.10.3</b> ROC-Kurven</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#aufgaben-15"><i class="fa fa-check"></i><b>12.11</b> Aufgaben</a></li>
+<li class="chapter" data-level="12.12" data-path="klassifizierende-regression.html"><a href="klassifizierende-regression.html#befehlsubersicht-7"><i class="fa fa-check"></i><b>12.12</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html"><i class="fa fa-check"></i><b>13</b> Fallstudien zum geleiteten Modellieren</a><ul>
+<li class="chapter" data-level="13.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#uberleben-auf-der-titanic"><i class="fa fa-check"></i><b>13.1</b> Überleben auf der Titanic</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#daten-laden-1"><i class="fa fa-check"></i><b>13.1.1</b> Daten laden</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#erster-blick"><i class="fa fa-check"></i><b>13.1.2</b> Erster Blick</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#welche-variablen-sind-interessant"><i class="fa fa-check"></i><b>13.1.3</b> Welche Variablen sind interessant?</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#univariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.4</b> Univariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#bivariate-haufigkeiten"><i class="fa fa-check"></i><b>13.1.5</b> Bivariate Häufigkeiten</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#signifikanztest"><i class="fa fa-check"></i><b>13.1.6</b> Signifikanztest</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarke-1"><i class="fa fa-check"></i><b>13.1.7</b> Effektstärke</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logististische-regression"><i class="fa fa-check"></i><b>13.1.8</b> Logististische Regression</a></li>
+<li class="chapter" data-level="13.1.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken-visualieren"><i class="fa fa-check"></i><b>13.1.9</b> Effektstärken visualieren</a></li>
+<li class="chapter" data-level="13.1.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#fazit-1"><i class="fa fa-check"></i><b>13.1.10</b> Fazit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#auereheliche-affaren"><i class="fa fa-check"></i><b>13.2</b> Außereheliche Affären</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zentrale-statistiken"><i class="fa fa-check"></i><b>13.2.1</b> Zentrale Statistiken</a></li>
+<li class="chapter" data-level="13.2.2" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#visualisieren"><i class="fa fa-check"></i><b>13.2.2</b> Visualisieren</a></li>
+<li class="chapter" data-level="13.2.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-zufriedener-mit-der-partnerschaft-personen-mit-kindern-oder-ohne"><i class="fa fa-check"></i><b>13.2.3</b> Wer ist zufriedener mit der Partnerschaft: Personen mit Kindern oder ohne?</a></li>
+<li class="chapter" data-level="13.2.4" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#vertiefung-wie-viele-fehlende-werte-gibt-es"><i class="fa fa-check"></i><b>13.2.4</b> Vertiefung: Wie viele fehlende Werte gibt es?</a></li>
+<li class="chapter" data-level="13.2.5" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#wer-ist-glucklicher-manner-oder-frauen"><i class="fa fa-check"></i><b>13.2.5</b> Wer ist glücklicher: Männer oder Frauen?</a></li>
+<li class="chapter" data-level="13.2.6" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#effektstarken"><i class="fa fa-check"></i><b>13.2.6</b> Effektstärken</a></li>
+<li class="chapter" data-level="13.2.7" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#korrelationen"><i class="fa fa-check"></i><b>13.2.7</b> Korrelationen</a></li>
+<li class="chapter" data-level="13.2.8" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehejahre-und-affaren"><i class="fa fa-check"></i><b>13.2.8</b> Ehejahre und Affären</a></li>
+<li class="chapter" data-level="13.2.9" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#ehezufriedenheit-als-pradiktor"><i class="fa fa-check"></i><b>13.2.9</b> Ehezufriedenheit als Prädiktor</a></li>
+<li class="chapter" data-level="13.2.10" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#weitere-pradiktoren-der-affarenhaufigkeit"><i class="fa fa-check"></i><b>13.2.10</b> Weitere Prädiktoren der Affärenhäufigkeit</a></li>
+<li class="chapter" data-level="13.2.11" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#unterschied-zwischen-den-geschlechtern"><i class="fa fa-check"></i><b>13.2.11</b> Unterschied zwischen den Geschlechtern</a></li>
+<li class="chapter" data-level="13.2.12" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#kinderlose-ehe-vs.ehen-mit-kindern"><i class="fa fa-check"></i><b>13.2.12</b> Kinderlose Ehe vs. Ehen mit Kindern</a></li>
+<li class="chapter" data-level="13.2.13" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#halodries"><i class="fa fa-check"></i><b>13.2.13</b> Halodries</a></li>
+<li class="chapter" data-level="13.2.14" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#logistische-regression-1"><i class="fa fa-check"></i><b>13.2.14</b> logistische Regression</a></li>
+<li class="chapter" data-level="13.2.15" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#zum-abschluss"><i class="fa fa-check"></i><b>13.2.15</b> Zum Abschluss</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="fallstudien-zum-geleiteten-modellieren.html"><a href="fallstudien-zum-geleiteten-modellieren.html#befehlsubersicht-8"><i class="fa fa-check"></i><b>13.3</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="cluster.html"><a href="cluster.html"><i class="fa fa-check"></i><b>14</b> Vertiefung: Clusteranalyse</a><ul>
+<li class="chapter" data-level="14.1" data-path="cluster.html"><a href="cluster.html#grundlagen"><i class="fa fa-check"></i><b>14.1</b> Grundlagen</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="cluster.html"><a href="cluster.html#intuitive-darstellung-der-clusteranalayse"><i class="fa fa-check"></i><b>14.1.1</b> Intuitive Darstellung der Clusteranalayse</a></li>
+<li class="chapter" data-level="14.1.2" data-path="cluster.html"><a href="cluster.html#euklidische-distanz"><i class="fa fa-check"></i><b>14.1.2</b> Euklidische Distanz</a></li>
+<li class="chapter" data-level="14.1.3" data-path="cluster.html"><a href="cluster.html#k-means-clusteranalyse"><i class="fa fa-check"></i><b>14.1.3</b> k-Means Clusteranalyse</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="cluster.html"><a href="cluster.html#beispiel-fur-eine-einfache-clusteranalyse"><i class="fa fa-check"></i><b>14.2</b> Beispiel für eine einfache Clusteranalyse</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="rahmen.html"><a href="rahmen.html#daten"><i class="fa fa-check"></i><b>14.2.1</b> Daten</a></li>
+<li class="chapter" data-level="14.2.2" data-path="cluster.html"><a href="cluster.html#distanzmae-berechnen"><i class="fa fa-check"></i><b>14.2.2</b> Distanzmaße berechnen</a></li>
+<li class="chapter" data-level="14.2.3" data-path="cluster.html"><a href="cluster.html#kmeans-fur-den-extraversionsdatensatz"><i class="fa fa-check"></i><b>14.2.3</b> kmeans für den Extraversionsdatensatz</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="cluster.html"><a href="cluster.html#aufgaben-16"><i class="fa fa-check"></i><b>14.3</b> Aufgaben</a></li>
+<li class="chapter" data-level="14.4" data-path="cluster.html"><a href="cluster.html#befehlsubersicht-9"><i class="fa fa-check"></i><b>14.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="14.5" data-path="cluster.html"><a href="cluster.html#verweise-5"><i class="fa fa-check"></i><b>14.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html"><i class="fa fa-check"></i><b>15</b> Vertiefung: Dimensionsreduktion</a><ul>
+<li class="chapter" data-level="15.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#einfuhrung"><i class="fa fa-check"></i><b>15.1</b> Einführung</a></li>
+<li class="chapter" data-level="15.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#warum-datenreduktion-wichtig-ist"><i class="fa fa-check"></i><b>15.2</b> Warum Datenreduktion wichtig ist</a></li>
+<li class="chapter" data-level="15.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#intuition-zur-dimensionsreduktion"><i class="fa fa-check"></i><b>15.3</b> Intuition zur Dimensionsreduktion</a></li>
+<li class="chapter" data-level="15.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#daten-1"><i class="fa fa-check"></i><b>15.4</b> Daten</a></li>
+<li class="chapter" data-level="15.5" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#neuskalierung-der-daten"><i class="fa fa-check"></i><b>15.5</b> Neuskalierung der Daten</a></li>
+<li class="chapter" data-level="15.6" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#zusammenhange-in-den-daten"><i class="fa fa-check"></i><b>15.6</b> Zusammenhänge in den Daten</a></li>
+<li class="chapter" data-level="15.7" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#daten-mit-fehlende-werten"><i class="fa fa-check"></i><b>15.7</b> Daten mit fehlende Werten</a></li>
+<li class="chapter" data-level="15.8" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#hauptkomponentenanalyse-pca"><i class="fa fa-check"></i><b>15.8</b> Hauptkomponentenanalyse (PCA)</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#bestimmung-der-anzahl-der-hauptkomponenten"><i class="fa fa-check"></i><b>15.8.1</b> Bestimmung der Anzahl der Hauptkomponenten</a></li>
+<li class="chapter" data-level="15.8.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#scree-plot"><i class="fa fa-check"></i><b>15.8.2</b> Scree-Plot</a></li>
+<li class="chapter" data-level="15.8.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#ellbogen-kriterium"><i class="fa fa-check"></i><b>15.8.3</b> Ellbogen-Kriterium</a></li>
+<li class="chapter" data-level="15.8.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#eigenwert-kriterium"><i class="fa fa-check"></i><b>15.8.4</b> Eigenwert-Kriterium</a></li>
+<li class="chapter" data-level="15.8.5" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#biplot"><i class="fa fa-check"></i><b>15.8.5</b> Biplot</a></li>
+<li class="chapter" data-level="15.8.6" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#aufgaben-17"><i class="fa fa-check"></i><b>15.8.6</b> Aufgaben</a></li>
+<li class="chapter" data-level="15.8.7" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#interpretation-der-ergebnisse-der-pca"><i class="fa fa-check"></i><b>15.8.7</b> Interpretation der Ergebnisse der PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#exploratorische-faktorenanalyse-efa"><i class="fa fa-check"></i><b>15.9</b> Exploratorische Faktorenanalyse (EFA)</a><ul>
+<li class="chapter" data-level="15.9.1" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#finden-einer-efa-losung"><i class="fa fa-check"></i><b>15.9.1</b> Finden einer EFA Lösung</a></li>
+<li class="chapter" data-level="15.9.2" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#schatzung-der-efa"><i class="fa fa-check"></i><b>15.9.2</b> Schätzung der EFA</a></li>
+<li class="chapter" data-level="15.9.3" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#vertiefung-heatmap-mit-ladungen"><i class="fa fa-check"></i><b>15.9.3</b> Vertiefung: Heatmap mit Ladungen</a></li>
+<li class="chapter" data-level="15.9.4" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#berechnung-der-faktor-scores"><i class="fa fa-check"></i><b>15.9.4</b> Berechnung der Faktor-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="15.10" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#interne-konsistenz-der-skalen"><i class="fa fa-check"></i><b>15.10</b> Interne Konsistenz der Skalen</a></li>
+<li class="chapter" data-level="15.11" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#aufgaben-18"><i class="fa fa-check"></i><b>15.11</b> Aufgaben</a></li>
+<li class="chapter" data-level="15.12" data-path="vertiefung-dimensionsreduktion.html"><a href="vertiefung-dimensionsreduktion.html#befehlsubersicht-10"><i class="fa fa-check"></i><b>15.12</b> Befehlsübersicht</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html"><i class="fa fa-check"></i><b>16</b> Vertiefung: Textmining</a><ul>
+<li class="chapter" data-level="16.1" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#zentrale-begriffe"><i class="fa fa-check"></i><b>16.1</b> Zentrale Begriffe</a></li>
+<li class="chapter" data-level="16.2" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#grundlegende-analyse"><i class="fa fa-check"></i><b>16.2</b> Grundlegende Analyse</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#tidy-text-dataframes"><i class="fa fa-check"></i><b>16.2.1</b> Tidy Text Dataframes</a></li>
+<li class="chapter" data-level="16.2.2" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#text-daten-einlesen"><i class="fa fa-check"></i><b>16.2.2</b> Text-Daten einlesen</a></li>
+<li class="chapter" data-level="16.2.3" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#worthaufigkeiten-auszahlen"><i class="fa fa-check"></i><b>16.2.3</b> Worthäufigkeiten auszählen</a></li>
+<li class="chapter" data-level="16.2.4" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#visualisierung"><i class="fa fa-check"></i><b>16.2.4</b> Visualisierung</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#aufgaben-19"><i class="fa fa-check"></i><b>16.3</b> Aufgaben</a></li>
+<li class="chapter" data-level="16.4" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#befehlsubersicht-11"><i class="fa fa-check"></i><b>16.4</b> Befehlsübersicht</a></li>
+<li class="chapter" data-level="16.5" data-path="vertiefung-textmining.html"><a href="vertiefung-textmining.html#verweise-6"><i class="fa fa-check"></i><b>16.5</b> Verweise</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="probeklausur.html"><a href="probeklausur.html"><i class="fa fa-check"></i><b>17</b> Probeklausur</a><ul>
+<li class="chapter" data-level="17.1" data-path="probeklausur.html"><a href="probeklausur.html#losungen-1"><i class="fa fa-check"></i><b>17.1</b> Lösungen</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="hinweise-2.html"><a href="hinweise-2.html"><i class="fa fa-check"></i><b>18</b> Hinweise</a><ul>
+<li class="chapter" data-level="18.1" data-path="hinweise-2.html"><a href="hinweise-2.html#icons"><i class="fa fa-check"></i><b>18.1</b> Icons</a></li>
+<li class="chapter" data-level="18.2" data-path="hinweise-2.html"><a href="hinweise-2.html#voraussetzungen"><i class="fa fa-check"></i><b>18.2</b> Voraussetzungen</a></li>
+<li class="chapter" data-level="18.3" data-path="hinweise-2.html"><a href="hinweise-2.html#zitationen"><i class="fa fa-check"></i><b>18.3</b> Zitationen</a></li>
+<li class="chapter" data-level="18.4" data-path="hinweise-2.html"><a href="hinweise-2.html#lizenz"><i class="fa fa-check"></i><b>18.4</b> Lizenz</a></li>
+<li class="chapter" data-level="18.5" data-path="hinweise-2.html"><a href="hinweise-2.html#autoren"><i class="fa fa-check"></i><b>18.5</b> Autoren</a></li>
+<li class="chapter" data-level="18.6" data-path="hinweise-2.html"><a href="hinweise-2.html#danke"><i class="fa fa-check"></i><b>18.6</b> Danke</a></li>
+<li class="chapter" data-level="18.7" data-path="hinweise-2.html"><a href="hinweise-2.html#zitation-dieses-skripts"><i class="fa fa-check"></i><b>18.7</b> Zitation dieses Skripts</a></li>
+<li class="chapter" data-level="18.8" data-path="hinweise-2.html"><a href="hinweise-2.html#kontakt"><i class="fa fa-check"></i><b>18.8</b> Kontakt</a></li>
+<li class="chapter" data-level="18.9" data-path="hinweise-2.html"><a href="hinweise-2.html#technische-details"><i class="fa fa-check"></i><b>18.9</b> Technische Details</a></li>
+<li class="chapter" data-level="18.10" data-path="hinweise-2.html"><a href="hinweise-2.html#sonstiges"><i class="fa fa-check"></i><b>18.10</b> Sonstiges</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="literaturverzeichnis.html"><a href="literaturverzeichnis.html"><i class="fa fa-check"></i><b>19</b> Literaturverzeichnis</a></li>
+<li class="chapter" data-level="" data-path="literaturverzeichnis-1.html"><a href="literaturverzeichnis-1.html"><i class="fa fa-check"></i>Literaturverzeichnis</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Praxis der Datenanalyse ENTWURF</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="daten-visualisieren" class="section level1">
+<h1><span class="header-section-number">Kapitel 7</span> Daten visualisieren</h1>
+<p><img src="images/FOM.jpg" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="images/licence.png" width="10%" style="display: block; margin: auto;" /></p>
+
+<div class="rmdcaution">
+<p>Lernziele:</p>
+<ul>
+<li>An einem Beispiel erläutern können, warum/ wann ein Bild mehr sagt, als 1000 Worte.</li>
+<li>Häufige Arten von Diagrammen erstellen können.</li>
+<li>Diagramme bestimmten Zwecken zuordnen können.</li>
+</ul>
+</div>
+
+<p>In diesem Kapitel werden folgende Pakete benötigt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  <span class="co"># Zum Plotten</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gridExtra)</code></pre></div>
+<p><img src="images/visualisieren/Visualisieren.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Dieses Kapitel erläutert das Daten visualisieren anhand des R-Pakets <code>ggplot2</code>.</p>
+<div id="ein-bild-sagt-mehr-als-1000-worte" class="section level2">
+<h2><span class="header-section-number">7.1</span> Ein Bild sagt mehr als 1000 Worte</h2>
+<p>Ein Bild sagt bekanntlich mehr als 1000 Worte. Schauen wir uns zur Verdeutlichung das berühmte Beispiel von Anscombe<a href="#fn36" class="footnoteRef" id="fnref36"><sup>36</sup></a> an. Es geht hier um vier Datensätze mit zwei Variablen (Spalten; X und Y). Offenbar sind die Datensätze praktisch identisch: Alle X haben den gleichen Mittelwert und die gleiche Varianz; dasselbe gilt für die Y. Die Korrelation zwischen X und Y ist in allen vier Datensätzen gleich. Allerdings erzählt eine Visualisierung der vier Datensätze eine ganz andere Geschichte.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-anscombe"></span>
+<img src="images/visualisieren/anscombe.png" alt="Das Anscombe-Quartett" width="70%" />
+<p class="caption">
+Abbildung 7.1: Das Anscombe-Quartett
+</p>
+</div>
+<p>Offenbar “passieren” in den vier Datensätzen gänzlich unterschiedliche Dinge. Dies haben die Statistiken nicht aufgedeckt; erst die Visualisierung erhellte uns… Kurz: Die Visualisierung ist ein unverzichtbares Werkzeug, um zu verstehen, was in einem Datensatz (und damit in der zugrunde liegenden “Natur”) passiert.</p>
+<p>Eine coole Variante mit der gleichen Botschaft findet sich <a href="https://www.autodeskresearch.com/publications/samestats">hier</a> bzw. mit einer Animation <a href="https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif">hier</a>; vgl. <span class="citation">Matejka und Fitzmaurice (<a href="#ref-matejka2017same">2017</a>)</span>.</p>
+<p>Es gibt viele Möglichkeiten, Daten zu visualisieren (in R). Wir werden uns hier auf einen Weg bzw. ein Paket konzentrieren, der komfortabel, aber mächtig ist und gut zum Prinzip des Durchpfeifens passt: <code>ggplot2</code><a href="#fn37" class="footnoteRef" id="fnref37"><sup>37</sup></a>.</p>
+</div>
+<div id="die-anatomie-eines-diagramms" class="section level2">
+<h2><span class="header-section-number">7.2</span> Die Anatomie eines Diagramms</h2>
+<p><code>ggplot2</code> unterscheidet folgende Bestandteile (“Anatomie”) eines Diagramms (vgl. Abb. <a href="daten-visualisieren.html#fig:fig-anatomie">7.2</a>):</p>
+<ul>
+<li>Daten</li>
+<li>Abbildende Aspekte (Achsen, Farben, …)</li>
+<li>Geome (statistische Bilder wie Punkte, Linien, Boxplots, …)</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:fig-anatomie"></span>
+<img src="images/visualisieren/anatomie_diagramm_crop.jpg" alt="Anatomie eines Diagramms" width="70%" />
+<p class="caption">
+Abbildung 7.2: Anatomie eines Diagramms
+</p>
+</div>
+<p>Bei <em>Daten</em> muss ein Dataframe angegeben werden. Zu den <em>abbildenden Aspekte</em> (in <code>ggplot2</code> als “aesthetics” bzw. <code>aes</code> bezeichnet) zählen vor allem die Achsen, aber auch Farben u.a. Was ist mit abbildend gemeint? Weist man einer Achse einen Variable zu, so wird jede Ausprägung der Variablen einer Ausprägung der Achse zugeordnet (welcher Wert genau entscheidet <code>ggplot2</code> für uns, wenn wir es nicht explizieren). Mit <em>Geom</em> ist das eigentlich Art von “Bild” gemeint, wie Punkt, Linie oder Boxplot (vgl. Abschnitt <a href="daten-visualisieren.html#geome">7.10</a>).</p>
+<blockquote>
+<p>Erstellt <code>ggplot2</code> ein Diagramm, so ordnet es Spalten den Bestandteilen des zu erzeugenden Diagramms zu (auch “mapping” genannt).</p>
+</blockquote>
+</div>
+<div id="einstieg-in-ggplot2---qplot" class="section level2">
+<h2><span class="header-section-number">7.3</span> Einstieg in <code>ggplot2</code> - <code>qplot</code></h2>
+<p>Los geht’s! Laden wir zuerst den Datensatz <code>movies</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/movies.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> budget, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">data =</span> movies)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-movies"></span>
+<img src="050_Daten_visualisieren_files/figure-html/fig-movies-1.png" alt="Mittleres Budget pro Jahr" width="70%" />
+<p class="caption">
+Abbildung 7.3: Mittleres Budget pro Jahr
+</p>
+</div>
+<p>Schauen wir uns den Befehl <code>qplot</code> etwas näher an. Wie ist er aufgebaut?</p>
+
+<div class="rmdpseudocode">
+<p><code>qplot</code>: Erstelle schnell (q wie quick in <code>qplot</code>) mal einen Plot (engl. “plot”: Diagramm).<br />
+<code>x</code>: Der X-Achse soll die Variable “year” zugeordnet werden.<br />
+<code>y</code>: Der Y-Achse soll die Variable “budget” zugeorndet werden.<br />
+<code>geom</code>: (“geometriches Objekt”) Gemalt werden sollen Punkte und zwar pro Beobachtung (hier: Film) ein Punkt; nicht etwa Linien oder Boxplots. <code>data</code>: Als Datensatz bitte <code>movies</code> verwenden.</p>
+</div>
+
+<p>Offenbar geht die Schwere in den Budgets auseinander; außerdem scheint das Budget größer zu werden. Genau kann man es aber schlecht erkennen in diesem Diagramm. Besser ist es vielleicht die Daten pro Jahr zusammenzufassen in einem Geom und dann diese Geome zu vergleichen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(year), <span class="dt">y =</span> budget, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> movies)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Übrigens: <code>factor(year)</code> wird benötigt, um aus <code>year</code> eine nominalskalierte Variable zu machen. Nur bei nominalskalierten Variablen auf der X-Achse zeichnet <code>qplot</code> mehrere Boxplots nebeneinander.</p>
+<p>Es sind zu viele Jahre, das macht das Diagramm unübersichtlich. Besser wäre es, Jahrzehnte dazustellen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies<span class="op">$</span>Jahrzehnt &lt;-<span class="st"> </span>(movies<span class="op">$</span>year <span class="op">/</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>trunc 
+
+movies<span class="op">$</span>Jahrzehnt &lt;-<span class="st"> </span>movies<span class="op">$</span>Jahrzehnt <span class="op">*</span><span class="st"> </span><span class="dv">10</span></code></pre></div>
+<p>Um Jahrzehnte darzustellen müssen wir sozusagen die letzte Jahresziffer “abhacken”: “1978” wird zu “178”. Das erreichen wir in dem wir die Jahreszahl durch 10 teilen und dann den Rest unter den Tisch fallen lassen (trunkieren, <code>trunc</code>).</p>
+<p>Ok, auf ein Neues (Abb. <a href="daten-visualisieren.html#fig:fig-movies-jahrzehnt">7.4</a>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(Jahrzehnt), <span class="dt">y =</span> budget, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> movies)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-movies-jahrzehnt"></span>
+<img src="050_Daten_visualisieren_files/figure-html/fig-movies-jahrzehnt-1.png" alt="Film-Budgets über die die Jahrzehnte" width="70%" />
+<p class="caption">
+Abbildung 7.4: Film-Budgets über die die Jahrzehnte
+</p>
+</div>
+<p>Aha, gut. Interessanterweise sanken die Budgets gegen Ende unserer Datenreihe; das ist aber vielleicht nur ein Zufallsrauschen.</p>
+<p>“q” in <code>qplot</code> steht für “quick”. Tatsächlich hat <code>qplot</code> einen großen Bruder, <code>ggplot</code><a href="#fn38" class="footnoteRef" id="fnref38"><sup>38</sup></a>, der deutlich mehr Funktionen aufweist - und daher auch die umfangreichere (komplexere) Syntax. Fangen wir mit <code>qplot</code> an.</p>
+<p>Diese Syntax des letzten Beispiels ist recht einfach, nämlich:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span> (<span class="dt">x =</span> X_Achse, <span class="dt">y =</span> Y_Achse, <span class="dt">data =</span> mein_dataframe, <span class="dt">geom =</span> <span class="st">&quot;ein_geom&quot;</span>)</code></pre></div>
+<p>Wir definieren mit <code>x</code>, welche Variable der X-Achse des Diagramms zugewiesen werden soll, z.B. <code>month</code>; analog mit Y-Achse. Mit <code>data</code> sagen wir, in welchem Dataframe die Spalten “wohnen” und als “geom” ist die Art des statistischen “<em>geom</em>etrischen Objects” gemeint, also Punkte, Linien, Boxplots, Balken…</p>
+</div>
+<div id="haufige-arten-von-diagrammen" class="section level2">
+<h2><span class="header-section-number">7.4</span> Häufige Arten von Diagrammen</h2>
+<p>Unter den vielen Arten von Diagrammen und vielen Arten, diese zu klassifizieren greifen wir uns ein paar häufige Diagramme heraus und schauen uns diese der Reihe nach an.</p>
+<div id="eine-kontinuierliche-variable" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Eine kontinuierliche Variable</h3>
+<p>Schauen wir uns die Verteilung von Filmbudgets aus <code>movies</code> an (s. Abb. <a href="daten-visualisieren.html#fig:fig-budget-movies">7.5</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">qplot</span>(<span class="dt">x =</span> budget, <span class="dt">data =</span> movies)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:fig-budget-movies"></span>
+<img src="050_Daten_visualisieren_files/figure-html/fig-budget-movies-1.png" alt="Verteilung des Budgets von Filmen" width="70%" />
+<p class="caption">
+Abbildung 7.5: Verteilung des Budgets von Filmen
+</p>
+</div>
+<p>Weisen wir nur der X-Achse (aber nicht der Y-Achse) eine kontinuierliche Variable zu, so wählt <code>ggplot2</code> automatisch als Geom automatisch ein Histogramm; wir müssen daher nicht explizieren, dass wir ein Histogramm als Geom wünschen (aber wir könnten es hinzufügen).</p>
+
+<div class="rmdcaution">
+<p>Was heißt das kleine ‘e’, das man bei wissenschaftlichen Zahlen hin und wieder sieht (wie im Diagramm <a href="daten-visualisieren.html#fig:fig-budget-movies">7.5</a>)?</p>
+<p>Zum Beispiel: <code>5.0e+07</code>. Das <span class="math inline">\(e\)</span> sagt, wie viele Stellen im Exponenten (zur Basis 10) stehen: hier <span class="math inline">\(10^{07}\)</span>. Eine große Zahl - eine <span class="math inline">\(1\)</span> gefolgt von <em>sieben</em> Nullern: 10000000. Die schöne Zahl soll noch mit 5 multipliziert werden: also 50000000. Bei so vielen Nullern kann man schon mal ein Flimmern vor den Augen bekommen… Daher ist die “wissenschaftliche” Notation ganz praktisch, wenn die Zahlen sehr groß (oder sehr klein) werden. Sehr kleine Zahlen werden mit dieser Notation so dargestellt: <code>5.0e-07</code> heißt <span class="math inline">\(frac{1}{10^7}\)</span>. Eine Zahl sehr nahe bei Null. Das Minuszeichen zeigt hier, dass wir den Kehrwert der großen Zahl nehmen sollen.</p>
+</div>
+<p> Alternativ wäre ein Dichtediagramm hier von Interesse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> budget, <span class="dt">data =</span> movies, <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Was man sich merken muss, ist, dass hier nur das Geom mit Anführungsstrichen zu benennen ist, die übrigen Parameter <em>ohne</em>.</p>
+<p>Vielleicht wäre es noch schön, beide Geome zu kombinieren in einem Diagramm. Das ist etwas komplizierter; wir müssen zum großen Bruder <code>ggplot</code> umsteigen, da <code>qplot</code> nicht diese Funktionen anbietet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> movies) <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> budget) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">alpha =</span> .<span class="dv">7</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Zuerst haben wir mit dem Parameter <code>data</code> den Dataframe benannt. <code>aes</code> definiert, welche Variablen welchen Achsen (oder auch z.B. Füllfarben) zugewiesen werden. Hier sagen wir, dass die Schuhgröße auf X-Achse stehen soll. Das <code>+</code>-Zeichen trennt die einzelnen Bestandteile des <code>ggplot</code>-Aufrufs voneinander. Als nächstes sagen wir, dass wir gerne ein Histogram hätten: <code>geom_histogram</code>. Dabei soll aber nicht wie gewöhnlich auf der X-Achse die Häufigkeit stehen, sondern die Dichte. <code>ggplot</code> berechnet selbständig die Dichte und nennt diese Variable <code>..density..</code>; die vielen Punkte sollen wohl klar machen, dass es sich nicht um eine “normale” Variable aus dem eigenen Datenframe handelt, sondern um eine “interne” Variable von <code>ggplot</code> - die wir aber nichtsdestotrotz verwenden können. <code>alpha</code> bestimmt die “Durchsichtigkeit” eines Geoms; spielen Sie mal etwas damit herum. Schließlich malen wir noch ein blaues Dichtediagramm <em>über</em> das Histogramm.</p>
+<p>Wünsche sind ein Fass ohne Boden… Wäre es nicht interessant, einzelne Zeiträume (Jahrzehnte) zu vergleichen? Schauen wir uns die letzten Jahrzehnte im Vergleich an.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies2 &lt;-<span class="st"> </span><span class="kw">filter</span>(movies, Jahrzehnt <span class="op">&gt;</span><span class="st"> </span><span class="dv">1980</span>)
+
+movies2<span class="op">$</span>Jahrzehnt &lt;-<span class="st"> </span><span class="kw">factor</span>(movies2<span class="op">$</span>Jahrzehnt)
+
+<span class="kw">qplot</span>(<span class="dt">x =</span> budget, 
+      <span class="dt">data =</span> movies2, 
+      <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, 
+      <span class="dt">fill =</span> Jahrzehnt, 
+      <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><code>qplot</code> erwartet immer <em>Variablen</em> als Parameter; wollen wir mal keine Variable, sondern eine fixen Wert, wie 0.7, übergeben, so können wir das mit dem Befehl <code>I</code> (wie “identity”) tun.</p>
+<p>Hier sollten vielleicht noch die Extremwerte entfernt werden, um den Blick auf das Gros der Werte nicht zu verstellen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+movies2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(budget <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e08</span>) -&gt;<span class="st"> </span>movies2
+
+<span class="kw">qplot</span>(<span class="dt">x =</span> budget, 
+      <span class="dt">data =</span> movies2,      
+      <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, 
+      <span class="dt">fill =</span> Jahrzehnt, 
+      <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Besser. Man kann das Durchpfeifen auch bis zu <code>qplot</code> weiterführen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(budget <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e+08</span>, Jahrzehnt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1990</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Jahrzehnt =</span> <span class="kw">factor</span>(Jahrzehnt)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> budget, <span class="dt">data =</span> ., <span class="dt">geom =</span> <span class="st">&quot;density&quot;</span>, 
+        <span class="dt">fill =</span> Jahrzehnt, <span class="dt">alpha =</span> <span class="kw">I</span>(.<span class="dv">7</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Die Pfeife versucht im Standard, das Endprodukt des letzten Arbeitsschritts an den <em>ersten</em> Parameter des nächsten Befehls weiterzugeben. Ein kurzer Blick in die Hilfe von <code>qplot</code> zeigt, dass der erste Parameter nicht <code>data</code> ist, sondern <code>x</code>. Daher müssen wir explizit sagen, an welchen Parameter wir das Endprodukt des letzen Arbeitsschritts geben wollen. Netterweise müssen wir dafür nicht viel tippen: Mit einem schlichten Punkt <code>.</code> können wir sagen “nimm den Dataframe, so wie er vom letzten Arbeitsschritt ausgegeben wurde”.</p>
+<p>Mit <code>fill = Jahrzehnt</code> sagen wir <code>qplot</code>, dass er für jedes Jahrzehnt jeweils ein Dichtediagramm erzeugen soll; jedem Dichtediagramm wird dabei eine Farbe zugewiesen (die uns <code>ggplot2</code> im Standard voraussucht). Mit anderen Worten: Die Werte von <code>Jahrzehnt</code> werden der <em>Füllfarbe</em> der Histogramme zugeordnet. Anstelle der Füllfarbe hätten wir auch die Linienfarbe verwenden können; die Syntax wäre dann: <code>color = sex</code>. Man beachte, dass die Variable für <code>fill</code> oder <code>color</code> eine nominale Variable (<code>factor</code> oder <code>character</code>) sein muss, damit <code>ggplot2</code> tut, was will wollen.</p>
+</div>
+<div id="zwei-kontinuierliche-variablen" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Zwei kontinuierliche Variablen</h3>
+<p>Ein Streudiagramm ist die klassische Art, zwei metrische Variablen darzustellen. Das ist mit <code>qplot</code> einfach:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">qplot</span>(<span class="dt">x =</span> budget, <span class="dt">y =</span> rating, <span class="dt">data =</span> movies2)
+p</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wir weisen wieder der X-Achse und der Y-Achse eine Variable zu; handelt es sich in beiden Fällen um Zahlen, so wählt <code>ggplot2</code> automatisch ein Streudiagramm - d.h. Punkte als Geom (<code>geom = &quot;point&quot;</code>).</p>
+<p>Es ist nicht wirklich ein Trend erkennbar: Teuere Filme sind nicht unbedingt beliebter bzw. besser bewertet. Zeichnen wir eine Trendgerade ein.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Synonym könnten wir auch schreiben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(height <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>, height <span class="op">&lt;</span><span class="st"> </span><span class="dv">210</span>, shoe_size <span class="op">&lt;</span><span class="st"> </span><span class="dv">55</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p>Da <code>ggplot</code> als <em>ersten</em> Parameter die Daten erwartet, kann die Pfeife hier problemlos durchgereicht werden. <em>Innerhalb</em> eines <code>ggplot</code>-Aufrufs werden die einzelne Teile durch ein Pluszeichen <code>+</code> voneinander getrennt. Nachdem wir den Dataframe benannt haben, definieren wir die Zuweisung der Variablen zu den Achsen mit <code>aes</code> (“aes” wie “aesthetics”, also das “Sichtbare” eines Diagramms, die Achsen etc., werden definiert). Ein “Smooth-Geom” ist eine Linie, die sich schön an die Punkte anschmiegt, in diesem Falls als Gerade (lineares Modell, <code>lm</code>).</p>
+<p>Bei sehr großen Datensätze, sind Punkte unpraktisch, da sie sich überdecken (“overplotting”). Ein Abhilfe ist es, die Punkte nur “schwach” zu färben. Dazu stellt man die “Füllstärke” der Punkte über <code>alpha</code> ein: <code>geom_point(alpha = 1/100)</code>. Um einen passablen Alpha-Wert zu finden, bedarf es häufig etwas Probierens. Zu beachten ist, dass es mitunter recht lange dauert, wenn <code>ggplot</code> viele (&gt;100.000) Punkte malen soll.</p>
+<p>Bei noch größeren Datenmengen bietet sich an, den Scatterplot als “Schachbrett” aufzufassen, und das Raster einzufärben, je nach Anzahl der Punkte pro Schachfeld; zwei Geome dafür sind <code>geom_hex()</code> und <code>geom_bin2d()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(movies)  <span class="co"># groß, ein bisschen wenigstens</span>
+<span class="co">#&gt; [1] 58788</span>
+
+<span class="kw">ggplot</span>(movies) <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> budget) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hex</span>()</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/flights_hexbin-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Wenn man dies verdaut hat, wächst der Hunger nach einer Aufteilung in Gruppen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(height <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>, height <span class="op">&lt;</span><span class="st"> </span><span class="dv">210</span>, shoe_size <span class="op">&lt;</span><span class="st"> </span><span class="dv">55</span>) -&gt;<span class="st"> </span>wo_men2
+
+wo_men2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">color =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/fig-aes-color-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Mit <code>color = sex</code> sagen wir, dass die Linienfarbe (der Punkte) entsprechend der Stufen von <code>sex</code> eingefärbt werden sollen. Die genaue Farbwahl übernimmt <code>ggplot2</code> für uns.</p>
+<p>Alternativ kann man auch zwei “Teil-Bildchen” (“facets”) erstellen, eines für Frauen und eines für Männer:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(height <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>, height <span class="op">&lt;</span><span class="st"> </span><span class="dv">210</span>, shoe_size <span class="op">&lt;</span><span class="st"> </span><span class="dv">55</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size, <span class="dt">facets =</span> <span class="st">&quot;~sex&quot;</span>, <span class="dt">color =</span> sex, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Man beachte die Tilde <code>~</code>, die vor die “Gruppierungsvariable” <code>sex</code> zu setzen ist.</p>
+<div id="vertiefung-zu-facetten" class="section level4">
+<h4><span class="header-section-number">7.4.2.1</span> Vertiefung zu Facetten</h4>
+<p>Ein netter visueller Effekt wird erreicht, wenn in jeder Facette zwar alle Punkte gezeigt werden in einem leichten Grau. Aber farbig betont werden nur die Punkte, die zur jeweiligen Gruppe gehören. Der optische Eindruck erklärt es einfacher als Worte:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(height <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>, height <span class="op">&lt;</span><span class="st"> </span><span class="dv">210</span>, shoe_size <span class="op">&lt;</span><span class="st"> </span><span class="dv">55</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>sex) -&gt;<span class="st"> </span>wo_men4
+
+wo_men4 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> shoe_size)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># facet_wrap(~sex) +</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> wo_men2, ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">color =</span> sex))
+  </code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/wo-men-facetten-bsp-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der “ggplot-Trick” ist, zuerst die Punkte <em>ohne</em> Gruppierungsinformation (hier: <code>sex</code>) zu plotten. Danach plotten wir die nach Gruppenzugehörigkeit gefärbten Punkte.</p>
+</div>
+</div>
+<div id="eine-nominale-variable" class="section level3">
+<h3><span class="header-section-number">7.4.3</span> Eine nominale Variable</h3>
+<p>Bei nominalen Variablen, geht es in der Regel darum, Häufigkeiten auszuzählen. Ein Klassiker: Wie viele Männer und Frauen finden sich in dem Datensatz? Wie viele Studenten haben (nicht) bestanden?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+stats_test &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/test_inf_short.csv&quot;</span>
+                       )
+<span class="kw">qplot</span>(<span class="dt">x =</span> bestanden, <span class="dt">data =</span> stats_test)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Falls nur die X-Achse definiert ist und dort eine Faktorvariable oder eine Textvariable steht, dann nimmt <code>qplot</code> automatisch ein Balkendiagramm als Geom (es steht uns frei, trotzdem <code>geom = bar</code> anzugeben).</p>
+<p>Wir könnten uns jetzt die Frage stellen, wie viele Nicht-Interessierte und Hoch-Interessierte es in der Gruppe, die bestanden hat (<code>bestanden == &quot;yes&quot;</code>) gibt; entsprechend für die Gruppe, die nicht bestanden hat.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+  
+<span class="kw">qplot</span>(<span class="dt">x =</span> bestanden, <span class="dt">fill =</span> <span class="kw">factor</span>(interest), <span class="dt">data =</span> stats_test)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Hier haben wir <code>qplot</code> gesagt, dass der die Balken entsprechend der Häufigkeit von <code>interest</code> füllen soll. Damit <code>qplot</code> (und <code>ggplot</code>) sich bequemt, die Füllung umzusetzen, müssen wir aus <code>interet</code> eine nominalskalierte Variablen machen - <code>factor</code> macht das für uns.</p>
+<p>Schön wäre noch, wenn die Balken Anteile (Prozentwerte) angeben würden. Das geht mit <code>qplot</code> (so) nicht; wir schwenken auf <code>ggplot</code> um. Und, um die Story zuzuspitzen, schauen wir uns nur die Extremwerte von <code>interest</code> an.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(interest <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>interest <span class="op">==</span><span class="st"> </span><span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> bestanden, <span class="dt">fill =</span> <span class="kw">factor</span>(interest)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der Lehrer freut sich: In der Gruppe, die bestanden hat, ist der Anteil der <del>freaks</del> Hoch-Interessierten größer als bei den Durchfallern.</p>
+<p>Schauen wir uns die Struktur des Befehls <code>ggplot</code> näher an.</p>
+
+<div class="rmdpseudocode">
+<p><code>stats_teste</code>: Hey R, nimm den Datensatz <code>stats_test</code> UND DANN…<br />
+<code>ggplot()</code> : Hey R, male ein Diagramm von Typ <code>ggplo</code>t (mit dem Datensatz aus dem vorherigen Pfeifen-Schritt, d.h. aus der vorherigen Zeile, also <code>stats_test</code>)!<br />
+<code>filter</code>: wir wollen nur Zeilen (Studenten), für die gilt <code>interest == 1</code> oder <code>interest == 6</code>. Der horizontale Strich heißt ‘oder’.<br />
+<code>+</code>: Das Pluszeichen grenzt die Teile eines ggplot-Befehls voneinander ab.<br />
+<code>aes</code>: von “aethetics”, also welche Variablen des Datensatzes den sichtbaren Aspekten (v.a. Achsen, Farben) zugeordnet werden.<br />
+<code>x</code>: Der X-Achse (Achtung, <code>x</code> wird klein geschrieben hier) wird die Variable <code>bestanden</code> zugeordnet.<br />
+<code>y</code>: gibt es nicht??? Wenn in einem ggplot-Diagramm <em>keine</em> Y-Achse definiert wird, wird ggplot automatisch ein Histogramm bzw. ein Balkendiagramm erstellen. Bei diesen Arten von Diagrammen steht auf der Y-Achse keine eigene Variable, sondern meist die Häufigkeit des entsprechenden X-Werts (oder eine Funktion der Häufigkeit, wie relative Häufigkeit).<br />
+<code>fill</code> Das Diagramm (die Balken) sollen so gefüllt werden, dass sich die Häufigkeit der Werte von <code>interest</code> darin widerspiegelt.</p>
+<p><code>geom_XYZ</code>: Als “Geom” soll ein Balken (“bar”) gezeichnet werden. Ein Geom ist in ggplot2 das zu zeichnende Objekt, also ein Boxplot, ein Balken, Punkte, Linien etc. Entsprechend wird gewünschte Geom mit <code>geom_bar</code>, <code>geom_boxplot</code>, geom_point` etc. gewählt.</p>
+<p><code>position = fill</code>: <code>position_fill</code> will sagen, dass die Balken alle eine Höhe von 100% (1) haben, d.h. gleich hoch sind. Die Balken zeigen also nur die Anteile der Werte der <code>fill</code>-Variablen.</p>
+</div>
+
+<p>Die einzige Änderung in den Parametern ist <code>position = &quot;fill&quot;</code>. Dieser Parameter weist <code>ggplot</code> an, die Positionierung der Balken auf die Darstellung von Anteilen auszulegen. Damit haben alle Balken die gleiche Höhe, nämlich 100% (1). Aber die “Füllung” der Balken schwankt je nach der Häufigkeit der Werte von <code>groesse_gruppe</code> pro Balken (d.h. pro Wert von <code>sex</code>).</p>
+<p>Wir sehen, dass die Anteile von großen bzw. kleinen Menschen bei den beiden Gruppen (Frauen vs. Männer) <em>unterschiedlich hoch</em> ist. Dies spricht für einen <em>Zusammenhang</em> der beiden Variablen; man sagt, die Variablen sind <em>abhängig</em> (im statistischen Sinne).</p>
+<blockquote>
+<p>Je unterschiedlicher die “Füllhöhe”, desto stärker sind die Variablen (X-Achse vs. Füllfarbe) voneinander abhängig (bzw. desto stärker der Zusammenhang).</p>
+</blockquote>
+</div>
+<div id="zwei-nominale-variablen" class="section level3">
+<h3><span class="header-section-number">7.4.4</span> Zwei nominale Variablen</h3>
+<p>Arbeitet man mit nominalen Variablen, so sind Kontingenztabellen Täglich Brot. Z.B.: Welche Produkte wurden wie häufig an welchem Standort verkauft? Wie viele Narzissten gibt es in welcher Management-Stufe? Wie ist die Verteilung von Alkoholkonsum und Körperform bei Menschen einer Single-Börse?. Bleiben wir bei letztem Beispiel.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(profiles, <span class="dt">package =</span> <span class="st">&quot;okcupiddata&quot;</span>)
+
+profiles <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(drinks, body_type) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>ggplot <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> drinks, <span class="dt">y =</span> body_type, <span class="dt">fill =</span> n) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Was haben wir gemacht? Also:</p>
+
+<div class="rmdpseudocode">
+<p>Nehme den Datensatz “profiles” UND DANN<br />
+Zähle die Kombinationen von “drinks” und “body_type” UND DANN<br />
+Erstelle ein ggplot-Plot UND DANN<br />
+Weise der X-Achse “drinks” zu, der Y-Achse “body_type” und der Füllfarbe “n” UND DANN<br />
+Male Fliesen UND DANN<br />
+Passe das Thema so an, dass der Winkel für Text der X-Achse auf 90 Grad steht.</p>
+</div>
+
+<p>Diese Art von Diagramm nennt man auch ‘Mosaicplot’, weil es an ein Mosaic erinnert (wer hätt’s gedacht).</p>
+<p>Was sofort ins Auge sticht, ist dass “soziales Trinken”, nennen wir es mal so, am häufigsten ist, unabhängig von der Körperform. Ansonsten scheinen die Zusammenhäng nicht sehr stark zu sein.</p>
+</div>
+<div id="zusammenfassungen-zeigen" class="section level3">
+<h3><span class="header-section-number">7.4.5</span> Zusammenfassungen zeigen</h3>
+<p>Manchmal möchten wir <em>nicht</em> die Rohwerte einer Variablen darstellen, sondern z.B. die Mittelwerte pro Gruppe. Mittelwerte sind eine bestimmte <em>Zusammenfassung</em> einer Spalte; also fassen wir zuerst die Körpergröße zum Mittelwert zusammen - gruppiert nach Geschlecht.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(bestanden) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">interest_mw =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) -&gt;<span class="st"> </span>stats_test_summary
+
+stats_test_summary
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   bestanden interest_mw</span>
+<span class="co">#&gt;      &lt;fctr&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        ja        3.26</span>
+<span class="co">#&gt; 2      nein        2.97</span></code></pre></div>
+<p>Diese Tabelle schieben wir jetzt in <code>ggplot2</code>; natürlich hätten wir das gleich in einem Rutsch durchpfeifen können.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test_summary <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> bestanden, <span class="dt">y =</span> interest_mw, <span class="dt">data =</span> .)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Das Diagramm besticht nicht durch die Tiefe und Detaillierung. Bereichern wir das Diagramm um die Frage, wie viel (jeder Student gelernt hat (<code>study_time</code>). Schauen wir uns aber der Einfachheit halber nur die Studenten an, die ganz viel oder ganz wenig gelernt haben.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats_test <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(bestanden, study_time) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">interest_mw =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">qplot</span>(<span class="dt">x =</span> bestanden, <span class="dt">y =</span> interest_mw, <span class="dt">data =</span> ., <span class="dt">color =</span> <span class="kw">factor</span>(study_time)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> <span class="kw">factor</span>(study_time)))</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In Pseudosyntax:</p>
+
+<div class="rmdpseudocode">
+<p>Nehme den Datensatz “stats_test” UND DANN<br />
+gruppiere nach den Variablen <code>bestanden</code> und <code>study_time</code> UND DANN fasse für diese Gruppen jeweils die Spalte <code>interest</code> zum Mittelwert zusammen UND DANN<br />
+male einen schnellen Plot mit diesen Daten UND DANN füge ein Liniendiagramm dazu, wobei jede Stufe von <code>study_time</code> eine Gruppe ist. Und Punkte einer Gruppe sollen verbunden werden.</p>
+</div>
+
+<p>Warum steht der arme pinkfarbene Punkt bei ‘ja’ und ~4.5 so für sich alleine oder Linie?<a href="#fn39" class="footnoteRef" id="fnref39"><sup>39</sup></a></p>
+<p>Alternativ, und deutlich informationsreicher (besser) sind hier Boxplots.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> bestanden, 
+      <span class="dt">y =</span> interest,
+      <span class="dt">data =</span> stats_test,
+      <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Hm, wie Sie sehen, sehen Sie nix. Kein Unterschied im Median zwischen den Gruppen. Vergleichen wir mal die Punkte zwischen den einzelnen Interessenstufen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(interest),
+      <span class="dt">y =</span> score,
+      <span class="dt">data =</span> stats_test,
+      <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Das <code>factor(interest)</code> brauchen wir, weil <code>ggplot2</code> nur dann mehrere Boxplots malt, wenn es Gruppen zum Vergleichen (auf der X-Achse) gibt - sprich wenn auf der X-Achse eine Faktor- oder Textvariable steht.</p>
+</div>
+<div id="uberblick-zu-haufigen-diagrammtypen" class="section level3">
+<h3><span class="header-section-number">7.4.6</span> Überblick zu häufigen Diagrammtypen</h3>
+<p>Die Tabelle <a href="daten-visualisieren.html#tab:diagrammtypen">7.1</a> und Abbildung <a href="daten-visualisieren.html#fig:fig-diagrammtypen">7.6</a> fassen die gerade besprochenen Diagrammtypen zusammen.</p>
+<table>
+<caption><span id="tab:diagrammtypen">Tabelle 7.1: </span>Häufige Diagrammtypen</caption>
+<thead>
+<tr class="header">
+<th align="left">X-Achse</th>
+<th align="left">Y-Achse</th>
+<th align="left">Diagrammtyp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">kontinuierliche Variable</td>
+<td align="left">-</td>
+<td align="left">Histogramm, Dichtediagramm</td>
+</tr>
+<tr class="even">
+<td align="left">kontinuierliche Variable</td>
+<td align="left">kontinuierliche Variable</td>
+<td align="left">Punkte, Schachbrett-Diagramme</td>
+</tr>
+<tr class="odd">
+<td align="left">nominale Variable</td>
+<td align="left">-</td>
+<td align="left">Balkendiagramm</td>
+</tr>
+<tr class="even">
+<td align="left">nominale Variable</td>
+<td align="left">nominale Variable</td>
+<td align="left">Mosaicplot (Fliesendiagramm)</td>
+</tr>
+<tr class="odd">
+<td align="left">nominale Variable</td>
+<td align="left">metrische Variable</td>
+<td align="left">Punktediagramm für Zusammenfassungen</td>
+</tr>
+<tr class="even">
+<td align="left">nominale Variable</td>
+<td align="left">metrische Variable</td>
+<td align="left">Boxplots (besser)</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:fig-diagrammtypen"></span>
+<img src="050_Daten_visualisieren_files/figure-html/fig-diagrammtypen-1.png" alt="Überblick zu häufigen Diagrammtypen" width="70%" />
+<p class="caption">
+Abbildung 7.6: Überblick zu häufigen Diagrammtypen
+</p>
+</div>
+</div>
+</div>
+<div id="die-gefuhlswelt-von-ggplot2" class="section level2">
+<h2><span class="header-section-number">7.5</span> Die Gefühlswelt von <code>ggplot2</code></h2>
+<ul>
+<li>Geben Sie eine <em>diskrete X-Achs</em>e an und <em>keine Y-Achse</em>, so greift <code>qplot</code> im Standard auf das Geom <code>bar</code> zurück (Balkendiagramm), falls Sie <em>kein</em> Geom angeben:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">data =</span> stats_test)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">data =</span> stats_test, <span class="dt">geom =</span> <span class="st">&quot;bar&quot;</span>)</code></pre></div>
+<ul>
+<li>Geben Sie eine <em>kontinuierliche X-Achse</em> an und <em>keine Y-Achse</em>, so greift qplot im Standard auf das Geom <code>histogram</code> zurück (Histogramm).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">data =</span> stats_test)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">data =</span> stats_test, <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>)</code></pre></div>
+<ul>
+<li>Geben Sie eine <em>kontinuierliche X-Achse</em> an und eine <em>kontinuierliche Y-Achse</em> an, so greift qplot im Standard auf das Geom <code>point</code> zurück (Streudiagramm).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">y =</span> self<span class="op">-</span>eval, <span class="dt">data =</span> stats_test)  <span class="co"># identisch zu</span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> score, <span class="dt">y=</span>  self<span class="op">-</span>eval, <span class="dt">data =</span> stats_test, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</code></pre></div>
+<ul>
+<li>Möchten Sie mehrere Geome für eine Variable darstellen, so muss die Gruppierungs-Variable diskret sein:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#oh no: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)
+
+<span class="co">#oh yes: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> <span class="kw">factor</span>(rating), <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)
+
+<span class="co">#oh yes: </span>
+<span class="kw">qplot</span>(<span class="dt">x =</span> gender, <span class="dt">y =</span> affairs, <span class="dt">geom =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="dt">data =</span> Affairs)</code></pre></div>
+</div>
+<div id="aufgaben-10" class="section level2">
+<h2><span class="header-section-number">7.6</span> Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Erzählen Sie einer vertrauenswürdigen Person jeweils eine “Geschichte”, die das Zustandekommen der vier Plots von Anscombe (Abb. <a href="daten-visualisieren.html#fig:fig-anscombe">7.1</a>) erklärt!</p></li>
+<li><p>Abb. <a href="daten-visualisieren.html#fig:fig-movies-jahrzehnt">7.4</a> stellt das mittlerer Budget von Filmen dar; als “Geom” wird ein Boxplot verwendet. Andere Geome wären auch möglich - aber wie sinnvoll wären sie?</p></li>
+<li><p>Erstellen Sie ein Diagramm, welches Histogramme der Verspätung verwendet anstelle von Boxplots! Damit das Diagramm nicht so groß wird, nehmen Sie zur Gruppierung nicht <code>carrier</code> sondern <code>origin</code>.</p></li>
+<li><p>Ist das Histogramm genauso erfolgreich wie der Boxplot, wenn es darum geht, viele Verteilungen vergleichend zu präsentieren? Warum?</p></li>
+<li><p>Erstellen Sie ein sehr grobes und ein sehr feines Histogramm für die Schuhgröße!</p></li>
+<li><p>Vertiefung: Erstellen Sie ein Diagramm, das sowohl eine Zusammenfassung (Mittelwert) der Körpergrößen nach Geschlecht darstellt als auch die einzelnen Werte darstellt!</p></li>
+</ol>
+</div>
+<div id="losungen" class="section level2">
+<h2><span class="header-section-number">7.7</span> Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li><p>:-)</p></li>
+<li><p>:</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> budget, <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">data =</span> movies, <span class="dt">facets =</span> <span class="op">~</span><span class="kw">factor</span>(Jahrzehnt))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:movies-histogram"></span>
+<img src="050_Daten_visualisieren_files/figure-html/movies-histogram-1.png" alt="Film-Budgets mit Histogrammen" width="70%" />
+<p class="caption">
+Abbildung 7.7: Film-Budgets mit Histogrammen
+</p>
+</div>
+<p>Der Boxplot ist besser geeignet als das Histogramm, um mehrere Verteilungen vergleichend zu präsentieren (vgl. Abb. <a href="daten-visualisieren.html#fig:movies-histogram">7.7</a>). Durch die gleiche Ausrichtung der Boxplots ist es dem Auge viel einfacher, Vergleiche anzustellen im Vergleich zu den Histogrammen. Einen optisch schöneren Effekt könnte man mit <code>geom_jitter</code> anstelle von <code>geom_point</code>erreichen. Auch die Reihenfolge der beiden Geome könnte man umdrehen. Natürlich ist auch an Form, Größe und Farbe der Geome noch zu feilen.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">bins =</span> <span class="dv">10</span>)
+<span class="kw">qplot</span>(<span class="dt">x =</span> shoe_size, <span class="dt">data =</span> wo_men, <span class="dt">bins =</span> <span class="dv">50</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-31-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_men2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">height =</span> <span class="kw">mean</span>(height)) -&gt;<span class="st"> </span>wo_men3
+
+
+wo_men3 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> sex, <span class="dt">y =</span> height) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> wo_men2, <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>)</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Der “Trick” ist hier, erst die zusammengefassten Daten in ein Geom zu stecken (<code>wo_men3</code>). Dann werden die Rohdaten (<code>wo_men2</code>) ebenfalls in ein Geom gepackt. Allerdings muss die Achsen-Beschriftung bei beiden Geomen identisch sein, sonst gibt es eine Fehlermeldung.</p>
+</div>
+<div id="richtig-oder-falsch" class="section level2">
+<h2><span class="header-section-number">7.8</span> Richtig oder Falsch<a href="#fn40" class="footnoteRef" id="fnref40"><sup>40</sup></a></h2>
+
+<div class="rmdexercises">
+<p>Richtig oder Falsch!?</p>
+<ol style="list-style-type: decimal">
+<li><p>Diese Geome gehören zum (Standard-) ggplot2: bar, histogram, point, density, jitter, boxplot.</p></li>
+<li><p><code>qplot</code> ist eine Funktion im Paket <code>ggplot2</code>.</p></li>
+<li><p>Mi <code>aes</code> definiert man, wie “ästethisch” das Diagramm sein soll (z.B. grauer Hintergrund vs. weißer Hintergrund, Farbe der Achsen etc.).</p></li>
+<li><p>Diese Geome gehören zum (Standard-) ggplot2: smooth, line, boxwhisker, mosaicplot.</p></li>
+<li><p>Möchte man ein Diagramm erstellen, welches auf der X-Achse <code>total_bill</code>, auf der Y-Achse <code>tip</code> darstellt, als Geom Punkte verwendet und die Daten aus der Tabelle <code>tips</code> bezieht, so ist folgende Syntax korrekt: `qplot(x = total, bill, y = tip, geom = “point”, data = tips)</p></li>
+</ol>
+</div>
+
+</div>
+<div id="befehlsubersicht-4" class="section level2">
+<h2><span class="header-section-number">7.9</span> Befehlsübersicht</h2>
+<p>Tabelle <a href="daten-visualisieren.html#tab:befehle-vis">7.2</a> fasst die R-Funktionen dieses Kapitels zusammen.</p>
+<table>
+<caption><span id="tab:befehle-vis">Tabelle 7.2: </span>Befehle des Kapitels ‘Daten visualisieren’</caption>
+<thead>
+<tr class="header">
+<th align="left">Paket::Funktion</th>
+<th align="left">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ggplot2::qplot</td>
+<td align="left">Malt schnell mal einen Plot</td>
+</tr>
+<tr class="even">
+<td align="left">ggplot2::ggplot</td>
+<td align="left">Malt einen Plot</td>
+</tr>
+<tr class="odd">
+<td align="left">factor</td>
+<td align="left">Wandelt einen Vektor in den Typ factor um</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="geome" class="section level2">
+<h2><span class="header-section-number">7.10</span> Vertiefung: Geome bei ggplot2</h2>
+<p>Einen guten Überblick über Geome bietet das Cheatsheet von ggplot2<a href="#fn41" class="footnoteRef" id="fnref41"><sup>41</sup></a>.</p>
+<p>Verschiedenen Taxonomien von statistischen “Bildchen” sind denkbar; eine einfache ist die folgende; es wird nur ein Teil der verfügbaren Geome dargestellt.</p>
+<ol style="list-style-type: decimal">
+<li>Eine kontinuierliche Variable</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Zwei kontinuierliche Variablen</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Eine diskrete Variable (X-Achse)</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">ggplot</span>(wo_men2) <span class="op">+</span>
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> sex) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Eine diskrete Variable auf der X-Achse und eine kontinuierliche Y-Achse</li>
+</ol>
+<p><img src="050_Daten_visualisieren_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="verweise-3" class="section level2">
+<h2><span class="header-section-number">7.11</span> Verweise</h2>
+<ul>
+<li><p>Einen Befehlsüberblick zu <code>ggplot2</code> findet sich hier: <a href="http://ggplot2.tidyverse.org/reference/" class="uri">http://ggplot2.tidyverse.org/reference/</a>.</p></li>
+<li><p>Edward Tufte gilt als Grand Seigneur der Datenvisualisierung; er hat mehrere lesenswerte Bücher zu dem Thema geschrieben <span class="citation">(Tufte <a href="#ref-1930824130">2001</a>; Tufte <a href="#ref-1930824165">2006</a>; Tufte <a href="#ref-1930824149">1990</a>)</span>.</p></li>
+<li><p>William Cleveland, ein amerikanischer Statistiker ist bekannt für seine grundlegenden, und weithin akzeptierten Ansätze für Diagramme, die die wesentliche Aussage schnörkellos transportieren <span class="citation">(Cleveland <a href="#ref-Cleveland">1993</a>)</span>.</p></li>
+<li><p>Die (graphische) Auswertung von Umfragedaten basiert häufig auf Likert-Skalen. Ob diese metrisches Niveau aufweisen, darf bezweifelt werden. Hier findet sich einige vertiefenden Überlegungen dazu und zur Frage, wie Likert-Daten ausgewertet werden könnten: <a href="https://bookdown.org/Rmadillo/likert/" class="uri">https://bookdown.org/Rmadillo/likert/</a>.</p></li>
+<li><p>Es finden sich viele Tutorials online zu <code>ggplot2</code>; ein deutschsprachiger Tutorial findet sich hier: <a href="http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html" class="uri">http://md.psych.bio.uni-goettingen.de/mv/unit/ggplot2/ggplot2.html</a>.</p></li>
+</ul>
+
+</div>
+</div>
+<h3>Literaturverzeichnis</h3>
+<div id="refs" class="references">
+<div id="ref-matejka2017same">
+<p>Matejka, Justin, und George Fitzmaurice. 2017. „Same stats, different graphs: Generating datasets with varied appearance and identical statistics through simulated annealing“. In <em>Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems</em>, 1290–4. ACM.</p>
+</div>
+<div id="ref-1930824130">
+<p>Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. Graphics Press.</p>
+</div>
+<div id="ref-1930824165">
+<p>Tufte, Edward R. 2006. <em>Beautiful Evidence</em>. Graphics Press.</p>
+</div>
+<div id="ref-1930824149">
+<p>Tufte, Edward R. 1990. <em>Envisioning Information</em>. Graphics Press.</p>
+</div>
+<div id="ref-Cleveland">
+<p>Cleveland, William S. 1993. <em>Visualizing Data</em>. Hobart Press.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="36">
+<li id="fn36"><p><a href="https://de.wikipedia.org/wiki/Anscombe-Quartett" class="uri">https://de.wikipedia.org/wiki/Anscombe-Quartett</a><a href="daten-visualisieren.html#fnref36">↩</a></p></li>
+<li id="fn37"><p>“gg” steht für “grammer of graphics” nach einem Buch von Wilkinson<span class="citation">(<a href="#ref-wilkinson2006grammar">2006</a>)</span>; “plot” steht für “to plot”, also ein Diagramm erstellen (“plotten”); vgl. <a href="https://en.wikipedia.org/wiki/Ggplot2" class="uri">https://en.wikipedia.org/wiki/Ggplot2</a><a href="daten-visualisieren.html#fnref37">↩</a></p></li>
+<li id="fn38"><p>Achtung: Nicht <code>qqplot</code>, nicht <code>ggplot2</code>, nicht <code>gplot</code>…<a href="daten-visualisieren.html#fnref38">↩</a></p></li>
+<li id="fn39"><p>es gibt kein <code>study_time == 5</code> bei den Durchfallen, d.h. bei <code>bestanden == nein</code>.<a href="daten-visualisieren.html#fnref39">↩</a></p></li>
+<li id="fn40"><p>R, R, F, F, R<a href="daten-visualisieren.html#fnref40">↩</a></p></li>
+<li id="fn41"><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a><a href="daten-visualisieren.html#fnref41">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="case-movies.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fallstudie-zur-visualisierung.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": true,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

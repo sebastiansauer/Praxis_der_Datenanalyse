@@ -118,10 +118,10 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="2" data-path="Rahmen.html"><a href="Rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
 <li class="chapter" data-level="2.1" data-path="Rahmen.html"><a href="Rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="Rahmen.html"><a href="Rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
-<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R startet nicht!</a></li>
-<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.3</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.2</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.3</b> Hilfe! R startet nicht!</a></li>
 <li class="chapter" data-level="2.1.4" data-path="Rahmen.html"><a href="Rahmen.html#funs-pckgs"><i class="fa fa-check"></i><b>2.1.4</b> Vertiefung: Zuordnung von Paketen zu Befehlen</a></li>
-<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Daten</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="Rahmen.html"><a href="Rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="Rahmen.html"><a href="Rahmen.html#r-skript-dateien"><i class="fa fa-check"></i><b>2.2.1</b> R-Skript-Dateien</a></li>
@@ -443,7 +443,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <span class="kw">library</span>(compute.es)  <span class="co"># Effektstärken berechnen</span></code></pre></div>
 <div id="uberleben-auf-der-titanic" class="section level2">
 <h2><span class="header-section-number">13.1</span> Überleben auf der Titanic</h2>
-<p>In dieser YACSDA<a href="#fn63" class="footnoteRef" id="fnref63"><sup>63</sup></a> geht es um die beispielhafte Analyse nominaler Daten anhand des “klassischen” Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der der Passagiers reist, ab?</p>
+<p>In dieser YACSDA<a href="#fn66" class="footnoteRef" id="fnref66"><sup>66</sup></a> geht es um die beispielhafte Analyse nominaler Daten anhand des “klassischen” Falls zum Untergang der Titanic. Eine Frage, die sich hier aufdrängt, lautet: Kann (konnte) man sich vom Tod freikaufen, etwas polemisch formuliert. Oder neutraler: Hängt die Überlebensquote von der Klasse, in der der Passagiers reist, ab?</p>
 <div id="daten-laden" class="section level3">
 <h3><span class="header-section-number">13.1.1</span> Daten laden</h3>
 <p>Mit dem Befehl <code>data</code> kann man Daten aus Paketen laden; lässt man den Paramter <code>package</code> weg, so werden alle geladenen Pakete nach diesem Datensatz durchsucht. Benennt man den Parameter, so kann man auch <em>nicht</em> geladene Pakete damit ansteuern.</p>
@@ -452,7 +452,7 @@ titanic_train &lt;-<span class="st"> </span><span class="kw">na.omit</span>(tita
 </div>
 <div id="erster-blick" class="section level3">
 <h3><span class="header-section-number">13.1.2</span> Erster Blick</h3>
-<p>Werfen Sie einen ersten Blick in die Daten mit <code>glimpse(titanic_train)</code>. Lassen Sie sich dann einige deskriptive Statistiken ausgeben<a href="#fn64" class="footnoteRef" id="fnref64"><sup>64</sup></a></p>
+<p>Werfen Sie einen ersten Blick in die Daten mit <code>glimpse(titanic_train)</code>. Lassen Sie sich dann einige deskriptive Statistiken ausgeben<a href="#fn67" class="footnoteRef" id="fnref67"><sup>67</sup></a></p>
 </div>
 <div id="welche-variablen-sind-interessant" class="section level3">
 <h3><span class="header-section-number">13.1.3</span> Welche Variablen sind interessant?</h3>
@@ -475,7 +475,7 @@ c1
 <p>Achtung - Namenskollision! Sowohl im Paket <code>mosaic</code> als auch im Paket <code>dplyr</code> gibt es einen Befehl <code>count</code>. Für <code>select</code> gilt Ähnliches - und für eine Reihe anderer Befehle auch. Das arme R weiß nicht, welchen von beiden wir meinen und entscheidet sich im Zweifel für den falschen. Da hilft, zu sagen, aus welchem Paket wir den Befehl beziehen wollen. Das macht der Operator <code>::</code>. Probieren Sie die Funktion <code>find_funs</code> aus Kapitel <a href="Rahmen.html#funs-pckgs">2.1.4</a>, um herauszufinden, welche Pakete z.B. den Befehl <code>count</code> beherbergen.</p>
 </div>
 
-<p>Aha. Zur besseren Anschaulichkeit können Sie das auch plotten (ein Diagramm dazu malen). Wie?<a href="#fn65" class="footnoteRef" id="fnref65"><sup>65</sup></a></p>
+<p>Aha. Zur besseren Anschaulichkeit können Sie das auch plotten (ein Diagramm dazu malen). Wie?<a href="#fn68" class="footnoteRef" id="fnref68"><sup>68</sup></a></p>
 <p>Der Befehl <code>qplot</code> zeichnet automatisch Punkte, wenn auf beiden Achsen “Zahlen-Variablen” stehen (also Variablen, die keinen “Text”, sondern nur Zahlen beinhalten. In R sind das Variablen vom Typ <code>int</code> (integer), also Ganze Zahlen oder vom Typ <code>num</code> (numeric), also reelle Zahlen).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c2 &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">count</span>(titanic_train, Survived)
 c2
@@ -860,7 +860,7 @@ lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs <span class
 </div>
 <div id="ehezufriedenheit-als-pradiktor" class="section level3">
 <h3><span class="header-section-number">13.2.9</span> Ehezufriedenheit als Prädiktor</h3>
-<p>Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?<a href="#fn66" class="footnoteRef" id="fnref66"><sup>66</sup></a></p>
+<p>Um wie viel erhöht sich die erklärte Varianz (R-Quadrat) von Affärenhäufigkeit wenn man den Prädiktor Ehezufriedenheit zum Prädiktor Ehejahre hinzufügt? (Wie) verändern sich die Einflussgewichte (b)?<a href="#fn69" class="footnoteRef" id="fnref69"><sup>69</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span>yearsmarried, <span class="dt">data =</span> Affairs)
 lm4 &lt;-<span class="st"> </span><span class="kw">lm</span>(affairs <span class="op">~</span><span class="st"> </span>yearsmarried <span class="op">+</span><span class="st"> </span>rating, <span class="dt">data =</span> Affairs)
 <span class="kw">summary</span>(lm3)
@@ -1050,11 +1050,11 @@ Abbildung 13.7: Affären, mit Smooth
 </div>
 <div class="footnotes">
 <hr />
-<ol start="63">
-<li id="fn63"><p>Yet-another-case-study-on-data-analysis<a href="fallstudien-zum-geleiteten-modellieren.html#fnref63">↩</a></p></li>
-<li id="fn64"><p>z.B. mit <code>titanic_train %&gt;% count(Survived)</code> oder <code>titanic_train %&gt;% summarise(Ticketpreis = mean(Fare, na.rm = TRUE))</code><a href="fallstudien-zum-geleiteten-modellieren.html#fnref64">↩</a></p></li>
-<li id="fn65"><p><code>qplot(x = Pclass, y = n, data = c1)</code><a href="fallstudien-zum-geleiteten-modellieren.html#fnref65">↩</a></p></li>
-<li id="fn66"><p>Output im Folgenden nicht abgedruckt.<a href="fallstudien-zum-geleiteten-modellieren.html#fnref66">↩</a></p></li>
+<ol start="66">
+<li id="fn66"><p>Yet-another-case-study-on-data-analysis<a href="fallstudien-zum-geleiteten-modellieren.html#fnref66">↩</a></p></li>
+<li id="fn67"><p>z.B. mit <code>titanic_train %&gt;% count(Survived)</code> oder <code>titanic_train %&gt;% summarise(Ticketpreis = mean(Fare, na.rm = TRUE))</code><a href="fallstudien-zum-geleiteten-modellieren.html#fnref67">↩</a></p></li>
+<li id="fn68"><p><code>qplot(x = Pclass, y = n, data = c1)</code><a href="fallstudien-zum-geleiteten-modellieren.html#fnref68">↩</a></p></li>
+<li id="fn69"><p>Output im Folgenden nicht abgedruckt.<a href="fallstudien-zum-geleiteten-modellieren.html#fnref69">↩</a></p></li>
 </ol>
 </div>
             </section>

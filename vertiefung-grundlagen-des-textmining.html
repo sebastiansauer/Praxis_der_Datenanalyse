@@ -118,10 +118,10 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <li class="chapter" data-level="2" data-path="Rahmen.html"><a href="Rahmen.html"><i class="fa fa-check"></i><b>2</b> Rahmen</a><ul>
 <li class="chapter" data-level="2.1" data-path="Rahmen.html"><a href="Rahmen.html#software-installieren"><i class="fa fa-check"></i><b>2.1</b> Software installieren</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="Rahmen.html"><a href="Rahmen.html#r-und-rstudio-installieren"><i class="fa fa-check"></i><b>2.1.1</b> R und RStudio installieren</a></li>
-<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.2</b> Hilfe! R startet nicht!</a></li>
-<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.3</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.2" data-path="Rahmen.html"><a href="Rahmen.html#pakete"><i class="fa fa-check"></i><b>2.1.2</b> Pakete</a></li>
+<li class="chapter" data-level="2.1.3" data-path="Rahmen.html"><a href="Rahmen.html#hilfe-r-startet-nicht"><i class="fa fa-check"></i><b>2.1.3</b> Hilfe! R startet nicht!</a></li>
 <li class="chapter" data-level="2.1.4" data-path="Rahmen.html"><a href="Rahmen.html#funs-pckgs"><i class="fa fa-check"></i><b>2.1.4</b> Vertiefung: Zuordnung von Paketen zu Befehlen</a></li>
-<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Datensätze</a></li>
+<li class="chapter" data-level="2.1.5" data-path="Rahmen.html"><a href="Rahmen.html#daten"><i class="fa fa-check"></i><b>2.1.5</b> Daten</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="Rahmen.html"><a href="Rahmen.html#errrstkontakt"><i class="fa fa-check"></i><b>2.2</b> ERRRstkontakt</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="Rahmen.html"><a href="Rahmen.html#r-skript-dateien"><i class="fa fa-check"></i><b>2.2.1</b> R-Skript-Dateien</a></li>
@@ -473,7 +473,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 <div id="tidy-text-dataframes" class="section level3">
 <h3><span class="header-section-number">16.2.1</span> Tidy Text Dataframes</h3>
 <p>Wozu ist es nützlich, einen Text-Dataframe in einen langen Dataframe umzuwandeln? Der Grund ist, dass immer wenn nur ein Wort (allgemeiner: Term) pro Zelle steht, dann können wir die Spalte einfach auszählen. Wir können z.B. <code>count</code> nutzen, um zu zählen, wie häufig ein Wort vorkommt. Sprich: Sobald wir einen langen (Text-)Dataframe haben, können wir unsere bekannte Methoden einsetzen.</p>
-<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn75" class="footnoteRef" id="fnref75"><sup>75</sup></a> besteht aus 4 Elementen.</p>
+<p>Basteln wir uns einen <em>tidy text</em> Dataframe. Wir gehen dabei von einem Vektor mit mehreren Text-Elementen aus, das ist ein realistischer Startpunkt. Unser Text-Vektor<a href="#fn78" class="footnoteRef" id="fnref78"><sup>78</sup></a> besteht aus 4 Elementen.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Wir haben die Frauen zu Bett gebracht,&quot;</span>,
           <span class="st">&quot;als die Männer in Frankreich standen.&quot;</span>,
           <span class="st">&quot;Wir hatten uns das viel schöner gedacht.&quot;</span>,
@@ -511,7 +511,7 @@ title="FOM_Logo"  width="30%" style="display: block; margin: auto;" /></li>
 </table>
 <p>Übrigens, falls Sie eine beliebige Textdatei einlesen möchten, können Sie das so tun:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">read_lines</span>(<span class="st">&quot;data/Brecht.txt&quot;</span>)</code></pre></div>
-<p>Der Befehl <code>read_lines</code> (aus <code>readr</code><a href="#fn76" class="footnoteRef" id="fnref76"><sup>76</sup></a>) liest Zeilen (Zeile für Zeile) aus einer Textdatei.</p>
+<p>Der Befehl <code>read_lines</code> (aus <code>readr</code><a href="#fn79" class="footnoteRef" id="fnref79"><sup>79</sup></a>) liest Zeilen (Zeile für Zeile) aus einer Textdatei.</p>
 <p>Dann “dehnen” wir den Dataframe zu einem <em>tidy text</em> Dataframe (s. Abb. <a href="vertiefung-grundlagen-des-textmining.html#fig:tidytextdf">16.1</a>); das besorgt die Funktion <code>unnest_tokens</code>. ‘unnest’ heißt dabei so viel wie ‘Entschachteln’, also von breit auf lang dehnen. Mit ‘tokens’ sind hier einfach die Wörter gemeint (es könnten aber auch andere Analyseeinheiten sein, Sätze zum Beispiel).</p>
 <div class="figure" style="text-align: center"><span id="fig:tidytextdf"></span>
 <img src="images/textmining/tidytext-crop.png" alt="Illustration eines Tidy Text Dataframe" width="70%" />
@@ -570,7 +570,7 @@ filtere die Spalte “wort”, so dass nur noch Kleinbuchstaben übrig bleiben. 
 </div>
 <div id="text-daten-einlesen" class="section level3">
 <h3><span class="header-section-number">16.2.2</span> Text-Daten einlesen</h3>
-<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein<a href="#fn77" class="footnoteRef" id="fnref77"><sup>77</sup></a>. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn78" class="footnoteRef" id="fnref78"><sup>78</sup></a>. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - <del>verdient</del>erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung.</p>
+<p>Nun lesen wir Text-Daten ein; das können beliebige Daten sein<a href="#fn80" class="footnoteRef" id="fnref80"><sup>80</sup></a>. Eine gewisse Reichhaltigkeit ist von Vorteil. Nehmen wir das Parteiprogramm der Partei AfD<a href="#fn81" class="footnoteRef" id="fnref81"><sup>81</sup></a>. Vor dem Hintergrund des Erstarkens des Populismus weltweit und der großen Gefahr, die davon ausgeht - man blicke auf die Geschichte Europas in der ersten Hälfte des 20. Jahrhunderts - <del>verdient</del>erfordert der politische Prozess und speziell Neuentwicklungen darin unsere besondere Beachtung.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_pfad &lt;-<span class="st"> &quot;data/afd_programm.pdf&quot;</span>
 
 afd_raw &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(afd_pfad)</code></pre></div>
@@ -625,7 +625,7 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">count</span>(token, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>afd_count</code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-19">Tabelle 16.1: </span>Die häufigsten Wörter im AfD-Parteiprogramm</caption>
+<caption><span id="tab:unnamed-chunk-19">Tabelle 16.1: </span>Die häufigsten Wörter</caption>
 <thead>
 <tr class="header">
 <th align="left">token</th>
@@ -682,9 +682,9 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 
 afd_count <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;Die häufigsten Wörter im AfD-Parteiprogramm mit &#39;stemming&#39;&quot;</span>)</code></pre></div>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">caption =</span> <span class="st">&quot;Die häufigsten Wörter - mit &#39;stemming&#39;&quot;</span>)</code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-20">Tabelle 16.2: </span>Die häufigsten Wörter im AfD-Parteiprogramm mit ‘stemming’</caption>
+<caption><span id="tab:unnamed-chunk-20">Tabelle 16.2: </span>Die häufigsten Wörter - mit ‘stemming’</caption>
 <thead>
 <tr class="header">
 <th align="left">token_stem</th>
@@ -749,7 +749,7 @@ myfreq &lt;-<span class="st"> </span><span class="kw">na.omit</span>(afd_count<s
           <span class="dt">scale =</span> <span class="kw">c</span>(<span class="dv">2</span>,.<span class="dv">5</span>), 
           <span class="dt">colors=</span><span class="kw">brewer.pal</span>(<span class="dv">6</span>, <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
 <p><img src="090_Textmining_files/figure-html/show-wordcloud-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn79" class="footnoteRef" id="fnref79"><sup>79</sup></a>.</p>
+<p>Man kann die Anzahl der Wörter, Farben und einige weitere Formatierungen der Wortwolke beeinflussen<a href="#fn82" class="footnoteRef" id="fnref82"><sup>82</sup></a>.</p>
 <p>Weniger verspielt ist eine schlichte visualisierte Häufigkeitsauszählung dieser Art, z.B. mit Balkendiagrammen (gedreht).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 afd_count <span class="op">%&gt;%</span><span class="st"> </span>
@@ -777,7 +777,7 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 </div>
 <div id="aufgaben-18" class="section level2">
-<h2><span class="header-section-number">16.3</span> Aufgaben<a href="#fn80" class="footnoteRef" id="fnref80"><sup>80</sup></a></h2>
+<h2><span class="header-section-number">16.3</span> Aufgaben<a href="#fn83" class="footnoteRef" id="fnref83"><sup>83</sup></a></h2>
 
 <div class="rmdexercises">
 <p>Richtig oder Falsch!?</p>
@@ -808,7 +808,7 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 <tbody>
 <tr class="odd">
 <td align="left">tidytext::unnest_tokens</td>
-<td align="left">Jedes Token (Wort) einer Spalte bekommt eine eigene Zeile in einem Dataframe</td>
+<td align="left">Jedes Token bekommt eine eigene Zeile</td>
 </tr>
 <tr class="even">
 <td align="left">stringr::str_detect</td>
@@ -824,7 +824,7 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 </tr>
 <tr class="odd">
 <td align="left">anti_join</td>
-<td align="left">Führt Dataframes zusammen, so dass nicht matchende Einträge übernommen werden</td>
+<td align="left">Gibt nicht-matchende Zeilen zurück</td>
 </tr>
 <tr class="even">
 <td align="left">wordcloud::wordcloud</td>
@@ -862,13 +862,13 @@ afd_df <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="75">
-<li id="fn75"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="vertiefung-grundlagen-des-textmining.html#fnref75">↩</a></p></li>
-<li id="fn76"><p>Teil der Tidyverse-Familie<a href="vertiefung-grundlagen-des-textmining.html#fnref76">↩</a></p></li>
-<li id="fn77"><p>Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.<a href="vertiefung-grundlagen-des-textmining.html#fnref77">↩</a></p></li>
-<li id="fn78"><p><geladen am 1. März 2017 von https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf><a href="vertiefung-grundlagen-des-textmining.html#fnref78">↩</a></p></li>
-<li id="fn79"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="vertiefung-grundlagen-des-textmining.html#fnref79">↩</a></p></li>
-<li id="fn80"><p>F, R, F, F, R, R, F, F<a href="vertiefung-grundlagen-des-textmining.html#fnref80">↩</a></p></li>
+<ol start="78">
+<li id="fn78"><p>Nach dem Gedicht “Jahrgang 1899” von Erich Kästner<a href="vertiefung-grundlagen-des-textmining.html#fnref78">↩</a></p></li>
+<li id="fn79"><p>Teil der Tidyverse-Familie<a href="vertiefung-grundlagen-des-textmining.html#fnref79">↩</a></p></li>
+<li id="fn80"><p>Ggf. benötigen Sie Administrator-Rechte, um Dateien auf Ihre Festplatte zu speichern.<a href="vertiefung-grundlagen-des-textmining.html#fnref80">↩</a></p></li>
+<li id="fn81"><p><geladen am 1. März 2017 von https://www.alternativefuer.de/wp-content/uploads/sites/7/2016/05/2016-06-27_afd-grundsatzprogramm_web-version.pdf><a href="vertiefung-grundlagen-des-textmining.html#fnref81">↩</a></p></li>
+<li id="fn82"><p><a href="https://cran.r-project.org/web/packages/wordcloud/index.html" class="uri">https://cran.r-project.org/web/packages/wordcloud/index.html</a><a href="vertiefung-grundlagen-des-textmining.html#fnref82">↩</a></p></li>
+<li id="fn83"><p>F, R, F, F, R, R, F, F<a href="vertiefung-grundlagen-des-textmining.html#fnref83">↩</a></p></li>
 </ol>
 </div>
             </section>
