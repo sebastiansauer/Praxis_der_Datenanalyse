@@ -216,7 +216,7 @@ extra %>%
 
 Betrachten Sie die Korrelationstabelle, was fällt Ihnen auf?[Sie ist quadratisch, auf der Hauptdiagonalen steht `NA`, und gespiegelt an der Hauptdiagonalen, d.h. das obere Dreieck der Matrix ist redundant.]
 
-In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten keine weiteren Schritte ein, abgesehen von einer Visualisierung (s. Abb. \@ref(fig:fig-corr)).
+In diesem Beispiel sind keine Variablen sehr hoch korreliert. Wir leiten keine weiteren Schritte ein, abgesehen von einer Visualisierung (s. Abb. \@ref(fig:fig-corrr)).
 
 ```{r fig-corrr, fig.cap = "Ein Korrelationsplot"}
 

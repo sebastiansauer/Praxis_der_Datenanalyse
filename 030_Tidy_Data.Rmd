@@ -75,6 +75,7 @@ In R-Paketen wohnen nicht nur Funktionen, sondern auch Daten. Diese Daten kann m
 
 ```{r eval = FALSE}
 data(movies, package = "ggplot2movies")
+data(extra, package = "prada")
 ```
 
 ### Daten im R-Format laden
