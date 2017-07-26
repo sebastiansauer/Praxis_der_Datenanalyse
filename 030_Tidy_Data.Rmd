@@ -111,7 +111,7 @@ df <- read.csv("data/stats_test.csv")
 ```
 
 
-Übrigens, Sie können die Daten (als CSV) für diesen Kurs auch über diese URL importieren. Z.B. den Datensatz `stats_test`:
+Übrigens, Sie können die Daten (als CSV) für diesen Kurs auch von Github über diese URL importieren. Z.B. den Datensatz `stats_test`:
 ```{r eval = FALSE}
 prada_stats_test_url <-
   paste0("https://raw.github.com/",  # Webseite
@@ -124,7 +124,17 @@ stats_test <- read.csv(prada_stats_test_url)
 
 ```
 
-Analog gehen Sie für die anderen PraDa-Datensätze vor (vgl. Kapitel \@ref(Daten)).
+Analog gehen Sie für die anderen PraDa-Datensätze vor (vgl. Kapitel \@ref(Daten)). 
+Die Datei-Endung ist für jeden Datensatz ".csv". 
+
+```{block2, fun-paste0, type='rmdpseudocode', echo = TRUE} 
+
+Der Befehl `paste0` "klebt" (to paste) mehrere Textabschnitte zusammen; die Null dabei heißt, zwischen den Textabschnitten steht nichts; die Textabschnitte werden nahtlos zusammengeklebt. Wir hätten die ganze URL auch in einem Textschnipsel packen können. So ist es nur ein bisschen übersichtlicher. 
+
+```
+
+
+
 
 
 #### Vorsicht bei nicht-amerikanisch kodierten Textdateien

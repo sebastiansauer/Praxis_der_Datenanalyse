@@ -380,12 +380,7 @@ data("stats_test", package = "prada")
 ```
 
 
-Wenn ein bestimmtes Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, wenn ihr Datensatz in jedem Paket wohnt: Geladene Pakete werden vom Befehl `data` automatisch durchsucht.
-
-
-Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium herunterladen. Gehen Sie auf die Github-Seite dieses Kurses^[<https://github.com/sebastiansauer/Praxis_der_Datenanalyse>], klicken Sie auf den großen grünen Button "Clone or download", wählen Sie dann "Download ZIP", um alle Dateien herunterzuladen. Nach dem Entzippen können Sie dann auf alle Dateien, inklusive Daten, zugreifen. Die folgenden Datensätze nutzen wir im Rahmen dieses Kurses:
-
-
+Wenn ein bestimmtes Paket geladen ist, können Sie auch auf den Parameter `package = ...` verzichten, wenn ihr Datensatz in jedem Paket wohnt: Geladene Pakete werden vom Befehl `data` automatisch durchsucht. Die folgenden Datensätze nutzen wir im Rahmen dieses Kurses:
 
 
 - Datensatz `profiles` aus dem R-Paket {okcupiddata} [@kim2015okcupid]; es handelt sich um Daten von einer Online-Singlebörse 
@@ -395,8 +390,21 @@ Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium he
 - Datensatz `extra`  aus dem R-Paket {prada} [@Sauer_2016]; es handelt sich die Ergebnisse einer Umfrage zu Extraversion
 - Datensatz `titanic_train` aus dem Paket {titanic} von [kaggle](https://www.kaggle.com/c/titanic/data); es handelt sich um Überlebensraten vom Titanic-Unglück.
 - Datensatz `Affairs` aus dem Paket {AER} [@fair1978theory]; es handelt sich um eine Umfrage zu außerehehlichen Affären.
+- Datensatz `Werte` von @Gansser_2017 (auch im Paket {prada}); es handelt sich um Daten einer Umfrage zu Werte hinsichtlich Kaufentscheidungen.
 
 Wie man Daten in R 'einlädt' (Studierende sagen gerne 'ins R hochladen'), besprechen wir im Kapitel \@ref(daten-einlesen). 
+
+
+
+
+
+
+
+```{block2, data-from-github, type='rmdcaution', echo = TRUE} 
+
+Alternativ können Sie die Daten auch im Ordner `data` im Github-Repositorium herunterladen. Gehen Sie auf die Github-Seite dieses Kurses^[<https://github.com/sebastiansauer/Praxis_der_Datenanalyse>], klicken Sie auf den großen grünen Button "Clone or download", wählen Sie dann "Download ZIP", um alle Dateien herunterzuladen. Nach dem Entzippen können Sie dann auf alle Dateien, inklusive Daten, zugreifen. 
+
+```
 
 
 
