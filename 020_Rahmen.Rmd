@@ -181,6 +181,7 @@ library(prada)
 ```
 
 
+
 Sofern Sie online sind, sollte das Paket `prada` jetzt installiert sein. Installieren Sie jetzt alle Pakete, die für diesen Kurs benötigt werden mit dem Befehl `install_prada_pckgs()`.
 
 ```{block2, CRAN_mirrors, type='rmdcaution', echo = TRUE} 
@@ -201,7 +202,11 @@ mitinstalliert (wenn Sie  `dependencies = TRUE` setzen).
 
 ```
 
+Ich fasse zusammen:
 
+1. Paket `devtools` installieren von CRAN (über RStudio -> Packages -> Install)
+2. Paket `prada` installieren von Github (Syntax s. oben)
+3. Alle weiteren Pakete installieren mit Befehl `install_prada_pckgs`.
 
 
 Nicht vergessen: Installieren muss man eine Software *nur einmal*; *starten* 
