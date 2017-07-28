@@ -1,9 +1,10 @@
 Paket::Funktion,Beschreibung
-dplyr::arrange     ,Sortiert Spalten
-dplyr::filter      ,Filtert Zeilen
-dplyr::select      ,Wählt Spalten
-dplyr::group_by    ,gruppiert einen Dataframe
-dplyr::n     ,zählt Zeilen
-dplyr::count       ,zählt Zeilen nach Untergruppen
-%>% (dplyr)        ,verkettet Befehle
-dplyr::mutate      ,erzeugt/berechnet Spalten
+dplyr::arrange     ,Sortiert Spalten.
+dplyr::filter      ,Filtert Zeilen.
+dplyr::select      ,Wählt Spalten.
+dplyr::group_by    ,Gruppiert einen Dataframe.
+dplyr::n     ,Zählt Zeilen.
+dplyr::count       ,Zählt Zeilen nach Untergruppen.
+%>% (dplyr)        ,Verkettet Befehle ("UND DANN").
+dplyr::mutate      ,Erzeugt/berechnet Spalten.
+dpylr::pull, Wählt eine Spalte aus.

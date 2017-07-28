@@ -761,10 +761,10 @@ Ein weiterer zentraler Gedanken der Deskriptivstatistik ist es, dass es beim Zus
 
 Der Befehl `summarise` eignet sich, um deskriptive Statistiken auszurechnen.
 
-```{r summarise-test1}
+```{r summarise-test1, results = "hide"}
 summarise(stats_test, mean(score))
 summarise(stats_test, sd(score))
-summarise(stats_test, aad(score))  # aus Paket 'lsr'
+summarise(stats_test, aad(score))  # MAD aus Paket 'lsr'
 ```
 
 Natürlich könnte man auch einfacher schreiben:
@@ -775,6 +775,31 @@ median(stats_test$score)
 aad(stats_test$score)
 ```
 
+
+Der Modus lässt sich z.B. so berechnen:
+
+```{r}
+stats_test %>% 
+  count(score) %>% 
+  top_n(1) %>% 
+  pull(score)
+```
+
+Übersetzen wir diese Syntax ins Deutsche:
+
+
+```{block2, modus-syntax, type='rmdpseudocode', echo = TRUE}
+Nimm die Tabelle "stats_test" UND DANN    
+zähle aus, wie häufig jeder Punktewert vorkommt UND DANN  
+wähle die Zeile(n) mit dem/n häufigsten Wert aus UND DANN
+wähle die Spalte `score` (denn der Modus ist der Score-Wert, nicht die Häufigkeit)... FERTIG.  
+
+
+
+
+liefere nur die Werte größer als 30 zurück.  
+
+```
 
 ```{block2, achtung-narm, type='rmdcaution', echo = TRUE} 
 
