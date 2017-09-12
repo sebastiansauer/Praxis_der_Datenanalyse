@@ -213,14 +213,39 @@ extra <- read.csv("data/extra.csv")
 
 extra$viel_saeufer <- extra$n_hangover > 10
 
-chisq.test(x = extra$sex, extra$viel_saeufer)
+chisq.test(x = extra$sex, y = extra$viel_saeufer)
 ```
 
-Achtung, falls Ihre Daten in aggregierter Form vorliegen, müssen Sie sie folgendermaßen übergeben werden:
+Wir übergeben also zwei Vektoren (x, y), für die die Häufigkeitskombinationen getestet werden. Es könnte aber auch sein, dass Ihre Daten schon in aggregierter Form vorliegen. Sagen wir, Ihre Datentabelle ist eine Kontingenztabelle, heißt `Sauefer_tab` und ist so entstanden:
+
+```{r echo = FALSE}
+
+extra %>% 
+  select(n_hangover, sex) %>% 
+  na.omit %>% 
+  mutate(saeufer = car::recode(n_hangover, "11:hi = 'sauefer'; else = 'kein_saeufer'")) -> Saeufer
+
+
+table(x = Saeufer$sex, y = Saeufer$saeufer) -> Saeufer_tab
+Saeufer_tab
+```
+
+
+
+Dann übergeben Sie diese Kontingenztabelle an `chisq.test`:
 
 ```{r}
-table(x = extra$sex, extra$viel_saeufer) %>% chisq.test
+chisq.test(x = Saeufer_tab)
 ```
+
+Wir hätten diese Kontingenztabelle auch von Hand in R erzeugen können:
+
+```{r results = FALSE}
+Saeufer_tab <- matrix(data = c(445, 197, 70, 84), ncol = 2)
+Saeufer_tab %>% chisq.test
+```
+
+
 
 ### t-Test
 
@@ -230,7 +255,7 @@ table(x = extra$sex, extra$viel_saeufer) %>% chisq.test
 ```{r}
 extra %>% 
  filter(sex %in% c("Frau", "Mann")) %>% 
-  mutate(sex = factor(.$sex)) %>% 
+  mutate(sex = factor(sex)) %>% 
   t.test(extra_mean ~ sex, data = ., alternative = "less")
 
 ```

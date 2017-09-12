@@ -520,7 +520,7 @@ funktionsname(parametername1 = wert1, parametername2 = wert2, ...)
 
 Die drei Punkte `...` sollen andeuten, dass evtl. weitere Parameter zu übergeben wären. 
 Die Reihenfolge der Parameter ist *egal* - wenn man die Parameternamen anführt. 
-Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt halten:
+Ansonsten muss man sich an die Standard-Reihenfolge, die eine Funktion vorgibt, halten:
 
 ```{r read-csv-example, eval = FALSE}
 #ok:
