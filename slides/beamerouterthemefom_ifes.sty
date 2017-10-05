@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 \edef\showNormalTitle{true}   %
 
 \mode<presentation>
+=======
+\ProvidesPackage{beamerouterthemeFOM_ifes}[2017/06/28 v3.0 Beamer Outer Theme FOM ifes-Version]
+% ===========================================================================
+% beamerouterthemeFOM_ifes.sty
+% ============================-----------------------------------------------
+% 
+% (C) in 2011-2017 by Norman Markgraf (nmarkgraf(at)hotmail(dot)com)
+%
+% ---------------------------------------------------------------------------
+%
+\mode<presentation>
+% ---------------------------------------------------------------------------
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 \def\titleboxwidth{0.90\linewidth}
 
@@ -66,7 +80,11 @@
             \par
 
              {%
+<<<<<<< HEAD
      		      \usebeamercolor[fg]{subtitle in titlepage}%
+=======
+     		    \usebeamercolor[fg]{subtitle in titlepage}%
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
     	      	\usebeamerfont{subtitle in titlepage}%
     	      	\insertsubtitle %
              }
@@ -165,6 +183,10 @@
 \setbeamertemplate{footline}{% Skip first frame == Title frame !!!
   \ifthenelse{\equal{\insertframenumber}{1}}{%
   }{%
+<<<<<<< HEAD
+=======
+        \hspace*{10pt}%
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
         \includegraphics[%
            width=0.9\paperwidth%
         ]{%
@@ -174,6 +196,7 @@
         \vspace*{1em}
 
         \leavevmode%
+<<<<<<< HEAD
         \hbox{%
             \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.5ex,dp=1ex,center]{copyright in footer}%
                 \usebeamerfont{copyright in footer}~© ifes 2017  $|$  www.fom-ifes.de \hspace*{2em}
@@ -183,17 +206,55 @@
             \end{beamercolorbox}%
             \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.5ex,dp=1ex,right]{framenumber in footer}%
                 \usebeamerfont{framenumber in footer}\phantom{©}\insertframenumber{} \hspace*{2ex}
+=======
+
+        \hbox{%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,left]{copyright in footer}%
+                \usebeamerfont{copyright in footer}%
+                \hspace*{10pt}%
+                \fontsize{7}{10}%
+                \selectfont%
+                ~© ifes 2017  $|$  www.fom-ifes.de\hspace*{2em}
+            \end{beamercolorbox}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in footer}%
+                \usebeamerfont{title in footer}%
+                \fontsize{7}{10}%
+                \selectfont%
+                \hypersetup{hidelinks}\insertshorttitle \phantom{©}
+            \end{beamercolorbox}%
+            \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{framenumber in footer}%
+                \usebeamerfont{framenumber in footer}%
+                \fontsize{7}{10}%
+                \selectfont%
+                \phantom{©}\insertframenumber{} \hspace*{2ex}
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
             \end{beamercolorbox}%
          }%
         \vspace*{1em}
   }
 }
+<<<<<<< HEAD
+=======
+% ---------------------------------------------------------------------------
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 \setbeamertemplate{section page}{}
 \setbeamertemplate{subsection page}{}
 
+<<<<<<< HEAD
+=======
+% ---------------------------------------------------------------------------
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 \newcommand{\setnormaltitle}{\setbeamertemplate{frametitle}[mydefault]}
 \newcommand{\setinversetitle}{\setbeamertemplate{frametitle}[inverse]}
 
+<<<<<<< HEAD
 \mode<all>
+=======
+% ---------------------------------------------------------------------------
+\mode<all>
+%
+% ===========================================================================
+%
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b

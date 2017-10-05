@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "Folien für das Modul 'Praxis der Datenanalyse'"
+=======
+title: "Folien für das Modul \\newline 'Praxis der Datenanalyse'"
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 #author: "ses"
 #institute: "FOM" 
 date: "WS17"
@@ -10,22 +14,52 @@ output:
   beamer_presentation:
     fig_caption: no
     slide_level: 2
+<<<<<<< HEAD
     includes:
         in_header: "Rahmen.tex" 
 ---
 
 
 
+=======
+    highlight: tango
+    keep_tex: yes
+    pandoc_args:
+    - -V
+    - papersize=A4
+    - -V
+    - fontsize=10pt
+    - -V
+    - lang=de
+    - -V
+    - linkcolor=blue
+    - -V
+    - urlcolor=blue
+    - -V
+    - theme=NPBT
+    - -V
+    - colortheme=FOM
+    - -V
+    - institute=FOM
+---
+
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```{r setup, include=FALSE}
 library(knitr)
 
 knitr::opts_chunk$set(
     echo = TRUE,
     background='#E0E0E0',
+<<<<<<< HEAD
 #   fig.keep="none",
     out.width="80%",
 #   cache = TRUE,
     tidy=TRUE,
+=======
+    out.width="80%",
+   cache = TRUE,
+    tidy = FALSE,
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
     fig.align = "center",
     width.cutoff=70,
     fig.asp = .61,
@@ -35,6 +69,13 @@ knitr::opts_chunk$set(
 
 options(width = 73)
 
+<<<<<<< HEAD
+=======
+# Änderungen von Norman Markgraf:
+path_to_includes = "../includes/" # 
+path_to_data = "../data/"         #
+path_to_images = "../images/"     #
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -67,6 +108,7 @@ library(wordcloud)  # Wordcloud anzeigen
 
 ## Grobgliederung
 
+<<<<<<< HEAD
 
 - [Vorwort](#Vorwort)
 - [Rahmen](#Rahmen)
@@ -81,6 +123,9 @@ library(wordcloud)  # Wordcloud anzeigen
 - [Dimensionsreduktion](#Dimensionsreduktion)
 - [Textmining](#Textmining)
 - [Anhang](#Anhang)
+=======
+`r if (TRUE) '\\tableofcontents'`
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 # Vorwort 
 
@@ -113,7 +158,11 @@ Die Studierenden können nach erfolgreichem Abschluss des Moduls:
 \footnotesize
 ```{r termin-themen, echo = FALSE}
 
+<<<<<<< HEAD
 df <- readr::read_csv("../includes/Termin_Themen.csv")
+=======
+df <- readr::read_csv(paste0(path_to_includes, "Termin_Themen.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 kable(df)
 
@@ -168,7 +217,11 @@ Alle Hinweise zur Prüfung gelten nur insoweit nicht anders vom Dozenten festgel
 ## Prozess der Datenanalyse - Überblick über das Modul
 
 ```{r fig-prozess, echo = FALSE, fig.cap = "Der Prozess der Datenanalyse"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Rahmen/Prozess_Datenanalyse.png") 
+=======
+knitr::include_graphics(paste0(path_to_images, "Rahmen/Prozess_Datenanalyse.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -180,7 +233,11 @@ knitr::include_graphics("../images/Rahmen/Prozess_Datenanalyse.png")
 
 
 ```{r echo = FALSE, fig.cap = "RStudio", out.width = "50%"} 
+<<<<<<< HEAD
 knitr::include_graphics("../images/Rahmen/RStudio-Screenshot.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Rahmen/RStudio-Screenshot.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -213,7 +270,11 @@ Beliebte Fehler beim Installieren von Paketen:
 
 ```{r fig-install-packages, echo = FALSE, fig.cap = "So installiert man Pakete in RStudio", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/Rahmen/install_packages.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Rahmen/install_packages.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -232,7 +293,11 @@ mathematischer Verfahren ist und zur Entscheidungshilfe beitragen soll.
 
 ```{r desk-vs-inf, echo = FALSE, fig.cap  ="Sinnbild für die Deskriptiv- und die Inferenzstatistik"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/Rahmen/desk_vs_inf-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Rahmen/desk_vs_inf-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -272,7 +337,11 @@ Dieses Kapitel beantwortet eine Frage: "Wie kriege ich Daten in vernünftiger Fo
 
 
 ```{r step-Einlesen, echo = FALSE, fig.cap = "Daten sauber einlesen"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/Einlesen.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/Einlesen.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -280,7 +349,11 @@ knitr::include_graphics("../images/tidy/Einlesen.png")
 
 
 ```{r data-import-RStudio, echo = FALSE, out.width = "50%", fig.cap = "Daten einlesen (importieren) mit RStudio"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/import_RStudio.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/import_RStudio.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 ## CSV-Dateien sind einer der wichtigsten Daten-Formate
@@ -301,28 +374,44 @@ row_number,date_time,study_time,self_eval,interest,score
 
 ```{r Arbeitsverzeichnis, echo = FALSE, fig.cap = "Das Arbeitsverzeichnis mit RStudio auswählen", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/Arbeitsverzeichnis.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/Arbeitsverzeichnis.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
 ## Normalform einer Tabelle
 
 ```{r tidy1, fig.cap = "Schematische Darstellung eines Dataframes in Normalform", echo = FALSE}
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/tidy-1.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/tidy-1.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
 ## Breit vs. Lang
 
 ```{r lang-breit, echo = FALSE, fig.cap = "Dieselben Daten - einmal breit, einmal lang"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/breit_lang.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/breit_lang.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
 ## Ein Dataframe in Normalform - Beispiel
 
 ```{r fig-Normalform, echo = FALSE, fig.cap = "Illustration eines Datensatzes in Normalform", out.width = "40%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/Normalform.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/Normalform.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -332,7 +421,11 @@ knitr::include_graphics("../images/tidy/Normalform.png")
 
 ```{r gather-spread, echo = FALSE, fig.cap = "Mit 'gather' und 'spread' wechselt man von der breiten Form zur langen Form"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/gather_spread-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/gather_spread-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -341,7 +434,11 @@ knitr::include_graphics("../images/tidy/gather_spread-crop.png")
 
 ```{r bsp-abb, echo = FALSE, fig.cap = "Ein Beispiel für eine Abbildung zu einer Normalform-Tabelle", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/tidy/bsp_diagramm-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "tidy/bsp_diagramm-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -388,7 +485,11 @@ write.csv(name_der_tabelle, "Dateiname.csv")
 
 
 ```{r fig-datenjudo, echo = FALSE, fig.cap = "Daten aufbereiten"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/Aufbereiten.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/Aufbereiten.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -412,7 +513,11 @@ Typische Probleme, die immer wieder auftreten, sind:
   \begin{column}{0.49\textwidth}
     
 ```{r bausteine, echo = FALSE, fig.cap = "Lego-Prinzip: Zerlege eine komplexe Struktur in einfache Bausteine", out.width = "100%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/Bausteine_dplyr-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/Bausteine_dplyr-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
  \end{column}
@@ -420,7 +525,11 @@ knitr::include_graphics("../images/Datenjudo/Bausteine_dplyr-crop.png")
 
 
 ```{r durchpfeifen-allgemein, echo = FALSE, fig.cap = "Durchpfeifen: Ein Dataframe wird von Operation zu Operation weitergereicht", out.width = "100%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/durchpfeifen_allgemein_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/durchpfeifen_allgemein_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -431,7 +540,11 @@ knitr::include_graphics("../images/Datenjudo/durchpfeifen_allgemein_crop.png")
 
 
 ```{r fig-filter, echo = FALSE, fig.cap = "Zeilen filtern"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/filter.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/filter.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -440,7 +553,11 @@ knitr::include_graphics("../images/Datenjudo/filter.png")
 
 
 ```{r fig-select, echo = FALSE, fig.cap = "Spalten auswählen"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/select.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/select.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -449,7 +566,11 @@ knitr::include_graphics("../images/Datenjudo/select.png")
 
 
 ```{r fig-arrange, echo = FALSE, fig.cap = "Spalten sortieren"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/arrange-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/arrange-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -457,7 +578,11 @@ knitr::include_graphics("../images/Datenjudo/arrange-crop.png")
 
 
 ```{r fig-groupby, echo = FALSE, fig.cap = "Datensätze nach Subgruppen aufteilen"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/group_by.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/group_by.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -466,7 +591,11 @@ knitr::include_graphics("../images/Datenjudo/group_by.png")
 
 
 ```{r fig-summarise, echo = FALSE, fig.cap = "Spalten zu einer Zahl zusammenfassen"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/summarise.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/summarise.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -475,14 +604,22 @@ knitr::include_graphics("../images/Datenjudo/summarise.png")
 
 ```{r fig-count, echo = FALSE, fig.cap = "Sinnbild für 'count'"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/count-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/count-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
 ## Die Pfeife
 
 ```{r cecie-une-pipe, echo = FALSE, fig.cap = "Das ist keine Pfeife"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/800px-Pipa_savinelli.jpg")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/800px-Pipa_savinelli.jpg"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -490,7 +627,11 @@ knitr::include_graphics("../images/Datenjudo/800px-Pipa_savinelli.jpg")
 
 
 ```{r fig-durchpfeifen, echo = FALSE, out.width  = "80%", fig.cap = "Das 'Durchpeifen'"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/durchpfeifen.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/durchpfeifen.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 ## Introducing Pipe-Syntax
@@ -534,7 +675,11 @@ Die Syntax von oben auf Deutsch:
 
 
 ```{r fig-mutate, echo = FALSE, fig.cap = "Sinnbild für mutate"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/Datenjudo/mutate.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "Datenjudo/mutate.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -575,7 +720,11 @@ desctable(stats_test2l)
 
 
 ```{r fig-anscombe, echo = FALSE, fig.cap = "Das Anscombe-Quartett", out.width = "50%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/visualisieren/anscombe.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "visualisieren/anscombe.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -589,14 +738,22 @@ knitr::include_graphics("../images/visualisieren/anscombe.png")
 
 
 ```{r fig-anatomie, echo = FALSE, fig.cap = "Anatomie eines Diagramms", out.width = "50%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/visualisieren/anatomie_diagramm_crop.jpg")
+=======
+knitr::include_graphics(paste0(path_to_images, "visualisieren/anatomie_diagramm_crop.jpg"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
 ## Beispiel für ein Diagramm it mit `ggplot2::qplot`
 
 ```{r echo = FALSE}
+<<<<<<< HEAD
 movies <- read.csv("../data/movies.csv")
+=======
+movies <- read.csv(paste0(path_to_data, "movies.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -646,7 +803,11 @@ qplot (x = X_Achse,
 
 
 ```{r echo = FALSE, out.width = "70%"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/Modellieren.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/Modellieren.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -654,7 +815,11 @@ knitr::include_graphics("../images/modellieren/Modellieren.png")
 ## Was ist ein Modell
 
 ```{r vwmodell, echo = FALSE, fig.cap = "Modell eines VW-Käfers"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/vw_modell.JPG")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/vw_modell.JPG"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -662,7 +827,11 @@ knitr::include_graphics("../images/modellieren/vw_modell.JPG")
 ## Die Beziehung von Gegenstandsbereich und Modell
 
 ```{r modellieren-plot, echo = FALSE, fig.cap = "Modellieren"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/Modell.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/Modell.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -671,7 +840,11 @@ knitr::include_graphics("../images/modellieren/Modell.png")
 >   Modellieren bedeutet ein Verfahren zu erstellen, welches empirische Sachverhalte adäquat in numerische Sachverhalte umsetzt.
 
 ```{r modellieren-formal, echo = FALSE, fig.cap = "Formaleres Modell des Modellierens"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/Modellieren_formal_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/Modellieren_formal_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -679,7 +852,11 @@ knitr::include_graphics("../images/modellieren/Modellieren_formal_crop.png")
 ## Ein Beispiel zum Modellieren aus der Datenanalyse
 
 ```{r plot-stats-smooth, echo = FALSE}
+<<<<<<< HEAD
 stats_test <- readr::read_csv("../data/test_inf_short.csv")
+=======
+stats_test <- readr::read_csv(paste0(path_to_data, "test_inf_short.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 stats_test %>% 
 ggplot(aes(y = score, x = self_eval)) +
@@ -687,7 +864,11 @@ geom_jitter() -> p1
 
 p2 <- p1 + geom_smooth(method = "lm", se = FALSE)
 
+<<<<<<< HEAD
 # p3 <- grid::rasterGrob(readPNG("../images/Modellieren_Bsp1.png"), interpolate=TRUE)
+=======
+# p3 <- grid::rasterGrob(readPNG(paste0(path_to_images, "/Modellieren_Bsp1.png")), interpolate=TRUE)
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 grid.arrange(p1, p2, nrow = 1)
 ```
 
@@ -697,7 +878,11 @@ Die blaue Gerade ist ein Modell für den Datensatz (sie versucht es zumindest).
 ## Modelle umfassen drei Aspekte
 
 ```{r fig-blackbox, echo = FALSE, fig.cap = "Modelle mit schwarzer Kiste"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/Modell_Blackbox.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/Modell_Blackbox.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -715,7 +900,11 @@ knitr::include_graphics("../images/modellieren/Modell_Blackbox.png")
 
 ```{r ungeleitetes-modellieren, echo = FALSE, fig.cap = "Die zwei Arten des ungeleiteten Modellierens"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/modellieren/ungeleitetes_Modellieren_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "modellieren/ungeleitetes_Modellieren_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -789,8 +978,13 @@ Beschreibt ein Modell (wie das blaue Modell hier) eine Stichprobe sehr gut, hei�
 
 ## Overfitting
 
+<<<<<<< HEAD
 ```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe", out.width = "50"}
 knitr::include_graphics("../images/modellieren/overfitting.png")
+=======
+```{r overfitting-schema, echo = FALSE, fig.cap = "'Mittlere' Komplexität hat die beste Vorhersagegenauigkeit (am wenigsten Fehler) in der Test-Stichprobe", out.width = "50%"}
+knitr::include_graphics(paste0(path_to_images, "modellieren/overfitting.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -851,13 +1045,21 @@ grid.arrange(p1, p2, ncol = 2)
 
 
 ```{r sir-fisher, echo = FALSE, fig.cap = "Der größte Statistiker des 20. Jahrhunderts (p < .05)", out.width = "20%", fig.align = "center"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/inferenz/Ronald_Fisher.jpg")
+=======
+knitr::include_graphics(paste0(path_to_images, "inferenz/Ronald_Fisher.jpg"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 ## Der p-Wert ist die heilige Kuh der Forscher
 
 ```{r who-said, echo = FALSE, out.width = "35%", fig.cap  = "Der p-Wert wird oft als wichtig erachtet", fig.align = "center"}
+<<<<<<< HEAD
 knitr::include_graphics("../images/inferenz/p_value_who_said.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "/inferenz/p_value_who_said.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 >   Der p-Wert sagt, wie gut die Daten zur Nullhypothese passen.
@@ -868,14 +1070,22 @@ knitr::include_graphics("../images/inferenz/p_value_who_said.png")
 $$ P(M|P) \ne P(P|M) $$
 
 ```{r moslems-terroristen, echo = FALSE, fig.cap = "Mann und Papst zu sein, ist nicht das gleiche."}
+<<<<<<< HEAD
 knitr::include_graphics("../images/inferenz/maenner_papst-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "inferenz/maenner_papst-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 ## Der p-Wert ist eine Funktion der Stichprobengröße
 
 ```{r einfluss-pwert, echo = FALSE, fig.cap = "Zwei Haupteinflüsse auf den p-Wert"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/inferenz/einfluss_pwert-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "inferenz/einfluss_pwert-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -934,7 +1144,11 @@ Bayes liefert $p(D|H)$.
 
 ```{r bayes, echo = FALSE, fig.cap = "Die zwei Stufen der Bayes-Statistik in einem einfachen Beispieli"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/inferenz/bayes-crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "inferenz/bayes-crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -962,7 +1176,11 @@ score = achsenabschnitt + steigung*study_time
 ```
 
 ```{r bsp-regression, fig.cap = "Beispiel für eine Regression", echo = FALSE, out.width = "50%"}
+<<<<<<< HEAD
 stats_test <- readr::read_csv("../data/test_inf_short.csv")
+=======
+stats_test <- readr::read_csv(paste0(path_to_data, "test_inf_short.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 stats_test %>% 
   ggplot +
@@ -1217,7 +1435,11 @@ Die Modellgüte im in der Test-Stichprobe ist meist schlechter als in der Traini
 ## Problemstellung
 
 ```{r echo = FALSE}
+<<<<<<< HEAD
 Aktien <- readr::read_csv("../data/Aktien.csv") %>% na.omit
+=======
+Aktien <- readr::read_csv(paste0(path_to_data, "Aktien.csv")) %>% na.omit
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -1338,9 +1560,15 @@ summary(log_stats)
 ## Vier Arten von Ergebnisse von Klassfikationen
 
 ```{r class-stats1, echo = FALSE}
+<<<<<<< HEAD
 df <- readr::read_csv("../includes/class_results.csv")
 
 pander(df, caption = "Vier Arten von Ergebnisse von Klassfikationen")
+=======
+df <- readr::read_csv(paste0(path_to_includes, "class_results.csv"))
+
+pander(data.frame(df), caption = "Vier Arten von Ergebnisse von Klassfikationen")
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -1359,7 +1587,11 @@ sensitivity(cm); specificity(cm)
 
 ```{r class-stats, echo = FALSE}
 
+<<<<<<< HEAD
 df <- readr::read_csv("../includes/diag_stats.csv")
+=======
+df <- readr::read_csv(paste0(path_to_includes, "diag_stats.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 kable(df[-3], caption = "Geläufige Kennwerte der Klassifikation")
 ```
@@ -1474,7 +1706,11 @@ p4
 
 ```{r distanz, echo = FALSE, fig.cap = "Distanz zwischen zwei Punkten in der Ebene", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/cluster/distanz_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "cluster/distanz_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -1491,7 +1727,11 @@ In unserem Beispiel heißt das $c^2 = 3^2+4^2 = 25$. Folglich ist $\sqrt{c^2}=\s
 
 ```{r pythagoras2, echo = FALSE, fig.cap = "Pythagoras in 3D", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/cluster/pythagoras2_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "cluster/pythagoras2_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 
@@ -1500,7 +1740,11 @@ knitr::include_graphics("../images/cluster/pythagoras2_crop.png")
 
 ```{r pythagoras, echo = FALSE, fig.cap = "Pythagoras in Reihe geschaltet"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/cluster/pythagoras_crop.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "cluster/pythagoras_crop.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 ```
 
 ## Wie viele Cluster sind "richtig"?
@@ -1519,7 +1763,11 @@ ggplot(clusterings, aes(k, tot.withinss)) + geom_line() + geom_vline(xintercept 
 
 ```{r echo = FALSE, results = "hide"}
 set.seed(1896)
+<<<<<<< HEAD
 segment <- read.csv2("../data/segment.csv")
+=======
+segment <- read.csv2(paste0(path_to_data, "segment.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 segment.num <- segment %>%
   mutate(Frau = Geschlecht == "Frau") %>%
@@ -1637,7 +1885,11 @@ par(op)
 ## Datensatz `Werte` -- z-transformiert
 
 ```{r echo = FALSE}
+<<<<<<< HEAD
 Werte <- read.csv2("../data/Werte.csv")
+=======
+Werte <- read.csv2(paste0(path_to_data, "Werte.csv"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 Werte %>% scale %>% as_tibble -> Werte.sc
 ```
@@ -1728,7 +1980,11 @@ fa.diagram(Werte.pca)
 ## Rotation
 ```{r rotation, echo = FALSE, fig.cap = "Beispiel für eine rechtwinklige Rotation", out.width = "50%"}
 
+<<<<<<< HEAD
 knitr::include_graphics("../images/dimred/rotation.png")
+=======
+knitr::include_graphics(paste0(path_to_images, "dimred/rotation.png"))
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 ```
 
@@ -1836,9 +2092,15 @@ afd_url <- paste0("https://www.alternativefuer.de",
                   "/wp-content/uploads/sites/7/2016/05/",
                   "2016-06-27_afd-grundsatzprogramm_web-version.pdf")
 
+<<<<<<< HEAD
 afd_url <- "../data/2016-06-27_afd-grundsatzprogramm_web-version.pdf"
 
 afd_pfad <- "../data/afd_programm.pdf"
+=======
+afd_url <- paste0(path_to_data, "2016-06-27_afd-grundsatzprogramm_web-version.pdf")
+
+afd_pfad <- paste0(path_to_data, "afd_programm.pdf")
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 # download(afd_url, afd_pfad)
 
@@ -1926,3 +2188,11 @@ wordcloud(words = afd_count$token_stem,
 
 
 # Anhang
+<<<<<<< HEAD
+=======
+
+## Autoren
+
+Sebastian Sauer. Mit Beiträgen von Oliver Gansser, Matthias Gehrke und Karsten Lübke. Das \TeX-Format wurde von Norman Markgraf erstellt.
+
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b

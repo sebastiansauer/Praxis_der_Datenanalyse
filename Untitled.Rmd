@@ -1,0 +1,6 @@
+
+
+```{r}
+knitr::knit("images/textmining/tidytext-crop.png")
+```
+

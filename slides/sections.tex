@@ -25,6 +25,7 @@
 \def\subsectionpageheight{0.25\myPaperHeight}
 
 % ---------------------------------------------------------------------------
+<<<<<<< HEAD
 % etoolbox boolean flags!
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 \newbool{showAuthorInFootline}    %
@@ -37,6 +38,8 @@
 \booltrue{showDateInFootline}     %
 
 % ---------------------------------------------------------------------------
+=======
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
 % ---------------------------------------------------------------------------
 \usepackage{ragged2e} % Liefert FlushRight-Umgebung
@@ -50,9 +53,16 @@
 \pgfplotsset{compat=1.3}
 \usepackage{xspace}
 \usepackage{array}
+<<<<<<< HEAD
 \ifstrempty{\insertinstitute}{%
   \institute{Standort Köln}%
 }{\relax}
+=======
+
+%\ifstrempty{\insertinstitute}{%
+%  \institute{Standort Köln}%
+%}{\relax}
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 % ---------------------------------------------------------------------------
 %
 % title page:
@@ -171,9 +181,15 @@
         \newline
         {%
         ~
+<<<<<<< HEAD
         \hspace*{0.2cm}\ifbool{showDateInFootline}{\insertdate }{ }}%
         \hfil
         \ifbool{showAuthorInFootline}{\insertshortauthor  \, $|$ \,}{\phantom{\insertshortauthor $|$} }\ifbool{showTitleInFootline}{  \inserttitle }{ \phantom{\inserttitle} }%
+=======
+        \hspace*{0.2cm}{\insertdate }{ }}%
+        \hfil
+        \insertshortauthor  \, $|$ \,  \inserttitle %
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 
         \vspace*{-0.9em}%
         \raggedleft{\insertframenumber \hspace*{0.3cm}}%

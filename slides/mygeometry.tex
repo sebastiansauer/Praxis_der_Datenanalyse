@@ -16,13 +16,23 @@
 \setlength{\myPaperWidth}{140mm}
 \setlength{\myPaperHeight}{105mm}
 
+<<<<<<< HEAD
 \ifstrequal{#1}{4x3}{%
+=======
+\ifthenelse{\equal{#1}{4x3}}{%
+%\ifstrequal{#1}{4x3}{%
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 	%% 4:3 -> 160 x 120
 	\setlength{\myPaperWidth}{160mm}
 	\setlength{\myPaperHeight}{120mm}
 	\typeout{Set ScreenRatio to 4:3 (160x120)}
 }{
+<<<<<<< HEAD
 	\ifstrequal{#1}{16x9}{%
+=======
+    \ifthenelse{\equal{#1}{16x9}}{%
+%	\ifstrequal{#1}{16x9}{%
+>>>>>>> 4f743410d34e2406a62d44278c98ab4a7065b20b
 		%% 16:9 ->  224 x 126
 		\setlength{\myPaperWidth}{224mm}
 		\setlength{\myPaperHeight}{126mm}
