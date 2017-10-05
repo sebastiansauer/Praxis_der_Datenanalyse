@@ -1,0 +1,214 @@
+        
+
+
+
+# Fallstudie zur Visualisierung
+
+
+```{block2, ziele-rahmen, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Diagramme für nominale Variablen erstellen können.
+- Balkendiagramme mit Prozentpunkten auf der Y-Achse erstellen können.
+- Balkendiagramme drehen können.
+- Text-Labels an Balkendiagramme anfügen können.
+- Farbschemata von Balkendiagrammen ändern können.
+
+
+```
+
+
+Benötigte Pakete:
+```{r}
+library(tidyverse)
+library(corrr)
+library(GGally)
+
+```
+
+
+
+Eine recht häufige Art von Daten in der Wirtschaft kommen von Umfragen in der Belegschaft. Diese Daten gilt es dann aufzubereiten und graphisch wiederzugeben. Das ist der Gegenstand dieser Fallstudie.
+
+
+## Daten einlesen
+Hier laden wir einen Datensatz von einer Online-Umfrage:
+
+```{r}
+extra <- read.csv("data/extra.csv")
+```
+
+Alternativ können Sie den Datensatz aus dem Paket `prada` laden (mit `data(extra, package = "prada")`) oder aus dem Internet herunterladen:
+
+```{r eval = FALSE}
+prada_extra_url <-
+  paste0("https://raw.github.com/",  # Webseite
+         "sebastiansauer/",  # Nutzer
+         "Praxis_der_Datenanalyse/",  # Projekt/Repositorium
+         "master/",  # Variante
+         "data/extra.csv")  # Ordner und Dateinamen
+
+extra <- read.csv(prada_extra_url)
+```
+
+
+Der Datensatz besteht aus 10 Extraversionsitems (B5T nach Satow^[https://www.zpid.de/pub/tests/PT_9006357_B5T_Forschungsbericht.pdf]) sowie einigen Verhaltenskorrelaten (zumindest angenommenen). Uns interessieren also hier nur die 10 Extraversionsitems, die zusammen Extraversion als Persönlichkeitseigenschaft messen (sollen). Wir werden die Antworte der Befragten darstelle, aber uns hier keine Gedanken über Messqualität u.a. machen.
+
+
+Die Umfrage kann hier^[https://docs.google.com/forms/d/e/1FAIpQLSfD4wQuhDV_edx1WBfN3Qos7XqoVbe41VpiKLRKtGLeuUD09Q/viewform] eingesehen werden. Schauen wir uns die Daten mal an:
+```{r eval = FALSE}
+glimpse(extra)
+```
+
+
+
+
+## Daten umstellen
+Wir haben ein Diagramm vor Augen (s.u.), bei dem auf der X-Achse die Items stehen (1,2,...,n) und auf der Y-Achse die Anzahl der Kreuze nach Kategorien.
+
+Viele Grafik-Funktionen sind nun so aufgebaut, dass auf der X-Achsen nur *eine* Variable steht. `ggplot2`, das wir hier verwenden, ist da keine Ausnahme. Wir müssen also die "breite" Tabelle (10 Spalten, pro Item eine) in eine "lange Spalte" umbauen: Eine Spalte heißt dann "Itemnummer" und die zweite "Wert des Items" oder so ähnlich.
+
+
+Also, los geht's: Zuerst wählen wir aus der Fülle der Daten, die Spalten, die uns interessieren: Die 10 Extraversionsitems, in diesem Fall (Spalten 3 bis 12).
+
+```{r}
+extra_items <- dplyr::select(extra, 3:12)
+```
+
+Dann stellen wir die Daten von "breit" nach "lang" um, so dass die Items eine Variable bilden und damit für `ggplot2` gut zu verarbeiten sind.
+
+```{r}
+extra_long <- gather(extra_items, key = items, value = Antwort)
+
+extra_long$Antwort <- factor(extra_long$Antwort)
+```
+
+Den Befehl mit `factor` brauchen wir für zum Diagramm erstellen im Folgenden. Dieser Befehl macht aus den Zahlen bei der Variable `Antwort` eine nominale Variable (in R: `factor`) mit Text-Werten "1", "2" und so weiter. Wozu brauchen wir das? Der Digrammbefehl unten kann nur mit nominalen Variablen Gruppierungen durchführen. Wir werden in dem Diagramm die Anzahl der Antworten darstellen - die Anzahl der Antworten nach Antwort-Gruppe (Gruppe mit Antwort "1" etc.).
+
+Keine Sorge, wenn sich das reichlich ungewöhnlich anhört. Sie müssen es an dieser Stelle nicht erfinden :-)
+
+Man gewöhnt sich daran einerseits; und andererseits ist es vielleicht auch so, dass diese Funktionen nicht perfekt sind, oder nicht aus unserer Sicht oder nur aus Sicht des Menschen, der die Funktion geschrieben hat. Jedenfalls brauchen wir hier eine `factor` Variable zur Gruppierung...
+
+
+Damit haben wir es schon! Jetzt wird gemalt.
+
+## Diagramme für Anteile
+
+Stellen wir die Anteile der Antworten anhand von farbig gefüllten Balken dar (s. Abbildung \@ref(fig:vis1)). Beachten Sie, dass die Balken alle auf 1 (100%) skaliert sind; es werden also *relative* Häufigkeiten dargestellt. Absolute Häufigkeiten bleiben hier außen vor.
+
+```{r vis1, fig.cap = "Relative Häufigkeiten dargestellt anhand von Balkendiagrammen"}
+p1 <- ggplot(data = extra_long) +
+  aes(x = items)  +
+  geom_bar(aes(fill = Antwort), position = "fill") 
+
+p1
+```
+
+Was macht dieser `ggplot` Befehl? Schauen wir es uns in Einzelnen an:
+
+- `ggplot(data = ...)`: Wir sagen "Ich möchte gern die Funktion ggplot nutzen, um den Datensatz ... zu plotten". 
+- `aes(...)`: Hier definieren wir die "aesthetics" des Diagramms, d.h. alles "Sichtbare". Wir ordnen in diesem Fall der X-Achse die Variable `items` zu. Per Standardeinstellung geht `ggplot` davon aus, dass sie die Häufigkeiten der X-Werte auf der Y-Achse haben wollen, wenn Sie nichts über die Y-Achse sagen. Jetzt haben wir ein Koordinatensystem definiert (das noch leer ist).
+- `geom_bar()`: "Hey R oder ggplot, jetzt male mal einen barplot in den ansonsten noch leeren plot".
+- `aes(fill = Antwort)`: Genauer gesagt nutzen wir `aes` um einen sichtbaren Aspekte des Diagramms (wie die X-Achse) eine Variable des Datensatzes zuzuordnen. Jetzt sagen wir, dass die Füllung (im Balkendiagramm) durch die Werte von `Antwort` definiert sein sollen (also "1", "2" etc.).
+- `position = "fill"` sagt, dass die Gesamt-Höhe des Balken aufgeteilt werden soll mit den "Teil-Höhen" der Gruppen (Antwort-Kategorien 1 bis 4); wir hätten die Teil-Höhen auch nebeneinander stellen können.
+
+Vielleicht ist es schöner, die NAs erst zu entfernen.
+
+```{r}
+extra_long <- na.omit(extra_long)
+```
+
+Plotten Sie das Diagramm dann noch mal:
+
+
+```{r eval = FALSE}
+ggplot(data = extra_long) +
+  aes(x = items)  +
+  geom_bar(aes(fill = Antwort), position = "fill") 
+```
+
+
+
+## Rotierte Balkendiagramme
+
+Dazu ergänzen wir die Zeile `+ coord_flip()`; das heißt so viel wie "flippe das Koordinatensystem".
+
+```{r vis2, eval = FALSE, fig.cap = "Rotiertes Balkendiagramm"}
+p1 +
+  coord_flip()
+```
+
+
+## Text-Labels für die Items
+
+Wir definieren die Texte ("Labels") für die Items:
+```{r}
+item_labels <- c("Ich bin das erste Item",
+                 "Das zweite Item",
+                 "Item 3 sdjfkladsjk",
+                 "Ich bin ein krasser Couch-Potato UMKODIERT",
+"i5 asf", "i6 sdf", "adfjks", "sfjlkd", "sdfkjl", "sdfjkl")
+```
+
+Jetzt hängen wir die Labels an die Items im Diagramm (s. Abbildung \@ref(fig:vis3)).
+
+```{r vis3, fig.cap = "Rotiertes Balkendiagramm mit Item-Label"}
+p1 +
+  coord_flip() +
+  scale_x_discrete(labels = item_labels)
+```
+
+
+Man kann auch einen Zeilenumbruch in den Item-Labels erzwingen... wobei das führt uns schon recht weit, aber gut, zum Abschluss :-)
+
+```{r}
+item_labels <- c("Ich bin das erste Item",
+                 "Das zweite Item",
+                 "Item 3 sdjfkladsjk",
+                 "Ich bin ein krasser \nCouch-Potato***mit Zeilenumbruch***",
+"i5 asf", "i6 sdf", "adfjks", "sfjlkd", "sdfkjl", "sdfjkl")
+```
+
+
+Plotten Sie das dann wieder: 
+
+
+```{r vis4, eval = FALSE}
+ggplot(data = extra_long) +
+  aes(x = items)  +
+  geom_bar(aes(fill = Antwort), position = "fill") +
+  coord_flip() +
+  scale_x_discrete(labels = item_labels, name = "Extraversionsitems") +
+  scale_y_continuous(name = "Anteile")
+```
+
+
+## Diagramm mit Häufigkeiten
+Ach so, schön wäre noch die echten Zahlen an der Y-Achse, nicht Anteile. Dafür müssen wir unseren Diagrammtyp ändern, bzw. die Art der Anordnung ändern. Mit `position = "fill"` wird der Anteil (also mit einer Summe von 100%) dargestellt. Wir können auch einfach die Zahlen/Häufigkeiten anzeigen, in dem wir die Kategorien "aufeinander stapeln". Probieren Sie dazu die folgende Syntax.
+
+
+```{r vis5, results = "hide"}
+p2 <- ggplot(data = extra_long) +
+  aes(x = items)  +
+  geom_bar(aes(fill = Antwort), position = "stack") +
+  coord_flip() +
+  scale_x_discrete(labels = item_labels) 
+
+p2
+```
+
+## Farbschemata
+Ja, die Wünsche hören nicht auf... Also, noch ein anderes Farbschema (s. Abbildung \ref{fig:vis6}).
+
+```{r vis6, fig.cap = "... Mit der Brewer-Palette 17"}
+p1 +
+  scale_fill_brewer(palette = 17)
+```
+
+Das Paket `viridris` hat ein gutes Farbschema. Probieren Sie es mal aus:
+
+```{r eval = FALSE}
+p1 +
+  scale_fill_viridis(discrete = TRUE)
+```
+

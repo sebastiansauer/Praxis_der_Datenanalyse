@@ -1,0 +1,20 @@
+
+
+### "-99" in NA umwandeln
+
+
+Manchmal kommt es vor, dass fehlende Werte nicht durch leere Zellen bzw. Rs Symbol dafür (`NA`) kodiert sind, sondern durch etwas anderes. '-99' ist ein Kandidat, den man immer mal wieder trifft. Wie erklären wir R, dass '-99' zu `NA` umkodiert werden soll. So:
+
+
+```{r eval = FALSE}
+stats_test$study_time[1] <- -99
+head(stats_test)
+
+stats_test %>% 
+  mutate_if(is_numeric, na_if, -99) %>% head
+```
+
+Der Befehl sagt in etwa "Transformiere jede Spalte, wenn sie numerisch ist. Und die Transformation, die du anwenden sollst, R, ist 'Erzeuge NA, wenn...'. Und dieses 'wenn' ist '-99'".
+
+
+

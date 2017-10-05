@@ -1,0 +1,497 @@
+
+
+# Klassifizierende Regression
+
+
+```{r echo = FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("images/FOM.jpg")
+```
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+```{block2, ziele-logist-regression, type='rmdcaution', echo = TRUE} 
+Lernziele:
+
+- Die Idee der logistischen Regression verstehen.
+- Die Koeffizienten der logistischen Regression interpretieren können.
+- Die Modellgüte einer logistischten Regression einschätzen können.
+- Klassifikatorische Kennzahlen kennen und beurteilen können.
+
+
+```
+
+
+
+Für dieses Kapitel benötigen Sie folgende Pakete:
+```{r libs-logist-regr}
+library(SDMTools)  # Güte von Klassifikationsmodellen
+library(pROC)  # für ROC- und AUC-Berechnung
+library(tidyverse)  # Datenjudo
+library(BaylorEdPsych)  # Pseudo-R-Quadrat
+library(broom)  # lm-Ergebnisse aufräumen
+```
+
+
+
+Hilft Lernen, eine Statistkklausur zu bestehen? Kommmt es auf Interesse an? Versuchen wir vorherzusagen, wer eine Statistikklausur besteht. Etwas genauer gesagt, sagen wir ein *binäres* (dichotomes) Ereignis - Bestehen der Klausur - vorher anhand von einer mehr Variablen mit beliebigen Skalenniveau.
+
+Laden wir die Klausurdaten.
+
+
+```{r load-data-Aktien}
+stats_test <- read.csv("data/stats_test.csv")
+stats_test <- na.omit(stats_test)
+```
+
+Um uns das Leben leichter zu machen, haben wir fehlende Werte (`NA`s) mit `na.omit` gelöscht.
+
+
+## Normale Regression für ein binäres Kriterium
+
+In gewohnter Manier nutzen wir die normale Regression um das Kriterium 'Bestehen' anhand der Vorbreitungszeit vorherzusagen. Mit einem kleinen Trick könenn wir die binäre Variable `bestanden` in eine Art metrische Variable umwandeln, damit sie wieder in unser Regressions-Handwerk passt: Wenn `bestanden=="ja"` dann sei `bestanden_num = 1`; ansonsten `bestanden_num = 0`. Dieses 'wenn-dann' leistet der Befehl `if_else`: `if_else(bedingung, wenn_erfüllt, ansonsten)`. In unserem Fall sieht das so aus:
+
+```{r logist-regr1}
+stats_test %>% 
+  mutate(bestanden_num = if_else(bestanden == "ja", 1, 0)) -> stats_test
+```
+
+Rechnen wir jetzt unsere Regression:
+
+```{r}
+lm1 <- lm(bestanden_num ~ study_time, data = stats_test)
+tidy(lm1)
+```
+
+
+Hm. Stellen wir das Ergebnis grafisch dar (vgl. Abbildung \@ref(fig:fig-logist-regr2)).
+
+```{r fig-logist-regr2, fig.cap = "Regressionsgerade für das Bestehen-Modell"}
+
+ggplot(stats_test) +
+  aes(x = study_time, y = bestanden_num) +
+  geom_jitter() +
+  geom_abline(slope = .07, intercept = .65, color = "red")
+
+
+```
+
+Ah! Mehr Lernen hilft offenbar: Die Regressionsgerade steigt.
+
+Betrachten Sie diese praktische Eigenschaft der Regression: Obwohl die Kriteriumsvariable (Y-Achse) nur zwei Ausprägungen aufweißt (0 und 1), sagt sich die Regression: "Hey, 0 und 1 sind normale reelle Zahlen und zwischen jedem solcher Zahlenpaare gibt es Zahlen dazwischen. Also kann ich meine Regressiongerade ohne abzusetzen durchmalen". Damit können wir die Werte zwischen 0 und 1 wie Wahrscheinlichkeiten interpretieren: Sagt die Regressionsgerade für bestimmte Prädiktorwerte hohe Kriteriumswerte voraus, so können wir sagen, die Wahrscheinlichkeit, die Klausur zu bestehen, ist hoch.
+
+Soweit, so gut. Aber Moment. Was bedeutet es, wenn die Wahrscheinlichkeit größer 1 ist? Dass der Professor vorher einen eidesstattliche Erklärung für Bestehen geschickt hat? Von so etwas hat man noch nicht gehört... Kurz gesagt: Wahrscheinlichkeiten größer 1 und kleiner 0 sind Quatsch. Wahrscheinlichkeiten müssen zwischen 0 und 1 liegen. 
+
+## Die logistische Funktion
+
+Daher brauchen wir eine Funktion, die das Ergebnis einer linearen Regression in einen Bereich von 0 bis 1 "umbiegt" (die sogenannte *Linkfunktion*). Eine häufig dafür verwendete Funktion ist die *logistische Funktion*\index{logistische Funktion}. Im einfachsten Fall:
+
+$$p(y=1)=\frac{e^x}{1+e^x} = \frac{e^x}{e^x(\frac{1}{e^x}+1)}=\frac{1}{\frac{1}{e^x}+1}=\frac{1}{e^{-x}+1}$$
+
+
+
+Exemplarisch können wir die logistische Funktion für einen Bereich von $x=-10$ bis $x=+10$ darstellen (vgl. \@ref(fig:logist-curve)). Der Graph der  logistischen Funktion ähnelt einem langgestreckten S ("Ogive" genannt).
+
+```{r logist-curve, echo = FALSE, fig.cap = "Die logistische Regression beschreibt eine 's-förmige' Kurve"}
+# eta-Werte von -10 bis +10 erzeugen
+x <- seq(-10,10,by = 0.1)
+# y-Werte mit logistischer Funktion berechnen
+y <- 1/(1+exp(-x))        # exp() ist die e-Funktion
+
+data_frame(
+  x = x,
+  y = y) %>% 
+ggplot() +
+  aes(x = x, y = y) + 
+  geom_line(color = "#00998a")
+```
+
+
+## Die Idee der logistischen Regression
+Die logistische Regression ist eine Anwendung des *Allgemeinen Linearen Modells*\index{Allgemeines Lineares Modells} (general linear model, GLM). Die Modellgleichung lautet:
+
+$p(y_i=1)=L\bigl(\beta_0+\beta_1\cdot x_{i1}+\dots+\beta_K\cdot x_{ik}\bigr)+\epsilon_i$
+
+- $L$ ist die Linkfunktion, in unserer Anwendung die logistische Funktion.  
+- $x_{ik}$ sind die beobachten Werte der unabhängigen Variablen $X_k$.  
+- $k$ sind die unabhängigen Variablen $1$ bis $K$.
+
+Die Funktion `glm` führt die logistische Regression durch. 
+```{r}
+glm1 <- glm(bestanden_num ~ study_time, 
+            family = "binomial",
+            data = stats_test)
+```
+
+Wir schauen uns zunächst den Plot an (Abb. \@ref(fig:aktien-plot).
+
+```{r aktien-plot, echo = FALSE, fig.cap = "Modelldiagramm mit logistischer Regression"}
+
+stats_test %>% 
+  mutate(pred = stats::predict(glm1, 
+                              data = data.frame(bestanden_num = stats_test$bestanden_num), 
+                               type = "response")) %>% 
+  ggplot() +
+  aes(x = study_time) +
+  geom_jitter(aes(y = bestanden_num)) +
+  geom_line(aes(y = pred), color = "red")
+
+```
+
+
+> Es werden ein Streudiagramm der beobachten Werte sowie die *Regressionslinie* ausgegeben. Wir können so z. B. ablesen, dass mit einer Lernzeit von 5 die Wahrscheinlichkeit für Bestehen bei knapp 100% liegt; viel zu einfach...
+
+Die Zusammenfassung des Modells zeigt folgendes:
+
+```{r}
+tidy(glm1)
+```
+
+Die p-Werte der Koeffizienten können in der Spalte `Pr(>|z|)` abgelesen werden. Der Achsenabschnitt (`intercept`) wird mit `r round(coef(glm1)[1],2)` geschätzt, die Steigung in Richtung `study_time` mit `r round(coef(glm1)[2],2)`. Allerdings sind die hier dargestellten Werte sogenannte *Logits*\index{Logit} $\mathfrak{L}$^[ein schnödes L wie in Ludwig]:
+
+
+$\mathfrak{L} = ln\left( \frac{p}{1-p} \right)$
+
+Zugeben, dass klingt erstmal opaque. Das Praktische ist, dass wir die Koeffizienten in Logitform in gewohnter Manier verrechnen dürfen. Wollen wir zum Beispiel wissen, wie wahrscheinlich das Ereignis 'Bestehen' für  eine Person mit einer Lernzeit von 3 ist, können wir einfach rechnen:
+
+`y = intercept + 3*study_time`, also
+
+```{r}
+(y <- .27 + 3 * 0.51)
+```
+
+
+Einfach, oder? Genau wie bei der normalen Regression. Aber beachten Sie, dass das Ergebnis in *Logits*\index{Logit} angegeben ist. Was ein *Logit* ist? Naja, das ist der *Logarithmus der Chancen*; unter 'Chancen'\index{Chancen} versteht man den Quotienten von Wahrscheinlichkeit $p$ zur Gegenwahrscheinlichkeit, $1-p$; die Chancen werden auch *Odds*\index{Odds} oder *Wettquotient* genant. 
+
+Um zur 'normalen' Wahrscheinlichkeit zu kommen, muss man also erst 'delogarithmieren'. Delogarithmieren bedeutet, die e-Funktion anzuwenden, `exp` auf Errisch:
+
+```{r}
+exp(y)
+```
+Jetzt haben wir wir also Chancen. Wie rechnet man Chancen in Wahrscheinlichkeiten um? Ein Beispiel zur Illustration. Bei Prof. Schnaggeldi fallen von 10 Studenten 9 durch. Die Durchfall*chance* ist also 9:1 oder 9. Die Durchfall*wahrscheinlichkeit* 9/10 oder .9. Also kann man so umrechnen:
+
+`wskt = 9 / (9+1) = 9/10 = .9`.
+
+In unserem Fall sind die Chancen etwa 6:1; also lautet die Umrechnung:
+
+```{r}
+(wskt <- 6 / (6+1))
+```
+
+Diesen Ritt kann man sich merklich kommoder bereiten, wenn man diesen Befehl kennt:
+
+```{r}
+predict(glm1, newdata = data.frame(study_time = 3), type = "response")
+```
+
+
+
+
+## Kein $R^2$, dafür AIC
+Es gibt kein $R^2$ im Sinne einer erklärten Streuung der $y$-Werte, da die beobachteten $y$-Werte nur $0$ oder $1$ annehmen können. Das Gütemaß bei der logistischen Regression ist das *Akaike Information Criterion* (*AIC*). Hier gilt allerdings: je *kleiner*, desto *besser*. (Anmerkung: es kann ein Pseudo-$R^2$ berechnet werden -- kommt später.) Richtlinien, was ein "guter" AIC-Wert ist, gibt es nicht. Diese Werte helfen nur beim Vergleichen von Modellen.
+
+
+
+## Interpretation der Koeffizienten
+
+Ist ein Logit $\mathfrak{L}$ größer als $0$, so ist die zugehörige Wahrscheinlichkeit größer als 50% (und umgekehrt.)
+
+### y-Achsenabschnitt (`Intercept`) $\beta_0$ 
+
+Für $\beta_0>0$ gilt, dass selbst wenn alle anderen unabhängigen Variablen $0$ sind, es eine Wahrscheinlichkeit von mehr als 50% gibt, dass das modellierte Ereignis eintritt. Für $\beta_0<0$ gilt entsprechend das Umgekehrte.
+
+### Steigung $\beta_i$ mit $i=1,2,...,K$
+Für $\beta_i>0$ gilt, dass mit zunehmenden $x_i$ die Wahrscheinlichkeit für das modellierte Ereignis steigt. Bei $\beta_i<0$ nimmt die Wahrscheinlichkeit entsprechend ab.
+
+
+
+### Aufgabe
+
+Berechnen Sie den Zuwachs an Wahrscheinlichkeit für unser Beispielmodell, wenn sich die `study_time` von 1 auf 2 erhöht. Vergleichen Sie das Ergebnis mit der Punktprognose für `study_time `$=7$ im Vergleich zu `study_time `$=8$. 
+
+
+Lösung:
+
+
+```{r exp_coef_glm1_2}
+# aus Koeffizient abgeschätzt
+wskt1 <- predict(glm1, data.frame(study_time = 1), type = "response")
+
+wskt2 <- predict(glm1, data.frame(study_time = 2), type = "response")
+
+wskt2 - wskt1
+
+```
+
+Anders gesagt: "Mit jedem Punkt mehr 'study_time' steigt der Logit (die logarithmierten Chancen) für Bestehen um `r round(coef(glm1)[2], 3)`".
+
+
+```{r}
+
+# mit dem vollständigen Modell berechnet
+predict(glm1, data.frame(study_time = 1), 
+        type = "response")
+
+predict(glm1, data.frame(study_time = 8), 
+        type = "response")
+
+
+```
+
+Bei einer study_time von 4 beträgt die Wahrscheinlichkeit für $y=1$, d.h. für das Ereignis 'Bestehen', `r round(predict(glm1, data.frame(study_time = 4), type = "response"),2)`. Bei einer study_time von 58 liegt diese Wahrscheinlichkeit bei `r round(predict(glm1, data.frame(study_time = 5), type = "response"),2)`.
+
+
+
+## Kategoriale Prädiktoren
+Wie in der linearen Regression können auch in der logistischen Regression kategoriale Variablen als unabhängige Variablen genutzt werden. 
+
+Betrachten wir als Beispiel die Frage, ob die kategoriale Variable "Interessiert" (genauer: dichotome Variable) einen Einfluss auf das Bestehen in der Klausur hat, also die Wahrscheinlichkeit für Bestehen erhöht.
+
+```{r interessiert-logist}
+stats_test$interessiert <- stats_test$interest > 3
+```
+
+
+Erstellen Sie zum Aufwärmen ein passendes Diagramm!
+
+<!-- ```{r jitter-stats-logist, fig.cap = "Verwackeltes Streudiagramm ('Jitter')"} -->
+
+<!-- stats_test %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = interessiert, y = bestanden) + -->
+<!--   geom_jitter(width = .1) -->
+<!-- ``` -->
+
+
+
+Los geht's, probieren wir die logistische Regression aus:
+
+```{r}
+glm2 <- glm(bestanden_num ~ interessiert, 
+               family = "binomial",
+               data = stats_test)
+tidy(glm2)
+```
+
+Der Einflusswert (die Steigung) von `interessiert` ist positiv: Wenn man interessiert ist, steigt die Wahrscheinlichkeit zu bestehen. Gut. Aber wie groß ist die Wahrscheinlichkeit für jede Gruppe? Am einfachsten lässt man sich das von R ausrechnen:
+
+```{r}
+predict(glm2, newdata = data.frame(interessiert = FALSE), 
+        type = "response")
+predict(glm2, newdata = data.frame(interessiert = TRUE), 
+        type = "response")
+```
+
+Also 82% bzw. 87%; kein gewaltig großer Unterschied, aber immerhin...
+
+
+
+
+## Multiple logistische Regression
+Können wir unser Model `glm1` mit nur einer erklärenden Variable verbessern, indem weiterer Prädiktoren hinzugefügt werden? Verbessern heißt hier: Können wir die Präzision der Vorhersage verbessern durch Hinzunahme weiterer Prädiktoren?
+
+
+```{r glm2_stats}
+glm3 <- glm(bestanden_num ~ study_time + interest + self_eval, 
+            family = binomial, 
+            data = stats_test)
+
+tidy(glm3)
+```
+
+Hm, die Interessierten schneiden jetzt - unter Konstanthalten anderer Einflussfaktoren - *schlechter* ab als die Nicht-Interessierten. Als Stastistik-Dozent bin ich der Meinung, dieses Ergebnis sollte in der Schubladen verschwinden (wie es geläufige Praxis ist in vielen Laboren...).
+
+
+## Modellgüte {#Modellguete}
+
+Aber wie gut ist das Modell? Und welches Modell von beiden ist besser? R hat uns kein $R^2$ ausgegeben. R hat uns deswegen kein $R^2$ ausgegeben, weil die Regressionsfunktion nicht über Abweichungsquadrate bestimmt wird. Stattdessen wird das Maximum Likelihood-Verfahren eingesetzt. Man kann also kein $R^2$ ausrechnen, zumindest nicht ohne Tricks. Einige findige Statistiker haben sich aber Umrechungswege einfallen lassen, wie man auch ohne Abweichungsquadrate ein $R^2$ berechnen kann; weil es kein 'echtes' $R^2$ ist, nennt man es auch *Pseudo-*$R^2$. Es gibt ein paar Varianten, wir bleiben bei der Variante von Herrn McFadden (s. Ausgabe).
+
+Eine Reihe von R-Paketen bieten die Berechnung a:
+
+```{r eval = FALSE}
+library(BaylorEdPsych)
+PseudoR2(glm1)
+PseudoR2(glm2)
+PseudoR2(glm3)
+
+```
+
+Die Ausgabe zeigt uns, dass das erste Modell schon schlecht ist, dass zweite praktisch keinen Erkärungwert und das dritte einen zumindest kleinen bis mittleren Erklärungswert bietet: $f^2 = \frac{R^2}{1-R^2}\approx \frac{.1}{.9} = .11$.
+
+
+
+
+## Klassifikationskennzahlen
+
+### Vier Arten von Ergebnissen einer Klassifikation
+Logistische Regressionsmodelle werden häufig zur *Klassifikation*\index{Klassifikation} verwendet. Das heißt man versucht, Beobachtungen richtig zu zu Klassen zuzuordnen:
+
+- Ein medizinischer Test soll Kranke als krank und Gesunde als gesund klassifizieren.
+- Ein statistischer Test sollte wahre Hypothesen als wahr und falsche Hypothesen als falsch klassifizieren.
+- Ein Personaler sollte geeignete Bewerber als geeignet und nicht geeignete Bewerber als nicht geeignet einstufen.
+
+Diese beiden Arten von Klassifikationen können unterschiedlich gut sein. Im Extremfall könnte ein Test alle Menschen als krank ('positiv') einstufen. Mit Sicherheit wurden dann alle Kranken korrekt als krank diagnostiziert. Dummerweise würde der Test 'auf der anderen Seite' viele Fehler machen: Gesunde als gesund ('negativ') zu klassifizieren.
+
+>   Ein Test, der alle positiven Fälle korrekt als positiv klassifiziert muss deshalb noch lange nicht alle negativen Fälle als negativ klassifizieren. Die beiden Werte können unterschiedlich sein.
+
+Etwas genauer kann man folgende vier Arten von Ergebnisse aus einem  Test erwarten (s. Tabelle \@ref(tab:class-stats), vgl. @introstatlearning).
+
+```{r class-stats, echo = FALSE}
+df <- readr::read_csv("includes/class_results.csv")
+
+knitr::kable(df, caption = "Vier Arten von Ergebnisse von Klassfikationen")
+```
+
+
+Die logistische Regression gibt uns für jeden Fall eine Wahrscheinlichkeit zurück, dass der Fall zum Ereignis $1$ gehört. Wir müssen dann einen Schwellenwert (threshold) auswählen. Einen Wert also, der bestimmt, ob der Fall zum Ereignis $1$ gehört. Häufig nimmt man  $0.5$. Liegt die Wahrscheinlichkeit unter dem Schwellenwert, so ordnet man den Fall dem Ereignis $0$ zu. 
+
+Beispiel: Alois' Wahrscheinlichkeit, die Klausur zu bestehen, wird vom Regressionsmodell auf 51% geschätzt. Unser Schwellenwert sei 50%; wir ordnen Alois der Klasse "bestehen" zu. Alois freut sich. Das Modell sagt also "bestehen" ($1$) für Alois voraus. Man sagt auch, der 'geschätzte Wert' (*fitted value*) von Alois sei $1$. 
+
+Die aus dem Modell ermittelten Wahrscheinlichkeiten werden dann in einer sogenannten Konfusionsmatrix\index{Konfusionsmatrix} (*confusion matrix*) mit den beobachteten Häufigkeiten verglichen:
+
+```{r me}
+(cm <- confusion.matrix(stats_test$bestanden_num,
+                        glm3$fitted.values)) 
+```
+
+Dabei stehen `obs` (observed) für die wahren, also tatsächlich beobachteten Werte und `pred` (predicted) für die geschätzten (vorhergesagten) Werte.
+
+Wie häufig hat unser Modell richtig geschätzt? Genauer: Wie viele echte $1$ hat unser Modell als $1$ vorausgesagt und wie viele echte $0$ hat unser Modell als $0$ vorausgesagt?
+
+### Klassifikationsgütekennzahlen
+
+In der Literatur und Praxis herrscht eine recht wilde Vielfalt an Begriffen dazu, deswegen stellt Tabelle \@ref(tab:class-stats) einen Überblick vor.
+
+```{r diag-stats, echo = FALSE}
+
+df <- readr::read_csv("includes/diag_stats.csv")
+
+knitr::kable(df, caption = "Geläufige Kennwerte der Klassifikation. Anmerkungen: F: Falsch. R: Richtig. P: Positiv. N: Negativ.")
+```
+
+Zu beachten ist, dass die Gesamtgenauigkeit einer Klassifikation an sich wenig aussagekräftig ist: Ist eine Krankheit sehr selten, werde ich durch die einfache Strategie "diagnostiziere alle als gesund" insgesamt kaum Fehler machen. Meine Gesamtgenauigkeit wird beeindruckend genau sein - trotzdem lassen Sie sich davon wohl kaum beeindrucken. Besser ist, die Richtig-Positiv- und die Richtig-Negativ-Raten getrennt zu beurteilen. Aus dieser Kombination leitet sich der *Youden-Index* ab.\index{Youden-Index}. Er berechnet sich als: `RP-Rate + RN-Rate - 1`.
+
+Sie können die Konfusionsmatrix mit dem Paket `confusion.matrix()` aus dem Paket `SDMTools` berechnen.
+
+
+```{r}
+sensitivity(cm)
+specificity(cm)
+```
+
+Unser Modell hat es sich recht leicht gemacht: Es hat immer auf 'bestanden' getippt: Damit wurden alle 'Besteher' korrekt identifiziert (Sensitivität = 1); allerdings wurden auch alle 'Nicht-Besteher' übersehen (Spezifität = 0).
+
+Wir könnten jetzt sagen, dass wir im Zweifel lieber eine Person als Nicht-Besteher einschätzen (um die Lernschwachen noch unterstützen zu können). Dazu würden wir den Schwellenwert (threshold) von 50% auf z.B. 80%$ heraufsetzen. Erst bei Erreichen des Schwellenwerts klassifizieren wir die Beobachtung als 'bestanden'  (1):
+
+```{r}
+(cm <- confusion.matrix(stats_test$bestanden_num,
+                        glm3$fitted.values, threshold = .8))
+sensitivity(cm)
+specificity(cm)
+```
+
+
+### ROC-Kurven
+Siehe da! Die Spezifität ist gestiegen, wir haben mehr Nicht-Lerner als solche identifiziert. Unsere liberalere Strategie hat aber mehr Falsch-Negative Fälle produziert (geringere Sensitivität). So können wir jetzt viele verschiedene Schwellenwerte vergleichen. 
+
+
+>   Ein Test ist dann gut, wenn wir für alle möglichen Schwellenwert ingesamt wenig Fehler produziert.
+
+
+
+Hierzu wird der Cutpoint zwischen 0 und 1 variiert und die Richtig-Positiv-Rate (Sensitivität) gegen die Falsch-Positiv-Rate ($1-$Spezifität) abgetragen. Das Paket `pROC` hilft uns hier weiter. Zuerst berechnen wir für viele verschiedene Schwellenwerte jeweils die beiden Fehler (Falsch-Positiv-Rate und Falsch-Negativ-Rate). Trägt man diese in ein Diagramm ab, so bekommt man Abbildung \@ref(fig:roc-stats), eine sog. *ROC-Kurve*\index{ROC}.
+
+```{r}
+lets_roc <- roc(stats_test$bestanden_num, glm3$fitted.values)
+
+```
+
+Da die Sensitivität determiniert ist, wenn die Falsch-Positiv-Rate bekannt ist (1 - FP-Rate), kann man statt Sensitivität auch die FP-Rate abbilden. Für die Spezifität und die Falsch-Negativ-Rate gilt das gleiche. In Abbildung \@ref(fig:roc-stats) steht auf der X-Achse Spezifität, aber die Achse ist 'rückwärts' (absteigend) skaliert, so dass die X-Achse identisch ist mit FP-Rate (normal skaliert; d.h. aufsteigend).
+
+
+```{r roc-stats, fig.cap = "Eine ROC-Kurve"}
+plot(lets_roc)
+```
+
+
+Die 'Fläche unter der Kurve' (area under curve, AUC) ist damit ein Maß für die Güte des Tests. Abbildung \@ref(fig:example-rocs) stellt drei Beispiele von Klassifikationsgüten dar: sehr gute (A), gute (B) und schlechte (C). Ein hohe Klassifikationsgüte zeigt sich daran, dass eine hohe Richtig-Positiv-Rate mit einer kleinen Fehlalarmquote einher geht: Wir finden alle Kranken, aber nur die Kranken. Die AUC-Kurve "hängt oben links an der Decke". Ein schlechter Klassifikator trifft so gut wie ein Münzwurf: Ist das Ereignis selten, hat er eine hohe Falsch-Positiv-Rate und eine geringe Falsch-Negativ-Rate. Ist das Ereignis hingegen häufig, liegen die Fehlerhöhen genau umgekehrt: Eine hohe Richtig-Positiv-Rate wird mit einer hoher Falsch-Positiv-Rate einher.
+
+
+```{r example-rocs, echo = FALSE, fig.cap = "Beispiel für eine sehr gute (A), gute (B) und schlechte (C) Klassifikation"}
+
+library(plotROC)
+library(gridExtra)
+D.ex <- rbinom(200, size = 1, prob = .5)
+M1 <- rnorm(200, mean = D.ex, sd = .3)
+M2 <- rnorm(200, mean = D.ex, sd = 1.5)
+M3 <- rnorm(200, mean = D.ex, sd = 10)
+
+
+test <- data.frame(D = D.ex, D.str = c("Healthy", "Ill")[D.ex + 1], 
+                   M1 = M1, M2 = M2, stringsAsFactors = FALSE)
+
+
+p1 <- ggplot(test, aes(d = D, m = M1)) + geom_roc(labels = FALSE) + style_roc() + ggtitle("A")
+p2 <- ggplot(test, aes(d = D, m = M2)) + geom_roc(labels = FALSE) + style_roc() + ggtitle("B")
+p3 <- ggplot(test, aes(d = D, m = M3)) + geom_roc(labels = FALSE) + style_roc() + ggtitle("C")
+
+grid.arrange(p1, p2, p3, nrow = 1)
+
+```
+
+
+Fragt sich noch, wie man den besten Schwellenwert herausfindet. Den besten Schwellenwert kann man als besten Youden-Index-Wert verstehen. Im Paket `pROC` gibt es dafür den Befehl `coords`, der uns im ROC-Diagramm die Koordinaten des besten Schwellenwert und den Wert dieses besten Schwellenwerts liefert:
+
+```{r}
+coords(lets_roc, "best")
+```
+
+
+
+
+## Aufgaben^[R, R, R, R, F, R, R]
+
+
+```{block2, exercises-logisti-regr, type='rmdexercises', echo = TRUE} 
+Richtig oder Falsch!?
+
+1. Die logistische Regression ist eine Regression für dichotome Kriterien.
+
+1. Unter einer ~~Olive~~Ogive versteht man eine eine "s-förmige" Kurve.
+
+1. Berechnet man eine "normale" (OLS-)Regression bei einem dichotomen Kriterium, so kann man Wahrscheinlichkeiten < 0 oder > 1 erhalten, was keinen Sinn macht.
+
+1. Ein Logit ist definiert als der Einfluss eines Prädiktors in der logistischen Regression. Der Koeffizient berechnet sich als Logarithmus des Wettquotienten.
+
+1. Das AIC ein Gütemaß, welches man bei der logistischten Regression generell vermeidet.
+
+1. Eine Klassifikation kann 4 Arten von Ergebnissen bringen - gemessen an der Richtigkeit des Ergebnisses.
+
+1. Der 'positive Vorhersagewert' ist definiert als der Anteil aller richtig-positiven Klassifikationen an allen als positiv klassifizierten Objekten. 
+
+```
+
+
+
+
+## Befehlsübersicht
+
+
+Tabelle \@ref(tab:befehle-logist-regression) stellt die Befehle dieses Kapitels dar. 
+
+
+```{r befehle-logist-regression, echo = FALSE}
+
+df <- readr::read_csv("includes/Befehle_logist_Regression.csv")
+ 
+# library(pander)
+# pander::cache.off()
+# panderOptions("table.alignment.default", "left")
+knitr::kable(data.frame(df), caption =  "Befehle des Kapitels 'Logistische Regression'")
+
+```
+
+
+

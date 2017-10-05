@@ -1,0 +1,41 @@
+### Viele Statistiken auf einmal mit `desctable`
+
+Möchte man die "üblichen Verdächtigen" an deskriptiven Statistiken mit einem Befehl bekommen, so ist der Befehl `desctable::desctable` hilfreich:
+
+```{r desctable1}
+stats_test2 <- dplyr::select(stats_test, -date_time) 
+desctable(stats_test2)
+```
+
+
+Die Variable `date_time` wurde deswegen entfernt, weil sie vom Typ `factor` ist. Wenn es Faktorvariablen gibt, werden die metrischen Werte von `desctable` für jede Faktorstufe getrennt ausgewiesen. Das wäre hier aber nicht sinnvoll. `desctable` wählt die passenden Statistiken selber aus. Bei metrischen Variablen wird zum Beispiel nur dann der Mittelwert und die SD angezeigt, wenn die Variablen normalverteilt sind. Man kann die Auswahl der Statistiken mit dem Parameter `stats` steuern; folgende Möglichkeiten stehen zur Verfügung: `stats_auto`, `stats_normal`, `stats_nonnormal`, `stats_default`.
+
+
+```{r desctable2}
+stats_test2 <- dplyr::select(stats_test, -date_time) 
+desctable(stats_test2, stats = stats_normal)
+```
+
+`stats_normal` gibt Statistiken unter der Annahme von Normalverteilung an.
+
+
+
+Möchte man Statistiken nach eigenem Gusto präsentiert bekommen bei `desctable`, so kann man dies so einstellen^[Die Idee kommt von Norman Markgraf]:
+
+```{r desctable3}
+stats_yeah = function(data) {
+  list(N=length, 'Mean/%' = is.factor ~ percent | mean, sd = is.factor ~ NA | sd, Med = median, IQR = is.factor ~ NA | IQR)
+}
+
+ desctable(stats_test2, stats = stats_yeah)
+```
+
+
+Natürlich kann man auch Subgruppen so vergleichen:
+
+```{r desctable4}
+stats_test %>% 
+  select(-c(row_number, date_time)) %>% 
+  group_by(bestanden) %>% 
+  desctable
+```

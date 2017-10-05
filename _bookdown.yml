@@ -1,0 +1,42 @@
+book_filename: "Praxis_der_Datenanalyse"
+chapter_name: "Kapitel "
+# repo: https://github.com/sebastiansauer/Praxis_der_Datenanalyse
+output_dir: "docs"
+rmd_files: [
+"index.Rmd",
+"010_Organisatorisches.Rmd",
+"020_Rahmen.Rmd",
+"030_Tidy_Data.Rmd",
+"040_Datenjudo.Rmd",
+"043_Typische_Probleme_Datenanalyse.Rmd",
+"046_Fallstudie_movies.Rmd",
+"050_Daten_visualisieren.Rmd",
+"056_Fallstudie_Visualisierung.Rmd",
+"060_Modellieren.Rmd",
+"061_Inferenzstatistik.Rmd",
+"071_Regression.Rmd",
+"072_klassifizierende_Regression.Rmd",
+#"073_Baumverfahren.Rmd",
+"075_Fallstudien_Titanic_Affairs.Rmd",
+"082_Clusteranalyse.Rmd",
+"083_Dimensionsreduktion.Rmd",
+"090_Textmining.Rmd",
+"100_Anhang.Rmd",
+"116_Probeklausur.Rmd",
+"117_Hinweise.Rmd",
+"120_Literatur.Rmd"
+]
+clean: [bookdown.bbl]
+nocite: |
+  @*
+new_session: TRUE
+language:
+  label:
+    fig: "Abbildung "
+    tab: "Tabelle "
+  ui:
+    edit: "Bearbeiten "
+    chapter_name: "Kapitel "
+
+
+before_chapter_script: "_common.R"

@@ -1,14 +1,15 @@
 Paket::Funktion,Beschreibung
 na.omit,"Löscht Zeilen, die fehlende Werte enthalten"
 nrow,Liefert die Anzahl der Zeilen des Dataframes zurück
-complete.cases,Gibt die Zeilen ohne fehlenden Werte eines Dataframes zurück
+complete.cases,Zeigt die Zeilen ohne fehlenden Werte
 car::recode,Kodiert Werte um
+replace, Ersetzt Werte
 cut,Schneidet eine kontinuierliche Variable in Wertebereiche
 rowMeans,Berechnet Zeilen-Mittelwerte
 dplyr::rowwise,Gruppiert nach Zeilen
-ggplot2::cut_number,Schneidet eine kontinuierliche Variable in n gleich große Bereiche
-ggplot2::cut_interval,Schneidet eine kontinuierliche Variable in Intervalle der Größe k
-head,Zeigt nur die ersten Zeilen/Werte eines Dataframes/Vektors an.
+ggplot2::cut_number,Schneidet in n gleich große Bereiche
+ggplot2::cut_interval,Schneidet ein Intervalle der Größe k
+head,Zeigt nur die ersten Werte eines Objekts an.
 scale,z-skaliert eine Variable
 dplyr::select_if,"Wählt eine Spalte aus, wenn ein Kriterium erfüllt ist"
 dplyr::glimpse,Gibt einen Überblick über einen Dataframe
@@ -17,4 +18,4 @@ dplyr::mutate_if,"definiert eine Spalte, wenn eine Kriterium erfüllt ist"
 corrr::correlate,"Berechnet Korrelationtabelle, liefert einen Dataframe zurück"
 cor,Berechnet Korrelationtabelle
 corrr::rplot,Plottet Korrelationsmatrix von correlate
-corrr::shave,“Rasiert” redundantes Dreick in Korrelationsmatrix ab
+corrr::shave,“Rasiert” redundantes Dreieck in Korrelationsmatrix ab

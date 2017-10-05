@@ -1,0 +1,7 @@
+
+\appendix
+
+`r if (knitr:::is_latex_output()) '\\renewcommand{\\section}{\\chapter}'`
+
+`r if (!(knitr:::is_latex_output())) '\\renewcommand{\\section}{\\chapter}'`
+

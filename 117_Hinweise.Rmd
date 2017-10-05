@@ -1,0 +1,87 @@
+
+
+# Hinweise
+
+## Icons
+
+R spricht zu Ihnen; sie versucht es jedenfalls, mit einigen Items [@edu_icons].
+
+*R-Pseudo-Syntax*: R ist (momentan) die führende Umgebung für Datenanalyse. Entsprechend zentral ist R in diesem Kurs. Zugebenermaßen braucht es etwas Zeit, bis man ein paar Brocken "Errisch" spricht. Um den Einstieg zu erleichtern, ist Errisch auf Deutsch übersetzt an einigen Stellen, wo mir dies besonders hilfreich erschien. Diese Stellen sind mit diesem Symbol ![](images/icons/pseudocode.png){ width=5% } gekennzeichnet (für R-Pseudo-Syntax).
+
+*Achtung, Falle*: Schwierige oder fehlerträchtige Stellen sind mit diesem Symbol ![](images/icons/caution.png){ width=5% } markiert.
+
+*Übungsaufgaben*: Das Skript beinhaltet in jedem Kapitel Übungsaufgaben oder/und Testfragen. Auf diese wird mit diesem Icon ![](images/icons/exercises.png){ width=5% } verwiesen oder die Übungen sind in einem Abschnitt mit einsichtigem Titel zu finden.
+
+
+
+## Voraussetzungen
+
+Dieses Skript hat einige *Voraussetzungen*, was das Vorwissen der Leser angeht; folgende Themengebiete werden vorausgesetzt:
+
+- Deskriptive Statistik
+- Grundlagen der Inferenzstatistik
+- Grundlagen der Regressionsanalyse
+- Skalenniveaus
+- Grundlagen von R
+
+
+## Zitationen 
+
+
+
+
+Kunstwerke (Bilder) sind genau wie Standard-Literatur im Text zitiert. Alle Werke (auch Daten und Software) finden sich im Literaturverzeichnis.
+
+
+
+## Lizenz
+
+Dieses Skript ist publiziert unter [CC-BY-NC-SA 3.0 DE](https://creativecommons.org/licenses/by-nc-sa/3.0/de/).
+
+
+```{r echo = FALSE, out.width = "10%", fig.align = "center"}
+knitr::include_graphics("images/licence.png")
+```
+
+
+## Autoren
+
+*Sebastian Sauer* schrieb den Hauptteil dieses Skripts. *Oliver Gansser* schrieb das Kapitel zur Dimensionsreduktion.
+*Karsten Lübke* schrieb den Großteil des Kapitels zur Regression und zur Clusteranalyse sowie Teile des Kapitels 'Rahmen'. *Matthias Gehrke* schrieb den Großteil des Kapitels zur logistischen Regression.
+
+
+## Danke
+
+Norman Markgraf hat umfangreich Fehler gejagt und Verbesserungen ~~angemahnt~~ vorgenommen. Der Austausch mit den ifes-Mitgliedern hielt die Flamme am Köcheln. Eine Reihe weiterer Kollegen standen mit Rat und Tat zur Seite. Die Hochschulleitung sowie das Dekanat für Wirtschaftspsychologie hat dieses Projekt unterstützt. Die Abteilung  Medienentwicklung der FOM hat bei Fragen rund um die Veröffentlichung geholfen. Last but not least: Viele Studierenden wiesen auf Inkonsistenzen, Fehler und Unklarheiten hin. Ihnen allen: Vielen Dank!
+
+## Zitation dieses Skripts
+
+Bitte zitieren Sie das Skript so:
+
+Sauer, S. (2017). *Praxis der Datenanalyse*. Skript zum Modul im MSc.-Studiengang "Wirtschaftspsychologie & Consulting" an der FOM. FOM Nürnberg. DOI: 10.5281/zenodo.824131.
+
+`r if (!(knitr:::is_latex_output())) '![](https://zenodo.org/badge/81811975.svg)'`
+
+
+
+Mehr Infos zum DOI hier: <https://zenodo.org/badge/latestdoi/824131>
+
+Ein Bib-File um dieses Skript zu zitieren finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/Praxis_der_Datenanalyse.bib>.
+
+
+
+## Kontakt
+
+Wenn Sie einen Fehler oder Verbesserungshinweise berichten möchten, können Sie unter <https://github.com/sebastiansauer/Praxis_der_Datenanalyse/issues> einen "Issue" einreichen (Button "New Issue"). Alternativ können Sie Sebastian Sauer und die anderen Autoren über den Online Campus der FOM kontaktieren (eine Nachricht schreiben). Sebastian Sauer können Sie via Twitter folgen (<https://twitter.com/sauer_sebastian>) oder seinen Blog lesen (<https://sebastiansauer.github.io>).
+
+
+## Technische Details
+
+Dieses Skript wurde mit dem Paket `bookdown` [@xie2015] erstellt, welches wiederum stark auf den Paketen `knitr` [@xie2015] und `rmarkdown` [@rmarkdown] beruht. Diese Pakete stellen verblüffende Funktionalität zur Verfügung als freie Software (frei wie in Bier und frei wie in Freiheit).
+
+Informationen zu den verwendeten Paketen etc. (`sessionInfo()`) finden Sie hier: <https://raw.githubusercontent.com/sebastiansauer/Praxis_der_Datenanalyse/master/includes/sessionInfo_PraDa.html>.
+
+
+## Sonstiges
+
+Aus Gründen der Lesbarkeit wird das männliche Generikum verwendet, welches Frauen und Männer in gleichen Maßen ansprechen soll.

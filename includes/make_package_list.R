@@ -7,6 +7,8 @@
 
 library(stringr)
 
+# Manually set working directory to PraDa project root!
+
 doc_root <- "./"
 my_packages_list <- paste0(doc_root, "includes/my_package_list.R")
 
@@ -23,11 +25,12 @@ output <- c()
 
 output <- c(output, "# Diese Datei wird automatisch erzeugt! Bitte nicht von Hand ändern!")
 output <- c(output, "# (w) in 2017 by Norman Markgraf")
+output <- c(output, paste("# Diese Liste stammt vom", Sys.time()))
 output <- c(output,"packages <- c()")
 
 
 for(file in na.omit(files)) {
-  srctext <- read_lines(file.path(file))
+  srctext <- readr::read_lines(file.path(file))
   libs <- na.omit(str_match(srctext, libstring))[,2]
   output <- c(output,paste("# ", file))
   output <- c(output,paste("packages <- c(packages, ", paste(paste0("\"",libs, "\""), collapse=", "), ")"))
@@ -37,4 +40,4 @@ output <- c(output,"packages <- sort(unique(packages)[-1])")
 
 write(output, file=my_packages_list, sep="\n")
 
-print(output)
+#print(output)
